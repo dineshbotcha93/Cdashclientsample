@@ -7,6 +7,7 @@ import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { EmptyComponent } from './empty.component';
 import { LoginModule } from './auth/login/login.module';
+import { ContainersModule } from '../shared/containers';
 import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequesterService } from '../shared/services/requester.service';
@@ -46,6 +47,7 @@ if(!environment.production)
     LoginModule,
     HttpModule,
     HttpClientModule,
+    ContainersModule,
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       loader: {
