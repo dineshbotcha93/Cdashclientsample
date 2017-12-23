@@ -6,6 +6,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { EmptyComponent } from './empty.component';
+import { LoginModule } from './auth/login/login.module';
 import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequesterService } from '../shared/services/requester.service';
@@ -42,6 +43,7 @@ if(!environment.production)
     DashboardModule,
     ReportsModule,
     PaymentsModule,
+    LoginModule,
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),

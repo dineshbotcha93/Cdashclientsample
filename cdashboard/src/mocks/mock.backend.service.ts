@@ -16,9 +16,12 @@ export class MockBackendService {
       let datas = c.request.url.split('/')[3];
       switch (datas){
         case SERVICE_CONSTANTS.GET_HEROES_LIST.path:
-        URL = 'http://localhost:4200/'+SERVICE_CONSTANTS.GET_HEROES_LIST.path;
-        body = SERVICE_CONSTANTS.GET_HEROES_LIST.mock;
+          URL = 'http://localhost:4200/'+SERVICE_CONSTANTS.GET_HEROES_LIST.path;
+          body = SERVICE_CONSTANTS.GET_HEROES_LIST.mock;
         break;
+        case SERVICE_CONSTANTS.GET_AUTH_USERS.path:
+          URL = 'http://localhost:4200/'+SERVICE_CONSTANTS.GET_AUTH_USERS.path;
+          body = SERVICE_CONSTANTS.GET_AUTH_USERS.mock;
         default:
         break;
       }
