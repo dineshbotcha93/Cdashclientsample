@@ -7,10 +7,16 @@ import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { EmptyComponent } from './empty.component';
 import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequesterService } from '../shared/services/requester.service';
 import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
 import {environment} from '../environments/environment';
+//Translation files
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LanguageFactory } from '../i18n/language.factory';
+
 const appRoutes: Routes = [{
   path:'',component:EmptyComponent
 }]
@@ -37,7 +43,15 @@ if(!environment.production)
     ReportsModule,
     PaymentsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: LanguageFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
