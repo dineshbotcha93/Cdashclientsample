@@ -3,8 +3,8 @@ import { Http } from '@angular/http';
 import { SERVICE_CONSTANTS } from '../../shared/constants/service.constants';
 import 'rxjs/operator/map';
 import 'rxjs/operator/catch';
-import { MockBackendService } from '../../mocks/mock.backend.service';
-import { environment } from '../../environments/environment';
+import { MockBackendService } from '../../../mocks/mock.backend.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class RequesterService {

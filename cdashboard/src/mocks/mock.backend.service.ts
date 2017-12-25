@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {MockBackend, MockConnection} from "@angular/http/testing";
-import { SERVICE_CONSTANTS } from '../shared/constants/service.constants';
+import { SERVICE_CONSTANTS } from '../app/shared/constants/service.constants';
 import {ResponseOptions, Response} from "@angular/http";
 
 @Injectable()

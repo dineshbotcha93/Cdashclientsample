@@ -5,22 +5,23 @@ import { ReportsModule } from './reports/reports.module';
 import { PaymentsModule } from './payments/payments.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
-import { EmptyComponent } from './empty.component';
+/*import { EmptyComponent } from './empty.component';*/
 import { LoginModule } from './auth/login/login.module';
-import { ContainersModule } from '../shared/containers';
+import { ContainersModule } from './shared/containers';
 import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RequesterService } from '../shared/services/requester.service';
+import { RequesterService } from './shared/services/requester.service';
 import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
 import {environment} from '../environments/environment';
+import { ComponentsModule }    from './shared/components';
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageFactory } from '../i18n/language.factory';
 
 const appRoutes: Routes = [{
-  path:'',component:EmptyComponent
+  path:'',component:AppComponent
 }]
 
 let mockProvider = [];
@@ -36,8 +37,7 @@ if(!environment.production)
 }
 @NgModule({
   declarations: [
-    AppComponent,
-    EmptyComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +46,7 @@ if(!environment.production)
     PaymentsModule,
     LoginModule,
     HttpModule,
+    ComponentsModule,
     HttpClientModule,
     ContainersModule,
     RouterModule.forRoot(appRoutes),

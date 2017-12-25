@@ -10,6 +10,7 @@ import { Subscription }     from "rxjs";
       [userImage]="userImage"
       [userEmail]="userEmail">
     </app-header>
+    <navigation></navigation>
     <div class="layout-content">
       <ng-content></ng-content>
     </div>
