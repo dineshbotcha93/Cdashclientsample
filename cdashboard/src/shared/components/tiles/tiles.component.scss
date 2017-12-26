@@ -1,0 +1,14 @@
+.tiles{
+  border-style:solid;
+  border-width:2px;
+  border-color:yellow;
+  width:200px;
+  height:200px;
+  margin:10px;
+  float:left;
+
+  .close{
+    float:right;
+    margin:10px;
+  }
+}

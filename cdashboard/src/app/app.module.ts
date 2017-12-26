@@ -18,6 +18,10 @@ import {environment} from '../environments/environment';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageFactory } from '../i18n/language.factory';
+import { store }               from '../shared/store';
+import { StoreModule }         from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 const appRoutes: Routes = [{
   path:'',component:EmptyComponent
@@ -48,6 +52,18 @@ if(!environment.production)
     HttpModule,
     HttpClientModule,
     ContainersModule,
+    StoreModule.forRoot({'tiles':store}),
+    /**
+    * Store devtools instrument the store retaining past versions of state
+    * and recalculating new states. This enables powerful time-travel
+    * debugging.
+    *
+    * To use the debugger, install the Redux Devtools extension for either
+    * Chrome or Firefox
+    *
+    * See: https://github.com/zalmoxisus/redux-devtools-extension
+    */
+    StoreDevtoolsModule.instrument(),
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       loader: {
