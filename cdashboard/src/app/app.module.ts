@@ -19,7 +19,7 @@ import { ComponentsModule }    from './shared/components';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageFactory } from '../i18n/language.factory';
-import { store }               from '../shared/store';
+import { store }               from './shared/store';
 import { StoreModule }         from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
