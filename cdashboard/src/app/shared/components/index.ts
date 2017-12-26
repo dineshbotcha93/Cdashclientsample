@@ -11,7 +11,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 export const COMPONENTS = [
   HeaderComponent,
   ProfileActionBarComponent,
-  TilesComponent
+  TilesComponent,
   NavigationComponent
 ];
 
