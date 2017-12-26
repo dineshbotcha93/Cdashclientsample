@@ -16,6 +16,7 @@ import { Store }      	          from '@ngrx/store';
       [userImage]="userImage"
       [userEmail]="userEmail">
     </app-header>
+    <navigation></navigation>
     <div class="layout-content">
       <ng-content></ng-content>
     </div>

@@ -1,5 +1,5 @@
-import {HEROES} from '../../mocks/heroes';
-import {LOGIN} from '../../mocks/login';
+import {HEROES} from '../../../mocks/heroes';
+import {LOGIN} from '../../../mocks/login';
 
 export const SERVICE_CONSTANTS = {
   GET_HEROES_LIST: {

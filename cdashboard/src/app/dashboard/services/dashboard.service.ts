@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { RequesterService } from '../../../shared/services/requester.service';
-import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
+import { RequesterService } from '../../shared/services/requester.service';
+import { SERVICE_CONSTANTS } from '../../shared/constants/service.constants';
 
 @Injectable()
 export class DashboardService {
