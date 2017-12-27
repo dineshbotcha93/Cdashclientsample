@@ -23,6 +23,8 @@ import { Store }      	          from '@ngrx/store';
     <app-tiles [selectedLanguage]="abc" (click)="select()" (select)="countChange($event)">
     <h3>{{selectedLanguage}}</h3>
     </app-tiles>
+    <app-map></app-map>
+    <app-datatable></app-datatable>
 
   `
 })

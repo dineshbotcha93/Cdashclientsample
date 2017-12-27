@@ -1,7 +1,5 @@
-import { NgModule } 				from '@angular/core';
+import { NgModule  } 				from '@angular/core';
 import { CommonModule } 		from '@angular/common';
-
-
 import { ComponentsModule } from '../components';
 import { LayoutContainer }  from './layout/layout.container';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -14,9 +12,9 @@ export const CONTAINERS = [
   imports: [
   	CommonModule,
   	ComponentsModule,
-  	TranslateModule
+  	TranslateModule,
   ],
   declarations: CONTAINERS,
   exports: CONTAINERS,
 })
-export class ContainersModule { }
+export class ContainersModule {}

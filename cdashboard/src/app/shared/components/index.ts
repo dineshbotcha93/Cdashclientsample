@@ -6,19 +6,30 @@ import { ProfileActionBarComponent } from './profileActionBar/profileActionBar.c
 import { TilesComponent }   from './tiles/tiles.component';
 import { TilesSandbox }     from './tiles/tiles.sandbox';
 import { NavigationComponent } from './navigation/navigation.component';
-
+import { MapComponent }     from './map/map.component';
+import { DataTableComponent } from './dataTable/dataTable.component';
+import { AgmCoreModule } from '@agm/core';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export const COMPONENTS = [
+
   HeaderComponent,
   ProfileActionBarComponent,
   TilesComponent,
-  NavigationComponent
+  NavigationComponent,
+  MapComponent,
+  DataTableComponent,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    PipesModule
+    PipesModule,
+    NgxDatatableModule,
+    AgmCoreModule.forRoot({
+     apiKey: 'AIzaSyBzgI77Zkjsakww8mMHBFXEo4io7SkW-0M',
+     libraries: ["places"]
+   }),
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
