@@ -28,9 +28,8 @@ import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
-
 const appRoutes: Routes = [{
-  path:'',component:AppComponent
+  path:'',redirectTo:'login', pathMatch:'full'
 }]
 
 let mockProvider = [];
