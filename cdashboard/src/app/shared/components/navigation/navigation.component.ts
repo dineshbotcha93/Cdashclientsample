@@ -27,6 +27,12 @@ export class NavigationComponent {
   }
 
   clicker($event){
+    $('ul[class*="side-menu"]').children("li").each(function(e,elem){
+      if($(elem).hasClass("active")){
+        $(elem).children("ul").slideToggle();
+        $(elem).removeClass("active");
+      }
+    });
     if($($event.target.parentNode).is(".active")){
       $($event.target.parentNode).removeClass('active active-sm');
     } else {
