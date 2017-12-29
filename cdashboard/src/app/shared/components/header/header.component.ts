@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation
 } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ import {
             <div class="nav_menu">
               <nav>
                 <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                  <a id="menu_toggle" (click)="menuToggle()"><i class="fa fa-bars"></i></a>
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -117,4 +118,20 @@ export class HeaderComponent {
 
   @Output() selectLanguage: EventEmitter<any> = new EventEmitter();
   @Output() logout:         EventEmitter<any> = new EventEmitter();
+
+  menuToggle(){
+    let $BODY = $('body');
+    let $SIDEBAR_MENU = $('#sidebar-menu');
+
+    if ($BODY.hasClass('nav-md')) {
+        $SIDEBAR_MENU.find('li.active ul').hide();
+        $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+    } else {
+        $SIDEBAR_MENU.find('li.active-sm ul').show();
+        $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+    }
+
+    $BODY.toggleClass('nav-md nav-sm');
+
+  }
 }
