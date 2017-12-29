@@ -2,6 +2,7 @@ import {
   Component,
   Output,
   Input,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Observable }       from 'rxjs/Observable';
 import { Subscription }     from "rxjs";
@@ -13,13 +14,16 @@ import { Router }             from '@angular/router';
 @Component({
   selector: 'app-layout',
   styleUrls: ['./layout.container.scss'],
+  encapsulation: ViewEncapsulation.None,
   template: `
+  <div class="col-md-3 left_col">
+  <navigation></navigation>
+  </div>
     <app-header
       [userImage]="userImage"
       [userEmail]="userEmail"
       (logout)="doLogout()">
     </app-header>
-    <navigation></navigation>
     <div class="layout-content">
       <ng-content></ng-content>
     </div>
@@ -28,7 +32,6 @@ import { Router }             from '@angular/router';
     </app-tiles>
     <app-map></app-map>
     <app-datatable></app-datatable>
-
   `
 })
 export class LayoutContainer {
