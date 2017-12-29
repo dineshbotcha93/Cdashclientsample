@@ -19,19 +19,23 @@ import { Router }             from '@angular/router';
   <div class="col-md-3 left_col">
   <navigation></navigation>
   </div>
+  <div class="top_nav">
     <app-header
       [userImage]="userImage"
       [userEmail]="userEmail"
       (logout)="doLogout()">
     </app-header>
-    <div class="layout-content">
+  </div>
+  <div class="right_col" role="main">
+    <!--<div class="layout-content">
       <ng-content></ng-content>
-    </div>
+    </div>-->
     <app-tiles [selectedLanguage]="abc" (click)="select()" (select)="countChange($event)">
     <h3>{{selectedLanguage}}</h3>
     </app-tiles>
     <app-map></app-map>
     <app-datatable></app-datatable>
+  </div>
   `
 })
 export class LayoutContainer {

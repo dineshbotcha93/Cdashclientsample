@@ -13,12 +13,14 @@ import { TilesSandbox }  from './tiles.sandbox';
   selector:'app-tiles',
   styleUrls: ['./tiles.component.scss'],
   template: `
-  <div *ngFor="let i of [1,2,3,4]" class='tiles'>
+    <div class="row tile_count">
+  <div *ngFor="let i of [1,2,3,4]" class='col-md-2 col-sm-4 col-xs-6 tile_stats_count'>
   <h3>Tile</h3>
   {{selectedLanguage}}
   <ng-content></ng-content>
   <span class="close" (click)="close(i)">X</span>
   </div>
+    </div>
   `,
   providers:[TilesSandbox]
 })
