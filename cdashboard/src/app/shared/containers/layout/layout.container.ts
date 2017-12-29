@@ -6,15 +6,18 @@ import {
 import { Observable }       from 'rxjs/Observable';
 import { Subscription }     from "rxjs";
 import { TilesSandbox }  from '../../../shared/components/tiles/tiles.sandbox';
-import { Store }      	          from '@ngrx/store';
-
+import { LoginSandbox } from '../../../auth/login/login.sandbox';
+import * as store             from '../../../shared/store';
+import { Store }              from '@ngrx/store';
+import { Router }             from '@angular/router';
 @Component({
   selector: 'app-layout',
   styleUrls: ['./layout.container.scss'],
   template: `
     <app-header
       [userImage]="userImage"
-      [userEmail]="userEmail">
+      [userEmail]="userEmail"
+      (logout)="doLogout()">
     </app-header>
     <navigation></navigation>
     <div class="layout-content">
@@ -34,9 +37,13 @@ export class LayoutContainer {
   private assetsFolder: string;
   private abc:          string = 'yoyo';
   private subscriptions: Array<Subscription> = [];
+  private loginSandbox$ =  this.appState$.select(store.getLoggedIn);
 
-  constructor(private tilesSandbox:TilesSandbox){
-
+  constructor(private tilesSandbox:TilesSandbox,protected appState$: Store<store.State>,private router:Router){
+    this.loginSandbox$.subscribe(e=>{
+      let user = JSON.parse(localStorage.getItem("currentUser"));
+      this.userEmail = user.username;
+    });
   }
 
   ngOnInit() {
@@ -48,17 +55,22 @@ export class LayoutContainer {
   }
 
   select(){
-    console.log('test');
   }
+
   countChange(data){
     this.abc = data.number;
   }
 
   private registerEvents() {
-    console.log('registering');
     // Subscribes to user changes
     this.tilesSandbox.tilesLoaded$.subscribe(data=>{
       console.log(data);
     });
   }
+
+  doLogout(){
+    localStorage.removeItem("currentUser");
+    this.router.navigate(['login']);
+  }
+
 }
