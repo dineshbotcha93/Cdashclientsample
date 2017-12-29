@@ -17,6 +17,10 @@ export class LoginSandbox extends Sandbox {
     console.log(form.value.username);
     localStorage.setItem('currentUser',JSON.stringify({'username':form.value.username}));
     this.loginSandbox$.dispatch(new authActions.AuthAction());
+    this.loginSandbox$.subscribe(e=>{
+      console.log('this is e ');
+      console.log(e);
+    })
     this.router.navigate(['dashboard']);
   }
 }
