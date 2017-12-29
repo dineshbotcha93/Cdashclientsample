@@ -28,7 +28,7 @@ import * as $ from 'jquery';
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span class="image"><img src="assets/images/users/img.jpg" alt="Profile Image"></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -40,7 +40,7 @@ import * as $ from 'jquery';
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span class="image"><img src="assets/images/users/img.jpg" alt="Profile Image"></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -52,7 +52,7 @@ import * as $ from 'jquery';
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span class="image"><img src="assets/images/users/img.jpg" alt="Profile Image"></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -64,7 +64,7 @@ import * as $ from 'jquery';
                     </li>
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span class="image"><img src="assets/images/users/img.jpg" alt="Profile Image"></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
