@@ -5,6 +5,8 @@ import {
   ViewEncapsulation
  } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'navigation',
@@ -15,7 +17,6 @@ import { TranslateService } from 'ng2-translate';
 
 })
 export class NavigationComponent {
-  private $ = jQuery;
   constructor(private changeDetector: ChangeDetectorRef, private translate: TranslateService) {
 
     /**
@@ -26,9 +27,24 @@ export class NavigationComponent {
   }
 
   clicker($event){
+    if($($event.target.parentNode).is(".active")){
+      $($event.target.parentNode).removeClass('active active-sm');
+    } else {
+      $($event.target.parentNode).addClass('active');
+    }
     let element = $($event.target.parentNode).children("ul");
     if(element.hasClass("child_menu")){
-      element.toggle();
+      element.slideToggle();
+    } else {
+      if($($event.target.parentNode.parentNode).is(".active")){
+        $($event.target.parentNode.parentNode).removeClass('active active-sm');
+      } else {
+        $($event.target.parentNode.parentNode).addClass('active');
+      }
+      element = $($event.target.parentNode.parentNode).children("ul");
+      if(element.hasClass("child_menu")){
+        element.slideToggle();
+      }
     }
   }
 }
