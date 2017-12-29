@@ -43,6 +43,7 @@ export class LayoutContainer {
     this.loginSandbox$.subscribe(e=>{
       let user = JSON.parse(localStorage.getItem("currentUser"));
       this.userEmail = user.username;
+      this.userImage = '/assets/images/users/user.jpg';
     });
   }
 
