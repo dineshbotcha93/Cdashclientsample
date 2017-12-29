@@ -17,7 +17,7 @@ import { Router }             from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   template: `
   <div class="col-md-3 left_col">
-  <navigation></navigation>
+  <navigation [userEmail]="userEmail"></navigation>
   </div>
   <app-header
   [userImage]="userImage"

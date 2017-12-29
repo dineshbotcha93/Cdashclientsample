@@ -86,7 +86,7 @@ import * as $ from 'jquery';
                 </li>
                   <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      <img src="assets/images/users/img.jpg" alt="">John Doe
+                      <img src="assets/images/users/img.jpg" alt="">{{userEmail}}
                       <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -98,7 +98,7 @@ import * as $ from 'jquery';
                         </a>
                       </li>
                       <li><a href="javascript:;">Help</a></li>
-                      <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                      <li><a (click)="logout.emit($event)"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                     </ul>
                   </li>
                 </ul>

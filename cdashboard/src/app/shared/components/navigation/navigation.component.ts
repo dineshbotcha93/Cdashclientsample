@@ -1,8 +1,8 @@
 import {
   Component,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Input,
  } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 import * as $ from 'jquery';
@@ -17,13 +17,8 @@ import * as $ from 'jquery';
 
 })
 export class NavigationComponent {
-  constructor(private changeDetector: ChangeDetectorRef, private translate: TranslateService) {
-
-    /**
-     * Detaches the change detector from the change detector tree.
-     * The detached change detector will not be checked until it is reattached.
-     */
-     changeDetector.detach();
+  @Input() userEmail:           string;
+  constructor(private translate: TranslateService) {
   }
 
   clicker($event){
