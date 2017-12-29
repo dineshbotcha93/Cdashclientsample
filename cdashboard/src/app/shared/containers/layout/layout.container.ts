@@ -25,6 +25,11 @@ import { Router }             from '@angular/router';
   (logout)="doLogout()">
   </app-header>
   <div class="right_col" role="main" style="min-height: 1704px;">
+  <div class="page-title">
+              <div class="title_left">
+                <h3>Widgets <small>Some examples to get you started</small></h3>
+              </div>
+              </div>
   <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="dashboard_graph">
