@@ -6,15 +6,7 @@ import * as store             from '../../../shared/store';
 
 @Component({
   selector: 'profile-action-bar',
-  template: `
-    <div class="profileActionBar">
-      <div class="profileActionBar-anchor">
-        <a class="profileActionBar-imgWrapper"><img src="{{ userImage }}" alt=""></a>
-        <span>{{ userEmail }} | </span>
-        <span (click)="logout.emit($event)" class="profileActionBar-logout">Logout</span>
-      </div>
-    </div>
-  `,
+  templateUrl:'./profileActionBar.component.html',
   styleUrls: ['./profileActionBar.component.scss'],
 })
 export class ProfileActionBarComponent {

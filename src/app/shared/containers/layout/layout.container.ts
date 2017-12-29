@@ -15,37 +15,7 @@ import { Router }             from '@angular/router';
   selector: 'app-layout',
   styleUrls: ['./layout.container.scss'],
   encapsulation: ViewEncapsulation.None,
-  template: `
-  <div class="col-md-3 left_col">
-  <navigation [userEmail]="userEmail"></navigation>
-  </div>
-  <app-header
-  [userImage]="userImage"
-  [userEmail]="userEmail"
-  (logout)="doLogout()">
-  </app-header>
-  <div class="right_col" role="main" style="min-height: 1704px;">
-  <div class="page-title">
-              <div class="title_left">
-                <h3>Widgets <small>Some examples to get you started</small></h3>
-              </div>
-              </div>
-  <div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-  <div class="dashboard_graph">
-  <div class="row x_title">
-                  <div class="col-md-6">
-                    <h3>Google Map <small>Graph title sub-title</small></h3>
-                  </div>
-                  </div>
-  <app-map></app-map>
-  </div>
-  </div>
-  </div>
-  <app-datatable></app-datatable>
-
-  </div>
-  `
+  templateUrl:'./layout.container.html'
 })
 export class LayoutContainer {
   public userImage:     string = '';
