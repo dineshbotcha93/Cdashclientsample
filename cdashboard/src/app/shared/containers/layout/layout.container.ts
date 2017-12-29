@@ -40,6 +40,7 @@ import { Router }             from '@angular/router';
   <app-datatable></app-datatable>
 
   </div>
+  </div>
   `
 })
 export class LayoutContainer {

@@ -11,8 +11,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-header',
   encapsulation: ViewEncapsulation.None,
-  template: `
-  <div class="top_nav">
+  template: `    
             <div class="nav_menu">
               <nav>
                 <div class="nav toggle">
@@ -105,7 +104,6 @@ import * as $ from 'jquery';
                 </ul>
               </nav>
             </div>
-          </div>
   `,
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
