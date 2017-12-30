@@ -1,15 +1,8 @@
 <div class="container body">
   <div class="main_container">
-    <div class="col-md-3 left_col">
-      <navigation [userEmail]="userEmail"></navigation>
-    </div>
-    <app-header
-    [userImage]="userImage"
-    [userEmail]="userEmail"
-    (logout)="doLogout()">
-    </app-header>
-    <div class="right_col" role="main" style="min-height: 1704px;">
+
+
       <router-outlet></router-outlet>
-    </div>
+
   </div>
 </div>
