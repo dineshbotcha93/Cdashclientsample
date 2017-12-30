@@ -24,7 +24,7 @@ export class MapComponent {
     this.markers = mapService.getData();
   }
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
+    console.log(`clicked the marker: ${label} and count ${index}`);
     this.router.navigate(['payments']);
   }
 

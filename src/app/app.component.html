@@ -1,13 +1,15 @@
 <div class="container body">
   <div class="main_container">
-    <!--<ul class="menu">
-      &lt;!&ndash;<li><a [routerLink]="['']">Home</a></li>&ndash;&gt;
-      <li><a [routerLink]="['login']">Login</a></li>
-      <li><a [routerLink]="['dashboard']">Dashboard</a></li>
-      <li><a [routerLink]="['payments']">Payments</a></li>
-      <li><a [routerLink]="['reports']">Reports</a></li>
-    </ul>
-    <h3>test{{'name'|translate}}</h3>-->
-    <router-outlet></router-outlet>
+    <div class="col-md-3 left_col">
+      <navigation [userEmail]="userEmail"></navigation>
+    </div>
+    <app-header
+    [userImage]="userImage"
+    [userEmail]="userEmail"
+    (logout)="doLogout()">
+    </app-header>
+    <div class="right_col" role="main" style="min-height: 1704px;">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
