@@ -1,14 +1,9 @@
-.tiles{
-  border-style:solid;
-  border-width:2px;
-  border-color:yellow;
-  width:200px;
-  height:200px;
-  margin:10px;
-  float:left;
+$colors : red green yellow orange;
 
-  .close{
-    float:right;
-    margin:10px;
+.tile-stats{
+  @each $color in $colors{
+    &.backColor-#{$color}{
+      background-color:#{$color};
+    }
   }
 }
