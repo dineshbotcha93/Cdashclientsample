@@ -17,13 +17,6 @@ export class MapComponent {
   title: string = 'My first AGM project';
   lbl: string = "Hello there. I am a marker!";
   markers: Array<Object> = null;
-  labelOptions: any = {
-    color: 'FFFFFF',
-    fontFamily: '',
-    fontSize: '14px',
-    fontWeight: 'bold',
-    text:'hello'
-  };
   constructor(mapService:MapService){
     this.markers = mapService.getData();
   }
