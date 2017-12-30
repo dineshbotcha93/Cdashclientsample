@@ -5,17 +5,28 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { MapService } from './services/map.service';
 
 @Component({
   selector:'app-map',
   styleUrls: ['./map.component.scss'],
-  templateUrl: './map.component.html'
+  templateUrl: './map.component.html',
+  providers:[MapService]
 })
 export class MapComponent {
   title: string = 'My first AGM project';
-  lat: number = 51.678418;
-  lng: number = 7.809007;
   lbl: string = "Hello there. I am a marker!";
+  markers: Array<Object> = null;
+  labelOptions: any = {
+    color: 'FFFFFF',
+    fontFamily: '',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    text:'hello'
+  };
+  constructor(mapService:MapService){
+    this.markers = mapService.getData();
+  }
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
   }

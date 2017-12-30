@@ -1,7 +1,10 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-<agm-marker
-  [latitude]="lat"
-  [longitude]="lng"
+<agm-map
+[latitude]="markers[0].lat"
+[longitude]="markers[0].lng"
+[zoom]="5">
+<agm-marker *ngFor="let i of markers"
+  [latitude]="i.lat"
+  [longitude]="i.lng"
   (markerClick)="clickedMarker(lbl, i)">
   <agm-info-window>
   <strong>InfoWindow content</strong>
