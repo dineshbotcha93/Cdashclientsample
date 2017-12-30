@@ -1,0 +1,13 @@
+<app-layout>
+<h3>Sensor Details Page</h3>
+<div class="row top_tiles">
+  <div *ngFor="let i of displayTiles" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <app-tile
+    [count]="i.count"
+    [tileContent]="i.status"
+    [tileDetails]="i.details" 
+    [tileColor]="i.status">
+    </app-tile>
+  </div>
+</div>
+</app-layout>

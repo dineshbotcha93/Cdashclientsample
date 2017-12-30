@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Observable }       from 'rxjs/Observable';
 import { Subscription }     from "rxjs";
-import { TilesSandbox }  from '../../../shared/components/tiles/tiles.sandbox';
+import { TileSandbox }  from '../../../shared/components/tile/tile.sandbox';
 import { LoginSandbox } from '../../../auth/login/login.sandbox';
 import * as store             from '../../../shared/store';
 import { Store }              from '@ngrx/store';
@@ -26,7 +26,7 @@ export class LayoutContainer {
   private subscriptions: Array<Subscription> = [];
   private loginSandbox$ =  this.appState$.select(store.getLoggedIn);
   constructor(
-    private tilesSandbox:TilesSandbox,
+    private tileSandbox:TileSandbox,
     protected appState$: Store<store.State>,
     private router:Router){
     this.loginSandbox$.subscribe(e=>{
@@ -53,7 +53,7 @@ export class LayoutContainer {
 
   private registerEvents() {
     // Subscribes to user changes
-    this.tilesSandbox.tilesLoaded$.subscribe(data=>{
+    this.tileSandbox.tilesLoaded$.subscribe(data=>{
       console.log(data);
     });
   }

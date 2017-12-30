@@ -3,6 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportsModule } from './reports/reports.module';
 import { PaymentsModule } from './payments/payments.module';
+import { SensorDetailsModule } from './sensor-details/sensor-details.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 /*import { EmptyComponent } from './empty.component';*/
@@ -52,6 +53,7 @@ if(!environment.production)
     DashboardModule,
     ReportsModule,
     PaymentsModule,
+    SensorDetailsModule,
     LoginModule,
     HttpModule,
     ComponentsModule,

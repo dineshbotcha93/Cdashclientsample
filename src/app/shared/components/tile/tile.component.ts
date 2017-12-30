@@ -6,35 +6,37 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 
-import { TilesSandbox }  from './tiles.sandbox';
+import { TileSandbox }  from './tile.sandbox';
 import { MapConstants } from '../../../shared/components/map/constants/map.constants';
 
 
 @Component({
-  selector:'app-tiles',
-  styleUrls: ['./tiles.component.scss'],
-  templateUrl:'./tiles.component.html',
-  providers:[TilesSandbox]
+  selector:'app-tile',
+  styleUrls: ['./tile.component.scss'],
+  templateUrl:'./tile.component.html',
+  providers:[TileSandbox]
 })
-export class TilesComponent {
+export class TileComponent {
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Input() selectedLanguage : string;
   @Input() count: number;
   @Input() tileContent: string;
   @Input() tileColor: string;
+  @Input() tileType: string;
+  @Input() tileDetails?: object;
   private mapStatus = MapConstants.STATUS;
 
-  constructor(public tilesSandbox: TilesSandbox){
+  constructor(public tileSandbox: TileSandbox){
 
   }
   close(i){
-    console.log(this.tilesSandbox);
-        this.tilesSandbox.loadTiles();
-        console.log(this.tilesSandbox);
+    console.log(this.tileSandbox);
+        this.tileSandbox.loadTiles();
+        console.log(this.tileSandbox);
     this.select.emit({code: 'test',number:i});
   }
   countChange(event) {
-    console.log(this.tilesSandbox);
+    console.log(this.tileSandbox);
     console.log(event);
   }
   getTileColor(status){

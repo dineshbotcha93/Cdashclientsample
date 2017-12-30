@@ -10,7 +10,7 @@ import {
 }                                 from '../../../shared/models';
 
 @Injectable()
-export class TilesSandbox extends Sandbox {
+export class TileSandbox extends Sandbox {
   public tilesLoaded$              = this.appState$.select(store.getTilesLoaded);
 
   constructor(

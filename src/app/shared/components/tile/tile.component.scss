@@ -6,4 +6,15 @@ $colors : red green yellow orange;
       background-color:#{$color};
     }
   }
+  .fahrenHeight{
+    font-size:67px;
+  }
+
+  .relativeHumidity{
+    @extend .fahrenHeight;
+    color:red;
+  }
+  .title{
+    font-size:18px;
+  }
 }

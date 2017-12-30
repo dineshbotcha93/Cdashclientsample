@@ -10,7 +10,7 @@ import { ComponentsModule }    from '../shared/components';
 import { ContainersModule }         from '../shared/containers';
 
 export const routes: Routes = [
-  { path:'dashboard',component: DashboardComponent, canActivate:[AuthGuard] }
+  { path:'dashboard',component: DashboardComponent, canActivate:[AuthGuard] },
 ]
 @NgModule({
   declarations: [
@@ -20,6 +20,12 @@ export const routes: Routes = [
     AuthGuard,
     AuthService,
   ],
-  imports:[RouterModule.forRoot(routes),CommonModule, ComponentsModule, ContainersModule, TranslateModule.forRoot(),]
+  imports:[
+    RouterModule.forRoot(routes),
+    CommonModule,
+    ComponentsModule,
+    ContainersModule,
+    TranslateModule.forRoot(),
+  ]
 })
 export class DashboardModule {}

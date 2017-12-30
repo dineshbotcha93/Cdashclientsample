@@ -1,0 +1,15 @@
+<div class="tile-stats {{getTileColor(tileColor)}}">
+  <div *ngIf="tileDetails">
+    <div *ngIf="tileDetails.fahrenHeight" class="fahrenHeight">
+      {{tileDetails.fahrenHeight}} F
+    </div>
+    <div *ngIf="tileDetails.relativeHumidity" class="relativeHumidity">
+      {{tileDetails.relativeHumidity}} RH
+    </div>
+    <div *ngIf="tileDetails.title" class="title">
+      {{tileDetails.title}}
+    </div>
+  </div>
+    <div class="count">{{count}}</div>
+    <p>{{tileContent}}</p>
+</div>

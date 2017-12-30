@@ -3,8 +3,8 @@ import { CommonModule } 		from '@angular/common';
 import { HeaderComponent }  from './header/header.component';
 import { PipesModule }                  from '../pipes';
 import { ProfileActionBarComponent } from './profileActionBar/profileActionBar.component';
-import { TilesComponent }   from './tiles/tiles.component';
-import { TilesSandbox }     from './tiles/tiles.sandbox';
+import { TileComponent }   from './tile/tile.component';
+import { TileSandbox }     from './tile/tile.sandbox';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent }     from './map/map.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
@@ -15,7 +15,7 @@ export const COMPONENTS = [
 
   HeaderComponent,
   ProfileActionBarComponent,
-  TilesComponent,
+  TileComponent,
   NavigationComponent,
   MapComponent,
   DataTableComponent,
@@ -33,6 +33,6 @@ export const COMPONENTS = [
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
-  providers: [TilesSandbox]
+  providers: [TileSandbox]
 })
 export class ComponentsModule { }

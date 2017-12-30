@@ -25,7 +25,7 @@ export class MapComponent {
   }
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label} and count ${index}`);
-    this.router.navigate(['payments']);
+    this.router.navigate(['sensor-details',index]);
   }
 
   getIcon(status:string){

@@ -5,7 +5,7 @@
 <agm-marker *ngFor="let i of markers"
   [latitude]="i.lat"
   [longitude]="i.lng"
-  (markerClick)="clickedMarker(i.status, i.count)"
+  (markerClick)="clickedMarker(i.status, i.locationID)"
   [iconUrl]="getIcon(i.status)"
   [label]="{color:'#73879C',fontSize: '24px',fontWeight:'bold',text:i.count+''}">
   <agm-info-window>
