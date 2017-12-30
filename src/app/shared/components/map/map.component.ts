@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MapService } from './services/map.service';
 import { MapConstants } from './constants/map.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector:'app-map',
@@ -19,11 +20,12 @@ export class MapComponent {
   lbl: string = "Hello there. I am a marker!";
   markers: Array<Object> = null;
   private mapStatus = MapConstants.STATUS;
-  constructor(mapService:MapService){
+  constructor(mapService:MapService,private router:Router){
     this.markers = mapService.getData();
   }
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+    console.log(`clicked the marker: ${label || index}`);
+    this.router.navigate(['payments']);
   }
 
   getIcon(status:string){
