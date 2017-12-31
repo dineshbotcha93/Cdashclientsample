@@ -1,8 +1,8 @@
 export const MapConstants = {
   STATUS:{
-    ALERTS:'ALERTS',
-    MISSED_COMMUNICATION:'MISSED_COMMUNICATION',
-    LOW_SIGNAL:'LOW_SIGNAL',
-    LOW_BATTERY:'LOW_BATTERY'
+    ALERTS:'Alerts',
+    MISSED_COMMUNICATION:'MissedCommunication',
+    LOW_SIGNAL:'LowSignal',
+    LOW_BATTERY:'LowBattery'
   }
 }
