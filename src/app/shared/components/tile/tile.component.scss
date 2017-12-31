@@ -18,3 +18,56 @@ $colors : red green yellow orange;
     font-size:18px;
   }
 }
+
+.widget-style-2 {
+  padding-left: 30px;
+}
+
+.widget-panel {
+  padding: 40px 20px;
+  border-radius: 4px;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.bg-pink {
+  background-color: rgba(241, 60, 110, 0.8);
+}
+
+.bg-info {
+  background-color: rgba(28, 168, 221, 0.8);
+}
+
+.bg-purple {
+  background-color: rgba(97, 92, 168, 0.8) !important;
+}
+
+.bg-success {
+  background-color: rgba(51, 184, 108, 0.8);
+}
+
+.bg-warning {
+  background-color: #ebc142;
+}
+
+.widget-style-2 i {
+  font-size: 60px;
+  float: right;
+  padding: 40px 20px;
+  margin-top: -40px;
+  margin-right: -20px;
+  color: #edf0f0;
+  background: rgba(255,255,255,0.2);
+}
+
+.widget-style-2 h2 {
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.m-0 {
+  margin: 0px !important;
+}
+
+

@@ -42,13 +42,13 @@ export class TileComponent {
   getTileColor(status){
     switch(status){
       case this.mapStatus.LOW_BATTERY:
-        return 'alert-success';
+        return 'bg-purple';
       case this.mapStatus.ALERTS:
-        return 'alert-danger';
+        return 'bg-pink';
       case this.mapStatus.LOW_SIGNAL:
-        return 'alert-info';
+        return 'bg-info';
       case this.mapStatus.MISSED_COMMUNICATION:
-        return 'alert-warning';
+        return 'bg-warning';
       default:
         break;
     }

@@ -1,4 +1,5 @@
-<div class="tile-stats {{getTileColor(tileColor)}}">
+<div class="widget-panel widget-style-2 {{getTileColor(tileColor)}}">
+  <i class="fa fa-bell"></i>
   <div *ngIf="tileDetails">
     <div *ngIf="tileDetails.fahrenHeight" class="fahrenHeight">
       {{tileDetails.fahrenHeight}} F
@@ -10,6 +11,6 @@
       {{tileDetails.title}}
     </div>
   </div>
-    <div class="count">{{count}}</div>
-    <p>{{tileContent}}</p>
+    <h2 class="m-0 counter">{{count}}</h2>
+    <div>{{tileContent}}</div>
 </div>
