@@ -1,8 +1,10 @@
 import { NgModule }         from '@angular/core';
 import { SanitizeHtmlPipe } from './sanitizeHtml.pipe';
+import { StringToNumberPipe } from './stringToNumber.pipe';
 
 export const PIPES = [
-  SanitizeHtmlPipe
+  SanitizeHtmlPipe,
+  StringToNumberPipe
 ];
 
 @NgModule({

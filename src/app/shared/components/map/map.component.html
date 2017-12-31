@@ -1,13 +1,13 @@
 <agm-map
-[latitude]="markers[0].lat"
-[longitude]="markers[0].lng"
+[latitude]="markers.Location[0].Latitude|stringToNumber"
+[longitude]="markers.Location[0].Longitude|stringToNumber"
 [zoom]="5">
-<agm-marker *ngFor="let i of markers"
-  [latitude]="i.lat"
-  [longitude]="i.lng"
-  (markerClick)="clickedMarker(i.status, i.locationID)"
-  [iconUrl]="getIcon(i.status)"
-  [label]="{color:'#73879C',fontSize: '24px',fontWeight:'bold',text:i.count+''}">
+<agm-marker *ngFor="let i of markers.Location"
+  [latitude]="i.Latitude|stringToNumber"
+  [longitude]="i.Longitude|stringToNumber"
+  (markerClick)="clickedMarker(i.status, i.Id)"
+  [iconUrl]="mapService.getIcon(mapService.getPriorityCount(i))"
+  [label]="{color:'#73879C',fontSize: '24px',fontWeight:'bold',text:i.Title+''}">
   <agm-info-window>
   <strong>InfoWindow content</strong>
 </agm-info-window>

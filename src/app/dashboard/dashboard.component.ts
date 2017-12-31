@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { DashboardService } from './services/dashboard.service';
 import {MapService}           from '../shared/components/map/services/map.service';
+import { MapConstants } from '../shared/components/map/constants/map.constants';
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,7 +16,8 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent{
   data:String[]=[];
-  private mapData:Array<Object> = null;
+  private mapData:Object = null;
+  private mapConstants = MapConstants.STATUS;
   constructor(private dashboardService: DashboardService,private mapService:MapService,private router:Router){
     this.dashboardService.getData().then((result)=>{
       this.data = result;
