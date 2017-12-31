@@ -4,6 +4,7 @@
       <app-tile
       [count]="i[mapService.getPriorityCount(i)]"
       [tileContent]="i.Title"
+      [tileColorBy]="'status'"
       [tileColor]="mapService.getPriorityCount(i)"
       (click)="gotoDetails(i.Id)">
       </app-tile>

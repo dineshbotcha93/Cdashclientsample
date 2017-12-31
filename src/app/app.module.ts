@@ -27,6 +27,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AgmCoreModule } from '@agm/core';
 // Datatable Integration
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { PipesModule }                  from './shared/pipes';
 
 
 const appRoutes: Routes = [{
@@ -60,6 +61,7 @@ if(!environment.production)
     HttpClientModule,
     ContainersModule,
     NgxDatatableModule,
+    PipesModule,
     StoreModule.forRoot({'tiles':store}),
     /**
     * Store devtools instrument the store retaining past versions of state

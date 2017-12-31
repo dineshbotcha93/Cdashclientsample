@@ -22,10 +22,10 @@ export class TileComponent {
   @Input() count: number;
   @Input() tileContent: string;
   @Input() tileColor: string;
-  @Input() tileType: string;
+  @Input() tileColorBy?: string;
   @Input() tileDetails?: object;
   private mapStatus = MapConstants.STATUS;
-
+  private mapConstants = MapConstants;
   constructor(public tileSandbox: TileSandbox){
 
   }
@@ -51,6 +51,20 @@ export class TileComponent {
         return 'bg-warning';
       default:
         break;
+    }
+  }
+  getTileStatus(number){
+    switch(number){
+      case this.mapConstants.STATUS_NUMBERS.GOOD:
+        return 'bg-green';
+      case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
+        return 'bg-warning';
+      case this.mapConstants.STATUS_NUMBERS.ALERTS:
+        return 'bg-pink';
+      case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
+        return 'bg-info';
+      case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
+        return 'bg-purple';
     }
   }
 }

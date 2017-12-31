@@ -1,4 +1,4 @@
-<div class="widget-panel widget-style-2 {{getTileColor(tileColor)}}">
+<div class="widget-panel widget-style-2 {{tileColorBy == 'status' ? getTileColor(tileColor):getTileStatus(tileColor)}}">
   <i class="fa fa-bell"></i>
   <div *ngIf="tileDetails">
     <div *ngIf="tileDetails.fahrenHeight" class="fahrenHeight">

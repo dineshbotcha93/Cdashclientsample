@@ -4,6 +4,8 @@ import {Route, RouterModule } from '@angular/router';
 import { ContainersModule }         from '../shared/containers';
 import { ComponentsModule }    from '../shared/components';
 import { CommonModule } from '@angular/common';
+import { PipesModule } from '../shared/pipes';
+import { FormsModule } from '@angular/forms';
 
 const routes:Object[] = [{
   path:'sensor-details/:id',component:SensorDetailsComponent
@@ -15,7 +17,9 @@ const routes:Object[] = [{
     RouterModule.forChild(routes),
     ContainersModule,
     ComponentsModule,
-    CommonModule
+    CommonModule,
+    PipesModule,
+    FormsModule
   ]
 })
 export class SensorDetailsModule {}
