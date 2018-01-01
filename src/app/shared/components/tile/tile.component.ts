@@ -31,54 +31,70 @@ export class TileComponent {
   }
   close(i){
     console.log(this.tileSandbox);
-        this.tileSandbox.loadTiles();
-        console.log(this.tileSandbox);
+    this.tileSandbox.loadTiles();
+    console.log(this.tileSandbox);
     this.select.emit({code: 'test',number:i});
   }
   countChange(event) {
     console.log(this.tileSandbox);
     console.log(event);
   }
-  getTileColor(status){
+  getTileColor(status,tileColorBy){
     switch(status){
       case this.mapStatus.LOW_BATTERY:
-        return 'bg-purple';
+      return 'bg-purple';
       case this.mapStatus.ALERTS:
-        return 'bg-pink';
+      return 'bg-pink';
       case this.mapStatus.LOW_SIGNAL:
-        return 'bg-info';
+      return 'bg-info';
       case this.mapStatus.MISSED_COMMUNICATION:
-        return 'bg-warning';
+      return 'bg-warning';
       default:
-        break;
+      break;
     }
   }
   getTileStatus(number){
     switch(number){
       case this.mapConstants.STATUS_NUMBERS.GOOD:
-        return 'bg-green';
+      return 'bg-green';
       case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
-        return 'bg-warning';
+      return 'bg-warning';
       case this.mapConstants.STATUS_NUMBERS.ALERTS:
-        return 'bg-pink';
+      return 'bg-pink';
       case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
-        return 'bg-info';
+      return 'bg-info';
       case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
-        return 'bg-purple';
+      return 'bg-purple';
     }
   }
-  getTileIcon(color){
-    switch(color){
-      case this.mapStatus.LOW_BATTERY:
+  getTileIcon(color,tileColorBy){
+    if(tileColorBy == 'status'){
+      switch(color){
+        case this.mapStatus.LOW_BATTERY:
         return 'fa-bolt';
-      case this.mapStatus.ALERTS:
+        case this.mapStatus.ALERTS:
         return 'fa-bell';
-      case this.mapStatus.LOW_SIGNAL:
+        case this.mapStatus.LOW_SIGNAL:
         return 'fa-signal';
-      case this.mapStatus.MISSED_COMMUNICATION:
+        case this.mapStatus.MISSED_COMMUNICATION:
         return 'fa-exclamation-circle';
-      default:
+        default:
         break;
+      }
+    }else {
+      //here, status is a number
+      switch(status){
+        case this.mapConstants.STATUS_NUMBERS.GOOD:
+        return 'bg-green';
+        case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
+        return 'bg-warning';
+        case this.mapConstants.STATUS_NUMBERS.ALERTS:
+        return 'bg-pink';
+        case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
+        return 'bg-info';
+        case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
+        return 'bg-purple';
+      }
     }
   }
 }
