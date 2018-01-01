@@ -19,7 +19,7 @@ import { MapConstants } from '../../../shared/components/map/constants/map.const
 export class TileComponent {
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Input() selectedLanguage : string;
-  @Input() count: number;
+  @Input() count?: number;
   @Input() tileContent: string;
   @Input() tileColor: string;
   @Input() tileColorBy?: string;
