@@ -7,9 +7,9 @@ export const MapConstants = {
   },
   STATUS_NUMBERS:{
     GOOD:'0',
-    MISSED_COMMUNICATION:'1',
-    ALERTS:'2',
-    LOW_SIGNAL:'3',
-    LOW_BATTERY:'4'
+    LOW_SIGNAL:'1',
+    LOW_BATTERY:'2',
+    MISSED_COMMUNICATION:'3',
+    ALERTS:'4'
   }
 }

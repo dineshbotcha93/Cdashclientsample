@@ -40,56 +40,56 @@ export class MapService{
 
   getData():Object{
     return {
-      "Location": [
-        {
-          "Id": "I001",
-          "Title": "Boston Pizza 203",
-          "Address": "1502 8th Street   Saskatoon  Saskatchewan S7S 1P4 Canada",
-          "Latitude": "52.150813",
-          "Longitude": "-106.567821",
-          "ActiveSensors": "10",
-          "Alerts": "3",
-          "MissedCommunication": "3",
-          "LowSignal": "0",
-          "LowBattery": "0"
-        },
-        {
-          "Id": "I002",
-          "Title": "Boston Pizza 207",
-          "Address": "226 Broadway Street E  Yorkton Saskatchewan S3N 4C3 Canada",
-          "Latitude": "51.209425",
-          "Longitude": "-102.449612",
-          "ActiveSensors": "10",
-          "Alerts": "0",
-          "MissedCommunication": "4",
-          "LowSignal": "0",
-          "LowBattery": "0"
-        },
-        {
-          "Id": "I003",
-          "Title": "Boston Pizza Beaumont",
-          "Address": "6210 50th Street  Beaumont Alberta T4X0B6 Canada",
-          "Latitude": "53.362812",
-          "Longitude": "-113.417260",
-          "ActiveSensors": "10",
-          "Alerts": "0",
-          "MissedCommunication": "0",
-          "LowSignal": "3",
-          "LowBattery": "0"
-        },
-        {
-          "Id": "I004",
-          "Title": "Boston Pizza Regent",
-          "Address": "1615 Regent Ave W.  Winnipeg Manitoba R2C5C6 Canada",
-          "Latitude": "49.900865",
-          "Longitude": "-97.069143",
-          "ActiveSensors": "10",
-          "Alerts": "0",
-          "MissedCommunication": "0",
-          "LowSignal": "0",
-          "LowBattery": "0"
-        }
-      ]
+        "Location": [
+          {
+            "Id": "I001",
+            "Title": "Boston Pizza 203",
+            "Address": "1502 8th Street   Saskatoon  Saskatchewan S7S 1P4 Canada",
+            "Latitude": "52.150813",
+            "Longitude": "-106.567821",
+            "ActiveSensors": "10",
+            "Alerts": "3",
+            "MissedCommunication": "2",
+            "LowSignal": "0",
+            "LowBattery": "0"
+          },
+          {
+            "Id": "I002",
+            "Title": "Boston Pizza 207",
+            "Address": "226 Broadway Street E  Yorkton Saskatchewan S3N 4C3 Canada",
+            "Latitude": "51.209425",
+            "Longitude": "-102.449612",
+            "ActiveSensors": "10",
+            "Alerts": "0",
+            "MissedCommunication": "4",
+            "LowSignal": "0",
+            "LowBattery": "0"
+          },
+          {
+            "Id": "I003",
+            "Title": "Boston Pizza Beaumont",
+            "Address": "6210 50th Street  Beaumont Alberta T4X0B6 Canada",
+            "Latitude": "53.362812",
+            "Longitude": "-113.417260",
+            "ActiveSensors": "10",
+            "Alerts": "0",
+            "MissedCommunication": "0",
+            "LowSignal": "5",
+            "LowBattery": "0"
+          },
+          {
+            "Id": "I004",
+            "Title": "Boston Pizza Regent",
+            "Address": "1615 Regent Ave W.  Winnipeg Manitoba R2C5C6 Canada",
+            "Latitude": "49.900865",
+            "Longitude": "-97.069143",
+            "ActiveSensors": "5",
+            "Alerts": "0",
+            "MissedCommunication": "0",
+            "LowSignal": "0",
+            "LowBattery": "5"
+          }
+        ]
+      }
     }
-  }
 }
