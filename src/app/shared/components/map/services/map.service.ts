@@ -11,13 +11,13 @@ export class MapService{
   getIcon(status:string){
     switch(status){
       case this.mapStatus.LOW_BATTERY:
-      return 'assets/images/tempMarkers/temp-green.png';
+      return 'assets/images/tempMarkers/temp-purple.png';
       case this.mapStatus.ALERTS:
       return 'assets/images/tempMarkers/temp-red.png';
       case this.mapStatus.LOW_SIGNAL:
-      return 'assets/images/tempMarkers/temp-yellow.png';
+      return 'assets/images/tempMarkers/temp-blue.png';
       case this.mapStatus.MISSED_COMMUNICATION:
-      return 'assets/images/tempMarkers/temp-orange.png';
+      return 'assets/images/tempMarkers/temp-yellow.png';
       default:
       break;
     }
