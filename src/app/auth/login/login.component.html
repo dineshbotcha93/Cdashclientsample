@@ -1,6 +1,6 @@
 <h3>Login Component</h3>
 <div class="table">
-  <pre>{{myform.value | json}}</pre>
+  <!-- <pre>{{myform.value | json}}</pre> -->
   <form [formGroup]="myform" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <div class="alert alert-danger" *ngIf="myform.controls.username.invalid && !myform.controls.username.pristine">Invalid Username</div>
