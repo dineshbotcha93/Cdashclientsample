@@ -7,7 +7,7 @@
   [longitude]="i.Longitude|stringToNumber"
   (markerClick)="clickedMarker(i.status, i.Id)"
   [iconUrl]="mapService.getIcon(mapService.getPriorityCount(i))"
-  [label]="{color:'#73879C',fontSize: '24px',fontWeight:'bold',text:i[mapService.getPriorityCount(i)]+''}">
+  [label]="{color:'#FFFFFF',fontSize: '24px',fontWeight:'bold',text:i[mapService.getPriorityCount(i)]+''}">
   <agm-info-window>
   <strong>InfoWindow content</strong>
 </agm-info-window>
