@@ -4,13 +4,13 @@
     <option value="asc" selected>Higest Priority</option>
     <option value="desc">Lowest Priority</option>
   </select>
-  <input type="radio" name="location" value="0" [(ngModel)]="location" (change)="handleRadio($event)">Location 1
-  <input type="radio" name="location" value="1" [(ngModel)]="location" (change)="handleRadio($event)">Location 2
+  <input type="radio" name="gateway" value="0" [(ngModel)]="gateway" (change)="handleRadio($event)">Gateway 1
+  <input type="radio" name="gateway" value="1" [(ngModel)]="gateway" (change)="handleRadio($event)">Gateway 2
   <!-- <pre>
 {{mapData.Location.Network.Gateway[location].Sensor|json}}
   </pre> -->
   <div class="row top_tiles">
-    <div *ngFor="let sensor of mapData.Location.Network.Gateway[location].Sensor | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <app-tile
         [tileContent]="sensor.SensorName"
         [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
