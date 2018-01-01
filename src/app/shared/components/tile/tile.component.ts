@@ -67,4 +67,18 @@ export class TileComponent {
         return 'bg-purple';
     }
   }
+  getTileIcon(color){
+    switch(status){
+      case this.mapStatus.LOW_BATTERY:
+        return 'fa fa-bell';
+      case this.mapStatus.ALERTS:
+        return 'bg-pink';
+      case this.mapStatus.LOW_SIGNAL:
+        return 'bg-info';
+      case this.mapStatus.MISSED_COMMUNICATION:
+        return 'bg-warning';
+      default:
+        break;
+    }
+  }
 }
