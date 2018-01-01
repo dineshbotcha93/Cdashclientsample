@@ -1,12 +1,16 @@
 <app-layout>
   <h3>Sensor Details Page</h3>
-  <select name="sort" [(ngModel)]="orderBy" (change)="doSort()">
+  <select name="sort" [(ngModel)]="orderBy" (change)="doSort()" class="form-control">
     <option value="asc" selected>Higest Priority</option>
     <option value="desc">Lowest Priority</option>
   </select>
+  <input type="radio" name="location" value="0" [(ngModel)]="location" (change)="handleRadio($event)">Location 1
+  <input type="radio" name="location" value="1" [(ngModel)]="location" (change)="handleRadio($event)">Location 2
+  <!-- <pre>
+{{mapData.Location.Network.Gateway[location].Sensor|json}}
+  </pre> -->
   <div class="row top_tiles">
-    <div *ngFor="let i of mapData.Location.Network.Gateway" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div *ngFor="let sensor of i.Sensor | orderBy: sensor : orderBy">
+    <div *ngFor="let sensor of mapData.Location.Network.Gateway[location].Sensor | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <app-tile
         [tileContent]="sensor.SensorName"
         [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
@@ -14,5 +18,4 @@
       </app-tile>
     </div>
   </div>
-</div>
 </app-layout>

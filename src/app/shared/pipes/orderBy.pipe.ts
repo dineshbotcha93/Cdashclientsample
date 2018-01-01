@@ -18,7 +18,7 @@ export class OrderByPipe implements PipeTransform  {
   transform(v: Array<Object>,...args:any[]) : object {
 		if(args[1]=='asc'){
 			return v.sort(this.compare).reverse();
-		} else {
+		} else if(args[1]=='desc') {
 			return v.sort(this.compare);
 		}
   }

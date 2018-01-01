@@ -191,7 +191,7 @@ export class MapService{
                   "PowerSourceID": "1",
                   "Status": "0",
                   "CanUpdate": "true",
-                  "CurrentReading": "35.4° F",
+                  "CurrentReading": "38.4° F",
                   "BatteryLevel": "100",
                   "SignalStrength": "100",
                   "AlertsActive": "true"
@@ -207,7 +207,7 @@ export class MapService{
                   "PowerSourceID": "1",
                   "Status": "0",
                   "CanUpdate": "true",
-                  "CurrentReading": "16.3% @ 62.1° F",
+                  "CurrentReading": "16.3% @ 77.1° F",
                   "BatteryLevel": "100",
                   "SignalStrength": "100",
                   "AlertsActive": "true"

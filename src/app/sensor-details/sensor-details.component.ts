@@ -21,6 +21,7 @@ export class SensorDetailsComponent {
   mapData:Object = null;
   displayTiles:Object = null;
   orderBy: any = 'asc';
+  location: any = '0';
   private mapStatus = MapConstants.STATUS;
   constructor(private route:ActivatedRoute, private mapService:MapService){
     this.mapData = this.mapService.getSensorList();
@@ -29,5 +30,10 @@ export class SensorDetailsComponent {
   doSort(){
     console.log('i was called');
     console.log(this.orderBy);
+  }
+
+  handleRadio(event){
+    console.log(event);
+    console.log(this.location);
   }
 }
