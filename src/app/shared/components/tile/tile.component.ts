@@ -70,13 +70,13 @@ export class TileComponent {
   getTileIcon(color){
     switch(color){
       case this.mapStatus.LOW_BATTERY:
-        return 'fa fa-bell';
+        return 'fa-bolt';
       case this.mapStatus.ALERTS:
-        return 'bg-pink';
+        return 'fa-bell';
       case this.mapStatus.LOW_SIGNAL:
-        return 'bg-info';
+        return 'fa-signal';
       case this.mapStatus.MISSED_COMMUNICATION:
-        return 'bg-warning';
+        return 'fa-exclamation-circle';
       default:
         break;
     }
