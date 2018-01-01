@@ -68,7 +68,6 @@ export class TileComponent {
     }
   }
   getTileIcon(color,tileColorBy){
-    console.log(tileColorBy);
     if(tileColorBy == 'status'){
       switch(color){
         case this.mapStatus.LOW_BATTERY:
