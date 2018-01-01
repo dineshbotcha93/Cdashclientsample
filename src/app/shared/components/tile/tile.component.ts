@@ -68,7 +68,7 @@ export class TileComponent {
     }
   }
   getTileIcon(color){
-    switch(status){
+    switch(color){
       case this.mapStatus.LOW_BATTERY:
         return 'fa fa-bell';
       case this.mapStatus.ALERTS:
