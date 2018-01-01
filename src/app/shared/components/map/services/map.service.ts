@@ -42,7 +42,7 @@ export class MapService{
     return {
       "Location": [
         {
-          "Id": "l001",
+          "Id": "I001",
           "Title": "Boston Pizza 203",
           "Address": "1502 8th Street   Saskatoon  Saskatchewan S7S 1P4 Canada",
           "Latitude": "52.150813",
@@ -54,7 +54,7 @@ export class MapService{
           "LowBattery": "0"
         },
         {
-          "Id": "l001",
+          "Id": "I002",
           "Title": "Boston Pizza 207",
           "Address": "226 Broadway Street E  Yorkton Saskatchewan S3N 4C3 Canada",
           "Latitude": "51.209425",
@@ -66,7 +66,7 @@ export class MapService{
           "LowBattery": "0"
         },
         {
-          "Id": "l003",
+          "Id": "I003",
           "Title": "Boston Pizza Beaumont",
           "Address": "6210 50th Street  Beaumont Alberta T4X0B6 Canada",
           "Latitude": "53.362812",
@@ -78,7 +78,7 @@ export class MapService{
           "LowBattery": "0"
         },
         {
-          "Id": "l004",
+          "Id": "I004",
           "Title": "Boston Pizza Regent",
           "Address": "1615 Regent Ave W.  Winnipeg Manitoba R2C5C6 Canada",
           "Latitude": "49.900865",
@@ -90,149 +90,6 @@ export class MapService{
           "LowBattery": "0"
         }
       ]
-    }
-  }
-
-  getSensorList():Object{
-    return {
-      "Location": {
-        "Id": "1001",
-        "Title": "Boston Pizza 203",
-        "Address": "1502 8th Street   Saskatoon  Saskatchewan S7S 1P4 Canada",
-        "ActiveSensors": "10",
-        "Network": {
-          "Id": "N001",
-          "Name": "BP203NET",
-          "CountofGateways": "2",
-          "CountOfSensors": "10",
-          "SendNotifications": "True",
-          "HoldingNetwork": "False",
-          "Gateway": [
-            {
-              "GatewayID": "108830382",
-              "NetworkID": "1000",
-              "Name": "Base Station - 1508830382",
-              "GatewayType": "Base Station",
-              "Heartbeat": "5",
-              "IsDirty": "false",
-              "LastCommunicationDate": "12/31/2017 1:44 PM",
-              "LastInboundIPAddress": "",
-              "MacAddress": "2486F48051B9",
-              "Sensor": [
-                {
-                  "SensorID": "1153235073",
-                  "MonnitApplicationID": "2",
-                  "CSNetID": "1000",
-                  "SensorName": "Sensor 1",
-                  "LastCommunicationDate": "12/31/2017 1:44 PM",
-                  "NextCommunicationDate": "12/31/2017 1:44 PM",
-                  "LastDataMessageID": "25639148",
-                  "PowerSourceID": "1",
-                  "Status": "0",
-                  "CanUpdate": "true",
-                  "CurrentReading": "35.4° F",
-                  "BatteryLevel": "100",
-                  "SignalStrength": "100",
-                  "AlertsActive": "true"
-                },
-                {
-                  "SensorID": "2190116004",
-                  "MonnitApplicationID": "43",
-                  "CSNetID": "1000",
-                  "SensorName": "HARRY'S HUMIDITY SENSOR",
-                  "LastCommunicationDate": "12/31/2017 1:44 PM",
-                  "NextCommunicationDate": "12/31/2017 1:44 PM",
-                  "LastDataMessageID": "25639420",
-                  "PowerSourceID": "1",
-                  "Status": "0",
-                  "CanUpdate": "true",
-                  "CurrentReading": "16.3% @ 62.1° F",
-                  "BatteryLevel": "100",
-                  "SignalStrength": "100",
-                  "AlertsActive": "true"
-                },
-                {
-                  "SensorID:1156073157": {},
-                  "MonnitApplicationID": "2",
-                  "CSNetID:1000": {},
-                  "SensorName":"HARRY'S TEST SENSOR #1",
-                  "LastCommunicationDate": "",
-                  "NextCommunicationDate": "",
-                  "LastDataMessageID": "25633798",
-                  "PowerSourceID": "1",
-                  "Status": "2",
-                  "CanUpdate": "true",
-                  "CurrentReading": "\"62.1° F\"",
-                  "BatteryLevel": "100",
-                  "SignalStrength": "100",
-                  "AlertsActive": "true"
-                }
-              ]
-            },
-            {
-              "GatewayID": "108830383",
-              "NetworkID": "1000",
-              "Name": "Gateway - 1508830383",
-              "GatewayType": "Gateway",
-              "Heartbeat": "5",
-              "IsDirty": "false",
-              "LastCommunicationDate": "12/31/2017 1:44 PM",
-              "LastInboundIPAddress": "",
-              "MacAddress": "2386F48051B7",
-              "Sensor": [
-                {
-                  "SensorID": "1153235073",
-                  "MonnitApplicationID": "2",
-                  "CSNetID": "1000",
-                  "SensorName": "Sensor 1",
-                  "LastCommunicationDate": "12/31/2017 1:44 PM",
-                  "NextCommunicationDate": "12/31/2017 1:44 PM",
-                  "LastDataMessageID": "25639148",
-                  "PowerSourceID": "1",
-                  "Status": "0",
-                  "CanUpdate": "true",
-                  "CurrentReading": "38.4° F",
-                  "BatteryLevel": "100",
-                  "SignalStrength": "100",
-                  "AlertsActive": "true"
-                },
-                {
-                  "SensorID": "2190116004",
-                  "MonnitApplicationID": "43",
-                  "CSNetID": "1000",
-                  "SensorName": "HARRY'S HUMIDITY SENSOR",
-                  "LastCommunicationDate": "12/31/2017 1:44 PM",
-                  "NextCommunicationDate": "12/31/2017 1:44 PM",
-                  "LastDataMessageID": "25639420",
-                  "PowerSourceID": "1",
-                  "Status": "0",
-                  "CanUpdate": "true",
-                  "CurrentReading": "16.3% @ 77.1° F",
-                  "BatteryLevel": "100",
-                  "SignalStrength": "100",
-                  "AlertsActive": "true"
-                },
-                {
-                  "SensorID:1156073157": {},
-                  "MonnitApplicationID": "2",
-                  "CSNetID:1000": {},
-                  "SensorName":"HARRY'S TEST SENSOR #1",
-                  "LastCommunicationDate": "",
-                  "NextCommunicationDate": "",
-                  "LastDataMessageID": "25633798",
-                  "PowerSourceID": "1",
-                  "Status": "2",
-                  "CanUpdate": "true",
-                  "CurrentReading": "\"62.1° F\"",
-                  "BatteryLevel": "100",
-                  "SignalStrength": "100",
-                  "AlertsActive": "true"
-                }
-              ]
-            }
-          ]
-        }
-      }
     }
   }
 }

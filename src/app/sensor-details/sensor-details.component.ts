@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MapService } from '../shared/components/map/services/map.service';
 import { MapConstants } from '../shared/components/map/constants/map.constants';
+import { SensorDetailsService } from './services/sensor-details.service';
 
 interface tileDetail{
   locationID:number;
@@ -15,7 +16,7 @@ interface tileDetail{
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
   styleUrls: ['./sensor-details.component.scss'],
-  providers:[MapService]
+  providers:[MapService,SensorDetailsService]
 })
 export class SensorDetailsComponent {
   mapData:Object = null;
@@ -23,8 +24,14 @@ export class SensorDetailsComponent {
   orderBy: any = 'asc';
   location: any = '0';
   private mapStatus = MapConstants.STATUS;
-  constructor(private route:ActivatedRoute, private mapService:MapService){
-    this.mapData = this.mapService.getSensorList();
+  constructor(private route:ActivatedRoute, private mapService:MapService,private sensorDetailsService:SensorDetailsService){
+    this.route.params.subscribe((params)=>{
+      console.log(params.id);
+      this.sensorDetailsService.getData(params.id).then((e)=>{
+        this.mapData = e;
+      });
+    });
+
   }
 
   doSort(){
