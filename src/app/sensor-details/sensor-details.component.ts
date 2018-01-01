@@ -20,7 +20,7 @@ interface tileDetail{
 export class SensorDetailsComponent {
   mapData:Object = null;
   displayTiles:Object = null;
-  orderBy: any = null;
+  orderBy: any = 'asc';
   private mapStatus = MapConstants.STATUS;
   constructor(private route:ActivatedRoute, private mapService:MapService){
     this.mapData = this.mapService.getSensorList();
