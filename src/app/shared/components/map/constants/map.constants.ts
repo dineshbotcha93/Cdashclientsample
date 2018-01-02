@@ -1,3 +1,5 @@
+// Move to a global constants file.
+
 export const MapConstants = {
   STATUS:{
     ALERTS:'Alerts',
