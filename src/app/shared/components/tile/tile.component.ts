@@ -14,7 +14,8 @@ import { MapConstants } from '../../../shared/components/map/constants/map.const
   selector:'app-tile',
   styleUrls: ['./tile.component.scss'],
   templateUrl:'./tile.component.html',
-  providers:[TileSandbox]
+  providers:[TileSandbox],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TileComponent {
   @Output() select: EventEmitter<any> = new EventEmitter();
