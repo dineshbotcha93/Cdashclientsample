@@ -11,5 +11,9 @@ export const MapConstants = {
     LOW_BATTERY:'2',
     MISSED_COMMUNICATION:'3',
     ALERTS:'4'
+  },
+  SENSOR_TYPE:{
+    ZERO:'0',
+    TWO:'2'
   }
 }

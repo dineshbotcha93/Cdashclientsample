@@ -24,6 +24,7 @@ export class TileComponent {
   @Input() tileColor: string;
   @Input() tileColorBy?: string;
   @Input() tileDetails?: object;
+  @Input() sensorTileIcon?: string;
   private mapStatus = MapConstants.STATUS;
   private mapConstants = MapConstants;
   constructor(public tileSandbox: TileSandbox){
@@ -67,6 +68,16 @@ export class TileComponent {
       return 'bg-purple';
     }
   }
+
+  getSensorTileIcon(sensorType){
+      switch(sensorType){
+        case this.mapConstants.SENSOR_TYPE.TWO:
+        return 'fa-exclamation-circle';
+        default:
+        break;
+    }
+  }
+
   getTileIcon(color,tileColorBy){
     if(tileColorBy == 'status'){
       switch(color){
@@ -81,7 +92,7 @@ export class TileComponent {
         default:
         break;
       }
-    }else {
+    } else {
       //here, status is a number
       switch(color){
         case this.mapConstants.STATUS_NUMBERS.GOOD:

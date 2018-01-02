@@ -36,6 +36,8 @@
             <app-tile
               [tileContent]="sensor.SensorName"
               [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
               [tileColor]="sensor.Status">
             </app-tile>
           </div>
