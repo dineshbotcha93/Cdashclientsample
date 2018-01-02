@@ -72,8 +72,10 @@ export class TileComponent {
 
   getSensorTileIcon(sensorType){
       switch(sensorType){
-        case this.mapConstants.SENSOR_TYPE.TWO:
-        return 'fa-exclamation-circle';
+        case this.mapConstants.SENSOR_TYPE.TEMP:
+        return 'fa-thermometer-half';
+        case this.mapConstants.SENSOR_TYPE.HUMIDITY:
+          return 'fa-tint';
         default:
         break;
     }

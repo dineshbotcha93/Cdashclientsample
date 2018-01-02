@@ -13,7 +13,8 @@ export const MapConstants = {
     ALERTS:'4'
   },
   SENSOR_TYPE:{
-    ZERO:'0',
-    TWO:'2'
+    HUMIDITY:'43',
+    CONTACT:'9',
+    TEMP:'2'
   }
 }
