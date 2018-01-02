@@ -7,6 +7,7 @@ import { TileComponent }   from './tile/tile.component';
 import { TileSandbox }     from './tile/tile.sandbox';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent }     from './map/map.component';
+import { NotificationComponent } from './notification/notification.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
 import { AgmCoreModule } from '@agm/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -17,6 +18,7 @@ export const COMPONENTS = [
   ProfileActionBarComponent,
   TileComponent,
   NavigationComponent,
+  NotificationComponent,
   MapComponent,
   DataTableComponent,
 ];
