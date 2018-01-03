@@ -22,7 +22,7 @@ export class SensorDetailsComponent {
   mapData:Object = null;
   displayTiles:Object = null;
   orderBy: any = 'asc';
-  gateway: any = '0';
+  gateway: any = 0;
   private mapStatus = MapConstants.STATUS;
   constructor(private route:ActivatedRoute, private mapService:MapService,private sensorDetailsService:SensorDetailsService){
     this.route.params.subscribe((params)=>{
