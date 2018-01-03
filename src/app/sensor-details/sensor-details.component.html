@@ -3,7 +3,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-            <h3>Sensor Details</h3>
+          <h3>Sensor Details</h3>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -15,34 +15,28 @@
                 <option value="desc">Lowest Priority</option>
               </select>
             </div>
-            <div class="form-group">
-              <input type="radio" name="gateway" value="0" [(ngModel)]="gateway" (change)="handleRadio($event)" class="iradio_flat-green ">Gateway 1
-              <input type="radio" name="gateway" value="1" [(ngModel)]="gateway" (change)="handleRadio($event)" class="iradio_flat-green">Gateway 2
+            <div class="btn-group">
+              <button class="btn btn-default" [ngClass]="{'active': gateway===i}" type="button" *ngFor="let btn of mapData.Location.Network.Gateway; let i = index" (click)="handleGatewayClick(i)">Gateway {{[i+1]}}</button>
             </div>
             <div class="form-group">
 
             </div>
           </form>
-
-        <!-- <pre>
-      {{mapData.Location.Network.Gateway[location].Sensor|json}}
-        </pre> -->
-
         </div>
-  </div>
+      </div>
       <div class="x_panel">
         <div class="row top_tiles">
           <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
-              [tileContent]="sensor.SensorName"
-              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-              [tileColorBy]="'sensorType'"
-              [sensorTileIcon]="sensor.SensorType"
-              [tileColor]="sensor.Status">
-            </app-tile>
-          </div>
+            [tileContent]="sensor.SensorName"
+            [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+            [tileColorBy]="'sensorType'"
+            [sensorTileIcon]="sensor.SensorType"
+            [tileColor]="sensor.Status">
+          </app-tile>
         </div>
       </div>
     </div>
   </div>
+</div>
 </app-layout>

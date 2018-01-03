@@ -39,8 +39,7 @@ export class SensorDetailsComponent {
     console.log(this.orderBy);
   }
 
-  handleRadio(event){
-    console.log(event);
-    console.log(this.gateway);
+  handleGatewayClick(index){
+    this.gateway = index;
   }
 }
