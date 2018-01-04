@@ -2,10 +2,10 @@
   <i class="fa {{tileColorBy=='sensorType'? getSensorTileIcon(sensorTileIcon) :getTileIcon(tileColor,tileColorBy)}}"></i>
   <div *ngIf="tileDetails">
     <div *ngIf="tileDetails.fahrenHeight" class="fahrenHeight">
-      {{tileDetails.fahrenHeight}} F
+      {{tileDetails.fahrenHeight}}
     </div>
     <div *ngIf="tileDetails.relativeHumidity" class="relativeHumidity">
-      {{tileDetails.relativeHumidity}} RH
+      {{tileDetails.relativeHumidity}}
     </div>
     <div *ngIf="tileDetails.title" class="title">
       {{tileDetails.title}}
