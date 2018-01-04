@@ -18,5 +18,11 @@ export const MapConstants = {
     HUMIDITY:'43',
     CONTACT:'9',
     TEMP:'2'
+  },
+  READABLE_STATUS:{
+    ALERTS:'Alerts',
+    MISSED_COMMUNICATION:'Offline',
+    LOW_SIGNAL:'Low Signal',
+    LOW_BATTERY:'Low Battery'
   }
 }

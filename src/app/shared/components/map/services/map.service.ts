@@ -4,6 +4,7 @@ import { MapConstants } from '../constants/map.constants';
 @Injectable()
 export class MapService{
   private mapStatus = MapConstants.STATUS;
+  private readableStatus = MapConstants.READABLE_STATUS;
 
   constructor(){
   }
@@ -36,6 +37,22 @@ export class MapService{
       priority = this.mapStatus.LOW_BATTERY;
     }
     return priority;
+  }
+
+  getReadableStatus(record){
+      let priority = null;
+      if(record[this.mapStatus.ALERTS] > 0){
+        priority = this.readableStatus.ALERTS;
+      } else if(record[this.mapStatus.MISSED_COMMUNICATION] > 0 && priority === null){
+        priority = this.readableStatus.MISSED_COMMUNICATION;
+      } else if(record[this.mapStatus.LOW_SIGNAL] > 0 && priority === null){
+        priority = this.readableStatus.LOW_SIGNAL;
+      } else if(record[this.mapStatus.LOW_BATTERY] > 0 && priority === null){
+        priority = this.readableStatus.LOW_BATTERY;
+      } else {
+        priority = this.readableStatus.LOW_BATTERY;
+      }
+      return priority;
   }
 
   getData():Object{
