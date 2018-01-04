@@ -20,6 +20,7 @@ interface tileDetail{
 })
 export class SensorDetailsComponent {
   mapData:Object = null;
+  allSensors:Array<any> = [];
   displayTiles:Object = null;
   orderBy: any = 'asc';
   gateway: any = 0;
@@ -29,6 +30,11 @@ export class SensorDetailsComponent {
       console.log(params.id);
       this.sensorDetailsService.getData(params.id).then((e)=>{
         this.mapData = e;
+        e.Location.Network.Gateway.forEach((gate)=>{
+          gate.Sensor.forEach((sens)=>{
+            this.allSensors.push(sens);
+          });
+        });
       });
     });
 

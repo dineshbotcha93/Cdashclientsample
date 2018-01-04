@@ -23,8 +23,6 @@ import { LanguageFactory } from '../i18n/language.factory';
 import { store }               from './shared/store';
 import { StoreModule }         from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// Google map integration
-import { AgmCoreModule } from '@agm/core';
 // Datatable Integration
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
@@ -74,9 +72,6 @@ if(!environment.production)
     * See: https://github.com/zalmoxisus/redux-devtools-extension
     */
     StoreDevtoolsModule.instrument(),
-    AgmCoreModule.forRoot({
-   apiKey: 'AIzaSyBzgI77Zkjsakww8mMHBFXEo4io7SkW-0M'
- }),
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       loader: {
