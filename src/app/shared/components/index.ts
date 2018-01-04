@@ -9,7 +9,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent }     from './map/map.component';
 import { NotificationComponent } from './notification/notification.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
+// Google map integration
 import { AgmCoreModule } from '@agm/core';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export const COMPONENTS = [
@@ -32,6 +34,7 @@ export const COMPONENTS = [
      apiKey: 'AIzaSyBzgI77Zkjsakww8mMHBFXEo4io7SkW-0M',
      libraries: ["places"]
    }),
+   AgmJsMarkerClustererModule,
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
