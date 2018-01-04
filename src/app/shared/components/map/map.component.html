@@ -6,8 +6,7 @@
 <agm-marker *ngFor="let i of markers.Location"
   [latitude]="i.Latitude|stringToNumber"
   [longitude]="i.Longitude|stringToNumber"
-  (markerClick)="clickedMarker(i.status, i.Id)"
-  [label]="{color:'#FFFFFF',fontSize: '24px',fontWeight:'bold'}">
+  (markerClick)="clickedMarker(i.status, i.Id)">
   <agm-info-window>
   <strong>InfoWindow content</strong>
 </agm-info-window>
