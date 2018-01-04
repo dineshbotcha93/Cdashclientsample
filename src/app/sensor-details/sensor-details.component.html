@@ -3,7 +3,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h3>Sensor Details</h3>
+          <h3>Sensor Details for: {{mapData.Location.Title}}</h3>
+            <h4>{{mapData.Location.Address}}</h4>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -23,6 +24,47 @@
 
             </div>
           </form>
+        </div>
+      </div>
+      <div class="x_panel">
+        <h3>Gateway Details</h3>
+        <div class="row" *ngIf="gateway!=='all'">
+          <table class="table">
+            <tr>
+              <td>Gateway ID</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayID}}</td>
+            </tr>
+            <tr>
+              <td>Network ID</td><td>{{mapData.Location.Network.Gateway[gateway].NetworkID}}</td>
+            </tr>
+            <tr>
+              <td>Name</td><td>{{mapData.Location.Network.Gateway[gateway].Name}}</td>
+            </tr>
+            <tr>
+              <td>Gateway Type</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayType}}</td>
+            </tr>
+            <tr>
+              <td>Last Communication Date</td><td>{{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="row" *ngIf="gateway=='all'">
+          <table class="table" *ngFor="let aGateway of mapData.Location.Network.Gateway">
+            <tr>
+              <td>Gateway ID</td><td>{{aGateway.GatewayID}}</td>
+            </tr>
+            <tr>
+              <td>Network ID</td><td>{{aGateway.NetworkID}}</td>
+            </tr>
+            <tr>
+              <td>Name</td><td>{{aGateway.Name}}</td>
+            </tr>
+            <tr>
+              <td>Gateway Type</td><td>{{aGateway.GatewayType}}</td>
+            </tr>
+            <tr>
+              <td>Last Communication Date</td><td>{{aGateway.LastCommunicationDate}}</td>
+            </tr>
+          </table>
         </div>
       </div>
       <div class="x_panel">
