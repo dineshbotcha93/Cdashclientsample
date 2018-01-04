@@ -44,7 +44,7 @@ export class TileComponent {
   getTileColor(status,tileColorBy){
     switch(status){
       case this.mapStatus.LOW_BATTERY:
-      return 'bg-purple';
+      return 'bg-lowBattery';
       case this.mapStatus.ALERTS:
       return 'bg-pink';
       case this.mapStatus.LOW_SIGNAL:
@@ -66,7 +66,7 @@ export class TileComponent {
       case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
       return 'bg-info';
       case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
-      return 'bg-purple';
+      return 'bg-lowBattery';
     }
   }
 
