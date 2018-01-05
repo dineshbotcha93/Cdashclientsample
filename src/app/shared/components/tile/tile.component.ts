@@ -42,6 +42,7 @@ export class TileComponent {
     console.log(event);
   }
   getTileColor(status,tileColorBy){
+    console.log(status);
     switch(status){
       case this.mapStatus.LOW_BATTERY:
       return 'bg-lowBattery';

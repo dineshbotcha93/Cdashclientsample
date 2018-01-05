@@ -1,11 +1,10 @@
 <app-layout>
   <div class="row top_tiles">
-    <div *ngFor="let i of mapData.Location" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div *ngFor="let i of tileData" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
       <app-tile
-      [count]="i[mapService.getPriorityCount(i)]"
-      [tileContent]="mapService.getReadableStatus(i)"
+      [count]="i.count"
       [tileColorBy]="'status'"
-      [tileColor]="mapService.getPriorityCount(i)">
+      [tileColor]="i.status">
       </app-tile>
     </div>
   </div>

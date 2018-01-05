@@ -9,7 +9,24 @@ export class DashboardService {
 
   }
   getData(){
-    return this.requesterService.get(SERVICE_CONSTANTS.GET_HEROES_LIST.live);
+    return [
+      {
+        count:'5',
+        status:'Alerts'
+      },
+      {
+        count:'3',
+        status:'MissedCommunication'
+      },
+      {
+        count:'1',
+        status:'LowSignal'
+      },
+      {
+        count:'7',
+        status:'LowBattery'
+      }
+    ];
   }
 
 }

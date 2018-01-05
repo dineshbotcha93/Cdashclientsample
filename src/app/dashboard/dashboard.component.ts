@@ -16,15 +16,10 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent{
   data:String[]=[];
-  private mapData:Object = null;
+  private tileData = null;
   private mapConstants = MapConstants.STATUS;
-  constructor(private dashboardService: DashboardService,private mapService:MapService,private router:Router){
-    this.dashboardService.getData().then((result)=>{
-      this.data = result;
-    }).catch((e)=>{
-      console.log(e);
-    });
-    this.mapData = mapService.getData();
+  constructor(private dashboardService: DashboardService,private router:Router){
+    this.tileData = dashboardService.getData();
   }
   gotoDetails(locationID){
     console.log('i was clicked');
