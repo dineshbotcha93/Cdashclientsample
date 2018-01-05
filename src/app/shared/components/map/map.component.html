@@ -1,7 +1,7 @@
 <agm-map
 [latitude]="markers.LocationGroup[0].Location[0].Latitude|stringToNumber"
 [longitude]="markers.LocationGroup[0].Location[0].Longitude|stringToNumber"
-[zoom]="3">
+[zoom]="5">
 <agm-marker-cluster *ngFor="let loc of markers.LocationGroup" imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
 <agm-marker *ngFor="let aLoc of loc.Location"
   [latitude]="aLoc.Latitude|stringToNumber"
