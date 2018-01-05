@@ -6,7 +6,6 @@ import { PaymentsModule } from './payments/payments.module';
 import { SensorDetailsModule } from './sensor-details/sensor-details.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
-/*import { EmptyComponent } from './empty.component';*/
 import { LoginModule } from './auth/login/login.module';
 import { ContainersModule } from './shared/containers';
 import { Http, HttpModule, BaseRequestOptions } from '@angular/http';

@@ -29,6 +29,8 @@ export class SensorDetailsComponent {
     this.route.params.subscribe((params)=>{
       console.log(params.id);
       this.sensorDetailsService.getData(params.id).then((e)=>{
+        console.log('GOT E');
+        console.log(e);
         this.mapData = e;
         e.Location.Network.Gateway.forEach((gate)=>{
           gate.Sensor.forEach((sens)=>{

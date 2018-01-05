@@ -45,6 +45,54 @@ export class MockBackendService {
           URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_FOUR.path;
           body = SERVICE_CONSTANTS.GET_LOCATION_FOUR.mock;
         break;
+        case SERVICE_CONSTANTS.GET_LOCATION_FIVE.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_FIVE.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_FIVE.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_SIX.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_SIX.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_SIX.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_SEVEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_SEVEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_SEVEN.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_EIGHT.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_EIGHT.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_EIGHT.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_NINE.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_NINE.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_NINE.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_TEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_TEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_TEN.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_ELEVEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_ELEVEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_ELEVEN.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_TWELVE.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_TWELVE.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_TWELVE.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_THIRTEEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_THIRTEEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_THIRTEEN.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_FOURTEEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_FOURTEEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_FOURTEEN.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_FIFTEEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_FIFTEEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_FIFTEEN.mock;
+        break;
+        case SERVICE_CONSTANTS.GET_LOCATION_SIXTEEN.path:
+          URL = 'http://localhost:4200'+SERVICE_CONSTANTS.GET_LOCATION_SIXTEEN.path;
+          body = SERVICE_CONSTANTS.GET_LOCATION_SIXTEEN.mock;
+        break;
         default:
         break;
       }

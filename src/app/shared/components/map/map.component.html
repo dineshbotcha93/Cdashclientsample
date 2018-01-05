@@ -1,12 +1,12 @@
 <agm-map
-[latitude]="markers.Location[0].Latitude|stringToNumber"
-[longitude]="markers.Location[0].Longitude|stringToNumber"
+[latitude]="markers.LocationGroup[0].Location[0].Latitude|stringToNumber"
+[longitude]="markers.LocationGroup[0].Location[0].Longitude|stringToNumber"
 [zoom]="3">
-<agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-<agm-marker *ngFor="let i of markers.Location"
-  [latitude]="i.Latitude|stringToNumber"
-  [longitude]="i.Longitude|stringToNumber"
-  (markerClick)="clickedMarker(i.status, i.Id)">
+<agm-marker-cluster *ngFor="let loc of markers.LocationGroup" imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+<agm-marker *ngFor="let aLoc of loc.Location"
+  [latitude]="aLoc.Latitude|stringToNumber"
+  [longitude]="aLoc.Longitude|stringToNumber"
+  (markerClick)="clickedMarker(aLoc.status, aLoc.Id)">
   <agm-info-window>
   <strong>InfoWindow content</strong>
 </agm-info-window>

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './map.component.html',
   providers:[MapService]
 })
+
 export class MapComponent {
   title: string = 'My first AGM project';
   lbl: string = "Hello there. I am a marker!";
