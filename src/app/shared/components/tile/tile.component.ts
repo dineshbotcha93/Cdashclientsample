@@ -85,7 +85,7 @@ export class TileComponent {
     if(tileColorBy == 'status'){
       switch(color){
         case this.mapStatus.LOW_BATTERY:
-        return 'fa-bolt';
+        return 'fa-battery-three-quarters';
         case this.mapStatus.ALERTS:
         return 'fa-bell';
         case this.mapStatus.LOW_SIGNAL:

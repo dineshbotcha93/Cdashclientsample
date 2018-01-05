@@ -23,10 +23,17 @@
 		<!-- sidebar menu -->
 		<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 			<div class="menu_section active">
-				<h3>General</h3>
 				<ul class="nav side-menu" style="">
-					<li><a (click)="clicker($event)" href="/dashboard"><i class="fa fa-home"></i> Home</a></li>
-					<li><a (click)="clicker($event)"><i class="fa fa-edit"></i> Forms</a></li>
+          <li class="active"><a><i class="fa fa-home"></i> Notifeye <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu" style="display: block;">
+              <li class="current-page"><a (click)="clicker($event)" href="/dashboard"><i class="fa fa-home"></i> Account Summary</a></li>
+              <li><a (click)="clicker($event)" href="/dashboard">Payments</a></li>
+              <li><a (click)="clicker($event)" href="/dashboard">Settings</a></li>
+            </ul>
+          </li>
+
+					<!--<li class="current-page"><a (click)="clicker($event)" href="/dashboard"><i class="fa fa-home"></i> Home</a></li>-->
+					<!--<li><a (click)="clicker($event)"><i class="fa fa-edit"></i> Forms</a></li>-->
 				</ul>
 			</div>
 		</div>
