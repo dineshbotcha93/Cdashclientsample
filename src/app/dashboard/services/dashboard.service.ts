@@ -12,19 +12,23 @@ export class DashboardService {
     return [
       {
         count:'5',
-        status:'Alerts'
+        status:'Alerts',
+        title:'Alerts'
       },
       {
         count:'3',
-        status:'MissedCommunication'
+        status:'MissedCommunication',
+        title:'Offline'
       },
       {
         count:'1',
-        status:'LowSignal'
+        status:'LowSignal',
+        title:'Low Signal'
       },
       {
         count:'7',
-        status:'LowBattery'
+        status:'LowBattery',
+        title:'Low Battery'
       }
     ];
   }
