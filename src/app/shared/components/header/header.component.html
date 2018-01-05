@@ -4,13 +4,15 @@
               <div class="nav toggle">
                 <a id="menu_toggle" (click)="menuToggle()"><i class="fa fa-bars"></i></a>
               </div>
-
+              <div>
+                <img id="logo" style="padding: 5px;float:left;" src="assets/images/cooper_logo.png"/>
+              </div>
               <ul class="nav navbar-nav navbar-right">
-              <li role="presentation" class="dropdown">
+              <!--<li role="presentation" class="dropdown">
                 <app-navigation></app-navigation>
-              </li>
+              </li>-->
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a astyle="padding: 10px;" href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="assets/images/users/img.jpg" alt="">{{userEmail}}
                     <span class=" fa fa-angle-down"></span>
                   </a>

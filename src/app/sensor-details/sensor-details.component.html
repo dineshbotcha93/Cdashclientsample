@@ -30,40 +30,40 @@
         <h3>Gateway Details</h3>
         <div class="row" *ngIf="gateway!=='all'">
           <table class="table table-bordered">
-            <tr>
+            <!--<tr>
               <td class="col-md-4">Gateway ID</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayID}}</td>
             </tr>
             <tr>
               <td class="col-md-4">Network ID</td><td>{{mapData.Location.Network.Gateway[gateway].NetworkID}}</td>
-            </tr>
+            </tr>-->
             <tr>
-              <td class="col-md-4">Name</td><td>{{mapData.Location.Network.Gateway[gateway].Name}}</td>
+              <td class="col-md-4">Gateway Name</td><td>{{mapData.Location.Network.Gateway[gateway].Name}}</td>
             </tr>
-            <tr>
+            <!--<tr>
               <td class="col-md-4">Gateway Type</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayType}}</td>
             </tr>
             <tr>
               <td class="col-md-4">Last Communication Date</td><td>{{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</td>
-            </tr>
+            </tr>-->
           </table>
         </div>
         <div class="row" *ngIf="gateway=='all'">
           <table class="table table-bordered" *ngFor="let aGateway of mapData.Location.Network.Gateway">
-            <tr>
+            <!--<tr>
               <td class="col-md-4">Gateway ID</td><td>{{aGateway.GatewayID}}</td>
             </tr>
             <tr>
               <td class="col-md-4">Network ID</td><td>{{aGateway.NetworkID}}</td>
-            </tr>
+            </tr>-->
             <tr>
-              <td class="col-md-4">Name</td><td>{{aGateway.Name}}</td>
+              <td class="col-md-4">Gateway Name</td><td>{{aGateway.Name}}</td>
             </tr>
-            <tr>
+           <!-- <tr>
               <td class="col-md-4">Gateway Type</td><td>{{aGateway.GatewayType}}</td>
             </tr>
             <tr>
               <td class="col-md-4">Last Communication Date</td><td>{{aGateway.LastCommunicationDate}}</td>
-            </tr>
+            </tr>-->
           </table>
         </div>
       </div>
