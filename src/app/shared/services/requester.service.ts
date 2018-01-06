@@ -16,7 +16,7 @@ export class RequesterService {
   }
   get(path:string):Promise<any>{
     console.log('path is '+path);
-    return this.http.get('http://localhost:4200'+path)
+    return this.http.get(window.location.origin+path)
     .map(e=>e.json())
     .catch(e=>{
       console.log(e);

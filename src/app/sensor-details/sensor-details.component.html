@@ -11,14 +11,16 @@
 
           <form class="form-inline float-right" role="form">
             <div class="form-group">
-              <select name="sort" [(ngModel)]="orderBy" (change)="doSort()" class="form-control">
+              <select name="sort" [(ngModel)]="orderBy" class="form-control">
                 <option value="asc" selected>Higest Priority</option>
                 <option value="desc">Lowest Priority</option>
               </select>
             </div>
-            <div class="btn-group">
-              <button class="btn btn-default" [ngClass]="{'active':gateway==all}" type="button" (click)="handleGatewayClick('all')">All</button>
-              <button class="btn btn-default" [ngClass]="{'active': gateway===i}" type="button" *ngFor="let btn of mapData.Location.Network.Gateway; let i = index" (click)="handleGatewayClick(i)">{{btn.Name}}</button>
+            <div class="form-group">
+              <select name="gateway" [(ngModel)]="gateway" class="form-control">
+                <option value="all" selected>All</option>
+                <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
+              </select>
             </div>
             <div class="form-group">
 

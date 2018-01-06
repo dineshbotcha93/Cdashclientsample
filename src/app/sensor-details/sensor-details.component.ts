@@ -15,7 +15,7 @@ export class SensorDetailsComponent {
   allSensors:Array<any> = [];
   displayTiles:Object = null;
   orderBy: any = 'asc';
-  gateway: any = 0;
+  gateway: any = 'all';
   private mapStatus = MapConstants.STATUS;
   constructor(private route:ActivatedRoute, private mapService:MapService,private sensorDetailsService:SensorDetailsService){
     this.route.params.subscribe((params)=>{
@@ -32,14 +32,5 @@ export class SensorDetailsComponent {
       });
     });
 
-  }
-
-  doSort(){
-    console.log('i was called');
-    console.log(this.orderBy);
-  }
-
-  handleGatewayClick(index){
-    this.gateway = index;
   }
 }
