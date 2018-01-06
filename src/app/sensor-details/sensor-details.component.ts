@@ -33,13 +33,4 @@ export class SensorDetailsComponent {
     });
 
   }
-
-  doSort(){
-    console.log('i was called');
-    console.log(this.orderBy);
-  }
-
-  handleGatewayClick(index){
-    this.gateway = index;
-  }
 }
