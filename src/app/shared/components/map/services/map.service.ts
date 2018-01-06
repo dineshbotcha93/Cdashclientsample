@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MapConstants } from '../constants/map.constants';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class MapService{
@@ -55,8 +57,8 @@ export class MapService{
     return priority;
   }
 
-  getData():Object{
-    return {
+  getData():Observable<any>{
+    return Observable.of({
       "LocationGroup": [
         {
           "Location": [
@@ -249,6 +251,6 @@ export class MapService{
           ]
         }
       ]
-    }
+    });
   }
 }

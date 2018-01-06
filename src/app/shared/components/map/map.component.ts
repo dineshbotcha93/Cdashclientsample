@@ -17,12 +17,9 @@ import { Router } from '@angular/router';
 })
 
 export class MapComponent {
-  title: string = 'My first AGM project';
-  lbl: string = "Hello there. I am a marker!";
-  markers: Object = null;
+  @Input() markers: object;
   private mapStatus = MapConstants.STATUS;
-  constructor(private mapService:MapService,private router:Router){
-    this.markers=mapService.getData();
+  constructor(private router:Router){
   }
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label} and count ${index}`);

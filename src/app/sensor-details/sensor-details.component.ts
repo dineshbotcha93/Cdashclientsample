@@ -4,14 +4,6 @@ import { MapService } from '../shared/components/map/services/map.service';
 import { MapConstants } from '../shared/components/map/constants/map.constants';
 import { SensorDetailsService } from './services/sensor-details.service';
 
-interface tileDetail{
-  locationID:number;
-  lat:number;
-  lng:number;
-  count:number;
-  status:string;
-  details:object;
-}
 @Component({
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',

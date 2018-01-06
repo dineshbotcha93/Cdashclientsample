@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RequesterService } from '../../shared/services/requester.service';
 import { SERVICE_CONSTANTS } from '../../shared/constants/service.constants';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class DashboardService {
@@ -8,8 +10,8 @@ export class DashboardService {
   constructor(private requesterService:RequesterService) {
 
   }
-  getData(){
-    return [
+  getData():Observable<any>{
+    return Observable.of([
       {
         count:'5',
         status:'Alerts',
@@ -30,7 +32,7 @@ export class DashboardService {
         status:'LowBattery',
         title:'Low Battery'
       }
-    ];
+    ]);
   }
 
 }
