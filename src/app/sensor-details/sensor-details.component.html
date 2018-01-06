@@ -17,7 +17,7 @@
               </select>
             </div>
             <div class="btn-group">
-              <button class="btn btn-default" [ngClass]="{'active':gateway==all}" type="button" (click)="handleGatewayClick('all')">All</button>
+              <button class="btn btn-default" [ngClass]="{'active':gateway=='all'}" type="button" (click)="handleGatewayClick('all')">All</button>
               <button class="btn btn-default" [ngClass]="{'active': gateway===i}" type="button" *ngFor="let btn of mapData.Location.Network.Gateway; let i = index" (click)="handleGatewayClick(i)">{{btn.Name}}</button>
             </div>
             <div class="form-group">
