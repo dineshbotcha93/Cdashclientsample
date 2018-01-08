@@ -6,6 +6,7 @@ import {
  } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,11 @@ import * as $ from 'jquery';
 })
 export class NavigationComponent {
   @Input() userEmail:           string;
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService,private router:Router) {
+  }
+
+  goToLink(link){
+    this.router.navigate([link]);
   }
 
   clicker($event){
