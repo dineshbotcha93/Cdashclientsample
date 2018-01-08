@@ -42,7 +42,6 @@ export class TileComponent {
     console.log(event);
   }
   getTileColor(status,tileColorBy){
-    console.log(status);
     switch(status){
       case this.mapStatus.LOW_BATTERY:
       return 'bg-lowBattery';
@@ -56,7 +55,7 @@ export class TileComponent {
       break;
     }
   }
-  getTileStatus(number){
+  getTileStatusByColorNum(number){
     switch(number){
       case this.mapConstants.STATUS_NUMBERS.GOOD:
       return 'bg-green';
@@ -76,9 +75,41 @@ export class TileComponent {
         case this.mapConstants.SENSOR_TYPE.TEMP:
         return 'fa-thermometer-half';
         case this.mapConstants.SENSOR_TYPE.HUMIDITY:
-          return 'fa-tint';
+        return 'fa-tint';
         default:
         break;
+    }
+  }
+
+  getTileStatusTextByColorNum(color){
+    //here, status is a number
+    switch(color){
+      case this.mapConstants.STATUS_NUMBERS.GOOD:
+      return this.mapConstants.READABLE_STATUS.GOOD;
+      case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
+      return this.mapConstants.READABLE_STATUS.MISSED_COMMUNICATION;
+      case this.mapConstants.STATUS_NUMBERS.ALERTS:
+      return this.mapConstants.READABLE_STATUS.ALERTS;
+      case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
+      return this.mapConstants.READABLE_STATUS.LOW_SIGNAL;
+      case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
+      return this.mapConstants.READABLE_STATUS.LOW_BATTERY;
+    }
+  }
+
+  getTileStatusIconByColorNum(color){
+    //here, color is a number
+    switch(color){
+      case this.mapConstants.STATUS_NUMBERS.GOOD:
+      return 'bg-green';
+      case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
+      return 'fa-exclamation-circle';
+      case this.mapConstants.STATUS_NUMBERS.ALERTS:
+      return 'fa-bell';
+      case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
+      return 'fa-signal';
+      case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
+      return 'fa-battery-three-quarters';
     }
   }
 

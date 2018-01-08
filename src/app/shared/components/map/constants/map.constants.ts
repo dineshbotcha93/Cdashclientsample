@@ -20,6 +20,7 @@ export const MapConstants = {
     TEMP:'2'
   },
   READABLE_STATUS:{
+    GOOD:'Good',
     ALERTS:'Alerts',
     MISSED_COMMUNICATION:'Offline',
     LOW_SIGNAL:'Low Signal',
