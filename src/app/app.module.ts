@@ -4,6 +4,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportsModule } from './reports/reports.module';
 import { PaymentsModule } from './payments/payments.module';
 import { SensorDetailsModule } from './sensor-details/sensor-details.module';
+import { SensorSummaryModule } from './sensor-summary/sensor-summary.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginModule } from './auth/login/login.module';
@@ -15,6 +16,8 @@ import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
 import {environment} from '../environments/environment';
 import { ComponentsModule }    from './shared/components';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -52,6 +55,7 @@ if(!environment.production)
     ReportsModule,
     PaymentsModule,
     SensorDetailsModule,
+    SensorSummaryModule,
     LoginModule,
     HttpModule,
     ComponentsModule,
@@ -59,6 +63,7 @@ if(!environment.production)
     ContainersModule,
     NgxDatatableModule,
     PipesModule,
+    NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
     /**
     * Store devtools instrument the store retaining past versions of state

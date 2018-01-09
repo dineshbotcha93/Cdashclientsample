@@ -9,6 +9,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent }     from './map/map.component';
 import { NotificationComponent } from './notification/notification.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
+import { Tab } from './tabs/tab.component';
+import { Tabs } from './tabs/tabs.component';
 // Google map integration
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
@@ -23,6 +25,8 @@ export const COMPONENTS = [
   NotificationComponent,
   MapComponent,
   DataTableComponent,
+  Tab,
+  Tabs
 ];
 
 @NgModule({
