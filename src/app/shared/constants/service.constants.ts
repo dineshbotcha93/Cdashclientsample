@@ -1,5 +1,6 @@
 import {HEROES} from '../../../mocks/heroes';
 import {LOGIN} from '../../../mocks/login';
+import {SensorDetail} from '../../../mocks/GetSensorDetail';
 import {LOCATION1} from '../../../mocks/GetSensorsList-1001';
 import {LOCATION2} from '../../../mocks/GetSensorsList-1002';
 import {LOCATION3} from '../../../mocks/GetSensorsList-1003';
@@ -108,4 +109,9 @@ export const SERVICE_CONSTANTS = {
     'mock':LOCATION16,
     'live':'/location/I016'
   },
+  GET_SENSOR_DETAIL:{
+    'path':'/sensor_summary/I1',
+    'mock':SensorDetail,
+    'live':'/sensor_summary/I1'
+  }
 };

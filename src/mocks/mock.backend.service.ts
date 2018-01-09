@@ -92,6 +92,9 @@ export class MockBackendService {
           URL = baseOrigin+SERVICE_CONSTANTS.GET_LOCATION_SIXTEEN.path;
           body = SERVICE_CONSTANTS.GET_LOCATION_SIXTEEN.mock;
         break;
+        case SERVICE_CONSTANTS.GET_SENSOR_DETAIL.path:
+          URL = baseOrigin+SERVICE_CONSTANTS.GET_SENSOR_DETAIL.path;
+          body = SERVICE_CONSTANTS.GET_SENSOR_DETAIL.mock;
         default:
         break;
       }
