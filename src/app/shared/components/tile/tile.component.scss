@@ -1,0 +1,113 @@
+$colors : red green yellow orange;
+
+.tile-stats{
+  @each $color in $colors{
+    &.backColor-#{$color}{
+      background-color:#{$color};
+    }
+  }
+  .fahrenHeight{
+    font-size:67px;
+  }
+
+  .relativeHumidity{
+    @extend .fahrenHeight;
+    color:red;
+  }
+  .title{
+    font-size:18px;
+  }
+}
+
+.widget-style-2 {
+
+  @media (min-width: 767px) {
+    padding-left: 30px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 30px;
+    margin-bottom: 10px;
+  }
+
+}
+
+.widget-panel {
+
+  border-radius: 4px;
+  color: #ffffff;
+  position: relative;
+
+  @media (min-width: 767px) {
+    padding: 40px 20px;
+    margin-bottom: 20px;
+  }
+
+
+  @media (max-width: 767px) {
+    padding: 20px 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.bg-pink {
+  background-color: #d9534f;
+}
+
+.bg-info {
+  background-color: #3498DB;
+}
+
+.bg-lowBattery {
+  background-color: #f0ad4e;
+}
+
+.bg-success {
+  background-color: #26B99A;
+}
+
+.bg-warning {
+  background-color: #73879C;
+}
+
+.widget-style-2 i:not(.special) {
+
+  float: right;
+  color: #edf0f0;
+  /*background: rgba(255,255,255,0.2);*/
+
+  @media (min-width: 767px) {
+    font-size: 45px;
+    padding: 40px 20px;
+    margin-top: -40px;
+    margin-right: -20px;
+  }
+
+
+  @media (max-width: 767px) {
+    font-size: 25px;
+    /*padding: 20px 10px;*/
+  }
+}
+
+.widget-style-2 .special{
+  font-size:18px;
+}
+
+.widget-style-2 h2 {
+
+
+  @media (min-width: 767px) {
+    font-size: 32px;
+  }
+  @media (max-width: 767px) {
+    font-size: 24px;
+  }
+
+  font-weight: 600;
+
+}
+
+.m-0 {
+  margin: 0px !important;
+}

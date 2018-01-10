@@ -1,0 +1,18 @@
+<div class="widget-panel widget-style-2 {{tileColorBy == 'status' ? getTileColor(tileColor,'status'):getTileStatusByColorNum(tileColor)}}">
+  <i class="fa {{tileColorBy=='sensorType'? getSensorTileIcon(sensorTileIcon) :getTileIcon(tileColor,tileColorBy)}}"></i>
+  <div *ngIf="tileDetails">
+    <div *ngIf="tileDetails.fahrenHeight" class="fahrenHeight">
+      {{tileDetails.fahrenHeight}}
+    </div>
+    <div *ngIf="tileDetails.relativeHumidity" class="relativeHumidity">
+      {{tileDetails.relativeHumidity}}
+    </div>
+    <div *ngIf="tileDetails.title" class="title">
+      {{tileDetails.title}}
+    </div>
+  </div>
+    <h2 class="m-0 counter" *ngIf="count">{{count}}</h2>
+    <div> {{tileContent}}</div>
+    <!--<i *ngIf="tileColorBy=='sensorType'" class="fa {{getTileStatusIconByColorNum(tileColor)}} special"></i>
+    <div *ngIf="tileColorBy=='sensorType'">{{getTileStatusTextByColorNum(tileColor)}}</div>-->
+</div>
