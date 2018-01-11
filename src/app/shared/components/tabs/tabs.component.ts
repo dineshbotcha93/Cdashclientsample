@@ -3,10 +3,14 @@ import { Tab } from './tab.component';
 
 @Component({
   selector: 'tabs',
+  styleUrls: ['./tab.component.scss'],
   template: `
-  <ul>
-  <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">{{ tab.tabTitle }}</li>
+  <ul class="nav nav-tabs bar_tabs" role="tablist">
+  <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active" class="tabs" role="tab">
+    <a>{{ tab.tabTitle }}</a>
+  </li>
   </ul>
+  <ng-content></ng-content>
   `
 })
 export class Tabs {
