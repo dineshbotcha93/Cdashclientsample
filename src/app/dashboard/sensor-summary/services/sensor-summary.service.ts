@@ -1,9 +1,9 @@
-import { RequesterService } from '../../shared/services/requester.service';
+import { RequesterService } from '../../../shared/services/requester.service';
 import { Injectable } from '@angular/core';
-import { SERVICE_CONSTANTS } from '../../shared/constants/service.constants';
+import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
 
 @Injectable()
-export class SensorDetailsService {
+export class SensorSummaryService {
   data:String[] = [];
   constructor(private requesterService:RequesterService) {
 

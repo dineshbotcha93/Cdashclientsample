@@ -8,6 +8,8 @@ import { AuthGuard } from '../shared/services/auth-guard.service';
 import { AuthService } from '../shared/services/auth.service';
 import { ComponentsModule }    from '../shared/components';
 import { ContainersModule }         from '../shared/containers';
+import { SensorDetailsModule }    from './sensor-details/sensor-details.module';
+import { SensorSummaryModule }    from './sensor-summary/sensor-summary.module';
 
 export const routes: Routes = [
   { path:'dashboard',component: DashboardComponent, canActivate:[AuthGuard] },
@@ -25,6 +27,8 @@ export const routes: Routes = [
     CommonModule,
     ComponentsModule,
     ContainersModule,
+    SensorDetailsModule,
+    SensorSummaryModule,
     TranslateModule.forRoot(),
   ]
 })

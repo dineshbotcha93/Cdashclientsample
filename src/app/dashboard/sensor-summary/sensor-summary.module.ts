@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import {SensorSummaryComponent } from './sensor-summary.component';
 import {Route, RouterModule } from '@angular/router';
-import { ContainersModule }         from '../shared/containers';
-import { ComponentsModule }    from '../shared/components';
+import { ContainersModule }         from '../../shared/containers';
+import { ComponentsModule }    from '../../shared/components';
 import { CommonModule } from '@angular/common';
-import { PipesModule } from '../shared/pipes';
+import { PipesModule } from '../../shared/pipes';
 import { FormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes:Object[] = [{
-  path:'sensor-summary/:id',component:SensorSummaryComponent
+  path:'dashboard/sensor-summary/:id',component:SensorSummaryComponent
 }];
 
 @NgModule({
@@ -20,8 +19,7 @@ const routes:Object[] = [{
     ComponentsModule,
     CommonModule,
     PipesModule,
-    FormsModule,
-    NgbModule
+    FormsModule
   ]
 })
 export class SensorSummaryModule {}

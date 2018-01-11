@@ -26,7 +26,7 @@ export class MapComponent {
   }
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label} and count ${index}`);
-    this.router.navigate(['sensor-details',index]);
+    this.router.navigate(['dashboard/sensor-summary',index]);
   }
   onResize(event){
     let newLat;

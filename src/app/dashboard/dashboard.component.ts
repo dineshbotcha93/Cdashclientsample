@@ -32,6 +32,6 @@ export class DashboardComponent{
     });
   }
   gotoDetails(locationID){
-    this.router.navigate(['sensor-details',locationID]);
+    this.router.navigate(['dashboard/sensor-summary',locationID]);
   }
 }
