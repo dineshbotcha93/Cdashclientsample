@@ -16,8 +16,6 @@ import { Tab } from './tab.component';
 export class Tabs {
   tabs: Tab[] = [];
   selectTab(tab: Tab) {
-    console.log('test');
-    console.log(tab);
     this.tabs.forEach((tab) => {
       tab.active = false;
     });

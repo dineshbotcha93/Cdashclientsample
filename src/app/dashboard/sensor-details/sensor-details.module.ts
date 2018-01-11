@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../shared/pipes';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule } from 'ng2-charts';
 
 const routes:Object[] = [{
   path:'dashboard/sensor-details/:id',component:SensorDetailsComponent
@@ -21,7 +22,8 @@ const routes:Object[] = [{
     CommonModule,
     PipesModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ChartsModule
   ]
 })
 export class SensorDetailsModule {}

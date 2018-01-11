@@ -32,8 +32,23 @@ booth letterpress, commodo enim craft beer mlkshk </p>
   <tab tabTitle="Sample JSON" class="tab-content">
     <pre>{{result|json}}</pre>
   </tab>
-  <tab tabTitle="Data Table" class="tab-content">
+  <tab tabTitle="Data Table / Grid" class="tab-content">
+    <h3>Grid goes here</h3>
     <app-datatable></app-datatable>
+  </tab>
+  <tab tabTitle="Graph" class="tab-content">
+    <h3>Graph goes here</h3>
+    <div style="width: 40%;">
+  <canvas
+      baseChart
+      [chartType]="'line'"
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+      (chartClick)="onChartClick($event)">
+  </canvas>
+</div>
   </tab>
 </tabs>
 </app-layout>
