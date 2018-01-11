@@ -8,6 +8,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <div>
       <ngx-datatable class="material"
         [rows]="rows"
+        [limit]="1"
+        [footerHeight]="50"
         [columns]="columns">
       </ngx-datatable>
     </div>
