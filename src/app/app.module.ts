@@ -26,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Datatable Integration
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
+import { CommonDashboardService } from './shared/services/common-dashboard.service';
 
 
 const appRoutes: Routes = [{
@@ -87,7 +88,8 @@ if(!environment.production)
     BaseRequestOptions,
     RequesterService,
     MockBackendService,
-    mockProvider
+    mockProvider,
+    CommonDashboardService
   ],
   bootstrap: [AppComponent]
 })

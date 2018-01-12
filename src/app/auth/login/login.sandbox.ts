@@ -4,6 +4,8 @@ import {Sandbox}              from '../../shared/sandbox/base.sandbox';
 import * as store             from '../../shared/store';
 import * as authActions       from '../../shared/store/actions/auth.action';
 import {Router} from "@angular/router";
+import { CommonDashboardService } from '../../shared/services/common-dashboard.service';
+
 
 @Injectable()
 export class LoginSandbox extends Sandbox {
@@ -13,12 +15,12 @@ export class LoginSandbox extends Sandbox {
   }
 
   doLogin(form:any){
-    console.log(form);
-    console.log(form.value.username);
+    console.log(form.value.password);
+    form.value.password = CommonDashboardService.prototype.getHahedPassword(form.value.username,form.value.password);
+    console.log(form.value.password);
     localStorage.setItem('currentUser',JSON.stringify({'username':form.value.username}));
     this.loginSandbox$.dispatch(new authActions.AuthAction());
     this.loginSandbox$.subscribe(e=>{
-      console.log('this is e ');
       console.log(e);
     })
     this.router.navigate(['dashboard']);
