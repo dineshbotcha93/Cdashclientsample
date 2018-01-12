@@ -27,7 +27,8 @@ export class SensorDetailsComponent {
           data:res.Data,
           messageDate:res.MessageDate,
           signalStrength:res.SignalStrength,
-          voltage:res.Voltage
+          voltage:res.Voltage,
+          test:'<i class="fa fa-signal"></i>'
         });
       });
     });
@@ -36,6 +37,7 @@ export class SensorDetailsComponent {
     this.columns.push({prop:'messageDate',name:'Message Date'});
     this.columns.push({prop:'signalStrength',name:'Signal Strength'});
     this.columns.push({prop:'voltage',name:'Voltage'});
+    this.columns.push({prop:'test',name:'Test'});
   }
   chartOptions = {
     responsive: true

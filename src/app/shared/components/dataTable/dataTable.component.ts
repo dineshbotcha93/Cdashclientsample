@@ -10,6 +10,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
         [rows]="rows"
         [limit]="limit"
         [footerHeight]="50"
+        [rowHeight]="100"
         [columns]="columns">
       </ngx-datatable>
     </div>
