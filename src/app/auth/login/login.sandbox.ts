@@ -15,9 +15,7 @@ export class LoginSandbox extends Sandbox {
   }
 
   doLogin(form:any){
-    console.log(form.value.password);
     form.value.password = CommonDashboardService.prototype.getHahedPassword(form.value.username,form.value.password);
-    console.log(form.value.password);
     localStorage.setItem('currentUser',JSON.stringify({'username':form.value.username}));
     this.loginSandbox$.dispatch(new authActions.AuthAction());
     this.loginSandbox$.subscribe(e=>{
