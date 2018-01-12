@@ -29,12 +29,12 @@ booth letterpress, commodo enim craft beer mlkshk </p>
 </div>
 -->
 <tabs>
-  <tab tabTitle="Sample JSON" class="tab-content">
-    <pre>{{result|json}}</pre>
-  </tab>
-  <tab tabTitle="Data Table / Grid" class="tab-content">
-    <h3>Grid goes here</h3>
-    <app-datatable></app-datatable>
+  <tab tabTitle="History" class="tab-content">
+    <app-datatable
+    [rows]="rows"
+    [columns]="columns"
+    [limit]="limit">
+  </app-datatable>
   </tab>
   <tab tabTitle="Graph" class="tab-content">
     <h3>Graph goes here</h3>

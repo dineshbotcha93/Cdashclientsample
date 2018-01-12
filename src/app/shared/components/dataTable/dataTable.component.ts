@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Input } from '@angular/core';
 
 @Component({
   selector: 'app-datatable',
@@ -8,7 +8,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <div>
       <ngx-datatable class="material"
         [rows]="rows"
-        [limit]="1"
+        [limit]="limit"
         [footerHeight]="50"
         [columns]="columns">
       </ngx-datatable>
@@ -16,14 +16,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   `
 })
 export class DataTableComponent {
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ];
-  columns = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
-  ];
+  @Input() rows;
+  @Input() columns;
+  @Input() limit;
 }
