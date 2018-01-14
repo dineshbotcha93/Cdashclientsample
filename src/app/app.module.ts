@@ -27,6 +27,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
 import { CommonDashboardService } from './shared/services/common-dashboard.service';
+import { UserManagementModule } from './user-management/UserManagement.module';
 
 
 const appRoutes: Routes = [{
@@ -60,6 +61,7 @@ if(!environment.production)
     ContainersModule,
     NgxDatatableModule,
     PipesModule,
+    UserManagementModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
     /**
