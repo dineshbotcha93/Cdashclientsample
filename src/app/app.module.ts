@@ -26,7 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Datatable Integration
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
-import { CommonDashboardService } from './shared/services/common-dashboard.service';
+import { CommonSharedService } from './shared/services/common-shared.service';
 import { UserManagementModule } from './user-management/UserManagement.module';
 
 
@@ -91,7 +91,7 @@ if(!environment.production)
     RequesterService,
     MockBackendService,
     mockProvider,
-    CommonDashboardService
+    CommonSharedService
   ],
   bootstrap: [AppComponent]
 })

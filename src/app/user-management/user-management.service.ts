@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { RegisterForm } from '../models/auth/register.model';
+import { UserManagementForm } from './user-manage.model';
 
 @Injectable()
 export class UserManagementService {
@@ -8,7 +8,7 @@ export class UserManagementService {
   constructor() { }
 
 
-  public getEmailVerification(registerForm : RegisterForm): boolean {
+  public getEmailVerification(userRegisterModel : UserManagementForm): boolean {
 
   return true;
 

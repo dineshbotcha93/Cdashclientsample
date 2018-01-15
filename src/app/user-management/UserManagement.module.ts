@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
-import { UserManagementComponent } from './user-management.component';
 import {Routes,RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormsModule } from '@angular/forms'; 
 import { EmailValidator } from '@angular/forms';
-import { UserManagementService } from '../shared/services/user-management.service';
+import { UserManagementService } from './user-management.service';
+import { UserRegisterComponent } from './user-register/user-register.component';
 
 
 export const routes: Routes = [
-  { path:'user-management',component: UserManagementComponent }
+  { path:'user-register',component: UserRegisterComponent }
 ]
 
 @NgModule({
   declarations: [
-    UserManagementComponent,
+    UserRegisterComponent,
   ],
     providers:[
     UserManagementService
