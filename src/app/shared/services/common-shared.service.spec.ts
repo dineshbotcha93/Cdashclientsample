@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CommonDashboardService } from './common-dashboard.service';
+import { CommonSharedService } from './common-shared.service';
 
 describe('CommonDashboardService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CommonDashboardService]
+      providers: [CommonSharedService]
     });
   });
 
-  it('should be created', inject([CommonDashboardService], (service: CommonDashboardService) => {
+  it('should be created', inject([CommonSharedService], (service: CommonSharedService) => {
     expect(service).toBeTruthy();
   }));
 });
