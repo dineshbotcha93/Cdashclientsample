@@ -37,4 +37,8 @@ export class SensorSummaryComponent {
   gotoSummary(){
     this.router.navigate(['dashboard/sensor-details','I1']);
   }
+
+  doCompare(){
+    this.router.navigate(['dashboard/sensor-comparison','I1']);
+  }
 }

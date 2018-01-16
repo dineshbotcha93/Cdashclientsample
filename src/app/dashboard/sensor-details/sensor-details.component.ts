@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { SensorDetailsService } from './services/sensor-details.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
@@ -16,7 +16,7 @@ export class SensorDetailsComponent {
   private limit:number = 10;
   private data:Array<any>=[];
   private chartLabels:Array<any>=[];
-  constructor(private sensorSummaryService:SensorDetailsService){
+  constructor(private sensorSummaryService:SensorDetailsService,private router:Router){
     sensorSummaryService.getData('I11').then((result)=>{
       this.result = result;
       result.DataMessages.forEach((res)=>{

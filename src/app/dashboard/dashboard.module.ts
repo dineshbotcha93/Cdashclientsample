@@ -10,6 +10,7 @@ import { ComponentsModule }    from '../shared/components';
 import { ContainersModule }         from '../shared/containers';
 import { SensorDetailsModule }    from './sensor-details/sensor-details.module';
 import { SensorSummaryModule }    from './sensor-summary/sensor-summary.module';
+import { SensorComparisonModule } from './sensor-comparison/sensor-comparison.module';
 
 export const routes: Routes = [
   { path:'dashboard',component: DashboardComponent, canActivate:[AuthGuard] },
@@ -29,6 +30,7 @@ export const routes: Routes = [
     ContainersModule,
     SensorDetailsModule,
     SensorSummaryModule,
+    SensorComparisonModule,
     TranslateModule.forRoot(),
   ]
 })
