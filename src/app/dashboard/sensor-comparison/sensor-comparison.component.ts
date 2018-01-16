@@ -2,7 +2,6 @@ import { Component,ViewChild } from '@angular/core';
 import { SensorDetailsService } from '../sensor-details/services/sensor-details.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 interface SensorDetail{
   SensorName:string;
@@ -131,12 +130,7 @@ export class SensorComparisonComponent {
     this.chart.chart.resetZoom();
   }
 
-  model: NgbDateStruct;
   date: {year: number, month: number};
-
-  selectToday() {
-    this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-  }
 
   minDate = new Date(2017, 5, 10);
   maxDate = new Date(2018, 9, 15);
