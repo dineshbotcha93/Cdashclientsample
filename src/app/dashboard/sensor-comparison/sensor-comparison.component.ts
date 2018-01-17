@@ -60,7 +60,9 @@ export class SensorComparisonComponent{
     this.sensorDetailsService.getData('I'+totalLocation).then((result)=>{
       result.DataMessages.forEach((res)=>{
         tempData.push(res.PlotValue);
-        this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+        if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
+          this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+        }
       });
       this.chartData.push({data:tempData,label:'Sensor '+this.location});
       if(this.chart){
@@ -68,6 +70,7 @@ export class SensorComparisonComponent{
         this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
         this.chart.chart.update();
       }
+      console.log(this.chartLabels);
     });
   }
 
@@ -80,8 +83,17 @@ export class SensorComparisonComponent{
     console.log($event);
   }
 
-  resetZoom(){
-    this.chart.chart.resetZoom();
+  reset(attribute){
+    if(attribute=='zoom'){
+      this.chart.chart.resetZoom();
+    } else if(attribute == 'chart'){
+      this.chartData = [];
+      this.chartLabels = [];
+      this.location = 0;
+      this.chart.ngOnDestroy();
+      this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
+      this.chart.chart.update();
+    }
   }
 
   date: {year: number, month: number};

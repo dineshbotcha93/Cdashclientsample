@@ -10,7 +10,8 @@
         </div>
         <div class="form-group">
           <input type="button" value="Add Sensor" (click)="addSensor()"/>
-          <input type="button" value="Reset Zoom" (click)="resetZoom()" />
+          <input type="button" value="Reset Zoom" (click)="reset('zoom')" />
+          <input type="button" value="Reset Chart" (click)="reset('chart')" />
         </div>
         <div class="form-group pull-right">
           <input type="text"
@@ -27,7 +28,7 @@
           bsDatepicker [(bsValue)]="bsValueTwo">
         </div>
       </form>
-      <div style="width: 40%;">
+      <div style="width: 100%;">
         <canvas
         baseChart
         #baseChart="base-chart"
