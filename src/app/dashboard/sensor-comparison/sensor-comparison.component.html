@@ -14,24 +14,31 @@
         </div>
         <div class="form-group pull-right">
           <input type="text"
-                  class="form-control"
-                  [minDate]="minDate"
-                  [maxDate]="maxDate"
-                  #dp="bsDatepicker"
-                  bsDatepicker [(bsValue)]="bsValue">
+          class="form-control"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          #dp="bsDatepicker"
+          bsDatepicker [(bsValue)]="bsValue">
+          <input type="text"
+          class="form-control"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          #dp="bsDatepicker"
+          bsDatepicker [(bsValue)]="bsValueTwo">
         </div>
       </form>
       <div style="width: 40%;">
-    <canvas
+        <canvas
         baseChart
         #baseChart="base-chart"
         [chartType]="'line'"
         [datasets]="chartData"
         [labels]="chartLabels"
         [options]="chartOptions"
+        *ngIf="chartData.length > 0"
         [legend]="true">
-    </canvas>
-  </div>
-    </tab>
-  </tabs>
+      </canvas>
+    </div>
+  </tab>
+</tabs>
 </app-layout>
