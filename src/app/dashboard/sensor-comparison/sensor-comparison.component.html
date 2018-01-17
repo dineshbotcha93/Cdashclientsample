@@ -1,0 +1,44 @@
+<app-layout>
+  <h3>Sensor Comparison for Network: {{networkName}}</h3>
+  <tabs>
+    <tab tabTitle="Comparison" class="tab-content">
+      <form class="form-inline float-right" role="form">
+        <div class="form-group">
+          <select name="sort" [(ngModel)]="sensorName" class="form-control" (change)="test()">
+            <option value="{{sensor.value}}" *ngFor='let sensor of sensorNames'>{{sensor.label}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="button" value="Add Sensor" (click)="addSensor()"/>
+          <input type="button" value="Reset Zoom" (click)="resetZoom()" />
+        </div>
+        <div class="form-group pull-right">
+          <input type="text"
+          class="form-control"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          #dp="bsDatepicker"
+          bsDatepicker [(bsValue)]="bsValue">
+          <input type="text"
+          class="form-control"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          #dp="bsDatepicker"
+          bsDatepicker [(bsValue)]="bsValueTwo">
+        </div>
+      </form>
+      <div style="width: 40%;">
+        <canvas
+        baseChart
+        #baseChart="base-chart"
+        [chartType]="'line'"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        *ngIf="chartData.length > 0"
+        [legend]="true">
+      </canvas>
+    </div>
+  </tab>
+</tabs>
+</app-layout>

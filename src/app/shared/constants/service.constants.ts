@@ -1,6 +1,10 @@
 import {HEROES} from '../../../mocks/heroes';
 import {LOGIN} from '../../../mocks/login';
 import {SensorDetail} from '../../../mocks/GetSensorDetail';
+import {SensorDetails1} from '../../../mocks/GetSensorDetails1';
+import {SensorDetails2} from '../../../mocks/GetSensorDetails2';
+import {SensorDetails3} from '../../../mocks/GetSensorDetails3';
+import {SensorDetails4} from '../../../mocks/GetSensorDetails4';
 import {LOCATION1} from '../../../mocks/GetSensorsList-1001';
 import {LOCATION2} from '../../../mocks/GetSensorsList-1002';
 import {LOCATION3} from '../../../mocks/GetSensorsList-1003';
@@ -113,5 +117,25 @@ export const SERVICE_CONSTANTS = {
     'path':'/sensor_summary/I1',
     'mock':SensorDetail,
     'live':'/sensor_summary/I1'
+  },
+  GET_SENSOR_DETAIL_ONE:{
+    'path':'/sensor_detail/I11',
+    'mock':SensorDetails1,
+    'live':'/sensor_detail/I11'
+  },
+  GET_SENSOR_DETAIL_TWO:{
+    'path':'/sensor_detail/I12',
+    'mock':SensorDetails2,
+    'live':'/sensor_detail/I12'
+  },
+  GET_SENSOR_DETAIL_THREE:{
+    'path':'/sensor_detail/I13',
+    'mock':SensorDetails3,
+    'live':'/sensor_detail/I13'
+  },
+  GET_SENSOR_DETAIL_FOUR:{
+    'path':'/sensor_detail/I14',
+    'mock':SensorDetails4,
+    'live':'/sensor_detail/I14'
   }
 };

@@ -37,6 +37,7 @@
     "angular2-notifications": "^0.9.6",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.7.1",
+    "chartjs-plugin-zoom": "^0.6.2",
     "core-js": "^2.4.1",
     "fs": "0.0.1-security",
     "jquery": "^3.2.1",
@@ -45,6 +46,7 @@
     "ng2-charts": "^1.6.0",
     "ng2-popover": "0.0.14",
     "ng2-translate": "^5.0.0",
+    "ngx-bootstrap": "^2.0.0-rc.0",
     "reselect": "^2.5.4",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
