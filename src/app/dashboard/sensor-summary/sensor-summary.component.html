@@ -5,6 +5,11 @@
         <div class="x_title">
           <h3><b>Location</b> : {{mapData.Location.Title}}</h3>
           <h4><b>Address</b> : {{mapData.Location.Address}}</h4>
+          <select  [(ngModel)]="selectLocation">
+            <option *ngFor="let loc of locationData" [ngValue]="loc">
+              {{loc.name}}
+            </option>
+          </select>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -23,7 +28,6 @@
               </select>
             </div>
             <div class="form-group">
-
             </div>
           </form>
         </div>
@@ -60,7 +64,7 @@
             <tr>
               <td class="col-md-4">Gateway Name</td><td>{{aGateway.Name}}</td>
             </tr>
-           <!-- <tr>
+            <!-- <tr>
               <td class="col-md-4">Gateway Type</td><td>{{aGateway.GatewayType}}</td>
             </tr>
             <tr>
@@ -73,28 +77,28 @@
         <div class="row top_tiles" *ngIf="gateway!=='all'">
           <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
-            [tileContent]="sensor.SensorName"
-            [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-            [tileColorBy]="'sensorType'"
-            [sensorTileIcon]="sensor.SensorType"
-            (click)="gotoSummary()"
-            [tileColor]="sensor.Status">
-          </app-tile>
+              [tileContent]="sensor.SensorName"
+              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
+              (click)="gotoSummary()"
+              [tileColor]="sensor.Status">
+            </app-tile>
+          </div>
         </div>
-      </div>
-      <div class="row top_tiles" *ngIf="gateway=='all'">
-        <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="row top_tiles" *ngIf="gateway=='all'">
+          <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
-            [tileContent]="sensor.SensorName"
-            [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-            [tileColorBy]="'sensorType'"
-            [sensorTileIcon]="sensor.SensorType"
-            (click)="gotoSummary()"
-            [tileColor]="sensor.Status">
-          </app-tile>
+              [tileContent]="sensor.SensorName"
+              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
+              (click)="gotoSummary()"
+              [tileColor]="sensor.Status">
+            </app-tile>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </app-layout>
