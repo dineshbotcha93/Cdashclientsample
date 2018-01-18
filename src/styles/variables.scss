@@ -17,3 +17,20 @@ $color-theme-blue: #87bcd3;
 $color-theme-lightBlue: #def5ff;
 $color-theme-violet: #353535;
 $color-theme-darkviolet: #2a2a2a;
+
+/* App-Tile colors */
+$appTile-icons: #edf0f0;
+$appTile-iconsBG: rgba(255,255,255,0.2);
+
+/* Media Queries Mobile */
+$phone-small: 320px;
+$phone-medium: 480px;
+$phone-large: 640px;
+
+/* Media Queries Tablet */
+$tablet-small: 768px;
+$tablet-large: 992px;
+
+/* Media Queries Desktop */
+$laptop: 1224px;
+$wide-screen: 1440px;

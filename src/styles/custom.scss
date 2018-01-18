@@ -1,3 +1,5 @@
+@import "variables";
+
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
 .left_col {
@@ -873,10 +875,13 @@ h2 {
   -webkit-transition: all .2s ease;
   -ms-transition: all .2s ease;
   transition: all .2s ease;
+
+  @media (min-width: $phone-small) and (max-width: $tablet-small){
+    padding: 10px;
+  }
 }
 .x_title {
   border-bottom: 2px solid #E6E9ED;
-  padding: 1px 5px 6px;
   margin-bottom: 10px;
 }
 .x_title .filter {
@@ -898,7 +903,6 @@ h2 {
   color: #BDBDBD;
 }
 .x_content {
-  padding: 0 5px 6px;
   position: relative;
   width: 100%;
   float: left;
@@ -4368,12 +4372,3 @@ ul.notifications {
   height:80px;
   width:60px;
 }
-
-/** custom bootstrap classes **/
-.col-lg-22per {
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
