@@ -54,8 +54,8 @@ export class SensorComparisonComponent{
   }
 
   addSensor(){
-    this.location++;
     let tempData = [];
+    this.location++;
     let totalLocation = 10+this.location;
     this.sensorDetailsService.getData('I'+totalLocation).then((result)=>{
       result.DataMessages.forEach((res)=>{
@@ -64,7 +64,7 @@ export class SensorComparisonComponent{
           this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
         }
       });
-      this.chartData.push({data:tempData,label:'Sensor '+this.location});
+      this.chartData.push({data:tempData,label:result.SensorName});
       if(this.chart){
         this.chart.ngOnDestroy();
         this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
