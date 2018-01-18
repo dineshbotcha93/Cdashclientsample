@@ -9,7 +9,7 @@
         </div>
         <div class="x_content">
           <input type="button" value="Compare Sensors" (click)="doCompare()">
-          <input type="text" name="filter_name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
+          <input type="text" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
           <form class="form-inline float-right" role="form">
             <div class="form-group">
               <select name="sort" [(ngModel)]="orderBy" class="form-control">
