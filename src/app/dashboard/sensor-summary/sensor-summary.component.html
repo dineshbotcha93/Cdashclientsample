@@ -3,8 +3,32 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h3><b>Location</b> : {{mapData.Location.Title}}</h3>
-          <h4><b>Address</b> : {{mapData.Location.Address}}</h4>
+          
+          <div class="row">
+            
+            <table class="table">
+              
+              <tr>
+                <td class="col-md-6"> <h3>Location Details</h3></td>
+                <td> Select Location: <select  [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
+                  <option *ngFor="let loc of locationData" [ngValue]="loc">
+                    {{loc.Title}}
+                  </option>
+                </select></td>
+              </tr>
+              <tr>
+                <td class="col-md-6">Location: {{mapData.Location.Title}}<br>
+                Address: {{mapData.Location.Address}}</td>
+                <td>Network Name: {{mapData.Location.Network.Name}}<br>
+                  Network Id: {{mapData.Location.Network.Id}}<br>
+                Count of Gateways/Sensors: {{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</td>
+              </tr>
+             <!--  <tr>
+                <td class="col-md-4">Address: {{mapData.Location.Address}}</td>
+                <td>Count of Gateways/Sensors: {{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</td>
+              </tr> -->
+            </table>
+          </div>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -24,7 +48,6 @@
               </select>
             </div>
             <div class="form-group">
-
             </div>
           </form>
         </div>
@@ -61,7 +84,7 @@
             <tr>
               <td class="col-md-4">Gateway Name</td><td>{{aGateway.Name}}</td>
             </tr>
-           <!-- <tr>
+            <!-- <tr>
               <td class="col-md-4">Gateway Type</td><td>{{aGateway.GatewayType}}</td>
             </tr>
             <tr>
@@ -74,28 +97,28 @@
         <div class="row top_tiles" *ngIf="gateway!=='all'">
           <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
-            [tileContent]="sensor.SensorName"
-            [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-            [tileColorBy]="'sensorType'"
-            [sensorTileIcon]="sensor.SensorType"
-            (click)="gotoSummary()"
-            [tileColor]="sensor.Status">
-          </app-tile>
+              [tileContent]="sensor.SensorName"
+              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
+              (click)="gotoSummary()"
+              [tileColor]="sensor.Status">
+            </app-tile>
+          </div>
         </div>
-      </div>
-      <div class="row top_tiles" *ngIf="gateway=='all'">
-        <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="row top_tiles" *ngIf="gateway=='all'">
+          <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
-            [tileContent]="sensor.SensorName"
-            [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-            [tileColorBy]="'sensorType'"
-            [sensorTileIcon]="sensor.SensorType"
-            (click)="gotoSummary()"
-            [tileColor]="sensor.Status">
-          </app-tile>
+              [tileContent]="sensor.SensorName"
+              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
+              (click)="gotoSummary()"
+              [tileColor]="sensor.Status">
+            </app-tile>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </app-layout>

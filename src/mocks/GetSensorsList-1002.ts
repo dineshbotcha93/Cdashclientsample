@@ -1,29 +1,42 @@
 export const LOCATION2 = {
-  "Location": {
-    "Id": "1002",
-    "Title": "Boston Pizza 207",
-    "Address": "226 Broadway Street E  Yorkton Saskatchewan S3N 4C3 Canada",
-    "ActiveSensors": "10",
-    "Network": {
-       "Id": "N001",
-       "Name": "BP204NET",
-       "CountofGateways": "2",
-       "CountOfSensors": "10",
-       "SendNotifications": "True",
-       "HoldingNetwork": "False",
-       "Gateway": [
-         {
-           "GatewayID": "108830392",
-           "NetworkID": "1000",
-           "Name": "Base Station - 1508830392",
-           "GatewayType": "Base Station",
-           "Heartbeat": "5",
-           "IsDirty": "false",
-           "LastCommunicationDate": "12/31/2017 1:44 PM",
-           "LastInboundIPAddress": "192.147.20.10",
-           "MacAddress": "2486F48051B9",
-           "Sensor": [
-             {
+   "Location": {
+      "Id": "1002",
+      "Title": "Boston Pizza 207",
+      "Address": "226 Broadway Street E  Yorkton Saskatchewan S3N 4C3 Canada",
+      "ActiveSensors": "10",
+      "Network": {
+         "Id": "N001",
+         "Name": "BP204NET",
+         "CountofGateways": "2",
+         "CountOfSensors": "10",
+         "SendNotifications": "True",
+         "HoldingNetwork": "False",
+         "Gateway": [
+            {
+               "GatewayID": "108830392",
+               "NetworkID": "1000",
+               "Name": "Base Station - 1508830392",
+               "GatewayType": "Base Station",
+               "Heartbeat": "5",
+               "IsDirty": "false",
+               "LastCommunicationDate": "12/31/2017 1:44 PM",
+               "LastInboundIPAddress": "192.147.20.10",
+               "MacAddress": "2486F48051B9"
+            },
+            {
+               "GatewayID": "108830393",
+               "NetworkID": "1000",
+               "Name": "Gateway - 1508830393",
+               "GatewayType": "Gateway",
+               "Heartbeat": "5",
+               "IsDirty": "false",
+               "LastCommunicationDate": "12/31/2017 1:44 PM",
+               "LastInboundIPAddress": "",
+               "MacAddress": "2386F48051B7"
+            }
+         ],
+         "Sensor": [
+            {
                "SensorID": "1153235073221",
                "SensorType": "2",
                "NetworkID": "1000",
@@ -38,8 +51,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "2190116004222",
                "SensorType": "43",
                "NetworkID": "1000",
@@ -54,8 +67,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "1156073157223",
                "SensorType": "2",
                "NetworkID": "1000",
@@ -70,8 +83,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "1156073157224",
                "SensorType": "2",
                "NetworkID": "1000",
@@ -86,8 +99,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "1156073157225",
                "SensorType": "43",
                "NetworkID": "1000",
@@ -102,21 +115,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             }
-           ]
-         },
-         {
-           "GatewayID": "108830393",
-           "NetworkID": "1000",
-           "Name": "Gateway - 1508830393",
-           "GatewayType": "Gateway",
-           "Heartbeat": "5",
-           "IsDirty": "false",
-           "LastCommunicationDate": "12/31/2017 1:44 PM",
-           "LastInboundIPAddress": "",
-           "MacAddress": "2386F48051B7",
-           "Sensor": [
-             {
+            },
+            {
                "SensorID": "1153235073231",
                "SensorType": "2",
                "NetworkID": "1000",
@@ -131,8 +131,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "2190116004232",
                "SensorType": "43",
                "NetworkID": "1000",
@@ -147,8 +147,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "1156073157233",
                "SensorType": "2",
                "NetworkID": "1000",
@@ -163,8 +163,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "1156073157234",
                "SensorType": "2",
                "NetworkID": "1000",
@@ -179,8 +179,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             },
-             {
+            },
+            {
                "SensorID": "1156073157235",
                "SensorType": "43",
                "NetworkID": "1000",
@@ -195,10 +195,8 @@ export const LOCATION2 = {
                "BatteryLevel": "100",
                "SignalStrength": "100",
                "AlertsActive": "true"
-             }
-           ]
-         }
-       ]
-     }
-  }
+            }
+         ]
+      }
+   }
 }
