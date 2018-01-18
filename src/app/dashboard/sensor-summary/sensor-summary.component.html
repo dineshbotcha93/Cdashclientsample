@@ -5,10 +5,11 @@
         <div class="x_title">
           
           <div class="row">
+            
             <table class="table">
               
               <tr>
-                <td class="col-md-6"></td>
+                <td class="col-md-6"> <h3>Location Details</h3></td>
                 <td> Select Location: <select  [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
                   <option *ngFor="let loc of locationData" [ngValue]="loc">
                     {{loc.Title}}
@@ -16,13 +17,16 @@
                 </select></td>
               </tr>
               <tr>
-                <td class="col-md-4">Location: {{mapData.Location.Title}}</td>
-                <td>Network Name: {{mapData.Location.Network.Name}}</td>
+                <td class="col-md-6">Location: {{mapData.Location.Title}}<br>
+                Address: {{mapData.Location.Address}}</td>
+                <td>Network Name: {{mapData.Location.Network.Name}}<br>
+                  Network Id: {{mapData.Location.Network.Id}}<br>
+                Count of Gateways/Sensors: {{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</td>
               </tr>
-              <tr>
+             <!--  <tr>
                 <td class="col-md-4">Address: {{mapData.Location.Address}}</td>
                 <td>Count of Gateways/Sensors: {{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</td>
-              </tr>
+              </tr> -->
             </table>
           </div>
           <div class="clearfix"></div>
