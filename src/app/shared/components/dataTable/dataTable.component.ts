@@ -15,7 +15,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
         [footerHeight]="40"
         [limit]="10"
         [rowHeight]="'auto'"
-        [reorderable]="reorderable"
+        [reorderable]="reorderable">
       </ngx-datatable>
     </div>
   `
