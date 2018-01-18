@@ -10,13 +10,17 @@ import { SensorSummaryService } from './services/sensor-summary.service';
   styleUrls: ['./sensor-summary.component.scss'],
   providers:[MapService,SensorSummaryService]
 })
+
 export class SensorSummaryComponent {
   mapData:Object = null;
   allSensors:Array<any> = [];
   displayTiles:Object = null;
   orderBy: any = 'asc';
   gateway: any = 'all';
+  originalSensor:Array<any> = [];
+  originalMapSensor:Object = null;
   private mapStatus = MapConstants.STATUS;
+  private doFilterByName:string = null;
   constructor(private route:ActivatedRoute, private router:Router,private mapService:MapService,private sensorSummaryService:SensorSummaryService){
     this.route.params.subscribe((params)=>{
       console.log(params.id);
@@ -24,11 +28,13 @@ export class SensorSummaryComponent {
         console.log('GOT E');
         console.log(e);
         this.mapData = e;
+        this.originalMapSensor = this.mapData;
         e.Location.Network.Gateway.forEach((gate)=>{
           gate.Sensor.forEach((sens)=>{
             this.allSensors.push(sens);
           });
         });
+        this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
       });
     });
 
@@ -36,6 +42,15 @@ export class SensorSummaryComponent {
 
   gotoSummary(){
     this.router.navigate(['dashboard/sensor-details','I1']);
+  }
+
+  filterName(){
+    if(this.gateway=='all'){
+      this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
+      if(this.doFilterByName == ''){
+        this.allSensors = this.originalSensor;
+      }
+    }
   }
 
   doCompare(){
