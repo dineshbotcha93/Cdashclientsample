@@ -7,37 +7,37 @@
           <h4><b>Address</b> : {{mapData.Location.Address}}</h4>
           <div>Select Location:
             <select  [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
-            <option *ngFor="let loc of locationData" [ngValue]="loc">
-              {{loc.name}}
-            </option>
-          </select></div>
-          <div class="clearfix"></div>
+              <option *ngFor="let loc of locationData" [ngValue]="loc">
+                {{loc.Title}}
+              </option>
+            </select></div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <input type="button" value="Compare Sensors" (click)="doCompare()">
+            <input type="text" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
+            <form class="form-inline float-right" role="form">
+              <div class="form-group">
+                <select name="sort" [(ngModel)]="orderBy" class="form-control">
+                  <option value="asc" selected>Higest Priority</option>
+                  <option value="desc">Lowest Priority</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select name="gateway" [(ngModel)]="gateway" class="form-control">
+                  <option value="all" selected>All</option>
+                  <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="x_content">
-          <input type="button" value="Compare Sensors" (click)="doCompare()">
-          <input type="text" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
-          <form class="form-inline float-right" role="form">
-            <div class="form-group">
-              <select name="sort" [(ngModel)]="orderBy" class="form-control">
-                <option value="asc" selected>Higest Priority</option>
-                <option value="desc">Lowest Priority</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <select name="gateway" [(ngModel)]="gateway" class="form-control">
-                <option value="all" selected>All</option>
-                <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
-              </select>
-            </div>
-            <div class="form-group">
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="x_panel">
-        <h3>Gateway Details</h3>
-        <div class="row" *ngIf="gateway!=='all'">
-          <table class="table table-bordered">
+        <div class="x_panel">
+          <h3>Gateway Details</h3>
+          <div class="row" *ngIf="gateway!=='all'">
+            <table class="table table-bordered">
             <!--<tr>
               <td class="col-md-4">Gateway ID</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayID}}</td>
             </tr>
@@ -79,28 +79,28 @@
         <div class="row top_tiles" *ngIf="gateway!=='all'">
           <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
-              [tileContent]="sensor.SensorName"
-              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-              [tileColorBy]="'sensorType'"
-              [sensorTileIcon]="sensor.SensorType"
-              (click)="gotoSummary()"
-              [tileColor]="sensor.Status">
-            </app-tile>
-          </div>
+            [tileContent]="sensor.SensorName"
+            [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+            [tileColorBy]="'sensorType'"
+            [sensorTileIcon]="sensor.SensorType"
+            (click)="gotoSummary()"
+            [tileColor]="sensor.Status">
+          </app-tile>
         </div>
-        <div class="row top_tiles" *ngIf="gateway=='all'">
-          <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <app-tile
-              [tileContent]="sensor.SensorName"
-              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-              [tileColorBy]="'sensorType'"
-              [sensorTileIcon]="sensor.SensorType"
-              (click)="gotoSummary()"
-              [tileColor]="sensor.Status">
-            </app-tile>
-          </div>
-        </div>
+      </div>
+      <div class="row top_tiles" *ngIf="gateway=='all'">
+        <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <app-tile
+          [tileContent]="sensor.SensorName"
+          [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+          [tileColorBy]="'sensorType'"
+          [sensorTileIcon]="sensor.SensorType"
+          (click)="gotoSummary()"
+          [tileColor]="sensor.Status">
+        </app-tile>
       </div>
     </div>
   </div>
+</div>
+</div>
 </app-layout>
