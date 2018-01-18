@@ -5,15 +5,17 @@
         <div class="x_title">
           <h3><b>Location</b> : {{mapData.Location.Title}}</h3>
           <h4><b>Address</b> : {{mapData.Location.Address}}</h4>
-          <select  [(ngModel)]="selectLocation">
+          <div>Select Location:
+            <select  [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
             <option *ngFor="let loc of locationData" [ngValue]="loc">
               {{loc.name}}
             </option>
-          </select>
+          </select></div>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
           <input type="button" value="Compare Sensors" (click)="doCompare()">
+          <input type="text" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
           <form class="form-inline float-right" role="form">
             <div class="form-group">
               <select name="sort" [(ngModel)]="orderBy" class="form-control">
@@ -75,7 +77,7 @@
       </div>
       <div class="x_panel">
         <div class="row top_tiles" *ngIf="gateway!=='all'">
-          <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
               [tileContent]="sensor.SensorName"
               [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
