@@ -25,11 +25,15 @@ export class SensorSummaryComponent implements OnInit{
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
 
-  constructor(private route:ActivatedRoute, private router:Router,private mapService:MapService,private sensorSummaryService:SensorSummaryService){
+  constructor(private route:ActivatedRoute, 
+              private router:Router,
+              private mapService:MapService,
+              private sensorSummaryService:SensorSummaryService){
 
         this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
         this.getSensorData();
+
       });
     }
 
@@ -62,7 +66,7 @@ export class SensorSummaryComponent implements OnInit{
     }
 
 
-    /*Get sensor data from service*/
+    /*Get sensor data from service by selecting the network Id*/
     private  getSensorData(){
         this.allSensors = [];
         this.mapData = null;
@@ -84,14 +88,14 @@ export class SensorSummaryComponent implements OnInit{
     }
 
     filterName(){
-    if(this.gateway=='all'){
-    this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
-    if(this.doFilterByName == ''){
-    this.allSensors = this.originalSensor;
-    }
-    }
+      if(this.gateway=='all'){
+      this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
+      if(this.doFilterByName == ''){
+      this.allSensors = this.originalSensor;
+      }
+      }
     }
     doCompare(){
-    this.router.navigate(['dashboard/sensor-comparison','I1']);
+      this.router.navigate(['dashboard/sensor-comparison','I1']);
     }
-    }
+  }
