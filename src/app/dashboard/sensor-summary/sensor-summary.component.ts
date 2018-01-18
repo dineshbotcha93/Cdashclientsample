@@ -74,10 +74,8 @@ export class SensorSummaryComponent implements OnInit{
       console.log(e);
       this.mapData = e;
       this.originalMapSensor = this.mapData;
-      e.Location.Network.Gateway.forEach((gate)=>{
-        gate.Sensor.forEach((sens)=>{
-          this.allSensors.push(sens);
-        });
+      e.Location.Network.Sensor.forEach((sens)=>{
+         this.allSensors.push(sens);
       });
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
     });
