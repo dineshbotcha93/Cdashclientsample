@@ -27,8 +27,10 @@ export class SensorSummaryComponent implements OnInit{
 
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
+  private doFilterByStatus:string = 'select';
+  private doFilterByType:string = 'select';
 
-  constructor(private route:ActivatedRoute, 
+  constructor(private route:ActivatedRoute,
     private router:Router,
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService){
@@ -37,30 +39,31 @@ export class SensorSummaryComponent implements OnInit{
       this.netWorkId = params.id.toString();
       this.getNetworkData();
 
-    });
-  }
 
-  ngOnInit() {
+      });
+    }
 
-    this.mapService.getData().subscribe(e=>{
-      for (let location of e.LocationGroup) {
-        location.Location.forEach((loc)=>{
-          let Obj = {
-            Title: null,
-            Id: null
-          };
+    ngOnInit() {
 
-          Obj.Id=loc.Id;
-          Obj.Title=loc.Title;
+      this.mapService.getData().subscribe(e=>{
+        for (let location of e.LocationGroup) {
+          location.Location.forEach((loc)=>{
+            let Obj = {
+              Title: null,
+              Id: null
+            };
 
-          if(loc.Id === this.netWorkId){
-            this.selectLocation = Obj;
-          }
-          this.locationData.push(Obj);
-        });
-      }
-    });
-  }
+            Obj.Id=loc.Id;
+            Obj.Title=loc.Title;
+
+            if(loc.Id === this.netWorkId){
+              this.selectLocation = Obj;
+            }
+            this.locationData.push(Obj);
+          });
+        }
+      });
+    }
 
   /*Onchange event for selection of network ID*/
   private onChange(e){
@@ -75,7 +78,6 @@ export class SensorSummaryComponent implements OnInit{
     this.mapData = null;
     this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
       this.mapData = e;
-      console.log(e.Location.Network.Sensor);
       this.getSensorData(e.Location.Network.Sensor);
       this.getGatewayData(e.Location.Network.Gateway,'');
     });
@@ -87,9 +89,11 @@ export class SensorSummaryComponent implements OnInit{
       let Obj : Object = null;
       gate.gateWayEditOption = 'display';
       Obj = gate;
+     // this.gateWayData.push(Obj);
       if(id !== gate.GatewayID){
          this.gateWayData.push(Obj);
       }
+      console.log(this.gateWayData);
      
     });
   }
@@ -128,19 +132,83 @@ export class SensorSummaryComponent implements OnInit{
     gateway.gateWayEditOption ='display';
   }
 
-  gotoSummary(){
-    this.router.navigate(['dashboard/sensor-details','I1']);
-  }
 
-  filterName(){
-    if(this.gateway=='all'){
-      this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
-      if(this.doFilterByName == ''){
+
+
+//     /*Get sensor data from service by selecting the network Id*/
+//     private  getSensorData(){
+//       this.allSensors = [];
+//       this.mapData = null;
+//       this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
+//         console.log(e);
+//         this.mapData = e;
+//         this.originalMapSensor = this.mapData;
+//         e.Location.Network.Sensor.forEach((sens)=>{
+//           this.allSensors.push(sens);
+//         });
+//         this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+//         console.log('-----------'+this.originalSensor);
+//       });
+//     }
+// >>>>>>> feature/dashboard
+
+    gotoSummary(){
+      this.router.navigate(['dashboard/sensor-details','I1']);
+    }
+
+    filterName(){
+      if(this.gateway=='all'){
+        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
+        if(this.doFilterByName == ''){
+          this.allSensors = this.originalSensor;
+        }
+      }
+    }
+    filterStatus(){
+      const criteria = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():'select';
+      if(criteria!=='select'){
+        this.allSensors = this.originalSensor.filter((sens)=>{
+          switch(criteria){
+            case 'good':
+            return (sens.Status == 0) ? sens:'';
+            case 'low signal':
+            return (sens.Status == 1) ? sens:'';
+            case 'low battery':
+            return (sens.Status == 2) ? sens:'';
+            case 'missed communication':
+            return (sens.Status == 3) ? sens:'';
+            case 'alerts':
+            return (sens.Status == 4) ? sens:'';
+            default:
+            break;
+          }
+        });
+      } else {
         this.allSensors = this.originalSensor;
       }
     }
+
+    filterByType(){
+      const criteria = this.doFilterByType ? this.doFilterByType.toLowerCase():'select';
+      if(criteria!=='select'){
+        this.allSensors = this.originalSensor.filter((sens)=>{
+          switch(criteria){
+            case 'temperature':
+            return (sens.SensorType==2) ? sens : '';
+            case 'humidity':
+            return (sens.SensorType==43) ? sens : '';
+            case 'contact':
+            return (sens.SensorType==9) ? sens: '';
+            default:
+            break;
+          }
+        })
+      } else {
+        this.allSensors = this.originalSensor;
+      }
+    }
+
+    doCompare(){
+      this.router.navigate(['dashboard/sensor-comparison','I1']);
+    }
   }
-  doCompare(){
-    this.router.navigate(['dashboard/sensor-comparison','I1']);
-  }
-}

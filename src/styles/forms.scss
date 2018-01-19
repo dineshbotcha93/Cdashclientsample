@@ -1,0 +1,13 @@
+@import "variables";
+
+select {
+ padding: 6px 12px;
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    font-size: 0.85em;
+  }
+}
+
+.tabs {
+  cursor: pointer;
+}

@@ -5,6 +5,7 @@
 @import "styles/custom";
 @import "styles/daterangepicker";
 @import "styles/green.css";
+@import "styles/forms";
 
 #map {
   height: 100%;
@@ -15,3 +16,41 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+
+/* tabs, tab-content */
+.tab-content {
+  .x_content {
+    margin-top: 10px;
+    width: auto;
+    float: none;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+      float: none;
+      width: auto;
+    }
+  }
+}
+/* ******* */
+
+/* ul */
+ul {
+  &.bar_tabs {
+    background: none;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+    }
+  }
+}
+/* ******* */
+
+/* side-nav */
+//.nav-sm .container.body .col-md-3.left_col {
+//  min-height: 100%;
+//  width: 70px;
+//  padding: 0;
+//  z-index: 9999;
+//  position: absolute;
+//}
