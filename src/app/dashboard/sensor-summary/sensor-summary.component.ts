@@ -24,8 +24,8 @@ export class SensorSummaryComponent implements OnInit{
 
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
-  private doFilterByStatus:string = null;
-  private doFilterByType:string = null;
+  private doFilterByStatus:string = 'select';
+  private doFilterByType:string = 'select';
 
   constructor(private route:ActivatedRoute,
     private router:Router,
@@ -97,8 +97,8 @@ export class SensorSummaryComponent implements OnInit{
       }
     }
     filterStatus(){
-      const criteria = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():null;
-      if(criteria){
+      const criteria = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():'select';
+      if(criteria!=='select'){
         this.allSensors = this.originalSensor.filter((sens)=>{
           switch(criteria){
             case 'good':
@@ -121,8 +121,8 @@ export class SensorSummaryComponent implements OnInit{
     }
 
     filterByType(){
-      const criteria = this.doFilterByType ? this.doFilterByType.toLowerCase():null;
-      if(criteria){
+      const criteria = this.doFilterByType ? this.doFilterByType.toLowerCase():'select';
+      if(criteria!=='select'){
         this.allSensors = this.originalSensor.filter((sens)=>{
           switch(criteria){
             case 'temperature':

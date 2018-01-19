@@ -50,16 +50,25 @@
 
                 <div class="form-group">
                   <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
-                  <input type="text" class="form-control" name="filter_status" placeholder="Filter By Sensor Status" (keydown)="filterStatus()" [(ngModel)]="doFilterByStatus">
-                  <input type="text" class="form-control" name="filter_type" placeholder="Filter By Sensor Type" (keydown)="filterByType()" [(ngModel)]="doFilterByType">
-
                 </div>
 
                 <div class="form-group">
-                  <!-- <select name="sort" [(ngModel)]="orderBy" class="form-control">
-                    <option value="asc" selected>Higest Priority</option>
-                    <option value="desc">Lowest Priority</option>
-                  </select> -->
+                  <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
+                    <option value="select" selected>Select Sensor Type</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="humidity">Humidity</option>
+                    <option value="contact">Contact</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
+                    <option value="select" selected>Select Sensor Status</option>
+                    <option value="good">Good</option>
+                    <option value="low signal">Low Signal</option>
+                    <option value="low battery">Low Battery</option>
+                    <option value="missed communication">Missed Communication</option>
+                    <option value="alerts">Alerts</option>
+                  </select>
                 </div>
                 <!--<div class="form-group">
                   <select name="gateway" [(ngModel)]="gateway" class="form-control">
