@@ -4,12 +4,46 @@
       <div class="x_title">
         <h3>Sensor Details Page</h3>
         <div class="clearfix"></div>
-        <p>Sensor Name: {{result.SensorName}}</p>
-        <p>Current Reading: {{result.CurrentReading}}</p>
-        <p>Network Name: {{result.NetworkName}}</p>
-        <p>Gateway Name: {{result.Gateway}}</p>
-        <p>Last Checkin: {{result.LastCommunicationDate}}
-        <p>Next Checkin: {{result.NextCommunicationDate}}
+
+        <div class="row sensor-summary-info">
+
+          <div class="sensor-summary-info">
+            <div class="col-md-6 ss-info-left">
+              <p><span>
+                Sensor Name:
+              </span>
+                {{result.SensorName}}
+              </p>
+              <p><span>
+                Current Reading:
+              </span>
+                {{result.CurrentReading}}
+              </p>
+              <p><span>
+              Last Checkin:
+              </span>
+                {{result.LastCommunicationDate}}
+              </p>
+            </div>
+            <div class="col-md-6 ss-info-right">
+              <p><span>
+              Network Name:
+              </span>
+                {{result.NetworkName}}
+              </p>
+              <p><span>
+              Gateway Name:
+              </span>
+                {{result.Gateway}}
+              </p>
+              <p><span>
+              Next Checkin:
+              </span>
+                {{result.NextCommunicationDate}}
+              </p>
+            </div>
+          </div>
+        </div>
         <!-- <pre>{{result|json}}</pre> -->
       </div>
   <!--  <div class="x_content">
