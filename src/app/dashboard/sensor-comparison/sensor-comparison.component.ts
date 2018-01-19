@@ -59,20 +59,25 @@ export class SensorComparisonComponent{
     this.location++;
     this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
-    this.sensorDetailsService.getData(this.sensorName).then((result)=>{
-      result.DataMessages.forEach((res)=>{
-        tempData.push(res.PlotValue);
-        if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
-          this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+    if(this.sensorName!==''){
+      this.sensorDetailsService.getData(this.sensorName).then((result)=>{
+        result.DataMessages.forEach((res)=>{
+          tempData.push(res.PlotValue);
+          if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
+            this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+          }
+        });
+        this.chartData.push({data:tempData,label:result.SensorName});
+        if(this.chart){
+          this.chart.ngOnDestroy();
+          this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
+          this.chart.chart.update();
         }
       });
-      this.chartData.push({data:tempData,label:result.SensorName});
-      if(this.chart){
-        this.chart.ngOnDestroy();
-        this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
-        this.chart.chart.update();
-      }
-    });
+    } else {
+      alert('Please select a sensor from the dropdown');
+    }
+    this.sensorName = '';
   }
 
   chartData = [];
@@ -92,6 +97,7 @@ export class SensorComparisonComponent{
       this.chartData = [];
       this.chartLabels = [];
       this.location = 0;
+      this.sensorName = '1156073157';
       this.chart.ngOnDestroy();
       this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
       this.chart.chart.update();
@@ -100,19 +106,19 @@ export class SensorComparisonComponent{
 
   print(){
     var win=window.open();
-      win.document.write("<html><head><title>Print Chart</title></head><body>");
-      win.document.write("<br><img src='"+this.chart.chart.toBase64Image('image/png')+"' onload='print()' style='width:90%'/>");
-      win.document.write("</body></html>");
-      // win.document.close();
-      // win.print();
-      // win.close();
-//     let popupWinindow
-//  let innerContents = document.getElementsByClassName("chartjs-size-monitor")[0].innerHTML;
-// console.log(innerContents);
-//  popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-//  popupWinindow.document.open();
-//  popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
-//  popupWinindow.document.close();
+    win.document.write("<html><head><title>Print Chart</title></head><body>");
+    win.document.write("<br><img src='"+this.chart.chart.toBase64Image('image/png')+"' onload='print()' style='width:90%'/>");
+    win.document.write("</body></html>");
+    // win.document.close();
+    // win.print();
+    // win.close();
+    //     let popupWinindow
+    //  let innerContents = document.getElementsByClassName("chartjs-size-monitor")[0].innerHTML;
+    // console.log(innerContents);
+    //  popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+    //  popupWinindow.document.open();
+    //  popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+    //  popupWinindow.document.close();
   }
 
   date: {year: number, month: number};
