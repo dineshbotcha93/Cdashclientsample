@@ -407,8 +407,9 @@ table.no-margin .progress {
   .col-md-55 {
     width: 20%;
   }
-  .col-wd-22 {
-    width: 22%;
+  .btn-margin {
+    margin-bottom: 5px!important;
+    margin-right: 20px;
   }
 }
 @media (min-width: 992px) {
@@ -426,9 +427,12 @@ table.no-margin .progress {
   .col-wd-22 {
     width: 22%;
   }
-
+  .col-lg-push-13 {
+    left: 13%;
+  }
   .btn-margin {
     margin-bottom: 5px!important;
+    margin-right: 5px;
   }
 }
 @media (min-width: 192px) and (max-width: 1270px) {
@@ -4372,3 +4376,16 @@ ul.notifications {
   height:80px;
   width:60px;
 }
+
+/** Sensor comparision form styles **/
+.margin-top-ten {
+  margin-top:10px;
+}
+.margin-top-five {
+  margin-top:5px;
+}
+.fa-window-minimize-style {
+  margin-top:6px;
+  width:0px;
+}
+/** /Sensor comparision form styles **/
