@@ -33,43 +33,44 @@
         <tabs>
 
           <!-- Sensors Tab -->
-          <tab tabTitle="Sensors" class="sensors-info-container tab-content">
+          <tab tabTitle="Sensors" class="tab-content">
             <div class="row x_content">
-              <div class="col-md-4">
-                <div class="form-group">
+              <div class="col-md-12 sensors-info-container">
+                <div class="form-group sensor-info-compare">
                   <input type="button" class="btn btn-primary" value="Compare Sensors" (click)="doCompare()">
                 </div>
-              </div>
-              <div class="col-md-8 sensors-info-filter">
-                <form class="form-inline" role="form">
-                  <div class="form-group">
-                    <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
-                  </div>
-                  <div class="form-group">
-                    <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
-                      <option value="select" selected>Select Sensor Type</option>
-                      <option value="temperature">Temperature</option>
-                      <option value="humidity">Humidity</option>
-                      <option value="contact">Contact</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
-                      <option value="select" selected>Select Sensor Status</option>
-                      <option value="good">Good</option>
-                      <option value="low signal">Low Signal</option>
-                      <option value="low battery">Low Battery</option>
-                      <option value="missed communication">Missed Communication</option>
-                      <option value="alerts">Alerts</option>
-                    </select>
-                  </div>
-                  <!--<div class="form-group">
-                    <select name="gateway" [(ngModel)]="gateway" class="form-control">
-                      <option value="all" selected>All</option>
-                      <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
-                    </select>
-                  </div>-->
-                </form>
+
+                <div class="sensors-info-filter">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
+                    </div>
+                    <div class="form-group">
+                      <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
+                        <option value="select" selected>Select Sensor Type</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="humidity">Humidity</option>
+                        <option value="contact">Contact</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
+                        <option value="select" selected>Select Sensor Status</option>
+                        <option value="good">Good</option>
+                        <option value="low signal">Low Signal</option>
+                        <option value="low battery">Low Battery</option>
+                        <option value="missed communication">Missed Communication</option>
+                        <option value="alerts">Alerts</option>
+                      </select>
+                    </div>
+                    <!--<div class="form-group">
+                      <select name="gateway" [(ngModel)]="gateway" class="form-control">
+                        <option value="all" selected>All</option>
+                        <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
+                      </select>
+                    </div>-->
+                  </form>
+                </div>
               </div>
             </div>
 
