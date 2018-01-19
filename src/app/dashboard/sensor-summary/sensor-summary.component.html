@@ -104,17 +104,18 @@
           <!-- Gateway Tab -->
           <tab tabTitle="Gateways" class="tab-content gateway-details-container">
             <h3>Gateway Details</h3>
-            <div class="row" *ngIf="gateway!=='all'">
-              <ul>
-                <!--<li><span>Gateway ID: </span> {{mapData.Location.Network.Gateway[gateway].GatewayID}}</li>-->
-                <!--<li><span>Network ID: </span> {{mapData.Location.Network.Gateway[gateway].NetworkID}}</li>-->
-                <!--<li><span>Gateway Name: </span> {{mapData.Location.Network.Gateway[gateway].Name}}</li>-->
-                <!--<li><span>Gateway Type: </span> {{mapData.Location.Network.Gateway[gateway].GatewayType}}</li>-->
-                <!--<li><span>Last Communication Date: </span> {{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</li>-->
-              </ul>
-            </div>
-            <div class="row" *ngIf="gateway=='all'">
-              <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12 gateway-notAll" *ngIf="gateway!=='all'">
+                <ul>
+                  <!--<li><span>Gateway ID: </span> {{mapData.Location.Network.Gateway[gateway].GatewayID}}</li>-->
+                  <!--<li><span>Network ID: </span> {{mapData.Location.Network.Gateway[gateway].NetworkID}}</li>-->
+                  <!--<li><span>Gateway Name: </span> {{mapData.Location.Network.Gateway[gateway].Name}}</li>-->
+                  <!--<li><span>Gateway Type: </span> {{mapData.Location.Network.Gateway[gateway].GatewayType}}</li>-->
+                  <!--<li><span>Last Communication Date: </span> {{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</li>-->
+                </ul>
+              </div>
+
+              <div class="col-md-12 gateway-all" *ngIf="gateway=='all'">
                 <ul *ngFor="let aGateway of mapData.Location.Network.Gateway">
                   <li><span>Gateway ID: </span> {{aGateway.GatewayID}}</li>
                   <li><span>Network ID: </span> {{aGateway.NetworkID}}</li>

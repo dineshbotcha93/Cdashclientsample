@@ -20,6 +20,11 @@ table {
     label {
       margin-right: 20px;
     }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+      margin-bottom: 30px;
+    }
   }
 
   .ss-info-container {
@@ -29,11 +34,20 @@ table {
         padding-left: 10px;
         color: $color-grey-verydark;
       }
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        font-size: 0.85em;
+      }
     }
 
     .ss-info-right {
       padding-left: 30px;
       border-left: 1px solid $color-grey-verylight;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        padding-left: 10px;
+        border-left: 0;
+      }
     }
   }
 }
@@ -46,10 +60,20 @@ table {
     form {
       text-align: right;
     }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+    }
   }
 }
 
 .gateway-details-container {
+  .gateway-notAll, .gateway-all {
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+    }
+  }
+
   ul {
     padding-left: 20px;
 
@@ -63,11 +87,20 @@ table {
         width: 25%;
         color: $color-grey;
         display: inline-block;
+
+        @media (min-width: $phone-small) and (max-width: $tablet-large) {
+          display: block;
+          width: auto;
+        }
       }
 
       &:last-child {
         border-bottom: none;
       }
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
     }
   }
 }
