@@ -44,7 +44,7 @@
             <div class="form-group">
               <select name="gateway" [(ngModel)]="gateway" class="form-control">
                 <option value="all" selected>All</option>
-                <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
+                <option value="{{i}}" *ngFor="let btn of gateWayData;let i = index">{{btn.Name}}</option>
               </select>
             </div>
             <div class="form-group">
@@ -56,46 +56,38 @@
         <h3>Gateway Details</h3>
         <div class="row" *ngIf="gateway!=='all'">
           <table class="table table-bordered">
-            <!--<tr>
-              <td class="col-md-4">Gateway ID</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayID}}</td>
-            </tr>
             <tr>
-              <td class="col-md-4">Network ID</td><td>{{mapData.Location.Network.Gateway[gateway].NetworkID}}</td>
-            </tr>-->
-            <tr>
-              <td class="col-md-4">Gateway Name</td><td>{{mapData.Location.Network.Gateway[gateway].Name}}</td>
+              <td class="col-md-4">Gateway Name</td>
+              <td>{{gateWayData.Name}}</td>
             </tr>
-            <!--<tr>
-              <td class="col-md-4">Gateway Type</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayType}}</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Last Communication Date</td><td>{{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</td>
-            </tr>-->
           </table>
         </div>
         <div class="row" *ngIf="gateway=='all'">
-          <table class="table table-bordered" *ngFor="let aGateway of mapData.Location.Network.Gateway">
-            <!--<tr>
-              <td class="col-md-4">Gateway ID</td><td>{{aGateway.GatewayID}}</td>
+          <table class="table table-bordered" *ngFor="let aGateway of gateWayData" 
+          ng-include="getTemplate(gateWayData)">
+           <tr>
+
+              <td class="col-md-4">Gateway Name</td>
+              <td class="col-md-4" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
+              <td *ngIf="aGateway.gateWayEditOption ==='edit'"><input class="form-control" type="text" name="gatewayName"  
+                value="{{aGateway.Name}}"
+                [(ngModel)]="aGateway.Name"
+                /></td>
+
+
+              <td *ngIf="aGateway.gateWayEditOption ==='display'"><button type="button" class="btn btn-primary" (click)="onClickEdit(aGateway)" >Edit</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="onClickDelete(aGateway)" >Delete</button>
+            </td>
+            <td *ngIf="aGateway.gateWayEditOption ==='edit'"><button type="button" class="btn btn-primary" (click)="onClickSave(aGateway)" >Save</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button>
+            </td>
             </tr>
-            <tr>
-              <td class="col-md-4">Network ID</td><td>{{aGateway.NetworkID}}</td>
-            </tr>-->
-            <tr>
-              <td class="col-md-4">Gateway Name</td><td>{{aGateway.Name}}</td>
-            </tr>
-            <!-- <tr>
-              <td class="col-md-4">Gateway Type</td><td>{{aGateway.GatewayType}}</td>
-            </tr>
-            <tr>
-              <td class="col-md-4">Last Communication Date</td><td>{{aGateway.LastCommunicationDate}}</td>
-            </tr>-->
           </table>
         </div>
       </div>
       <div class="x_panel">
         <div class="row top_tiles" *ngIf="gateway!=='all'">
-          <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div *ngFor="let sensor of mapData.Location.Network.Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
               [tileContent]="sensor.SensorName"
               [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
