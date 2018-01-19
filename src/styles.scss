@@ -25,3 +25,20 @@ html, body {
   }
 }
 /* ******* */
+
+/* ul */
+ul {
+  &.bar_tabs {
+    background: none;
+  }
+}
+/* ******* */
+
+/* side-nav */
+//.nav-sm .container.body .col-md-3.left_col {
+//  min-height: 100%;
+//  width: 70px;
+//  padding: 0;
+//  z-index: 9999;
+//  position: absolute;
+//}
