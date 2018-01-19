@@ -5,6 +5,7 @@
 @import "styles/custom";
 @import "styles/daterangepicker";
 @import "styles/green.css";
+@import "styles/forms";
 
 #map {
   height: 100%;
@@ -15,3 +16,12 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+
+/* tabs, tab-content */
+.tab-content {
+  .x_content {
+    margin-top: 10px;
+  }
+}
+/* ******* */

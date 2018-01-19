@@ -1,86 +1,78 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+      <h3>Location Details</h3>
+
       <div class="x_panel">
-        <div class="x_title">
-
-          <div class="row">
-
-            <table class="table">
-
-              <tr>
-                <td class="col-md-6"> <h3>Location Details</h3></td>
-                <td> Select Location: <select  [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
-                  <option *ngFor="let loc of locationData" [ngValue]="loc">
-                    {{loc.Title}}
-                  </option>
-                </select></td>
-              </tr>
-              <tr>
-                <td class="col-md-6">Location: {{mapData.Location.Title}}<br>
-                Address: {{mapData.Location.Address}}</td>
-                <td>Network Name: {{mapData.Location.Network.Name}}<br>
-                  Network Id: {{mapData.Location.Network.Id}}<br>
-                Count of Gateways/Sensors: {{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</td>
-              </tr>
-             <!--  <tr>
-                <td class="col-md-4">Address: {{mapData.Location.Address}}</td>
-                <td>Count of Gateways/Sensors: {{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</td>
-              </tr> -->
-            </table>
+        <div class="row sensor-summary-info">
+          <div class="col-md-12 form-inline">
+            <div class="form-group ss-location">
+              <label class="control-label col-form-label">Select Location:</label>
+              <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
+                <option *ngFor="let loc of locationData" [ngValue]="loc">
+                  {{loc.Title}}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="clearfix"></div>
+          <div class="ss-info-container">
+            <div class="col-md-6 ss-info-left">
+              <p>Location: <span>{{mapData.Location.Title}}</span></p>
+              <p>Address: <span>{{mapData.Location.Address}}</span></p>
+            </div>
+            <div class="col-md-6 ss-info-right">
+              <p>Network Name: <span>{{mapData.Location.Network.Name}}</span></p>
+              <p>Network Id: <span>{{mapData.Location.Network.Id}}</span></p>
+              <p>Count of Gateways/Sensors: <span>{{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</span></p>
+            </div>
+          </div>
         </div>
-
       </div>
+
       <div class="x_panel">
-
-
         <tabs>
-          <tab tabTitle="Sensors" class="tab-content">
 
-            <div class="x_content">
-              <br>
-              <div>
+          <!-- Sensors Tab -->
+          <tab tabTitle="Sensors" class="sensors-info-container tab-content">
+            <div class="row x_content">
+              <div class="col-md-4">
                 <div class="form-group">
                   <input type="button" class="btn btn-primary" value="Compare Sensors" (click)="doCompare()">
                 </div>
               </div>
-              <form class="form-inline" role="form">
-
-                <div class="form-group">
-                  <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
-                </div>
-
-                <div class="form-group">
-                  <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
-                    <option value="select" selected>Select Sensor Type</option>
-                    <option value="temperature">Temperature</option>
-                    <option value="humidity">Humidity</option>
-                    <option value="contact">Contact</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
-                    <option value="select" selected>Select Sensor Status</option>
-                    <option value="good">Good</option>
-                    <option value="low signal">Low Signal</option>
-                    <option value="low battery">Low Battery</option>
-                    <option value="missed communication">Missed Communication</option>
-                    <option value="alerts">Alerts</option>
-                  </select>
-                </div>
-                <!--<div class="form-group">
-                  <select name="gateway" [(ngModel)]="gateway" class="form-control">
-                    <option value="all" selected>All</option>
-                    <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
-                  </select>
-                </div>-->
-                <div class="form-group">
-                </div>
-              </form>
-              <br>
+              <div class="col-md-8 sensors-info-filter">
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
+                  </div>
+                  <div class="form-group">
+                    <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
+                      <option value="select" selected>Select Sensor Type</option>
+                      <option value="temperature">Temperature</option>
+                      <option value="humidity">Humidity</option>
+                      <option value="contact">Contact</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
+                      <option value="select" selected>Select Sensor Status</option>
+                      <option value="good">Good</option>
+                      <option value="low signal">Low Signal</option>
+                      <option value="low battery">Low Battery</option>
+                      <option value="missed communication">Missed Communication</option>
+                      <option value="alerts">Alerts</option>
+                    </select>
+                  </div>
+                  <!--<div class="form-group">
+                    <select name="gateway" [(ngModel)]="gateway" class="form-control">
+                      <option value="all" selected>All</option>
+                      <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
+                    </select>
+                  </div>-->
+                </form>
+              </div>
             </div>
+
             <div class="clearfix"></div>
 
             <div class="row top_tiles" *ngIf="gateway!=='all'">
@@ -107,52 +99,33 @@
                 </app-tile>
               </div>
             </div>
-
           </tab>
-          <tab tabTitle="Gateways" class="tab-content">
 
-
+          <!-- Gateway Tab -->
+          <tab tabTitle="Gateways" class="tab-content gateway-details-container">
             <h3>Gateway Details</h3>
             <div class="row" *ngIf="gateway!=='all'">
-              <table class="table table-bordered">
-                <!--<tr>
-                  <td class="col-md-4">Gateway ID</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayID}}</td>
-                </tr>
-                <tr>
-                  <td class="col-md-4">Network ID</td><td>{{mapData.Location.Network.Gateway[gateway].NetworkID}}</td>
-                </tr>-->
-                <tr>
-                  <td class="col-md-4">Gateway Name</td><td>{{mapData.Location.Network.Gateway[gateway].Name}}</td>
-                </tr>
-                <!--<tr>
-                  <td class="col-md-4">Gateway Type</td><td>{{mapData.Location.Network.Gateway[gateway].GatewayType}}</td>
-                </tr>
-                <tr>
-                  <td class="col-md-4">Last Communication Date</td><td>{{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</td>
-                </tr>-->
-              </table>
+              <ul>
+                <!--<li><span>Gateway ID: </span> {{mapData.Location.Network.Gateway[gateway].GatewayID}}</li>-->
+                <!--<li><span>Network ID: </span> {{mapData.Location.Network.Gateway[gateway].NetworkID}}</li>-->
+                <!--<li><span>Gateway Name: </span> {{mapData.Location.Network.Gateway[gateway].Name}}</li>-->
+                <!--<li><span>Gateway Type: </span> {{mapData.Location.Network.Gateway[gateway].GatewayType}}</li>-->
+                <!--<li><span>Last Communication Date: </span> {{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</li>-->
+              </ul>
             </div>
             <div class="row" *ngIf="gateway=='all'">
-              <table class="table table-bordered" *ngFor="let aGateway of mapData.Location.Network.Gateway">
-                <!--<tr>
-                  <td class="col-md-4">Gateway ID</td><td>{{aGateway.GatewayID}}</td>
-                </tr>
-                <tr>
-                  <td class="col-md-4">Network ID</td><td>{{aGateway.NetworkID}}</td>
-                </tr>-->
-                <tr>
-                  <td class="col-md-4">Gateway Name</td><td>{{aGateway.Name}}</td>
-                </tr>
-                <!-- <tr>
-                  <td class="col-md-4">Gateway Type</td><td>{{aGateway.GatewayType}}</td>
-                </tr>
-                <tr>
-                  <td class="col-md-4">Last Communication Date</td><td>{{aGateway.LastCommunicationDate}}</td>
-                </tr>-->
-              </table>
+              <div class="col-md-12">
+                <ul *ngFor="let aGateway of mapData.Location.Network.Gateway">
+                  <li><span>Gateway ID: </span> {{aGateway.GatewayID}}</li>
+                  <li><span>Network ID: </span> {{aGateway.NetworkID}}</li>
+                  <li><span>Gateway Name: </span> {{aGateway.Name}}</li>
+                  <li><span>Gateway Type: </span> {{aGateway.GatewayType}}</li>
+                  <li><span>Last Communication Date: </span> {{aGateway.LastCommunicationDate}}</li>
+                </ul>
+              </div>
             </div>
-
           </tab>
+
         </tabs>
 
       </div>
