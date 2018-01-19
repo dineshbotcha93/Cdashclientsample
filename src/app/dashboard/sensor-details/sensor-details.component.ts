@@ -17,7 +17,7 @@ export class SensorDetailsComponent {
   private data:Array<any>=[];
   private chartLabels:Array<any>=[];
   constructor(private sensorSummaryService:SensorDetailsService,private router:Router){
-    sensorSummaryService.getData(1156073157).then((result)=>{
+    sensorSummaryService.getData('1156073157').then((result)=>{
       this.result = result;
       result.DataMessages.forEach((res)=>{
         this.data.push(res.PlotValue);
