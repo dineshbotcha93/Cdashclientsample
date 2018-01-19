@@ -1,3 +1,74 @@
+@import "../../../styles/variables";
+
 .float-right {
   float: right;
 }
+
+table {
+  tr:first-child {
+    td {
+      border-top: none;
+    }
+  }
+}
+
+.sensor-summary-info {
+  .ss-location {
+    margin-top: 10px;
+    margin-bottom: 50px;
+
+    label {
+      margin-right: 20px;
+    }
+  }
+
+  .ss-info-container {
+    .ss-info-left, .ss-info-right {
+      color: $color-grey;
+      span {
+        padding-left: 10px;
+        color: $color-grey-verydark;
+      }
+    }
+
+    .ss-info-right {
+      padding-left: 30px;
+      border-left: 1px solid $color-grey-verylight;
+    }
+  }
+}
+
+.sensors-info-container {
+  .x_content {
+    // margin-bottom: 20px;
+  }
+  .sensors-info-filter {
+    form {
+      text-align: right;
+    }
+  }
+}
+
+.gateway-details-container {
+  ul {
+    padding-left: 20px;
+
+    li {
+      padding: 10px 0;
+      list-style: none;
+      color: $color-grey-verydark;
+      border-bottom: 1px solid $color-grey-verylight;
+
+      span {
+        width: 25%;
+        color: $color-grey;
+        display: inline-block;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
