@@ -54,16 +54,31 @@ table {
 
 .sensors-info-container {
   .x_content {
-    // margin-bottom: 20px;
+     margin-bottom: 20px;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      margin-bottom: 20px;
+    }
   }
+
+  .sensor-info-compare {
+    display: inline-block;
+  }
+
   .sensors-info-filter {
+    float: right;
     form {
       text-align: right;
     }
 
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       float: none;
+      margin-bottom: 10px;
     }
+  }
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    float: none;
   }
 }
 
