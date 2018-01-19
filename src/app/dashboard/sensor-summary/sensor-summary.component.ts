@@ -25,7 +25,7 @@ export class SensorSummaryComponent implements OnInit{
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
 
-  constructor(private route:ActivatedRoute, 
+  constructor(private route:ActivatedRoute,
     private router:Router,
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService){
@@ -78,6 +78,7 @@ export class SensorSummaryComponent implements OnInit{
          this.allSensors.push(sens);
       });
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+      console.log('-----------'+this.originalSensor);
     });
   }
 
