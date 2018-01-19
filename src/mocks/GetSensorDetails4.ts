@@ -9,7 +9,7 @@ export const SensorDetails4 = {
   NetworkName: 'Test',
   GatewayID: 1508830382,
   Gateway: 'BaseStation - 1508830382',
-  SensorName: "HARRY'S TEST SENSOR #2",
+  SensorName: "HARRY'S TEST SENSOR #4",
   LastCommunicationDate: "1/9/2018 12:23:58 AM",
   NextCommunicationDate: "1/9/2018 2:23:58 AM",
   LastDataMessageID: 26709499,
