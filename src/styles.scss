@@ -22,6 +22,12 @@ html, body {
 .tab-content {
   .x_content {
     margin-top: 10px;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+      float: none;
+      width: auto;
+    }
   }
 }
 /* ******* */
@@ -30,6 +36,10 @@ html, body {
 ul {
   &.bar_tabs {
     background: none;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+    }
   }
 }
 /* ******* */
