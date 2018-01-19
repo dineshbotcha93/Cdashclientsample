@@ -97,6 +97,7 @@ export class SensorComparisonComponent{
       this.chartData = [];
       this.chartLabels = [];
       this.location = 0;
+      this.sensorName = '1156073157';
       this.chart.ngOnDestroy();
       this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
       this.chart.chart.update();
