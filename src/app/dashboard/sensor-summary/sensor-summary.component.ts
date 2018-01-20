@@ -94,7 +94,7 @@ export class SensorSummaryComponent implements OnInit{
          this.gateWayData.push(Obj);
       }
       console.log(this.gateWayData);
-     
+
     });
   }
 
@@ -105,7 +105,7 @@ export class SensorSummaryComponent implements OnInit{
         this.allSensors.push(sens);
       });
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
-    
+
   }
 
   /* Gateway functions  */
@@ -157,9 +157,9 @@ export class SensorSummaryComponent implements OnInit{
     }
 
     filterName(){
-      if(this.gateway=='all'){
-        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
-        if(this.doFilterByName == ''){
+      if(this.doFilterByName!==null){
+        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
+        if(this.doFilterByName == '' || this.doFilterByName == null){
           this.allSensors = this.originalSensor;
         }
       }

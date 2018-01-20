@@ -43,20 +43,20 @@
                 </div>
                 <div class="form-group">
                   <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
-                    <option value="select" selected>Select Sensor Type</option>
                     <option value="temperature">Temperature</option>
                     <option value="humidity">Humidity</option>
                     <option value="contact">Contact</option>
+                    <option value="select" selected>All</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
-                    <option value="select" selected>Select Sensor Status</option>
                     <option value="good">Good</option>
                     <option value="low signal">Low Signal</option>
                     <option value="low battery">Low Battery</option>
                     <option value="missed communication">Missed Communication</option>
                     <option value="alerts">Alerts</option>
+                    <option value="select" selected>All</option>
                   </select>
                 </div>
                 <!--<div class="form-group">
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="row top_tiles" *ngIf="gateway=='all'">
-          <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName:doFilterByStatus:doFilterByType" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div *ngFor="let sensor of allSensors" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
               [tileContent]="sensor.SensorName"
               [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
@@ -150,11 +150,11 @@
             </tr>
 
            </tbody>
-             
+
           </table>
-          
+
           <!-- </div> -->
-          
+
         </div>
         </tab>
         </tabs>
