@@ -84,15 +84,15 @@ booth letterpress, commodo enim craft beer mlkshk </p>
   </app-datatable>
   </tab>
   <tab tabTitle="Graph" class="tab-content">
-    <div style="width: 100%;">
+    <div style="width: 100%;" class="chart-style">
   <canvas
       baseChart
+      #baseChart="base-chart"
       [chartType]="'line'"
       [datasets]="chartData"
       [labels]="chartLabels"
       [options]="chartOptions"
-      [legend]="true"
-      (chartClick)="onChartClick($event)">
+      [legend]="true">
   </canvas>
 </div>
   </tab>

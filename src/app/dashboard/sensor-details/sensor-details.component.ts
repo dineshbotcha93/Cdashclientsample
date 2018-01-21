@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { SensorDetailsService } from './services/sensor-details.service';
 import { Router } from '@angular/router';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { ChartOptions } from './config/chart.config';
+
 @Component({
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
@@ -16,7 +19,12 @@ export class SensorDetailsComponent {
   private limit:number = 10;
   private data:Array<any>=[];
   private chartLabels:Array<any>=[];
+  private chartOptions = null;
+  @ViewChild("baseChart") chart: BaseChartDirective;
+
   constructor(private sensorSummaryService:SensorDetailsService,private router:Router){
+    this.chartOptions = ChartOptions;
+
     sensorSummaryService.getData('1156073157').then((result)=>{
       this.result = result;
       result.DataMessages.forEach((res)=>{
@@ -38,13 +46,18 @@ export class SensorDetailsComponent {
     this.columns.push({prop:'signalStrength',name:'Signal Strength'});
     this.columns.push({prop:'voltage',name:'Voltage'});
     this.columns.push({prop:'test',name:'Test'});
+
+    this.chartOptions = ChartOptions;
+
+    this.chartOptions.legend = {
+      onClick:function(e){
+        e.preventDefault();
+      }
+    }
   }
-  chartOptions = {
-    responsive: true
-  };
 
   chartData = [
-    { data: this.data, label: 'Temperature Vs. Time' },
+    { data: this.data, label: 'Temperature Vs. Time',fill:false },
   ];
 
 
