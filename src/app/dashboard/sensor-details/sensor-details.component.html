@@ -76,13 +76,6 @@ booth letterpress, commodo enim craft beer mlkshk </p>
 -->
       <div class="x_content">
 <tabs #tabs>
-  <tab tabTitle="History" class="tab-content">
-    <app-datatable
-    [rows]="rows"
-    [columns]="columns"
-    [limit]="limit">
-  </app-datatable>
-  </tab>
   <tab tabTitle="Graph" class="tab-content" active="true">
     <div style="width: 100%;" class="chart-style">
   <canvas
@@ -95,6 +88,13 @@ booth letterpress, commodo enim craft beer mlkshk </p>
       [legend]="true">
   </canvas>
 </div>
+  </tab>
+  <tab tabTitle="History" class="tab-content">
+    <app-datatable
+    [rows]="rows"
+    [columns]="columns"
+    [limit]="limit">
+  </app-datatable>
   </tab>
 </tabs>
       </div>
