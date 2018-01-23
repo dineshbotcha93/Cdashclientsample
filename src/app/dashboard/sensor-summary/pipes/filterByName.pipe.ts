@@ -13,7 +13,7 @@ export class FilterByName implements PipeTransform  {
 		if(args[1]!=null){
 			let acceptableSensors = [];
 			v.forEach((item)=>{
-				if(item['SensorName'] == args[1]){
+				if(item['SensorName'].toLowerCase().indexOf(args[1].toLowerCase())){
 					acceptableSensors.push(item);
 				}
 			});

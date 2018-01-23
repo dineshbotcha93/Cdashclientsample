@@ -33,6 +33,22 @@ export class SensorComparisonComponent{
   constructor(private sensorDetailsService:SensorDetailsService){
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
+    this.chartOptions.legend = {
+      onClick:function(e,legendItem){
+        this.sensorNames.push({
+          label:this.chartData[legendItem.datasetIndex].label,
+          value:this.chartData[legendItem.datasetIndex].value
+        });
+        this.chartData.splice(legendItem.datasetIndex,1);
+        if(this.chartData.length == 0){
+          this.chartData = [];
+        } else{
+          this.chart.ngOnDestroy();
+          this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
+          this.chart.chart.update();
+        }
+      }.bind(this)
+    }
   }
 
   getSensorNames():Array<Object>{
@@ -67,7 +83,7 @@ export class SensorComparisonComponent{
             this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
           }
         });
-        this.chartData.push({data:tempData,label:result.SensorName});
+        this.chartData.push({data:tempData,label:result.SensorName,fill:false});
         if(this.chart){
           this.chart.ngOnDestroy();
           this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
@@ -109,16 +125,6 @@ export class SensorComparisonComponent{
     win.document.write("<html><head><title>Print Chart</title></head><body>");
     win.document.write("<br><img src='"+this.chart.chart.toBase64Image('image/png')+"' onload='print()' style='width:90%'/>");
     win.document.write("</body></html>");
-    // win.document.close();
-    // win.print();
-    // win.close();
-    //     let popupWinindow
-    //  let innerContents = document.getElementsByClassName("chartjs-size-monitor")[0].innerHTML;
-    // console.log(innerContents);
-    //  popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-    //  popupWinindow.document.open();
-    //  popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
-    //  popupWinindow.document.close();
   }
 
   date: {year: number, month: number};

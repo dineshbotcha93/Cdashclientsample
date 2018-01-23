@@ -21,6 +21,9 @@ export class SensorSummaryComponent implements OnInit{
   selectLocation:any = [];
   locationId:any = null;
   netWorkId : string = null;
+  selectedGateway : any = null;
+  gateWayEditOption: string = 'display';
+  gateWayData:any = [];
 
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
@@ -32,9 +35,10 @@ export class SensorSummaryComponent implements OnInit{
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService){
 
-      this.route.params.subscribe((params)=>{
-        this.netWorkId = params.id.toString();
-        this.getSensorData();
+    this.route.params.subscribe((params)=>{
+      this.netWorkId = params.id.toString();
+      this.getNetworkData();
+
 
       });
     }
@@ -61,37 +65,101 @@ export class SensorSummaryComponent implements OnInit{
       });
     }
 
-    /*Onchange event for selection of network ID*/
-    private onChange(e){
-      this.netWorkId = e.Id.toString();
-      this.getSensorData();
-    }
+  /*Onchange event for selection of network ID*/
+  private onChange(e){
+    this.netWorkId = e.Id.toString();
+    this.getNetworkData();
+  }
 
 
-    /*Get sensor data from service by selecting the network Id*/
-    private  getSensorData(){
-      this.allSensors = [];
-      this.mapData = null;
-      this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
-        console.log(e);
-        this.mapData = e;
-        this.originalMapSensor = this.mapData;
-        e.Location.Network.Sensor.forEach((sens)=>{
-          this.allSensors.push(sens);
-        });
-        this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
-        console.log('-----------'+this.originalSensor);
+  /*Get sensor data from service by selecting the network Id*/
+  private  getNetworkData(){
+    this.allSensors = [];
+    this.mapData = null;
+    this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
+      this.mapData = e;
+      this.getSensorData(e.Location.Network.Sensor);
+      this.getGatewayData(e.Location.Network.Gateway,'');
+    });
+  }
+
+  private getGatewayData(gateway,id:string){
+    this.gateWayData = [];
+    gateway.forEach((gate)=>{
+      let Obj : Object = null;
+      gate.gateWayEditOption = 'display';
+      Obj = gate;
+     // this.gateWayData.push(Obj);
+      if(id !== gate.GatewayID){
+         this.gateWayData.push(Obj);
+      }
+      console.log(this.gateWayData);
+
+    });
+  }
+
+  private getSensorData(sensor){
+    this.allSensors = [];
+    this.originalMapSensor = sensor;
+      sensor.forEach((sens)=>{
+        this.allSensors.push(sens);
       });
-    }
+      this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+
+  }
+
+  /* Gateway functions  */
+  onClickEdit(gateway){
+    gateway.gateWayEditOption='edit';
+    this.selectedGateway = Object.assign({}, gateway);
+  }
+
+  onClickSave(gateway){
+    //Backend function
+    gateway.gateWayEditOption='display';
+    this.selectedGateway = gateway;
+   // this.getSensorData();
+ }
+
+ onClickCancel(gateway){
+
+   gateway.gateWayEditOption='display';
+ }
+
+ onClickDelete(gateway){
+    //backend function to be replaced with
+     this.getGatewayData( this.gateWayData,gateway.GatewayID);
+    gateway.gateWayEditOption ='display';
+  }
+
+
+
+
+//     /*Get sensor data from service by selecting the network Id*/
+//     private  getSensorData(){
+//       this.allSensors = [];
+//       this.mapData = null;
+//       this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
+//         console.log(e);
+//         this.mapData = e;
+//         this.originalMapSensor = this.mapData;
+//         e.Location.Network.Sensor.forEach((sens)=>{
+//           this.allSensors.push(sens);
+//         });
+//         this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+//         console.log('-----------'+this.originalSensor);
+//       });
+//     }
+// >>>>>>> feature/dashboard
 
     gotoSummary(){
       this.router.navigate(['dashboard/sensor-details','I1']);
     }
 
     filterName(){
-      if(this.gateway=='all'){
-        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.indexOf(this.doFilterByName) > -1 ? sens:'',this);
-        if(this.doFilterByName == ''){
+      if(this.doFilterByName!==null){
+        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
+        if(this.doFilterByName == '' || this.doFilterByName == null){
           this.allSensors = this.originalSensor;
         }
       }

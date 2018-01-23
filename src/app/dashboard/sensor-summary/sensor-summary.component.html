@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <h3>Location Details</h3>
-
       <div class="x_panel">
         <div class="row sensor-summary-info">
           <div class="col-md-12 form-inline">
@@ -28,111 +27,139 @@
           </div>
         </div>
       </div>
-
       <div class="x_panel">
         <tabs>
-
-          <!-- Sensors Tab -->
-          <tab tabTitle="Sensors" class="tab-content">
-            <div class="row x_content">
-              <div class="col-md-12 sensors-info-container">
-                <div class="form-group sensor-info-compare">
-                  <input type="button" class="btn btn-primary" value="Compare Sensors" (click)="doCompare()">
+        <!-- Sensors Tab -->
+        <tab tabTitle="Sensors" class="tab-content">
+        <div class="row x_content">
+          <div class="col-md-12 sensors-info-container">
+            <div class="form-group sensor-info-compare">
+              <input type="button" class="btn btn-primary" value="Compare Sensors" (click)="doCompare()">
+            </div>
+            <div class="sensors-info-filter">
+              <form class="form-inline" role="form">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
                 </div>
-
-                <div class="sensors-info-filter">
-                  <form class="form-inline" role="form">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
-                    </div>
-                    <div class="form-group">
-                      <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
-                        <option value="select" selected>Select Sensor Type</option>
-                        <option value="temperature">Temperature</option>
-                        <option value="humidity">Humidity</option>
-                        <option value="contact">Contact</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
-                        <option value="select" selected>Select Sensor Status</option>
-                        <option value="good">Good</option>
-                        <option value="low signal">Low Signal</option>
-                        <option value="low battery">Low Battery</option>
-                        <option value="missed communication">Missed Communication</option>
-                        <option value="alerts">Alerts</option>
-                      </select>
-                    </div>
-                    <!--<div class="form-group">
-                      <select name="gateway" [(ngModel)]="gateway" class="form-control">
-                        <option value="all" selected>All</option>
-                        <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
-                      </select>
-                    </div>-->
-                  </form>
+                <div class="form-group">
+                  <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">
+                    <option value="temperature">Temperature</option>
+                    <option value="humidity">Humidity</option>
+                    <option value="contact">Contact</option>
+                    <option value="select" selected>All</option>
+                  </select>
                 </div>
-              </div>
+                <div class="form-group">
+                  <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
+                    <option value="good">Good</option>
+                    <option value="low signal">Low Signal</option>
+                    <option value="low battery">Low Battery</option>
+                    <option value="missed communication">Missed Communication</option>
+                    <option value="alerts">Alerts</option>
+                    <option value="select" selected>All</option>
+                  </select>
+                </div>
+                <!--<div class="form-group">
+                  <select name="gateway" [(ngModel)]="gateway" class="form-control">
+                    <option value="all" selected>All</option>
+                    <option value="{{i}}" *ngFor="let btn of mapData.Location.Network.Gateway;let i = index">{{btn.Name}}</option>
+                  </select>
+                </div>-->
+              </form>
             </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row top_tiles" *ngIf="gateway!=='all'">
+          <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <app-tile
+              [tileContent]="sensor.SensorName"
+              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
+              (click)="gotoSummary()"
+              [tileColor]="sensor.Status">
+            </app-tile>
+          </div>
+        </div>
+        <div class="row top_tiles" *ngIf="gateway=='all'">
+          <div *ngFor="let sensor of allSensors" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <app-tile
+              [tileContent]="sensor.SensorName"
+              [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
+              [tileColorBy]="'sensorType'"
+              [sensorTileIcon]="sensor.SensorType"
+              (click)="gotoSummary()"
+              [tileColor]="sensor.Status">
+            </app-tile>
+          </div>
+        </div>
+        </tab>
+        <!-- Gateway Tab -->
+        <tab tabTitle="Gateways" class="tab-content gateway-details-container">
+        <h3>Gateway Details</h3>
+        <div class="row">
+          <div class="col-md-12 gateway-notAll" *ngIf="gateway!=='all'">
+            <ul>
+              <!--<li><span>Gateway ID: </span> {{mapData.Location.Network.Gateway[gateway].GatewayID}}</li>-->
+              <!--<li><span>Network ID: </span> {{mapData.Location.Network.Gateway[gateway].NetworkID}}</li>-->
+              <!--<li><span>Gateway Name: </span> {{mapData.Location.Network.Gateway[gateway].Name}}</li>-->
+              <!--<li><span>Gateway Type: </span> {{mapData.Location.Network.Gateway[gateway].GatewayType}}</li>-->
+              <!--<li><span>Last Communication Date: </span> {{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</li>-->
+            </ul>
+          </div>
+          <div class="col-md-12 gateway-all" *ngIf="gateway=='all'">
+            <ul *ngFor="let aGateway of mapData.Location.Network.Gateway">
+              <li><span>Gateway ID: </span> {{aGateway.GatewayID}}</li>
+              <li><span>Network ID: </span> {{aGateway.NetworkID}}</li>
+              <li><span>Gateway Name: </span> {{aGateway.Name}}</li>
+              <li><span>Gateway Type: </span> {{aGateway.GatewayType}}</li>
+              <li><span>Last Communication Date: </span> {{aGateway.LastCommunicationDate}}</li>
+            </ul>
+          </div>
+        </div>
+        </tab>
+        <tab tabTitle="Config" class="tab-content gateway-details-container">
+        <h3>Gateway Details</h3>
+        <div class="row">
+          <!-- <div class="col-md-12 gateway-notAll" *ngIf="gateway!=='all'"> -->
+          <table class="table table-striped">
+            <thead>
+             <tr>
+              <th class="col-md-2">Gateway Name</th>
+              <th class="col-md-2">Gateway Id</th>
+              <th class="col-md-2">Gateway Type</th>
+              <th class="col-md-2">Last Communication Date</th>
+              <th class="col-md-2"></th>
+            </tr></thead>
+           <tbody>
+             <tr *ngFor="let aGateway of gateWayData">
+                <td class="col-md-2" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
+                 <td *ngIf="aGateway.gateWayEditOption ==='edit'">
+                    <input class="form-control" type="text" name="gatewayName"  value="{{aGateway.Name}}" [(ngModel)]="aGateway.Name">
+                 </td>
+              <td class="col-md-2">{{aGateway.GatewayID}}</td>
+              <td class="col-md-2">{{aGateway.GatewayType}}</td>
+              <td class="col-md-2">{{aGateway.LastCommunicationDate}}</td>
+              <td class="col-md-2" *ngIf="aGateway.gateWayEditOption ==='display'"><button type="button" class="btn btn-primary" (click)="onClickEdit(aGateway)" >Edit</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="onClickDelete(aGateway)" >Delete</button>
+            </td>
+            <td *ngIf="aGateway.gateWayEditOption ==='edit'"><button type="button" class="btn btn-primary" (click)="onClickSave(aGateway)" >Save</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button>
+            </td>
+            </tr>
 
-            <div class="clearfix"></div>
+           </tbody>
 
-            <div class="row top_tiles" *ngIf="gateway!=='all'">
-              <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <app-tile
-                  [tileContent]="sensor.SensorName"
-                  [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-                  [tileColorBy]="'sensorType'"
-                  [sensorTileIcon]="sensor.SensorType"
-                  (click)="gotoSummary()"
-                  [tileColor]="sensor.Status">
-                </app-tile>
-              </div>
-            </div>
-            <div class="row top_tiles" *ngIf="gateway=='all'">
-              <div *ngFor="let sensor of allSensors | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName:doFilterByStatus:doFilterByType" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <app-tile
-                  [tileContent]="sensor.SensorName"
-                  [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
-                  [tileColorBy]="'sensorType'"
-                  [sensorTileIcon]="sensor.SensorType"
-                  (click)="gotoSummary()"
-                  [tileColor]="sensor.Status">
-                </app-tile>
-              </div>
-            </div>
-          </tab>
+          </table>
 
-          <!-- Gateway Tab -->
-          <tab tabTitle="Gateways" class="tab-content gateway-details-container">
-            <h3>Gateway Details</h3>
-            <div class="row">
-              <div class="col-md-12 gateway-notAll" *ngIf="gateway!=='all'">
-                <ul>
-                  <!--<li><span>Gateway ID: </span> {{mapData.Location.Network.Gateway[gateway].GatewayID}}</li>-->
-                  <!--<li><span>Network ID: </span> {{mapData.Location.Network.Gateway[gateway].NetworkID}}</li>-->
-                  <!--<li><span>Gateway Name: </span> {{mapData.Location.Network.Gateway[gateway].Name}}</li>-->
-                  <!--<li><span>Gateway Type: </span> {{mapData.Location.Network.Gateway[gateway].GatewayType}}</li>-->
-                  <!--<li><span>Last Communication Date: </span> {{mapData.Location.Network.Gateway[gateway].LastCommunicationDate}}</li>-->
-                </ul>
-              </div>
+          <!-- </div> -->
 
-              <div class="col-md-12 gateway-all" *ngIf="gateway=='all'">
-                <ul *ngFor="let aGateway of mapData.Location.Network.Gateway">
-                  <li><span>Gateway ID: </span> {{aGateway.GatewayID}}</li>
-                  <li><span>Network ID: </span> {{aGateway.NetworkID}}</li>
-                  <li><span>Gateway Name: </span> {{aGateway.Name}}</li>
-                  <li><span>Gateway Type: </span> {{aGateway.GatewayType}}</li>
-                  <li><span>Last Communication Date: </span> {{aGateway.LastCommunicationDate}}</li>
-                </ul>
-              </div>
-            </div>
-          </tab>
-
+        </div>
+        </tab>
         </tabs>
-
       </div>
       <!--<div class="x_panel">-->
-
       <!--</div>-->
     </div>
   </div>
