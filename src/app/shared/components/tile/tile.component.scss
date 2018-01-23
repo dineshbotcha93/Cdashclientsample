@@ -21,18 +21,6 @@ $colors : red green yellow orange;
   }
 }
 
-.widget-style-2 {
-  @media (min-width: 767px) {
-    padding-left: 30px;
-  }
-
-  @media (max-width: 767px) {
-    padding: 30px;
-    margin-bottom: 10px;
-  }
-
-}
-
 .widget-panel {
   padding: 40px 20px;
   border-radius: 4px;
@@ -67,9 +55,12 @@ $colors : red green yellow orange;
 }
 
 .widget-style-2 {
-  h2 {
+  font-family: "roboto_thin";
+
+  .counter {
     font-weight: 600;
-    font-size: 1.75em;
+    font-size: 2em;
+    text-shadow: 2px 2px 2px $color-grey-verydark;
 
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       font-size: 1.5em;
@@ -96,25 +87,34 @@ $colors : red green yellow orange;
     }
   }
 
+  .fahrenHeight {
+    font-size: 1.15em;
+    font-weight: 800;
+    text-shadow: 2px 2px 2px $color-grey-verydark;
+  }
+
   @media (min-width: $phone-small) and (max-width: $tablet-large) {
     font-size: 0.75em;
     padding: 5px;
     margin-bottom: 5px;
   }
 
+  @media (min-width: 767px) {
+    padding-left: 30px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 30px;
+    margin-bottom: 10px;
+  }
+
+
   &.special {
     font-size: 18px;
   }
 }
 
-//.widget-style-2 h2 {
-//  @media (min-width: 767px) {
-//    font-size: 32px;
-//  }
-//  @media (max-width: 767px) {
-//    font-size: 24px;
-//  }
-//}
+
 
 .m-0 {
   margin: 0px !important;
