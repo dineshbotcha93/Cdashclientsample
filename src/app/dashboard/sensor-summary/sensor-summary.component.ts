@@ -159,9 +159,9 @@ export class SensorSummaryComponent implements OnInit{
     filterName(){
       if(this.doFilterByName!==null){
         this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
-        if(this.doFilterByName == '' || this.doFilterByName == null){
-          this.allSensors = this.originalSensor;
-        }
+      }
+      else if(this.doFilterByName == '' || this.doFilterByName == null){
+        this.allSensors = this.originalSensor;
       }
     }
     filterStatus(){

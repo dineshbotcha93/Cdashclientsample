@@ -39,7 +39,7 @@
             <div class="sensors-info-filter">
               <form class="form-inline" role="form">
                 <div class="form-group">
-                  <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keydown)="filterName()" [(ngModel)]="doFilterByName">
+                  <input type="text" class="form-control" name="filter_name" placeholder="Filter By Sensor Name" (keyup)="filterName()" [(ngModel)]="doFilterByName">
                 </div>
                 <div class="form-group">
                   <select name="filter_by_type" [(ngModel)]="doFilterByType" class="form-control" (ngModelChange)="filterByType()">

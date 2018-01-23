@@ -1,4 +1,4 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component,ViewChild,ViewChildren,QueryList,ChangeDetectorRef } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { SensorDetailsService } from './services/sensor-details.service';
 import { Router } from '@angular/router';
@@ -21,8 +21,9 @@ export class SensorDetailsComponent {
   private chartLabels:Array<any>=[];
   private chartOptions = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
+  @ViewChildren("tabs") tabs: QueryList<any>
 
-  constructor(private sensorSummaryService:SensorDetailsService,private router:Router){
+  constructor(private sensorSummaryService:SensorDetailsService,private router:Router,private cd: ChangeDetectorRef){
     this.chartOptions = ChartOptions;
 
     sensorSummaryService.getData('1156073157').then((result)=>{
@@ -54,6 +55,19 @@ export class SensorDetailsComponent {
         e.preventDefault();
       }
     }
+  }
+
+  ngAfterViewInit(){
+    this.tabs.forEach((e)=>{
+      e.tabs.forEach((tab)=>{
+        if(tab.tabTitle=='Graph'){
+          tab.active = true;
+        } else {
+          tab.active = false;
+        }
+      })
+      this.cd.detectChanges();
+    })
   }
 
   chartData = [
