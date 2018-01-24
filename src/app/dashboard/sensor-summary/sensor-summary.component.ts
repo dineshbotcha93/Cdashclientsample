@@ -3,6 +3,8 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { MapService } from '../../shared/components/map/services/map.service';
 import { MapConstants } from '../../shared/components/map/constants/map.constants';
 import { SensorSummaryService } from './services/sensor-summary.service';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector:'app-sensor-summary',
   templateUrl:'./sensor-summary.component.html',
