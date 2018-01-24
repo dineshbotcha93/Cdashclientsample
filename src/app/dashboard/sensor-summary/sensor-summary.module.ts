@@ -8,6 +8,8 @@ import { PipesModule } from '../../shared/pipes';
 import { FormsModule } from '@angular/forms';
 import { FilterByName } from './pipes/filterByName.pipe';
 
+
+
 const routes:Object[] = [{
   path:'dashboard/sensor-summary/:id',component:SensorSummaryComponent
 }];
