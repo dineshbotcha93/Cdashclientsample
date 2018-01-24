@@ -79,7 +79,6 @@ export class SensorSummaryComponent implements OnInit{
     this.allSensors = [];
     this.mapData = null;
     this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
-      console.log(e);
       this.mapData = e;
       this.getSensorData(e.Location.Network.Sensor);
       this.getGatewayData(e.Location.Network.Gateway,'');
