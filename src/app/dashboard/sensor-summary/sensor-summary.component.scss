@@ -89,29 +89,37 @@ table {
     }
   }
 
-  ul {
-    padding-left: 20px;
+  .gateway-all {
+    .gateway {
+      margin: 0 10px 10px 0;
+      padding: 0;
+      display: inline-block;
+      font-size: 0.75em;
+      font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      background-color: $gateway-tile-BG-Blue;
 
-    li {
-      padding: 10px 0;
-      list-style: none;
-      color: $color-grey-verydark;
-      border-bottom: 1px solid $color-grey-verylight;
+      p {
+        margin: 0;
+        color: $color-grey-verydark;
 
-      span {
-        width: 25%;
-        color: $color-grey;
-        display: inline-block;
+        span.key {
+          padding: 5px 10px;
+          width: 40%;
+          color: $color-white;
+          display: inline-block;
+          background-color: $gateway-tile-DrkBG-Blue;
+        }
 
-        @media (min-width: $phone-small) and (max-width: $tablet-large) {
-          display: block;
-          width: auto;
+        span.value {
+          padding: 5px 10px;
+          color: $color-white;
+          display: inline-block;
         }
       }
-    }
 
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 }
