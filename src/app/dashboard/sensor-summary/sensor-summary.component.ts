@@ -3,6 +3,8 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { MapService } from '../../shared/components/map/services/map.service';
 import { MapConstants } from '../../shared/components/map/constants/map.constants';
 import { SensorSummaryService } from './services/sensor-summary.service';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector:'app-sensor-summary',
   templateUrl:'./sensor-summary.component.html',
@@ -159,9 +161,9 @@ export class SensorSummaryComponent implements OnInit{
     filterName(){
       if(this.doFilterByName!==null){
         this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
-        if(this.doFilterByName == '' || this.doFilterByName == null){
-          this.allSensors = this.originalSensor;
-        }
+      }
+      else if(this.doFilterByName == '' || this.doFilterByName == null){
+        this.allSensors = this.originalSensor;
       }
     }
     filterStatus(){
