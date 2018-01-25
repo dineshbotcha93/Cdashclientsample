@@ -71,7 +71,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="row top_tiles" *ngIf="gateway!=='all'">
-          <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByName: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByCriteria: sensor:doFilterByName" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
               [tileContent]="sensor.SensorName"
               [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="row top_tiles" *ngIf="gateway=='all'">
-          <div *ngFor="let sensor of allSensors" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div *ngFor="let sensor of allSensors | filterByCriteria: doFilterByName: doFilterByStatus: doFilterByType" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <app-tile
               [tileContent]="sensor.SensorName"
               [tileDetails]="{fahrenHeight:sensor.CurrentReading}"
