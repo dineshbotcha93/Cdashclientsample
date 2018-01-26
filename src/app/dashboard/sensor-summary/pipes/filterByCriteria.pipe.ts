@@ -2,12 +2,13 @@ import {
 	Pipe,
 	PipeTransform
 } 							from '@angular/core';
+import { CommonSharedService } from '../../../shared/services/common-shared.service';
 
 @Pipe({
 	name: 'filterByCriteria'
 })
 export class FilterByCriteria implements PipeTransform  {
-	constructor(){}
+	constructor(private commonSharedService:CommonSharedService){}
 
 	transform(v: Array<Object>,...args:any[]) : object {
 		if(args[0]!==null){
@@ -17,34 +18,12 @@ export class FilterByCriteria implements PipeTransform  {
 					acceptableSensors.push(item);
 					if(args[1]!==null){
 						acceptableSensors = acceptableSensors.filter((aS)=>{
-							switch(args[1]){
-								case 'good':
-								return (item['Status'] == 0) ? aS:'';
-								case 'low signal':
-								return (item['Status'] == 1) ? aS:'';
-								case 'low battery':
-								return (item['Status'] == 2) ? aS:'';
-								case 'missed communication':
-								return (item['Status'] == 3) ? aS:'';
-								case 'alerts':
-								return (item['Status'] == 4) ? aS:'';
-								default:
-								return aS;
-							}
+							return this.commonSharedService.evaluateSensorStatus(args[1],item,aS);
 						});
 					}
 					if(args[2]!==null){
 					acceptableSensors = acceptableSensors.filter((aS)=>{
-						switch(args[2]){
-							case 'temperature':
-							return (item['SensorType']==2) ? aS : '';
-							case 'humidity':
-							return (item['SensorType']==43) ? aS : '';
-							case 'contact':
-							return (item['SensorType']==9) ? aS: '';
-							default:
-							return aS;
-						}
+						return this.commonSharedService.evaluateSensorType(args[2],item,aS);
 					});
 				}
 			}
