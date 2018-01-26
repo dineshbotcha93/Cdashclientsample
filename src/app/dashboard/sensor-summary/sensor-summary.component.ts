@@ -4,12 +4,13 @@ import { MapService } from '../../shared/components/map/services/map.service';
 import { MapConstants } from '../../shared/components/map/constants/map.constants';
 import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
+import { CommonSharedService } from '../../shared/services/common-shared.service';
 
 @Component({
   selector:'app-sensor-summary',
   templateUrl:'./sensor-summary.component.html',
   styleUrls: ['./sensor-summary.component.scss'],
-  providers:[MapService,SensorSummaryService]
+  providers:[MapService,SensorSummaryService,CommonSharedService]
 })
 export class SensorSummaryComponent implements OnInit{
   mapData:Object = null;
@@ -35,11 +36,12 @@ export class SensorSummaryComponent implements OnInit{
   constructor(private route:ActivatedRoute,
     private router:Router,
     private mapService:MapService,
-    private sensorSummaryService:SensorSummaryService){
+    private sensorSummaryService:SensorSummaryService,
+    private commonSharedService:CommonSharedService){
 
-    this.route.params.subscribe((params)=>{
-      this.netWorkId = params.id.toString();
-      this.getNetworkData();
+      this.route.params.subscribe((params)=>{
+        this.netWorkId = params.id.toString();
+        this.getNetworkData();
 
 
       });
@@ -67,92 +69,92 @@ export class SensorSummaryComponent implements OnInit{
       });
     }
 
-  /*Onchange event for selection of network ID*/
-  private onChange(e){
-    this.netWorkId = e.Id.toString();
-    this.getNetworkData();
-  }
+    /*Onchange event for selection of network ID*/
+    private onChange(e){
+      this.netWorkId = e.Id.toString();
+      this.getNetworkData();
+    }
 
 
-  /*Get sensor data from service by selecting the network Id*/
-  private  getNetworkData(){
-    this.allSensors = [];
-    this.mapData = null;
-    this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
-      this.mapData = e;
-      this.getSensorData(e.Location.Network.Sensor);
-      this.getGatewayData(e.Location.Network.Gateway,'');
-    });
-  }
+    /*Get sensor data from service by selecting the network Id*/
+    private  getNetworkData(){
+      this.allSensors = [];
+      this.mapData = null;
+      this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
+        this.mapData = e;
+        this.getSensorData(e.Location.Network.Sensor);
+        this.getGatewayData(e.Location.Network.Gateway,'');
+      });
+    }
 
-  private getGatewayData(gateway,id:string){
-    this.gateWayData = [];
-    gateway.forEach((gate)=>{
-      let Obj : Object = null;
-      gate.gateWayEditOption = 'display';
-      Obj = gate;
-     // this.gateWayData.push(Obj);
-      if(id !== gate.GatewayID){
-         this.gateWayData.push(Obj);
-      }
-      console.log(this.gateWayData);
+    private getGatewayData(gateway,id:string){
+      this.gateWayData = [];
+      gateway.forEach((gate)=>{
+        let Obj : Object = null;
+        gate.gateWayEditOption = 'display';
+        Obj = gate;
+        // this.gateWayData.push(Obj);
+        if(id !== gate.GatewayID){
+          this.gateWayData.push(Obj);
+        }
+        console.log(this.gateWayData);
 
-    });
-  }
+      });
+    }
 
-  private getSensorData(sensor){
-    this.allSensors = [];
-    this.originalMapSensor = sensor;
+    private getSensorData(sensor){
+      this.allSensors = [];
+      this.originalMapSensor = sensor;
       sensor.forEach((sens)=>{
         this.allSensors.push(sens);
       });
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
 
-  }
+    }
 
-  /* Gateway functions  */
-  onClickEdit(gateway){
-    gateway.gateWayEditOption='edit';
-    this.selectedGateway = Object.assign({}, gateway);
-  }
+    /* Gateway functions  */
+    onClickEdit(gateway){
+      gateway.gateWayEditOption='edit';
+      this.selectedGateway = Object.assign({}, gateway);
+    }
 
-  onClickSave(gateway){
-    //Backend function
-    gateway.gateWayEditOption='display';
-    this.selectedGateway = gateway;
-   // this.getSensorData();
- }
+    onClickSave(gateway){
+      //Backend function
+      gateway.gateWayEditOption='display';
+      this.selectedGateway = gateway;
+      // this.getSensorData();
+    }
 
- onClickCancel(gateway){
+    onClickCancel(gateway){
 
-   gateway.gateWayEditOption='display';
- }
+      gateway.gateWayEditOption='display';
+    }
 
- onClickDelete(gateway){
-    //backend function to be replaced with
-     this.getGatewayData( this.gateWayData,gateway.GatewayID);
-    gateway.gateWayEditOption ='display';
-  }
-
-
+    onClickDelete(gateway){
+      //backend function to be replaced with
+      this.getGatewayData( this.gateWayData,gateway.GatewayID);
+      gateway.gateWayEditOption ='display';
+    }
 
 
-//     /*Get sensor data from service by selecting the network Id*/
-//     private  getSensorData(){
-//       this.allSensors = [];
-//       this.mapData = null;
-//       this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
-//         console.log(e);
-//         this.mapData = e;
-//         this.originalMapSensor = this.mapData;
-//         e.Location.Network.Sensor.forEach((sens)=>{
-//           this.allSensors.push(sens);
-//         });
-//         this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
-//         console.log('-----------'+this.originalSensor);
-//       });
-//     }
-// >>>>>>> feature/dashboard
+
+
+    //     /*Get sensor data from service by selecting the network Id*/
+    //     private  getSensorData(){
+    //       this.allSensors = [];
+    //       this.mapData = null;
+    //       this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
+    //         console.log(e);
+    //         this.mapData = e;
+    //         this.originalMapSensor = this.mapData;
+    //         e.Location.Network.Sensor.forEach((sens)=>{
+    //           this.allSensors.push(sens);
+    //         });
+    //         this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+    //         console.log('-----------'+this.originalSensor);
+    //       });
+    //     }
+    // >>>>>>> feature/dashboard
 
     gotoSummary(){
       this.router.navigate(['dashboard/sensor-details','I1']);
@@ -168,46 +170,28 @@ export class SensorSummaryComponent implements OnInit{
     }
     filterStatus(){
       const criteria = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():'select';
-      if(criteria!=='select'){
-        this.allSensors = this.originalSensor.filter((sens)=>{
-          switch(criteria){
-            case 'good':
-            return (sens.Status == 0) ? sens:'';
-            case 'low signal':
-            return (sens.Status == 1) ? sens:'';
-            case 'low battery':
-            return (sens.Status == 2) ? sens:'';
-            case 'missed communication':
-            return (sens.Status == 3) ? sens:'';
-            case 'alerts':
-            return (sens.Status == 4) ? sens:'';
-            default:
-            break;
-          }
-        });
-      } else {
-        this.allSensors = this.originalSensor;
-      }
+      const criteriaOther = this.doFilterByType ? this.doFilterByType.toLowerCase():'select';
+
+      this.allSensors = this.originalSensor.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorStatus(criteria,sens,sens);
+      });
+
+      this.allSensors = this.allSensors.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorType(criteriaOther,sens,sens);
+      });
     }
 
     filterByType(){
       const criteria = this.doFilterByType ? this.doFilterByType.toLowerCase():'select';
-      if(criteria!=='select'){
-        this.allSensors = this.originalSensor.filter((sens)=>{
-          switch(criteria){
-            case 'temperature':
-            return (sens.SensorType==2) ? sens : '';
-            case 'humidity':
-            return (sens.SensorType==43) ? sens : '';
-            case 'contact':
-            return (sens.SensorType==9) ? sens: '';
-            default:
-            break;
-          }
-        })
-      } else {
-        this.allSensors = this.originalSensor;
-      }
+      const criteriaOther = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():'select';
+
+      this.allSensors = this.originalSensor.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorType(criteria,sens,sens);
+      });
+
+      this.allSensors = this.allSensors.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorStatus(criteriaOther,sens,sens);
+      });
     }
 
     doCompare(){
