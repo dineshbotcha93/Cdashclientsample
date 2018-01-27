@@ -3,6 +3,7 @@ import { SensorDetailsService } from '../sensor-details/services/sensor-details.
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
 import { ChartOptions } from './config/chart.config';
+import { environment } from '../../../environments/environment';
 
 
 interface SensorDetail{
@@ -53,16 +54,18 @@ export class SensorComparisonComponent{
 
   getSensorNames():Array<Object>{
     let allNames:Array<Object> = [];
-    Promise.all([
-      this.sensorDetailsService.getData('1156073157'),
-      this.sensorDetailsService.getData('1156073158'),
-      this.sensorDetailsService.getData('1156073159'),
-      this.sensorDetailsService.getData('1156073160')
-    ]).then((result:Array<SensorDetail>)=>{
-      result.forEach((res:SensorDetail)=>{
-        allNames.push({label:res.SensorName,value:res.SensorID});
+    if(!environment.production){
+      Promise.all([
+        this.sensorDetailsService.getData('1156073157'),
+        this.sensorDetailsService.getData('1156073158'),
+        this.sensorDetailsService.getData('1156073159'),
+        this.sensorDetailsService.getData('1156073160')
+      ]).then((result:Array<SensorDetail>)=>{
+        result.forEach((res:SensorDetail)=>{
+          allNames.push({label:res.SensorName,value:res.SensorID});
+        });
       });
-    });
+    }
     return allNames;
   }
 
@@ -113,7 +116,10 @@ export class SensorComparisonComponent{
       this.chartData = [];
       this.chartLabels = [];
       this.location = 0;
-      this.sensorName = '1156073157';
+      this.sensorName = '';
+      if(!environment.production){
+        this.sensorName = '1156073157';
+      }
       this.chart.ngOnDestroy();
       this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
       this.chart.chart.update();

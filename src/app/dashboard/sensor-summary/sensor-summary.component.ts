@@ -1,31 +1,37 @@
-  import { Component,OnInit } from '@angular/core';
-  import { ActivatedRoute,Router } from '@angular/router';
-  import { MapService } from '../../shared/components/map/services/map.service';
-  import { MapConstants } from '../../shared/components/map/constants/map.constants';
-  import { SensorSummaryService } from './services/sensor-summary.service';
-  @Component({
-   selector: 'app-sensor-summary',
-   templateUrl: './sensor-summary.component.html',
-   styleUrls: ['./sensor-summary.component.scss'],
-   providers: [MapService, SensorSummaryService]
+
+import { Component,OnInit } from '@angular/core';
+import { ActivatedRoute,Router } from '@angular/router';
+import { MapService } from '../../shared/components/map/services/map.service';
+import { MapConstants } from '../../shared/components/map/constants/map.constants';
+import { SensorSummaryService } from './services/sensor-summary.service';
+import { environment } from '../../../environments/environment';
+import { CommonSharedService } from '../../shared/services/common-shared.service';
+
+@Component({
+  selector:'app-sensor-summary',
+  templateUrl:'./sensor-summary.component.html',
+  styleUrls: ['./sensor-summary.component.scss'],
+  providers:[MapService,SensorSummaryService,CommonSharedService]
 })
-export class SensorSummaryComponent implements OnInit {
-   mapData: Object = null;
-   allSensors: Array < any > = [];
-   displayTiles: Object = null;
-   orderBy: any = 'asc';
-   gateway: any = 'all';
-   originalSensor: Array < any > = [];
-   originalMapSensor: Object = null;
-   locationData: any = [];
-   selectLocation: any = [];
-   locationId: any = null;
-   netWorkId: string = null;
-   selectedGateway: any = null;
-   selectedSensor: any = null;
-   gateWayEditOption: string = 'display';
-   gateWayData: any = [];
-   radioModel: any = 'sensor';
+export class SensorSummaryComponent implements OnInit{
+  mapData:Object = null;
+  allSensors:Array<any> = [];
+  displayTiles:Object = null;
+  orderBy: any = 'asc';
+  gateway: any = 'all';
+  originalSensor:Array<any> = [];
+  originalMapSensor:Object = null;
+  locationData: any = [];
+  selectLocation:any = [];
+  locationId:any = null;
+  netWorkId : string = null;
+  selectedGateway : any = null;
+  gateWayEditOption: string = 'display';
+  gateWayData:any = [];
+ 
+  selectedSensor: any = null;
+
+  radioModel: any = 'sensor';
    editSaveModel: string = 'Edit';
    selectAllValue: Object = {
       checked: false
@@ -41,20 +47,24 @@ export class SensorSummaryComponent implements OnInit {
 
    };
 
-   private mapStatus = MapConstants.STATUS;
-   private doFilterByName: string = null;
-   private doFilterByStatus: string = 'select';
-   private doFilterByType: string = 'select';
+  private mapStatus = MapConstants.STATUS;
+  private doFilterByName:string = null;
+  private doFilterByStatus:string = 'select';
+  private doFilterByType:string = 'select';
 
-   constructor(private route: ActivatedRoute,
-      private router: Router,
-      private mapService: MapService,
-      private sensorSummaryService: SensorSummaryService) {
-      this.route.params.subscribe((params) => {
-         this.netWorkId = params.id.toString();
-         this.getNetworkData();
-      });
+  constructor(private route:ActivatedRoute,
+    private router:Router,
+    private mapService:MapService,
+    private sensorSummaryService:SensorSummaryService,
+    private commonSharedService:CommonSharedService){
+
+      this.route.params.subscribe((params)=>{
+        this.netWorkId = params.id.toString();
+        this.getNetworkData();
+
+     });
    }
+
    ngOnInit() {
       this.mapService.getData().subscribe(e => {
          for (let location of e.LocationGroup) {
@@ -73,25 +83,6 @@ export class SensorSummaryComponent implements OnInit {
          }
       });
       this.onSelectSensorRadio();
-   }
-   /*Onchange event for selection of network ID*/
-   private onChange(e) {
-      this.netWorkId = e.Id.toString();
-      this.getNetworkData();
-   }
-
-   /*Selection Of Sensor radion*/
-   private onSelectSensorRadio() {
-      this.radioModel = 'sensor';
-   }
-   /*Selection Of Gateway radion*/
-   private onSelectGatewayRadio() {
-      this.radioModel = 'gateway';
-   }
-
-   /*Selection Of Gateway radion*/
-   private onSelectNetworkRadio() {
-      this.radioModel = 'network';
    }
 
    /*Get sensor data from service by selecting the network Id*/
@@ -133,6 +124,26 @@ export class SensorSummaryComponent implements OnInit {
       });
       console.log(this.allSensors);
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+   }
+
+    /*Onchange event for selection of network ID*/
+   private onChange(e) {
+      this.netWorkId = e.Id.toString();
+      this.getNetworkData();
+   }
+
+   /*Selection Of Sensor radion*/
+   private onSelectSensorRadio() {
+      this.radioModel = 'sensor';
+   }
+   /*Selection Of Gateway radion*/
+   private onSelectGatewayRadio() {
+      this.radioModel = 'gateway';
+   }
+
+   /*Selection Of Gateway radion*/
+   private onSelectNetworkRadio() {
+      this.radioModel = 'network';
    }
    /* */
    // onCheckAll(e){
@@ -293,67 +304,70 @@ export class SensorSummaryComponent implements OnInit {
       } else {
          return selectedCheckedData;
       }
-
    }
+
    onClickCancel(gateway) {
       gateway.gateWayEditOption = 'display';
       gateway.checked = false;
    }
 
-   gotoSummary() {
-      this.router.navigate(['dashboard/sensor-details', 'I1']);
-   }
-   filterName() {
-      if (this.doFilterByName !== null) {
-         this.allSensors = this.originalSensor.filter((sens) => sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens : '', this);
-         if (this.doFilterByName == '' || this.doFilterByName == null) {
-            this.allSensors = this.originalSensor;
-         }
+
+    //     /*Get sensor data from service by selecting the network Id*/
+    //     private  getSensorData(){
+    //       this.allSensors = [];
+    //       this.mapData = null;
+    //       this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
+    //         console.log(e);
+    //         this.mapData = e;
+    //         this.originalMapSensor = this.mapData;
+    //         e.Location.Network.Sensor.forEach((sens)=>{
+    //           this.allSensors.push(sens);
+    //         });
+    //         this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
+    //         console.log('-----------'+this.originalSensor);
+    //       });
+    //     }
+    // >>>>>>> feature/dashboard
+
+    gotoSummary(){
+      this.router.navigate(['dashboard/sensor-details','I1']);
+    }
+
+    filterName(){
+      if(this.doFilterByName!==null){
+        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
       }
-   }
-   filterStatus() {
-      const criteria = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase() : 'select';
-      if (criteria !== 'select') {
-         this.allSensors = this.originalSensor.filter((sens) => {
-            switch (criteria) {
-               case 'good':
-                  return (sens.Status == 0) ? sens : '';
-               case 'low signal':
-                  return (sens.Status == 1) ? sens : '';
-               case 'low battery':
-                  return (sens.Status == 2) ? sens : '';
-               case 'missed communication':
-                  return (sens.Status == 3) ? sens : '';
-               case 'alerts':
-                  return (sens.Status == 4) ? sens : '';
-               default:
-                  break;
-            }
-         });
-      } else {
-         this.allSensors = this.originalSensor;
+      else if(this.doFilterByName == '' || this.doFilterByName == null){
+        this.allSensors = this.originalSensor;
       }
-   }
-   filterByType() {
-      const criteria = this.doFilterByType ? this.doFilterByType.toLowerCase() : 'select';
-      if (criteria !== 'select') {
-         this.allSensors = this.originalSensor.filter((sens) => {
-            switch (criteria) {
-               case 'temperature':
-                  return (sens.SensorType == 2) ? sens : '';
-               case 'humidity':
-                  return (sens.SensorType == 43) ? sens : '';
-               case 'contact':
-                  return (sens.SensorType == 9) ? sens : '';
-               default:
-                  break;
-            }
-         })
-      } else {
-         this.allSensors = this.originalSensor;
-      }
-   }
-   doCompare() {
-      this.router.navigate(['dashboard/sensor-comparison', 'I1']);
-   }
-}
+    }
+    filterStatus(){
+      const criteria = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():'select';
+      const criteriaOther = this.doFilterByType ? this.doFilterByType.toLowerCase():'select';
+
+      this.allSensors = this.originalSensor.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorStatus(criteria,sens,sens);
+      });
+
+      this.allSensors = this.allSensors.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorType(criteriaOther,sens,sens);
+      });
+    }
+
+    filterByType(){
+      const criteria = this.doFilterByType ? this.doFilterByType.toLowerCase():'select';
+      const criteriaOther = this.doFilterByStatus ? this.doFilterByStatus.toLowerCase():'select';
+
+      this.allSensors = this.originalSensor.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorType(criteria,sens,sens);
+      });
+
+      this.allSensors = this.allSensors.filter((sens)=>{
+        return this.commonSharedService.evaluateSensorStatus(criteriaOther,sens,sens);
+      });
+    }
+
+    doCompare(){
+      this.router.navigate(['dashboard/sensor-comparison','I1']);
+    }
+  }

@@ -1,9 +1,10 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component,ViewChild,ViewChildren,QueryList,ChangeDetectorRef } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { SensorDetailsService } from './services/sensor-details.service';
 import { Router } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { ChartOptions } from './config/chart.config';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector:'app-sensor-details',
@@ -21,11 +22,15 @@ export class SensorDetailsComponent {
   private chartLabels:Array<any>=[];
   private chartOptions = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
+  @ViewChildren("tabs") tabs: QueryList<any>
 
-  constructor(private sensorSummaryService:SensorDetailsService,private router:Router){
+  constructor(private sensorSummaryService:SensorDetailsService,private router:Router,private cd: ChangeDetectorRef){
     this.chartOptions = ChartOptions;
-
-    sensorSummaryService.getData('1156073157').then((result)=>{
+    let detailId = '';
+    if(!environment.production){
+      detailId = '1156073157';
+    }
+    sensorSummaryService.getData(detailId).then((result)=>{
       this.result = result;
       result.DataMessages.forEach((res)=>{
         this.data.push(res.PlotValue);
@@ -54,6 +59,19 @@ export class SensorDetailsComponent {
         e.preventDefault();
       }
     }
+  }
+
+  ngAfterViewInit(){
+    this.tabs.forEach((e)=>{
+      e.tabs.forEach((tab)=>{
+        if(tab.tabTitle=='Graph'){
+          tab.active = true;
+        } else {
+          tab.active = false;
+        }
+      })
+      this.cd.detectChanges();
+    })
   }
 
   chartData = [
