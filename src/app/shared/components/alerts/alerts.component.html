@@ -1,0 +1,13 @@
+<h3>Alerts Component</h3>
+<div *ngIf="showDiv" class="alert alert-danger">
+  <h3>I am an alert</h3>
+</div>
+<div *ngIf="showGood" class="alert alert-success">
+  <h3>I am an alert</h3>
+</div>
+<div *ngIf="isWarning" class="alert alert-warning">
+  <h3>I am an alert</h3>
+</div>
+<button (click)="showAlert()">Show Alert</button>
+<button (click)="showSuccess()">Show Good</button>
+<button (click)="showWarning()">Show Warning</button>
