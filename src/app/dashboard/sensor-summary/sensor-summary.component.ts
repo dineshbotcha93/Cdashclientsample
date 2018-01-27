@@ -1,11 +1,14 @@
 
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit ,ViewChild} from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { MapService } from '../../shared/components/map/services/map.service';
 import { MapConstants } from '../../shared/components/map/constants/map.constants';
 import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
+
+
+//import { CreateDeviceComponent } from '../create-device/create-device.component';
 
 @Component({
   selector:'app-sensor-summary',
@@ -47,6 +50,9 @@ export class SensorSummaryComponent implements OnInit{
 
    };
 
+   isSelectedToAddDevice: boolean = false;
+   isDeviceAddedSucceess : boolean = false;
+
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
   private doFilterByStatus:string = 'select';
@@ -56,7 +62,8 @@ export class SensorSummaryComponent implements OnInit{
     private router:Router,
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService,
-    private commonSharedService:CommonSharedService){
+    private commonSharedService:CommonSharedService
+    ){
 
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
@@ -135,10 +142,12 @@ export class SensorSummaryComponent implements OnInit{
    /*Selection Of Sensor radion*/
    private onSelectSensorRadio() {
       this.radioModel = 'sensor';
+      this.isSelectedToAddDevice = false;
    }
    /*Selection Of Gateway radion*/
    private onSelectGatewayRadio() {
       this.radioModel = 'gateway';
+      this.isSelectedToAddDevice = false;
    }
 
    /*Selection Of Gateway radion*/
@@ -176,6 +185,7 @@ export class SensorSummaryComponent implements OnInit{
    /*Edit the selected ,update and get refresh data drom network*/
    private onClickEditDetails() {
       this.radioModel === 'gateway' ? this.setEdiyGatewayDetails() : this.setEditSensorDetails();
+      this.isSelectedToAddDevice = false;
    }
 
    /*Move the selected ,update and get refresh data drom network*/
@@ -183,6 +193,7 @@ export class SensorSummaryComponent implements OnInit{
 
       this.selectedUserDataForOperation = this.getSelectedRowDetails();
       this.locationDataForMoveNetwork = this.locationData;
+      this.isSelectedToAddDevice = false;
    }
 
    private onClickEditNetwork() {
@@ -207,6 +218,7 @@ export class SensorSummaryComponent implements OnInit{
             this.getNetworkData();
          }
       }
+      this.isSelectedToAddDevice = false;
    }
 
    private setEdiyGatewayDetails() {
@@ -310,6 +322,26 @@ export class SensorSummaryComponent implements OnInit{
       gateway.gateWayEditOption = 'display';
       gateway.checked = false;
    }
+
+   onClickSaveNetworkDetail(e){
+      this.editNetworkData = {
+        name: '',
+        notifyAlert: false,
+        holdNetwork: false
+      };
+   }
+
+
+   onClickAddDetail(){
+     console.log('----------',this.radioModel);
+     this.isSelectedToAddDevice = true;
+   }
+
+
+   receiveMessage($event) {
+    this.isDeviceAddedSucceess = $event;
+    this.isSelectedToAddDevice = false;
+  }
 
 
     //     /*Get sensor data from service by selecting the network Id*/

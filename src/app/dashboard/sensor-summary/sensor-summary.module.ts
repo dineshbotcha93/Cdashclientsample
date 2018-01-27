@@ -13,6 +13,8 @@ import { SlideAbleDirective } from 'ng2-slideable-directive/slideable.directive'
 import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 
 
+import { CreateDeviceComponent } from '../create-device/create-device.component';
+
 
 const routes:Object[] = [{
   path:'dashboard/sensor-summary/:id',component:SensorSummaryComponent
@@ -22,18 +24,20 @@ const routes:Object[] = [{
  declarations:[SensorSummaryComponent,FilterByCriteria, 
     SlideAbleDirective,
     Ng2StyledDirective,
-    Ng2SliderComponent],
+    Ng2SliderComponent,CreateDeviceComponent],
   imports:[
     RouterModule.forChild(routes),
     ContainersModule,
     ComponentsModule,
     CommonModule,
     PipesModule,
-    FormsModule
+    FormsModule,
+
   ],
   exports: [
     Ng2SliderComponent,
-    Ng2StyledDirective
+    Ng2StyledDirective,CreateDeviceComponent
+
   ]
 })
 export class SensorSummaryModule {}
