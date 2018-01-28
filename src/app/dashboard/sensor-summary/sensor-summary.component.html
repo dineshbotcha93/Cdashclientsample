@@ -1,34 +1,42 @@
 <app-layout>
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h3>Location Details</h3>
-      <div class="x_panel">
-        <div class="row sensor-summary-info">
-          <div class="col-md-12 form-inline">
-            <div class="form-group ss-location">
-              <label class="control-label col-form-label">Select Location:</label>
-              <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
-                <option *ngFor="let loc of locationData" [ngValue]="loc">
-                  {{loc.Title}}
-                </option>
-              </select>
+   <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+         <h3>Location Details</h3>
+         <div class="x_panel">
+            <div class="row sensor-summary-info">
+               <div class="col-md-12 form-inline">
+                  <div class="form-group ss-location">
+                     <label class="control-label col-form-label">Select Location:</label>
+                     <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
+                     <option *ngFor="let loc of locationData" [ngValue]="loc">
+                     {{loc.Title}}
+                     </option>
+                     </select>
+                  </div>
+               </div>
+               <div class="ss-info-container">
+                  <div class="col-md-6 ss-info-left">
+                     <p>Location: <span>{{mapData.Location.Title}}</span></p>
+                     <p>Address: <span>{{mapData.Location.Address}}</span></p>
+                  </div>
+                  <div class="col-md-6 ss-info-right">
+                     <p>Network Name: <span>{{mapData.Location.Network.Name}}</span>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="onClickEditNetwork()"
+                           data-toggle="modal" data-target="#myNetworkModal" value="Edit"
+                           >Edit</button>
+                     </p>
+                     <p>Network Id: <span>{{mapData.Location.Network.Id}}</span></p>
+                     <p>Count of Gateways/Sensors: <span>{{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</span></p>
+                  </div>
+                  <div>
+                     <ng-container *ngTemplateOutlet="networkEditModal"></ng-container>
+                  </div>
+               </div>
             </div>
-          </div>
-          <div class="ss-info-container">
-            <div class="col-md-6 ss-info-left">
-              <p>Location: <span>{{mapData.Location.Title}}</span></p>
-              <p>Address: <span>{{mapData.Location.Address}}</span></p>
-            </div>
-            <div class="col-md-6 ss-info-right">
-              <p>Network Name: <span>{{mapData.Location.Network.Name}}</span></p>
-              <p>Network Id: <span>{{mapData.Location.Network.Id}}</span></p>
-              <p>Count of Gateways/Sensors: <span>{{mapData.Location.Network.CountofGateways}}/{{mapData.Location.Network.CountOfSensors}}</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="x_panel">
-        <tabs>
+         </div>
+         <div class="x_panel">
+           
+         <tabs>
 
           <!-- Sensors Tab -->
           <tab tabTitle="Sensors" class="tab-content">
@@ -121,50 +129,201 @@
               </div>
             </div>
           </tab>
-
-          <!-- Config -->
           <tab tabTitle="Config" class="tab-content gateway-details-container">
-            <h3>Configure Gateway</h3>
-            <div class="row">
-              <!-- <div class="col-md-12 gateway-notAll" *ngIf="gateway!=='all'"> -->
-              <table class="table table-striped">
-                <thead>
-                 <tr>
-                  <th class="col-md-2">Gateway Name</th>
-                  <th class="col-md-2">Gateway Id</th>
-                  <th class="col-md-2">Gateway Type</th>
-                  <th class="col-md-2">Last Communication Date</th>
-                  <th class="col-md-2"></th>
-                </tr></thead>
-               <tbody>
-                 <tr *ngFor="let aGateway of gateWayData">
-                    <td class="col-md-2" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
-                     <td *ngIf="aGateway.gateWayEditOption ==='edit'">
-                        <input class="form-control" type="text" name="gatewayName"  value="{{aGateway.Name}}" [(ngModel)]="aGateway.Name">
-                     </td>
-                  <td class="col-md-2">{{aGateway.GatewayID}}</td>
-                  <td class="col-md-2">{{aGateway.GatewayType}}</td>
-                  <td class="col-md-2">{{aGateway.LastCommunicationDate}}</td>
-                  <td class="col-md-2" *ngIf="aGateway.gateWayEditOption ==='display'"><button type="button" class="btn btn-primary" (click)="onClickEdit(aGateway)" >Edit</button>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="onClickDelete(aGateway)" >Delete</button>
-                </td>
-                <td *ngIf="aGateway.gateWayEditOption ==='edit'"><button type="button" class="btn btn-primary" (click)="onClickSave(aGateway)" >Save</button>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button>
-                </td>
-                </tr>
+                  <h3>Device Management</h3>
+                  <div class="row">
+                     <div>
+                        <form action="">
+                           <input type="radio"  checked name="radioModel" (click)="onSelectSensorRadio()"  value="sensor">  Sensor
+                           <input type="radio"  name="radioModel" (click)="onSelectGatewayRadio()" value="gateway"> Gateway
+                        </form>
+                        <hr>
+                     </div>
+                     <div>
+                        <div class="form-group sensor-info-compare">
+                           <div *ngIf="radioModel === 'sensor' || radioModel === 'gateway'">
+                              <input type="button" class="btn btn-primary" value="{{editSaveModel}}" (click)="onClickEditDetails()">
+                              <input type="button" class="btn btn-danger" value="Remove" (click)="onClickRemoveDetails()">
+                              <input type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" value="Move" (click)="onClickMoveDetails()">
+                              <input type="button" class="btn btn-primary"  value="Add" (click)="onClickAddDetail()">
+                           </div>
 
-               </tbody>
 
-              </table>
+                            <div *ngIf="selectedUserDataForOperation">
+                              <ng-container *ngTemplateOutlet="gatewayEditModal"></ng-container>
+                           </div>
+                        </div>
+                     </div>
+                     <hr>
+                     <div *ngIf="isSelectedToAddDevice">
 
-              <!-- </div> -->
+                         <app-create-device (messageEvent)="receiveMessage($event)">
+                        </app-create-device> 
+                     
+                     </div>
+                     <div *ngIf="isSelectedToAddDevice === false">
+                           <div *ngIf="radioModel === 'gateway'">
+                              <ng-container *ngTemplateOutlet="gateWayDataTemplate"></ng-container>
+                           </div>
+                           <div *ngIf="radioModel === 'sensor'">
+                              <ng-container *ngTemplateOutlet="sensorDataTemplate"></ng-container>
+                           </div>
 
-            </div>
-          </tab>
-        </tabs>
+                     </div>
+                   
+                     
+                  </div>
+               </tab>     
+            </tabs>
+         </div>
       </div>
-      <!--<div class="x_panel">-->
-      <!--</div>-->
-    </div>
-  </div>
+   </div>
 </app-layout>
+<ng-template #gatewayEditModal >
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="myModalLabel">Move Gateway Details</h4>
+            </div>
+            <div class="modal-body">
+               <ng-container *ngTemplateOutlet="gatewayModal"></ng-container>
+            </div>
+            <div class="modal-footer">
+               <!-- <button type="button" class="btn btn-default" (click)="onClickCancel($event)" data-dismiss="modal">Close</button> -->
+               <button type="button" class="btn btn-primary" (click)="onClickSaveMoveNetwork(selectedUserDataForOperation)" data-dismiss="modal" >Save changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</ng-template>
+<ng-template #networkEditModal >
+   <div class="modal fade" id="myNetworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="myModalLabel">Edit Network</h4>
+            </div>
+            <div class="modal-body">
+               <ng-container *ngTemplateOutlet="networkModal"></ng-container>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="onClickSaveNetworkDetail($event)">Save changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</ng-template>
+<ng-template #gatewayModal>
+   <div class="form-group ss-location">
+      <label class="control-label col-form-label">Select Network Location:</label>
+      <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChangeNetworkMove($event)">
+      <option *ngFor="let loc of locationDataForMoveNetwork" [ngValue]="loc">
+      {{loc.Title}}
+      </option>
+      </select>
+   </div>
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th class="col-md-2"> Name</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let aGateway of selectedUserDataForOperation">
+            <td class="col-md-2" *ngIf="radioModel === 'gateway'">{{aGateway.Name}} </td>
+            <td class="col-md-2" *ngIf="radioModel === 'sensor'">{{aGateway.SensorName}} </td>
+         </tr>
+      </tbody>
+   </table>
+</ng-template>
+<ng-template #networkModal>
+   <table class="table table-striped">
+      <!-- <thead>
+         <tr>
+            <th class="col-md-2"> Network Info</th>
+         </tr>
+      </thead> -->
+      <tbody>
+         <tr>
+            <td> Network Name </td>
+            <td>  <input class="form-control" type="text" name="networkName"  value="{{mapData.Location.Network.Name}}" [(ngModel)]="mapData.Location.Network.Name"></td>
+         </tr>
+         <tr>
+            <td>
+               Send notifications for this Network  
+            </td>
+            <td>
+               <input type="checkbox" [(ngModel)]="editNetworkData.notifyAlert">
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Holding Network   
+            </td>
+            <td>
+               <input type="checkbox" [(ngModel)]="editNetworkData.holdNetwork">
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</ng-template>
+<ng-template #gateWayDataTemplate>
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-11">Gateway Name</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let aGateway of gateWayData">
+            <td class="col-md-1">
+               <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.GatewayID"
+               (change)="onClickInlineCheckBox($event,aGateway)">
+            </td>
+            <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
+            <td *ngIf="aGateway.gateWayEditOption ==='edit'">
+               <input class="form-control" type="text" name="gatewayName"  value="{{aGateway.Name}}" [(ngModel)]="aGateway.Name"><br>
+               <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button>
+         </tr>
+      </tbody>
+   </table>
+</ng-template>
+<ng-template #sensorDataTemplate>
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th class="col-md-1">
+            </th>
+            <th class="col-md-5">Sensor Name</th>
+            <th class="col-md-6">Sensor Id</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let sensor of allSensors">
+            <td class="col-md-1">
+               <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.SensorName"
+               (change)="onClickInlineCheckBox($event,sensor)">
+            </td>
+            <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.SensorName}} </td>
+            <td *ngIf="sensor.gateWayEditOption ==='edit'">
+               <input class="form-control" type="text" name="sensorName"  value="{{sensor.SensorName}}" [(ngModel)]="sensor.SensorName"><br>
+              <!--  <ng2-slider min="10" max="100" value="{{sensor.sensorSliderValue}}"
+                  (onRangeChanged)="plainValueChanged($event,sensor)">
+               </ng2-slider> -->
+
+               <!-- <p-slider [(ngModel)]="{{sensor.sensorSliderValue}}"></p-slider> -->
+               
+               <br>
+               <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(sensor)" >Cancel</button>
+            </td>
+            <td class="col-md-6" >{{sensor.SensorID}}<br>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</ng-template>
