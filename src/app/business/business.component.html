@@ -1,0 +1,38 @@
+<app-layout>
+  <div class="row top_tiles">
+    <div *ngFor="let i of tileData" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <app-tile 
+      [count]="i.count" 
+      [tileColorBy]="'status'" 
+      [tileContent]="i.title" 
+      (customClick)="tileClicked($event)"
+      [tileColor]="i.status">
+      </app-tile>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <h3>Current Locations</h3>
+      <div class="x_panel">
+        <div class="x_content">
+          <app-map [markers]="mapData"></app-map>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <h3>Pie Chart</h3>
+      <div class="col-xs-12" style="background-color: #ffffff;border:1px solid #E6E9ED">
+        <canvas baseChart 
+        #baseChart="base-chart" 
+        [data]="pieChartData" 
+        [labels]="pieChartLabels" 
+        [chartType]="pieChartType" 
+        [colors]="pieChartColors"
+        [options]="pieChartOptions"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</app-layout>

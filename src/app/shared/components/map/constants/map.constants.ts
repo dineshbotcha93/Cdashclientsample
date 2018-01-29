@@ -1,11 +1,17 @@
 // Move to a global constants file.
 
 export const MapConstants = {
-  STATUS:{
-    ALERTS:'Alerts',
-    MISSED_COMMUNICATION:'MissedCommunication',
-    LOW_SIGNAL:'LowSignal',
-    LOW_BATTERY:'LowBattery'
+  STATUS: {
+    ALERTS: 'Alerts',
+    MISSED_COMMUNICATION: 'MissedCommunication',
+    LOW_SIGNAL: 'LowSignal',
+    LOW_BATTERY: 'LowBattery',
+    DEFAULTERS: 'Defaulters',
+    NEW_CUSTOMERS: 'NewCustomers',
+    DUE_CUSTOMERS: 'DueCustomers',
+    RENEWED_CUSTOMERS: 'RenewedCustomers',
+    OUTSTANDING_BALANCE: 'OutstandingBalance',
+    RECENT_PAYMENTS: 'RecentPayments'
   },
   STATUS_NUMBERS:{
     GOOD:'0',
