@@ -128,6 +128,7 @@ export class SensorSummaryComponent implements OnInit{
             this.gateWayData.push(Obj);
          }
       });
+      console.log(this.gateWayData);
    }
 
    /*Get the Sensor data from backend */
@@ -171,20 +172,29 @@ export class SensorSummaryComponent implements OnInit{
    /* */
    onCheckAll(e){
      console.log('initia',e.target.checked);
-     if(this.radioModel = 'sensor'){
+    this.onCheckSetRestValues(e.target.checked);
+    
+     console.log('final',e.target.checked)
+     // this.editSaveModel = this.editSaveModel === 'Edit'? 'Save':'Edit';
+
+   // e.target.checked = true;
+   }
+
+
+   onCheckSetRestValues(value){
+
+      if(this.radioModel = 'sensor'){
        this.allSensors.forEach(x => {
-         x.checked = e.target.checked === true?true: false;
+         x.checked = value === true?true: false;
          x.gateWayEditOption = x.gateWayEditOption === 'edit'? 'display':'display';
         });
      }else{
           this.gateWayData.forEach(x => {
-           x.checked = e.target.checked === true?true: false;
+           x.checked = value === true?true: false;
            x.gateWayEditOption = x.gateWayEditOption === 'edit'? 'display':'display';
          });
      }
-     console.log('final',e.target.checked)
 
-   // e.target.checked = true;
    }
    private plainValueChanged(event, sensor) {
       sensor.sensorSliderValue = event.startValue;
@@ -205,6 +215,8 @@ export class SensorSummaryComponent implements OnInit{
    }
 
    private onClickButtonReset(){
+     
+     // buttons to initial state
      this.disable= {
          edit:false,
          remove:false,
@@ -212,12 +224,20 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
+
+       this.onCheckSetRestValues(false);
+       this.isSelectedAll = false;
+       this.editSaveModel = 'Edit';
+
+
    }
 
    /*Edit the selected ,update and get refresh data drom network*/
    private onClickEditDetails() {
       this.radioModel === 'gateway' ? this.setEdiyGatewayDetails() : this.setEditSensorDetails();
       this.isSelectedToAddDevice = false;
+
+
        this.disable= {
          edit:false,
          remove:true,
@@ -235,11 +255,13 @@ export class SensorSummaryComponent implements OnInit{
       this.isSelectedToAddDevice = false;
       this.isSelectedAll = false;
 
+      //after success call from backend
       this.disable= {
-         edit:true,
-         remove:true,
+         edit:false,
+         remove:false,
          move:false,
-         add:true
+         add:false,
+          reset:true
        };
    }
 
@@ -266,24 +288,33 @@ export class SensorSummaryComponent implements OnInit{
          }
       }
       this.isSelectedToAddDevice = false;
+      
       this.isSelectedAll = false;
       this.disable= {
-         edit:true,
+         edit:false,
          remove:false,
-         move:true,
-         add:true
+         move:false,
+         add:false,
+         reset:true
        }
+       this.onCheckSetRestValues(false);
 
    }
 
     onClickAddDetail(){
      this.isSelectedToAddDevice = true;
+
+     //on success
+
      this.disable= {
-         edit:true,
-         remove:true,
-         move:true,
-         add:false
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
        }
+       this.onCheckSetRestValues(false);
+        this.isSelectedAll = false;
    }
 
 
@@ -402,9 +433,14 @@ export class SensorSummaryComponent implements OnInit{
   
 
    receiveMessage($event) {
-    this.isDeviceAddedSucceess = $event;
-    this.isSelectedToAddDevice = false;
-  }
+      this.isDeviceAddedSucceess = $event;
+      this.isSelectedToAddDevice = false;
+    }
+
+    receiveCancelMessage($event) {
+      this.isDeviceAddedSucceess = $event;
+      this.isSelectedToAddDevice = false;
+    }
 
 
     //     /*Get sensor data from service by selecting the network Id*/

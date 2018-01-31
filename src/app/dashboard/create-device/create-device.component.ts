@@ -17,6 +17,8 @@ export class CreateDeviceComponent implements OnInit {
 
  
    @Output() messageEvent = new EventEmitter<boolean>();
+
+   @Output() messageCancelEvent = new EventEmitter<boolean>();
  
   	message: boolean = false;
 
@@ -38,6 +40,10 @@ export class CreateDeviceComponent implements OnInit {
 
   onClickAddDetail(){
   	 this.messageEvent.emit(this.message);
+  }
+
+  onClickCancelDetail(){
+     this.messageCancelEvent.emit(this.message);
   }
 
 }

@@ -129,8 +129,7 @@
               </div>
             </div>
           </tab>
-          <tab tabTitle="Config" class="tab-content gateway-details-container">
-                  <h3>Device Management</h3>
+          <tab tabTitle="Device Management" class="tab-content gateway-details-container">
                   <div class="row">
                      <div>
                         <form action="">
@@ -162,7 +161,8 @@
                          [deviceType]="radioModel"
                          [inputNetworkData]="locationData"
                          [selectedNetwork]="selectLocation"
-                         (messageEvent)="receiveMessage($event)">
+                         (messageEvent)="receiveMessage($event)"
+                         (messageCancelEvent)="receiveCancelMessage($event)">
                         </app-create-device> 
                      
                      </div>
@@ -285,7 +285,8 @@
                     (change)="onCheckAll($event)"/>
                   </div>
             </th>
-            <th class="col-md-11">Gateway Name</th>
+            <th class="col-md-4">Gateway ID</th>
+            <th class="col-md-7">Gateway Name</th>
          </tr>
       </thead>
       <tbody>
@@ -294,10 +295,12 @@
                <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.GatewayID"
                (change)="onClickInlineCheckBox($event,aGateway)">
             </td>
-            <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
+             <td class="col-md-4" >{{aGateway.GatewayID}}<br>
+            </td>
+            <td class="col-md-7" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
             <td *ngIf="aGateway.gateWayEditOption ==='edit'">
                <input class="form-control" type="text" name="gatewayName"  value="{{aGateway.Name}}" [(ngModel)]="aGateway.Name"><br>
-               <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button>
+               <!-- <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button> -->
          </tr>
       </tbody>
    </table>
@@ -312,8 +315,9 @@
                     (change)="onCheckAll($event)"/>
                   </div>
             </th>
-            <th class="col-md-5">Sensor Name</th>
             <th class="col-md-6">Sensor Id</th>
+            <th class="col-md-5">Sensor Name</th>
+            
          </tr>
       </thead>
       <tbody>
@@ -321,6 +325,8 @@
             <td class="col-md-1">
                <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.SensorName"
                (change)="onClickInlineCheckBox($event,sensor)">
+            </td>
+            <td class="col-md-6" >{{sensor.SensorID}}<br>
             </td>
             <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.SensorName}} </td>
             <td *ngIf="sensor.gateWayEditOption ==='edit'">
@@ -331,11 +337,8 @@
 
                <!-- <p-slider [(ngModel)]="{{sensor.sensorSliderValue}}"></p-slider> -->
                
-               <br>
-               <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(sensor)" >Cancel</button>
             </td>
-            <td class="col-md-6" >{{sensor.SensorID}}<br>
-            </td>
+            
          </tr>
       </tbody>
    </table>
