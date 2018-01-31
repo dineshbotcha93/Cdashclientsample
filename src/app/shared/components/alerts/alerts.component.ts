@@ -14,8 +14,16 @@ export class AlertsComponent {
   private alertContent;
   private successContent;
   private warningContent;
+  private alertSandboxSubscription;
+  private successSandboxSubscription;
+  private warningSandboxSubscription;
   constructor(public alertSandbox$: AlertSandbox){
-    this.alertSandbox$.getAlert().subscribe((e)=>{
+
+  }
+
+  ngOnInit(){
+    this.alertSandboxSubscription = this.alertSandbox$.getAlert().subscribe((e)=>{
+      console.log(e);
       if(e.type == true){
         this.showDiv = true;
         this.alertContent = e.payload['data'];
@@ -25,7 +33,7 @@ export class AlertsComponent {
         },2000)
       }
     });
-    this.alertSandbox$.getSuccess().subscribe((e)=>{
+    this.successSandboxSubscription = this.alertSandbox$.getSuccess().subscribe((e)=>{
       if(e.type == true){
         this.showGood = true;
         this.successContent = e.payload['data'];
@@ -35,7 +43,7 @@ export class AlertsComponent {
         },2000)
       }
     });
-    this.alertSandbox$.getWarning().subscribe((e)=>{
+    this.warningSandboxSubscription = this.alertSandbox$.getWarning().subscribe((e)=>{
       if(e.type == true){
         this.isWarning = true;
         this.warningContent = e.payload['data'];
@@ -57,6 +65,12 @@ export class AlertsComponent {
 
   showWarning(content = null){
     this.alertSandbox$.showWarning(content);
+  }
+
+  ngOnDestroy(){
+    this.alertSandboxSubscription.unsubscribe();
+    this.successSandboxSubscription.unsubscribe();
+    this.warningSandboxSubscription.unsubscribe();
   }
 
 }
