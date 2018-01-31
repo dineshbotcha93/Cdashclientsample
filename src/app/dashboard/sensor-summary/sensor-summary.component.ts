@@ -157,11 +157,37 @@ export class SensorSummaryComponent implements OnInit{
    private onSelectSensorRadio() {
       this.radioModel = 'sensor';
       this.isSelectedToAddDevice = false;
+       this.onCheckSetRestValues(false);
+       this.isSelectedAll = false;
+        this.editSaveModel = 'Edit';
+
+         this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
+       
    }
    /*Selection Of Gateway radion*/
    private onSelectGatewayRadio() {
       this.radioModel = 'gateway';
       this.isSelectedToAddDevice = false;
+
+        this.onCheckSetRestValues(false);
+        this.isSelectedAll = false;
+        this.editSaveModel = 'Edit';
+
+         this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
+       
+
    }
 
    /*Selection Of Gateway radion*/
