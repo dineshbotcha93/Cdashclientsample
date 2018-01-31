@@ -40,8 +40,13 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td> <button type="button" class="btn btn-danger btn-sm" (click)="onClickAddDetail()" >Cancel {{deviceType}}</button>  
-						<button type="button" class="btn btn-success btn-sm" (click)="onClickAddDetail()" >Create {{deviceType}}</button></td>
+					<td> 
+						<button type="button"
+                            class="btn btn-primary removeBTN"
+                            (click)="onClickCancelDetail()"><i class="fa fa-trash"></i> Cancel {{deviceType}}</button> 
+					    <button type="button"
+                            class="btn btn-primary addBTN"
+                            (click)="onClickAddDetail()"><i class="fa fa-plus"></i> Create {{deviceType}} </button>
 				</tr>
 				
 			</tbody>
