@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild,ViewChildren,QueryList,ChangeDetectorRef } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { SensorDetailsService } from './services/sensor-details.service';
 import { Router } from '@angular/router';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { ChartOptions } from './config/chart.config';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
@@ -16,8 +20,17 @@ export class SensorDetailsComponent {
   private limit:number = 10;
   private data:Array<any>=[];
   private chartLabels:Array<any>=[];
-  constructor(private sensorSummaryService:SensorDetailsService,private router:Router){
-    sensorSummaryService.getData('I11').then((result)=>{
+  private chartOptions = null;
+  @ViewChild("baseChart") chart: BaseChartDirective;
+  @ViewChildren("tabs") tabs: QueryList<any>
+
+  constructor(private sensorSummaryService:SensorDetailsService,private router:Router,private cd: ChangeDetectorRef){
+    this.chartOptions = ChartOptions;
+    let detailId = '';
+    if(!environment.production){
+      detailId = '1156073157';
+    }
+    sensorSummaryService.getData(detailId).then((result)=>{
       this.result = result;
       result.DataMessages.forEach((res)=>{
         this.data.push(res.PlotValue);
@@ -38,13 +51,31 @@ export class SensorDetailsComponent {
     this.columns.push({prop:'signalStrength',name:'Signal Strength'});
     this.columns.push({prop:'voltage',name:'Voltage'});
     this.columns.push({prop:'test',name:'Test'});
+
+    this.chartOptions = ChartOptions;
+
+    this.chartOptions.legend = {
+      onClick:function(e){
+        e.preventDefault();
+      }
+    }
   }
-  chartOptions = {
-    responsive: true
-  };
+
+  ngAfterViewInit(){
+    this.tabs.forEach((e)=>{
+      e.tabs.forEach((tab)=>{
+        if(tab.tabTitle=='Graph'){
+          tab.active = true;
+        } else {
+          tab.active = false;
+        }
+      })
+      this.cd.detectChanges();
+    })
+  }
 
   chartData = [
-    { data: this.data, label: 'Temperature Vs. Time' },
+    { data: this.data, label: 'Temperature Vs. Time',fill:false },
   ];
 
 

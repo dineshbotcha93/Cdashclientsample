@@ -33,5 +33,6 @@ export const routes: Routes = [
     SensorComparisonModule,
     TranslateModule.forRoot(),
   ]
+  
 })
 export class DashboardModule {}

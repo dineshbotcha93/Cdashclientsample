@@ -3,11 +3,14 @@ import { SensorDetailsService } from '../sensor-details/services/sensor-details.
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
 import { ChartOptions } from './config/chart.config';
+import { environment } from '../../../environments/environment';
 
 
 interface SensorDetail{
   SensorName:string;
+  SensorID:number;
 }
+
 const now = new Date();
 
 @Component({
@@ -18,7 +21,7 @@ const now = new Date();
 })
 
 export class SensorComparisonComponent{
-  private sensorName:string = 'I12';
+  private sensorName:string = '1156073157';
   private sensorNames:Array<Object> = [];
   private data:Array<any>=[];
   private chartLabels:Array<any>=[];
@@ -31,21 +34,38 @@ export class SensorComparisonComponent{
   constructor(private sensorDetailsService:SensorDetailsService){
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
+    this.chartOptions.legend = {
+      onClick:function(e,legendItem){
+        this.sensorNames.push({
+          label:this.chartData[legendItem.datasetIndex].label,
+          value:this.chartData[legendItem.datasetIndex].value
+        });
+        this.chartData.splice(legendItem.datasetIndex,1);
+        if(this.chartData.length == 0){
+          this.chartData = [];
+        } else{
+          this.chart.ngOnDestroy();
+          this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
+          this.chart.chart.update();
+        }
+      }.bind(this)
+    }
   }
 
   getSensorNames():Array<Object>{
     let allNames:Array<Object> = [];
-    Promise.all([
-      this.sensorDetailsService.getData('I11'),
-      this.sensorDetailsService.getData('I12'),
-      this.sensorDetailsService.getData('I13'),
-      this.sensorDetailsService.getData('I14')
-    ]).then((result:Array<SensorDetail>)=>{
-      result.forEach((res:SensorDetail)=>{
-        console.log(res);
-        allNames.push({label:res.SensorName,value:'I12'});
+    if(!environment.production){
+      Promise.all([
+        this.sensorDetailsService.getData('1156073157'),
+        this.sensorDetailsService.getData('1156073158'),
+        this.sensorDetailsService.getData('1156073159'),
+        this.sensorDetailsService.getData('1156073160')
+      ]).then((result:Array<SensorDetail>)=>{
+        result.forEach((res:SensorDetail)=>{
+          allNames.push({label:res.SensorName,value:res.SensorID});
+        });
       });
-    });
+    }
     return allNames;
   }
 
@@ -54,24 +74,29 @@ export class SensorComparisonComponent{
   }
 
   addSensor(){
-    this.location++;
     let tempData = [];
+    this.location++;
+    this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
-    this.sensorDetailsService.getData('I'+totalLocation).then((result)=>{
-      result.DataMessages.forEach((res)=>{
-        tempData.push(res.PlotValue);
-        if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
-          this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+    if(this.sensorName!==''){
+      this.sensorDetailsService.getData(this.sensorName).then((result)=>{
+        result.DataMessages.forEach((res)=>{
+          tempData.push(res.PlotValue);
+          if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
+            this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+          }
+        });
+        this.chartData.push({data:tempData,label:result.SensorName,fill:false});
+        if(this.chart){
+          this.chart.ngOnDestroy();
+          this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
+          this.chart.chart.update();
         }
       });
-      this.chartData.push({data:tempData,label:'Sensor '+this.location});
-      if(this.chart){
-        this.chart.ngOnDestroy();
-        this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
-        this.chart.chart.update();
-      }
-      console.log(this.chartLabels);
-    });
+    } else {
+      alert('Please select a sensor from the dropdown');
+    }
+    this.sensorName = '';
   }
 
   chartData = [];
@@ -87,13 +112,25 @@ export class SensorComparisonComponent{
     if(attribute=='zoom'){
       this.chart.chart.resetZoom();
     } else if(attribute == 'chart'){
+      this.sensorNames = this.getSensorNames();
       this.chartData = [];
       this.chartLabels = [];
       this.location = 0;
+      this.sensorName = '';
+      if(!environment.production){
+        this.sensorName = '1156073157';
+      }
       this.chart.ngOnDestroy();
       this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
       this.chart.chart.update();
     }
+  }
+
+  print(){
+    var win=window.open();
+    win.document.write("<html><head><title>Print Chart</title></head><body>");
+    win.document.write("<br><img src='"+this.chart.chart.toBase64Image('image/png')+"' onload='print()' style='width:90%'/>");
+    win.document.write("</body></html>");
   }
 
   date: {year: number, month: number};

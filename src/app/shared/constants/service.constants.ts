@@ -114,28 +114,28 @@ export const SERVICE_CONSTANTS = {
     'live':'/location/I016'
   },
   GET_SENSOR_DETAIL:{
-    'path':'/sensor_summary/I1',
+    'path':'/sensor_summary/1156073157',
     'mock':SensorDetail,
-    'live':'/sensor_summary/I1'
+    'live':'/sensor_summary/1156073157'
   },
   GET_SENSOR_DETAIL_ONE:{
-    'path':'/sensor_detail/I11',
+    'path':'/sensor_detail/1156073157',
     'mock':SensorDetails1,
-    'live':'/sensor_detail/I11'
+    'live':'/sensor_detail/1156073157'
   },
   GET_SENSOR_DETAIL_TWO:{
-    'path':'/sensor_detail/I12',
+    'path':'/sensor_detail/1156073158',
     'mock':SensorDetails2,
-    'live':'/sensor_detail/I12'
+    'live':'/sensor_detail/1156073158'
   },
   GET_SENSOR_DETAIL_THREE:{
-    'path':'/sensor_detail/I13',
+    'path':'/sensor_detail/1156073159',
     'mock':SensorDetails3,
-    'live':'/sensor_detail/I13'
+    'live':'/sensor_detail/1156073159'
   },
   GET_SENSOR_DETAIL_FOUR:{
-    'path':'/sensor_detail/I14',
+    'path':'/sensor_detail/1156073160',
     'mock':SensorDetails4,
-    'live':'/sensor_detail/I14'
+    'live':'/sensor_detail/1156073160'
   }
 };

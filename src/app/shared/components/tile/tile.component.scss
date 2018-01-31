@@ -1,3 +1,5 @@
+@import "../../../../styles/variables";
+
 $colors : red green yellow orange;
 
 .tile-stats{
@@ -7,19 +9,95 @@ $colors : red green yellow orange;
     }
   }
   .fahrenHeight{
-    font-size:67px;
+    font-size: 67px;
   }
 
   .relativeHumidity{
     @extend .fahrenHeight;
-    color:red;
+    color: $color-red;
   }
   .title{
-    font-size:18px;
+    font-size: 18px;
   }
 }
 
+.widget-panel {
+  padding: 40px 20px;
+  border-radius: $border-radius;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 20px;
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large){
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.bg-pink {
+  background-color: $appTile-BG-pink;
+}
+
+.bg-info {
+  background-color: $appTile-BG-info;
+}
+
+.bg-lowBattery {
+  background-color: $appTile-BG-lowBattery;
+}
+
+.bg-success {
+  background-color: $appTile-BG-success;
+}
+
+.bg-warning {
+  background-color: $appTile-BG-warning;
+}
+
 .widget-style-2 {
+  font-family: "roboto_thin";
+
+  .counter {
+    font-weight: 600;
+    font-size: 2em;
+    text-shadow: 2px 2px 2px $color-grey-verydark;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 1.5em;
+    }
+  }
+
+  i:not(.special) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 3em;
+    text-align: center;
+    padding: 40px 20px;
+    color: $appTile-icons;
+    background: $appTile-iconsBG;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      min-width: 3em;
+      font-size: 2em;
+      padding: 10px;
+    }
+  }
+
+  .fahrenHeight {
+    font-size: 1.15em;
+    font-weight: 800;
+    text-shadow: 2px 2px 2px $color-grey-verydark;
+  }
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    font-size: 0.75em;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
 
   @media (min-width: 767px) {
     padding-left: 30px;
@@ -30,83 +108,13 @@ $colors : red green yellow orange;
     margin-bottom: 10px;
   }
 
-}
 
-.widget-panel {
-
-  border-radius: 4px;
-  color: #ffffff;
-  position: relative;
-
-  @media (min-width: 767px) {
-    padding: 40px 20px;
-    margin-bottom: 20px;
-  }
-
-
-  @media (max-width: 767px) {
-    padding: 20px 10px;
-    margin-bottom: 10px;
+  &.special {
+    font-size: 18px;
   }
 }
 
-.bg-pink {
-  background-color: #d9534f;
-}
 
-.bg-info {
-  background-color: #3498DB;
-}
-
-.bg-lowBattery {
-  background-color: #f0ad4e;
-}
-
-.bg-success {
-  background-color: #26B99A;
-}
-
-.bg-warning {
-  background-color: #73879C;
-}
-
-.widget-style-2 i:not(.special) {
-
-  float: right;
-  color: #edf0f0;
-  /*background: rgba(255,255,255,0.2);*/
-
-  @media (min-width: 767px) {
-    font-size: 45px;
-    padding: 40px 20px;
-    margin-top: -40px;
-    margin-right: -20px;
-  }
-
-
-  @media (max-width: 767px) {
-    font-size: 25px;
-    /*padding: 20px 10px;*/
-  }
-}
-
-.widget-style-2 .special{
-  font-size:18px;
-}
-
-.widget-style-2 h2 {
-
-
-  @media (min-width: 767px) {
-    font-size: 32px;
-  }
-  @media (max-width: 767px) {
-    font-size: 24px;
-  }
-
-  font-weight: 600;
-
-}
 
 .m-0 {
   margin: 0px !important;

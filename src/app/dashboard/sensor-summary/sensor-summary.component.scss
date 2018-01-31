@@ -1,3 +1,127 @@
+@import "../../../styles/variables";
+
+
 .float-right {
   float: right;
 }
+
+table {
+  tr:first-child {
+    td {
+      border-top: none;
+    }
+  }
+}
+
+.sensor-summary-info {
+  .ss-location {
+    margin-top: 10px;
+    margin-bottom: 50px;
+
+    label {
+      margin-right: 20px;
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+      margin-bottom: 30px;
+    }
+  }
+
+  .ss-info-container {
+    .ss-info-left, .ss-info-right {
+      color: $color-grey;
+      span {
+        padding-left: 10px;
+        color: $color-grey-verydark;
+      }
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        font-size: 0.85em;
+      }
+    }
+
+    .ss-info-right {
+      padding-left: 30px;
+      border-left: 1px solid $color-grey-verylight;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        padding-left: 10px;
+        border-left: 0;
+      }
+    }
+  }
+}
+
+.sensors-info-container {
+  .x_content {
+     margin-bottom: 20px;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .sensor-info-compare {
+    display: inline-block;
+  }
+
+  .sensors-info-filter {
+    float: right;
+    form {
+      text-align: right;
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    float: none;
+  }
+}
+
+.gateway-details-container {
+  .gateway-notAll, .gateway-all {
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+    }
+  }
+
+  .gateway-all {
+    .gateway {
+      margin: 0 10px 10px 0;
+      padding: 0;
+      display: inline-block;
+      font-size: 0.75em;
+      font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      background-color: $gateway-tile-BG-Blue;
+
+      p {
+        margin: 0;
+        color: $color-grey-verydark;
+
+        span.key {
+          padding: 5px 10px;
+          width: 40%;
+          color: $color-white;
+          display: inline-block;
+          background-color: $gateway-tile-DrkBG-Blue;
+        }
+
+        span.value {
+          padding: 5px 10px;
+          color: $color-white;
+          display: inline-block;
+        }
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+

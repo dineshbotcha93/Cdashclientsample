@@ -1,5 +1,5 @@
 export const SensorDetail = {
-  SensorID: '1156073157',
+  SensorID: 1156073157,
   MonnitApplicationID: 2,
   Status: 2,
   CurrentReading: "70° F",

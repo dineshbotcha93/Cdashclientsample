@@ -6,12 +6,16 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
   styleUrls: ['./dataTable.component.scss'],
   template: `
     <div>
-      <ngx-datatable class="material"
+      <ngx-datatable class="bootstrap"
         [rows]="rows"
         [limit]="limit"
-        [footerHeight]="50"
-        [rowHeight]="100"
-        [columns]="columns">
+        [columns]="columns"
+        [columnMode]="'force'"
+        [headerHeight]="40"
+        [footerHeight]="40"
+        [limit]="10"
+        [rowHeight]="'auto'"
+        [reorderable]="reorderable">
       </ngx-datatable>
     </div>
   `
