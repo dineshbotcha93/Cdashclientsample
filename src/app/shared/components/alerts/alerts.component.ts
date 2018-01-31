@@ -21,7 +21,7 @@ export class AlertsComponent {
         this.alertContent = e.payload['data'];
         setTimeout(()=>{
           this.showDiv = false;
-          this.showAlert();
+          this.showAlert(e.payload);
         },2000)
       }
     });
@@ -47,16 +47,16 @@ export class AlertsComponent {
     });
   }
 
-  showAlert(){
-    this.alertSandbox$.showAlert();
+  showAlert(content = null){
+    this.alertSandbox$.showAlert(content);
   }
 
-  showSuccess(){
-    this.alertSandbox$.showSuccess();
+  showSuccess(content = null){
+    this.alertSandbox$.showSuccess(content);
   }
 
-  showWarning(){
-    this.alertSandbox$.showWarning();
+  showWarning(content = null){
+    this.alertSandbox$.showWarning(content);
   }
 
 }
