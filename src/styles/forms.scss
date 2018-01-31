@@ -1,5 +1,6 @@
 @import "variables";
 
+// ------> Select - Dropdown
 select {
  padding: 6px 12px;
 
@@ -8,6 +9,80 @@ select {
   }
 }
 
+
+// ------> Button
+.btn {
+  background-color: $color-grey-verylight;
+  border: 1px solid $color-grey-light;
+  color: $color-grey-verydark;
+  border-radius: 7px;
+
+  &.saveBTN {
+    background-color: $color-saveBTN-green-rgb-1 + 50;
+    color: $color-white;
+
+    &:hover, &:focus {
+      background-color: $color-saveBTN-green-rgb-1;
+      border-color: $color-saveBTN-green;
+    }
+  }
+
+  &.editBTN {
+    background-color: $color-generalBTN-blue-rgb-1 + 50;
+    color: $color-white;
+
+    &:hover, &:focus {
+      background-color: $color-generalBTN-blue-rgb-1;
+      border-color: $color-generalBTN-blue;
+    }
+  }
+
+  &.removeBTN {
+    background-color: $color-deleteBTN-red-rgb-1 + 50;
+    color: $color-white;
+
+    &:hover, &:focus {
+      background-color: $color-deleteBTN-red-rgb-1;
+      border-color: $color-deleteBTN-red;
+    }
+  }
+
+  &.moveBTN {
+    background-color: $color-generalBTN-blue-rgb-1 + 50;
+    color: $color-white;
+
+    &:hover, &:focus {
+      background-color: $color-generalBTN-blue-rgb-1;
+      border-color: $color-generalBTN-blue;
+    }
+  }
+
+  &.addBTN {
+    background-color: $color-saveBTN-green-rgb-1 + 50;
+    color: $color-white;
+
+    &:hover, &:focus {
+      background-color: $color-saveBTN-green-rgb-1;
+      border-color: $color-saveBTN-green;
+    }
+  }
+
+  i.fa {
+    padding-right: 10px;
+  }
+
+  &:hover, &:focus, &:active {
+    border: 1px solid $color-grey-light;
+    background-color: $color-grey-light;
+    transition: background-color 0.5s ease;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+  }
+}
+
+
+// ------> tabs
 .tabs {
   cursor: pointer;
 }
