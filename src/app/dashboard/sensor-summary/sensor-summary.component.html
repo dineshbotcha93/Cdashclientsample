@@ -416,11 +416,11 @@
         <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.GatewayID"
                (change)="onClickInlineCheckBox($event,aGateway)">
       </td>
-       <td class="col-md-4" >{{aGateway.GatewayID}}<br>
+       <td class="col-md-4" >{{aGateway.GatewayID}}</td>
       <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}}</td>
       <td *ngIf="aGateway.gateWayEditOption ==='edit'">
         <input class="form-control" type="text" name="gatewayName" value="{{aGateway.Name}}"
-               [(ngModel)]="aGateway.Name"><br>
+               [(ngModel)]="aGateway.Name"></td>
         <!-- <button type="button" class="btn btn-danger" (click)="onClickCancel(aGateway)"><i class="fa fa-ban"></i> Cancel</button> -->
     </tr>
     </tbody>
@@ -449,23 +449,21 @@
         <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.SensorName"
                (change)="onClickInlineCheckBox($event,sensor)">
       </td>
-       <td class="col-md-6" >{{sensor.SensorID}}<br>
-            </td>
+       <td class="col-md-6" >{{sensor.SensorID}}</td>
       <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.SensorName}}</td>
       <td *ngIf="sensor.gateWayEditOption ==='edit'">
         <input class="form-control" type="text" name="sensorName" value="{{sensor.SensorName}}"
-               [(ngModel)]="sensor.SensorName"><br>
+               [(ngModel)]="sensor.SensorName">
         <!--  <ng2-slider min="10" max="100" value="{{sensor.sensorSliderValue}}"
             (onRangeChanged)="plainValueChanged($event,sensor)">
          </ng2-slider> -->
 
         <!-- <p-slider [(ngModel)]="{{sensor.sensorSliderValue}}"></p-slider> -->
 
-        <br>
+        
         <!-- <button type="button" class="btn btn-danger" (click)="onClickCancel(sensor)"><i class="fa fa-ban"></i> Cancel</button> -->
       </td>
-      <td class="col-md-6">{{sensor.SensorID}}<br>
-      </td>
+      
     </tr>
     </tbody>
   </table>
