@@ -51,6 +51,16 @@ export class SensorSummaryComponent implements OnInit{
 
    };
 
+
+   disable: Object = {
+     edit:false,
+     remove:false,
+     move:false,
+     add:false,
+     reset:true
+   }
+
+   isSelectedAll: boolean = false;
    isSelectedToAddDevice: boolean = false;
    isDeviceAddedSucceess : boolean = false;
 
@@ -118,6 +128,7 @@ export class SensorSummaryComponent implements OnInit{
             this.gateWayData.push(Obj);
          }
       });
+      console.log(this.gateWayData);
    }
 
    /*Get the Sensor data from backend */
@@ -136,9 +147,11 @@ export class SensorSummaryComponent implements OnInit{
    }
 
     /*Onchange event for selection of network ID*/
-   private onChange(e) {
+   private onChangeLocation(e) {
       this.netWorkId = e.Id.toString();
       this.getNetworkData();
+      this.isSelectedToAddDevice = false;
+     
    }
 
    /*Selection Of Sensor radion*/
@@ -157,15 +170,32 @@ export class SensorSummaryComponent implements OnInit{
       this.radioModel = 'network';
    }
    /* */
-   // onCheckAll(e){
-   //   this.gateWayData.forEach(x => {
-   //     x.checked = e.target.checked
-   //     if(!e.target.checked){
-   //       x.gateWayEditOption = 'display';
-   //       this.editSaveModel = 'Edit';
-   //     }
-   //   });
-   // }
+   onCheckAll(e){
+     console.log('initia',e.target.checked);
+    this.onCheckSetRestValues(e.target.checked);
+    
+     console.log('final',e.target.checked)
+     // this.editSaveModel = this.editSaveModel === 'Edit'? 'Save':'Edit';
+
+   // e.target.checked = true;
+   }
+
+
+   onCheckSetRestValues(value){
+
+      if(this.radioModel = 'sensor'){
+       this.allSensors.forEach(x => {
+         x.checked = value === true?true: false;
+         x.gateWayEditOption = x.gateWayEditOption === 'edit'? 'display':'display';
+        });
+     }else{
+          this.gateWayData.forEach(x => {
+           x.checked = value === true?true: false;
+           x.gateWayEditOption = x.gateWayEditOption === 'edit'? 'display':'display';
+         });
+     }
+
+   }
    private plainValueChanged(event, sensor) {
       sensor.sensorSliderValue = event.startValue;
    }
@@ -184,10 +214,37 @@ export class SensorSummaryComponent implements OnInit{
       }
    }
 
+   private onClickButtonReset(){
+     
+     // buttons to initial state
+     this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
+
+       this.onCheckSetRestValues(false);
+       this.isSelectedAll = false;
+       this.editSaveModel = 'Edit';
+
+
+   }
+
    /*Edit the selected ,update and get refresh data drom network*/
    private onClickEditDetails() {
       this.radioModel === 'gateway' ? this.setEdiyGatewayDetails() : this.setEditSensorDetails();
       this.isSelectedToAddDevice = false;
+
+
+       this.disable= {
+         edit:false,
+         remove:true,
+         move:true,
+         add:true,
+         reset:false
+       }
    }
 
    /*Move the selected ,update and get refresh data drom network*/
@@ -196,6 +253,16 @@ export class SensorSummaryComponent implements OnInit{
       this.selectedUserDataForOperation = this.getSelectedRowDetails();
       this.locationDataForMoveNetwork = this.locationData;
       this.isSelectedToAddDevice = false;
+      this.isSelectedAll = false;
+
+      //after success call from backend
+      this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+          reset:true
+       };
    }
 
    private onClickEditNetwork() {
@@ -221,7 +288,35 @@ export class SensorSummaryComponent implements OnInit{
          }
       }
       this.isSelectedToAddDevice = false;
+      
+      this.isSelectedAll = false;
+      this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
+       this.onCheckSetRestValues(false);
+
    }
+
+    onClickAddDetail(){
+     this.isSelectedToAddDevice = true;
+
+     //on success
+
+     this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
+       this.onCheckSetRestValues(false);
+        this.isSelectedAll = false;
+   }
+
 
    private setEdiyGatewayDetails() {
       this.selectedGateway = Object.assign({}, this.gateWayData);
@@ -250,7 +345,8 @@ export class SensorSummaryComponent implements OnInit{
             }
          });
          this.editSaveModel = 'Edit';
-         this.selectAllValue = false;
+          this.isSelectedAll = false;
+
       }
    }
 
@@ -281,9 +377,9 @@ export class SensorSummaryComponent implements OnInit{
                x.checked = false;
             }
          });
-         console.log(this.allSensors);
          this.editSaveModel = 'Edit';
          this.selectAllValue = false;
+          this.isSelectedAll = false;
       }
    }
 
@@ -334,16 +430,17 @@ export class SensorSummaryComponent implements OnInit{
    }
 
 
-   onClickAddDetail(){
-     console.log('----------',this.radioModel);
-     this.isSelectedToAddDevice = true;
-   }
-
+  
 
    receiveMessage($event) {
-    this.isDeviceAddedSucceess = $event;
-    this.isSelectedToAddDevice = false;
-  }
+      this.isDeviceAddedSucceess = $event;
+      this.isSelectedToAddDevice = false;
+    }
+
+    receiveCancelMessage($event) {
+      this.isDeviceAddedSucceess = $event;
+      this.isSelectedToAddDevice = false;
+    }
 
 
     //     /*Get sensor data from service by selecting the network Id*/

@@ -1,5 +1,7 @@
-import { Component, OnInit ,Output, EventEmitter } from '@angular/core';
+import { Component, OnInit ,Output, EventEmitter,Input } from '@angular/core';
 import { DeviceManagementModel } from '../../shared/models/device/DeviceManagementModel';
+
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-device',
@@ -8,27 +10,40 @@ import { DeviceManagementModel } from '../../shared/models/device/DeviceManageme
 })
 export class CreateDeviceComponent implements OnInit {
 	
+   @Input() deviceType: string ;
+   @Input() inputNetworkData:Array<any> = [];
 
+   @Input() selectedNetwork:Array<any> = [];
+
+ 
    @Output() messageEvent = new EventEmitter<boolean>();
+
+   @Output() messageCancelEvent = new EventEmitter<boolean>();
  
   	message: boolean = false;
+
 	deviceModel: DeviceManagementModel = 
 	{
 		name:  '',
 		id:    '',
 		code:  '',
-		netWorkList: []
+		network: []
 	};
 
 
   constructor() { }
 
   ngOnInit() {
+  	this.deviceType = this.deviceType.toUpperCase();
+    this.deviceModel.network=this.selectedNetwork;
   }
 
   onClickAddDetail(){
-  	console.log('returning',this.message);
   	 this.messageEvent.emit(this.message);
+  }
+
+  onClickCancelDetail(){
+     this.messageCancelEvent.emit(this.message);
   }
 
 }

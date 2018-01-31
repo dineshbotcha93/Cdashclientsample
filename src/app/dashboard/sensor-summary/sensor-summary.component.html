@@ -7,7 +7,7 @@
                <div class="col-md-12 form-inline">
                   <div class="form-group ss-location">
                      <label class="control-label col-form-label">Select Location:</label>
-                     <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChange($event)">
+                     <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChangeLocation($event)">
                      <option *ngFor="let loc of locationData" [ngValue]="loc">
                      {{loc.Title}}
                      </option>
@@ -129,8 +129,7 @@
               </div>
             </div>
           </tab>
-          <tab tabTitle="Config" class="tab-content gateway-details-container">
-                  <h3>Device Management</h3>
+          <tab tabTitle="Device Management" class="tab-content gateway-details-container">
                   <div class="row">
                      <div>
                         <form action="">
@@ -142,10 +141,11 @@
                      <div>
                         <div class="form-group sensor-info-compare">
                            <div *ngIf="radioModel === 'sensor' || radioModel === 'gateway'">
-                              <input type="button" class="btn btn-primary" value="{{editSaveModel}}" (click)="onClickEditDetails()">
-                              <input type="button" class="btn btn-danger" value="Remove" (click)="onClickRemoveDetails()">
-                              <input type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" value="Move" (click)="onClickMoveDetails()">
-                              <input type="button" class="btn btn-primary"  value="Add" (click)="onClickAddDetail()">
+                              <input type="button" class="btn btn-primary" value="{{editSaveModel}}" [disabled]="disable.edit" (click)="onClickEditDetails()">
+                              <input type="button" class="btn btn-danger" value="Remove" [disabled]="disable.remove" (click)="onClickRemoveDetails()">
+                              <input type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" [disabled]="disable.move" value="Move" (click)="onClickMoveDetails()">
+                              <input type="button" class="btn btn-primary"  value="Add" [disabled]="disable.add" (click)="onClickAddDetail()">
+                              <input type="button" class="btn btn-dark active"  value="Reset" [disabled]="disable.reset" (click)="onClickButtonReset()">
                            </div>
 
 
@@ -157,7 +157,12 @@
                      <hr>
                      <div *ngIf="isSelectedToAddDevice">
 
-                         <app-create-device (messageEvent)="receiveMessage($event)">
+                         <app-create-device 
+                         [deviceType]="radioModel"
+                         [inputNetworkData]="locationData"
+                         [selectedNetwork]="selectLocation"
+                         (messageEvent)="receiveMessage($event)"
+                         (messageCancelEvent)="receiveCancelMessage($event)">
                         </app-create-device> 
                      
                      </div>
@@ -274,9 +279,14 @@
    <table class="table table-striped">
       <thead>
          <tr>
-            <th class="col-md-1">
+           <th class="col-md-1"><div class="form-check">
+                    <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+                    <input type="checkbox" name="allGateway" 
+                    (change)="onCheckAll($event)"/>
+                  </div>
             </th>
-            <th class="col-md-11">Gateway Name</th>
+            <th class="col-md-4">Gateway ID</th>
+            <th class="col-md-7">Gateway Name</th>
          </tr>
       </thead>
       <tbody>
@@ -285,10 +295,12 @@
                <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.GatewayID"
                (change)="onClickInlineCheckBox($event,aGateway)">
             </td>
-            <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
+             <td class="col-md-4" >{{aGateway.GatewayID}}<br>
+            </td>
+            <td class="col-md-7" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}} </td>
             <td *ngIf="aGateway.gateWayEditOption ==='edit'">
                <input class="form-control" type="text" name="gatewayName"  value="{{aGateway.Name}}" [(ngModel)]="aGateway.Name"><br>
-               <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button>
+               <!-- <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(aGateway)" >Cancel</button> -->
          </tr>
       </tbody>
    </table>
@@ -297,10 +309,15 @@
    <table class="table table-striped">
       <thead>
          <tr>
-            <th class="col-md-1">
+            <th class="col-md-1"><div class="form-check">
+                    <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+                    <input type="checkbox" name="allSensor"  [(ngModel)]="isSelectedAll"
+                    (change)="onCheckAll($event)"/>
+                  </div>
             </th>
-            <th class="col-md-5">Sensor Name</th>
             <th class="col-md-6">Sensor Id</th>
+            <th class="col-md-5">Sensor Name</th>
+            
          </tr>
       </thead>
       <tbody>
@@ -308,6 +325,8 @@
             <td class="col-md-1">
                <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.SensorName"
                (change)="onClickInlineCheckBox($event,sensor)">
+            </td>
+            <td class="col-md-6" >{{sensor.SensorID}}<br>
             </td>
             <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.SensorName}} </td>
             <td *ngIf="sensor.gateWayEditOption ==='edit'">
@@ -318,11 +337,8 @@
 
                <!-- <p-slider [(ngModel)]="{{sensor.sensorSliderValue}}"></p-slider> -->
                
-               <br>
-               <button type="button" class="btn btn-danger btn-sm" (click)="onClickCancel(sensor)" >Cancel</button>
             </td>
-            <td class="col-md-6" >{{sensor.SensorID}}<br>
-            </td>
+            
          </tr>
       </tbody>
    </table>
