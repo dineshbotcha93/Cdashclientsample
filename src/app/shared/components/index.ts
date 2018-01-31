@@ -9,6 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent }     from './map/map.component';
 import { NotificationComponent } from './notification/notification.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
+import { AlertsComponent } from './alerts/alerts.component';
 import { Tab } from './tabs/tab.component';
 import { Tabs } from './tabs/tabs.component';
 // Google map integration
@@ -25,6 +26,7 @@ export const COMPONENTS = [
   NotificationComponent,
   MapComponent,
   DataTableComponent,
+  AlertsComponent,
   Tab,
   Tabs
 ];

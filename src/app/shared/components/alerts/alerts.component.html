@@ -1,0 +1,14 @@
+<!-- <h3>Alerts Component</h3> -->
+  <h3>&nbsp;</h3>
+  <div *ngIf="showDiv" class="alert alert-danger">
+    <h3>{{alertContent}}</h3>
+  </div>
+  <div *ngIf="showGood" class="alert alert-success">
+    <h3>{{successContent}}</h3>
+  </div>
+  <div *ngIf="isWarning" class="alert alert-warning">
+    <h3>{{warningContent}}</h3>
+  </div>
+<!-- <button (click)="showAlert()">Show Alert</button>
+<button (click)="showSuccess()">Show Good</button>
+<button (click)="showWarning()">Show Warning</button> -->
