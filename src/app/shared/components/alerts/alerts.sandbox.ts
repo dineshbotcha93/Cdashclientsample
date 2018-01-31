@@ -30,11 +30,11 @@ export class AlertSandbox extends Sandbox{
     return this.warningSandbox$;
   }
 
-  showSuccess(){
-    this.successSandbox$.dispatch(new alertActions.SuccessAction());
+  showSuccess(content = null){
+    this.successSandbox$.dispatch(new alertActions.SuccessAction(content));
   }
 
-  showWarning(){
-    this.warningSandbox$.dispatch(new alertActions.WarningAction());
+  showWarning(content = null){
+    this.warningSandbox$.dispatch(new alertActions.WarningAction(content));
   }
 }
