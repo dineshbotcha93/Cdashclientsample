@@ -128,7 +128,7 @@ export class SensorSummaryComponent implements OnInit{
             this.gateWayData.push(Obj);
          }
       });
-      console.log(this.gateWayData);
+
    }
 
    /*Get the Sensor data from backend */
@@ -142,7 +142,6 @@ export class SensorSummaryComponent implements OnInit{
          sens.sensorSliderValue = '10';
          this.allSensors.push(sens);
       });
-      console.log(this.allSensors);
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
    }
 
@@ -171,19 +170,26 @@ export class SensorSummaryComponent implements OnInit{
    }
    /* */
    onCheckAll(e){
-     console.log('initia',e.target.checked);
     this.onCheckSetRestValues(e.target.checked);
-    
-     console.log('final',e.target.checked)
-     // this.editSaveModel = this.editSaveModel === 'Edit'? 'Save':'Edit';
 
+    if(!this.isSelectedAll){
+      this.editSaveModel = 'Edit';
+       this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
+    }
+      
    // e.target.checked = true;
    }
 
 
    onCheckSetRestValues(value){
 
-      if(this.radioModel = 'sensor'){
+      if(this.radioModel === 'sensor'){
        this.allSensors.forEach(x => {
          x.checked = value === true?true: false;
          x.gateWayEditOption = x.gateWayEditOption === 'edit'? 'display':'display';
@@ -194,7 +200,6 @@ export class SensorSummaryComponent implements OnInit{
            x.gateWayEditOption = x.gateWayEditOption === 'edit'? 'display':'display';
          });
      }
-
    }
    private plainValueChanged(event, sensor) {
       sensor.sensorSliderValue = event.startValue;
@@ -238,13 +243,7 @@ export class SensorSummaryComponent implements OnInit{
       this.isSelectedToAddDevice = false;
 
 
-       this.disable= {
-         edit:false,
-         remove:true,
-         move:true,
-         add:true,
-         reset:false
-       }
+       
    }
 
    /*Move the selected ,update and get refresh data drom network*/
@@ -321,6 +320,13 @@ export class SensorSummaryComponent implements OnInit{
    private setEdiyGatewayDetails() {
       this.selectedGateway = Object.assign({}, this.gateWayData);
       let isRecordSelected: boolean = false;
+       this.disable= {
+         edit:false,
+         remove:true,
+         move:true,
+         add:true,
+         reset:false
+       }
       if (this.editSaveModel === 'Edit') {
          this.gateWayData.forEach(x => {
             if (x.checked) {
@@ -345,7 +351,15 @@ export class SensorSummaryComponent implements OnInit{
             }
          });
          this.editSaveModel = 'Edit';
-          this.isSelectedAll = false;
+         this.isSelectedAll = false;
+           console.log('-----');
+           this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
 
       }
    }
@@ -354,6 +368,13 @@ export class SensorSummaryComponent implements OnInit{
    private setEditSensorDetails() {
       this.selectedSensor = Object.assign({}, this.allSensors);
       let isRecordSelected: boolean = false;
+      this.disable= {
+         edit:false,
+         remove:true,
+         move:true,
+         add:true,
+         reset:false
+       }
       if (this.editSaveModel === 'Edit') {
          this.allSensors.forEach(x => {
             if (x.checked) {
@@ -380,6 +401,13 @@ export class SensorSummaryComponent implements OnInit{
          this.editSaveModel = 'Edit';
          this.selectAllValue = false;
           this.isSelectedAll = false;
+          this.disable= {
+         edit:false,
+         remove:false,
+         move:false,
+         add:false,
+         reset:true
+       }
       }
    }
 

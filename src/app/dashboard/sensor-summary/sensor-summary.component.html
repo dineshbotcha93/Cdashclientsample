@@ -166,6 +166,7 @@
                         </app-create-device> 
                      
                      </div>
+                     {{radioModel}}
                      <div *ngIf="isSelectedToAddDevice === false">
                            <div *ngIf="radioModel === 'gateway'">
                               <ng-container *ngTemplateOutlet="gateWayDataTemplate"></ng-container>
@@ -281,7 +282,7 @@
          <tr>
            <th class="col-md-1"><div class="form-check">
                     <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
-                    <input type="checkbox" name="allGateway" 
+                     <input type="checkbox" name="allGateway"  [(ngModel)]="isSelectedAll"
                     (change)="onCheckAll($event)"/>
                   </div>
             </th>
