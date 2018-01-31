@@ -5,13 +5,15 @@ export interface State {
   SUCCESS: boolean;
   WARNING: boolean;
   data:    Array<any>;
+  payload: Array<any>;
 };
 
 const INITIAL_STATE: State = {
   ALERT: false,
   SUCCESS: false,
   WARNING: false,
-  data: []
+  data: [],
+  payload: []
 };
 
 export function reducer(state = INITIAL_STATE, action: actions.Actions): State {
@@ -19,17 +21,20 @@ export function reducer(state = INITIAL_STATE, action: actions.Actions): State {
   switch (action.type) {
     case actions.ActionTypes.ALERT: {
       return Object.assign({}, state, {
-        ALERT: !state.ALERT
+        ALERT: !state.ALERT,
+        payload: action.payload
       });
     }
     case actions.ActionTypes.SUCCESS: {
       return Object.assign({}, state, {
-        SUCCESS: !state.SUCCESS
+        SUCCESS: !state.SUCCESS,
+        payload: action.payload
       });
     }
     case actions.ActionTypes.WARNING: {
       return Object.assign({}, state, {
-        WARNING: !state.WARNING
+        WARNING: !state.WARNING,
+        payload: action.payload
       });
     }
     default: {
@@ -38,6 +43,12 @@ export function reducer(state = INITIAL_STATE, action: actions.Actions): State {
   }
 };
 
-export const getAlert = (state: State) => state.ALERT;
-export const getSuccess = (state: State) => state.SUCCESS;
-export const getWarning = (state: State) => state.WARNING;
+export const getAlert = (state: State) => {
+  return {'type':state.ALERT,'payload':state.payload};
+}
+export const getSuccess = (state: State) => {
+  return {'type':state.SUCCESS,'payload':state.payload};
+}
+export const getWarning = (state: State) => {
+  return {'type':state.WARNING,'payload':state.payload};
+}

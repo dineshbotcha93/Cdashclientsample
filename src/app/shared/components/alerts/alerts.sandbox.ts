@@ -14,8 +14,8 @@ export class AlertSandbox extends Sandbox{
     super(appState$);
   }
 
-  showAlert(){
-    this.alertSandbox$.dispatch(new alertActions.AlertAction());
+  showAlert(content = null){
+    this.alertSandbox$.dispatch(new alertActions.AlertAction(content));
   }
 
   getAlert(){

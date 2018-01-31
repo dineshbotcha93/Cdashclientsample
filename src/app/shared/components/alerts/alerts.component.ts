@@ -11,10 +11,14 @@ export class AlertsComponent {
   private showDiv;
   private showGood;
   private isWarning;
+  private alertContent;
+  private successContent;
+  private warningContent;
   constructor(public alertSandbox$: AlertSandbox){
     this.alertSandbox$.getAlert().subscribe((e)=>{
-      if(e == true){
+      if(e.type == true){
         this.showDiv = true;
+        this.alertContent = e.payload['data'];
         setTimeout(()=>{
           this.showDiv = false;
           this.showAlert();
@@ -22,8 +26,9 @@ export class AlertsComponent {
       }
     });
     this.alertSandbox$.getSuccess().subscribe((e)=>{
-      if(e == true){
+      if(e.type == true){
         this.showGood = true;
+        this.successContent = e.payload['data'];
         setTimeout(()=>{
           this.showGood = false;
           this.showSuccess();
@@ -31,8 +36,9 @@ export class AlertsComponent {
       }
     });
     this.alertSandbox$.getWarning().subscribe((e)=>{
-      if(e == true){
+      if(e.type == true){
         this.isWarning = true;
+        this.warningContent = e.payload['data'];
         setTimeout(()=>{
           this.isWarning = false;
           this.showWarning();

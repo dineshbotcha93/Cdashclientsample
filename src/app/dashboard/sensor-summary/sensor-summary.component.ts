@@ -6,6 +6,7 @@ import { MapConstants } from '../../shared/components/map/constants/map.constant
 import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
+import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
@@ -14,7 +15,7 @@ import { CommonSharedService } from '../../shared/services/common-shared.service
   selector:'app-sensor-summary',
   templateUrl:'./sensor-summary.component.html',
   styleUrls: ['./sensor-summary.component.scss'],
-  providers:[MapService,SensorSummaryService,CommonSharedService]
+  providers:[MapService,SensorSummaryService,CommonSharedService,AlertSandbox]
 })
 export class SensorSummaryComponent implements OnInit{
   mapData:Object = null;
@@ -31,7 +32,7 @@ export class SensorSummaryComponent implements OnInit{
   selectedGateway : any = null;
   gateWayEditOption: string = 'display';
   gateWayData:any = [];
- 
+
   selectedSensor: any = null;
 
   radioModel: any = 'sensor';
@@ -62,7 +63,8 @@ export class SensorSummaryComponent implements OnInit{
     private router:Router,
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService,
-    private commonSharedService:CommonSharedService
+    private commonSharedService:CommonSharedService,
+    private alertSandbox: AlertSandbox
     ){
 
       this.route.params.subscribe((params)=>{
@@ -384,6 +386,10 @@ export class SensorSummaryComponent implements OnInit{
       this.allSensors = this.allSensors.filter((sens)=>{
         return this.commonSharedService.evaluateSensorType(criteriaOther,sens,sens);
       });
+
+      if(this.allSensors.length == 0){
+        this.alertSandbox.showAlert({data:'No Content'});
+      }
     }
 
     filterByType(){
@@ -397,6 +403,10 @@ export class SensorSummaryComponent implements OnInit{
       this.allSensors = this.allSensors.filter((sens)=>{
         return this.commonSharedService.evaluateSensorStatus(criteriaOther,sens,sens);
       });
+      
+      if(this.allSensors.length == 0){
+        this.alertSandbox.showAlert({data:'No Content'});
+      }
     }
 
     doCompare(){
