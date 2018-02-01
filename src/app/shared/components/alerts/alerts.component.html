@@ -1,12 +1,10 @@
-<!-- <h3>Alerts Component</h3> -->
-  <h3>&nbsp;</h3>
-  <div *ngIf="showDiv" class="alert alert-danger">
+  <div *ngIf="showDiv" class="alert alert-danger mt-l">
     <h3>{{alertContent}}</h3>
   </div>
-  <div *ngIf="showGood" class="alert alert-success">
+  <div *ngIf="showGood" class="alert alert-success mt-l">
     <h3>{{successContent}}</h3>
   </div>
-  <div *ngIf="isWarning" class="alert alert-warning">
+  <div *ngIf="isWarning" class="alert alert-warning mt-l">
     <h3>{{warningContent}}</h3>
   </div>
 <!-- <button (click)="showAlert()">Show Alert</button>
