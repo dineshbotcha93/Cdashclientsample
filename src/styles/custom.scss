@@ -219,16 +219,32 @@ body .container.body .right_col {
   height: 57px;
 }
 @media (max-width: 991px) {
+  .nav-sm .main_container .top_nav {
+    display: block;
+    margin-left: 0px;
+    z-index: 2;
+  }
   .nav-md .container.body .right_col, .nav-md .container.body .top_nav {
+    width: 100%;
+    margin: 0;
+  }
+  .nav-sm .container.body .right_col, .nav-md .container.body .top_nav {
     width: 100%;
     margin: 0;
   }
   .nav-md .container.body .col-md-3.left_col {
     display: none;
   }
+  .nav-sm .container.body .col-md-3.left_col {
+    display: none;
+  }
   .nav-md .container.body .right_col {
     width: 100%;
     padding-right: 0
+  }
+  .nav-sm .container.body .right_col {
+    width: 100%;
+    padding-right: 70px;
   }
   .right_col {
     padding: 10px !important;
