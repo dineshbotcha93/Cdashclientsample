@@ -1,0 +1,79 @@
+
+.network-card {
+  background: url("./assets/images/Compass_Cropped_Right_White_Opacity3.svg") no-repeat top right;
+  background-color: $color-body-bg;
+  border-radius: 10px;
+  position: relative;
+  padding: 20px;
+
+  .network-card-top {
+    height: 70px;
+
+    .network-name {
+      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 3.125em;
+      color: $color-white;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+    }
+
+    .network-id {
+      font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.875em;
+      color: $color-white;
+      display: inline-block;
+      float: right;
+      //position: absolute;
+      //top: 0;
+      //right: 0;
+    }
+  }
+
+  .network-card-bottom {
+    height: 50px;
+
+    .gateway-count, .sensor-count {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1em;
+      color: $color-white;
+      display: inline-block;
+      //width: 35%;
+
+      span {
+        font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        font-size: 3.125em;
+        color: $color-counts-green;
+      }
+    }
+
+    .gateway-count {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .sensor-count {
+      position: absolute;
+      bottom: 0;
+      left: 40%;
+    }
+
+    .network-button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: inline-block;
+      //text-align: right;
+      //width: 10%;
+
+      .network-editBTN {
+        border: none;
+        background: none;
+        background-color: transparent;
+        color: $color-white;
+        padding: 0;
+        font-size: 2em;
+      }
+    }
+  }
+}
