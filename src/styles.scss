@@ -8,6 +8,10 @@
 @import "styles/forms";
 @import "styles/fonts";
 @import "styles/icons";
+@import "styles/global/network-card";
+@import "styles/global/gateway-card";
+@import "styles/global/pills";
+@import "styles/global/status-color";
 
 #map {
   height: 100%;
@@ -19,23 +23,6 @@ html, body {
   padding: 0;
   font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
-
-
-/* tabs, tab-content */
-.tab-content {
-  .x_content {
-    margin-top: 10px;
-    width: auto;
-    float: none;
-
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
-      float: none;
-      width: auto;
-    }
-  }
-}
-/* ******* */
 
 /* ul */
 ul {
