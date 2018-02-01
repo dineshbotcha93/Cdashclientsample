@@ -3,13 +3,12 @@ import {
 	PipeTransform
 } 							from '@angular/core';
 import { CommonSharedService } from '../../../shared/services/common-shared.service';
-import { AlertSandbox } from '../../../shared/components/alerts/alerts.sandbox';
 
 @Pipe({
 	name: 'filterByCriteria'
 })
 export class FilterByCriteria implements PipeTransform  {
-	constructor(private commonSharedService:CommonSharedService, private alertSandbox:AlertSandbox){}
+	constructor(private commonSharedService:CommonSharedService){}
 
 	transform(v: Array<Object>,...args:any[]) : object {
 		if(args[0]!==null){
@@ -29,9 +28,7 @@ export class FilterByCriteria implements PipeTransform  {
 				}
 			}
 		});
-			if(acceptableSensors.length === 0){
-				this.alertSandbox.showAlert({data:'No Content'});
-			}
+
 			return acceptableSensors;
 		} else {
 			return v;
