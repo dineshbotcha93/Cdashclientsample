@@ -73,25 +73,25 @@ export class CustomerListComponent implements OnInit {
     console.log(this.bsValue);
     this.filterByStatus();
   }
-  onChange($event){
-    this.bsValue = $event;
-      console.log(this.bsValue);
-      console.log(this.bsValueTwo);
-       this.items = this.data.filter(item => 
-        item.RenewalDate.getTime() > this.bsValue.getTime() && item.RenewalDate.getTime() < this.bsValueTwo.getTime());
-       this.data = this.items;
+  // onChange($event){
+  //   this.bsValue = $event;
+  //     console.log(this.bsValue);
+  //     console.log(this.bsValueTwo);
+  //      this.items = this.data.filter(item => 
+  //       item.RenewalDate.getTime() > this.bsValue.getTime() && item.RenewalDate.getTime() < this.bsValueTwo.getTime());
+  //      this.data = this.items;
       
-  }
+  // }
 
-  onChangeToDp($event){
-    this.bsValueTwo = $event;
-      console.log(this.bsValueTwo);
-      console.log(this.bsValue);
-      // this.items = this.data.filter(item => 
-      //   item.RenewalDate.indexOf(lowerValue) !== -1 || !lowerValue);
-      // this.data = this.items;
+  // onChangeToDp($event){
+  //   this.bsValueTwo = $event;
+  //     console.log(this.bsValueTwo);
+  //     console.log(this.bsValue);
+  //     // this.items = this.data.filter(item => 
+  //     //   item.RenewalDate.indexOf(lowerValue) !== -1 || !lowerValue);
+  //     // this.data = this.items;
       
-  }
+  // }
 
 filterByStatus(){  
   const criteria = this.doFilterByStatus.toLowerCase();
