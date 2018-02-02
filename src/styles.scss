@@ -24,6 +24,12 @@ html, body {
   font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
+
+.nav-sm .container.body .right_col, .right_col {
+  height: auto;
+}
+
+
 /* ul */
 ul {
   &.bar_tabs {
@@ -35,6 +41,12 @@ ul {
   }
 }
 /* ******* */
+
+
+.top_tiles {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 /* side-nav */
 //.nav-sm .container.body .col-md-3.left_col {
