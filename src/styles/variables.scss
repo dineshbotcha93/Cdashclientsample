@@ -9,8 +9,12 @@ $color-grey-dark: #6d6f70;
 $color-grey-verydark: #333;
 $color-red: #ee5a5a;
 $color-redLight: #f57676;
+
 $color-body-bg: #2a3F54;
 $color-counts-green: #00A421;
+
+$color-table-striped-th: $color-body-bg - 35;
+$color-table-striped-tr: $color-body-bg - 15;
 
 /* Button Colors */
 $color-generalBTN-blue: #117a8b;

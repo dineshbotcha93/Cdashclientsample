@@ -225,23 +225,23 @@
 >>>>>>> feature/sensor-summary
  -->
           <!-- Config Tab -->
-          <tab tabTitle="Device Management" class="tab-content gateway-details-container">
+          <tab tabTitle="Device Management" class="tab-content device-management-container">
             <div class="row">
-              <div>
+              <div class="col-md-4">
                 <form action="">
                   <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
                   <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway"> Gateway
                 </form>
-                <hr>
               </div>
-              <div>
-                <div class="form-group sensor-info-compare">
+
+              <div class="col-md-8">
+                <div class="form-group sensor-actions">
                   <div *ngIf="radioModel === 'sensor' || radioModel === 'gateway'">
-                      <button type="button"
-                            class="btn btn-primary"
-                            value="{{editSaveModel}}"
-                            [ngClass]="(editSaveModel==='Save')?'saveBTN':'editBTN'"
-                            (click)="onClickEditDetails()" [disabled]="disable.edit" ><i class="fa fa-edit"></i> {{editSaveModel}} </button>
+                    <button type="button"
+                          class="btn btn-primary"
+                          value="{{editSaveModel}}"
+                          [ngClass]="(editSaveModel==='Save')?'saveBTN':'editBTN'"
+                          (click)="onClickEditDetails()" [disabled]="disable.edit" ><i class="fa fa-edit"></i> {{editSaveModel}} </button>
                     <button type="button"
                             class="btn btn-primary removeBTN"
                             (click)="onClickRemoveDetails()" [disabled]="disable.remove"><i class="fa fa-trash"></i> Remove </button>
@@ -285,7 +285,7 @@
                   </div>
                 </div>
               </div>
-              <hr>
+
               <div *ngIf="isSelectedToAddDevice">
                 <app-create-device
                          [deviceType]="radioModel"
@@ -295,12 +295,18 @@
                          (messageCancelEvent)="receiveCancelMessage($event)">
                         </app-create-device>
               </div>
+
               <div *ngIf="isSelectedToAddDevice === false">
                 <div *ngIf="radioModel === 'gateway'">
-                  <ng-container *ngTemplateOutlet="gateWayDataTemplate"></ng-container>
+                  <div class="col-md-12">
+                    <ng-container *ngTemplateOutlet="gateWayDataTemplate"></ng-container>
+                  </div>
                 </div>
+
                 <div *ngIf="radioModel === 'sensor'">
-                  <ng-container *ngTemplateOutlet="sensorDataTemplate"></ng-container>
+                  <div class="col-md-12">
+                    <ng-container *ngTemplateOutlet="sensorDataTemplate"></ng-container>
+                  </div>
                 </div>
               </div>
             </div>
