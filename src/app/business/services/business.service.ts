@@ -46,8 +46,8 @@ export class BusinessService {
             "ContactName": "Paul Alter",
             "ContactEmail": "Paul.Alter@xyz.ca",
             "ContactNumber": "+14168552735",
-            "NumberOfSensors": "10",
-            "NumberOfGateways": "1",
+            "Sensors": "10",
+            "Amount": "33000",
           },
           {
             "Name": "Boston Pizza 207",
@@ -57,8 +57,8 @@ export class BusinessService {
             "ContactName": "207 Alter",
             "ContactEmail": "207.Alter@xyz.ca",
             "ContactNumber": "+14168552207",
-            "NumberOfSensors": "8",
-            "NumberOfGateways": "1",
+            "Sensors": "8",
+            "Amount": "27000",
           },
           {
             "Name": "Boston Pizza 208",            
@@ -68,8 +68,8 @@ export class BusinessService {
             "ContactName": "208 Alter",
             "ContactEmail": "208.Alter@xyz.ca",
             "ContactNumber": "+14168552208",
-            "NumberOfSensors": "12",
-            "NumberOfGateways": "1",
+            "Sensors": "12",
+            "Amount": "39000",
           },
           {
             "Name": "Boston Pizza 211",
@@ -79,8 +79,8 @@ export class BusinessService {
             "ContactName": "211 Alter",
             "ContactEmail": "211.Alter@xyz.ca",
             "ContactNumber": "+14168552211",
-            "NumberOfSensors": "12",
-            "NumberOfGateways": "1",
+            "Sensors": "12",
+            "Amount": "43000",
           },
           {
             "Name": "Boston Pizza 213",
@@ -90,8 +90,8 @@ export class BusinessService {
             "ContactName": "213 Alter",
             "ContactEmail": "213.Alter@xyz.ca",
             "ContactNumber": "+14168552213",
-            "NumberOfSensors": "12",
-            "NumberOfGateways": "1",
+            "Sensors": "12",
+            "Amount": "34000",
           },
           {
             "Name": "Boston Pizza 214",
@@ -101,8 +101,8 @@ export class BusinessService {
             "ContactName": "214 Alter",
             "ContactEmail": "214.Alter@xyz.ca",
             "ContactNumber": "+14168552214",
-            "NumberOfSensors": "13",
-            "NumberOfGateways": "1"
+            "Sensors": "13",
+            "Amount": "29000",
           },
           {
             "Name": "Boston Pizza 215",
@@ -112,8 +112,8 @@ export class BusinessService {
             "ContactName": "215 Alter",
             "ContactEmail": "215.Alter@xyz.ca",
             "ContactNumber": "+14168552215",
-            "NumberOfSensors": "19",
-            "NumberOfGateways": "1"
+            "Sensors": "19",
+            "Amount": "27000",
           },
           {
             "Name": "Boston Pizza 216",
@@ -123,8 +123,8 @@ export class BusinessService {
             "ContactName": "216 Alter",
             "ContactEmail": "216.Alter@xyz.ca",
             "ContactNumber": "+14168552216",
-            "NumberOfSensors": "10",
-            "NumberOfGateways": "1"
+            "Sensors": "10",
+            "Amount": "35000",
           },
           {
             "Name": "Boston Pizza 218",
@@ -134,8 +134,8 @@ export class BusinessService {
             "ContactName": "218 Alter",
             "ContactEmail": "218.Alter@xyz.ca",
             "ContactNumber": "+14168552218",
-            "NumberOfSensors": "4",
-            "NumberOfGateways": "1"
+            "Sensors": "4",
+            "Amount": "23000",
           },
           {
             "Name": "Boston Pizza 220  Blairmore",
@@ -145,8 +145,8 @@ export class BusinessService {
             "ContactName": "220 Alter",
             "ContactEmail": "220.Alter@xyz.ca",
             "ContactNumber": "+14168552220",
-            "NumberOfSensors": "10",
-            "NumberOfGateways": "1"
+            "Sensors": "10",
+            "Amount": "33000",
           },
           {
             "Name": "Boston Pizza Beaumont",
@@ -156,32 +156,30 @@ export class BusinessService {
             "ContactName": "217 Alter",
             "ContactEmail": "217.Alter@xyz.ca",
             "ContactNumber": "+14168552217",
-            "NumberOfSensors": "17",
-            "NumberOfGateways": "1"
+            "Sensors": "17",
+            "Amount": "28000",
           },
           {
             "Name": "Boston Pizza Albany",
             "RenewalDate": "2018-01-20",
-            "Amount": "51000",
             "Status": "Renewed",
             "Subscription": "Premier",
             "ContactName": "218 Alter",
             "ContactEmail": "218.Alter@xyz.ca",
             "ContactNumber": "+14168552218",
-            "NumberOfSensors": "15",
-            "NumberOfGateways": "2"
+            "Sensors": "15",
+            "Amount": "51000",
           },
           {
             "Name": "Boston Pizza Namao (183)",
             "RenewalDate": "2018-03-20",
-            "Amount": "54000",
             "Status": "Due",
             "Subscription": "Premier",
             "ContactName": "183 Alter",
             "ContactEmail": "183.Alter@xyz.ca",
             "ContactNumber": "+14168552183",
-            "NumberOfSensors": "17",
-            "NumberOfGateways": "1"
+            "Sensors": "17",
+            "Amount": "54000",
           },
           {
             "Name": "Boston Pizza Wetaskiwin",
@@ -191,8 +189,8 @@ export class BusinessService {
             "ContactName": "220 Alter",
             "ContactEmail": "220.Alter@xyz.ca",
             "ContactNumber": "+14168552220",
-            "NumberOfSensors": "8",
-            "NumberOfGateways": "1"
+            "Sensors": "8",
+            "Amount": "33000",
           },
            {
             "Name": "Boston Pizza Regent",
@@ -202,8 +200,8 @@ export class BusinessService {
             "ContactName": "221 Alter",
             "ContactEmail": "221.Alter@xyz.ca",
             "ContactNumber": "+14168552221",
-            "NumberOfSensors": "8",
-            "NumberOfGateways": "1"
+            "Sensors": "8",
+            "Amount": "43000",
           }
         ]
       }
