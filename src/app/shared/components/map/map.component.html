@@ -7,7 +7,7 @@
 <agm-marker *ngFor="let aLoc of loc.Location"
   [latitude]="aLoc.Latitude|stringToNumber"
   [longitude]="aLoc.Longitude|stringToNumber"
-  [iconUrl]="'/assets/images/markers/red-marker.png'"
+  [iconUrl]="'/assets/images/markers/new-red-marker.png'"
   (markerClick)="clickedMarker(aLoc.status, aLoc.Id)">
   <agm-info-window>
   <strong>InfoWindow content</strong>
