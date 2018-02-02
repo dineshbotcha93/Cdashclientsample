@@ -14,8 +14,8 @@ export interface CustomerData {
   Subscription: string;
   RenewalDate: string;
   ContactNumber: string;
-  NumberOfSensors: string;
-  NumberOfGateways: string;
+  Sensors: string;
+  Amount: string;
 }
 @Component({
   selector: 'app-customer-list',
@@ -53,8 +53,8 @@ export class CustomerListComponent implements OnInit {
   this.columns.push({prop:'ContactNumber',name:'Contact Number'});
   this.columns.push({prop:'ContactEmail',name:'Contact Email'});
   this.columns.push({prop:'Status', name:'Status'});
-  this.columns.push({prop:'NumberOfSensors',name:'Number Of Sensors'});
-  this.columns.push({prop:'NumberOfGateways',name:'Number Of Gateways'});
+  this.columns.push({prop:'Sensors',name:'Sensors'});
+  this.columns.push({prop:'Amount',name:'Amount'});
   }
 
   updateFilter(event){
