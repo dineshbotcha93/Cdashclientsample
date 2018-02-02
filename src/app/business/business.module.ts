@@ -7,7 +7,9 @@ import { AuthService } from '../shared/services/auth.service';
 import { ComponentsModule } from '../shared/components';
 import { ContainersModule } from '../shared/containers';
 import { ChartsModule } from 'ng2-charts';
+import { FormsModule} from '@angular/forms';
 import { CustomerListComponent } from './customer-list/customer-list.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export const routes: Routes = [
     {
@@ -19,7 +21,7 @@ export const routes: Routes = [
                 component: BusinessComponent
             },
             {
-                path: ':customer-list',
+                path: ':customer-list/:status',
                 component: CustomerListComponent
             }
         ]
@@ -39,7 +41,9 @@ export const routes: Routes = [
         CommonModule,
         ComponentsModule,
         ContainersModule,
-        ChartsModule
+        ChartsModule,
+        FormsModule,
+        BsDatepickerModule.forRoot()
     ]
 })
 

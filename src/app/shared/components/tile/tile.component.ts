@@ -38,7 +38,7 @@ export class TileComponent {
     console.log(this.tileSandbox);
     this.tileSandbox.loadTiles();
     console.log(this.tileSandbox);
-    this.select.emit({code: 'test',number:i});
+    this.select.emit({code: 'test', number: i});
   }
   countChange(event) {
     console.log(this.tileSandbox);
@@ -57,15 +57,15 @@ export class TileComponent {
       case this.mapStatus.DEFAULTERS:
       return 'bg-pink';
       case this.mapStatus.NEW_CUSTOMERS:
-      return 'bg-success';
+      return 'bg-info';
       case this.mapStatus.DUE_CUSTOMERS:
       return 'bg-lowBattery';
       case this.mapStatus.RENEWED_CUSTOMERS:
-      return 'bg-info';
+      return 'bg-success';
       case this.mapStatus.OUTSTANDING_BALANCE:
       return 'bg-lowBattery';
       case this.mapStatus.RECENT_PAYMENTS:
-      return 'bg-success';
+      return 'bg-info';
       default:
       break;
     }

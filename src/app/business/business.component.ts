@@ -13,6 +13,7 @@ export interface TileDetail {
   count: string;
   status: string;
   title: string;
+  amount: string;
 }
 @Component({
   selector: 'app-business',
@@ -28,29 +29,32 @@ export class BusinessComponent {
   private pieChartData: Array<number> = [];
   public pieChartColors: Array<any> = [
     {
-      backgroundColor: ["#D9534F", "#F0AD4E", "#3498DB", "#26B99A"]
+      backgroundColor: ["#D9534F", "#F0AD4E", "#26B99A", "#3498DB"]
     }];
   public pieChartType: string = 'pie';
   public pieChartOptions: any = {
     responsive: true,
+    legend: {
+      display: false
+   },
     pieceLabel: {
-      render: 'value',
-      position: 'outside'
+      render: function(){return;}
     }
   };
   public tileClicked(e: any): void {
-    this.router.navigate(['business/customer-list']);
+    console.log('testttttt');
+    let param = e.currentTarget.getAttribute('tile-name').toLowerCase().replace(/ /g, '-').trim();
+    this.router.navigate(['business/customer-list/' + param]);
   }
   @ViewChild('baseChart') chart: BaseChartDirective;
   constructor(private businessService: BusinessService, private mapService: MapService, private router: Router) {
     businessService.getData().subscribe(bs => {
-      this.tileData = bs;
-      console.log(this.tileData);
-      let tileDataObj: Array<any> = this.tileData;
+      this.tileData = bs[0].status;      
+      let tileDataObj: Array<any> = bs[0].status;
       for (let tileObj of tileDataObj) {
-        this.pieChartLabels.push(tileObj.title);
-        this.pieChartData.push(tileObj.count);
-      }
+       this.pieChartLabels.push(tileObj.title);
+       this.pieChartData.push(tileObj.count);
+     }
     });
     mapService.getData().subscribe(e => {
       this.mapData = e;

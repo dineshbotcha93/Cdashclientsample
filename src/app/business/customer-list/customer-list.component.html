@@ -1,5 +1,60 @@
 <app-layout>
-<p>
-  customer-list works!
-</p>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_title">
+        <h3>Customers List</h3>
+        <div class="clearfix"></div>
+      </div>
+      <!-- <pre>{{result|json}}</pre> -->
+    </div>
+    <div class="x_content">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group col-md-9 col-sm-9 col-xs-12">
+            <input type='text' style='padding:8px; width:30%;' placeholder='Search Customer by Name' (keyup)='updateFilter($event)'
+            />
+          </div>
+          <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <select name="filter_by_status" class="form-control" 
+            [(ngModel)]="doFilterByStatus"
+            (ngModelChange)="filterByStatus()">
+              <option value="All">All</option>
+              <option value="overdue" [selected]="doFilterByStatus =='Overdue'">Overdue</option>
+              <option value="new" [selected]="doFilterByStatus =='New'">New</option>
+              <option value="renewed" [selected]="doFilterByStatus =='Renewed'">Renewed</option>
+              <option value="due" [selected]="doFilterByStatus =='Due'">Due</option>
+            </select>
+          </div>
+        </div>
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:30px">
+          <div class="col-md-push-6 col-md-6 col-sm-6 col-xs-12">
+              <label for="dateRange" class="col-wd-22 margin-top-ten">Date between:</label>
+              <div class="col-xs-12 col-sm-12 col-md-4 input-group" style="float:left; margin-right:20px">
+                  <input type="text"
+                         class="form-control"
+                         [minDate]="minDate"
+                         [maxDate]="maxDate"
+                         #dp="bsDatepicker"
+                         (ngModelChange)="onChange($event)"
+                         bsDatepicker [(ngModel)]="bsValue"/>
+                         <span class="input-group-addon" (click)="dp.toggle()"><i class="fa fa-calendar"></i></span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 input-group">
+                    <input type="text"
+                           class="form-control"
+                           [minDate]="minDate"
+                           [maxDate]="maxDate"
+                           #dp1="bsDatepicker"
+                           (ngModelChange)="onChangeToDp($event)"
+                            bsDatepicker [(ngModel)]="bsValueTwo"/>
+                           <span class="input-group-addon" (click)="dp1.toggle()"><i class="fa fa-calendar"></i></span>
+                  </div>
+          </div>
+        </div> -->
+        </div>
+        <app-datatable class="material striped scroll-vertical" 
+        [rows]="data" [columns]="columns" columnMode="force" [limit]="limit">
+        </app-datatable>
+        </div>
+        </div>
 </app-layout>
