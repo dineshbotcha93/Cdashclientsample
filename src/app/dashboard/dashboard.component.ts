@@ -6,6 +6,7 @@ import { DashboardService } from './services/dashboard.service';
 import {MapService}           from '../shared/components/map/services/map.service';
 import { MapConstants } from '../shared/components/map/constants/map.constants';
 import {Router} from '@angular/router';
+import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 
 export interface tileDetail{
   count:string;
