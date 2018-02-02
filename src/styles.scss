@@ -12,6 +12,8 @@
 @import "styles/global/gateway-card";
 @import "styles/global/pills";
 @import "styles/global/status-color";
+@import "styles/global/table";
+@import "styles/global/modal";
 
 #map {
   height: 100%;
@@ -24,6 +26,12 @@ html, body {
   font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
+
+.nav-sm .container.body .right_col, .right_col {
+  height: auto;
+}
+
+
 /* ul */
 ul {
   &.bar_tabs {
@@ -35,6 +43,18 @@ ul {
   }
 }
 /* ******* */
+
+
+.top_tiles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.dark-theme {
+  color: $color-white;
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
 
 /* side-nav */
 //.nav-sm .container.body .col-md-3.left_col {

@@ -1,0 +1,28 @@
+
+.dark-theme {
+  .table-striped {
+    color: $color-white;
+    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+
+    thead {
+      tr {
+        th {
+          border-bottom: 2px solid $color-black;
+          background-color: $color-body-bg - 35;
+        }
+      }
+    }
+
+    tbody {
+      tr:nth-of-type(odd) {
+        background-color: $color-table-striped-tr;
+      }
+
+      tr {
+        td {
+          border-top: 0;
+        }
+      }
+    }
+  }
+}
