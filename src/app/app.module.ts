@@ -15,6 +15,7 @@ import { MockBackendService } from '../mocks/mock.backend.service';
 import {environment} from '../environments/environment';
 import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { BusinessModule } from './business/business.module';
 
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -28,7 +29,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
 import { CommonSharedService } from './shared/services/common-shared.service';
 import { UserManagementModule } from './user-management/UserManagement.module';
-
 
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full'
@@ -47,7 +47,7 @@ if(!environment.production)
 }
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +62,7 @@ if(!environment.production)
     NgxDatatableModule,
     PipesModule,
     UserManagementModule,
+    BusinessModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
     /**

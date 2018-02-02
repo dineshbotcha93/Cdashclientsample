@@ -19,6 +19,7 @@ import { MapConstants } from '../../../shared/components/map/constants/map.const
 })
 export class TileComponent {
   @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() customClick = new EventEmitter<MouseEvent>();
   @Input() selectedLanguage : string;
   @Input() count?: number;
   @Input() tileContent: string;
@@ -29,13 +30,15 @@ export class TileComponent {
   private mapStatus = MapConstants.STATUS;
   private mapConstants = MapConstants;
   constructor(public tileSandbox: TileSandbox){
-
   }
+  handleClick(event: MouseEvent) {
+        this.customClick.emit(event);
+    }
   close(i){
     console.log(this.tileSandbox);
     this.tileSandbox.loadTiles();
     console.log(this.tileSandbox);
-    this.select.emit({code: 'test',number:i});
+    this.select.emit({code: 'test', number: i});
   }
   countChange(event) {
     console.log(this.tileSandbox);
@@ -51,6 +54,18 @@ export class TileComponent {
       return 'bg-info';
       case this.mapStatus.MISSED_COMMUNICATION:
       return 'bg-warning';
+      case this.mapStatus.DEFAULTERS:
+      return 'bg-pink';
+      case this.mapStatus.NEW_CUSTOMERS:
+      return 'bg-info';
+      case this.mapStatus.DUE_CUSTOMERS:
+      return 'bg-lowBattery';
+      case this.mapStatus.RENEWED_CUSTOMERS:
+      return 'bg-success';
+      case this.mapStatus.OUTSTANDING_BALANCE:
+      return 'bg-lowBattery';
+      case this.mapStatus.RECENT_PAYMENTS:
+      return 'bg-info';
       default:
       break;
     }
@@ -124,6 +139,14 @@ export class TileComponent {
         return 'fa-signal';
         case this.mapStatus.MISSED_COMMUNICATION:
         return 'fa-exclamation-circle';
+        case this.mapConstants.STATUS.DEFAULTERS:
+        return 'fa-user-times';
+        case this.mapConstants.STATUS.DUE_CUSTOMERS:
+        return 'fa-user-circle-o';
+        case this.mapConstants.STATUS.RENEWED_CUSTOMERS:
+        return 'fa-user-circle';
+        case this.mapConstants.STATUS.NEW_CUSTOMERS:
+        return 'fa-user-plus';
         default:
         break;
       }
