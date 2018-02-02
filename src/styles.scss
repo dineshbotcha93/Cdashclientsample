@@ -13,6 +13,7 @@
 @import "styles/global/pills";
 @import "styles/global/status-color";
 @import "styles/global/table";
+@import "styles/global/modal";
 
 #map {
   height: 100%;
@@ -47,6 +48,12 @@ ul {
 .top_tiles {
   display: flex;
   flex-wrap: wrap;
+}
+
+
+.dark-theme {
+  color: $color-white;
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 
 /* side-nav */
