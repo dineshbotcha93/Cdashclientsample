@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginSandbox } from './login.sandbox';
 import * as store             from '../../shared/store';
 import { Store }              from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-login',
   styleUrls: ['./login.component.scss'],
@@ -11,7 +13,8 @@ import { Store }              from '@ngrx/store';
 })
 export class LoginComponent implements OnInit {
   private myform: FormGroup;
-  constructor(public loginSandbox$: LoginSandbox){
+  private selectedLanguage = 'en';
+  constructor(public loginSandbox$: LoginSandbox,private translate: TranslateService){
   }
 
   ngOnInit(){
@@ -28,5 +31,10 @@ export class LoginComponent implements OnInit {
     } else {
       console.log(this.myform);
     }
+  }
+
+  languagePicked(){
+    this.translate.use(this.selectedLanguage);
+    console.log(this.translate);
   }
 }

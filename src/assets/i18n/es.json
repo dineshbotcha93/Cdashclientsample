@@ -1,0 +1,22 @@
+{
+  "login":{
+    "componentHeading":"Login Component [TBD]",
+    "loginForm":{
+      "username":"Username [TBD]",
+      "password":"Password [TBD]",
+      "loginButton":"Login [TBD]",
+      "newUser":"New User: Click to Register [TBD]"
+    }
+  },
+  "sensorSummary":{
+    "sensorsTitle":"Sensors [TBD]",
+    "gatewaysTitle":"Gateways [TBD]",
+    "deviceManagementTitle":"Device Management [TBD]"
+  },
+  "tileStatus":{
+    "alert":"Alerts [TBD]",
+    "lowBattery":"Low Battery [TBD]",
+    "missedCommunication":"Offline [TBD]",
+    "lowSignal":"Low Signal [TBD]"
+  }
+}

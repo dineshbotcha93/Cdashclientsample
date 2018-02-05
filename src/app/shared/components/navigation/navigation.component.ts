@@ -4,7 +4,6 @@ import {
   ViewEncapsulation,
   Input,
  } from '@angular/core';
-import { TranslateService } from 'ng2-translate';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
 
@@ -19,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent {
   @Input() userEmail:           string;
-  constructor(private translate: TranslateService,private router:Router) {
+  constructor(private router:Router) {
   }
 
   goToLink(link){

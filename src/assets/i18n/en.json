@@ -1,3 +1,22 @@
 {
-  "name":"Yo"
+ "login":{
+   "componentHeading":"Login Component",
+   "loginForm":{
+     "username":"Username",
+     "password":"Password",
+     "loginButton":"Login",
+     "newUser":"New User: Click to Register"
+    }
+  },
+ "sensorSummary":{
+   "sensorsTitle":"Sensors",
+   "gatewaysTitle":"Gateways",
+   "deviceManagementTitle":"Device Management"
+  },
+ "tileStatus":{
+   "alert":"Alerts",
+   "lowBattery":"Low Battery",
+   "missedCommunication":"Offline",
+   "lowSignal":"Low Signal"
+  }
 }
