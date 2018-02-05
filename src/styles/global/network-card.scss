@@ -7,15 +7,23 @@
   padding: 20px;
 
   .network-card-top {
-    height: 70px;
+    height: 10vh;
 
     .network-name {
       font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      font-size: 3.125em;
+      // font-size: 3.125em;
+      font-size: 3.5vw;
       color: $color-white;
       display: inline-block;
       position: absolute;
-      top: 0;
+      top: 10px;
+      width: 70%;
+      word-break: break-all;
+      line-height: 1em;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        position: initial;
+      }
     }
 
     .network-id {
