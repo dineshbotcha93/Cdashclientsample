@@ -5,9 +5,17 @@ var localizationSourceFilesEN = [
   "./src/i18n/en.json",
 ];
 
-var localizationSourceFilesHR = [
+var localizationSourceFilesFR = [
   "./src/i18n/fr.json",
 ];
+
+var localizationSourceFilesES = [
+  "./src/i18n/es.json",
+];
+
+var localizationSourceFilesIT = [
+  "./src/i18n/it.json",
+]
 
 function mergeAndSaveJsonFiles(src, dest) {
   fs.ensureDir('./src/assets/i18n', err => {
@@ -36,4 +44,6 @@ setEnvironment('./config/env.json', 'development');
 
 // Merge all localization files into one
 mergeAndSaveJsonFiles(localizationSourceFilesEN, "./src/assets/i18n/en.json");
-mergeAndSaveJsonFiles(localizationSourceFilesHR, "./src/assets/i18n/fr.json");
+mergeAndSaveJsonFiles(localizationSourceFilesFR, "./src/assets/i18n/fr.json");
+mergeAndSaveJsonFiles(localizationSourceFilesIT, "./src/assets/i18n/it.json");
+mergeAndSaveJsonFiles(localizationSourceFilesES, "./src/assets/i18n/es.json");

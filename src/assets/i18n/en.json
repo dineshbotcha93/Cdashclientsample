@@ -1,3 +1,38 @@
 {
-  "name":"Yo"
+ "login":{
+   "componentHeading":"Login Component",
+   "loginForm":{
+     "username":"Username",
+     "password":"Password",
+     "loginButton":"Login",
+     "newUser":"New User: Click to Register"
+    }
+  },
+ "dashboardMain":{
+   "dashboardTitle":"Current Locations"
+ },
+ "sensorSummary":{
+   "sensorsTitle":"Sensors",
+   "gatewaysTitle":"Gateways",
+   "deviceManagementTitle":"Device Management"
+  },
+ "sensorDetails":{
+   "sensorDetailsTitle":"Sensor Details Page",
+   "sensorName":"Sensor Name",
+   "currentReading":"Current Reading",
+   "lastCheckin": "Last Checkin",
+   "networkName": "Network Name",
+   "gatewayName": "Gateway Name",
+   "nextCheckin": "Next Checkin",
+   "tabs":{
+     "graph":"Graph",
+     "history":"History"
+   }
+ },
+ "tileStatus":{
+   "alert":"Alerts",
+   "lowBattery":"Low Battery",
+   "missedCommunication":"Offline",
+   "lowSignal":"Low Signal"
+  }
 }
