@@ -29,6 +29,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
 import { CommonSharedService } from './shared/services/common-shared.service';
 import { UserManagementModule } from './user-management/UserManagement.module';
+import { SharedModule } from './shared/modules/shared.module';
 
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full'
@@ -77,13 +78,7 @@ if(!environment.production)
     */
     StoreDevtoolsModule.instrument(),
     RouterModule.forRoot(appRoutes),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: LanguageFactory,
-        deps: [HttpClient]
-      }
-    })
+    SharedModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [

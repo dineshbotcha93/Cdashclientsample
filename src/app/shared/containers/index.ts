@@ -2,7 +2,6 @@ import { NgModule  } 				from '@angular/core';
 import { CommonModule } 		from '@angular/common';
 import { ComponentsModule } from '../components';
 import { LayoutContainer }  from './layout/layout.container';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 
 export const CONTAINERS = [
   LayoutContainer
@@ -11,8 +10,7 @@ export const CONTAINERS = [
 @NgModule({
   imports: [
   	CommonModule,
-  	ComponentsModule,
-  	TranslateModule,
+  	ComponentsModule
   ],
   declarations: CONTAINERS,
   exports: CONTAINERS,

@@ -1,0 +1,34 @@
+{
+  "login":{
+    "componentHeading":"Login Component [TBD]",
+    "loginForm":{
+      "username":"Username [TBD]",
+      "password":"Password [TBD]",
+      "loginButton":"Login [TBD]",
+      "newUser":"New User: Click to Register [TBD]"
+    }
+  },
+  "dashboardMain":{
+    "dashboardTitle":"Current Locations [TBD]"
+  },
+  "sensorSummary":{
+    "sensorsTitle":"Sensors [TBD]",
+    "gatewaysTitle":"Gateways [TBD]",
+    "deviceManagementTitle":"Device Management [TBD]"
+  },
+  "sensorDetails":{
+    "sensorDetailsTitle":"Sensor Details Page [TBD]",
+    "sensorName":"Sensor Name [TBD]",
+    "currentReading":"Current Reading [TBD]",
+    "lastCheckin": "Last Checkin [TBD]",
+    "networkName": "Network Name [TBD]",
+    "gatewayName": "Gateway Name [TBD]",
+    "nextCheckin": "Next Checkin [TBD]"
+  },
+  "tileStatus":{
+    "alert":"Alerts [TBD]",
+    "lowBattery":"Low Battery [TBD]",
+    "missedCommunication":"Offline [TBD]",
+    "lowSignal":"Low Signal [TBD]"
+  }
+}

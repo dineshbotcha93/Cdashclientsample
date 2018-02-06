@@ -8,7 +8,7 @@ import { PipesModule } from '../../shared/pipes';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
-
+import { SharedModule } from '../../shared/modules/shared.module';
 
 const routes:Object[] = [{
   path:'dashboard/sensor-details/:id',component:SensorDetailsComponent
@@ -24,7 +24,8 @@ const routes:Object[] = [{
     PipesModule,
     FormsModule,
     NgbModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ]
 })
 export class SensorDetailsModule {}

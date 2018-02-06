@@ -7,7 +7,7 @@ import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
-
+import { TranslateService } from '@ngx-translate/core';
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 
@@ -74,9 +74,10 @@ export class SensorSummaryComponent implements OnInit{
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService,
     private commonSharedService:CommonSharedService,
-    private alertSandbox: AlertSandbox
+    private alertSandbox: AlertSandbox,
+    private translate: TranslateService
     ){
-
+      this.translate.use('en');
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
         this.getNetworkData();
@@ -150,7 +151,7 @@ export class SensorSummaryComponent implements OnInit{
       this.netWorkId = e.Id.toString();
       this.getNetworkData();
       this.isSelectedToAddDevice = false;
-     
+
    }
 
    /*Selection Of Sensor radion*/
@@ -168,7 +169,7 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
-       
+
    }
    /*Selection Of Gateway radion*/
    private onSelectGatewayRadio() {
@@ -186,7 +187,7 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
-       
+
 
    }
 
@@ -208,7 +209,7 @@ export class SensorSummaryComponent implements OnInit{
          reset:true
        }
     }
-      
+
    // e.target.checked = true;
    }
 
@@ -246,7 +247,7 @@ export class SensorSummaryComponent implements OnInit{
    }
 
    private onClickButtonReset(){
-     
+
      // buttons to initial state
      this.disable= {
          edit:false,
@@ -269,7 +270,7 @@ export class SensorSummaryComponent implements OnInit{
       this.isSelectedToAddDevice = false;
 
 
-       
+
    }
 
    /*Move the selected ,update and get refresh data drom network*/
@@ -313,7 +314,7 @@ export class SensorSummaryComponent implements OnInit{
          }
       }
       this.isSelectedToAddDevice = false;
-      
+
       this.isSelectedAll = false;
       this.disable= {
          edit:false,
@@ -484,7 +485,7 @@ export class SensorSummaryComponent implements OnInit{
    }
 
 
-  
+
 
    receiveMessage($event) {
       this.isDeviceAddedSucceess = $event;
@@ -554,7 +555,7 @@ export class SensorSummaryComponent implements OnInit{
       this.allSensors = this.allSensors.filter((sens)=>{
         return this.commonSharedService.evaluateSensorStatus(criteriaOther,sens,sens);
       });
-      
+
       if(this.allSensors.length == 0){
         this.alertSandbox.showAlert({data:'No Content'});
       }
