@@ -8,6 +8,9 @@
       "newUser":"New User: Click to Register [TBD]"
     }
   },
+  "dashboardMain":{
+    "dashboardTitle":"Current Locations [TBD]"
+  },
   "sensorSummary":{
     "sensorsTitle":"Sensors [TBD]",
     "gatewaysTitle":"Gateways [TBD]",

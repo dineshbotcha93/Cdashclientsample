@@ -45,8 +45,6 @@ export class DashboardComponent implements OnInit{
   tileTranslation(){
     this.translate.onLangChange.subscribe((e)=>{
       this.tileData.forEach((tD)=>{
-        console.log(tD);
-        //console.log(this.translate.instant('login.componentHeading'));
         switch(tD.status){
           case 'Alerts':
           tD['title'] = this.translate.instant('tileStatus.alert');

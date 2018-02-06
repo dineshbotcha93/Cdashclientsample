@@ -30,7 +30,8 @@ export const routes: Routes = [
     ContainersModule,
     SensorDetailsModule,
     SensorSummaryModule,
-    SensorComparisonModule
+    SensorComparisonModule,
+    SharedModule
   ]
 
 })

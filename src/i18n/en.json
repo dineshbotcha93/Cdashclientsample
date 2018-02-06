@@ -8,6 +8,9 @@
      "newUser":"New User: Click to Register"
     }
   },
+ "dashboardMain":{
+   "dashboardTitle":"Current Locations"
+ },
  "sensorSummary":{
    "sensorsTitle":"Sensors",
    "gatewaysTitle":"Gateways",
