@@ -13,6 +13,15 @@
     "gatewaysTitle":"Gateways [TBD]",
     "deviceManagementTitle":"Device Management [TBD]"
   },
+  "sensorDetails":{
+    "sensorDetailsTitle":"Sensor Details Page [TBD]",
+    "sensorName":"Sensor Name [TBD]",
+    "currentReading":"Current Reading [TBD]",
+    "lastCheckin": "Last Checkin [TBD]",
+    "networkName": "Network Name [TBD]",
+    "gatewayName": "Gateway Name [TBD]",
+    "nextCheckin": "Next Checkin [TBD]"
+  },
   "tileStatus":{
     "alert":"Alerts [TBD]",
     "lowBattery":"Low Battery [TBD]",

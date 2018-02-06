@@ -8,6 +8,7 @@ import { TileSandbox }     from './tile/tile.sandbox';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MapComponent }     from './map/map.component';
 import { NotificationComponent } from './notification/notification.component';
+import { LanguageDropdownComponent } from './languageDropdown/languageDropdown.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { Tab } from './tabs/tab.component';
@@ -16,14 +17,15 @@ import { Tabs } from './tabs/tabs.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 export const COMPONENTS = [
-
   HeaderComponent,
   ProfileActionBarComponent,
   TileComponent,
   NavigationComponent,
   NotificationComponent,
+  LanguageDropdownComponent,
   MapComponent,
   DataTableComponent,
   AlertsComponent,
@@ -41,6 +43,8 @@ export const COMPONENTS = [
      libraries: ["places"]
    }),
    AgmJsMarkerClustererModule,
+   ReactiveFormsModule,
+   FormsModule
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
