@@ -1,4 +1,3 @@
-
 import { Component,OnInit ,ViewChild} from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { MapService } from '../../shared/components/map/services/map.service';
@@ -7,10 +6,9 @@ import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
-import { TranslateService } from '@ngx-translate/core';
+
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
-
 @Component({
   selector:'app-sensor-summary',
   templateUrl:'./sensor-summary.component.html',
@@ -50,7 +48,9 @@ export class SensorSummaryComponent implements OnInit{
       holdNetwork: false
 
    };
+   enable : boolean = false;
 
+   counterToCheckSelected : number = 0;
 
    disable: Object = {
      edit:false,
@@ -64,6 +64,8 @@ export class SensorSummaryComponent implements OnInit{
    isSelectedToAddDevice: boolean = false;
    isDeviceAddedSucceess : boolean = false;
 
+   netWorkIdToMove : string = null;
+
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
   private doFilterByStatus:string = 'select';
@@ -74,10 +76,9 @@ export class SensorSummaryComponent implements OnInit{
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService,
     private commonSharedService:CommonSharedService,
-    private alertSandbox: AlertSandbox,
-    private translate: TranslateService
+    private alertSandbox: AlertSandbox
     ){
-      this.translate.use('en');
+
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
         this.getNetworkData();
@@ -151,7 +152,15 @@ export class SensorSummaryComponent implements OnInit{
       this.netWorkId = e.Id.toString();
       this.getNetworkData();
       this.isSelectedToAddDevice = false;
+     
+   }
 
+   onChangeSwicth(e){
+     if(e){
+       this.onSelectGatewayRadio();
+     }else{
+       this.onSelectSensorRadio();
+     }
    }
 
    /*Selection Of Sensor radion*/
@@ -169,7 +178,7 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
-
+       
    }
    /*Selection Of Gateway radion*/
    private onSelectGatewayRadio() {
@@ -187,7 +196,7 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
-
+       
 
    }
 
@@ -209,7 +218,7 @@ export class SensorSummaryComponent implements OnInit{
          reset:true
        }
     }
-
+      
    // e.target.checked = true;
    }
 
@@ -243,11 +252,20 @@ export class SensorSummaryComponent implements OnInit{
    private onClickInlineCheckBox(e, gateway) {
       if (!e.target.checked) {
          gateway.gateWayEditOption = 'display';
+         this.counterToCheckSelected--;
+      }else{
+        this.counterToCheckSelected++;
+      }
+
+      if(this.counterToCheckSelected === 0 && this.editSaveModel==='Save'){
+        this.editSaveModel = 'Edit';
       }
    }
 
-   private onClickButtonReset(){
 
+
+   private onClickButtonReset(){
+     
      // buttons to initial state
      this.disable= {
          edit:false,
@@ -270,13 +288,13 @@ export class SensorSummaryComponent implements OnInit{
       this.isSelectedToAddDevice = false;
 
 
-
+       
    }
 
    /*Move the selected ,update and get refresh data drom network*/
    private onClickMoveDetails() {
 
-      this.selectedUserDataForOperation = this.getSelectedRowDetails();
+      this.selectedUserDataForOperation = this.getSelectedRowDetailsToMove();
       this.locationDataForMoveNetwork = this.locationData;
       this.isSelectedToAddDevice = false;
       this.isSelectedAll = false;
@@ -301,20 +319,32 @@ export class SensorSummaryComponent implements OnInit{
       if (this.radioModel === 'gateway') {
          //backend function to be replaced with
          this.selectedGateway = Object.assign({}, this.gateWayData);
-         let selectedRemoveData = this.getSelectedRowDetails();
-         if (selectedRemoveData) {
-            this.getNetworkData();
+         let selectedRemoveData = this.getSelectedRowDetailsToRemove();
+        if (selectedRemoveData) {
+           /*Backend call to remove and get latest details*/
+           this.sensorSummaryService.removeGatewayDetails(selectedRemoveData).
+           subscribe(
+             res => {this.getNetworkData();},
+            err => {}
+           );   
          }
       } else if (this.radioModel === 'sensor') {
-         //backend function to be replaced with
          this.selectedSensor = Object.assign({}, this.allSensors);
-         let selectedRemoveData = this.getSelectedRowDetails();
+         let selectedRemoveData = this.getSelectedRowDetailsToRemove();
+
          if (selectedRemoveData) {
-            this.getNetworkData();
+           /*Backend call to remove and get latest details*/
+           this.sensorSummaryService.removeSensorDetails(selectedRemoveData).
+           subscribe(
+             res => {this.getNetworkData();},
+            err => {}
+           );   
          }
       }
-      this.isSelectedToAddDevice = false;
 
+
+      this.isSelectedToAddDevice = false;
+      
       this.isSelectedAll = false;
       this.disable= {
          edit:false,
@@ -331,7 +361,6 @@ export class SensorSummaryComponent implements OnInit{
      this.isSelectedToAddDevice = true;
 
      //on success
-
      this.disable= {
          edit:false,
          remove:false,
@@ -354,6 +383,7 @@ export class SensorSummaryComponent implements OnInit{
          add:true,
          reset:false
        }
+
       if (this.editSaveModel === 'Edit') {
          this.gateWayData.forEach(x => {
             if (x.checked) {
@@ -370,26 +400,45 @@ export class SensorSummaryComponent implements OnInit{
          /* Post call to update gateways
          And get networ call again getNetworkData();'
          */
-         //after backend call
-         this.gateWayData.forEach(x => {
-            if (x.checked) {
-               x.gateWayEditOption = 'display';
-               x.checked = false;
-            }
-         });
-         this.editSaveModel = 'Edit';
-         this.isSelectedAll = false;
-           console.log('-----');
-           this.disable= {
-         edit:false,
-         remove:false,
-         move:false,
-         add:false,
-         reset:true
-       }
 
+         
+         let gateWayDataToUpdate:Array<any> = [];
+         this.gateWayData.forEach(x => {
+           let tempObj :any = [];
+            if (x.checked) {
+              tempObj.gatewayId = x.GatewayID;
+              tempObj.gatewayName = x.Name;
+              gateWayDataToUpdate.push(tempObj);
+              tempObj = [];
+              } 
+
+         });
+
+         /*BACKEND call to update gateway details*/
+         this.sensorSummaryService.updateGatewayDetails(gateWayDataToUpdate).
+           subscribe(
+             res => {
+               this.editSaveModel = 'Edit';
+               this.isSelectedAll = false;
+               this.disable= {
+                 edit:false,
+                 remove:false,
+                 move:false,
+                 add:false,
+                 reset:true
+               };
+              //after backend call
+              this.gateWayData.forEach(x => {
+                if (x.checked) {
+                  x.gateWayEditOption = 'display';
+                  x.checked = false;
+                }
+              });
+            },
+            err => {}
+           );
+          }
       }
-   }
 
 
    private setEditSensorDetails() {
@@ -407,6 +456,7 @@ export class SensorSummaryComponent implements OnInit{
             if (x.checked) {
                x.gateWayEditOption = 'edit'
                isRecordSelected = true;
+             //  this.counterToCheckSelected++;
             }
          });
          if (isRecordSelected) {
@@ -414,54 +464,99 @@ export class SensorSummaryComponent implements OnInit{
          } else
             return false;
       } else {
-         //Backedn Call and then update
-         /* Post call to update gateways
-         And get networ call again getNetworkData();'
-         */
-         //after backend call
-         this.allSensors.forEach(x => {
-            if (x.checked) {
-               x.gateWayEditOption = 'display';
-               x.checked = false;
-            }
-         });
-         this.editSaveModel = 'Edit';
-         this.selectAllValue = false;
-          this.isSelectedAll = false;
-          this.disable= {
-         edit:false,
-         remove:false,
-         move:false,
-         add:false,
-         reset:true
-       }
+          let sensorDataToUpdate:Array<any> = [];
+           this.allSensors.forEach(x => {
+             let tempObj :any = [];
+              if (x.checked) {
+                tempObj.sensorID = x.SensorID;
+                tempObj.sensorName = x.SensorName;
+                tempObj.sensorSliderValue = x.sensorSliderValue;
+                sensorDataToUpdate.push(tempObj);
+                tempObj = [];
+                } 
+
+           });
+
+         /*BACKEND call to update gateway details*/
+         this.sensorSummaryService.updateSensorDetails(sensorDataToUpdate).
+           subscribe(
+             res => {
+               this.allSensors.forEach(x => {
+                  if (x.checked) {
+                     x.gateWayEditOption = 'display';
+                     x.checked = false;
+                  }
+               });
+               this.editSaveModel = 'Edit';
+               this.selectAllValue = false;
+                this.isSelectedAll = false;
+                this.disable= {
+               edit:false,
+               remove:false,
+               move:false,
+               add:false,
+               reset:true
+             }
+            },
+            err => {}
+           );
+
+         
       }
    }
 
    private onChangeNetworkMove(e) {
-      this.netWorkId = e.Id.toString();
+      this.netWorkIdToMove = e.Id.toString();
    }
+
+
 
    /*Update the network assigned details*/
-   private onClickSaveMoveNetwork(gateWayData) {
-      /*Backend call t update network*/
-      //  $('#myModal').modal('hide');
-      /*
-      Backend call to remove the records.
-      this.gateWayData = selectedRemoveData;
-      And get networ call again getNetworkData();'
-      */
-      // Remove later
-      this.getNetworkData();
+   private onClickSaveMoveNetwork(gatewaydata) {
+    
+       let tempObj :any = [];
+       let selectedCheckedData: any = [];
+
+       gatewaydata.forEach(x => {
+        let tempObj :any = [];
+         if (x.checked) {
+           x.id = this.radioModel === 'gateway'?x.GatewayID: x.sensorId;
+            selectedCheckedData.push(x);
+         }
+      });
+
+       this.sensorSummaryService.moveSensorDetails(selectedCheckedData).
+           subscribe(
+             res => {this.getNetworkData();},
+            err => {}
+           );  
    }
 
 
-   private getSelectedRowDetails() {
+   private getSelectedRowDetailsToRemove() {
       let selectedCheckedData: any = [];
       let selectedDetails = this.radioModel === 'gateway' ? this.gateWayData : this.allSensors;
       selectedDetails.forEach(x => {
+        let tempObj :any = [];
          if (x.checked) {
+           x.id = this.radioModel === 'gateway'?x.GatewayID: x.sensorId;
             selectedCheckedData.push(x);
+         }
+      });
+      if (selectedCheckedData.length < 1) {
+         return false;
+      } else {
+         return selectedCheckedData;
+      }
+   }
+
+    private getSelectedRowDetailsToMove() {
+      let selectedCheckedData: any = [];
+      let selectedDetails = this.radioModel === 'gateway' ? this.gateWayData : this.allSensors;
+      selectedDetails.forEach(x => {
+        let tempObj :any = [];
+         if (x.checked) {
+           selectedCheckedData.push(x);
          }
       });
       if (selectedCheckedData.length < 1) {
@@ -485,7 +580,7 @@ export class SensorSummaryComponent implements OnInit{
    }
 
 
-
+  
 
    receiveMessage($event) {
       this.isDeviceAddedSucceess = $event;
@@ -496,24 +591,6 @@ export class SensorSummaryComponent implements OnInit{
       this.isDeviceAddedSucceess = $event;
       this.isSelectedToAddDevice = false;
     }
-
-
-    //     /*Get sensor data from service by selecting the network Id*/
-    //     private  getSensorData(){
-    //       this.allSensors = [];
-    //       this.mapData = null;
-    //       this.sensorSummaryService.getData(this.netWorkId).then((e)=>{
-    //         console.log(e);
-    //         this.mapData = e;
-    //         this.originalMapSensor = this.mapData;
-    //         e.Location.Network.Sensor.forEach((sens)=>{
-    //           this.allSensors.push(sens);
-    //         });
-    //         this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
-    //         console.log('-----------'+this.originalSensor);
-    //       });
-    //     }
-    // >>>>>>> feature/dashboard
 
     gotoSummary(){
       this.router.navigate(['dashboard/sensor-details','I1']);
@@ -555,7 +632,7 @@ export class SensorSummaryComponent implements OnInit{
       this.allSensors = this.allSensors.filter((sens)=>{
         return this.commonSharedService.evaluateSensorStatus(criteriaOther,sens,sens);
       });
-
+      
       if(this.allSensors.length == 0){
         this.alertSandbox.showAlert({data:'No Content'});
       }

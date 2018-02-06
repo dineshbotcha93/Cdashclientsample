@@ -293,7 +293,7 @@
 <ng-template #gatewayModal>
   <div class="form-group ss-location">
     <label class="control-label col-form-label">Select Network Location:</label>
-    <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChangeNetworkMove($event)">
+    <select class="form-control" [ngModel]="selectLocation" (ngModelChange)="onChangeNetworkMove($event)">
       <option *ngFor="let loc of locationDataForMoveNetwork" [ngValue]="loc">
         {{loc.Title}}
       </option>
