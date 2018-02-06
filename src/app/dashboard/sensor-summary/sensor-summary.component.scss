@@ -40,6 +40,7 @@ table {
 
       @media (min-width: $phone-small) and (max-width: $tablet-large) {
         font-size: 0.85em;
+        margin-bottom: 10px;
       }
     }
   }
@@ -81,13 +82,3 @@ table {
   }
 }
 
-
-//.saveBTN {
-//  background-color: $color-saveBTN-green;
-//}
-//
-//.editBTN {
-//  background-color: $color-white;
-//  border: 1px solid $color-grey-light;
-//  color: $color-grey-verydark;
-//}

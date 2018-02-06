@@ -28,12 +28,18 @@ ul.bar_tabs, ul.nav-tabs {
   padding-left: 20px;
   margin: 21px 0 7px;
 
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    padding-left: 0;
+    margin-bottom: 7px;
+  }
+
   li.tabs {
     border-radius: 20px;
     background: none;
     border: 0;
     margin: 0;
     margin-right: 5px;
+
 
     a {
       border-radius: 20px;
@@ -51,6 +57,11 @@ ul.bar_tabs, ul.nav-tabs {
           border: 0;
         }
       }
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      margin-bottom: 2px;
+      width: 100%;
     }
   }
 }
