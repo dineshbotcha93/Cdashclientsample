@@ -22,23 +22,21 @@
             <div class="ss-info-address">{{mapData.Location.Address}}</div>
           </div>
 
-          <div class="col-md-6">
-            <div class="network-card">
-              <div class="network-card-top">
-                <div class="network-name">{{mapData.Location.Network.Name}}</div>
-                <div class="network-id">{{mapData.Location.Network.Id}}</div>
-              </div>
-              <div class="network-card-bottom">
-                <div class="gateway-count">Gateways <span>{{mapData.Location.Network.CountofGateways}}</span></div>
-                <div class="sensor-count">Sensor <span>{{mapData.Location.Network.CountOfSensors}}</span></div>
-                <div class="network-button">
-                  <button type="button"
-                          class="btn btn-primary network-editBTN"
-                          (click)="onClickEditNetwork()"
-                          data-toggle="modal"
-                          data-target="#myNetworkModal"
-                          value="Edit"><i class="fa fa-edit"></i> Edit</button>
-                </div>
+          <div class="col-md-6 network-card">
+            <div class="network-card-top">
+              <div class="network-name">{{mapData.Location.Network.Name}}</div>
+              <div class="network-id">{{mapData.Location.Network.Id}}</div>
+            </div>
+            <div class="network-card-bottom">
+              <div class="gateway-count">Gateways <span>{{mapData.Location.Network.CountofGateways}}</span></div>
+              <div class="sensor-count">Sensor <span>{{mapData.Location.Network.CountOfSensors}}</span></div>
+              <div class="network-button">
+                <button type="button"
+                        class="btn btn-primary network-editBTN"
+                        (click)="onClickEditNetwork()"
+                        data-toggle="modal"
+                        data-target="#myNetworkModal"
+                        value="Edit"><i class="fa fa-edit"></i> Edit</button>
               </div>
             </div>
           </div>
