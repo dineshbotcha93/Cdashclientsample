@@ -1,11 +1,14 @@
 import { RequesterService } from '../../../shared/services/requester.service';
 import { Injectable } from '@angular/core';
 import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
+// import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SensorSummaryService {
   data:String[] = [];
-  constructor(private requesterService:RequesterService) {
+  constructor(private requesterService:RequesterService,
+              private http: HttpClient) {
 
   }
   getData(location){
@@ -45,6 +48,42 @@ export class SensorSummaryService {
       default:
       break;
     }
+  }
+
+  /* Edit the gateway details*/
+  updateGatewayDetails(gatewayObj:Array<any>){
+    /*Place a mock call and return response*/
+    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+  }
+
+  /* Edit the Sensor details*/
+  updateSensorDetails(sensorObj:Array<any>){
+    /*Place a mock call and return response*/
+    return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+  }
+
+  /* Remove  the gateway details*/
+  removeGatewayDetails(gatewayObj:Array<any>){
+    /*Place a mock call and return response*/
+    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+  }
+
+  /* Remove  the gateway details*/
+  removeSensorDetails(sensorObj:Array<any>){
+    /*Place a mock call and return response*/
+    return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+  }
+
+   /* Move  the gateway details*/
+  moveSensorDetails(sensorObj:Array<any>){
+    /*Place a mock call and return response*/
+    return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+  }
+
+  /* Move  the gateway details*/
+  moveGatewayDetails(gatewayObj:Array<any>){
+    /*Place a mock call and return response*/
+    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
 }

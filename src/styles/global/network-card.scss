@@ -6,8 +6,17 @@
   position: relative;
   padding: 20px;
 
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    margin: 0 10px;
+    width: 96%;
+  }
+
   .network-card-top {
     height: 10vh;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      height: auto;
+    }
 
     .network-name {
       font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
@@ -23,6 +32,8 @@
 
       @media (min-width: $phone-small) and (max-width: $tablet-large) {
         position: initial;
+        font-size: 2em;
+        width: 100%;
       }
     }
 
@@ -32,11 +43,20 @@
       color: $color-white;
       display: inline-block;
       float: right;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        float: none;
+        font-size: 1.5em;
+      }
     }
   }
 
   .network-card-bottom {
     height: 50px;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      height: auto;
+    }
 
     .gateway-count, .sensor-count {
       font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
@@ -54,12 +74,20 @@
     .gateway-count {
       position: absolute;
       bottom: 0;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        position: initial;
+      }
     }
 
     .sensor-count {
       position: absolute;
       bottom: 0;
       left: 40%;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        position: initial;
+      }
     }
 
     .network-button {
@@ -67,6 +95,10 @@
       bottom: 0;
       right: 0;
       display: inline-block;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        position: initial;
+      }
 
       .network-editBTN {
         border: none;
@@ -79,6 +111,11 @@
         &:hover, &:focus, &:active {
           border: 0;
           box-shadow: none;
+        }
+
+        @media (min-width: $phone-small) and (max-width: $tablet-large) {
+          margin-left: -10px;
+          margin-bottom: -10px;
         }
       }
     }
