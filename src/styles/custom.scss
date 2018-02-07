@@ -257,7 +257,7 @@ body .container.body .right_col {
 }
 /**  ------------------------------------------  **/
 
-.blue {
+.blue, .datatable-header-cell {
   color: #3498DB;
 }
 .purple {
@@ -4389,3 +4389,12 @@ ul.notifications {
   width:0px;
 }
 /** /Sensor comparision form styles **/
+/** customer list page styles **/
+.square {
+  background: #000;
+  width: 15px;
+  height: 15px;
+  margin: 3px 5px 0px 0px;
+  float: left;
+}
+/** /customer list page styles **/

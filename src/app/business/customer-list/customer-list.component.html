@@ -10,11 +10,11 @@
     <div class="x_content">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="form-group col-md-9 col-sm-9 col-xs-12">
-            <input type='text' style='padding:8px; width:30%;' placeholder='Search Customer by Name' (keyup)='updateFilter($event)'
+          <div class="form-group col-md-4 col-sm-6 col-xs-12">
+            <input type='text' class="col-md-12 col-sm-12 col-xs-12" style='padding:8px;' placeholder='Search Customer by Name' (keyup)='updateFilter($event)'
             />
           </div>
-          <div class="form-group col-md-3 col-sm-3 col-xs-12">
+          <div class="form-group col-md-2 col-sm-4 col-xs-12">
             <select name="filter_by_status" class="form-control" 
             [(ngModel)]="doFilterByStatus"
             (ngModelChange)="filterByStatus()">
@@ -25,11 +25,9 @@
               <option value="due" [selected]="doFilterByStatus =='Due'">Due</option>
             </select>
           </div>
-        </div>
-        <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:30px">
-          <div class="col-md-push-6 col-md-6 col-sm-6 col-xs-12">
+          <div class=" col-md-6 col-sm-12 col-xs-12">
               <label for="dateRange" class="col-wd-22 margin-top-ten">Date between:</label>
-              <div class="col-xs-12 col-sm-12 col-md-4 input-group" style="float:left; margin-right:20px">
+              <div class="col-xs-12 col-sm-4 col-md-4 input-group" style="float:left; margin-right:20px">
                   <input type="text"
                          class="form-control"
                          [minDate]="minDate"
@@ -39,7 +37,7 @@
                          bsDatepicker [(ngModel)]="bsValue"/>
                          <span class="input-group-addon" (click)="dp.toggle()"><i class="fa fa-calendar"></i></span>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-4 input-group">
+                <div class="col-xs-12 col-sm-4 col-md-4 input-group">
                     <input type="text"
                            class="form-control"
                            [minDate]="minDate"
@@ -50,11 +48,39 @@
                            <span class="input-group-addon" (click)="dp1.toggle()"><i class="fa fa-calendar"></i></span>
                   </div>
           </div>
-        </div> -->
+      </div>
+        <div class="col-md-push-9 col-sm-push-9 col-md-3 col-sm-3 col-xs-12 form-group">
+          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Print" />
+          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Export" />
         </div>
-        <app-datatable class="material striped scroll-vertical" 
-        [rows]="data" [columns]="columns" columnMode="force" [limit]="limit">
-        </app-datatable>
+        </div>
+
+        <div>
+        <ngx-datatable class="bootstrap"
+        [rows]="rows"
+        [limit]="limit"
+        [columns]="columns"
+        [columnMode]="'force'"
+        [headerHeight]="40"
+        [footerHeight]="40"
+        [limit]="10"
+        [rowHeight]="'auto'"
+        [reorderable]="reorderable">
+      </ngx-datatable>      
+      <ng-template #statusColorTmpl let-row="row" let-value="value">
+      <div class="square" *ngIf="value === 'Overdue'" style="background-color:#d9534f"></div>
+      <div class="square" *ngIf="value === 'Due'" style="float: left; background-color: #f0ad4e"></div>
+      <div class="square" *ngIf="value === 'New'" style="float: left;background-color: #3498DB"></div>
+      <div class="square" *ngIf="value === 'Renewed'" style="float: left; background-color: #26B99A"></div>
+      <span>{{value}}</span>
+      </ng-template>
+      <ng-template #emailColTmpl let-row="row" let-value="value">
+       <a href="mailto:{{value}}">{{value}}</a>
+      </ng-template>
+      <ng-template #phoneColTmpl let-row="row" let-value="value">
+        <a href="tel:{{value}}">{{value}}</a>
+      </ng-template>
+      </div>
         </div>
         </div>
 </app-layout>

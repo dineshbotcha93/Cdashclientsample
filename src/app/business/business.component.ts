@@ -49,7 +49,7 @@ export class BusinessComponent {
   @ViewChild('baseChart') chart: BaseChartDirective;
   constructor(private businessService: BusinessService, private mapService: MapService, private router: Router) {
     businessService.getData().subscribe(bs => {
-      this.tileData = bs[0].status;      
+      this.tileData = bs[0].status;
       let tileDataObj: Array<any> = bs[0].status;
       for (let tileObj of tileDataObj) {
        this.pieChartLabels.push(tileObj.title);
