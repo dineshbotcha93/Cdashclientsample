@@ -10,7 +10,6 @@ import { ChartsModule } from 'ng2-charts';
 import { FormsModule} from '@angular/forms';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export const routes: Routes = [
     {
@@ -45,7 +44,6 @@ export const routes: Routes = [
         ChartsModule,
         FormsModule,
         BsDatepickerModule.forRoot(),
-        NgxDatatableModule
     ]
 })
 

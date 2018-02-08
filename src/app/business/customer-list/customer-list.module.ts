@@ -6,7 +6,6 @@ import { ContainersModule } from '../../shared/containers';
 import { ComponentsModule } from '../../shared/components';
 import { FormsModule} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export const routes: Routes = [
   {
@@ -25,7 +24,6 @@ export const routes: Routes = [
     ContainersModule,
     FormsModule,
     BsDatepickerModule.forRoot(),
-    NgxDatatableModule
   ],
   exports: [
     RouterModule
