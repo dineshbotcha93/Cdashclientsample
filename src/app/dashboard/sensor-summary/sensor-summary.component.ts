@@ -7,7 +7,6 @@ import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 
-
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
   selector:'app-sensor-summary',
@@ -76,8 +75,7 @@ export class SensorSummaryComponent implements OnInit{
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService,
     private commonSharedService:CommonSharedService,
-    private alertSandbox: AlertSandbox,
-    private translate: TranslateService
+    private alertSandbox: AlertSandbox
     ){
 
       this.route.params.subscribe((params)=>{
@@ -153,7 +151,7 @@ export class SensorSummaryComponent implements OnInit{
       this.netWorkId = e.Id.toString();
       this.getNetworkData();
       this.isSelectedToAddDevice = false;
-     
+
    }
 
    onChangeSwicth(e){
@@ -179,7 +177,7 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
-       
+
    }
    /*Selection Of Gateway radion*/
    private onSelectGatewayRadio() {
@@ -197,7 +195,7 @@ export class SensorSummaryComponent implements OnInit{
          add:false,
          reset:true
        }
-       
+
 
    }
 
@@ -219,7 +217,7 @@ export class SensorSummaryComponent implements OnInit{
          reset:true
        }
     }
-      
+
    // e.target.checked = true;
    }
 
@@ -266,7 +264,7 @@ export class SensorSummaryComponent implements OnInit{
 
 
    private onClickButtonReset(){
-     
+
      // buttons to initial state
      this.disable= {
          edit:false,
@@ -289,7 +287,7 @@ export class SensorSummaryComponent implements OnInit{
       this.isSelectedToAddDevice = false;
 
 
-       
+
    }
 
    /*Move the selected ,update and get refresh data drom network*/
@@ -327,7 +325,7 @@ export class SensorSummaryComponent implements OnInit{
            subscribe(
              res => {this.getNetworkData();},
             err => {}
-           );   
+           );
          }
       } else if (this.radioModel === 'sensor') {
          this.selectedSensor = Object.assign({}, this.allSensors);
@@ -339,13 +337,13 @@ export class SensorSummaryComponent implements OnInit{
            subscribe(
              res => {this.getNetworkData();},
             err => {}
-           );   
+           );
          }
       }
 
 
       this.isSelectedToAddDevice = false;
-      
+
       this.isSelectedAll = false;
       this.disable= {
          edit:false,
@@ -402,7 +400,7 @@ export class SensorSummaryComponent implements OnInit{
          And get networ call again getNetworkData();'
          */
 
-         
+
          let gateWayDataToUpdate:Array<any> = [];
          this.gateWayData.forEach(x => {
            let tempObj :any = [];
@@ -411,7 +409,7 @@ export class SensorSummaryComponent implements OnInit{
               tempObj.gatewayName = x.Name;
               gateWayDataToUpdate.push(tempObj);
               tempObj = [];
-              } 
+              }
 
          });
 
@@ -474,7 +472,7 @@ export class SensorSummaryComponent implements OnInit{
                 tempObj.sensorSliderValue = x.sensorSliderValue;
                 sensorDataToUpdate.push(tempObj);
                 tempObj = [];
-                } 
+                }
 
            });
 
@@ -502,7 +500,7 @@ export class SensorSummaryComponent implements OnInit{
             err => {}
            );
 
-         
+
       }
    }
 
@@ -514,7 +512,7 @@ export class SensorSummaryComponent implements OnInit{
 
    /*Update the network assigned details*/
    private onClickSaveMoveNetwork(gatewaydata) {
-    
+
        let tempObj :any = [];
        let selectedCheckedData: any = [];
 
@@ -530,7 +528,7 @@ export class SensorSummaryComponent implements OnInit{
            subscribe(
              res => {this.getNetworkData();},
             err => {}
-           );  
+           );
    }
 
 
@@ -581,7 +579,7 @@ export class SensorSummaryComponent implements OnInit{
    }
 
 
-  
+
 
    receiveMessage($event) {
       this.isDeviceAddedSucceess = $event;
@@ -633,7 +631,7 @@ export class SensorSummaryComponent implements OnInit{
       this.allSensors = this.allSensors.filter((sens)=>{
         return this.commonSharedService.evaluateSensorStatus(criteriaOther,sens,sens);
       });
-      
+
       if(this.allSensors.length == 0){
         this.alertSandbox.showAlert({data:'No Content'});
       }
