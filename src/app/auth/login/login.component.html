@@ -3,7 +3,7 @@
     <h3>{{'login.componentHeading'|translate}}</h3>
   </div>
   <div class="pull-right col-md-2">
-    <app-languagedropdown></app-languagedropdown>
+    <app-languagedropdown (currentLanguage)="catchLanguage($event)"></app-languagedropdown>
   </div>
 </div>
 <div class="table">
