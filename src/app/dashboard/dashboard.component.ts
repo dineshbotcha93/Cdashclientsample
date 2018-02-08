@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit} from '@angular/core';
+import { Component, Injector, AfterContentInit, AfterViewInit} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -21,7 +21,7 @@ export interface tileDetail{
   providers: [DashboardService,MapService],
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
   private mapData = null;
   private mapConstants = MapConstants.STATUS;
@@ -38,11 +38,16 @@ export class DashboardComponent implements OnInit{
     });
   }
 
-  ngOnInit(){
+  ngAfterContentInit(){
     this.tileTranslation();
   }
 
+  ngAfterViewInit()	{
+    this.translate.use(localStorage.getItem('com.cdashboard.language'));
+  }
+
   tileTranslation(){
+    this.translate.use('en');
     this.translate.onLangChange.subscribe((e)=>{
       this.tileData.forEach((tD)=>{
         switch(tD.status){
@@ -61,7 +66,7 @@ export class DashboardComponent implements OnInit{
         }
       });
     });
-
+    this.translate.use(localStorage.getItem('com.cdashboard.language'));
   }
   gotoDetails(locationID){
     this.router.navigate(['dashboard/sensor-summary',locationID]);

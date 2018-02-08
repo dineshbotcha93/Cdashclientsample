@@ -9,11 +9,10 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-login',
   styleUrls: ['./login.component.scss'],
   templateUrl: './login.component.html',
-  providers:[LoginSandbox]
+  providers:[LoginSandbox],
 })
 export class LoginComponent implements OnInit {
   private myform: FormGroup;
-  private selectedLanguage = 'en';
   constructor(public loginSandbox$: LoginSandbox,private translate: TranslateService){
   }
 
@@ -33,8 +32,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  languagePicked(){
-    this.translate.use(this.selectedLanguage);
-    console.log(this.translate);
+  catchLanguage(lang){
+    this.translate.setDefaultLang(lang);
+    this.translate.use(lang);
   }
 }

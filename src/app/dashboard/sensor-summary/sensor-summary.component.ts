@@ -77,7 +77,6 @@ export class SensorSummaryComponent implements OnInit{
     private alertSandbox: AlertSandbox,
     private translate: TranslateService
     ){
-      this.translate.use('en');
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
         this.getNetworkData();

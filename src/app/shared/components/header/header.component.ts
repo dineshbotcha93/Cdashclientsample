@@ -7,6 +7,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import * as $ from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -20,10 +21,14 @@ export class HeaderComponent {
   @Input() availableLanguages:  Array<any>;
   @Input() userImage:           string;
   @Input() userEmail:           string;
+  private languagePicked: string;
 
   @Output() selectLanguage: EventEmitter<any> = new EventEmitter();
   @Output() logout:         EventEmitter<any> = new EventEmitter();
 
+  constructor(private translate: TranslateService){
+
+  }
   menuToggle(){
     let $BODY = $('body');
     let $SIDEBAR_MENU = $('#sidebar-menu');
@@ -38,5 +43,10 @@ export class HeaderComponent {
 
     $BODY.toggleClass('nav-md nav-sm');
 
+  }
+
+  catchLanguage(lang){
+    this.translate.setDefaultLang(lang);
+    this.translate.use(lang);
   }
 }
