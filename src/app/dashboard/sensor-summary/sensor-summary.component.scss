@@ -23,24 +23,26 @@ table {
       margin-bottom: 30px;
     }
   }
+}
 
-  .ss-info-container {
-    .ss-info-left {
-      color: #2A3F54 ;//$color-grey;
+.ss-info-container {
+  .ss-info-left {
+    color: $color-grey-verydark;
 
-      .ss-info-location {
-        font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-        font-size: 2.5em;
-      }
+    .ss-info-location {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 2.5em;
+    }
 
-      .ss-info-address {
-        font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-        font-size: 1.25em;
-      }
+    .ss-info-address {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.25em;
+    }
 
-      @media (min-width: $phone-small) and (max-width: $tablet-large) {
-        font-size: 0.85em;
-      }
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+      margin-bottom: 10px;
+      width: 100%;
     }
   }
 }
@@ -81,13 +83,3 @@ table {
   }
 }
 
-
-//.saveBTN {
-//  background-color: $color-saveBTN-green;
-//}
-//
-//.editBTN {
-//  background-color: $color-white;
-//  border: 1px solid $color-grey-light;
-//  color: $color-grey-verydark;
-//}

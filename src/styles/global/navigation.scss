@@ -1,0 +1,9 @@
+
+
+@media (min-width: $phone-small) and (max-width: $tablet-large) {
+  // need this empty so side navigation is set to display:none
+  // form custom template styles
+  .container.body .col-md-3.left_col {
+    // leave this empty
+  }
+}
