@@ -27,6 +27,9 @@ export class LanguageDropdownComponent implements OnInit {
         } else if (e == 'es'){
           this.selectedLanguage = 'es';
           return;
+        } else {
+          this.selectedLanguage = 'en';
+          return;
         }
       });
     }
