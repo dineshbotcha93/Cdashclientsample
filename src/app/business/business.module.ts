@@ -43,7 +43,7 @@ export const routes: Routes = [
         ContainersModule,
         ChartsModule,
         FormsModule,
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
     ]
 })
 
