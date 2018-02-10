@@ -15,6 +15,8 @@ import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 
 import { CreateDeviceComponent } from '../create-device/create-device.component';
 import { SharedModule } from '../../shared/modules/shared.module';
+import { NotificationsComponent } from '../notifications/notifications.component';
+
 
 const routes:Object[] = [{
   path:'dashboard/sensor-summary/:id',component:SensorSummaryComponent
@@ -27,7 +29,8 @@ const routes:Object[] = [{
     SlideAbleDirective,
     Ng2StyledDirective,
     Ng2SliderComponent,
-    CreateDeviceComponent],
+    CreateDeviceComponent,
+    NotificationsComponent],
   imports:[
     RouterModule.forChild(routes),
     ContainersModule,

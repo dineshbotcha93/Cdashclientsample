@@ -14,7 +14,8 @@
  "sensorSummary":{
    "sensorsTitle":"Sensors",
    "gatewaysTitle":"Gateways",
-   "deviceManagementTitle":"Device Management"
+   "deviceManagementTitle":"Device Management",
+   "notificationTitle":"Notifications"
   },
  "sensorDetails":{
    "sensorDetailsTitle":"Sensor Details Page",
