@@ -16,38 +16,119 @@
 		</div>
 	</div>
 </div>
-<div class="row sensor-summary-info" *ngIf="isAvailable">
-	<div class="col-md-2">
-		<span>Type of Sensor Reading</span>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group ss-location">
-			<select class="form-control" [(ngModel)]="selectSubNotifyType" (ngModelChange)="onChangeNotifictaion($event)">
-				<option *ngFor="let not of subNotificationTypes" [ngValue]="not">
-					{{not.value}}
-				</option>
-			</select>
-		</div>
-	</div>
-</div>
-<div>
+<div  *ngIf="isReadingTypeAvailable">
 	<table class="table table-striped">
-	
-	<tbody>
-		<tr>
-			<td> Name </td>
-			<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" ></td>
-		</tr>
-		<tr>
-			<td> Id</td>
-			<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" ></td>
-		</tr>
-		<tr>
-			<td> Code </td>
-			<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" ></td>
-		</tr>
+		<!-- <tbody>
+			<tr>
+				<td>Type of Sensor Reading</td>
+				<td> <div class="col-md-8"> 
+						<div class="form-group ss-location">
+							<select class="form-control" [(ngModel)]="selectSubNotifyType" (ngModelChange)="onChangeNotifictaion($event)">
+								<option *ngFor="let not of subNotificationTypes" [ngValue]="not">
+									{{not.value}}
+								</option>
+							</select>
+						</div>
+					</div>
+				</td>
+			</tr>
+			 -->
+			 <tbody>
+			<tr>
+				<td>  <label class="control-label col-form-label">Type of Sensor Reading:</label> </td>
+				<td> <div class="col-md-12"> 
+						<div class="form-group ss-location">
+							<select class="form-control" [(ngModel)]="selectSubNotifyType" (ngModelChange)="onChangeNotifictaion($event)">
+								<option *ngFor="let not of subNotificationTypes" [ngValue]="not">
+									{{not.value}}
+								</option>
+							</select>
+						</div>
+					</div>
+				</td>
+		</tbody>
+	</table>
+</div>
+<div *ngIf="isSensorNotificationForm">
+	<table class="table table-striped">
 		
-	
-	</tbody>
-</table>
+		<tbody>
+			<tr>
+				<td>  <label class="control-label col-form-label">Notification Name:</label> </td>
+				<td> <div class="col-md-8"> <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" ></div></td>
+			</tr>
+			<tr>
+				<td> <label class="control-label col-form-label">Notification Text:</label></td>
+				<td>  <div class="col-md-8"><input type="text" class="form-control" name="filter_name" placeholder="Enter Text" ></div></td>
+			</tr>
+
+			
+			<tr>
+				<td> <label class="control-label col-form-label">Notify when sensor temperature reading is:</label> </td>
+				<td>
+					<div class="col-md-3">
+						<div class="form-group ss-location">
+							<select class="form-control" [(ngModel)]="selectIsLessThanValue" (ngModelChange)="onChangeLessThanValue($event)">
+								<option *ngFor="let not of isLessThanValue" [ngValue]="not">
+									{{not.value}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<input type="text" class="form-control" name="filter_name" placeholder="Enter Temp" >
+					</div>
+					<div class="col-md-2">
+						<label class="control-label col-form-label">degrees</label>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group ss-location">
+							<select class="form-control" [(ngModel)]="selectTempTypeValue" (ngModelChange)="onChangeLessThanValue($event)">
+								<option *ngFor="let not of tempTypeValue" [ngValue]="not">
+									{{not.value}}
+								</option>
+							</select>
+						</div>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td> <label class="control-label col-form-label">Schedule Notification Times:</label></td>
+				<td>  
+					<div class="col-md-8">
+						<div class="btn-group">
+						     <label class="btn btn-primary" [(ngModel)]="checkModel.left" btnCheckbox (click)="onClickAlways($event)">Always</label>
+							 <label class="btn btn-primary" [(ngModel)]="checkModel.right" btnCheckbox (click)="onClickSchedule($event)">Schedule</label>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td> Don't Alert again for (Snooze)</td>
+				<td>  <div class="col-md-2"><input type="text" class="form-control" name="filter_name" placeholder=""></div>
+					  <div class="col-md-2"> Minutes</div>
+				</td>
+			</tr>
+			<tr>
+				<td> <label class="control-label col-form-label">Schedule Notification Times:</label></td>
+				<td>  
+					<div class="col-md-8">
+						<div class="btn-group">
+						     <label class="btn btn-primary" [(ngModel)]="checkModelSnooze.left" btnCheckbox (click)="onClickIndependent($event)">Independently</label>
+							 <label class="btn btn-primary" [(ngModel)]="checkModelSnooze.right" btnCheckbox (click)="onClickJoint($event)">Jointly</label>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td> <label class="control-label col-form-label">Notification is active:</label></td>
+				<td>  <div class="col-md-8"> <input type="checkbox" [(ngModel)]="isNotificationActive.checked"
+               (change)="onClickInlineCheckBox($event)"></div></td>
+			</tr>
+			
+		</tbody>
+	</table>
 </div>

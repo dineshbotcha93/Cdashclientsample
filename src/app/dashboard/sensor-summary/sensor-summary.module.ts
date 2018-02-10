@@ -16,6 +16,7 @@ import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 import { CreateDeviceComponent } from '../create-device/create-device.component';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { ButtonsModule } from 'ngx-bootstrap';
 
 
 const routes:Object[] = [{
@@ -38,7 +39,7 @@ const routes:Object[] = [{
     CommonModule,
     PipesModule,
     FormsModule,
-    SharedModule
+    SharedModule, ButtonsModule.forRoot()
   ],
   exports: [
     Ng2SliderComponent,
