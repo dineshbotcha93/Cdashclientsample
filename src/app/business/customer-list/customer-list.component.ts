@@ -13,7 +13,7 @@ export interface CustomerData {
   Subscription: string;
   ExpiryDate: string;
   ContactNumber: string;
-  Sensors: string;
+  NumberOfSensors: string;
   Amount: string;
 }
 
@@ -109,5 +109,32 @@ export class CustomerListComponent implements OnInit {
         }
       });
     }
+  }
+  print() {
+    let popupWin, strHTML;
+    popupWin = window.open('','', '_blank');
+    popupWin.document.open();
+    strHTML = '<html><head><title>Customers List</title>';
+    strHTML += '<style>th {font-size: 12px;padding-right:7px;}';
+    strHTML += 'tr {font-size: 11px; text-align:center} tr td {padding-right:7px}</style></head>';
+    strHTML += '<body onload="window.print();window.close()"><table>';
+   for(let column of this.columns){
+    strHTML += '<th>' + column.name + '</th>';
+    }
+    for(let row of this.rows){
+      strHTML += '<tr><td>' + row.Status + '</td>';
+      strHTML += '<td>' + row.Title + '</td>';
+      strHTML += '<td>' + row.Subscription + '</td>';
+      strHTML += '<td>' + row.ExpiryDate + '</td>';
+      strHTML += '<td>' + row.ContactName + '</td>';
+      strHTML += '<td>' + row.ContactNumber + '</td>';
+      strHTML += '<td>' + row.ContactEmail + '</td>';
+      strHTML += '<td>' + row.NumberOfSensors + '</td>';
+      strHTML += '<td>' + row.Amount + '</td>';
+      strHTML += '</tr>';
+    }
+    strHTML +='</table></body></html>';
+    popupWin.document.write(strHTML);
+    popupWin.document.close();
   }
 }
