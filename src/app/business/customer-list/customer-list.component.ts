@@ -4,6 +4,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BusinessService } from '../services/business.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataTableComponent } from '../../shared/components/dataTable/dataTable.component';
+import { TableColumn } from '@swimlane/ngx-datatable';
+import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 
 export interface CustomerData {
   Status: string;
@@ -28,6 +31,7 @@ export class CustomerListComponent implements OnInit {
   @ViewChild('statusColorTmpl') statusColorTmpl: TemplateRef<any>;
   @ViewChild('emailColTmpl') emailColTmpl: TemplateRef<any>;
   @ViewChild('phoneColTmpl') phoneColTmpl: TemplateRef<any>;
+  @ViewChild('dataTable')  public dataTable: DataTableComponent;
   private rows: Array<CustomerData> = null;
   private columns: Array<any> = [];
   private limit: number = 10;
@@ -137,4 +141,40 @@ export class CustomerListComponent implements OnInit {
     popupWin.document.write(strHTML);
     popupWin.document.close();
   }
+
+  exportAsCSV() {
+    const columns: TableColumn[] = this.dataTable.columns;
+    const headers =
+        columns
+            .map((column: TableColumn) => column.name)
+            .filter((e) => e);  // remove column without name (i.e. falsy value)
+
+    const rows: any[] = this.dataTable.rows.map((row) => {
+        let r = {};
+        columns.forEach((column) => {
+            if (!column.name) { return; }   // ignore column without name
+            if (column.prop) {
+                let prop = column.prop;
+                r[prop] = (typeof row[prop] === 'boolean') ? (row[prop]) ? 'Yes'
+                                                                         : 'No'
+                                                           : row[prop];
+            } else {
+                // special cases handled here
+            }
+        })
+        return r;
+    });
+
+    const options = {
+        fieldSeparator  : ',',
+        quoteStrings    : '"',
+        decimalseparator: '.',
+        showLabels      : true,
+        headers         : headers,
+        showTitle       : false,
+        title           : 'Report',
+        useBom          : true,
+    };
+    return new Angular2Csv(rows, 'report', options);
+}
 }
