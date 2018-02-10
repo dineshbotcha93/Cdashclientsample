@@ -4,6 +4,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BusinessService } from '../services/business.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataTableComponent } from '../../shared/components/dataTable/dataTable.component';
+import { TableColumn } from '@swimlane/ngx-datatable';
+import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 
 export interface CustomerData {
   Status: string;
@@ -13,7 +16,7 @@ export interface CustomerData {
   Subscription: string;
   ExpiryDate: string;
   ContactNumber: string;
-  Sensors: string;
+  NumberOfSensors: string;
   Amount: string;
 }
 
@@ -28,6 +31,7 @@ export class CustomerListComponent implements OnInit {
   @ViewChild('statusColorTmpl') statusColorTmpl: TemplateRef<any>;
   @ViewChild('emailColTmpl') emailColTmpl: TemplateRef<any>;
   @ViewChild('phoneColTmpl') phoneColTmpl: TemplateRef<any>;
+  @ViewChild('dataTable')  public dataTable: DataTableComponent;
   private rows: Array<CustomerData> = null;
   private columns: Array<any> = [];
   private limit: number = 10;
@@ -110,4 +114,67 @@ export class CustomerListComponent implements OnInit {
       });
     }
   }
+  print() {
+    let popupWin, strHTML;
+    popupWin = window.open('','', '_blank');
+    popupWin.document.open();
+    strHTML = '<html><head><title>Customers List</title>';
+    strHTML += '<style>th {font-size: 12px;padding-right:7px;}';
+    strHTML += 'tr {font-size: 11px; text-align:center} tr td {padding-right:7px}</style></head>';
+    strHTML += '<body onload="window.print();window.close()"><table>';
+   for(let column of this.columns){
+    strHTML += '<th>' + column.name + '</th>';
+    }
+    for(let row of this.rows){
+      strHTML += '<tr><td>' + row.Status + '</td>';
+      strHTML += '<td>' + row.Title + '</td>';
+      strHTML += '<td>' + row.Subscription + '</td>';
+      strHTML += '<td>' + row.ExpiryDate + '</td>';
+      strHTML += '<td>' + row.ContactName + '</td>';
+      strHTML += '<td>' + row.ContactNumber + '</td>';
+      strHTML += '<td>' + row.ContactEmail + '</td>';
+      strHTML += '<td>' + row.NumberOfSensors + '</td>';
+      strHTML += '<td>' + row.Amount + '</td>';
+      strHTML += '</tr>';
+    }
+    strHTML +='</table></body></html>';
+    popupWin.document.write(strHTML);
+    popupWin.document.close();
+  }
+
+  exportAsCSV() {
+    const columns: TableColumn[] = this.dataTable.columns;
+    const headers =
+        columns
+            .map((column: TableColumn) => column.name)
+            .filter((e) => e);  // remove column without name (i.e. falsy value)
+
+    const rows: any[] = this.dataTable.rows.map((row) => {
+        let r = {};
+        columns.forEach((column) => {
+            if (!column.name) { return; }   // ignore column without name
+            if (column.prop) {
+                let prop = column.prop;
+                r[prop] = (typeof row[prop] === 'boolean') ? (row[prop]) ? 'Yes'
+                                                                         : 'No'
+                                                           : row[prop];
+            } else {
+                // special cases handled here
+            }
+        })
+        return r;
+    });
+
+    const options = {
+        fieldSeparator  : ',',
+        quoteStrings    : '"',
+        decimalseparator: '.',
+        showLabels      : true,
+        headers         : headers,
+        showTitle       : false,
+        title           : 'Report',
+        useBom          : true,
+    };
+    return new Angular2Csv(rows, 'report', options);
+}
 }
