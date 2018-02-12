@@ -31,6 +31,7 @@ export class CustomerListComponent implements OnInit {
   @ViewChild('statusColorTmpl') statusColorTmpl: TemplateRef<any>;
   @ViewChild('emailColTmpl') emailColTmpl: TemplateRef<any>;
   @ViewChild('phoneColTmpl') phoneColTmpl: TemplateRef<any>;
+  @ViewChild('nameColTmpl') nameColTmpl: TemplateRef<any>;
   @ViewChild('dataTable')  public dataTable: DataTableComponent;
   private rows: Array<CustomerData> = null;
   private columns: Array<any> = [];
@@ -73,7 +74,7 @@ export class CustomerListComponent implements OnInit {
     this.doFilterByStatus = this.statusParam;
     this.filterByStatus();
     this.columns.push({ prop: 'Status', name: 'Status', cellTemplate: this.statusColorTmpl });
-    this.columns.push({ prop: 'Title', name: 'Name' });
+    this.columns.push({ prop: 'Title', name: 'Name', cellTemplate: this.nameColTmpl });
     this.columns.push({ prop: 'Subscription', name: 'Subscription' });
     this.columns.push({ prop: 'ExpiryDate', name: 'Renewal Date' });
     this.columns.push({ prop: 'ContactName', name: 'Contact Name' });
