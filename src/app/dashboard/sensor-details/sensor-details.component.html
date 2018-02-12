@@ -1,17 +1,27 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_title">
-        <h3>{{'sensorDetails.sensorDetailsTitle' | translate}}</h3>
-        <div class="clearfix"></div>
+      <div>
+        <div class="row x_title">
+          <h3>{{'sensorDetails.sensorDetailsTitle' | translate}}</h3>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-12">
+          <app-gauge
+            [type]="'semi'"
+            [value]="'60'"
+            [title]="result.SensorName"
+          ></app-gauge>
 
-        <div class="row sensor-summary-info">
-
-          <div class="sensor-summary-info">
-
-            <div class="col-md-8 ss-info-left">
-
-              <canvas
+          <p>
+                <span>
+              {{'sensorDetails.lastCheckin'|translate}}:
+              </span>
+            {{result.LastCommunicationDate}}
+          </p>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+          <div class="demo-placeholder">
+            <canvas
                 baseChart
                 #baseChart="base-chart"
                 [chartType]="'line'"
@@ -20,57 +30,41 @@
                 [options]="chartOptions"
                 [legend]="true">
               </canvas>
-
-            </div>
-
-            <div class="col-md-4 ss-info-right">
-              <app-gauge
-                [type]="'semi'"
-                [value]="'60'"
-                [title]="result.SensorName"
-              ></app-gauge>
-              <p>
-                <span>
-              {{'sensorDetails.lastCheckin'|translate}}:
-              </span>
-                {{result.LastCommunicationDate}}
-              </p>
-              <!--<p><span>
-              {{'sensorDetails.networkName'|translate}}:
-              </span>
-                {{result.NetworkName}}
-              </p>
-              <p><span>
-              {{'sensorDetails.gatewayName'|translate}}:
-              </span>
-                {{result.Gateway}}
-              </p>
-              <p><span>
-              {{'sensorDetails.nextCheckin'|translate}}:
-              </span>
-                {{result.NextCommunicationDate}}
-              </p>-->
-            </div>
-
           </div>
         </div>
+        <!--<div class="">
+          <div class="col-md-4 ss-info-right">
+
+
+            &lt;!&ndash;<p><span>
+            {{'sensorDetails.networkName'|translate}}:
+            </span>
+              {{result.NetworkName}}
+            </p>
+            <p><span>
+            {{'sensorDetails.gatewayName'|translate}}:
+            </span>
+              {{result.Gateway}}
+            </p>
+            <p><span>
+            {{'sensorDetails.nextCheckin'|translate}}:
+            </span>
+              {{result.NextCommunicationDate}}
+            </p>&ndash;&gt;
+          </div>
+        </div>-->
         <!-- <pre>{{result|json}}</pre> -->
       </div>
-      <div class="x_content">
 
         <h1>{{'sensorDetails.tabs.graph'|translate}}</h1>
     <div class="row">
-
+      <app-datatable
+        [rows]="rows"
+        [columns]="columns"
+        [limit]="limit">
+      </app-datatable>
     </div>
 
-        <app-datatable
-          [rows]="rows"
-          [columns]="columns"
-          [limit]="limit">
-        </app-datatable>
-
-
-      </div>
     </div>
   </div>
 </app-layout>
