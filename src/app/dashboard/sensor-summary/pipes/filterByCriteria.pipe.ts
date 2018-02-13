@@ -14,7 +14,7 @@ export class FilterByCriteria implements PipeTransform  {
 		if(args[0]!==null){
 			let acceptableSensors = [];
 			v.forEach((item)=>{
-				if(item['SensorName'].toLowerCase().indexOf(args[0].toLowerCase())>-1){
+				if(item['sensorName'].toLowerCase().indexOf(args[0].toLowerCase())>-1){
 					acceptableSensors.push(item);
 					if(args[1]!==null){
 						acceptableSensors = acceptableSensors.filter((aS)=>{

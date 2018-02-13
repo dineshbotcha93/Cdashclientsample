@@ -23,7 +23,7 @@ export interface tileDetail{
 })
 export class DashboardComponent implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
-  private mapData = null;
+  private mapData = [];
   private mapConstants = MapConstants.STATUS;
   constructor(
     private dashboardService: DashboardService,
@@ -33,8 +33,23 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
     dashboardService.getData().subscribe((ds)=>{
       this.tileData = ds;
     });
-    mapService.getData().subscribe((e)=>{
-      this.mapData = e;
+    // mapService.getData().subscribe((e)=>{
+    //   this.mapData = e;
+    // });
+
+    dashboardService.getRealData().then((realResults)=>{
+      realResults.forEach((rResult)=>{
+        mapService.geoCode(rResult.title+rResult.city+rResult.country).then((geoCoded)=>{
+          if(geoCoded.results[0]){
+            rResult.lat=geoCoded.results[0].geometry.location.lat;
+            rResult.lng=geoCoded.results[0].geometry.location.lng;
+          }
+        });
+      });
+      return realResults;
+    }).then((real)=>{
+      console.log(real);
+      this.mapData = real;
     });
   }
 

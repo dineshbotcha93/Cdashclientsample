@@ -41,7 +41,7 @@ if(!environment.production)
   mockProvider.push({
     provide: Http,
     deps: [MockBackend, BaseRequestOptions],
-    useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
+    useFactory: (backend: MockBackend, options: BaseRequestOptions, realBackend: Http) => {
       return new Http(backend, options);
     }
   });
