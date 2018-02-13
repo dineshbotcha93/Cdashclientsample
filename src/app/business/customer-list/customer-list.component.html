@@ -50,13 +50,13 @@
           </div>
       </div>
         <div class="col-md-push-9 col-sm-push-9 col-md-3 col-sm-3 col-xs-12 form-group">
-          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Print" />
-          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Export" />
+          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Print" (click)="print()" />
+          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Export" (click)="exportAsCSV()"/>
         </div>
         </div>
 
         <div>
-      <app-datatable
+      <app-datatable #dataTable
        [rows]="rows"
        [columns]="columns"
        [limit]="limit">
@@ -74,7 +74,10 @@
       <ng-template #phoneColTmpl let-row="row" let-value="value">
         <a href="tel:{{value}}">{{value}}</a>
       </ng-template>
-      </div>
+      <ng-template #nameColTmpl let-value="value">
+        <a class="anchor-datatable" routerLink="/business/customer-details" routerLinkActive="active">{{value}}</a>
+      </ng-template>
+    </div>
         </div>
         </div>
 </app-layout>

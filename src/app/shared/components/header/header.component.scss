@@ -34,3 +34,44 @@
   margin-top: 20px;
   margin-right: 20px;
 }
+
+
+.top_nav {
+  .nav_menu {
+    padding: 10px;
+  }
+
+  .nav.toggle {
+    display: none;
+    width: auto;
+    padding: 0;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      display: inline-block;
+    }
+
+    #menu_toggle {
+      padding: 0 10px 10px 0;
+      display: inline-block;
+    }
+  }
+
+  .top_nav_logo {
+    display: inline-block;
+    padding: 10px;
+
+    img#logo {
+      width: 120px;
+    }
+  }
+
+  .navbar-right {
+    .user-profile {
+      padding: 10px;
+    }
+
+    .lang-dd {
+      padding: 10px;
+    }
+  }
+}

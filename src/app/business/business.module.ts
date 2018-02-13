@@ -10,6 +10,7 @@ import { ChartsModule } from 'ng2-charts';
 import { FormsModule} from '@angular/forms';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,10 @@ export const routes: Routes = [
             {
                 path: ':customer-list/:status',
                 component: CustomerListComponent
+            },
+            {
+               path: ':customer-details',
+               component: CustomerDetailsComponent
             }
         ]
     },
@@ -30,7 +35,8 @@ export const routes: Routes = [
 @NgModule({
     declarations: [
         BusinessComponent,
-        CustomerListComponent
+        CustomerListComponent,
+        CustomerDetailsComponent
     ],
     providers: [
         AuthGuard,
