@@ -1,6 +1,6 @@
 {
  "login":{
-   "componentHeading":"Cooper Atkins Portal",
+   "componentHeading":"Login Component",
    "loginForm":{
      "username":"Username",
      "password":"Password",
