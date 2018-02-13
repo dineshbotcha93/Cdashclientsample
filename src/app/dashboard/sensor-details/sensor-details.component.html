@@ -1,11 +1,12 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div>
-        <div class="row x_title">
+<div class="row sensor-summary-info">
+        <div class="col-md-12 col-sm-12 col-xs-12">
           <h3>{{'sensorDetails.sensorDetailsTitle' | translate}}</h3>
         </div>
-        <div class="col-md-3 col-sm-3 col-xs-12">
+  <div class="ss-info-container">
+        <div class="col-md-3 col-sm-3 col-xs-12 ss-info-left">
           <app-gauge
             [type]="'semi'"
             [value]="'60'"
@@ -19,19 +20,22 @@
             {{result.LastCommunicationDate}}
           </p>
         </div>
-        <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="col-md-9 col-sm-9 col-xs-12 network-card graph-card dark-theme">
           <div class="demo-placeholder">
             <canvas
-                baseChart
-                #baseChart="base-chart"
-                [chartType]="'line'"
-                [datasets]="chartData"
-                [labels]="chartLabels"
-                [options]="chartOptions"
-                [legend]="true">
-              </canvas>
+              baseChart
+              #baseChart="base-chart"
+              [chartType]="'line'"
+              [datasets]="chartData"
+              [labels]="chartLabels"
+              [options]="chartOptions"
+              [legend]="true">
+            </canvas>
           </div>
         </div>
+    </div>
+    </div>
+
         <!--<div class="">
           <div class="col-md-4 ss-info-right">
 
@@ -54,10 +58,11 @@
           </div>
         </div>-->
         <!-- <pre>{{result|json}}</pre> -->
-      </div>
 
-        <h1>{{'sensorDetails.tabs.graph'|translate}}</h1>
-    <div class="row">
+
+        <!--<h1>{{'sensorDetails.tabs.graph'|translate}}</h1>-->
+      <div class="clearfix"></div>
+    <div class="row network-card graph-card dark-theme">
       <app-datatable
         [rows]="rows"
         [columns]="columns"
