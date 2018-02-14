@@ -13,11 +13,14 @@ import { DataTableComponent } from './dataTable/dataTable.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { Tab } from './tabs/tab.component';
 import { Tabs } from './tabs/tabs.component';
+import { GaugeComponent } from './gauge/gauge.component';
+
 // Google map integration
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 export const COMPONENTS = [
   HeaderComponent,
@@ -30,7 +33,8 @@ export const COMPONENTS = [
   DataTableComponent,
   AlertsComponent,
   Tab,
-  Tabs
+  Tabs,
+  GaugeComponent
 ];
 
 @NgModule({
@@ -38,6 +42,7 @@ export const COMPONENTS = [
     CommonModule,
     PipesModule,
     NgxDatatableModule,
+    NgxGaugeModule,
     AgmCoreModule.forRoot({
      apiKey: 'AIzaSyBzgI77Zkjsakww8mMHBFXEo4io7SkW-0M',
      libraries: ["places"]

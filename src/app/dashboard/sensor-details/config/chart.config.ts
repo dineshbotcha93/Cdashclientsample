@@ -1,5 +1,10 @@
 export const ChartOptions = {
     responsive: true,
+  maintainAspectRatio:false,
+  pointDot : true,
+  radius: 3,
+  pointDotStrokeWidth : 1,
+  bezierCurve : true,
     // Container for pan options
     pan: {
       // Boolean to enable panning
