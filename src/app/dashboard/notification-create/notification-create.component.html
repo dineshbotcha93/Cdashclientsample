@@ -1,6 +1,5 @@
 <div class="col-md-12">
    <div class="form-group sensor-actions">
-      <div >
          <button type="button"
             class="btn btn-primary editBTN"
             (click)="onClickSensorNotify()" ><i class="fa fa-edit"></i> Sensor Reading Notification </button>
@@ -13,8 +12,7 @@
          <button type="button"
             class="btn btn-primary editBTN"
             (click)="onClickAdvanceNotify()" ><i class="fa fa-edit"></i> Advanced Notification </button>
-      </div>
-   </div>
+     </div>
 </div>
 <div  *ngIf="isReadingTypeAvailable">
    <table class="table table-striped">
@@ -110,32 +108,24 @@
       </tbody>
    </table>
 </div>
-
-
 <div *ngIf="isSensorNotificationForm">
-   <table class="table table-striped">
-      <tbody>
-         <tr>
-            <td> </td>
-            <td>
-               <div class="col-md-8">
-                 <button type="button"
-                            class="btn btn-primary removeBTN"
-                            (click)="onClickCancelDetail()"><i class="fa fa-trash"></i> Cancel </button> 
-					    <button type="button"
-                            class="btn btn-primary addBTN"
-                            (click)="onClickAddDetail()"><i class="fa fa-plus"></i> Continue  </button>
-               </div>
-            </td>
-         </tr>
-      </tbody>
-   </table>
+ 
+    <div class="row">
+                     <div class="col-md-4">
+                     
+                     </div>
+                     <div class="col-md-8">
+                        <div class="form-group sensor-actions">
+                           <button type="button"
+                              class="btn btn-primary removeBTN"
+                               (click)="onClickAddDetail()"><i class="fa fa-trash"></i> previous  </button>
+                           <button type="button"
+                              class="btn btn-primary addBTN"
+                               (click)="onClickAddDetail()"><i class="fa fa-plus"></i> Next  </button>       
+                        </div>
+                     </div>
 </div>
-
-
-
-
- <ng-template #notificationTemplate>
+<ng-template #notificationTemplate>
          <tr *ngIf="templateName ==='sensorNotification' ||  (selectSubNotifyType.id === '14' && templateName ==='advancedNotification')">
             <td> <label class="control-label col-form-label">Notify when sensor temperature reading is:</label> </td>
             <td>
@@ -281,7 +271,6 @@
                </div>
             </td>
          </tr>
-
 </ng-template>
 
 

@@ -17,6 +17,9 @@ import { CreateDeviceComponent } from '../create-device/create-device.component'
 import { SharedModule } from '../../shared/modules/shared.module';
 import { NotificationsComponent } from '../notifications/notifications.component';
 
+import { NotificationSummaryComponent } from '../notification-summary/notification-summary.component';
+import { NotificationCreateComponent } from '../notification-create/notification-create.component';
+
 import { ButtonsModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 
@@ -33,7 +36,9 @@ const routes:Object[] = [{
     Ng2StyledDirective,
     Ng2SliderComponent,
     CreateDeviceComponent,
-    NotificationsComponent],
+    NotificationsComponent,
+    NotificationSummaryComponent,
+    NotificationCreateComponent],
   imports:[
     RouterModule.forChild(routes),
     ContainersModule,

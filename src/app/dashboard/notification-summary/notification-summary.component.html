@@ -1,0 +1,18 @@
+<div *ngIf="notificationSummaryList">
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th class="col-md-3">Name</th>
+            <th class="col-md-3">Type</th>
+            <th class="col-md-3">LastDateSent</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let notifiy of notificationSummaryList">
+            <td class="col-md-3" >{{notifiy.Name}}</td>
+            <td class="col-md-3" >{{notifiy.Type}}</td>
+            <td class="col-md-3" >{{notifiy.LastDateSent}}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>
