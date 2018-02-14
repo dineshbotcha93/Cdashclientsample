@@ -47,7 +47,7 @@
       <div class="tabs_container">
         <tabs>
 
-          <tab tabTitle="{{'sensorSummary.sensorsTitle'|translate}}" class="tab-content">
+          <tab tabTitle="{{'sensorSummary.sensorsTitle'|translate}}" [isDisabled]="mapData?.noOfSensors === 0" class="tab-content">
             <div class="row x_content">
               <div class="col-md-12 sensors-info-container">
                 <div class="form-group sensor-info-compare">
@@ -113,7 +113,7 @@
               </div>
             </div>
           </tab>
-          <tab tabTitle="{{'sensorSummary.gatewaysTitle'|translate}}" class="tab-content gateway-cards">
+          <tab tabTitle="{{'sensorSummary.gatewaysTitle'|translate}}" [isDisabled]="mapData?.noOfGateways === 0" class="tab-content gateway-cards">
             <div class="row">
               <div class="col-md-12 gateway-all" *ngIf="mapData!==null">
                 <div class="gateway-card bg-success" *ngFor="let aGateway of mapData.gateways">
