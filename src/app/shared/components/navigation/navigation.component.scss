@@ -1,4 +1,4 @@
-// @import "../../../../styles/variables";
+@import "../../../../styles/variables";
 //
 // .sidebar {
 //   overflow: hidden;
@@ -82,3 +82,33 @@
 //   padding: 5px 0;
 //   border-right: 1px solid $color-grey-light;
 // }
+
+.nav-sm, .nav-md {
+  .nav.side-menu {
+    li {
+      a {
+        padding: 10px 15px;
+        background: $color-grey-verylight;
+      }
+    }
+  }
+}
+
+.nav_title {
+  background: none;
+}
+
+.side-menu-logo {
+  img {
+    width: 40px;
+  }
+}
+
+.side_nav_logo {
+  display: inline-block;
+  padding: 10px;
+
+  img#logo {
+    width: 120px;
+  }
+}

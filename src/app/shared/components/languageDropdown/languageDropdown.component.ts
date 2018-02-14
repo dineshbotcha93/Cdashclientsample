@@ -17,7 +17,21 @@ export class LanguageDropdownComponent implements OnInit {
     } else if(!!localStorage.getItem('com.cdashboard.language')){
       this.selectedLanguage = localStorage.getItem('com.cdashboard.language');
     } else {
-      this.selectedLanguage = 'en';
+      navigator.languages.forEach((e)=>{
+        if(e == 'en'){
+          this.selectedLanguage = 'en';
+          return;
+        } else if (e == 'it'){
+          this.selectedLanguage = 'it';
+          return;
+        } else if (e == 'es'){
+          this.selectedLanguage = 'es';
+          return;
+        } else {
+          this.selectedLanguage = 'en';
+          return;
+        }
+      });
     }
     this.translate.setDefaultLang(this.selectedLanguage);
     this.translate.use(this.selectedLanguage);
