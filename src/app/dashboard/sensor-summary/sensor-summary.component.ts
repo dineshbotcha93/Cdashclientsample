@@ -162,6 +162,8 @@ export class SensorSummaryComponent implements OnInit {
          sens.checked = false;
          sens.gateWayEditOption = 'display';
          sens.sensorSliderValue = '10';
+         // hardcoded for now
+         sens.sensorType = 2;
          this.allSensors.push(sens);
       });
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
