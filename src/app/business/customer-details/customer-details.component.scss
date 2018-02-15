@@ -1,10 +1,8 @@
 @import "../../../styles/variables";
 
-
 .float-right {
   float: right;
 }
-
 table {
   tr:first-child {
     td {
@@ -12,8 +10,7 @@ table {
     }
   }
 }
-
-.sensor-summary-info {
+.customer-summary-info {
   .ss-location {
     margin-top: 10px;
     margin-bottom: 50px;
@@ -24,21 +21,34 @@ table {
     }
   }
 }
-
-.ss-info-container {
-  .ss-info-left {
+.customer-info-container {
+  .customer-info-left {
     color: $color-grey-verydark;
 
-    .ss-info-location {
+    .customer-name {
       font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       font-size: 2.5em;
     }
 
-    .ss-info-address {
+    .customer-address {
       font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       font-size: 1.25em;
     }
 
+    .customer-contact-name {
+      margin-top: 15px;
+    }
+
+    .customer-contact-email {
+      float:left;
+      padding-right:10px;
+    }
+
+    .customer-amount {
+      color:#00A421;
+    }
+
+    
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       font-size: 0.85em;
       margin-bottom: 10px;
@@ -46,7 +56,15 @@ table {
     }
   }
 }
-
+.customer-status {
+  color:#ffffff;
+  font-size: 20px;
+}
+.customer-subscription {
+  margin-top: 20px;
+  color:#ffffff;
+  font-size: 20px;
+}
 .sensors-info-container {
   .x_content {
      margin-bottom: 20px;
@@ -55,17 +73,14 @@ table {
       margin-bottom: 20px;
     }
   }
-
   .sensor-info-compare {
     display: inline-block;
   }
-
   .sensors-info-filter {
     float: right;
     form {
       text-align: right;
     }
-
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       float: none;
       margin-bottom: 10px;
@@ -81,4 +96,25 @@ table {
   .sensor-actions {
     float: right;
   }
+}
+.tab-content {
+  .row {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: -5px;
+    border-left: solid 5px  #2a3F54;
+    border-right: solid 5px  #2a3F54;
+  }
+}
+
+a:link, a:visited { 
+  color: #3498DB;
+  cursor:pointer ;
+}
+
+a:hover {
+  color: #3498DB;
+  text-decoration: underline;
+  cursor: pointer ;
 }

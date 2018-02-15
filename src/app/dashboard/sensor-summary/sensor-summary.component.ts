@@ -1,5 +1,5 @@
 import { Component,OnInit ,ViewChild} from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute,Router} from '@angular/router';
 import { MapService } from '../../shared/components/map/services/map.service';
 import { MapConstants } from '../../shared/components/map/constants/map.constants';
 import { SensorSummaryService } from './services/sensor-summary.service';
