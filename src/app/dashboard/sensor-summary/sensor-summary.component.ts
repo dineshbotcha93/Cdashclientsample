@@ -113,28 +113,25 @@ export class SensorSummaryComponent implements OnInit {
                 };
          Obj.Id = loc.networkID;
          Obj.Title = loc.networkName;
-         console.log('NETWORK ID'+this.netWorkId);
-         console.log("LOC NETWORK"+loc.networkID);
          if (loc.networkID == this.netWorkId) {
-             console.log('here');
              this.selectLocation = Obj;
-             console.log(this.selectLocation);
          }
          this.locationData.push(Obj);
        });
      });
-     this.onSelectSensorRadio();
    }
 
    /*Get sensor data from service by selecting the network Id*/
    private getNetworkData() {
       this.allSensors = [];
-      console.log('called');
       //this.mapData = null;
         this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
           this.mapData = result;
-          console.log(this.mapData);
           this.getSensorData(result.sensors);
+          if(this.mapData['noOfSensors'] > 0){
+            this.onSelectSensorRadio();
+          } else {
+          }
         });
          //this.mapData = e;
          // this.getGatewayData(e.Location.Network.Gateway, '');

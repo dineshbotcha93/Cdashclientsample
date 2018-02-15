@@ -22,7 +22,6 @@ export class MockBackendService {
   ) {}
 
   start(): void {
-    console.log(this);
     this.backend.connections.subscribe((c: MockConnection) => {
       let URL;
       let body;
@@ -153,13 +152,11 @@ export class MockBackendService {
           })));
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 0){
-        console.log('this part');
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         if(!!localStorage.getItem('com.cdashboard.token')){
           headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
         }
-        console.log(headers);
         this.http = new Http(this.realBackend, this.options);
         let options = new RequestOptions({ headers: headers });
         this.http.get(c.request.url,options).subscribe((e)=>{

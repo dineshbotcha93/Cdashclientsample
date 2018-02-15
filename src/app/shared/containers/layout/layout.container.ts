@@ -54,7 +54,6 @@ export class LayoutContainer {
   private registerEvents() {
     // Subscribes to user changes
     this.tileSandbox.tilesLoaded$.subscribe(data=>{
-      console.log(data);
     });
   }
 

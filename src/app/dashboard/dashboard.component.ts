@@ -24,18 +24,19 @@ export interface tileDetail{
 export class DashboardComponent implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
   private mapData = [];
+  private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
+  private objectKeys = Object.keys;
   constructor(
     private dashboardService: DashboardService,
     private mapService:MapService,
     private router:Router,
     private translate: TranslateService){
-    dashboardService.getData().subscribe((ds)=>{
-      this.tileData = ds;
-    });
-    // mapService.getData().subscribe((e)=>{
-    //   this.mapData = e;
-    // });
+
+    this.totalStatuses['alerts'] = {status:'Alerts',count:0};
+    this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0};
+    this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0};
+    this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0};
 
     dashboardService.getRealData().then((realResults)=>{
       realResults.forEach((rResult)=>{
@@ -45,10 +46,14 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
             rResult.lng=geoCoded.results[0].geometry.location.lng;
           }
         });
+        //rResult.alerts
+        this.totalStatuses['alerts'].count+= rResult.alerts;
+        this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
+        this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
+        this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
       });
       return realResults;
     }).then((real)=>{
-      console.log(real);
       this.mapData = real;
     });
   }
@@ -64,19 +69,19 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
   tileTranslation(){
     this.translate.use('en');
     this.translate.onLangChange.subscribe((e)=>{
-      this.tileData.forEach((tD)=>{
-        switch(tD.status){
+      Object.keys(this.totalStatuses).forEach((tD)=>{
+        switch(this.totalStatuses[tD].status){
           case 'Alerts':
-          tD['title'] = this.translate.instant('tileStatus.alert');
+          this.totalStatuses[tD].title = this.translate.instant('tileStatus.alert');
           break;
           case 'MissedCommunication':
-          tD['title'] = this.translate.instant('tileStatus.missedCommunication');
+          this.totalStatuses[tD].title = this.translate.instant('tileStatus.missedCommunication');
           break;
           case 'LowSignal':
-          tD['title'] = this.translate.instant('tileStatus.lowSignal');
+          this.totalStatuses[tD].title = this.translate.instant('tileStatus.lowSignal');
           break;
           case 'LowBattery':
-          tD['title'] = this.translate.instant('tileStatus.lowBattery');
+          this.totalStatuses[tD].title = this.translate.instant('tileStatus.lowBattery');
           break;
         }
       });
