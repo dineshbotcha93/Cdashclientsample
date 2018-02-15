@@ -55,7 +55,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
       return realResults;
     }).then((real)=>{
       this.mapData = real;
-      this.tileTranslation();
+      this.forceTranslations();
     });
   }
 
