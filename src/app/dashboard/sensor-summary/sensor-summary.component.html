@@ -120,10 +120,10 @@
                   <div class="top">
                     <div class="pair gateway-id">
                       <div class="key">Gateway ID</div>
-                      <div class="value">{{aGateway.GatewayID}}</div>
+                      <div class="value">{{aGateway.gatewayID}}</div>
                     </div>
                     <div class="pair gateway-date">
-                      <div class="value">{{aGateway.LastCommunicationDate}}</div>
+                      <div class="value">{{aGateway.lastCommunicationDate|date:'dd/mm/yyyy'}}</div>
                     </div>
                   </div>
                   <div class="middle">
@@ -133,11 +133,11 @@
                   </div>
                   <div class="bottom">
                     <div class="pair gateway-name">
-                      <div class="value">{{aGateway.Name}}</div>
+                      <div class="value">{{aGateway.name}}</div>
                     </div>
                     <div class="pair gateway-type">
                       <div class="key">Gateway Type</div>
-                      <div class="value">{{aGateway.GatewayType}}</div>
+                      <div class="value">{{aGateway.gatewayType}}</div>
                     </div>
                   </div>
                 </div>

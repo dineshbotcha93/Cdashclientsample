@@ -6,7 +6,8 @@ import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
-import { AsyncPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
+
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
