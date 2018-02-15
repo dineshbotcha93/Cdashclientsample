@@ -23,23 +23,51 @@ export interface tileDetail{
 })
 export class DashboardComponent implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
-  private mapData = null;
+  private mapData = [];
+  private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
+  private objectKeys = Object.keys;
   constructor(
     private dashboardService: DashboardService,
     private mapService:MapService,
     private router:Router,
     private translate: TranslateService){
-    dashboardService.getData().subscribe((ds)=>{
-      this.tileData = ds;
-    });
-    mapService.getData().subscribe((e)=>{
-      this.mapData = e;
+
+    this.totalStatuses['alerts'] = {status:'Alerts',count:0,title:''};
+    this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0,title:''};
+    this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0,title:''};
+    this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0,title:''};
+
+    dashboardService.getRealData().then((realResults)=>{
+      realResults.forEach((rResult)=>{
+        mapService.geoCode(rResult.title+rResult.city+rResult.country).then((geoCoded)=>{
+          if(geoCoded.results[0]){
+            rResult.lat=geoCoded.results[0].geometry.location.lat;
+            rResult.lng=geoCoded.results[0].geometry.location.lng;
+          }
+        });
+        //rResult.alerts
+        this.totalStatuses['alerts'].count+= rResult.alerts;
+        this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
+        this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
+        this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
+      });
+      return realResults;
+    }).then((real)=>{
+      this.mapData = real;
+      this.tileTranslation();
     });
   }
 
   ngAfterContentInit(){
     this.tileTranslation();
+  }
+
+  forceTranslations(){
+    this.totalStatuses['alerts'].title = this.translate.instant('tileStatus.alert');
+    this.totalStatuses['missedCommunication'].title = this.translate.instant('tileStatus.missedCommunication');
+    this.totalStatuses['lowSignal'].title = this.translate.instant('tileStatus.lowSignal');
+    this.totalStatuses['lowBattery'].title = this.translate.instant('tileStatus.lowBattery');
   }
 
   ngAfterViewInit()	{
@@ -49,22 +77,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
   tileTranslation(){
     this.translate.use('en');
     this.translate.onLangChange.subscribe((e)=>{
-      this.tileData.forEach((tD)=>{
-        switch(tD.status){
-          case 'Alerts':
-          tD['title'] = this.translate.instant('tileStatus.alert');
-          break;
-          case 'MissedCommunication':
-          tD['title'] = this.translate.instant('tileStatus.missedCommunication');
-          break;
-          case 'LowSignal':
-          tD['title'] = this.translate.instant('tileStatus.lowSignal');
-          break;
-          case 'LowBattery':
-          tD['title'] = this.translate.instant('tileStatus.lowBattery');
-          break;
-        }
-      });
+      this.forceTranslations();
     });
     this.translate.use(localStorage.getItem('com.cdashboard.language'));
   }

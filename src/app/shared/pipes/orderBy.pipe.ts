@@ -9,9 +9,9 @@ import {
 export class OrderByPipe implements PipeTransform  {
   constructor(){}
 	compare(a,b) {
-	  if (a.Status < b.Status)
+	  if (a.status < b.status)
 	    return -1;
-	  if (a.Status > b.Status)
+	  if (a.status > b.status)
 	    return 1;
 	  return 0;
 	}
