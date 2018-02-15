@@ -4,7 +4,8 @@ import {
   Input,
   EventEmitter,
   ChangeDetectionStrategy,
-  ViewChild
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { MapService } from './services/map.service';
 import { MapConstants } from './constants/map.constants';
@@ -18,16 +19,22 @@ import { AgmMap } from '@agm/core';
   providers:[MapService]
 })
 
-export class MapComponent {
+export class MapComponent implements AfterViewInit {
   @Input() markers: object;
   @ViewChild(AgmMap) agmMap: any;
   private mapStatus = MapConstants.STATUS;
   constructor(private router:Router){
   }
+
+  ngAfterViewInit(){
+    this.agmMap._mapsWrapper.triggerMapEvent('resize');
+  }
+
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label} and count ${index}`);
     this.router.navigate(['dashboard/sensor-summary',index]);
   }
+  
   onResize(event){
     let newLat;
     let newLng;
@@ -36,6 +43,5 @@ export class MapComponent {
       newLng = e.lng();
     });
     this.agmMap.triggerResize(true).then(() =>  this.agmMap._mapsWrapper.setCenter({lat: newLat, lng: newLng}));
-
   }
 }

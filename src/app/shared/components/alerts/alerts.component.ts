@@ -23,7 +23,6 @@ export class AlertsComponent {
 
   ngOnInit(){
     this.alertSandboxSubscription = this.alertSandbox$.getAlert().subscribe((e)=>{
-      console.log(e);
       if(e.type == true){
         this.showDiv = true;
         this.alertContent = e.payload['data'];

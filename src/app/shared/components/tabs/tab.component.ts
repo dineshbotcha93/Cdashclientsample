@@ -11,6 +11,7 @@ import { Tabs } from './tabs.component';
 })
 export class Tab {
   @Input() tabTitle;
+  @Input() isDisabled;
   public active;
   constructor(tabs: Tabs) {
     tabs.addTab(this);

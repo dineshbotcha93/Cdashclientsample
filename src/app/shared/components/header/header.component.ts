@@ -41,7 +41,7 @@ export class HeaderComponent {
         $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
     }
 
-    $BODY.toggleClass('nav-md nav-sm');
+    $BODY.toggleClass('nav-sm nav-md');
 
   }
 

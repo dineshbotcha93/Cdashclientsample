@@ -1,6 +1,6 @@
 {
   "login":{
-    "componentHeading":"Login Component [TBD]",
+    "componentHeading":"Cooper Atkins Dashboard [TBD]",
     "loginForm":{
       "username":"Username [TBD]",
       "password":"Password [TBD]",
@@ -23,11 +23,7 @@
     "lastCheckin": "Last Checkin [TBD]",
     "networkName": "Network Name [TBD]",
     "gatewayName": "Gateway Name [TBD]",
-    "nextCheckin": "Next Checkin [TBD]",
-    "tabs":{
-      "graph":"Graph [TBD]",
-      "history":"History [TBD]"
-    }
+    "nextCheckin": "Next Checkin [TBD]"
   },
   "tileStatus":{
     "alert":"Alerts [TBD]",

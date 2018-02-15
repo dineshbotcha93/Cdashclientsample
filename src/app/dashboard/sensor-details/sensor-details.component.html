@@ -1,103 +1,75 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_title">
-        <h3>{{'sensorDetails.sensorDetailsTitle' | translate}}</h3>
-        <div class="clearfix"></div>
+<div class="row sensor-summary-info">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <h3>{{'sensorDetails.sensorDetailsTitle' | translate}}</h3>
+        </div>
+  <div class="ss-info-container">
+        <div class="col-md-3 col-sm-3 col-xs-12 ss-info-left">
+          <app-gauge
+            [type]="'semi'"
+            [value]="'60'"
+            [title]="result.SensorName"
+          ></app-gauge>
 
-        <div class="row sensor-summary-info">
-
-          <div class="sensor-summary-info">
-            <div class="col-md-6 ss-info-left">
-              <p><span>
-                {{'sensorDetails.sensorName'| translate}}:
-              </span>
-                {{result.SensorName}}
-              </p>
-              <p><span>
-                {{'sensorDetails.currentReading'| translate}}:
-              </span>
-                {{result.CurrentReading}}
-              </p>
-              <p><span>
+          <p>
+                <span>
               {{'sensorDetails.lastCheckin'|translate}}:
               </span>
-                {{result.LastCommunicationDate}}
-              </p>
-            </div>
-            <div class="col-md-6 ss-info-right">
-              <p><span>
-              {{'sensorDetails.networkName'|translate}}:
-              </span>
-                {{result.NetworkName}}
-              </p>
-              <p><span>
-              {{'sensorDetails.gatewayName'|translate}}:
-              </span>
-                {{result.Gateway}}
-              </p>
-              <p><span>
-              {{'sensorDetails.nextCheckin'|translate}}:
-              </span>
-                {{result.NextCommunicationDate}}
-              </p>
-            </div>
+            {{result.LastCommunicationDate}}
+          </p>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-12 network-card graph-card dark-theme">
+          <div class="demo-placeholder">
+            <canvas
+              baseChart
+              #baseChart="base-chart"
+              [chartType]="'line'"
+              [datasets]="chartData"
+              [labels]="chartLabels"
+              [options]="chartOptions"
+              [legend]="true">
+            </canvas>
           </div>
         </div>
-        <!-- <pre>{{result|json}}</pre> -->
-      </div>
-  <!--  <div class="x_content">
-  <div class="" role="tabpanel" data-example-id="togglable-tabs">
-  <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home</a>
-</li>
-<li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Profile</a>
-</li>
-<li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
-</li>
-</ul>
-<div id="myTabContent" class="tab-content">
-<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-<pre>{{result|json}}</pre>
-</div>
-<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-booth letterpress, commodo enim craft beer mlkshk aliquip</p>
-<app-datatable></app-datatable>
-</div>
-<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-<p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-booth letterpress, commodo enim craft beer mlkshk </p>
-</div>
-</div>
-</div>
+    </div>
+    </div>
 
-</div>
--->
-      <div class="x_content">
-<tabs #tabs>
-  <tab tabTitle="{{'sensorDetails.tabs.graph'|translate}}" class="tab-content" active="true">
-    <div style="width: 100%;" class="chart-style">
-  <canvas
-      baseChart
-      #baseChart="base-chart"
-      [chartType]="'line'"
-      [datasets]="chartData"
-      [labels]="chartLabels"
-      [options]="chartOptions"
-      [legend]="true">
-  </canvas>
-</div>
-  </tab>
-  <tab tabTitle="{{'sensorDetails.tabs.history'|translate}}" class="tab-content">
-    <app-datatable
-    [rows]="rows"
-    [columns]="columns"
-    [limit]="limit">
-  </app-datatable>
-  </tab>
-</tabs>
-      </div>
+        <!--<div class="">
+          <div class="col-md-4 ss-info-right">
+
+
+            &lt;!&ndash;<p><span>
+            {{'sensorDetails.networkName'|translate}}:
+            </span>
+              {{result.NetworkName}}
+            </p>
+            <p><span>
+            {{'sensorDetails.gatewayName'|translate}}:
+            </span>
+              {{result.Gateway}}
+            </p>
+            <p><span>
+            {{'sensorDetails.nextCheckin'|translate}}:
+            </span>
+              {{result.NextCommunicationDate}}
+            </p>&ndash;&gt;
+          </div>
+        </div>-->
+        <!-- <pre>{{result|json}}</pre> -->
+
+
+        <!--<h1>{{'sensorDetails.tabs.graph'|translate}}</h1>-->
+      <div class="clearfix"></div>
+    <div class="row network-card graph-card dark-theme">
+      <app-datatable
+        [rows]="rows"
+        [columns]="columns"
+        [limit]="limit">
+      </app-datatable>
+    </div>
+
     </div>
   </div>
 </app-layout>
