@@ -33,10 +33,10 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
     private router:Router,
     private translate: TranslateService){
 
-    this.totalStatuses['alerts'] = {status:'Alerts',count:0};
-    this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0};
-    this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0};
-    this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0};
+    this.totalStatuses['alerts'] = {status:'Alerts',count:0,title:''};
+    this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0,title:''};
+    this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0,title:''};
+    this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0,title:''};
 
     dashboardService.getRealData().then((realResults)=>{
       realResults.forEach((rResult)=>{
@@ -55,11 +55,19 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
       return realResults;
     }).then((real)=>{
       this.mapData = real;
+      this.tileTranslation();
     });
   }
 
   ngAfterContentInit(){
     this.tileTranslation();
+  }
+
+  forceTranslations(){
+    this.totalStatuses['alerts'].title = this.translate.instant('tileStatus.alert');
+    this.totalStatuses['missedCommunication'].title = this.translate.instant('tileStatus.missedCommunication');
+    this.totalStatuses['lowSignal'].title = this.translate.instant('tileStatus.lowSignal');
+    this.totalStatuses['lowBattery'].title = this.translate.instant('tileStatus.lowBattery');
   }
 
   ngAfterViewInit()	{
@@ -69,22 +77,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
   tileTranslation(){
     this.translate.use('en');
     this.translate.onLangChange.subscribe((e)=>{
-      Object.keys(this.totalStatuses).forEach((tD)=>{
-        switch(this.totalStatuses[tD].status){
-          case 'Alerts':
-          this.totalStatuses[tD].title = this.translate.instant('tileStatus.alert');
-          break;
-          case 'MissedCommunication':
-          this.totalStatuses[tD].title = this.translate.instant('tileStatus.missedCommunication');
-          break;
-          case 'LowSignal':
-          this.totalStatuses[tD].title = this.translate.instant('tileStatus.lowSignal');
-          break;
-          case 'LowBattery':
-          this.totalStatuses[tD].title = this.translate.instant('tileStatus.lowBattery');
-          break;
-        }
-      });
+      this.forceTranslations();
     });
     this.translate.use(localStorage.getItem('com.cdashboard.language'));
   }
