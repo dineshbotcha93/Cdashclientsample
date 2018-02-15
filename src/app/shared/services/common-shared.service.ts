@@ -14,28 +14,29 @@ export class CommonSharedService {
 	evaluateSensorStatus(criteria,sensorDetail,aSensor){
 		switch(criteria){
 			case 'good':
-			return (sensorDetail['Status'] == 0) ? aSensor:'';
+			return (sensorDetail['status'] == 0) ? aSensor:'';
 			case 'low signal':
-			return (sensorDetail['Status'] == 1) ? aSensor:'';
+			return (sensorDetail['status'] == 1) ? aSensor:'';
 			case 'low battery':
-			return (sensorDetail['Status'] == 2) ? aSensor:'';
+			return (sensorDetail['status'] == 2) ? aSensor:'';
 			case 'missed communication':
-			return (sensorDetail['Status'] == 3) ? aSensor:'';
+			return (sensorDetail['status'] == 3) ? aSensor:'';
 			case 'alerts':
-			return (sensorDetail['Status'] == 4) ? aSensor:'';
+			return (sensorDetail['status'] == 4) ? aSensor:'';
 			default:
 			return aSensor;
 		}
 	}
 
 	evaluateSensorType(criteria,sensorDetail,aSensor){
+		console.log(sensorDetail);
 		switch(criteria){
 			case 'temperature':
-			return (sensorDetail['SensorType']==2) ? aSensor : '';
+			return (sensorDetail['sensorType']==2) ? aSensor : '';
 			case 'humidity':
-			return (sensorDetail['SensorType']==43) ? aSensor : '';
+			return (sensorDetail['sensorType']==43) ? aSensor : '';
 			case 'contact':
-			return (sensorDetail['SensorType']==9) ? aSensor: '';
+			return (sensorDetail['sensorType']==9) ? aSensor: '';
 			default:
 			return aSensor;
 		}

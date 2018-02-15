@@ -106,7 +106,7 @@
                   [tileContent]="sensor.sensorName"
                   [tileDetails]="{fahrenHeight:sensor.currentReading}"
                   [tileColorBy]="'sensorType'"
-                  [sensorTileIcon]="sensor.sensorType ? sensor.sensorType : '2'"
+                  [sensorTileIcon]="sensor.sensorType"
                   (click)="gotoSummary()"
                   [tileColor]="sensor.status+''">
                 </app-tile>
