@@ -26,7 +26,7 @@
             </select>
           </div>
           <div class=" col-md-6 col-sm-12 col-xs-12">
-              <label for="dateRange" class="col-wd-22 margin-top-ten">Date between:</label>
+              <label for="dateRange" class="col-sm-3 margin-top-ten">Date between:</label>
               <div class="col-xs-12 col-sm-4 col-md-4 input-group" style="float:left; margin-right:20px">
                   <input type="text"
                          class="form-control"
@@ -74,8 +74,8 @@
       <ng-template #phoneColTmpl let-row="row" let-value="value">
         <a href="tel:{{value}}">{{value}}</a>
       </ng-template>
-      <ng-template #nameColTmpl let-value="value">
-        <a class="anchor-datatable" routerLink="/business/customer-details" routerLinkActive="active">{{value}}</a>
+      <ng-template #nameColTmpl let-row="row" let-value="value">
+        <a class="anchor-datatable" [routerLink]="['/business/customer-details/', row.Id, 'view']" routerLinkActive="active">{{value}}</a>
       </ng-template>
     </div>
         </div>
