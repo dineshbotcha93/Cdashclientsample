@@ -1,8 +1,5 @@
 import { Component, OnInit ,Output, EventEmitter,Input } from '@angular/core';
 
-
-
-
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -10,287 +7,65 @@ import { Component, OnInit ,Output, EventEmitter,Input } from '@angular/core';
 })
 export class NotificationsComponent implements OnInit {
 
-  
-  subNotificationTypes: any = [];
-  selectSubNotifyType : any = [];
-  isReadingTypeAvailable : boolean = false;
-  isSensorNotificationForm:boolean = false;
-  isLessThanValue: any = [];
-  tempTypeValue:any = [];
-  selectIsLessThanValue :any = [];
-  selectTempTypeValue :any = [];
-  isNotificationActive : any = [];
 
-  checkModel: any = { left: true, right: false };
-  checkModelSnooze: any = { left: true, right: false };
-
-  dailySheduleNotificationList :any = [];
-  timePickerBefore : Date = new Date();
-  timePickerAfter : Date = new Date();
-
-  scheduleObj : any = [];
-
-
-  templateName :string ;
-
-
+  notificationOverviewObject: any = [];
 
   constructor() { }
 
   ngOnInit() {
 
-    this.isReadingTypeAvailable = false;
-
-        let Obj = [
-          {
-          id: '01',
-          value: 'LessThan'
-          },{
-          id: '02',
-          value: 'greaterThan'
-        }
-      ];
-    
-
-    this.selectIsLessThanValue = Obj[0];
-    this.isLessThanValue = Obj;
-   
-    let Obj2 = [
-          {
-          id: '01',
-          value: 'Celcius'
-          },{
-          id: '02',
-          value: 'Fahrenheit'
-        }
-
-      ];
-
-    this.selectTempTypeValue = Obj2[0];
-    this.tempTypeValue = Obj2;
-
-    let tempObject3 = [
-          {
-          id: '01',
-          value: 'All Day'
-          },{
-          id: '02',
-          value: 'Off'
-        },{
-          id: '03',
-          value: 'Between'
-        },{
-          id: '04',
-          value: 'Between and After'
-        },{
-          id: '05',
-          value: 'Before'
-        },{
-          id: '06',
-          value: 'After'
-        }
-
-      ];
-
-     this.scheduleObj = [
-          {
-            day:'Monday',
-                  value:'monday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          },
-          {
-            day:'Tuesday',
-                  value:'tuesday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          },
-          {
-            day:'Wednesday',
-                  value:'wednesday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          },
-          {
-            day:'Thursday',
-                  value:'thursday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          },
-          {
-            day:'Friday',
-                  value:'friday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          },
-          {
-            day:'Saturday',
-                  value:'saturday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          },{
-            day:'Sunday',
-                  value:'sunday',
-                  scheduleObj: tempObject3,
-                  timePickerBefore:this.timePickerBefore,
-                  timePickerAfter:this.timePickerAfter
-          }
-      ];
-        
-    
-
-      this.dailySheduleNotificationList = [];
-  }
-
-
-  onClickSensorNotify(){
-    this.isReadingTypeAvailable = true;
-
-    this.isSensorNotificationForm = false;
-    
-    this.templateName = 'sensorNotification';
-  
-    console.log('onClickSensorNotify');
-    let Obj = [
-                {  id: '01',
-                  value: 'Please Select One'
-                },
-                {
-                  id: '02',
-                  value: 'Temperature'
-                }
-               ];
-
-    this.selectSubNotifyType = Obj[0];
-    this.subNotificationTypes = Obj;
-  }
-
-
-  onClickAdvanceNotify(){
-    this.isReadingTypeAvailable = true;
-    this.isSensorNotificationForm = false;
-    this.templateName = 'advancedNotification';
-  
-    console.log('onClickSensorNotify');
-    let Obj = [
-                {  id: '01',
-                  value: 'Please Select One'
-                },
-                {
-                  id: '02',
-                  value: 'Notify after aware period'
-                },
-                {
-                  id: '03',
-                  value: 'Back Online'
-                },
-                {
-                  id: '04',
-                  value: 'Battery Below 10'
-                },
-                {
-                  id: '05',
-                  value: 'Gateway On Battery'
-                },
-                {
-                  id: '06',
-                  value: 'Frequent Aware Messages'
-                },
-                {
-                  id: '07',
-                  value: 'First Aware Message'
-                },
-                {
-                  id: '08',
-                  value: 'First Non-Aware Message'
-                },
-                {
-                  id: '09',
-                  value: 'Aware State Changed'
-                },
-                {
-                  id: '10',
-                  value: 'Gateway Switched to Line Power'
-                },
-                {
-                  id: '11',
-                  value: 'Notify after not aware period'
-                },
-                {
-                  id: '12',
-                  value: 'Advanced Temperature Range'
-                },
-                {
-                  id: '13',
-                  value: 'Advanced Humidity'
-                },
-                {
-                  id: '14',
-                  value: 'Advanced Open / Closed'
-                },
-                {
-                  id: '14',
-                  value: 'Advanced Temperature'
-                }
-
-               ];
-
-    this.selectSubNotifyType = Obj[0];
-    this.subNotificationTypes = Obj;
-  }
-
-  onClickBatteryNotify(){
-
-    this.isReadingTypeAvailable = false;
-    
-    this.isSensorNotificationForm = true;
-
-     this.templateName = 'batteryNotification';
-
-  }
-
-  onClickInActivityNotify(){
-
-    
-    this.isReadingTypeAvailable = false;
-    
-    this.isSensorNotificationForm = true;
-
-     this.templateName = 'inActiveNotification';
-    
-  }
-
-  onChangeNotifictaion(e){
-    this.isSensorNotificationForm = true;
-  }
-
- onClickAlways(e){
-     this.checkModel = { left: true, right: false };
-   
-    this.dailySheduleNotificationList = [];
- }
-
- onClickSchedule(e){
-   this.checkModel = { left: false, right: true };
-   this.dailySheduleNotificationList = this.scheduleObj;
- }
-
- onClickIndependent(e){
-     this.checkModel = { left: true, right: false };
- }
-
- onClickJoint(e){
-   this.checkModel = { left: false, right: true };
- }
-
- onClickCancelDetail(){
-   this.isSensorNotificationForm = false;
- }
-
+    this.notificationOverviewObject = [
+                  {
+                    "NotificationID": 1017,
+                    "Name": "outoftemprange107coolers",
+                    "DeviceID": 1274,
+                    "DeviceName": "105Tucson",
+                    "DeviceType": "Tempreture",
+                    "Reading": "Duration: 191minutes<br/>CurrentReading: 32.5°F",
+                    "NotificationDate": "2018-01-05T23: 48: 35",
+                    "Text": '<tableborder="0"cellpadding="0"cellspacing="0"width="100%"><tbody><tr><tdalign="middle"><tableborder="0"cellpadding="0"cellspacing="0"style="border-bottom: #3331pxsolid;border-left: #3331pxsolid;background-color: #ffffff;border-top: #3331pxsolid;border-right: #3331pxsolid"width="620"><tbody><tr><tdstyle="text-align: center;padding-bottom: 0px;margin: 0px;padding-left: 0px;padding-right: 0px;padding-top: 0px"valign="top"><imgalt="NotifEye"border="0"src="http: //monitoring.notifeyewireless.com/Content/images/logo.png"/></td></tr><tr><td><tableborder="0"cellpadding="0"cellspacing="0"width="100%"><tbody><tr><tdalign="left"style="padding-bottom: 10px;padding-left: 0px;padding-right: 20px;padding-top: 10px"valign="top"width="370"><pstyle="padding-bottom: 0px;margin: 10px0px0px20px;padding-left: 0px;padding-right: 0px;font-family: arial;color: ##334873;font-size: 18px;padding-top: 0px"><strong>NotifEye</strong></p><pstyle="margin: 0px">&nbsp;</p><pstyle="font-family: arial;color: #333;margin-left: 20px;font-size: 12px">kitchenmanager107<br/><br/>Sensor: 1168112093ProductionCooler107<br/>SensorType: Temperature<br/>Network: 107MyrtleBeach<br/>Date: 1/5/20184: 48PM<br/>Reading: Duration: 191minutes<br/>CurrentReading: 32.5°F<br/>outoftemprange107<br/></p><pstyle="font-family: arial;color: #333;margin-left: 20px;font-size: 12px">&nbsp;</p><pstyle="font-family: arial;color: #333;margin-left: 20px;font-size: 12px">Thisemailaddressisnotmonitored.&nbsp;Pleasedonotrespondtothismessage.</p><divstyle="margin-top: -40px;margin-left: 250px">&nbsp;</div></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>',
+                    "SentNotificationID": 592990,
+                    "UserID": 399,
+                    "UserName": "kitchenLastName",
+                    "SMSNumber": null,
+                    "Email": "Reclamationbin@gmail.com",
+                    "Type": "Email",
+                    "Status": "EmailSent"
+                  },
+                   {
+                  "NotificationID": 1161,
+                  "Name": "Thamm",
+                  "DeviceID": 1160073136,
+                  "DeviceName": "Beer Cooler",
+                  "DeviceType": "Commercial",
+                  "Reading": "Inactivity Alert.",
+                  "NotificationDate": "2018-01-05T23:59:53.84",
+                  "Text": '<table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="middle"> <table border="0" cellpadding="0" cellspacing="0" style="border-bottom: #333 1px solid; border-left: #333 1px solid; background-color: #ffffff; border-top: #333 1px solid; border-right: #333 1px solid" width="620"> <tbody> <tr> <td style="text-align: center; padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px" valign="top"> <img alt="NotifEye" border="0" src="http://monitoring.notifeyewireless.com/Content/images/logo.png" /></td> </tr> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="left" style="padding-bottom: 10px; padding-left: 0px; padding-right: 20px; padding-top: 10px" valign="top" width="370"> <p style="padding-bottom: 0px; margin: 10px 0px 0px 20px; padding-left: 0px; padding-right: 0px; font-family: arial; color: ##334873; font-size: 18px; padding-top: 0px"> <strong>NotifEye</strong></p> <p style="margin: 0px"> &nbsp;</p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> Tyrone Hamm<br /><br />Sensor: Beer Cooler<br />Sensor Type: Temperature<br />Network: San Antonio<br />Date: 1/5/2018 6:59 PM<br />Reading: Inactivity Alert.<br />1-773-940-6693<br /></p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> &nbsp;</p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> This email address is not monitored.&nbsp; Please do not respond to this message.</p> <div style="margin-top: -40px; margin-left: 250px"> &nbsp;</div> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> ',
+                  "SentNotificationID": 593019,
+                  "UserID": 682,
+                  "UserName": "Tyrone LastName",
+                  "SMSNumber": "555-555-1234",
+                  "Email": "Reclamationbin@gmail.com",
+                  "Type": "Email",
+                  "Status": "Email Sent"
+                  },
+                  {
+                  "NotificationID": 177,
+                  "Name": "Base Station - Lost Internet Connection",
+                  "DeviceID": 1607990267,
+                  "DeviceName": "Base Station - 1607990267",
+                  "DeviceType": "Base Station",
+                  "Reading": "Inactivity Alert.",
+                  "NotificationDate": "2018-01-05T23:36:53.567",
+                  "Text": '<table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="middle"> <table border="0" cellpadding="0" cellspacing="0" style="border-bottom: #333 1px solid; border-left: #333 1px solid; background-color: #ffffff; border-top: #333 1px solid; border-right: #333 1px solid" width="620"> <tbody> <tr> <td style="text-align: center; padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px" valign="top"> <img alt="NotifEye" border="0" src="http://monitoring.notifeyewireless.com/Content/images/logo.png" /></td> </tr> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="left" style="padding-bottom: 10px; padding-left: 0px; padding-right: 20px; padding-top: 10px" valign="top" width="370"> <p style="padding-bottom: 0px; margin: 10px 0px 0px 20px; padding-left: 0px; padding-right: 0px; font-family: arial; color: ##334873; font-size: 18px; padding-top: 0px"> <strong>NotifEye</strong></p> <p style="margin: 0px"> &nbsp;</p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> Hiro Adachi<br /><br />Gateway: Base Station - 1607990267<br />Gateway Type: Base Station<br />Network: Temp Sensor<br />Date: 1/5/2018 7:36 PM<br />Reading: Inactivity Alert.<br />WARNING! INTERNET CONNECTION LOST- POSSIBLE POWER FAILURE<br /></p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> &nbsp;</p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> This email address is not monitored.&nbsp; Please do not respond to this message.</p> <div style="margin-top: -40px; margin-left: 250px"> &nbsp;</div> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> ',
+                  "SentNotificationID": 592970,
+                  "UserID": 116,
+                  "UserName": "Hiro LastName",
+                  "SMSNumber": "555-555-1234",
+                  "Email": "Reclamationbin@gmail.com",
+                  "Type": "Email",
+                  "Status": "Email Sent"
+                  }
+                  ];
+    }
 }

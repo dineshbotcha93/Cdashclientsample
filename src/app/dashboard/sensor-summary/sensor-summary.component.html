@@ -243,6 +243,12 @@
                             <app-notification-summary></app-notification-summary> 
                         </div>
                      </div>
+
+                      <div *ngIf="notificationRadio === 'overview'">
+                        <div class="col-md-12 dark-theme">
+                            <app-notifications></app-notifications> 
+                        </div>
+                     </div>
                   </div>
                </tab>
 
