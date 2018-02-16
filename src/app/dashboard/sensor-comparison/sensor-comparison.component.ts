@@ -1,4 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
+import { Router,ActivatedRoute } from '@angular/router';
 import { SensorDetailsService } from '../sensor-details/services/sensor-details.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
@@ -31,7 +32,9 @@ export class SensorComparisonComponent{
   @ViewChild("baseChart") chart: BaseChartDirective;
 
 
-  constructor(private sensorDetailsService:SensorDetailsService){
+  constructor(private sensorDetailsService:SensorDetailsService,
+    private router:Router,
+    private route:ActivatedRoute){
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
@@ -131,6 +134,11 @@ export class SensorComparisonComponent{
     win.document.write("<html><head><title>Print Chart</title></head><body>");
     win.document.write("<br><img src='"+this.chart.chart.toBase64Image('image/png')+"' onload='print()' style='width:90%'/>");
     win.document.write("</body></html>");
+  }
+
+  goBack(){
+    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
 
   date: {year: number, month: number};
