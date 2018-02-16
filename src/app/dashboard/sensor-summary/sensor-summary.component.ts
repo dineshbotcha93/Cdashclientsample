@@ -67,6 +67,8 @@ export class SensorSummaryComponent implements OnInit {
 
    netWorkIdToMove : string = null;
 
+   notificationRadio: any = 'overview';
+
   private mapStatus = MapConstants.STATUS;
   private doFilterByName:string = null;
   private doFilterByStatus:string = 'select';
@@ -666,7 +668,24 @@ export class SensorSummaryComponent implements OnInit {
       this.router.navigate(['dashboard/sensor-comparison','I1']);
     }
 
+
+    onClickNotificationOverview(){
+      this.notificationRadio = 'overview';
+    }
+
+    onClickNotificationSummary(){
+      this.notificationRadio = 'summary';
+    }
+
+    onClickAddNotification(){
+      this.notificationRadio = 'addNotify';
+    }
+    onClickResetNotification(){
+      
+      this.notificationRadio = 'summary';
+  }
     goBack(){
       this.router.navigate(['dashboard']);
+
     }
   }
