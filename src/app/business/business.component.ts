@@ -42,7 +42,6 @@ export class BusinessComponent {
     }
   };
   public tileClicked(e: any): void {
-    console.log('testttttt');
     let param = e.currentTarget.getAttribute('tile-name').toLowerCase().replace(/ /g, '-').trim();
     this.router.navigate(['business/customer-list/' + param]);
   }

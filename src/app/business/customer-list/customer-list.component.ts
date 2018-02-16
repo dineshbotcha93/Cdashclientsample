@@ -42,6 +42,8 @@ export class CustomerListComponent implements OnInit {
   private statusParam: string = null;
   private bsValue: Date = new Date();
   private bsValueTwo: Date = new Date();
+  private customerId: number = null;
+
 
   constructor(private businessService: BusinessService,
     private route: ActivatedRoute, private router: Router) {
