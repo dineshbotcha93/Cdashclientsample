@@ -27,6 +27,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
   private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
+  private loadedStatuses = false;
   constructor(
     private dashboardService: DashboardService,
     private mapService:MapService,
@@ -55,6 +56,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
       return realResults;
     }).then((real)=>{
       this.mapData = real;
+      this.loadedStatuses = true;
       this.forceTranslations();
     });
   }
