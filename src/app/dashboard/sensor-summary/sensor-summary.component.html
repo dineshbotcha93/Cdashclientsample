@@ -279,8 +279,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let aGateway of selectedUserDataForOperation">
-      <td class="col-md-2" *ngIf="radioModel === 'gateway'">{{aGateway.Name}}</td>
-      <td class="col-md-2" *ngIf="radioModel === 'sensor'">{{aGateway.SensorName}}</td>
+      <td class="col-md-2" *ngIf="radioModel === 'gateway'">{{aGateway.name}}</td>
+      <td class="col-md-2" *ngIf="radioModel === 'sensor'">{{aGateway.sensorName}}</td>
     </tr>
     </tbody>
   </table>
@@ -330,14 +330,14 @@
     <tbody>
     <tr *ngFor="let aGateway of gateWayData">
       <td class="col-md-1">
-        <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.GatewayID"
+        <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.gatewayID"
                (change)="onClickInlineCheckBox($event,aGateway)">
       </td>
-       <td class="col-md-4" >{{aGateway.GatewayID}}</td>
-      <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}}</td>
+       <td class="col-md-4" >{{aGateway.gatewayID}}</td>
+      <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.name}}</td>
       <td *ngIf="aGateway.gateWayEditOption ==='edit'">
-        <input class="form-control" type="text" name="gatewayName" value="{{aGateway.Name}}"
-               [(ngModel)]="aGateway.Name"></td>
+        <input class="form-control" type="text" name="gatewayName" value="{{aGateway.name}}"
+               [(ngModel)]="aGateway.name"></td>
     </tr>
     </tbody>
   </table>

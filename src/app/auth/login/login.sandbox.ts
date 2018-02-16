@@ -31,14 +31,12 @@ export class LoginSandbox extends Sandbox {
       Username:form.value.username,
       Password:form.value.password
     };
-    console.log(body);
     this.requesterService
     .postExternalRequest('/api/Token',body)
     .then((e)=>{
       console.log(e);
       localStorage.setItem('com.cdashboard.token', e);
+      this.router.navigate(['dashboard']);
     });
-
-    this.router.navigate(['dashboard']);
   }
 }
