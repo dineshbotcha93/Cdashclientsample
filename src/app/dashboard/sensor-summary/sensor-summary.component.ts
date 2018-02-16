@@ -81,6 +81,7 @@ export class SensorSummaryComponent implements OnInit {
     ){
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
+        localStorage.setItem("com.cdashboard.networkId",this.netWorkId);
         this.getNetworkData();
         this.getDropdownDetails();
      });
@@ -663,5 +664,9 @@ export class SensorSummaryComponent implements OnInit {
 
     doCompare(){
       this.router.navigate(['dashboard/sensor-comparison','I1']);
+    }
+
+    goBack(){
+      this.router.navigate(['dashboard']);
     }
   }

@@ -91,4 +91,9 @@ export class SensorDetailsComponent {
   onChartClick(event) {
     console.log(event);
   }
+
+  goBack(){
+    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    this.router.navigate(['dashboard/sensor-summary',networkId]);
+  }
 }
