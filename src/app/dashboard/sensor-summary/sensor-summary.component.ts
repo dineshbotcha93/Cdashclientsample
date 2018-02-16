@@ -6,6 +6,8 @@ import { SensorSummaryService } from './services/sensor-summary.service';
 import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
+import { DatePipe } from '@angular/common';
+
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
@@ -14,7 +16,7 @@ import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
   styleUrls: ['./sensor-summary.component.scss'],
   providers:[MapService,SensorSummaryService,CommonSharedService,AlertSandbox]
 })
-export class SensorSummaryComponent implements OnInit{
+export class SensorSummaryComponent implements OnInit {
   mapData:Object = null;
   allSensors:Array<any> = [];
   displayTiles:Object = null;
@@ -77,43 +79,63 @@ export class SensorSummaryComponent implements OnInit{
     private commonSharedService:CommonSharedService,
     private alertSandbox: AlertSandbox
     ){
-
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
         this.getNetworkData();
-
+        this.getDropdownDetails();
      });
    }
 
    ngOnInit() {
-      this.mapService.getData().subscribe(e => {
-         for (let location of e.LocationGroup) {
-            location.Location.forEach((loc) => {
-               let Obj = {
-                  Title: null,
-                  Id: null
-               };
-               Obj.Id = loc.Id;
-               Obj.Title = loc.Title;
-               if (loc.Id === this.netWorkId) {
-                  this.selectLocation = Obj;
-               }
-               this.locationData.push(Obj);
-            });
+      // this.mapService.getData().subscribe(e => {
+      //    for (let location of e.LocationGroup) {
+      //       location.Location.forEach((loc) => {
+      //          let Obj = {
+      //             Title: null,
+      //             Id: null
+      //          };
+      //          Obj.Id = loc.Id;
+      //          Obj.Title = loc.Title;
+      //          if (loc.Id === this.netWorkId) {
+      //             this.selectLocation = Obj;
+      //          }
+      //          this.locationData.push(Obj);
+      //       });
+      //    }
+      // });
+   }
+
+   private getDropdownDetails(){
+     this.sensorSummaryService.getNetworkLocations().then((result)=>{
+       result.forEach((loc)=>{
+         let Obj = {
+                   Title: null,
+                   Id: null
+                };
+         Obj.Id = loc.networkID;
+         Obj.Title = loc.networkName;
+         if (loc.networkID == this.netWorkId) {
+             this.selectLocation = Obj;
          }
-      });
-      this.onSelectSensorRadio();
+         this.locationData.push(Obj);
+       });
+     });
    }
 
    /*Get sensor data from service by selecting the network Id*/
    private getNetworkData() {
       this.allSensors = [];
-      this.mapData = null;
-      this.sensorSummaryService.getData(this.netWorkId).then((e) => {
-         this.mapData = e;
-         this.getSensorData(e.Location.Network.Sensor);
-         this.getGatewayData(e.Location.Network.Gateway, '');
-      });
+      //this.mapData = null;
+        this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
+          this.mapData = result;
+          this.getSensorData(result.sensors);
+          if(this.mapData['noOfSensors'] > 0){
+            this.onSelectSensorRadio();
+          } else {
+          }
+        });
+         //this.mapData = e;
+         // this.getGatewayData(e.Location.Network.Gateway, '');
    }
 
    /*Get the gateway data from the Backend*/
@@ -141,6 +163,8 @@ export class SensorSummaryComponent implements OnInit{
          sens.checked = false;
          sens.gateWayEditOption = 'display';
          sens.sensorSliderValue = '10';
+         // hardcoded for now
+         sens.sensorType = 2;
          this.allSensors.push(sens);
       });
       this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
@@ -591,13 +615,13 @@ export class SensorSummaryComponent implements OnInit{
       this.isSelectedToAddDevice = false;
     }
 
-    gotoSummary(){
-      this.router.navigate(['dashboard/sensor-details','I1']);
+    gotoSummary(sensor){
+      this.router.navigate(['dashboard/sensor-details',sensor.sensorID]);
     }
 
     filterName(){
       if(this.doFilterByName!==null){
-        this.allSensors = this.originalSensor.filter((sens)=>sens.SensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
+        this.allSensors = this.originalSensor.filter((sens)=>sens.sensorName.toLowerCase().indexOf(this.doFilterByName.toLowerCase()) > -1 ? sens:'',this);
       }
       else if(this.doFilterByName == '' || this.doFilterByName == null){
         this.allSensors = this.originalSensor;

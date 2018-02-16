@@ -1,11 +1,11 @@
 <app-layout>
   <div class="row">
-    <div *ngFor="let i of tileData" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div *ngFor="let i of objectKeys(totalStatuses)" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
       <app-tile
-      [count]="i.count"
+      [count]="totalStatuses[i].count"
       [tileColorBy]="'status'"
-      [tileContent]="i.title"
-      [tileColor]="i.status">
+      [tileContent]="totalStatuses[i].title"
+      [tileColor]="totalStatuses[i].status">
       </app-tile>
     </div>
   </div>
@@ -15,7 +15,8 @@
 
       <div class="x_panel">
         <div class="x_content">
-          <app-map [markers]="mapData"></app-map>
+          <div class="loader" *ngIf="mapData.length == 0"></div>
+          <app-map [markers]="mapData" *ngIf="mapData.length > 0"></app-map>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { RequesterService } from '../../../shared/services/requester.service';
 import { Injectable } from '@angular/core';
 import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
+import { SERVER_URLS } from '../../../shared/constants/serverUrl.constants';
 // import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,7 +10,6 @@ export class SensorSummaryService {
   data:String[] = [];
   constructor(private requesterService:RequesterService,
               private http: HttpClient) {
-
   }
   getData(location){
     switch(location){
@@ -48,6 +48,21 @@ export class SensorSummaryService {
       default:
       break;
     }
+  }
+
+  getNetworkLocations(){
+    return this.requesterService
+    .getExternalRequest('/api/Network');
+  }
+
+  getSingleUserLocation(id){
+    return this.requesterService
+    .getExternalRequest("/api/Location/LocationDetails/"+id);
+  }
+
+  getRealData(){
+    return this.requesterService
+    .getExternalRequest('/api/Location/UserLocations');
   }
 
   /* Edit the gateway details*/

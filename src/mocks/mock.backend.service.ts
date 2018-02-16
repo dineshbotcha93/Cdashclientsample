@@ -1,12 +1,24 @@
 import {Injectable} from "@angular/core";
 import {MockBackend, MockConnection} from "@angular/http/testing";
 import { SERVICE_CONSTANTS } from '../app/shared/constants/service.constants';
-import {ResponseOptions, Response} from "@angular/http";
+import { SERVER_URLS } from '../app/shared/constants/serverUrl.constants';
+import {
+  ResponseOptions,
+  RequestOptions,
+  Response,
+  Http,
+  BaseRequestOptions,
+  XHRBackend,
+  Headers
+ } from "@angular/http";
 
 @Injectable()
 export class MockBackendService {
   constructor(
-    private backend: MockBackend
+    private backend: MockBackend,
+    private http: Http,
+    private options: BaseRequestOptions,
+    private realBackend: XHRBackend
   ) {}
 
   start(): void {
@@ -119,6 +131,39 @@ export class MockBackendService {
         c.mockRespond(new Response(new ResponseOptions({
           body: JSON.stringify(body)
         })));
+      } else if(c.request.url.match(/google/g) && c.request.method === 0){
+        this.http = new Http(this.realBackend, this.options);
+        this.http.get(c.request.url).subscribe((e)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(e.json())
+          })));
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 1){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.post(c.request.url,c.request.getBody(),options).subscribe((e)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(e.json())
+          })));
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 0){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.get(c.request.url,options).subscribe((e)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(e.json())
+          })));
+        });
       }
     });
   }

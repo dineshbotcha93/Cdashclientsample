@@ -21,4 +21,14 @@ export class SensorDetailsService {
       break;
     }
   }
+
+  getDataMessages(location){
+    return this.requesterService
+    .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate=1/9/2018&ToDate=1/10/2018');
+  }
+
+  getDetails(location){
+    return this.requesterService
+    .getExternalRequest('/api/Sensor/Details/'+location);
+  }
 }

@@ -16,6 +16,9 @@ import { Tab } from './tab.component';
 export class Tabs {
   tabs: Tab[] = [];
   selectTab(tab: Tab) {
+    if(tab.isDisabled){
+      return;
+    }
     this.tabs.forEach((tab) => {
       tab.active = false;
     });
