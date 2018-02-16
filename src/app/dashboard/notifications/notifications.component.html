@@ -1,0 +1,23 @@
+<div *ngIf="notificationOverviewObject">
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th class="col-md-3">Id</th>
+            <th class="col-md-3">Name</th>
+            <th class="col-md-3">Date</th>
+            <th class="col-md-3">Type</th>
+            <th class="col-md-3">Status</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let notifiy of notificationOverviewObject">
+             
+            <td class="col-md-3" >{{notifiy.NotificationID}}</td>
+             <td class="col-md-3" >{{notifiy.Name}}</td>
+            <td class="col-md-3" >{{notifiy.NotificationDate}}</td>
+            <td class="col-md-3" >{{notifiy.Type}}</td>
+            <td class="col-md-3" >{{notifiy.Status}}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>

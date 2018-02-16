@@ -15,6 +15,14 @@ import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 
 import { CreateDeviceComponent } from '../create-device/create-device.component';
 import { SharedModule } from '../../shared/modules/shared.module';
+import { NotificationsComponent } from '../notifications/notifications.component';
+
+import { NotificationSummaryComponent } from '../notification-summary/notification-summary.component';
+import { NotificationCreateComponent } from '../notification-create/notification-create.component';
+
+import { ButtonsModule } from 'ngx-bootstrap';
+import { TimepickerModule } from 'ngx-bootstrap';
+
 
 const routes:Object[] = [{
   path:'dashboard/sensor-summary/:id',component:SensorSummaryComponent
@@ -27,7 +35,10 @@ const routes:Object[] = [{
     SlideAbleDirective,
     Ng2StyledDirective,
     Ng2SliderComponent,
-    CreateDeviceComponent],
+    CreateDeviceComponent,
+    NotificationsComponent,
+    NotificationSummaryComponent,
+    NotificationCreateComponent],
   imports:[
     RouterModule.forChild(routes),
     ContainersModule,
@@ -35,7 +46,7 @@ const routes:Object[] = [{
     CommonModule,
     PipesModule,
     FormsModule,
-    SharedModule
+    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot()
   ],
   exports: [
     Ng2SliderComponent,
