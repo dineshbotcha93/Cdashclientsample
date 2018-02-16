@@ -6,9 +6,11 @@ import { Component, OnInit ,Output, EventEmitter,Input } from '@angular/core';
 })
 export class NotificationSummaryComponent implements OnInit {
   notificationSummaryList: any = [];
+  
   constructor() {}
   ngOnInit() {
     let Obj:Array<any> = [];
+    let checkModelNotify: any = { left: true, right: false };
     Obj = [
     {
       ID: 1490,
@@ -20,10 +22,11 @@ export class NotificationSummaryComponent implements OnInit {
       SentVia: [
       "SMS",
       "EMAIL"
-      ]
+      ],
+      checkModelNotify:checkModelNotify
     },
     {
-      ID: 1490,
+      ID: 1491,
       Name: "1.2 1153232008 Temp Walk in Frig #1",
       Text: "Gateway - Low Battery",
       Type: "BatteryNotification",
@@ -32,10 +35,12 @@ export class NotificationSummaryComponent implements OnInit {
       SentVia: [
       "SMS",
       "EMAIL"
-      ]
-    },
+      ],
+      checkModelNotify:checkModelNotify
+    }
+    ,
     {
-      ID: 1490,
+      ID: 1492,
       Name: "1.2 1153232008 Temp Walk in Frig #1",
       Text: "Gateway - Low Battery",
       Type: "BatteryNotification",
@@ -44,10 +49,11 @@ export class NotificationSummaryComponent implements OnInit {
       SentVia: [
       "SMS",
       "EMAIL"
-      ]
+      ],
+      checkModelNotify:checkModelNotify
     },
     {
-      ID: 1490,
+      ID: 1493,
       Name: "1.2 1153232008 Temp Walk in Frig #1",
       Text: "Gateway - Low Battery",
       Type: "BatteryNotification",
@@ -56,10 +62,11 @@ export class NotificationSummaryComponent implements OnInit {
       SentVia: [
       "SMS",
       "EMAIL"
-      ]
+      ],
+      checkModelNotify:checkModelNotify
     },
     {
-      ID: 1490,
+      ID: 1494,
       Name: "1.2 1153232008 Temp Walk in Frig #1",
       Text: "Gateway - Low Battery",
       Type: "BatteryNotification",
@@ -68,10 +75,11 @@ export class NotificationSummaryComponent implements OnInit {
       SentVia: [
       "SMS",
       "EMAIL"
-      ]
+      ],
+      checkModelNotify:checkModelNotify
     },
     {
-      ID: 1490,
+      ID: 1495,
       Name: "1.2 1153232008 Temp Walk in Frig #1",
       Text: "Gateway - Low Battery",
       Type: "BatteryNotification",
@@ -80,11 +88,31 @@ export class NotificationSummaryComponent implements OnInit {
       SentVia: [
       "SMS",
       "EMAIL"
-      ]
-    }];
+      ],
+      checkModelNotify:checkModelNotify
+    }
+    ];
 
     this.notificationSummaryList = Obj;
     
     console.log(this.notificationSummaryList);
   }
+  onClickNotifyOn(e,notify){
+  
+     this.notificationSummaryList.forEach(x => {
+
+           if(x === notify){
+             x.checkModelNotify = { left: true, right: false };
+           }
+            
+         });
+  }
+
+   onClickNotifyOff(e,notify){
+      this.notificationSummaryList.forEach(x => {
+           if(x === notify){
+             x.checkModelNotify = { left: false, right: true };
+           }
+         });
+    }
 }

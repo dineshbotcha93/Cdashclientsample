@@ -32,6 +32,8 @@
       </tbody>
    </table>
 </div>
+
+<!-- page 1 -->
 <div *ngIf="isSensorNotificationForm">
    <table class="table table-striped">
       <tbody>
@@ -50,7 +52,7 @@
 
         <ng-container *ngTemplateOutlet="notificationTemplate"></ng-container>
 
-         <tr>
+        <!--  <tr>
             <td> <label class="control-label col-form-label">Schedule Notification Times:</label></td>
             <td>
                <div class="col-md-8">
@@ -60,8 +62,8 @@
                   </div>
                </div>
             </td>
-         </tr>
-         <tr *ngFor="let dayily of dailySheduleNotificationList">
+         </tr> -->
+        <!--  <tr *ngFor="let dayily of dailySheduleNotificationList">
             <td> <label class="control-label col-form-label">{{dayily.day}}:</label></td>
             <td>
                <div class="col-md-4">
@@ -78,7 +80,7 @@
                <div class="col-md-3"><timepicker [(ngModel)]="dayily.timePickerAfter"></timepicker>
                </div>
             </td>
-         </tr>
+         </tr> -->
          <tr>
             <td> Don't Alert again for (Snooze)</td>
             <td>
@@ -108,7 +110,82 @@
       </tbody>
    </table>
 </div>
-<div *ngIf="isSensorNotificationForm">
+
+<!-- page 2 -->
+<div *ngIf="isSensorNotificationForm2">
+   <table class="table table-striped">
+      <tbody>
+         <tr>
+            <td> <label class="control-label col-form-label">Schedule Notification Times:</label></td>
+            <td>
+               <div class="col-md-8">
+                  <div class="btn-group">
+                     <label class="btn btn-primary" [(ngModel)]="checkModel.left" btnCheckbox (click)="onClickAlways($event)">Always</label>
+                     <label class="btn btn-primary" [(ngModel)]="checkModel.right" btnCheckbox (click)="onClickSchedule($event)">Schedule</label>
+                  </div>
+               </div>
+            </td>
+         </tr>
+          <tr *ngFor="let dayily of dailySheduleNotificationList">
+            <td> <label class="control-label col-form-label">{{dayily.day}}:</label></td>
+            <td>
+               <div class="col-md-4">
+                  <div class="form-group ss-location">
+                     <select class="form-control"  (ngModelChange)="onChangeNotifictaion($event)">
+                     <option *ngFor="let not of dayily.scheduleObj" [ngValue]="not">
+                     {{not.value}}
+                     </option>
+                     </select>
+                  </div>
+               </div>
+               <div class="col-md-3"><timepicker [(ngModel)]="dayily.timePickerBefore"></timepicker>
+               </div>
+               <div class="col-md-3"><timepicker [(ngModel)]="dayily.timePickerAfter"></timepicker>
+               </div>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<div *ngIf="isSensorNotificationForm3">
+   <table class="table table-striped">
+      <tbody>
+         <tr>
+            <td> <label class="control-label col-form-label">Select Sensors From:</label></td>
+            <td>
+               <div class="col-md-8">
+                  <div class="btn-group">
+                        <select class="form-control" [(ngModel)]="allSensors[0]" (ngModelChange)="onChangeLocation($event)">
+                          <option *ngFor="let sensor of allSensors" [ngValue]="sensor">
+                            {{sensor.sensorName}}
+                          </option>
+                        </select>
+                  </div>
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td> <label class="control-label col-form-label">Select Gateway From:</label></td>
+            <td>
+               <div class="col-md-8">
+                  <div class="btn-group">
+                        <select class="form-control" [(ngModel)]="gateWayData[0]" (ngModelChange)="onChangeLocation($event)">
+                          <option *ngFor="let gateway of gateWayData" [ngValue]="gateway">
+                            {{gateway.sensorName}}
+                          </option>
+                        </select>
+                  </div>
+               </div>
+            </td>
+         </tr>
+         
+      </tbody>
+   </table>
+</div>
+
+
+<div *ngIf="isButtonFooterRequired">
  
     <div class="row">
                      <div class="col-md-4">
@@ -118,13 +195,15 @@
                         <div class="form-group sensor-actions">
                            <button type="button"
                               class="btn btn-primary removeBTN"
-                               (click)="onClickAddDetail()"><i class="fa fa-trash"></i> previous  </button>
+                               (click)="onClickPrevious(currentPageValue)"><i class="fa fa-trash"></i> previous  </button>
                            <button type="button"
                               class="btn btn-primary addBTN"
-                               (click)="onClickAddDetail()"><i class="fa fa-plus"></i> Next  </button>       
+                               (click)="onClickNext(currentPageValue)"><i class="fa fa-plus"></i> Next  </button>       
                         </div>
                      </div>
 </div>
+
+
 <ng-template #notificationTemplate>
          <tr *ngIf="templateName ==='sensorNotification' ||  (selectSubNotifyType.id === '14' && templateName ==='advancedNotification')">
             <td> <label class="control-label col-form-label">Notify when sensor temperature reading is:</label> </td>
@@ -272,6 +351,9 @@
             </td>
          </tr>
 </ng-template>
+
+
+
 
 
 

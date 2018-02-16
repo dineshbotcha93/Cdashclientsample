@@ -210,12 +210,12 @@
               </div>
             </div>
           </tab>
-          <tab tabTitle="{{'sensorSummary.notificationTitle'|translate}}" class="tab-content device-management-container">
+          <tab tabTitle="Notifications" class="tab-content device-management-container">
                   <div class="row">
                      <div class="col-md-4">
                         <form action="" class="dark-theme">
-                           <input type="radio" checked name="notificationRadio" (click)="onClickNotificationOverview()" value="overview"> Overview
-                           <input type="radio" name="notificationRadio" (click)="onClickNotificationSummary()" value="summary"> Summary
+                           <input type="radio" checked name="notificationRadio" (click)="onClickNotificationOverview()" value="overview"> Sent Alerts
+                           <input type="radio" name="notificationRadio" (click)="onClickNotificationSummary()" value="summary"> Configuration
                         </form>
                      </div>
                      <div class="col-md-8" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
@@ -230,7 +230,10 @@
                      </div>
                      <div *ngIf="notificationRadio === 'addNotify'">
                         <div class="col-md-12 dark-theme">
-                           <app-notification-create></app-notification-create>
+                           <app-notification-create
+                           [allSensors] = "allSensors"
+                           [gateWayData] = "gateWayData"
+                           ></app-notification-create>
                            <!-- <app-notification-summary></app-notification-summary> -->
                         </div>
                      </div>

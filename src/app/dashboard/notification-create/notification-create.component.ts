@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 
 @Component({
   selector: 'app-notification-create',
@@ -11,6 +11,10 @@ export class NotificationCreateComponent implements OnInit {
   selectSubNotifyType : any = [];
   isReadingTypeAvailable : boolean = false;
   isSensorNotificationForm:boolean = false;
+  isSensorNotificationForm2: boolean = false;
+  isSensorNotificationForm3 : boolean = false;
+  isButtonFooterRequired : boolean = false;
+  currentPageValue :string  = 'page1';
   isLessThanValue: any = [];
   tempTypeValue:any = [];
   selectIsLessThanValue :any = [];
@@ -28,12 +32,17 @@ export class NotificationCreateComponent implements OnInit {
 
 
   templateName :string ;
+  
+   @Input() allSensors:Array<any> ;
+   @Input() gateWayData:Array<any> ;
+
 
 
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.allSensors);
 
     this.isReadingTypeAvailable = false;
 
@@ -149,6 +158,9 @@ export class NotificationCreateComponent implements OnInit {
     this.isReadingTypeAvailable = true;
 
     this.isSensorNotificationForm = false;
+    this.isSensorNotificationForm2 = false;
+
+    this.isButtonFooterRequired = true;
     
     this.templateName = 'sensorNotification';
   
@@ -171,6 +183,10 @@ export class NotificationCreateComponent implements OnInit {
   onClickAdvanceNotify(){
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm = false;
+
+    this.isSensorNotificationForm2 = false;
+
+    this.isButtonFooterRequired = true;
     this.templateName = 'advancedNotification';
   
     console.log('onClickSensorNotify');
@@ -247,6 +263,10 @@ export class NotificationCreateComponent implements OnInit {
     
     this.isSensorNotificationForm = true;
 
+    this.isSensorNotificationForm2 = false;
+
+    this.isButtonFooterRequired = true;
+
      this.templateName = 'batteryNotification';
 
   }
@@ -257,6 +277,9 @@ export class NotificationCreateComponent implements OnInit {
     this.isReadingTypeAvailable = false;
     
     this.isSensorNotificationForm = true;
+    
+    this.isSensorNotificationForm2 = false;
+    this.isButtonFooterRequired = true;
 
      this.templateName = 'inActiveNotification';
     
@@ -287,6 +310,43 @@ export class NotificationCreateComponent implements OnInit {
 
  onClickCancelDetail(){
    this.isSensorNotificationForm = false;
+ }
+
+ onClickNext(value){
+   console.log(value);
+   if(value === 'page1'){
+      this.isSensorNotificationForm2 = true;
+     this.isSensorNotificationForm = false;
+     this.isSensorNotificationForm3 = false;
+     this.currentPageValue = 'page2';
+   }else if(value === 'page2'){
+      this.isSensorNotificationForm2 = false;
+     this.isSensorNotificationForm = false;
+
+     this.isSensorNotificationForm3 = true;
+     this.currentPageValue = 'page1';
+   }
+  
+ }
+
+ onClickPrevious(value){
+
+   console.log(value);
+   // if(value === 'page1'){
+   //    this.isSensorNotificationForm2 = false;
+   //   this.isSensorNotificationForm = true;
+   //   this.isSensorNotificationForm3 = false;
+   //   value = 'page2';
+   // }else if(value === 'page2'){
+   //    this.isSensorNotificationForm2 = false;
+   //   this.isSensorNotificationForm = false;
+
+   //   this.isSensorNotificationForm3 = true;
+   //   value = 'page2';
+   // }
+   this.isSensorNotificationForm2 = false;
+   this.isSensorNotificationForm = true;
+     this.isSensorNotificationForm3 = false;
  }
 
 }
