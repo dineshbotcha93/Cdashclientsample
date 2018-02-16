@@ -5,6 +5,7 @@
       <div class="row sensor-summary-info">
         <div class="col-md-8">
           <h3>Location Details</h3>
+          <input type="button" value="Back" (click)="goBack()">
         </div>
         <div class="col-md-4">
           <div class="form-group ss-location">
@@ -16,11 +17,11 @@
           </div>
         </div>
         <div class="ss-info-container">
-          <div class="col-md-6 ss-info-left">
+          <!-- <div class="col-md-6 ss-info-left">
             <div class="ss-info-location">{{mapData?.title}}</div>
             <div class="ss-info-address">{{mapData?.city}} {{mapData?.postalCode}} {{mapData?.country}}</div>
-          </div>
-          <div class="col-md-6 network-card">
+          </div> -->
+          <div class="col-sm-12 network-card">
             <div class="network-card-top">
               <div class="network-name">{{selectLocation?.Title}}</div>
               <div class="network-id">{{selectLocation?.Id}}</div>
@@ -107,7 +108,7 @@
                   [tileDetails]="{fahrenHeight:sensor.currentReading}"
                   [tileColorBy]="'sensorType'"
                   [sensorTileIcon]="sensor.sensorType"
-                  (click)="gotoSummary()"
+                  (click)="gotoSummary(sensor)"
                   [tileColor]="sensor.status+''">
                 </app-tile>
               </div>
@@ -319,8 +320,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let aGateway of selectedUserDataForOperation">
-      <td class="col-md-2" *ngIf="radioModel === 'gateway'">{{aGateway.Name}}</td>
-      <td class="col-md-2" *ngIf="radioModel === 'sensor'">{{aGateway.SensorName}}</td>
+      <td class="col-md-2" *ngIf="radioModel === 'gateway'">{{aGateway.name}}</td>
+      <td class="col-md-2" *ngIf="radioModel === 'sensor'">{{aGateway.sensorName}}</td>
     </tr>
     </tbody>
   </table>
@@ -370,14 +371,14 @@
     <tbody>
     <tr *ngFor="let aGateway of gateWayData">
       <td class="col-md-1">
-        <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.GatewayID"
+        <input type="checkbox" [(ngModel)]="aGateway.checked" [name]="aGateway.gatewayID"
                (change)="onClickInlineCheckBox($event,aGateway)">
       </td>
-       <td class="col-md-4" >{{aGateway.GatewayID}}</td>
-      <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.Name}}</td>
+       <td class="col-md-4" >{{aGateway.gatewayID}}</td>
+      <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.name}}</td>
       <td *ngIf="aGateway.gateWayEditOption ==='edit'">
-        <input class="form-control" type="text" name="gatewayName" value="{{aGateway.Name}}"
-               [(ngModel)]="aGateway.Name"></td>
+        <input class="form-control" type="text" name="gatewayName" value="{{aGateway.name}}"
+               [(ngModel)]="aGateway.name"></td>
     </tr>
     </tbody>
   </table>

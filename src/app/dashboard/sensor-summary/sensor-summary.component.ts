@@ -83,6 +83,7 @@ export class SensorSummaryComponent implements OnInit {
     ){
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
+        localStorage.setItem("com.cdashboard.networkId",this.netWorkId);
         this.getNetworkData();
         this.getDropdownDetails();
      });
@@ -131,13 +132,13 @@ export class SensorSummaryComponent implements OnInit {
         this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
           this.mapData = result;
           this.getSensorData(result.sensors);
+          this.getGatewayData(result.gateways, '');
           if(this.mapData['noOfSensors'] > 0){
             this.onSelectSensorRadio();
           } else {
           }
         });
          //this.mapData = e;
-         // this.getGatewayData(e.Location.Network.Gateway, '');
    }
 
    /*Get the gateway data from the Backend*/
@@ -617,8 +618,8 @@ export class SensorSummaryComponent implements OnInit {
       this.isSelectedToAddDevice = false;
     }
 
-    gotoSummary(){
-      this.router.navigate(['dashboard/sensor-details','I1']);
+    gotoSummary(sensor){
+      this.router.navigate(['dashboard/sensor-details',sensor.sensorID]);
     }
 
     filterName(){
@@ -667,6 +668,7 @@ export class SensorSummaryComponent implements OnInit {
       this.router.navigate(['dashboard/sensor-comparison','I1']);
     }
 
+
     onClickNotificationOverview(){
       this.notificationRadio = 'overview';
     }
@@ -681,5 +683,9 @@ export class SensorSummaryComponent implements OnInit {
     onClickResetNotification(){
       
       this.notificationRadio = 'summary';
+  }
+    goBack(){
+      this.router.navigate(['dashboard']);
+
     }
   }
