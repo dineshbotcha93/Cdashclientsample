@@ -211,6 +211,47 @@
               </div>
             </div>
           </tab>
+          <tab tabTitle="Notifications" class="tab-content device-management-container">
+                  <div class="row">
+                     <div class="col-md-4">
+                        <form action="" class="dark-theme">
+                           <input type="radio" checked name="notificationRadio" (click)="onClickNotificationOverview()" value="overview"> Sent Alerts
+                           <input type="radio" name="notificationRadio" (click)="onClickNotificationSummary()" value="summary"> Configuration
+                        </form>
+                     </div>
+                     <div class="col-md-8" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
+                        <div class="form-group sensor-actions">
+                           <button type="button"
+                              class="btn btn-primary addBTN"
+                              (click)="onClickAddNotification()" ><i class="fa fa-plus"></i> Add Notification</button>
+                           <button type="button"
+                              class="btn btn-primary removeBTN"
+                              (click)="onClickResetNotification()" ><i class="fa fa-trash"></i> Cancel Notification </button>         
+                        </div>
+                     </div>
+                     <div *ngIf="notificationRadio === 'addNotify'">
+                        <div class="col-md-12 dark-theme">
+                           <app-notification-create
+                           [allSensors] = "allSensors"
+                           [gateWayData] = "gateWayData"
+                           ></app-notification-create>
+                           <!-- <app-notification-summary></app-notification-summary> -->
+                        </div>
+                     </div>
+
+                     <div *ngIf="notificationRadio === 'summary'">
+                        <div class="col-md-12 dark-theme">
+                            <app-notification-summary></app-notification-summary> 
+                        </div>
+                     </div>
+
+                      <div *ngIf="notificationRadio === 'overview'">
+                        <div class="col-md-12 dark-theme">
+                            <app-notifications></app-notifications> 
+                        </div>
+                     </div>
+                  </div>
+               </tab>
 
         </tabs>
       </div>
@@ -374,4 +415,4 @@
     </tr>
     </tbody>
   </table>
-</ng-template> -->
+</ng-template> 

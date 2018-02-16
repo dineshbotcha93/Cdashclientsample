@@ -1,0 +1,32 @@
+<div *ngIf="notificationSummaryList">
+   <table class="table table-striped">
+      <thead>
+         <tr>
+           <th class="col-md-4">Notify</th>
+            <th class="col-md-3">Name</th>
+            <th class="col-md-3">Type</th>
+            <th class="col-md-3">LastDateSent</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let notifiy of notificationSummaryList">
+               <td>
+               <div class="col-md-4">
+                  <div class="btn-group">
+                     <label class="btn btn-primary" [ngModel]="notifiy.checkModelNotify.left" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
+                     </label>
+                     <label class="btn btn-primary" [ngModel]="notifiy.checkModelNotify.right" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
+                     </label>
+                  </div>
+               </div>
+            </td>
+
+
+
+            <td class="col-md-3" >{{notifiy.Name}}</td>
+            <td class="col-md-3" >{{notifiy.Type}}</td>
+            <td class="col-md-3" >{{notifiy.LastDateSent}}</td>
+         </tr>
+      </tbody>
+   </table>
+</div>
