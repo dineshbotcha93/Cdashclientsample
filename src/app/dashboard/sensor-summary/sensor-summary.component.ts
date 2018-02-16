@@ -130,13 +130,13 @@ export class SensorSummaryComponent implements OnInit {
         this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
           this.mapData = result;
           this.getSensorData(result.sensors);
+          this.getGatewayData(result.gateways, '');
           if(this.mapData['noOfSensors'] > 0){
             this.onSelectSensorRadio();
           } else {
           }
         });
          //this.mapData = e;
-         // this.getGatewayData(e.Location.Network.Gateway, '');
    }
 
    /*Get the gateway data from the Backend*/
