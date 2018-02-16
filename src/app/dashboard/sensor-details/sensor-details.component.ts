@@ -6,6 +6,7 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment/moment';
 
 @Component({
   selector:'app-sensor-details',
@@ -48,10 +49,9 @@ export class SensorDetailsComponent {
         this.rows.push({
           messageID:res.messageID,
           data:res.data,
-          messageDate:res.messageDate,
+          messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
           signalStrength:res.signalStrength,
           voltage:res.voltage,
-          test:'<i class="fa fa-signal"></i>'
         });
       });
     });
@@ -60,7 +60,6 @@ export class SensorDetailsComponent {
     this.columns.push({prop:'messageDate',name:'Message Date'});
     this.columns.push({prop:'signalStrength',name:'Signal Strength'});
     this.columns.push({prop:'voltage',name:'Voltage'});
-    this.columns.push({prop:'test',name:'Test'});
 
     this.chartOptions = ChartOptions;
 
