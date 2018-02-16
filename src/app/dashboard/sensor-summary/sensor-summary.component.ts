@@ -615,8 +615,8 @@ export class SensorSummaryComponent implements OnInit {
       this.isSelectedToAddDevice = false;
     }
 
-    gotoSummary(){
-      this.router.navigate(['dashboard/sensor-details','I1']);
+    gotoSummary(sensor){
+      this.router.navigate(['dashboard/sensor-details',sensor.sensorID]);
     }
 
     filterName(){

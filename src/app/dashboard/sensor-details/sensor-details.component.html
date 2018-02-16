@@ -10,14 +10,14 @@
           <app-gauge
             [type]="'semi'"
             [value]="'60'"
-            [title]="result.SensorName"
+            [title]="sensorDetailsData?.sensorName"
           ></app-gauge>
 
           <p>
                 <span>
               {{'sensorDetails.lastCheckin'|translate}}:
-              </span>
-            {{result.LastCommunicationDate}}
+            </span>
+            {{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}
           </p>
         </div>
         <div class="col-md-9 col-sm-9 col-xs-12 network-card graph-card dark-theme">
@@ -35,35 +35,10 @@
         </div>
     </div>
     </div>
-
-        <!--<div class="">
-          <div class="col-md-4 ss-info-right">
-
-
-            &lt;!&ndash;<p><span>
-            {{'sensorDetails.networkName'|translate}}:
-            </span>
-              {{result.NetworkName}}
-            </p>
-            <p><span>
-            {{'sensorDetails.gatewayName'|translate}}:
-            </span>
-              {{result.Gateway}}
-            </p>
-            <p><span>
-            {{'sensorDetails.nextCheckin'|translate}}:
-            </span>
-              {{result.NextCommunicationDate}}
-            </p>&ndash;&gt;
-          </div>
-        </div>-->
-        <!-- <pre>{{result|json}}</pre> -->
-
-
-        <!--<h1>{{'sensorDetails.tabs.graph'|translate}}</h1>-->
       <div class="clearfix"></div>
     <div class="row network-card graph-card dark-theme">
       <app-datatable
+        *ngIf="rows[0]!=='N/A'"
         [rows]="rows"
         [columns]="columns"
         [limit]="limit">
