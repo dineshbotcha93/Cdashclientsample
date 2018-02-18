@@ -11,7 +11,6 @@ import { SensorDetailsModule }    from './sensor-details/sensor-details.module';
 import { SensorSummaryModule }    from './sensor-summary/sensor-summary.module';
 import { SensorComparisonModule } from './sensor-comparison/sensor-comparison.module';
 import { SharedModule } from '../shared/modules/shared.module';
-
 export const routes: Routes = [
   { path:'dashboard',component: DashboardComponent, canActivate:[AuthGuard] },
 ]

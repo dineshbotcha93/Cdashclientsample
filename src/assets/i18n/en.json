@@ -1,11 +1,11 @@
 {
  "login":{
-   "componentHeading":"Cooper Atkins Dashboard",
+   "componentHeading":"Portal",
    "loginForm":{
      "username":"Username",
      "password":"Password",
      "loginButton":"Login",
-     "newUser":"New User: Click to Register"
+     "newUser":"New User Registration"
     }
   },
  "dashboardMain":{

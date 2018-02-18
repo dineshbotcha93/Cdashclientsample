@@ -1,22 +1,23 @@
 <div class="login_wrapper">
-  <div class="animate form login_form">
+  <div class="form login_form">
     <section class="login_content">
       <form [formGroup]="myform" (ngSubmit)="onSubmit()">
-        <h1>{{'login.componentHeading'|translate}}</h1>
+        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <h1 class="login-title">{{'login.componentHeading'|translate}}</h1>
 
         <div>
           <div class="alert alert-danger" *ngIf="myform.controls.username.invalid && !myform.controls.username.pristine">Invalid Username</div>
-          <!--<label>{{'login.loginForm.username' | translate}}: </label>--><input type="text" class="form-control" formControlName="username"/>
-          <!--<label>{{'login.loginForm.password' | translate}}: </label>--><input type="password" class="form-control" formControlName="password" />
+          <input type="text" class="form-control" formControlName="username" placeholder="{{'login.loginForm.username' | translate}}"/>
+          <input type="password" class="form-control" formControlName="password" placeholder="{{'login.loginForm.password' | translate}}"/>
         </div>
         <div>
           <input type="submit" value="{{'login.loginForm.loginButton' | translate}}" class="btn btn-primary">
-          <a class="reset_pass" href="#">Lost your password?</a>
+          <a class="reset_pass" href="#">Forgot Your Password?</a>
         </div>
         <div>
           <div class="clearfix"></div>
           <div class="separator">
-          <button [routerLink]="['/user-register']" class="btn btn-default submit">{{'login.loginForm.newUser'| translate}}</button>
+            <button [routerLink]="['/user-register']" class="btn btn-default submit">{{'login.loginForm.newUser'| translate}}</button>
           </div>
         </div>
       </form>
