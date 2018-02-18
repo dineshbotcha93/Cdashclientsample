@@ -1,4 +1,5 @@
 import { Component, OnInit ,Input} from '@angular/core';
+import {NotificationModel} from '../../shared/models/NotificationModel';
 
 @Component({
   selector: 'app-notification-create',
@@ -36,13 +37,46 @@ export class NotificationCreateComponent implements OnInit {
    @Input() allSensors:Array<any> ;
    @Input() gateWayData:Array<any> ;
 
-
+   notificationModel : NotificationModel;
 
 
   constructor() { }
 
+
+
+  setInitialModelValues(){
+
+   this.notificationModel = {
+
+    selectSubNotificationList : '',
+    strNotificationName: '',
+    strNotificationText: '',
+    selectTempCompareList:[],
+    selectTempTypeList : [],
+    scheduleNotificationCheck:   { left: true, right: false },
+    strSnoozeAlertValue : '',
+    scheduleSnoozeCheck: { left: true, right: false },
+    isNotificationActive  : true,
+
+    strLowBatteryNotifyValue : '',
+    strInactivePeriodValue: '',
+
+    strAfterAlertValue : '',
+    strTimeFrameValue : '',
+    strMessageCountValue: '',
+    strAfterNotifyValue: '',
+    strLowerTempHumidiftyValue : '',
+    strHigherTempHumidiftyValue : '',
+    selectNotifyMagnetList: [],
+
+    scheduleInlineNotifyCheck:  { left: true, right: false }
+   }
+
+  }
+
   ngOnInit() {
-    console.log(this.allSensors);
+
+    this.setInitialModelValues();
 
     this.isReadingTypeAvailable = false;
 
@@ -57,8 +91,10 @@ export class NotificationCreateComponent implements OnInit {
       ];
     
 
-    this.selectIsLessThanValue = Obj[0];
-    this.isLessThanValue = Obj;
+    // this.selectIsLessThanValue = Obj[0];
+    // this.isLessThanValue = Obj;
+
+    this.notificationModel.selectTempCompareList = Obj;
    
     let Obj2 = [
           {
@@ -71,8 +107,10 @@ export class NotificationCreateComponent implements OnInit {
 
       ];
 
-    this.selectTempTypeValue = Obj2[0];
-    this.tempTypeValue = Obj2;
+    // this.selectTempTypeValue = Obj2[0];
+    // this.tempTypeValue = Obj2;
+
+     this.notificationModel.selectTempTypeList = Obj2;
 
     let tempObject3 = [
           {
@@ -151,6 +189,19 @@ export class NotificationCreateComponent implements OnInit {
     
 
       this.dailySheduleNotificationList = [];
+
+
+       let Obj3 = [
+          {
+          id: '01',
+          value: 'Closed'
+          },{
+          id: '02',
+          value: 'Open'
+        }
+      ];
+
+       this.notificationModel.selectNotifyMagnetList = Obj3;
   }
 
 
@@ -175,8 +226,10 @@ export class NotificationCreateComponent implements OnInit {
                 }
                ];
 
-    this.selectSubNotifyType = Obj[0];
-    this.subNotificationTypes = Obj;
+    // this.selectSubNotifyType = Obj[0];
+    // this.subNotificationTypes = Obj;
+
+    this.notificationModel.selectSubNotificationList = Obj;
   }
 
 
@@ -247,14 +300,18 @@ export class NotificationCreateComponent implements OnInit {
                   value: 'Advanced Open / Closed'
                 },
                 {
-                  id: '14',
+                  id: '15',
                   value: 'Advanced Temperature'
                 }
 
                ];
 
-    this.selectSubNotifyType = Obj[0];
-    this.subNotificationTypes = Obj;
+    // this.selectSubNotifyType = Obj[0];
+    // this.subNotificationTypes = Obj;
+    this.notificationModel.selectSubNotificationList = Obj;
+
+
+    console.log(this.subNotificationTypes);
   }
 
   onClickBatteryNotify(){
@@ -287,25 +344,28 @@ export class NotificationCreateComponent implements OnInit {
 
  onChangeNotifictaion(e){
     this.isSensorNotificationForm = true;
+    console.log(e); 
+    this.selectSubNotifyType = e;
+
   }
 
  onClickAlways(e){
-     this.checkModel = { left: true, right: false };
+     this.notificationModel.scheduleNotificationCheck = { left: true, right: false };
    
     this.dailySheduleNotificationList = [];
  }
 
  onClickSchedule(e){
-   this.checkModel = { left: false, right: true };
+   this.notificationModel.scheduleNotificationCheck = { left: false, right: true };
    this.dailySheduleNotificationList = this.scheduleObj;
  }
 
  onClickIndependent(e){
-     this.checkModelSnooze = { left: true, right: false };
+     this.notificationModel.scheduleSnoozeCheck = { left: true, right: false };
  }
 
  onClickJoint(e){
-   this.checkModelSnooze = { left: false, right: true };
+   this.notificationModel.scheduleSnoozeCheck = { left: false, right: true };
  }
 
  onClickCancelDetail(){
