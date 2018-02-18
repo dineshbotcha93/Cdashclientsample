@@ -663,6 +663,8 @@ export class SensorSummaryComponent implements OnInit {
     }
 
     doCompare(){
+      console.log(this.selectLocation);
+      localStorage.setItem("com.cdashboard.selectedNetworkId", this.selectLocation.Id);
       this.router.navigate(['dashboard/sensor-comparison','I1']);
     }
 

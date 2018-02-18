@@ -8,8 +8,6 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-<!--  <tabs>
-    <tab tabTitle="Comparison" class="tab-content"> -->
       <form class="form-horizontal" role="form">
         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
           <select name="sort" [(ngModel)]="sensorName" class="form-control" (change)="test()">
@@ -22,34 +20,6 @@
           <input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />
           <input type="button" class="btn btn-primary" value="Reset Chart" (click)="reset('chart')" />
         </div>
-
-        <!--<div class="input-group col-xs-12 col-sm-12 col-sm-pull-3 col-lg-push-6  col-lg-6 btn-margin">
-
-
-        </div>-->
-        <!--<div class="input-group col-lg-6 col-lg-push-13">
-            &lt;!&ndash;<label for="dateRange" class="col-wd-22 margin-top-ten">Date Range:</label>&ndash;&gt;
-        &lt;!&ndash;<div class="col-xs-12 col-sm-4 col-lg-4 margin-top-five">
-          <input type="text"
-          class="form-control"
-          [minDate]="minDate"
-          [maxDate]="maxDate"
-          #dp="bsDatepicker"
-          bsDatepicker [(bsValue)]="bsValue">
-          </div>
-          <span class="col-lg-1 fa-window-minimize-style">
-              <i class="fa fa-window-minimize" aria-hidden="true"></i>
-          </span>
-
-          <div class="col-xs-12 col-sm-4 col-lg-4 margin-top-five">
-          <input type="text"
-          class="form-control"
-          [minDate]="minDate"
-          [maxDate]="maxDate"
-          #dp1="bsDatepicker"
-          bsDatepicker [(bsValue)]="bsValueTwo">
-        </div>&ndash;&gt;
-      </div> -->
       </form>
       <div style="width: 100%;">
         <canvas
@@ -63,8 +33,6 @@
         [legend]="true">
       </canvas>
     </div>
- <!-- </tab>
-</tabs> -->
         </div>
       </div>
     </div>
