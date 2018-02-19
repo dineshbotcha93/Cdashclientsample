@@ -3,9 +3,33 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h3>Sensor Comparison for Network: {{networkName}}</h3>
+          <h3>{{'sensorComparison.comparisonTitle' | translate}}: {{networkName}}</h3>
           <input type="button" value="Back" (click)="goBack()">
           <div class="clearfix"></div>
+          <div class="input-group col-xs-12 col-sm-4 col-lg-2">
+  <input type="text"
+  class="form-control"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  #dp="bsDatepicker"
+  (bsValueChange)="onDateChange($event)"
+  bsDatepicker [(bsValue)]="bsValue">
+  <span class="input-group-addon" (click)="dp.show() ">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+  </span>
+  </div>
+  <div class="input-group col-xs-12 col-sm-4 col-lg-2">
+  <input type="text"
+  class="form-control"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  #dp1="bsDatepicker"
+  (bsValueChange)="onDateChange($event)"
+  bsDatepicker [(bsValue)]="bsValueTwo">
+  <span class="input-group-addon" (click)="dp1.show() ">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+  </span>
+</div>
         </div>
         <div class="x_content">
       <form class="form-horizontal" role="form">

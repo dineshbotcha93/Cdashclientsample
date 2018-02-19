@@ -30,5 +30,8 @@
     "lowBattery":"Low Battery [TBD]",
     "missedCommunication":"Offline [TBD]",
     "lowSignal":"Low Signal [TBD]"
+  },
+  "sensorComparison":{
+    "comparisonTitle":"Sensor Comparison for Network [TBD]"
   }
 }

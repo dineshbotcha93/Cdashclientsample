@@ -1,6 +1,6 @@
 {
   "login":{
-    "componentHeading":"Dashboard [TBD]",
+    "componentHeading":"Cooper Atkins Dashboard [TBD]",
     "loginForm":{
       "username":"Username [TBD]",
       "password":"Password [TBD]",
@@ -30,5 +30,8 @@
     "lowBattery":"Low Battery [TBD]",
     "missedCommunication":"Offline [TBD]",
     "lowSignal":"Low Signal [TBD]"
+  },
+  "sensorComparison":{
+    "comparisonTitle":"Sensor Comparison for Network [TBD]"
   }
 }

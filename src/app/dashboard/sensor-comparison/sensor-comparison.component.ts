@@ -6,7 +6,7 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
-
+import * as moment from 'moment/moment';
 
 interface SensorDetail{
   sensorName:string;
@@ -33,6 +33,14 @@ export class SensorComparisonComponent{
   private netWorkId = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
 
+  date: {year: number, month: number};
+
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
+
+  bsValue: Date = new Date();
+  bsValueTwo: Date = new Date();
+  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
   constructor(private sensorDetailsService:SensorDetailsService,
     private sensorSummaryService: SensorSummaryService,
@@ -82,6 +90,10 @@ export class SensorComparisonComponent{
   test(){
   }
 
+  onDateChange(event){
+    console.log(event);
+  }
+
   addSensor(){
     let tempData = [];
     this.location++;
@@ -89,7 +101,11 @@ export class SensorComparisonComponent{
     this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
     if(this.sensorName!==''){
-      this.sensorDetailsService.getDataMessages(this.sensorName).then((result)=>{
+      const fromDate = moment(this.bsValue).format('D/MM/YYYY');
+      const toDate = moment(this.bsValueTwo).format('D/MM/YYYY');
+      console.log(fromDate);
+      console.log(toDate);
+      this.sensorDetailsService.getDataMessages(this.sensorName,fromDate,toDate).then((result)=>{
         result.forEach((res)=>{
           tempData.push(res.plotValue);
           if(this.chartLabels.indexOf(new Date(res.messageDate).toISOString().slice(11,19))==-1){
@@ -152,13 +168,4 @@ export class SensorComparisonComponent{
     let networkId = localStorage.getItem("com.cdashboard.networkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
-
-  date: {year: number, month: number};
-
-  minDate = new Date(2017, 5, 10);
-  maxDate = new Date(2018, 9, 15);
-
-  bsValue: Date = new Date();
-  bsValueTwo: Date = new Date();
-  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 }
