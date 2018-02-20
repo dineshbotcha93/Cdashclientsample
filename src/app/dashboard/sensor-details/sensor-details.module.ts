@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from '../../shared/modules/shared.module';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const routes:Object[] = [{
   path:'dashboard/sensor-details/:id',component:SensorDetailsComponent
@@ -25,7 +26,8 @@ const routes:Object[] = [{
     FormsModule,
     NgbModule,
     ChartsModule,
-    SharedModule
+    SharedModule,
+    BsDatepickerModule.forRoot()
   ]
 })
 export class SensorDetailsModule {}

@@ -35,5 +35,8 @@
    "lowBattery":"Low Battery",
    "missedCommunication":"Offline",
    "lowSignal":"Low Signal"
-  }
+ },
+ "sensorComparison":{
+   "comparisonTitle":"Sensor Comparison for Network"
+ }
 }
