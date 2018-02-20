@@ -18,6 +18,7 @@ import * as moment from 'moment/moment';
 export class SensorDetailsComponent {
   private result;
   private sensorDetailsData;
+  private detailId;
   private rows:Array<any>=['N/A'];
   private columns:Array<any>=[];
   private limit:number = 10;
@@ -26,6 +27,9 @@ export class SensorDetailsComponent {
   private chartOptions = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
   @ViewChildren("tabs") tabs: QueryList<any>
+  bsValue: Date = new Date();
+  bsValueTwo: Date = new Date();
+  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
   constructor(
     private sensorDetailsService:SensorDetailsService,
@@ -33,27 +37,11 @@ export class SensorDetailsComponent {
     private route:ActivatedRoute,
     private cd: ChangeDetectorRef){
     this.chartOptions = ChartOptions;
-    let detailId = '';
     this.route.params.subscribe((params)=>{
-      detailId = params.id.toString();
+      this.detailId = params.id.toString();
    });
-    sensorDetailsService.getDetails(detailId).then((result)=>{
+    sensorDetailsService.getDetails(this.detailId).then((result)=>{
       this.sensorDetailsData = result;
-    });
-    sensorDetailsService.getDataMessages(detailId).then((result)=>{
-      this.result = result;
-      this.rows = [];
-      result.forEach((res)=>{
-        this.data.push(res.plotValue);
-        this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
-        this.rows.push({
-          messageID:res.messageID,
-          data:res.data,
-          messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
-          signalStrength:res.signalStrength,
-          voltage:res.voltage,
-        });
-      });
     });
     this.columns.push({prop:'messageID',name:'Message ID'});
     this.columns.push({prop:'data',name:'Data'});
@@ -81,6 +69,32 @@ export class SensorDetailsComponent {
       })
       this.cd.detectChanges();
     })
+  }
+
+  onDateChange(event){
+    const fromDate = moment(this.bsValue).format('DD/MM/YYYY');
+    const toDate = moment(this.bsValueTwo).format('DD/MM/YYYY');
+    this.sensorDetailsService.getDataMessages(this.detailId,fromDate,toDate).then((result)=>{
+      this.result = result;
+      this.rows = [];
+      result.forEach((res)=>{
+        this.data.push(res.plotValue);
+        this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
+        this.rows.push({
+          messageID:res.messageID,
+          data:res.data,
+          messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
+          signalStrength:res.signalStrength,
+          voltage:res.voltage,
+        });
+      });
+    });
+  }
+
+  reset(attribute){
+    if(attribute=='zoom'){
+      this.chart.chart.resetZoom();
+    }
   }
 
   chartData = [

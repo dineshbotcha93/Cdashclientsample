@@ -101,10 +101,8 @@ export class SensorComparisonComponent{
     this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
     if(this.sensorName!==''){
-      const fromDate = moment(this.bsValue).format('D/MM/YYYY');
-      const toDate = moment(this.bsValueTwo).format('D/MM/YYYY');
-      console.log(fromDate);
-      console.log(toDate);
+      const fromDate = moment(this.bsValue).format('DD/MM/YYYY');
+      const toDate = moment(this.bsValueTwo).format('DD/MM/YYYY');
       this.sensorDetailsService.getDataMessages(this.sensorName,fromDate,toDate).then((result)=>{
         result.forEach((res)=>{
           tempData.push(res.plotValue);

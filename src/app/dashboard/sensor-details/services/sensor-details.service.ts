@@ -25,18 +25,12 @@ export class SensorDetailsService {
   }
 
   getDataMessages(location,fromDate = null, toDate = null){
-    console.log("FROM DATE "+fromDate);
-    console.log("TO DATE"+toDate);
     if(fromDate == null){
-      fromDate = moment().format('d/m/yyyy');
-      console.log(fromDate);
+      fromDate = moment().format('DD/MM/YYYY');
     }
     if(toDate == null){
-      toDate = moment().add(5,'days').format('d/m/yyyy');
-      console.log(toDate);
+      toDate = moment().add(5,'days').format('DD/MM/YYYY');
     }
-    console.log("FROM DATE "+fromDate);
-    console.log("TO DATE"+toDate);
     return this.requesterService
     .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate='+fromDate+'&ToDate='+toDate);
   }
