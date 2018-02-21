@@ -34,8 +34,8 @@ export class RequesterService {
 
   getExternalRequest(url:string):Promise<any>{
       return this.http.get(SERVER_URLS.EXTERNAL_SERVER_URL+url).map(e=>e.json())
-      .catch(e=>{
-        return e;
+      .catch((e)=>{
+        throw e;
       })
       .toPromise();
   }
@@ -43,7 +43,7 @@ export class RequesterService {
   postExternalRequest(url:string,body:object):Promise<any>{
     return this.http.post(SERVER_URLS.EXTERNAL_SERVER_URL+url,body).map(e=>e.json())
     .catch(e=>{
-      return e;
+      throw e;
     })
     .toPromise();
   }

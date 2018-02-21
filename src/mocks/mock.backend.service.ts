@@ -133,10 +133,12 @@ export class MockBackendService {
         })));
       } else if(c.request.url.match(/google/g) && c.request.method === 0){
         this.http = new Http(this.realBackend, this.options);
-        this.http.get(c.request.url).subscribe((e)=>{
+        this.http.get(c.request.url).subscribe((result)=>{
           c.mockRespond(new Response(new ResponseOptions({
-            body: JSON.stringify(e.json())
+            body: JSON.stringify(result.json())
           })));
+        },(error)=>{
+          c.mockError(new Error(error));
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 1){
         let headers = new Headers();
@@ -147,10 +149,12 @@ export class MockBackendService {
         }
         this.http = new Http(this.realBackend, this.options);
         let options = new RequestOptions({ headers: headers });
-        this.http.post(c.request.url,c.request.getBody(),options).subscribe((e)=>{
+        this.http.post(c.request.url,c.request.getBody(),options).subscribe((result)=>{
           c.mockRespond(new Response(new ResponseOptions({
-            body: JSON.stringify(e.json())
+            body: JSON.stringify(result.json())
           })));
+        },(error)=>{
+          c.mockError(new Error(error));
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 0){
         let headers = new Headers();
@@ -160,10 +164,12 @@ export class MockBackendService {
         }
         this.http = new Http(this.realBackend, this.options);
         let options = new RequestOptions({ headers: headers });
-        this.http.get(c.request.url,options).subscribe((e)=>{
+        this.http.get(c.request.url,options).subscribe((response)=>{
           c.mockRespond(new Response(new ResponseOptions({
-            body: JSON.stringify(e.json())
+            body: JSON.stringify(response.json())
           })));
+        },(error)=>{
+          c.mockError(new Error(error));
         });
       }
     });

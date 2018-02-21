@@ -6,13 +6,14 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
+import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import * as moment from 'moment/moment';
 
 @Component({
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
   styleUrls: ['./sensor-details.component.scss'],
-  providers:[SensorDetailsService],
+  providers:[SensorDetailsService,AlertSandbox],
   encapsulation: ViewEncapsulation.None,
 })
 export class SensorDetailsComponent {
@@ -35,6 +36,7 @@ export class SensorDetailsComponent {
     private sensorDetailsService:SensorDetailsService,
     private router:Router,
     private route:ActivatedRoute,
+    private alertSandbox: AlertSandbox,
     private cd: ChangeDetectorRef){
     this.chartOptions = ChartOptions;
     this.route.params.subscribe((params)=>{
@@ -77,6 +79,10 @@ export class SensorDetailsComponent {
     this.sensorDetailsService.getDataMessages(this.detailId,fromDate,toDate).then((result)=>{
       this.result = result;
       this.rows = [];
+      if(this.result.length == 0){
+        this.alertSandbox.showAlert({data:'No Content'});
+        return;
+      }
       result.forEach((res)=>{
         this.data.push(res.plotValue);
         this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
@@ -88,6 +94,8 @@ export class SensorDetailsComponent {
           voltage:res.voltage,
         });
       });
+    }).catch((e)=>{
+      this.alertSandbox.showAlert({data:'No Content'});
     });
   }
 

@@ -3,7 +3,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
 <div class="row sensor-summary-info">
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <h3>{{'sensorDetails.sensorDetailsTitle' | translate}}</h3>
+          <h3>{{sensorDetailsData?.sensorName}}</h3>
           <div class="input-group col-xs-12 col-sm-4 col-lg-2">
   <input type="text"
   class="form-control"
@@ -35,16 +35,19 @@
         <div class="col-md-3 col-sm-3 col-xs-12 ss-info-left">
           <app-gauge
             [type]="'semi'"
-            [value]="'60'"
-            [title]="sensorDetailsData?.sensorName"
+            [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
+            [title]=""
           ></app-gauge>
-
-          <p>
-                <span>
+            <span>
               {{'sensorDetails.lastCheckin'|translate}}:
             </span>
             {{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}
-          </p>
+            <p>
+              {{'sensorDetails.networkName'|translate}}:{{sensorDetailsData?.networkName ? sensorDetailsData?.networkName : 'N/A'}}
+            </p>
+            <p>
+              {{'sensorDetails.gatewayName'|translate}}:{{sensorDetailsData?.gatewayName ? sensorDetailsData?.gatewayName : 'N/A'}}
+            </p>
         </div>
         <div class="col-md-9 col-sm-9 col-xs-12 network-card graph-card dark-theme">
           <div class="demo-placeholder">

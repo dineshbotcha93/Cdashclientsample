@@ -21,8 +21,8 @@
     "sensorName":"Sensor Name [TBD]",
     "currentReading":"Current Reading [TBD]",
     "lastCheckin": "Last Checkin [TBD]",
-    "networkName": "Network Name [TBD]",
-    "gatewayName": "Gateway Name [TBD]",
+    "networkName": "Network [TBD]",
+    "gatewayName": "Gateway [TBD]",
     "nextCheckin": "Next Checkin [TBD]"
   },
   "tileStatus":{
