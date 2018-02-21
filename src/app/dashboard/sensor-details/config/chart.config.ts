@@ -1,5 +1,5 @@
 export const ChartOptions = {
-    responsive: true,
+  responsive: true,
   maintainAspectRatio:false,
   pointDot : true,
   radius: 3,

@@ -22,8 +22,8 @@
    "sensorName":"Sensor Name",
    "currentReading":"Current Reading",
    "lastCheckin": "Last Checkin",
-   "networkName": "Network Name",
-   "gatewayName": "Gateway Name",
+   "networkName": "Network",
+   "gatewayName": "Gateway",
    "nextCheckin": "Next Checkin",
    "tabs":{
      "graph":"Graph",
