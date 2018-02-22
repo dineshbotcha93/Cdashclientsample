@@ -22,6 +22,7 @@ import { NotificationCreateComponent } from '../notification-create/notification
 
 import { ButtonsModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 
 const routes:Object[] = [{
@@ -46,7 +47,8 @@ const routes:Object[] = [{
     CommonModule,
     PipesModule,
     FormsModule,
-    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot()
+    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule
+
   ],
   exports: [
     Ng2SliderComponent,

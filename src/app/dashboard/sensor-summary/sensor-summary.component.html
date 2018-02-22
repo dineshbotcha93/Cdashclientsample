@@ -234,6 +234,7 @@
                            <app-notification-create
                            [allSensors] = "allSensors"
                            [gateWayData] = "gateWayData"
+                           (createMessageEvent)="receiveAddNotificationMessage($event)"
                            ></app-notification-create>
                            <!-- <app-notification-summary></app-notification-summary> -->
                         </div>

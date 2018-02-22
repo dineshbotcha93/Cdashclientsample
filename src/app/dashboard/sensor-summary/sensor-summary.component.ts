@@ -683,9 +683,13 @@ export class SensorSummaryComponent implements OnInit {
     onClickResetNotification(){
       
       this.notificationRadio = 'summary';
-  }
+    }
     goBack(){
       this.router.navigate(['dashboard']);
 
+    }
+    receiveAddNotificationMessage($event) {
+      console.log($event);
+      this.notificationRadio = 'summary';
     }
   }
