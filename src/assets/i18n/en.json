@@ -1,4 +1,9 @@
 {
+ "global":{
+   "from":"From",
+   "to":"To",
+   "exportPdf":"Export to PDF"
+ },
  "login":{
    "componentHeading":"Cooper Atkins Dashboard",
    "loginForm":{

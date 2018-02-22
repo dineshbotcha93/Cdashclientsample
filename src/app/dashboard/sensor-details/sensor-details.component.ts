@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import * as moment from 'moment/moment';
+declare var jsPDF: any; // Important
 
 @Component({
   selector:'app-sensor-details',
@@ -85,10 +86,10 @@ export class SensorDetailsComponent {
       }
       result.forEach((res)=>{
         this.data.push(res.plotValue);
-        this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
+        this.chartLabels.push(moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss').substring(11,19));
         this.rows.push({
           messageID:res.messageID,
-          data:res.data,
+          data:res.plotValue,
           messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
           signalStrength:res.signalStrength,
           voltage:res.voltage,
@@ -108,6 +109,45 @@ export class SensorDetailsComponent {
   chartData = [
     { data: this.data, label: 'Temperature Vs. Time',fill:false },
   ];
+
+  export(){
+    console.log("clicked");
+    const a = new jsPDF();
+    var doc = new jsPDF();
+    var col = [{
+      title:"MessageID",
+      dataKey:"messageID"
+    },
+    {
+      title:"Temperature",
+      dataKey:"data"
+    },
+    {
+      title:"Message Date",
+      dataKey:"messageDate"
+    },
+    {
+        title:"Signal Strength",
+        dataKey:"signalStrength"
+    },
+    {
+      title:"Voltage",
+      dataKey:"voltage"
+    }];
+    var rows = [];
+    console.log(doc);
+    const item = this.rows;
+    console.log(item);
+
+    for(var key in item){
+        var temp = [key, item[key]];
+        rows.push(temp);
+    }
+    console.log(rows);
+    doc.autoTable(col, this.rows);
+
+    doc.save('SensorDetails.pdf');
+  }
 
 
   onChartClick(event) {
