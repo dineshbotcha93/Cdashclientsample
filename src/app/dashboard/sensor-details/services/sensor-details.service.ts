@@ -1,6 +1,8 @@
 import { RequesterService } from '../../../shared/services/requester.service';
 import { Injectable } from '@angular/core';
 import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
+import * as moment from 'moment/moment';
+
 
 @Injectable()
 export class SensorDetailsService {
@@ -22,9 +24,15 @@ export class SensorDetailsService {
     }
   }
 
-  getDataMessages(location){
+  getDataMessages(location,fromDate = null, toDate = null){
+    if(fromDate == null){
+      fromDate = moment().format('DD/MM/YYYY');
+    }
+    if(toDate == null){
+      toDate = moment().add(5,'days').format('DD/MM/YYYY');
+    }
     return this.requesterService
-    .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate=1/9/2018&ToDate=1/10/2018');
+    .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate='+fromDate+'&ToDate='+toDate);
   }
 
   getDetails(location){

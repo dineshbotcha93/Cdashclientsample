@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: '<app-gauge>',
+  selector: 'app-gauge',
   styleUrls: ['./gauge.component.scss'],
   template: `
     <ngx-gauge [type]="type"

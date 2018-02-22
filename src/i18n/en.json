@@ -1,4 +1,10 @@
 {
+ "global":{
+   "from":"From",
+   "to":"To",
+   "exportPdf":"Export to PDF",
+   "comments":"Comments"
+ },
  "login":{
    "componentHeading":"Cooper Atkins Dashboard",
    "loginForm":{
@@ -22,8 +28,8 @@
    "sensorName":"Sensor Name",
    "currentReading":"Current Reading",
    "lastCheckin": "Last Checkin",
-   "networkName": "Network Name",
-   "gatewayName": "Gateway Name",
+   "networkName": "Network",
+   "gatewayName": "Gateway",
    "nextCheckin": "Next Checkin",
    "tabs":{
      "graph":"Graph",
@@ -35,5 +41,8 @@
    "lowBattery":"Low Battery",
    "missedCommunication":"Offline",
    "lowSignal":"Low Signal"
-  }
+ },
+ "sensorComparison":{
+   "comparisonTitle":"Sensor Comparison for Network"
+ }
 }
