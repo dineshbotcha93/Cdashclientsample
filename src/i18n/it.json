@@ -1,4 +1,8 @@
 {
+  "global":{
+    "from":"From [TBD]",
+    "to":"To [TBD]"
+  },
   "login":{
     "componentHeading":"Cooper Atkins Dashboard [TBD]",
     "loginForm":{

@@ -85,10 +85,10 @@ export class SensorDetailsComponent {
       }
       result.forEach((res)=>{
         this.data.push(res.plotValue);
-        this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
+        this.chartLabels.push(moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss').substring(11,19));
         this.rows.push({
           messageID:res.messageID,
-          data:res.data,
+          data:res.plotValue,
           messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
           signalStrength:res.signalStrength,
           voltage:res.voltage,
