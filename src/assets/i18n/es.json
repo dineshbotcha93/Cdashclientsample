@@ -1,6 +1,12 @@
 {
+  "global":{
+    "from":"From [TBD]",
+    "to":"To [TBD]",
+    "exportPdf":"Export to PDF [TBD]",
+    "comments":"Comments [TBD]"
+  },
   "login":{
-    "componentHeading":"Dashboard [TBD]",
+    "componentHeading":"Cooper Atkins Dashboard [TBD]",
     "loginForm":{
       "username":"Username [TBD]",
       "password":"Password [TBD]",
@@ -21,8 +27,8 @@
     "sensorName":"Sensor Name [TBD]",
     "currentReading":"Current Reading [TBD]",
     "lastCheckin": "Last Checkin [TBD]",
-    "networkName": "Network Name [TBD]",
-    "gatewayName": "Gateway Name [TBD]",
+    "networkName": "Network [TBD]",
+    "gatewayName": "Gateway [TBD]",
     "nextCheckin": "Next Checkin [TBD]"
   },
   "tileStatus":{
@@ -30,5 +36,8 @@
     "lowBattery":"Low Battery [TBD]",
     "missedCommunication":"Offline [TBD]",
     "lowSignal":"Low Signal [TBD]"
+  },
+  "sensorComparison":{
+    "comparisonTitle":"Sensor Comparison for Network [TBD]"
   }
 }

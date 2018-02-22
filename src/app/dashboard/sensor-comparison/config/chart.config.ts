@@ -3,7 +3,7 @@ export const ChartOptions = {
     // Container for pan options
     pan: {
       // Boolean to enable panning
-      enabled: true,
+      enabled: false,
 
       // Panning directions. Remove the appropriate direction to disable
       // Eg. 'y' would only allow panning in the y direction
@@ -26,7 +26,7 @@ export const ChartOptions = {
       enabled: true,
 
       // Enable drag-to-zoom behavior
-      drag: true,
+      drag: false,
 
       // Zooming directions. Remove the appropriate direction to disable
       // Eg. 'y' would only allow zooming in the y direction

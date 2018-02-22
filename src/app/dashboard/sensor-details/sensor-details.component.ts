@@ -6,18 +6,24 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
+import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ModalContentComponent } from './modals/modalContent.component';
 import * as moment from 'moment/moment';
+declare var jsPDF: any; // Important
 
 @Component({
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
   styleUrls: ['./sensor-details.component.scss'],
-  providers:[SensorDetailsService],
+  providers:[SensorDetailsService,AlertSandbox,BsModalService],
   encapsulation: ViewEncapsulation.None,
 })
 export class SensorDetailsComponent {
   private result;
   private sensorDetailsData;
+  private detailId;
   private rows:Array<any>=['N/A'];
   private columns:Array<any>=[];
   private limit:number = 10;
@@ -26,34 +32,24 @@ export class SensorDetailsComponent {
   private chartOptions = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
   @ViewChildren("tabs") tabs: QueryList<any>
+  bsValue: Date = new Date();
+  bsValueTwo: Date = new Date();
+  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  bsModalRef: BsModalRef;
 
   constructor(
     private sensorDetailsService:SensorDetailsService,
     private router:Router,
     private route:ActivatedRoute,
-    private cd: ChangeDetectorRef){
+    private alertSandbox: AlertSandbox,
+    private cd: ChangeDetectorRef,
+    private modalService: BsModalService){
     this.chartOptions = ChartOptions;
-    let detailId = '';
     this.route.params.subscribe((params)=>{
-      detailId = params.id.toString();
+      this.detailId = params.id.toString();
    });
-    sensorDetailsService.getDetails(detailId).then((result)=>{
+    sensorDetailsService.getDetails(this.detailId).then((result)=>{
       this.sensorDetailsData = result;
-    });
-    sensorDetailsService.getDataMessages(detailId).then((result)=>{
-      this.result = result;
-      this.rows = [];
-      result.forEach((res)=>{
-        this.data.push(res.plotValue);
-        this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
-        this.rows.push({
-          messageID:res.messageID,
-          data:res.data,
-          messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
-          signalStrength:res.signalStrength,
-          voltage:res.voltage,
-        });
-      });
     });
     this.columns.push({prop:'messageID',name:'Message ID'});
     this.columns.push({prop:'data',name:'Data'});
@@ -83,9 +79,80 @@ export class SensorDetailsComponent {
     })
   }
 
+  onDateChange(event){
+    const fromDate = moment(this.bsValue).format('DD/MM/YYYY');
+    const toDate = moment(this.bsValueTwo).format('DD/MM/YYYY');
+    this.sensorDetailsService.getDataMessages(this.detailId,fromDate,toDate).then((result)=>{
+      this.result = result;
+      this.rows = [];
+      if(this.result.length == 0){
+        this.alertSandbox.showAlert({data:'No Content'});
+        return;
+      }
+      result.forEach((res)=>{
+        this.data.push(res.plotValue);
+        this.chartLabels.push(moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss').substring(11,19));
+        this.rows.push({
+          messageID:res.messageID,
+          data:res.plotValue,
+          messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
+          signalStrength:res.signalStrength,
+          voltage:res.voltage,
+        });
+      });
+    }).catch((e)=>{
+      this.alertSandbox.showAlert({data:'No Content'});
+    });
+  }
+
+  reset(attribute){
+    if(attribute=='zoom'){
+      this.chart.chart.resetZoom();
+    }
+  }
+
   chartData = [
     { data: this.data, label: 'Temperature Vs. Time',fill:false },
   ];
+
+  export(){
+    console.log("clicked");
+    const a = new jsPDF();
+    var doc = new jsPDF();
+    var col = [{
+      title:"MessageID",
+      dataKey:"messageID"
+    },
+    {
+      title:"Temperature",
+      dataKey:"data"
+    },
+    {
+      title:"Message Date",
+      dataKey:"messageDate"
+    },
+    {
+        title:"Signal Strength",
+        dataKey:"signalStrength"
+    },
+    {
+      title:"Voltage",
+      dataKey:"voltage"
+    }];
+    var rows = [];
+    console.log(doc);
+    const item = this.rows;
+    console.log(item);
+
+    for(var key in item){
+        var temp = [key, item[key]];
+        rows.push(temp);
+    }
+    console.log(rows);
+    doc.autoTable(col, this.rows);
+
+    doc.save('SensorDetails.pdf');
+  }
 
 
   onChartClick(event) {
@@ -95,5 +162,20 @@ export class SensorDetailsComponent {
   goBack(){
     let networkId = localStorage.getItem("com.cdashboard.networkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
+  }
+
+  addComments(){
+    const initialState = {
+      list: [
+        'Open a modal with component',
+        'Pass your data',
+        'Do something else',
+        '...'
+      ],
+      title: 'Modal with component'
+    };
+    this.bsModalRef = this.modalService.show(ModalContentComponent, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.saveBtnName = 'Save';
   }
 }

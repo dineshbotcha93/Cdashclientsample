@@ -24,7 +24,7 @@
           <div class="col-sm-12 network-card">
             <div class="network-card-top">
               <div class="network-name">{{selectLocation?.Title}}</div>
-              <div class="network-id">{{selectLocation?.Id}}</div>
+              <div class="network-id">{{mapData?.title}}</div>
             </div>
             <div class="network-card-bottom">
               <div class="gateway-count">Gateways <span>{{mapData?.noOfGateways}}</span></div>
@@ -105,7 +105,7 @@
                 class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <app-tile
                   [tileContent]="sensor.sensorName"
-                  [tileDetails]="{fahrenHeight:sensor.currentReading}"
+                  [tileDetails]="{fahrenHeight:sensor.currentReading,lastCommunicationDate:sensor.lastCommunicationDate}"
                   [tileColorBy]="'sensorType'"
                   [sensorTileIcon]="sensor.sensorType"
                   (click)="gotoSummary(sensor)"
