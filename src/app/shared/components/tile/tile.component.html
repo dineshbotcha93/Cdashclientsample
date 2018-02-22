@@ -1,5 +1,5 @@
 <div (click)="handleClick($event)" [attr.tile-name]="tileContent" class="widget-panel widget-style-2 {{tileColorBy == 'status' ? getTileColor(tileColor,'status'):getTileStatusByColorNum(tileColor)}}">
-  <i class="fa 
+  <i class="fa
   {{tileColorBy=='sensorType'? getSensorTileIcon(sensorTileIcon)
    :getTileIcon(tileColor,tileColorBy)}}"></i>
   <div *ngIf="tileDetails">
@@ -15,6 +15,9 @@
   </div>
     <h2 class="m-0 counter" *ngIf="count">{{count}}</h2>
     <div> {{tileContent}}</div>
+    <div *ngIf="tileDetails?.lastCommunicationDate" class="title">
+      {{tileDetails?.lastCommunicationDate|dateFormat:'DD/MM/YYYY'}}
+    </div>
     <!--<i *ngIf="tileColorBy=='sensorType'" class="fa {{getTileStatusIconByColorNum(tileColor)}} special"></i>
     <div *ngIf="tileColorBy=='sensorType'">{{getTileStatusTextByColorNum(tileColor)}}</div>-->
 </div>
