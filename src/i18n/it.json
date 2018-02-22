@@ -2,7 +2,8 @@
   "global":{
     "from":"From [TBD]",
     "to":"To [TBD]",
-    "exportPdf":"Export to PDF [TBD]"
+    "exportPdf":"Export to PDF [TBD]",
+    "comments":"Comments [TBD]"
   },
   "login":{
     "componentHeading":"Cooper Atkins Dashboard [TBD]",

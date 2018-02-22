@@ -7,6 +7,9 @@ import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ModalContentComponent } from './modals/modalContent.component';
 import * as moment from 'moment/moment';
 declare var jsPDF: any; // Important
 
@@ -14,7 +17,7 @@ declare var jsPDF: any; // Important
   selector:'app-sensor-details',
   templateUrl:'./sensor-details.component.html',
   styleUrls: ['./sensor-details.component.scss'],
-  providers:[SensorDetailsService,AlertSandbox],
+  providers:[SensorDetailsService,AlertSandbox,BsModalService],
   encapsulation: ViewEncapsulation.None,
 })
 export class SensorDetailsComponent {
@@ -32,13 +35,15 @@ export class SensorDetailsComponent {
   bsValue: Date = new Date();
   bsValueTwo: Date = new Date();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  bsModalRef: BsModalRef;
 
   constructor(
     private sensorDetailsService:SensorDetailsService,
     private router:Router,
     private route:ActivatedRoute,
     private alertSandbox: AlertSandbox,
-    private cd: ChangeDetectorRef){
+    private cd: ChangeDetectorRef,
+    private modalService: BsModalService){
     this.chartOptions = ChartOptions;
     this.route.params.subscribe((params)=>{
       this.detailId = params.id.toString();
@@ -157,5 +162,20 @@ export class SensorDetailsComponent {
   goBack(){
     let networkId = localStorage.getItem("com.cdashboard.networkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
+  }
+
+  addComments(){
+    const initialState = {
+      list: [
+        'Open a modal with component',
+        'Pass your data',
+        'Do something else',
+        '...'
+      ],
+      title: 'Modal with component'
+    };
+    this.bsModalRef = this.modalService.show(ModalContentComponent, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.saveBtnName = 'Save';
   }
 }

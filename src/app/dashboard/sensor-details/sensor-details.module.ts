@@ -10,13 +10,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalContentComponent } from './modals/modalContent.component';
+
 
 const routes:Object[] = [{
   path:'dashboard/sensor-details/:id',component:SensorDetailsComponent
 }];
 
 @NgModule({
-  declarations:[SensorDetailsComponent],
+  declarations:[SensorDetailsComponent,ModalContentComponent],
   imports:[
     RouterModule.forChild(routes),
     ContainersModule,
@@ -27,7 +30,9 @@ const routes:Object[] = [{
     NgbModule,
     ChartsModule,
     SharedModule,
-    BsDatepickerModule.forRoot()
-  ]
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot()
+  ],
+  entryComponents:[ModalContentComponent]
 })
 export class SensorDetailsModule {}
