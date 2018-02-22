@@ -67,6 +67,7 @@
     </div>
     </div>
       <div class="clearfix"></div>
+      <input type="button" (click)="export()" value="{{'global.exportPdf'|translate}}">
     <div class="row network-card graph-card dark-theme">
       <app-datatable
         *ngIf="rows[0]!=='N/A'"
