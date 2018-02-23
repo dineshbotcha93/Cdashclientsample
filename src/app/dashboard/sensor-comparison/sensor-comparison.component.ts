@@ -38,8 +38,8 @@ export class SensorComparisonComponent{
   minDate = new Date(2017, 5, 10);
   maxDate = new Date(2018, 9, 15);
 
-  bsValue: Date = new Date();
-  bsValueTwo: Date = new Date();
+  bsValue: Date = moment().subtract(7,'days').toDate();
+  bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
   constructor(private sensorDetailsService:SensorDetailsService,
