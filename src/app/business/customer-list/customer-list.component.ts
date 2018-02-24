@@ -32,6 +32,7 @@ export class CustomerListComponent implements OnInit {
   @ViewChild('emailColTmpl') emailColTmpl: TemplateRef<any>;
   @ViewChild('phoneColTmpl') phoneColTmpl: TemplateRef<any>;
   @ViewChild('nameColTmpl') nameColTmpl: TemplateRef<any>;
+  @ViewChild('amountColTmpl') amountColTmpl: TemplateRef<any>;
   @ViewChild('dataTable')  public dataTable: DataTableComponent;
   private rows: Array<CustomerData> = null;
   private columns: Array<any> = [];
@@ -39,9 +40,12 @@ export class CustomerListComponent implements OnInit {
   public items: Array<CustomerData> = null;
   private tempData: Array<CustomerData> = null;
   private doFilterByStatus: string = 'select';
+  private doSearchVal: string = null;
   private statusParam: string = null;
   private bsValue: Date = new Date();
   private bsValueTwo: Date = new Date();
+  private customerId: number = null;
+
 
   constructor(private businessService: BusinessService,
     private route: ActivatedRoute, private router: Router) {
@@ -81,7 +85,7 @@ export class CustomerListComponent implements OnInit {
     this.columns.push({ prop: 'ContactNumber', name: 'Contact Number', cellTemplate: this.phoneColTmpl });
     this.columns.push({ prop: 'ContactEmail', name: 'Contact Email', cellTemplate: this.emailColTmpl });
     this.columns.push({ prop: 'NumberOfSensors', name: 'Sensors' });
-    this.columns.push({ prop: 'Amount', name: 'Amount' });
+    this.columns.push({ prop: 'Amount', name: 'Amount', cellTemplate: this.amountColTmpl });
   }
   onChange($event) {
     this.bsValue = $event;
@@ -143,6 +147,16 @@ export class CustomerListComponent implements OnInit {
     popupWin.document.close();
   }
 
+  /* Clear form fields*/
+  clearAll() {
+    this.doSearchVal = '';
+    this.doFilterByStatus = 'all';
+    this.filterByStatus();
+    this.bsValue = new Date();
+    this.bsValueTwo = new Date();
+  }
+
+  /*Export CSV functionality */
   exportAsCSV() {
     const columns: TableColumn[] = this.dataTable.columns;
     const headers =

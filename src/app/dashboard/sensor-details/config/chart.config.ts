@@ -1,5 +1,5 @@
 export const ChartOptions = {
-    responsive: true,
+  responsive: true,
   maintainAspectRatio:false,
   pointDot : true,
   radius: 3,
@@ -8,7 +8,7 @@ export const ChartOptions = {
     // Container for pan options
     pan: {
       // Boolean to enable panning
-      enabled: true,
+      enabled: false,
 
       // Panning directions. Remove the appropriate direction to disable
       // Eg. 'y' would only allow panning in the y direction
@@ -28,7 +28,7 @@ export const ChartOptions = {
     // Container for zoom options
     zoom: {
       // Boolean to enable zooming
-      enabled: true,
+      enabled: false,
 
       // Enable drag-to-zoom behavior
       drag: true,

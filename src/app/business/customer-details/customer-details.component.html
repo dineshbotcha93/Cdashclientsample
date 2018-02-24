@@ -5,27 +5,107 @@
         <div class="col-md-12">
           <h3>Customer Details</h3>
         </div>
-        <div class="ss-info-container">
-          <div class="col-md-6 ss-info-left">
-            <div class="ss-info-location">Boston Pizza Regent</div>
-            <div class="ss-info-address">567</div>
+        <div class="customer-info-container">
+          <div class="col-md-6 customer-info-left">
+            <div class="customer-name">
+             {{customerData.Name}}</div>
+            <div class="customer-address">{{customerData.Address}}</div>
+            <div class="customer-contact-name"><span class="usr-lbl">Contact Name:</span>{{customerData.ContactName}}</div>
+            <div class="customer-email"><span class="usr-lbl">Email:</span>
+              <a href="mailto:{{customerData.ContactEmail}}">{{customerData.ContactEmail}}</a>,</div>
+            <div class="customer-phone"><span>Phone:</span>
+              <a href="tel:{{customerData.ContactNumber}}">{{customerData.ContactNumber}}</a></div>
           </div>
           <div class="col-md-6 network-card">
-            <div class="network-card-top">
-              <div class="network-name">444</div>
-              <div class="network-id">555</div>
+            <div class="col-sm-12 network-card-top">
+              <div class="col-sm-7 customer-status">Status
+                <span> {{customerData.Status}}</span>
+              </div>
+              <!-- <div class="network-name">{{customerData.ExpiryDate}}</div> -->
+              <div class="col-sm-5 customer-amount">Amount
+               <span> {{customerData.Amount | currency}}</span>
+              </div>
+            </div>
+            <div class="customer-renewal">Renewal 
+              <span> {{customerData.ExpiryDate}}</span>
             </div>
             <div class="network-card-bottom">
               <div class="gateway-count">Gateways
-                <span>333</span>
+                <span>{{customerData.NumberOfGateways}}</span>
               </div>
               <div class="sensor-count">Sensor
-                <span>99</span>
+                <span>{{customerData.NumberOfSensors}}</span>
+              </div>
+              <div class="col-sm-4 col-sm-push-8 customer-subscription">Subscription
+                <span>{{customerData.Subscription}}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="tabs_container">
+      <tabs>
+        <!-- Sensors Tab -->
+        <tab tabTitle="Network" class="tab-content">
+          <div class="row x_content">
+            <div class="col-md-12 sensors-info-container">
+              <app-datatable [rows]="networkRows" [columns]="networkColumns" [limit]="limit">
+              </app-datatable>
+            </div>
+          </div>
+        </tab>
+
+        <tab tabTitle="Sensors" class="tab-content">
+          <div class="row x_content">
+            <div class="form-group col-sm-push-9 col-sm-3">
+              <select name="filter_by_network" [(ngModel)]="doFilterByNetwork" class="form-control" (ngModelChange)="filterByNertwork(this)">
+                <option value='select' disabled selected>Select Network</option>
+                <option *ngFor="let row of networkRows" value="{{row.Id}}">{{row.Id}}</option>
+              </select>
+            </div>
+            <div class="col-md-12 sensors-info-container">
+              <app-datatable [rows]="sensorsRows" [columns]="sensorsColumns" [limit]="limit">
+              </app-datatable>
+            </div>
+          </div>
+        </tab>
+
+        <tab tabTitle="Gateways" class="tab-content">
+          <div class="row x_content">
+            <div class="form-group col-sm-push-9 col-sm-3">
+              <select name="filter_by_network" [(ngModel)]="doFilterByGateway" class="form-control" (ngModelChange)="filterByGateway()">
+                <option value='select' disabled selected>Select Network</option>
+                <option *ngFor="let row of networkRows" value="{{row.Id}}">{{row.Id}}</option>
+              </select>
+            </div>
+            <div class="col-md-12 sensors-info-container">
+              <app-datatable [rows]="gatewaysRows" [columns]="gatewaysColumns" [limit]="limit">
+              </app-datatable>
+
+            </div>
+          </div>
+        </tab>
+
+        <tab tabTitle="Users" class="tab-content">
+          <div class="row x_content">
+            <div class="col-md-12 sensors-info-container">
+              <app-datatable [rows]="usersRows" [columns]="usersColumns" [limit]="limit">
+              </app-datatable>
+              <ng-template #notificationColTmpl let-row="row" let-value="value">
+                <div>Email:
+                  <a href="mailto:{{value.Email}}">{{row.Email}}</a>
+                </div>
+                <div>SMS:
+                 <a href="tel:{{row.PhoneNumber}}">{{row.PhoneNumber}}({{row.SMSProvider}})</a></div>
+              </ng-template>
+              <ng-template #isAdminColTmpl let-row="row" let-value="value">
+                <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
+              </ng-template>
+            </div>
+          </div>
+        </tab>
+      </tabs>
     </div>
   </div>
 </app-layout>

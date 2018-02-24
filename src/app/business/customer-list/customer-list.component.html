@@ -11,14 +11,14 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="form-group col-md-4 col-sm-6 col-xs-12">
-            <input type='text' class="col-md-12 col-sm-12 col-xs-12" style='padding:8px;' placeholder='Search Customer by Name' (keyup)='updateFilter($event)'
+            <input type='text' [(ngModel)]="doSearchVal" class="col-md-12 col-sm-12 col-xs-12 form-control"  placeholder='Search Customer by Name' (keyup)='updateFilter($event)'
             />
           </div>
           <div class="form-group col-md-2 col-sm-4 col-xs-12">
             <select name="filter_by_status" class="form-control" 
             [(ngModel)]="doFilterByStatus"
             (ngModelChange)="filterByStatus()">
-              <option value="All">All</option>
+              <option value="all">All</option>
               <option value="overdue" [selected]="doFilterByStatus =='Overdue'">Overdue</option>
               <option value="new" [selected]="doFilterByStatus =='New'">New</option>
               <option value="renewed" [selected]="doFilterByStatus =='Renewed'">Renewed</option>
@@ -26,8 +26,8 @@
             </select>
           </div>
           <div class=" col-md-6 col-sm-12 col-xs-12">
-              <label for="dateRange" class="col-wd-22 margin-top-ten">Date between:</label>
-              <div class="col-xs-12 col-sm-4 col-md-4 input-group" style="float:left; margin-right:20px">
+              <label for="dateRange" class="col-sm-3 margin-top-ten">Date between:</label>
+              <div class="col-xs-12 col-sm-4 col-md-4 input-group from-date">
                   <input type="text"
                          class="form-control"
                          [minDate]="minDate"
@@ -49,9 +49,10 @@
                   </div>
           </div>
       </div>
-        <div class="col-md-push-9 col-sm-push-9 col-md-3 col-sm-3 col-xs-12 form-group">
-          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Print" (click)="print()" />
-          <input type="button" class="btn btn-primary col-sm-5 col-xs-5" value="Export" (click)="exportAsCSV()"/>
+        <div class="col-md-push-8 col-md-4 col-sm-12 col-xs-12 form-group">
+          <input type="button" class="btn btn-primary col-md-3 col-sm-4 col-xs-12" value="Print" (click)="print()" />
+          <input type="button" class="btn btn-primary col-md-3 col-sm-4 col-xs-12" value="Export" (click)="exportAsCSV()"/>
+          <input type="button" class="btn btn-primary col-md-3 col-sm-4 col-xs-12" value="Clear All" (click)="clearAll()"/>
         </div>
         </div>
 
@@ -74,8 +75,11 @@
       <ng-template #phoneColTmpl let-row="row" let-value="value">
         <a href="tel:{{value}}">{{value}}</a>
       </ng-template>
-      <ng-template #nameColTmpl let-value="value">
-        <a class="anchor-datatable" routerLink="/business/customer-details" routerLinkActive="active">{{value}}</a>
+      <ng-template #nameColTmpl let-row="row" let-value="value">
+        <a class="anchor-datatable" [routerLink]="['/business/customer-details/', row.Id, 'view']" routerLinkActive="active">{{value}}</a>
+      </ng-template>
+      <ng-template #amountColTmpl let-row="row" let-value="value">
+        <span>{{value | currency}}</span>
       </ng-template>
     </div>
         </div>
