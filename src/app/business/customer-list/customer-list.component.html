@@ -1,9 +1,12 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_title">
+      <div class="x_title col-md-11 col-sm-11 col-xs-12">
         <h3>Customers List</h3>
         <div class="clearfix"></div>
+      </div>
+      <div class="col-md-1 col-sm-1 col-xs-12">
+        <input type="button" value="Back" (click)="goToPrevPage()"/>
       </div>
       <!-- <pre>{{result|json}}</pre> -->
     </div>
@@ -19,10 +22,10 @@
             [(ngModel)]="doFilterByStatus"
             (ngModelChange)="filterByStatus()">
               <option value="all">All</option>
-              <option value="overdue" [selected]="doFilterByStatus =='Overdue'">Overdue</option>
-              <option value="new" [selected]="doFilterByStatus =='New'">New</option>
-              <option value="renewed" [selected]="doFilterByStatus =='Renewed'">Renewed</option>
-              <option value="due" [selected]="doFilterByStatus =='Due'">Due</option>
+              <option value="overdue" [selected]="doFilterByStatus =='overdue'">Overdue</option>
+              <option value="new" [selected]="doFilterByStatus =='new'">New</option>
+              <option value="renew" [selected]="doFilterByStatus =='renew'">Renew</option>
+              <option value="due" [selected]="doFilterByStatus =='due'">Due</option>
             </select>
           </div>
           <div class=" col-md-6 col-sm-12 col-xs-12">
@@ -66,8 +69,11 @@
       <div class="square" *ngIf="value === 'Overdue'" style="background-color:#d9534f"></div>
       <div class="square" *ngIf="value === 'Due'" style="float: left; background-color: #f0ad4e"></div>
       <div class="square" *ngIf="value === 'New'" style="float: left;background-color: #3498DB"></div>
-      <div class="square" *ngIf="value === 'Renewed'" style="float: left; background-color: #26B99A"></div>
+      <div class="square" *ngIf="value === 'Renew'" style="float: left; background-color: #26B99A"></div>
       <span>{{value}}</span>
+      </ng-template>
+      <ng-template #renewalColTmpl let-row="row" let-value="value">
+        <span>{{value | date:'MM-dd-yyyy'}}</span>
       </ng-template>
       <ng-template #emailColTmpl let-row="row" let-value="value">
        <a href="mailto:{{value}}">{{value}}</a>
@@ -76,10 +82,13 @@
         <a href="tel:{{value}}">{{value}}</a>
       </ng-template>
       <ng-template #nameColTmpl let-row="row" let-value="value">
-        <a class="anchor-datatable" [routerLink]="['/business/customer-details/', row.Id, 'view']" routerLinkActive="active">{{value}}</a>
+        <a class="anchor-datatable" [routerLink]="['/business/customer-details/', row.id, 'view']" routerLinkActive="active">{{value}}</a>
       </ng-template>
       <ng-template #amountColTmpl let-row="row" let-value="value">
         <span>{{value | currency}}</span>
+      </ng-template>
+      <ng-template #sensorsColTmpl let-row="row" let-value="value">
+        <span class="sensor-cell">{{value}}</span>
       </ng-template>
     </div>
         </div>

@@ -1,50 +1,63 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="row customer-summary-info">
-        <div class="col-md-12">
-          <h3>Customer Details</h3>
-        </div>
-        <div class="customer-info-container">
-          <div class="col-md-6 customer-info-left">
-            <div class="customer-name">
-             {{customerData.Name}}</div>
-            <div class="customer-address">{{customerData.Address}}</div>
-            <div class="customer-contact-name"><span class="usr-lbl">Contact Name:</span>{{customerData.ContactName}}</div>
-            <div class="customer-email"><span class="usr-lbl">Email:</span>
-              <a href="mailto:{{customerData.ContactEmail}}">{{customerData.ContactEmail}}</a>,</div>
-            <div class="customer-phone"><span>Phone:</span>
-              <a href="tel:{{customerData.ContactNumber}}">{{customerData.ContactNumber}}</a></div>
+      <div class="x_title col-md-11 col-sm-11 col-xs-12">
+        <h3>Customers List</h3>
+        <div class="clearfix"></div>
+      </div>
+      <div class="col-md-1 col-sm-1 col-xs-12">
+        <input type="button" value="Back" (click)="goToPrevPage()" />
+      </div>
+    </div>
+    <div class="customer-info-container">     
+      <div *ngIf="loadedStatuses === true">
+        <div class="col-md-6 customer-info-left">
+          <div class="customer-name">
+            {{customerData.name}}
           </div>
-          <div class="col-md-6 network-card">
-            <div class="col-sm-12 network-card-top">
-              <div class="col-sm-7 customer-status">Status
-                <span> {{customerData.Status}}</span>
-              </div>
-              <!-- <div class="network-name">{{customerData.ExpiryDate}}</div> -->
-              <div class="col-sm-5 customer-amount">Amount
-               <span> {{customerData.Amount | currency}}</span>
-              </div>
+          <div class="customer-address">{{customerData.address}}</div>
+          <div class="customer-contact-name">
+            <span class="usr-lbl">Contact Name:</span>{{customerData.contactName}}</div>
+          <div class="customer-email">
+            <span class="usr-lbl">Email:</span>
+            <a href="mailto:{{customerData.ContactEmail}}">{{customerData.contactEmail}}</a>,</div>
+          <div class="customer-phone">
+            <span>Phone:</span>
+            <a href="tel:{{customerData.ContactNumber}}">{{customerData.contactNumber}}</a>
+          </div>
+        </div>
+        <div class="col-md-6 network-card">
+          <div class="col-sm-12 network-card-top">
+            <div class="col-sm-7 customer-status">Status
+              <span> {{customerData.status}}</span>
             </div>
-            <div class="customer-renewal">Renewal 
-              <span> {{customerData.ExpiryDate}}</span>
+            <!-- <div class="network-name">{{customerData.ExpiryDate}}</div> -->
+            <div class="col-sm-5 customer-amount">Amount
+              <span> {{customerData.amount | currency}}</span>
             </div>
-            <div class="network-card-bottom">
-              <div class="gateway-count">Gateways
-                <span>{{customerData.NumberOfGateways}}</span>
-              </div>
-              <div class="sensor-count">Sensor
-                <span>{{customerData.NumberOfSensors}}</span>
-              </div>
-              <div class="col-sm-4 col-sm-push-8 customer-subscription">Subscription
-                <span>{{customerData.Subscription}}</span>
-              </div>
+          </div>
+          <div class="customer-renewal">Renewal
+            <span> {{customerData.expiryDate | date:'MM-dd-yyyy'}}</span>
+          </div>
+          <div class="network-card-bottom">
+            <div class="gateway-count">Gateways
+              <span>{{customerData.numberOfGateways}}</span>
+            </div>
+            <div class="sensor-count">Sensor
+              <span>{{customerData.numberOfSensors}}</span>
+            </div>
+            <div class="col-sm-4 col-sm-push-8 customer-subscription">Subscription
+              <span>{{customerData.subscription}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="loader" *ngIf="customerData === null"></div>
+  <div *ngIf="loadedStatuses === true">
     <div class="tabs_container">
+        
       <tabs>
         <!-- Sensors Tab -->
         <tab tabTitle="Network" class="tab-content">
@@ -61,7 +74,8 @@
             <div class="form-group col-sm-push-9 col-sm-3">
               <select name="filter_by_network" [(ngModel)]="doFilterByNetwork" class="form-control" (ngModelChange)="filterByNertwork(this)">
                 <option value='select' disabled selected>Select Network</option>
-                <option *ngFor="let row of networkRows" value="{{row.Id}}">{{row.Id}}</option>
+                <option value='all'>All</option>
+                <option *ngFor="let row of networkRows" value="{{row.csNetID}}">{{row.csNetID}}</option>
               </select>
             </div>
             <div class="col-md-12 sensors-info-container">
@@ -76,7 +90,8 @@
             <div class="form-group col-sm-push-9 col-sm-3">
               <select name="filter_by_network" [(ngModel)]="doFilterByGateway" class="form-control" (ngModelChange)="filterByGateway()">
                 <option value='select' disabled selected>Select Network</option>
-                <option *ngFor="let row of networkRows" value="{{row.Id}}">{{row.Id}}</option>
+                <option value='all'>All</option>
+                <option *ngFor="let row of networkRows" value="{{row.csNetID}}">{{row.csNetID}}</option>
               </select>
             </div>
             <div class="col-md-12 sensors-info-container">
@@ -94,10 +109,11 @@
               </app-datatable>
               <ng-template #notificationColTmpl let-row="row" let-value="value">
                 <div>Email:
-                  <a href="mailto:{{value.Email}}">{{row.Email}}</a>
+                  <a href="mailto:{{row.emailAddress}}">{{row.emailAddress}}</a>
                 </div>
                 <div>SMS:
-                 <a href="tel:{{row.PhoneNumber}}">{{row.PhoneNumber}}({{row.SMSProvider}})</a></div>
+                  <a href="tel:{{row.smsNumber}}">{{row.smsNumber}}({{row.SMSProvider}})</a>
+                </div>
               </ng-template>
               <ng-template #isAdminColTmpl let-row="row" let-value="value">
                 <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
