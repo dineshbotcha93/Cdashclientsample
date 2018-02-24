@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import * as $ from 'jquery';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,7 @@ export class HeaderComponent {
   @Output() selectLanguage: EventEmitter<any> = new EventEmitter();
   @Output() logout:         EventEmitter<any> = new EventEmitter();
 
-  constructor(private translate: TranslateService){
+  constructor(private translate: TranslateService, private router:Router){
 
   }
   menuToggle(){
@@ -43,6 +44,10 @@ export class HeaderComponent {
 
     $BODY.toggleClass('nav-sm nav-md');
 
+  }
+
+  goToLink(link){
+    this.router.navigate([link]);
   }
 
   catchLanguage(lang){

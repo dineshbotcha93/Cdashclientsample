@@ -7,6 +7,7 @@ import { ComponentsModule }    from '../../shared/components';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SharedModule } from '../../shared/modules/shared.module';
 
 
 const routes:Object[] = [{
@@ -22,6 +23,7 @@ const routes:Object[] = [{
     ComponentsModule,
     FormsModule,
     ChartsModule,
+    SharedModule,
     BsDatepickerModule.forRoot()
   ]
 })

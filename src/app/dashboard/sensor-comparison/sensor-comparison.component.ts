@@ -1,15 +1,16 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SensorDetailsService } from '../sensor-details/services/sensor-details.service';
+import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
-
+import * as moment from 'moment/moment';
 
 interface SensorDetail{
-  SensorName:string;
-  SensorID:number;
+  sensorName:string;
+  sensorID:number;
 }
 
 const now = new Date();
@@ -17,7 +18,7 @@ const now = new Date();
 @Component({
   selector:'app-sensor-comparison',
   templateUrl:'./sensor-comparison.component.html',
-  providers:[SensorDetailsService],
+  providers:[SensorDetailsService, SensorSummaryService],
   styleUrls: ['./sensor-comparison.component.scss'],
 })
 
@@ -29,10 +30,20 @@ export class SensorComparisonComponent{
   private networkName:string = '';
   private location:number = 0;
   private chartOptions = null;
+  private netWorkId = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
 
+  date: {year: number, month: number};
+
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
+
+  bsValue: Date = moment().subtract(7,'days').toDate();
+  bsValueTwo: Date = moment().toDate();
+  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
   constructor(private sensorDetailsService:SensorDetailsService,
+    private sensorSummaryService: SensorSummaryService,
     private router:Router,
     private route:ActivatedRoute){
     this.sensorNames = this.getSensorNames();
@@ -57,15 +68,19 @@ export class SensorComparisonComponent{
 
   getSensorNames():Array<Object>{
     let allNames:Array<Object> = [];
+    let allSensorIds: Array<Object> = [];
+    this.netWorkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
     if(!environment.production){
-      Promise.all([
-        this.sensorDetailsService.getData('1156073157'),
-        this.sensorDetailsService.getData('1156073158'),
-        this.sensorDetailsService.getData('1156073159'),
-        this.sensorDetailsService.getData('1156073160')
-      ]).then((result:Array<SensorDetail>)=>{
-        result.forEach((res:SensorDetail)=>{
-          allNames.push({label:res.SensorName,value:res.SensorID});
+      this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
+        result.sensors.forEach((allSensors)=>{
+          allSensorIds.push(this.sensorDetailsService.getDetails(allSensors.sensorID));
+        });
+        return allSensorIds;
+      }).then((allSensorIds)=>{
+        Promise.all(allSensorIds).then((result:Array<SensorDetail>)=>{
+          result.forEach((res:SensorDetail)=>{
+            allNames.push({label:res.sensorName,value:res.sensorID});
+          });
         });
       });
     }
@@ -73,23 +88,34 @@ export class SensorComparisonComponent{
   }
 
   test(){
-    console.log(this.sensorName);
+  }
+
+  onDateChange(event){
+    console.log(event);
   }
 
   addSensor(){
     let tempData = [];
     this.location++;
+    const selectedSensor = this.sensorNames.filter((sens)=>(sens['value'] == this.sensorName) ? sens: '');
     this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
     if(this.sensorName!==''){
-      this.sensorDetailsService.getData(this.sensorName).then((result)=>{
-        result.DataMessages.forEach((res)=>{
-          tempData.push(res.PlotValue);
-          if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
-            this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+      const fromDate = moment(this.bsValue).format('DD/MM/YYYY');
+      const toDate = moment(this.bsValueTwo).format('DD/MM/YYYY');
+      this.sensorDetailsService.getDataMessages(this.sensorName,fromDate,toDate).then((result)=>{
+        result.forEach((res)=>{
+          tempData.push(res.plotValue);
+          if(this.chartLabels.indexOf(new Date(res.messageDate).toISOString().slice(11,19))==-1){
+            this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
           }
         });
-        this.chartData.push({data:tempData,label:result.SensorName,fill:false});
+        const filteredData = this.sensorNames.filter((sens)=>{
+          if(this.netWorkId == sens['value']){
+            return sens;
+          }
+        });
+        this.chartData.push({data:tempData,label:selectedSensor[0]['label'],fill:false});
         if(this.chart){
           this.chart.ngOnDestroy();
           this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
@@ -140,13 +166,4 @@ export class SensorComparisonComponent{
     let networkId = localStorage.getItem("com.cdashboard.networkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
-
-  date: {year: number, month: number};
-
-  minDate = new Date(2017, 5, 10);
-  maxDate = new Date(2018, 9, 15);
-
-  bsValue: Date = new Date();
-  bsValueTwo: Date = new Date();
-  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 }
