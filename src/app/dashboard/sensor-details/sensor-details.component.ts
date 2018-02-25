@@ -10,6 +10,7 @@ import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalContentComponent } from './modals/modalContent.component';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment/moment';
 declare var jsPDF: any; // Important
 
@@ -43,7 +44,9 @@ export class SensorDetailsComponent {
     private route:ActivatedRoute,
     private alertSandbox: AlertSandbox,
     private cd: ChangeDetectorRef,
-    private modalService: BsModalService){
+    private modalService: BsModalService,
+    private translate: TranslateService
+  ){
     this.chartOptions = ChartOptions;
     this.route.params.subscribe((params)=>{
       this.detailId = params.id.toString();
@@ -64,6 +67,7 @@ export class SensorDetailsComponent {
         e.preventDefault();
       }
     }
+    this.translate.use('en');
   }
 
   ngAfterViewInit(){

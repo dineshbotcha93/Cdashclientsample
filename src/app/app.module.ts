@@ -1,11 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportsModule } from './reports/reports.module';
 import { PaymentsModule } from './payments/payments.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
-import { LoginModule } from './auth/login/login.module';
 import { ContainersModule } from './shared/containers';
 import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -32,7 +30,13 @@ import { UserManagementModule } from './user-management/UserManagement.module';
 import { SharedModule } from './shared/modules/shared.module';
 
 const appRoutes: Routes = [{
-  path:'',redirectTo:'login', pathMatch:'full'
+  path:'',redirectTo:'login', pathMatch:'full',
+},
+{
+  path:'login', loadChildren: './auth/login/login.module#LoginModule'
+},
+{
+  path:'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule',
 }]
 
 let mockProvider = [];
@@ -48,14 +52,12 @@ if(!environment.production)
 }
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    DashboardModule,
     ReportsModule,
     PaymentsModule,
-    LoginModule,
     HttpModule,
     ComponentsModule,
     HttpClientModule,
