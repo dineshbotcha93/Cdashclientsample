@@ -7,8 +7,8 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { LanguageDropdownComponent } from '../../shared/components/languageDropdown/languageDropdown.component';
 import { ComponentsModule } from '../../shared/components';
 
-export const routes: Routes = [
-  { path:'login',component: LoginComponent }
+const routes: Routes = [
+  { path:'',component: LoginComponent }
 ]
 
 @NgModule({

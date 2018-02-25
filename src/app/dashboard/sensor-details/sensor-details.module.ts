@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {SensorDetailsComponent } from './sensor-details.component';
-import {Route, RouterModule } from '@angular/router';
+import {Routes, RouterModule } from '@angular/router';
 import { ContainersModule }         from '../../shared/containers';
 import { ComponentsModule }    from '../../shared/components';
 import { CommonModule } from '@angular/common';
@@ -14,8 +14,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalContentComponent } from './modals/modalContent.component';
 
 
-const routes:Object[] = [{
-  path:'dashboard/sensor-details/:id',component:SensorDetailsComponent
+const routes:Routes= [{
+  path:'',component:SensorDetailsComponent
 }];
 
 @NgModule({
