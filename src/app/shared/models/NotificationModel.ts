@@ -24,4 +24,6 @@ export class NotificationModel {
 
 	 public scheduleInlineNotifyCheck: any  =  { left: false, right: false };
 
+	 public notificationTemplate: string;
+
 }

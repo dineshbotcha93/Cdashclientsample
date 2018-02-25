@@ -215,10 +215,22 @@
                   <div class="row">
                      <div class="col-md-4">
                         <form action="" class="dark-theme">
-                           <input type="radio" checked name="notificationRadio" (click)="onClickNotificationOverview()" value="overview"> Sent Alerts
-                           <input type="radio" name="notificationRadio" (click)="onClickNotificationSummary()" value="summary"> Configuration
+                           <input type="radio" checked name="notificationRadio" (click)="onClickNotificationOverview()" value="overview"> Sent Notifications
+                           <input type="radio" name="notificationRadio" (click)="onClickNotificationSummary()" value="summary"> Notification Settings
                         </form>
                      </div>
+                    
+                    <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+                      <input class="form-control"
+                             placeholder="Select Date Range"
+                             ngModel
+                             [(ngModel)]="daterangepickerModel"
+                             bsDaterangepicker
+                             [minDate]="minDate"
+                             [maxDate]="maxDate" (ngModelChange)="onClickDateRange()">
+                    </div>
+                 
+                    
                      <div class="col-md-8" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
                         <div class="form-group sensor-actions">
                            <button type="button"

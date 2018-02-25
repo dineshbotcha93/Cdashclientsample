@@ -23,6 +23,10 @@ import { NotificationCreateComponent } from '../notification-create/notification
 import { ButtonsModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
+import { ModalModule } from 'ngx-bootstrap';
+
 
 
 const routes:Object[] = [{
@@ -47,7 +51,7 @@ const routes:Object[] = [{
     CommonModule,
     PipesModule,
     FormsModule,
-    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule
+    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot(),ModalModule.forRoot()
 
   ],
   exports: [

@@ -1,23 +1,71 @@
-<div *ngIf="notificationOverviewObject">
-   <table class="table table-striped">
-      <thead>
-         <tr>
-            <th class="col-md-3">Id</th>
-            <th class="col-md-3">Name</th>
-            <th class="col-md-3">Date</th>
-            <th class="col-md-3">Type</th>
-            <th class="col-md-3">Status</th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let notifiy of notificationOverviewObject">
-             
-            <td class="col-md-3" >{{notifiy.NotificationID}}</td>
-             <td class="col-md-3" >{{notifiy.Name}}</td>
-            <td class="col-md-3" >{{notifiy.NotificationDate}}</td>
-            <td class="col-md-3" >{{notifiy.Type}}</td>
-            <td class="col-md-3" >{{notifiy.Status}}</td>
-         </tr>
-      </tbody>
-   </table>
+<div *ngIf="notificationOverviewObject?.length>0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Notification Name/Type</th>
+                <th>Device Name/Type</th>
+                <th>Reading</th>
+                <th>Notification Date</th>
+                <th>Sent Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let notifiy of notificationOverviewObject">
+
+                <td>
+                    <img src="./assets/images/{{notifiy.notificationType}}.png" alt=""> {{notifiy.name}}</td>
+                <td>
+                    <img src="./assets/images/{{notifiy.deviceType}}.png" alt=""> {{notifiy.deviceName}}</td>
+                <td>{{notifiy.reading}}</td>
+                <td>{{notifiy.notificationDate}}</td>
+                <td>
+                
+                    <button class="btn btn-primary" (click)="openModal(notifiy,template)">EMAIL/SMS</button>
+                    <td>{{notifiy.status}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <ng-container *ngTemplateOutlet="notificationModal"></ng-container>
+    </div>
+
+</ng-template>
+
+<ng-template #notificationModal>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>SMS</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>
+                    {{modalObject.userName}}
+                </td>
+                <td>
+                    {{modalObject.email}}
+                </td>
+                <td>
+                    {{modalObject.smsNumber}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  
+    <div [innerHTML]="modalObject.text"></div>
+</ng-template>
