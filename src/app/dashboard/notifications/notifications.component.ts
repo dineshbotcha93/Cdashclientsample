@@ -1,12 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, Input ,TemplateRef} from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
 
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+  styleUrls: ['./notifications.component.scss'],
+  providers: [SensorSummaryService]
 })
 export class NotificationsComponent implements OnInit {
 
@@ -15,7 +17,8 @@ export class NotificationsComponent implements OnInit {
   modalObject: any = [];
 
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,
+    private sensorSummaryService: SensorSummaryService) { }
 
    openModal(notifiy,template: TemplateRef<any>) {
 
@@ -34,6 +37,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    console.log('hitting senty notofication');
+     console.log(this.sensorSummaryService.getSentNotificationsDetails());
 
     this.notificationOverviewObject = [
       {
@@ -106,5 +112,7 @@ export class NotificationsComponent implements OnInit {
         "status": "EMAIL Sent"
       }
     ];
+
+    console.log('after sample json');
   }
 }
