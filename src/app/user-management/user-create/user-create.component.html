@@ -1,6 +1,8 @@
 <h3>User Registration</h3>
 <div class="table">
 	<form name="form" (ngSubmit)="onSubmit()">
+		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" value="true"> New Master Account User
+		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" value="false"> Link Existing NotifEye Account User 
 		<div class="form-group" >
 			<label for="email">First Name</label>
 			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.firstName" required />

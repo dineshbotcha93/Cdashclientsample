@@ -26,11 +26,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
 import { CommonSharedService } from './shared/services/common-shared.service';
-import { UserManagementModule } from './user-management/UserManagement.module';
 import { SharedModule } from './shared/modules/shared.module';
 
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
+},{
+  path:'user-register',loadChildren:'./user-management/UserManagement.module#UserManagementModule'
 },
 {
   path:'login', loadChildren: './auth/login/login.module#LoginModule'
@@ -64,7 +65,6 @@ if(!environment.production)
     ContainersModule,
     NgxDatatableModule,
     PipesModule,
-    UserManagementModule,
     BusinessModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
