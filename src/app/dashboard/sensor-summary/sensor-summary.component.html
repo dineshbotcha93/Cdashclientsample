@@ -220,7 +220,7 @@
                         </form>
                      </div>
                     
-                    <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+                    <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group" *ngIf="notificationRadio === 'overview'">
                       <input class="form-control"
                              placeholder="Select Date Range"
                              ngModel
@@ -231,7 +231,7 @@
                     </div>
                  
                     
-                     <div class="col-md-8" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
+                     <div class="col-md-4" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
                         <div class="form-group sensor-actions">
                            <button type="button"
                               class="btn btn-primary addBTN"
