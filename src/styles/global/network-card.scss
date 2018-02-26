@@ -1,8 +1,9 @@
+@import "./../variables";
 
 .network-card {
   background: url("./assets/images/Compass_Cropped_Right_White_Opacity3.svg") no-repeat top right;
   background-color: $color-body-bg;
-  border-radius: 10px;
+  border-radius: $border-radius-medium;
   position: relative;
   padding: 20px;
 
