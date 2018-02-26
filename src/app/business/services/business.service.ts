@@ -286,4 +286,8 @@ export class BusinessService {
       }
     ]);
   }
+  getRealData(){
+    return this.requesterService
+    .getExternalRequest('/api/Account/AccountSummary');
+  }
 }

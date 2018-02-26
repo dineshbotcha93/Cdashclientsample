@@ -4,8 +4,10 @@ export class UserManagementForm {
   public lastName: string;
   public password: string;
   public confirmPassword: string;
+  public isNewMaster: boolean;
 
   constructor(userManagementForm: any) {
+    this.isNewMaster = false;
     this.email = userManagementForm.email    || '';
     this.firstName = userManagementForm.firstName    || '';
     this.lastName = userManagementForm.lastName    || '';

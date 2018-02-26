@@ -6,6 +6,7 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment/moment';
 
 interface SensorDetail{
@@ -45,7 +46,9 @@ export class SensorComparisonComponent{
   constructor(private sensorDetailsService:SensorDetailsService,
     private sensorSummaryService: SensorSummaryService,
     private router:Router,
-    private route:ActivatedRoute){
+    private route:ActivatedRoute,
+    private translate: TranslateService
+  ){
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
@@ -64,6 +67,8 @@ export class SensorComparisonComponent{
         }
       }.bind(this)
     }
+
+    this.translate.use('en');
   }
 
   getSensorNames():Array<Object>{
