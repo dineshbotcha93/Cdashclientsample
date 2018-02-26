@@ -34,7 +34,8 @@
 </div>
         </div>
         <div class="x_content">
-      <form class="form-horizontal" role="form">
+          <div class="loader" *ngIf="sensorNames.length == 0"></div>
+      <form class="form-horizontal" role="form" *ngIf="sensorNames.length > 0">
         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
           <select name="sort" [(ngModel)]="sensorName" class="form-control" (change)="test()">
             <option value="{{sensor.value}}" *ngFor='let sensor of sensorNames'>{{sensor.label}}</option>
