@@ -6,35 +6,36 @@ import { UserManagementService } from '../user-management.service';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 
 @Component({
-selector: 'app-user-create',
-templateUrl: './user-create.component.html',
-styleUrls: ['./user-create.component.scss']
+	selector: 'app-user-create',
+	templateUrl: './user-create.component.html',
+	styleUrls: ['./user-create.component.scss']
 })
 export class UserCreateComponent implements OnInit {
 userRegisterModel:  UserManagementForm = {
-email:'',
-firstName:'',
-lastName:'',
-password:'',
-confirmPassword:'',
-};
+	email:'',
+	firstName:'',
+	lastName:'',
+	password:'',
+	confirmPassword:'',
+	isNewMaster: true
+	};
 isNewUserRegistered : boolean = false;
 constructor(private route:ActivatedRoute,
 			private router:Router,
 			private userManagementService: UserManagementService,
 			private commonSharedService : CommonSharedService) { }
 
-ngOnInit() {
-	this.route.params.subscribe(params => {
-	this.userRegisterModel.email = params['id'];
-});
-}
+	ngOnInit() {
+		this.route.params.subscribe(params => {
+			this.userRegisterModel.email = params['id'];
+		});
+	}
 
-onSubmit(){
-
-	this.userRegisterModel.password = this.commonSharedService.getHahedPassword(this.userRegisterModel.email,this.userRegisterModel.password);
-	this.isNewUserRegistered = this.userManagementService.userRegistration(this.userRegisterModel);
-	//this.router.navigate(['/login']);
-	this.router.navigate(['/user-update',this.userRegisterModel.email]);
-}
+	onSubmit(){
+		console.log(this.userRegisterModel);
+		this.userRegisterModel.password = this.commonSharedService.getHahedPassword(this.userRegisterModel.email,this.userRegisterModel.password);
+		this.isNewUserRegistered = this.userManagementService.userRegistration(this.userRegisterModel);
+		//this.router.navigate(['/login']);
+		this.router.navigate(['/user-register/user-update',this.userRegisterModel.email]);
+	}
 }

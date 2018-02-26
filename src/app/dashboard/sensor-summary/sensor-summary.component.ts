@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
@@ -79,7 +80,8 @@ export class SensorSummaryComponent implements OnInit {
     private mapService:MapService,
     private sensorSummaryService:SensorSummaryService,
     private commonSharedService:CommonSharedService,
-    private alertSandbox: AlertSandbox
+    private alertSandbox: AlertSandbox,
+    private translate: TranslateService
     ){
       this.route.params.subscribe((params)=>{
         this.netWorkId = params.id.toString();
@@ -87,6 +89,7 @@ export class SensorSummaryComponent implements OnInit {
         this.getNetworkData();
         this.getDropdownDetails();
      });
+     this.translate.use('en');
    }
 
    ngOnInit() {
@@ -683,7 +686,7 @@ export class SensorSummaryComponent implements OnInit {
       this.notificationRadio = 'addNotify';
     }
     onClickResetNotification(){
-      
+
       this.notificationRadio = 'summary';
   }
     goBack(){

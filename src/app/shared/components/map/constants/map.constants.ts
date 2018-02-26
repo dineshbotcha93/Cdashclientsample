@@ -9,7 +9,7 @@ export const MapConstants = {
     DEFAULTERS: 'Overdue',
     NEW_CUSTOMERS: 'New',
     DUE_CUSTOMERS: 'Due',
-    RENEWED_CUSTOMERS: 'Renewed',
+    RENEWED_CUSTOMERS: 'Renew',
     OUTSTANDING_BALANCE: 'OutstandingBalance',
     RECENT_PAYMENTS: 'RecentPayments'
   },

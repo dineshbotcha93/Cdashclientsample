@@ -1,85 +1,92 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-<div class="row sensor-summary-info">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <h3>{{sensorDetailsData?.sensorName}}</h3>
-                      {{'global.from'|translate}}
-          <div class="input-group col-xs-12 col-sm-4 col-lg-2">
-  <input type="text"
-  class="form-control"
-  [minDate]="minDate"
-  [maxDate]="maxDate"
-  #dp="bsDatepicker"
-  (bsValueChange)="onDateChange($event)"
-  bsDatepicker [(bsValue)]="bsValue">
-  <span class="input-group-addon" (click)="dp.show() ">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-  </span>
-  </div>
-      {{'global.to'|translate}}
-  <div class="input-group col-xs-12 col-sm-4 col-lg-2">
-  <input type="text"
-  class="form-control"
-  [minDate]="minDate"
-  [maxDate]="maxDate"
-  #dp1="bsDatepicker"
-  (bsValueChange)="onDateChange($event)"
-  bsDatepicker [(bsValue)]="bsValueTwo">
-  <span class="input-group-addon" (click)="dp1.show() ">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-  </span>
-</div>
-          <input type="button" value="Back" (click)="goBack()">
-                    <input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />
-        </div>
-  <div class="ss-info-container">
-        <div class="col-md-3 col-sm-3 col-xs-12 ss-info-left">
-          <app-gauge
-            [type]="'semi'"
-            [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
-            [title]=""
-          ></app-gauge>
-            <span>
-              {{'sensorDetails.lastCheckin'|translate}}:
-            </span>
-            {{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}
-            <p>
-              {{'sensorDetails.networkName'|translate}}:{{sensorDetailsData?.networkName ? sensorDetailsData?.networkName : 'N/A'}}
-            </p>
-            <p>
-              {{'sensorDetails.gatewayName'|translate}}:{{sensorDetailsData?.gatewayName ? sensorDetailsData?.gatewayName : 'N/A'}}
-            </p>
-            <p>
-              <input type="button" value="{{'global.comments'|translate}}" (click)="addComments()">
-            </p>
-        </div>
-        <div class="col-md-9 col-sm-9 col-xs-12 network-card graph-card dark-theme">
-          <div class="demo-placeholder">
-            <canvas
-              baseChart
-              #baseChart="base-chart"
-              [chartType]="'line'"
-              [datasets]="chartData"
-              [labels]="chartLabels"
-              [options]="chartOptions"
-              [legend]="true">
-            </canvas>
-          </div>
-        </div>
+      <h3>{{sensorDetailsData?.sensorName}}</h3>
     </div>
-    </div>
-      <div class="clearfix"></div>
-      <input type="button" (click)="export()" value="{{'global.exportPdf'|translate}}">
-    <div class="row network-card graph-card dark-theme">
-      <app-datatable
-        *ngIf="rows[0]!=='N/A'"
-        [rows]="rows"
-        [columns]="columns"
-        [limit]="limit">
-      </app-datatable>
+    <div class="col-md-6">
+      {{'global.from'|translate}}
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               #dp="bsDatepicker"
+               (bsValueChange)="onDateChange($event)"
+               bsDatepicker [(bsValue)]="bsValue">
+        <span class="input-group-addon" (click)="dp.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+      </div>
     </div>
 
+    <div class="col-md-6">
+      {{'global.to'|translate}}
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               #dp1="bsDatepicker"
+               (bsValueChange)="onDateChange($event)"
+               bsDatepicker [(bsValue)]="bsValueTwo">
+        <span class="input-group-addon" (click)="dp1.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+      </div>
     </div>
-  </div>
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="goBack()"><i class="fa fa-chevron-left"></i> Back</button>
+      <button class="btn btn-primary" (click)="reset('zoom')">Reset zoom</button>
+    </div>
+
+    <!-- Gauge and CHart container -->
+    <div class="col-md-4 col-sm-4 col-xs-12 sd-gauga-chart-container">
+      <div class="gauge-container">
+        <app-gauge
+          [type]="'arch'"
+          [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
+          [title]="">
+        </app-gauge>
+        <p class="gauge-data">
+          {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}</span>
+        </p>
+        <p class="gauge-data">
+          {{'sensorDetails.networkName'|translate}}: <span class="value">{{sensorDetailsData?.networkName ? sensorDetailsData?.networkName : 'N/A'}}</span>
+        </p>
+        <p class="gauge-data">
+          {{'sensorDetails.gatewayName'|translate}}: <span class="value">{{sensorDetailsData?.gatewayName ? sensorDetailsData?.gatewayName : 'N/A'}}</span>
+        </p>
+        <button class="btn btn-primary" (click)="addComments()">{{'global.comments'|translate}}</button>
+      </div>
+    </div>
+
+    <div class="col-md-8 col-sm-8 col-xs-12 sd-gauga-chart-container">
+      <div class="graph-card">
+        <canvas
+          baseChart
+          #baseChart="base-chart"
+          [chartType]="'line'"
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="true">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="message-history-container">
+        <button class="btn btn-primary" (click)="export()">{{'global.exportPdf'|translate}}</button>
+        <div class="graph-card">
+          <app-datatable
+            *ngIf="rows[0]!=='N/A'"
+            [rows]="rows"
+            [columns]="columns"
+            [limit]="limit">
+          </app-datatable>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- / end of div.row -->
 </app-layout>

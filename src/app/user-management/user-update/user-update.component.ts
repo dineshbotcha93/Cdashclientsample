@@ -23,6 +23,7 @@ firstName:'',
 lastName:'',
 password:'',
 confirmPassword:'',
+isNewMaster:false
 };
 
 constructor(private route:ActivatedRoute,

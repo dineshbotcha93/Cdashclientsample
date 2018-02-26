@@ -8,7 +8,6 @@ import { MapConstants } from '../shared/components/map/constants/map.constants';
 import {Router} from '@angular/router';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { TranslateService } from '@ngx-translate/core';
-
 export interface tileDetail{
   count:string;
   status:string;
@@ -54,7 +53,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
       });
       return realResults;
-    }).then((real)=>{
+    }).then((real) => {
       this.mapData = real;
       this.loadedStatuses = true;
       this.forceTranslations();
