@@ -164,7 +164,7 @@ export class SensorDetailsComponent {
   }
 
   goBack(){
-    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId"); // fix for setting up selected network id
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
 
