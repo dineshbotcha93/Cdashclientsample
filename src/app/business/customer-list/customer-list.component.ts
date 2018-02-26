@@ -7,17 +7,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
+import {Location} from '@angular/common';
 
 export interface CustomerData {
-  Status: string;
-  Title: string;
-  ContactEmail: string;
-  ContactName: string;
-  Subscription: string;
-  ExpiryDate: string;
-  ContactNumber: string;
-  NumberOfSensors: string;
-  Amount: string;
+  status: string;
+  name: string;
+  contactEmail: string;
+  contactName: string;
+  subscription: string;
+  expiryDate: string;
+  contactNumber: string;
+  numberOfSensors: string;
+  amount: string;
 }
 
 @Component({
@@ -33,6 +34,8 @@ export class CustomerListComponent implements OnInit {
   @ViewChild('phoneColTmpl') phoneColTmpl: TemplateRef<any>;
   @ViewChild('nameColTmpl') nameColTmpl: TemplateRef<any>;
   @ViewChild('amountColTmpl') amountColTmpl: TemplateRef<any>;
+  @ViewChild('sensorsColTmpl') sensorsColTmpl: TemplateRef<any>;
+  @ViewChild('renewalColTmpl') renewalColTmpl: TemplateRef<any>;
   @ViewChild('dataTable')  public dataTable: DataTableComponent;
   private rows: Array<CustomerData> = null;
   private columns: Array<any> = [];
@@ -48,15 +51,12 @@ export class CustomerListComponent implements OnInit {
 
 
   constructor(private businessService: BusinessService,
-    private route: ActivatedRoute, private router: Router) {
+    private route: ActivatedRoute, private router: Router, private _location: Location) {
     this.route.params.subscribe((params) => {
       this.statusParam = params.status.replace(/-/g, ' ').trim();
     });
-    businessService.getData().subscribe((result) => {
-      //this.result1 = result;
-      this.rows = result[0].Customers;
-      this.tempData = result[0].Customers;
-    });
+     this.rows = JSON.parse(localStorage.getItem('com.cdashboard.customerData'));
+     this.tempData = JSON.parse(localStorage.getItem('com.cdashboard.customerData'));
   }
 
 
@@ -64,8 +64,8 @@ export class CustomerListComponent implements OnInit {
     if (event.target.value !== undefined && event.target.value !== '') {
       const lowerValue = event.target.value.toLowerCase();
       this.items = this.rows.filter(
-        item => item.Title.toLowerCase().indexOf(lowerValue) !== -1
-          || item.Title.toLowerCase().toString().startsWith(lowerValue)
+        item => item.name.toLowerCase().indexOf(lowerValue) !== -1
+          || item.name.toLowerCase().toString().startsWith(lowerValue)
           || !lowerValue);
       this.rows = this.items;
     }
@@ -77,27 +77,27 @@ export class CustomerListComponent implements OnInit {
   ngOnInit() {
     this.doFilterByStatus = this.statusParam;
     this.filterByStatus();
-    this.columns.push({ prop: 'Status', name: 'Status', cellTemplate: this.statusColorTmpl });
-    this.columns.push({ prop: 'Title', name: 'Name', cellTemplate: this.nameColTmpl });
-    this.columns.push({ prop: 'Subscription', name: 'Subscription' });
-    this.columns.push({ prop: 'ExpiryDate', name: 'Renewal Date' });
-    this.columns.push({ prop: 'ContactName', name: 'Contact Name' });
-    this.columns.push({ prop: 'ContactNumber', name: 'Contact Number', cellTemplate: this.phoneColTmpl });
-    this.columns.push({ prop: 'ContactEmail', name: 'Contact Email', cellTemplate: this.emailColTmpl });
-    this.columns.push({ prop: 'NumberOfSensors', name: 'Sensors' });
-    this.columns.push({ prop: 'Amount', name: 'Amount', cellTemplate: this.amountColTmpl });
+    this.columns.push({ prop: 'status', name: 'Status', cellTemplate: this.statusColorTmpl });
+    this.columns.push({ prop: 'name', name: 'Name', cellTemplate: this.nameColTmpl });
+    this.columns.push({ prop: 'subscription', name: 'Subscription' });
+    this.columns.push({ prop: 'expiryDate', name: 'Renewal Date', cellTemplate: this.renewalColTmpl });
+    this.columns.push({ prop: 'contactName', name: 'Contact Name' });
+    this.columns.push({ prop: 'contactNumber', name: 'Contact Number', cellTemplate: this.phoneColTmpl });
+    this.columns.push({ prop: 'contactEmail', name: 'Contact Email', cellTemplate: this.emailColTmpl });
+    this.columns.push({ prop: 'numberOfSensors', name: 'Sensors', cellTemplate: this.sensorsColTmpl });
+    this.columns.push({ prop: 'amount', name: 'Amount', cellTemplate: this.amountColTmpl });
   }
   onChange($event) {
     this.bsValue = $event;
     this.items = this.rows.filter(item =>
-      new Date(item.ExpiryDate).getTime() > this.bsValue.getTime() && new Date(item.ExpiryDate).getTime() < this.bsValueTwo.getTime());
+      new Date(item.expiryDate).getTime() > this.bsValue.getTime() && new Date(item.expiryDate).getTime() < this.bsValueTwo.getTime());
     this.rows = this.items;
   }
 
   onChangeToDp($event) {
     this.bsValueTwo = $event;
     this.items = this.rows.filter(item =>
-      new Date(item.ExpiryDate).getTime() > this.bsValue.getTime() && new Date(item.ExpiryDate).getTime() < this.bsValueTwo.getTime());
+      new Date(item.expiryDate).getTime() > this.bsValue.getTime() && new Date(item.expiryDate).getTime() < this.bsValueTwo.getTime());
     this.rows = this.items;
   }
 
@@ -107,13 +107,13 @@ export class CustomerListComponent implements OnInit {
       this.rows = this.tempData.filter((item) => {
         switch (criteria) {
           case 'overdue':
-            return (item.Status.toLowerCase() === 'overdue') ? item : "";
+            return (item.status.toLowerCase() === 'overdue') ? item : "";
           case 'new':
-            return (item.Status.toLowerCase() === 'new') ? item : "";
-          case 'renewed':
-            return (item.Status.toLowerCase() === 'renewed') ? item : "";
+            return (item.status.toLowerCase() === 'new') ? item : "";
+          case 'renew':
+            return (item.status.toLowerCase() === 'renew') ? item : "";
           case 'due':
-            return (item.Status.toLowerCase() === 'due') ? item : "";
+            return (item.status.toLowerCase() === 'due') ? item : "";
           default: return item;
         }
       });
@@ -131,15 +131,15 @@ export class CustomerListComponent implements OnInit {
     strHTML += '<th>' + column.name + '</th>';
     }
     for(let row of this.rows){
-      strHTML += '<tr><td>' + row.Status + '</td>';
-      strHTML += '<td>' + row.Title + '</td>';
-      strHTML += '<td>' + row.Subscription + '</td>';
-      strHTML += '<td>' + row.ExpiryDate + '</td>';
-      strHTML += '<td>' + row.ContactName + '</td>';
-      strHTML += '<td>' + row.ContactNumber + '</td>';
-      strHTML += '<td>' + row.ContactEmail + '</td>';
-      strHTML += '<td>' + row.NumberOfSensors + '</td>';
-      strHTML += '<td>' + row.Amount + '</td>';
+      strHTML += '<tr><td>' + row.status + '</td>';
+      strHTML += '<td>' + row.name + '</td>';
+      strHTML += '<td>' + row.subscription + '</td>';
+      strHTML += '<td>' + row.expiryDate + '</td>';
+      strHTML += '<td>' + row.contactName + '</td>';
+      strHTML += '<td>' + row.contactNumber + '</td>';
+      strHTML += '<td>' + row.contactEmail + '</td>';
+      strHTML += '<td>' + row.numberOfSensors + '</td>';
+      strHTML += '<td>' + row.amount + '</td>';
       strHTML += '</tr>';
     }
     strHTML +='</table></body></html>';
@@ -154,6 +154,12 @@ export class CustomerListComponent implements OnInit {
     this.filterByStatus();
     this.bsValue = new Date();
     this.bsValueTwo = new Date();
+  }
+
+  /* Navigate to previous page*/
+
+  goToPrevPage() {
+    this._location.back();
   }
 
   /*Export CSV functionality */

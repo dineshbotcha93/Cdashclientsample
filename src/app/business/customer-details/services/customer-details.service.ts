@@ -302,5 +302,8 @@ export class CustomerDetailsService {
       }
     ]);
   }
-
+  getRealData(AccountId) {
+    return this.requesterService
+    .getExternalRequest('/api/Account/'+AccountId+'/Details');
+  }
 }
