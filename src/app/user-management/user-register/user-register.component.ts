@@ -14,6 +14,8 @@ export class UserRegisterComponent implements OnInit {
     lastName:'',
     password:'',
     confirmPassword:'',
+    isNewMaster: true // Rami : PLz check this later
+
   };
   isEmailVerified : boolean = false;
   constructor(

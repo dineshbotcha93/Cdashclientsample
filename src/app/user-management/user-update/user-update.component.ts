@@ -23,6 +23,7 @@ firstName:'',
 lastName:'',
 password:'',
 confirmPassword:'',
+  isNewMaster: true // Rami : PLz check this later
 };
 
 constructor(private route:ActivatedRoute,
