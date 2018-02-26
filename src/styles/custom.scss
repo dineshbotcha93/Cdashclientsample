@@ -1,5 +1,5 @@
 @import "variables";
-
+@import "loader";
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
 .left_col {
@@ -4434,7 +4434,7 @@ ul.notifications {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }
   }
-  
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
