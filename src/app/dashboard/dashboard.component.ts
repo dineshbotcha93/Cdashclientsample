@@ -53,7 +53,7 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
       });
       return realResults;
-    }).then((real)=>{
+    }).then((real) => {
       this.mapData = real;
       this.loadedStatuses = true;
       this.forceTranslations();

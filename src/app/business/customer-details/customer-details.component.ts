@@ -1,29 +1,30 @@
 import { Component, ViewChild, OnInit, TemplateRef } from '@angular/core';
 import { Http } from '@angular/http';
+import {Location} from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerDetailsService } from './services/customer-details.service';
 
 export interface NetworkData {
-  NetworkId: string;
-  Name: string;
-  Address: string;
-  Gateways: string;
-  Sensors: string;
+  csNetID: string;
+  name: string;
+  address: string;
+  gateways: string;
+  sensors: string;
 }
 export interface SensorsData {
-  SensorID: string;
-  SensorName: string;
-  NetworkID: string;
+  sensorID: string;
+  sensorName: string;
+  csNetID: string;
 }
 export interface GatewaysData {
-  GatewayID: string;
-  GatewayName: string;
-  NetworkID: string;
+  gatewayID: string;
+  name: string;
+  csNetID: string;
 }
 export interface UsersData {
-  Name: string;
+  name: string;
   Notification: string;
-  IsAdmin: boolean;
+  admin: boolean;
 }
 @Component({
   selector: 'app-customer-details',
@@ -34,6 +35,7 @@ export interface UsersData {
 export class CustomerDetailsComponent implements OnInit {
   @ViewChild('isAdminColTmpl') isAdminColTmpl: TemplateRef<any>;
   @ViewChild('notificationColTmpl') notificationColTmpl: TemplateRef<any>;
+  private responseData: Object = null;
   private customerData: Object = null;
   private networkRows: Array<NetworkData> = null;
   private networkColumns: Array<any> = [];
@@ -45,15 +47,16 @@ export class CustomerDetailsComponent implements OnInit {
   private gatewaysColumns: Array<any> = [];
   private usersRows: Array<UsersData> = null;
   private usersColumns: Array<any> = [];
-  private idParam: string = null;
+  private AccountIdParam: number = null;
   private doFilterByNetwork: string = 'select';
   private doFilterByGateway: string = 'select';
+  private loadedStatuses = false;
 
 
   constructor(private customerDetailsService: CustomerDetailsService,
-    private route: ActivatedRoute, private router: Router) {
+    private route: ActivatedRoute, private router: Router, private _location: Location) {
     this.route.params.subscribe((params) => {
-      this.idParam = params.id.trim();
+      this.AccountIdParam = params.id.trim();
     });
   }
 
@@ -67,50 +70,66 @@ export class CustomerDetailsComponent implements OnInit {
     this.doFilterByNetwork = 'select';
   }
 
+  goToPrevPage() {
+    console.log("Hello");
+    this._location.back();
+  }
   private getCustomerData() {
-    this.customerDetailsService.getData().subscribe((result) => {
-      this.customerData = result[0];
-      this.networkRows = result[0].Networks;
-      this.sensorsRows = result[0].Sensor;
-      this.tempSensorsRows = result[0].Sensor;
-      this.gatewaysRows = result[0].Gateway;
-      this.tempGatewaysRows = result[0].Gateway;
-      this.usersRows = result[0].Users;
+    this.customerDetailsService.getRealData(this.AccountIdParam).then((result) => {
+      this.customerData = result.customer;
+      this.networkRows = result.networks;
+      this.sensorsRows = result.sensors;
+      this.tempSensorsRows = result.sensors;
+      this.gatewaysRows = result.gateways;
+      this.tempGatewaysRows = result.gateways;
+      this.usersRows = result.users;
+      this.responseData = result;
+      this.loadedStatuses = true;
     });
   }
 
   private prepareNetworkColumns() {
-    this.networkColumns.push({ prop: 'Id', name: 'Network Id' });
-    this.networkColumns.push({ prop: 'Name', name: 'Name' });
+    this.networkColumns.push({ prop: 'csNetID', name: 'Network Id' });
+    this.networkColumns.push({ prop: 'name', name: 'Name' });
     this.networkColumns.push({ prop: 'Address', name: 'Address' });
     this.networkColumns.push({ prop: 'CountofGateways', name: 'Gateways' });
     this.networkColumns.push({ prop: 'CountOfSensors', name: 'Sensors' });
   }
 
   private prepareSensorsColumns() {
-    this.sensorsColumns.push({ prop: 'SensorID', name: 'Sensor Id' });
-    this.sensorsColumns.push({ prop: 'SensorName', name: 'Sensor Name' });
+    this.sensorsColumns.push({ prop: 'sensorID', name: 'Sensor Id' });
+    this.sensorsColumns.push({ prop: 'sensorName', name: 'Sensor Name' });
   }
 
   private prepareGatewaysColumns() {
-    this.gatewaysColumns.push({ prop: 'GatewayID', name: 'Gateway ID' });
-    this.gatewaysColumns.push({ prop: 'Name', name: 'Gateway Name' });
+    this.gatewaysColumns.push({ prop: 'gatewayID', name: 'Gateway ID' });
+    this.gatewaysColumns.push({ prop: 'name', name: 'Gateway Name' });
   }
 
   private prepareUsersColumns() {
-    this.usersColumns.push({ prop: 'Name', name: 'Name' });
+    this.usersColumns.push({ prop: 'name', name: 'Name' });
     // this.usersColumns.push({prop: 'Email', name: 'Notification'});
     this.usersColumns.push({ prop: 'NotificationTypes', name: 'Notification', cellTemplate: this.notificationColTmpl });
-    this.usersColumns.push({ prop: 'IsAdmin', name: 'Admin', cellTemplate: this.isAdminColTmpl });
+    this.usersColumns.push({ prop: 'admin', name: 'Admin', cellTemplate: this.isAdminColTmpl });
   }
 
   filterByNertwork() {
     const criteria = this.doFilterByNetwork ? this.doFilterByNetwork.toLowerCase() : 'select';
-    this.sensorsRows = this.tempSensorsRows.filter((item) => item.NetworkID.toLowerCase() == criteria);
+    if (criteria !== 'all') {
+      this.sensorsRows = this.tempSensorsRows.filter((item) => item.csNetID.toString() === criteria);
+    } else {
+      this.sensorsRows = this.tempSensorsRows;
+    }
   }
 
   filterByGateway() {
     const criteria = this.doFilterByGateway ? this.doFilterByGateway.toLowerCase() : 'select';
-    this.gatewaysRows = this.tempGatewaysRows.filter((item) => item.NetworkID.toLowerCase() == criteria);
+    if (criteria !== 'all') {
+      this.gatewaysRows = this.tempGatewaysRows.filter((item) => item.csNetID.toString() === criteria);
+    } else {
+      this.gatewaysRows = this.tempGatewaysRows;
+    }
   }
+
+  
 }
