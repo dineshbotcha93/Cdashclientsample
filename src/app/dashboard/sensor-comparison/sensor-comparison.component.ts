@@ -168,7 +168,7 @@ export class SensorComparisonComponent{
   }
 
   goBack(){
-    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
 }
