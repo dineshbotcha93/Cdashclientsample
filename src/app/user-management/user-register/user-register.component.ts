@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { UserManagementForm } from '../user-manage.model';
 import { UserManagementService } from '../user-management.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
@@ -19,8 +21,11 @@ export class UserRegisterComponent implements OnInit {
   isEmailVerified : boolean = false;
   constructor(
     private userManagementService : UserManagementService,
-    private router:Router
-  ) {}
+    private router:Router,
+    private translate: TranslateService
+  ) {
+    this.translate.use('en');
+  }
 
   ngOnInit() {}
 
