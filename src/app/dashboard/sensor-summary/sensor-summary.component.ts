@@ -632,6 +632,7 @@ export class SensorSummaryComponent implements OnInit {
   }
 
   gotoSummary(sensor) {
+    localStorage.setItem("com.cdashboard.selectedNetworkId", this.selectLocation.Id);
     this.router.navigate(['dashboard/sensor-details', sensor.sensorID]);
   }
 
