@@ -4,6 +4,7 @@ import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
 import { SERVER_URLS } from '../../../shared/constants/serverUrl.constants';
 // import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class SensorSummaryService {
@@ -99,6 +100,11 @@ export class SensorSummaryService {
   moveGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/
     return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+  }
+
+  getSentNotificationsDetails(){
+    return this.requesterService
+    .getExternalRequest('/api/Notification/SentToNetwork?StartIndex=1&Count=100&FromDate=9/29/2014&ToDate=9/29/2014');
   }
 
 }

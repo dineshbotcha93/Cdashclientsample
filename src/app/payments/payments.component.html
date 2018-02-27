@@ -1,3 +1,71 @@
 <app-layout>
-  <h3>Payments Component</h3>
+  <h3>Payment Information</h3>
+  <div class="col-sm-offset-2 col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <form class="payment-form" id="payment-form" (ngSubmit)="getToken()">
+      <h4>Amount</h4>
+
+      <table class="col-xs-12 payment-info">
+        <tr>
+          <th># of Sensors</th>
+          <th>Hosting Fee*</th>
+          <th>Total Annual Fee*</th>
+        </tr>
+        <tr>
+          <td>24</td>
+          <td>See table below</td>
+          <td>$100</td>
+        </tr>
+        <tr>
+          <td>Taxes</td>
+          <td> </td>
+          <td>$0</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td> </td>
+          <td>$100</td>
+        </tr>
+      </table>
+
+      <label class="col-xs-12 pay-info" for="pay-info">
+        * Annual fee is subject to change based on number of handhelds.
+      </label>
+
+      <table id="pay-info" class="col-lg-6 col-sm-8 col-xs-12 payment-info">
+        <tr>
+          <th> # of sensors</th>
+          <th> Annual Fee</th>
+        </tr>
+        <tr>
+          <td>1-24</td>
+          <td>$100.00</td>
+        </tr>
+        <tr>
+          <td>25-49</td>
+          <td>$150.00</td>
+        </tr>
+        <tr>
+          <td>50-74</td>
+          <td>$200.00</td>
+        </tr>
+        <tr>
+          <td>75-99</td>
+          <td>$225.00</td>
+        </tr>
+        <tr>
+          <td>100+</td>
+          <td>Contact Factory</td>
+        </tr>
+      </table>
+
+      <div id="card-element" class="card-element col-sm-8 col-xs-12">
+        <!-- A Stripe Element will be inserted here. -->
+      </div>
+
+      <div class="form-group form-submit">
+        <button type="submit" class="btn btn-success">Cancel</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+  </div>
 </app-layout>

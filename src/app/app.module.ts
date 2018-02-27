@@ -28,6 +28,7 @@ import { PipesModule }                  from './shared/pipes';
 import { CommonSharedService } from './shared/services/common-shared.service';
 import { SharedModule } from './shared/modules/shared.module';
 
+
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
 },{
