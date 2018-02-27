@@ -6,6 +6,7 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
 import { ChartOptions } from './config/chart.config';
 import { environment } from '../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment/moment';
 
 interface SensorDetail{
@@ -45,7 +46,9 @@ export class SensorComparisonComponent{
   constructor(private sensorDetailsService:SensorDetailsService,
     private sensorSummaryService: SensorSummaryService,
     private router:Router,
-    private route:ActivatedRoute){
+    private route:ActivatedRoute,
+    private translate: TranslateService
+  ){
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
@@ -64,6 +67,8 @@ export class SensorComparisonComponent{
         }
       }.bind(this)
     }
+
+    this.translate.use('en');
   }
 
   getSensorNames():Array<Object>{
@@ -101,8 +106,8 @@ export class SensorComparisonComponent{
     this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
     if(this.sensorName!==''){
-      const fromDate = moment(this.bsValue).format('DD/MM/YYYY');
-      const toDate = moment(this.bsValueTwo).format('DD/MM/YYYY');
+      const fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+      const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
       this.sensorDetailsService.getDataMessages(this.sensorName,fromDate,toDate).then((result)=>{
         result.forEach((res)=>{
           tempData.push(res.plotValue);
@@ -163,7 +168,7 @@ export class SensorComparisonComponent{
   }
 
   goBack(){
-    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
 }

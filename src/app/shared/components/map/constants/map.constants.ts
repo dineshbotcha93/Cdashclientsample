@@ -9,7 +9,7 @@ export const MapConstants = {
     DEFAULTERS: 'Overdue',
     NEW_CUSTOMERS: 'New',
     DUE_CUSTOMERS: 'Due',
-    RENEWED_CUSTOMERS: 'Renewed',
+    RENEWED_CUSTOMERS: 'Renew',
     OUTSTANDING_BALANCE: 'OutstandingBalance',
     RECENT_PAYMENTS: 'RecentPayments'
   },
@@ -21,9 +21,9 @@ export const MapConstants = {
     ALERTS:'4'
   },
   SENSOR_TYPE:{
-    HUMIDITY:'43',
-    CONTACT:'9',
-    TEMP:'2'
+    HUMIDITY:43,
+    CONTACT:9,
+    TEMP:2
   },
   READABLE_STATUS:{
     GOOD:'Good',

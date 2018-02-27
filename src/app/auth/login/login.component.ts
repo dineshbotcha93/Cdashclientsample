@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class LoginComponent implements OnInit {
   private myform: FormGroup;
   constructor(public loginSandbox$: LoginSandbox,private translate: TranslateService){
+    this.translate.use('en');
   }
 
   ngOnInit(){

@@ -10,6 +10,7 @@ import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalContentComponent } from './modals/modalContent.component';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment/moment';
 declare var jsPDF: any; // Important
 
@@ -43,7 +44,9 @@ export class SensorDetailsComponent {
     private route:ActivatedRoute,
     private alertSandbox: AlertSandbox,
     private cd: ChangeDetectorRef,
-    private modalService: BsModalService){
+    private modalService: BsModalService,
+    private translate: TranslateService
+  ){
     this.chartOptions = ChartOptions;
     this.route.params.subscribe((params)=>{
       this.detailId = params.id.toString();
@@ -64,6 +67,7 @@ export class SensorDetailsComponent {
         e.preventDefault();
       }
     }
+    this.translate.use('en');
   }
 
   ngAfterViewInit(){
@@ -80,8 +84,8 @@ export class SensorDetailsComponent {
   }
 
   onDateChange(event){
-    const fromDate = moment(this.bsValue).format('DD/MM/YYYY');
-    const toDate = moment(this.bsValueTwo).format('DD/MM/YYYY');
+    const fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+    const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
     this.sensorDetailsService.getDataMessages(this.detailId,fromDate,toDate).then((result)=>{
       this.result = result;
       this.rows = [];
@@ -91,11 +95,11 @@ export class SensorDetailsComponent {
       }
       result.forEach((res)=>{
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss').substring(11,19));
+        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11,19));
         this.rows.push({
           messageID:res.messageID,
           data:res.plotValue,
-          messageDate:moment(res.messageDate).format('DD/MM/YYYY hh:mm:ss'),
+          messageDate:moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
           signalStrength:res.signalStrength,
           voltage:res.voltage,
         });
@@ -160,7 +164,7 @@ export class SensorDetailsComponent {
   }
 
   goBack(){
-    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId"); // fix for setting up selected network id
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
 

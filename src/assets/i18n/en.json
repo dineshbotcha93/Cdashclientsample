@@ -14,6 +14,15 @@
      "newUser":"New User: Click to Register"
     }
   },
+ "userRegistration":{
+   "title":"User Registration",
+   "email":"Email",
+   "registrationMessage":"Use following link to setup Master Account or only if you are an existing NotifEye user",
+   "disclaimerTitle":"Additional Network Setup",
+   "disclaimerMessage":"Contact the Master Account Administrator for your login credentials. Upon loggin in, you can add a network for your kit, unless one has already been created by the administrator.",
+   "hintTitle":"Helpful Hint",
+   "hintMessage":"Hosting fees are charged per each master account, so it is important to verify which type of user (Master Account Administrator or network location) you are before setting up your online system."
+ },
  "dashboardMain":{
    "dashboardTitle":"Current Locations"
  },

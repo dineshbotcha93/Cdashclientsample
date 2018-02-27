@@ -4,7 +4,9 @@
       <div class="x_panel">
         <div class="x_title">
           <h3>{{'sensorComparison.comparisonTitle' | translate}}: {{networkName}}</h3>
-          <input type="button" value="Back" (click)="goBack()">
+          <button type="button" class="btn btn-primary" value="Back" (click)="goBack()">
+            <i _ngcontent-c1="" class="fa fa-chevron-left"></i>Back
+          </button>
           <div class="clearfix"></div>
           <div class="input-group col-xs-12 col-sm-4 col-lg-2">
   <input type="text"
@@ -32,7 +34,8 @@
 </div>
         </div>
         <div class="x_content">
-      <form class="form-horizontal" role="form">
+          <div class="loader" *ngIf="sensorNames.length == 0"></div>
+      <form class="form-horizontal" role="form" *ngIf="sensorNames.length > 0">
         <div class="col-md-6 col-sm-6 col-xs-12 form-group">
           <select name="sort" [(ngModel)]="sensorName" class="form-control" (change)="test()">
             <option value="{{sensor.value}}" *ngFor='let sensor of sensorNames'>{{sensor.label}}</option>

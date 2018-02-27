@@ -10,6 +10,7 @@
 @import "styles/icons";
 @import "styles/global/network-card";
 @import "styles/global/gateway-card";
+@import "styles/global/graph-card";
 @import "styles/global/pills";
 @import "styles/global/status-color";
 @import "styles/global/table";
@@ -29,7 +30,7 @@ html, body {
 
 
 .nav-sm .container.body .right_col, .right_col {
-  height: 100%;
+  height: auto;
 }
 
 

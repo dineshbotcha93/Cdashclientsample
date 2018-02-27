@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';

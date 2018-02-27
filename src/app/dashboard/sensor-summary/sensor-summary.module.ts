@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import {SensorSummaryComponent } from './sensor-summary.component';
-import {Route, RouterModule } from '@angular/router';
+import { SensorSummaryComponent } from './sensor-summary.component';
+import { Routes, RouterModule } from '@angular/router';
 import { ContainersModule }         from '../../shared/containers';
 import { ComponentsModule }    from '../../shared/components';
 import { CommonModule } from '@angular/common';
@@ -30,8 +30,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 
-const routes:Object[] = [{
-  path:'dashboard/sensor-summary/:id',component:SensorSummaryComponent
+const routes:Routes = [{
+  path:'',component:SensorSummaryComponent
 }];
 
 @NgModule({
@@ -58,8 +58,9 @@ const routes:Object[] = [{
   ],
   exports: [
     Ng2SliderComponent,
-    Ng2StyledDirective,CreateDeviceComponent
-
+    Ng2StyledDirective,
+    CreateDeviceComponent,
+    RouterModule
   ]
 })
 export class SensorSummaryModule {}
