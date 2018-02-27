@@ -26,6 +26,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { ModalModule } from 'ngx-bootstrap';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 
@@ -51,6 +52,7 @@ const routes:Object[] = [{
     CommonModule,
     PipesModule,
     FormsModule,
+    AngularFontAwesomeModule,
     SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot(),ModalModule.forRoot()
 
   ],

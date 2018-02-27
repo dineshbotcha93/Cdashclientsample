@@ -31,6 +31,7 @@ import { CommonSharedService } from './shared/services/common-shared.service';
 import { UserManagementModule } from './user-management/UserManagement.module';
 import { SharedModule } from './shared/modules/shared.module';
 
+
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full'
 }]

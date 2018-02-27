@@ -14,14 +14,14 @@
             <tr *ngFor="let notifiy of notificationOverviewObject">
 
                 <td>
-                    <img src="./assets/images/{{notifiy.notificationType}}.png" alt=""> {{notifiy.name}}</td>
+                    <fa name="cog" animation="spin"></fa> {{notifiy.name}}</td>
                 <td>
-                    <img src="./assets/images/{{notifiy.deviceType}}.png" alt=""> {{notifiy.deviceName}}</td>
+                    <fa name="cog" animation="spin"></fa> {{notifiy.deviceName}}</td>
                 <td>{{notifiy.reading}}</td>
                 <td>{{notifiy.notificationDate}}</td>
                 <td>
-                
-                    <button class="btn btn-primary" (click)="openModal(notifiy,template)">EMAIL/SMS</button>
+                   <a (click)="openModal(notifiy,template)"><fa name="envelope" ></fa></a>
+                    <!-- <button class="btn btn-primary" (click)="openModal(notifiy,template)"> <fa name="envelope" ></fa></i></button> -->
                     <td>{{notifiy.status}}</td>
             </tr>
         </tbody>
@@ -47,7 +47,7 @@
             <tr>
                 <th>User Name</th>
                 <th>Email</th>
-                <th>SMS</th>
+                 <th>SMS</th>
 
             </tr>
         </thead>
