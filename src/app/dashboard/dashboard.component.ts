@@ -29,6 +29,10 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
   private loadedStatuses = false;
+  private showList = false;
+  private showMap = true;
+  private columns:Array<any>=[];
+  private rows:Array<any>=['N/A'];
 
   constructor(
     private dashboardService: DashboardService,
@@ -43,7 +47,13 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
     this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0,title:''};
     this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0,title:''};
 
+
+
+
     dashboardService.getRealData().then((realResults)=>{
+
+      this.rows = [];
+
       realResults.forEach((rResult)=>{
         mapService.geoCode(rResult.title+rResult.city+rResult.country).then((geoCoded)=>{
           if(geoCoded.results[0]){
@@ -56,6 +66,12 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
         this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
         this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
+
+        this.rows.push({
+          title:rResult.title,
+          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city
+        });
+
       });
       return realResults;
     }).then((real) => {
@@ -63,6 +79,8 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
       this.loadedStatuses = true;
       this.forceTranslations();
     });
+    this.columns.push({prop:'title',name:'Location Name'});
+    this.columns.push({prop:'address',name:'Address'});
   }
 
   ngAfterContentInit(){
@@ -89,5 +107,19 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   }
   gotoDetails(locationID){
     this.router.navigate(['dashboard/sensor-summary',locationID]);
+  }
+
+  showListView() {
+    this.showList = true;
+    this.showMap = false;
+  }
+
+  showMapView() {
+    this.showMap = true;
+    this.showList = false;
+  }
+
+  onUserEvent(event) {
+    console.log(':::::', event)
   }
 }
