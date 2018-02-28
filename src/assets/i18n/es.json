@@ -14,6 +14,13 @@
       "newUser":"New User: Click to Register [TBD]"
     }
   },
+  "userRegistration":{
+    "title":"User Registration [TBD]",
+    "email":"Email [TBD]",
+    "registrationMessage":"Use following link to setup Master Account or only if you are an existing NotifEye user [TBD]",
+    "disclaimerTitle":"Additional Network Setup [TBD]",
+    "disclaimerMessage":"Contact the Master Account Administrator for your login credentials. Upon loggin in, you can add a network for your kit, unless one has already been created by the administrator. [TBD]"
+  },
   "dashboardMain":{
     "dashboardTitle":"Current Locations [TBD]"
   },

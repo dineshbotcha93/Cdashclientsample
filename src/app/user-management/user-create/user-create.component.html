@@ -1,30 +1,37 @@
 <h3>User Registration</h3>
 <div class="table">
-	<form name="form" (ngSubmit)="onSubmit()">
-		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" value="true"> New Master Account User
-		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" value="false"> Link Existing NotifEye Account User 
+	<form name="form" [formGroup]="userCreateForm" (ngSubmit)="onSubmit()">
+		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" formControlName="isNewMaster" value="true"> New Master Account User
+		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" formControlName="isNewMaster" value="false"> Link Existing NotifEye Account User
 		<div class="form-group" >
-			<label for="email">First Name</label>
-			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.firstName" required />
+			<label for="firstName">First Name</label>
+			<input type="text" [(ngModel)]="userRegisterModel.firstName" formControlName="firstName" class="form-control" name="firstName" required />
 		</div>
 		<div class="form-group" >
 			<label for="email">Last Name</label>
-			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.lastName" required />
+			<input type="text" [(ngModel)]="userRegisterModel.lastName" formControlName="lastName" class="form-control" name="lastName" required />
 		</div>
 		<div class="form-group" >
 			<label for="email">Email</label>
-			<input type="email" class="form-control" name="email"  value="{{userRegisterModel.email}}" readonly="true" />
+			<input type="email" [(ngModel)]="userRegisterModel.email" formControlName="email" class="form-control" name="email" readonly="true"/>
 		</div>
 		<div class="form-group" >
-			<label for="email">Paswword</label>
-			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.password" required />
+			<label for="password">Password</label>
+			<input type="password" [(ngModel)]="userRegisterModel.password" formControlName="password" class="form-control" />
+			<i class="fa fa-question" [tooltip]="tooltipTempate"></i>
 		</div>
 		<div class="form-group" >
-			<label for="email">Confirm Pasword</label>
-			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.confirmPassword" required />
+			<label for="confPassword">Confirm Pasword</label>
+			<input type="password" class="form-control" name="password" required />
 		</div>
 		<div class="form-group">
-			<input type="submit" value="Register" class="btn btn-primary">
+			<input type="submit" value="Register" class="btn btn-primary" [disabled]="!userCreateForm.valid">
 		</div>
 	</form>
 </div>
+<ng-template #tooltipTempate>
+		'Password' must be at least 8 characters long.
+		Password should contain At least one special case characters
+		Password should contain At least one alphabet.
+		Password should contain At least one numeric value.
+</ng-template>

@@ -8,6 +8,8 @@ import { MapConstants } from '../shared/components/map/constants/map.constants';
 import {Router} from '@angular/router';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { TranslateService } from '@ngx-translate/core';
+import { AbstractDashboardBase } from './abstractDashboard.component';
+
 export interface tileDetail{
   count:string;
   status:string;
@@ -20,18 +22,21 @@ export interface tileDetail{
   providers: [DashboardService,MapService],
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements AfterViewInit, AfterContentInit {
+export class DashboardComponent extends AbstractDashboardBase implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
   private mapData = [];
   private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
   private loadedStatuses = false;
+
   constructor(
     private dashboardService: DashboardService,
     private mapService:MapService,
     private router:Router,
     private translate: TranslateService){
+
+    super();
 
     this.totalStatuses['alerts'] = {status:'Alerts',count:0,title:''};
     this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0,title:''};
