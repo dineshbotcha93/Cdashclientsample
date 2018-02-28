@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-2 col-sm-4 col-xs-12">
         <div class="list-view">
-          <a (click)="showListView()" [hidden]="showList"><i class="fa fa-list"></i> List View</a>
+          <a (click)="showListView()" [hidden]="showList"><i class="fa fa-list m-r-xs"></i> List View</a>
           <a (click)="showMapView()" [hidden]="showMap">Map</a>
         </div>
       </div>
@@ -27,13 +27,21 @@
           <div class="loader" *ngIf="mapData.length == 0"></div>
           <app-map [markers]="mapData" *ngIf="mapData.length > 0"></app-map>
         </div>
-        <div class="x_content network-card" [hidden]="showMap">
-          <app-datatable
-            *ngIf="rows[0]!=='N/A'"
-            [rows]="rows"
-            [columns]="columns"
-            (activate)='onUserEvent($event)'>
-          </app-datatable>
+        <div class="x_content network-card dark-theme" [hidden]="showMap">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th class="col-md-2"> Location Name</th>
+              <th class="col-md-2"> Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of rows">
+              <td class="col-md-2 pointer-style" (click)="onLocationSelect(row)">{{row.title}}</td>
+              <td class="col-md-2">{{row.address}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
