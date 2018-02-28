@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManagementForm } from '../user-manage.model';
 import { ActivatedRoute,Router } from '@angular/router';
-
+import {
+	NG_VALIDATORS,
+	Validator,
+  Validators,
+	AbstractControl,
+	ValidatorFn,
+	FormGroup,
+	FormBuilder,
+	FormControl
+} from '@angular/forms';
 import { UserManagementService } from '../user-management.service';
 import { CommonSharedService } from '../../shared/services/common-shared.service';
 
@@ -20,10 +29,21 @@ userRegisterModel:  UserManagementForm = {
 	isNewMaster: true
 	};
 isNewUserRegistered : boolean = false;
+userCreateForm: FormGroup;
 constructor(private route:ActivatedRoute,
 			private router:Router,
+			private formBuilder: FormBuilder,
 			private userManagementService: UserManagementService,
-			private commonSharedService : CommonSharedService) { }
+			private commonSharedService : CommonSharedService) {
+				this.userCreateForm = this.formBuilder.group({
+					isNewMaster: ['',[Validators.required]],
+					firstName: ['',[Validators.required]],
+					lastName: ['',[Validators.required]],
+					email: ['',[Validators.required]],
+					password:['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]]
+
+				});
+			}
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
@@ -36,6 +56,6 @@ constructor(private route:ActivatedRoute,
 		this.userRegisterModel.password = this.commonSharedService.getHahedPassword(this.userRegisterModel.email,this.userRegisterModel.password);
 		this.isNewUserRegistered = this.userManagementService.userRegistration(this.userRegisterModel);
 		//this.router.navigate(['/login']);
-		this.router.navigate(['/user-register/user-update',this.userRegisterModel.email]);
+		this.router.navigate(['/user-register/user-create/'+this.userRegisterModel.email+"/fill-details"]);
 	}
 }

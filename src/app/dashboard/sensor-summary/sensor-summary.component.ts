@@ -84,7 +84,8 @@ export class SensorSummaryComponent implements OnInit {
     private mapService: MapService,
     private sensorSummaryService: SensorSummaryService,
     private commonSharedService: CommonSharedService,
-    private alertSandbox: AlertSandbox
+    private alertSandbox: AlertSandbox,
+    private translate: TranslateService
   ) {
     this.route.params.subscribe((params) => {
       this.netWorkId = params.id.toString();
@@ -100,6 +101,7 @@ export class SensorSummaryComponent implements OnInit {
       this.daterangepickerModel = [this.minDate, this.maxDate];
 
     });
+    this.translate.use('en');
   }
 
   ngOnInit() {
