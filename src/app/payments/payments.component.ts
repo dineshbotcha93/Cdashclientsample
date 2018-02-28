@@ -1,23 +1,25 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { PaymentsService } from './services/payments.service';
+import {DashboardService} from '../dashboard/services/dashboard.service';
 
-const stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+const stripe = Stripe('pk_test_rh7KqKZ2eaklfF1FO2WWURYX');
 
 @Component({
   selector: 'app-payments',
+  providers: [PaymentsService],
   styleUrls: ['./payments.component.scss'],
   templateUrl: './payments.component.html'
 })
 
 export class PaymentsComponent implements OnInit {
 
-  cardNumber: string;
-  cardHolderName: string;
-  expiryMonth: string;
-  expiryYear: string;
-  cvc: string;
   card: object;
+  paymentData: Object;
 
-  constructor() {
+  constructor(private paymentsService: PaymentsService) {
+    paymentsService.getPaymentData().then(function(data) {
+      this.paymentData = data;
+    }.bind(this));
   }
 
   ngOnInit()	{
@@ -52,11 +54,15 @@ export class PaymentsComponent implements OnInit {
   }
 
   getToken() {
-    stripe.createToken(this.card, function(err, token) {
-      console.log('error is', err);
-      console.log('token is', token);
-    });
-    alert(`Token is working for ${this.cardNumber} ${this.cardHolderName}`);
+    stripe.createToken(this.card).then(function(tokenData) {
+      console.log('data is', tokenData);
+      this.paymentsService.sendStripeToken({
+        stripeToken: tokenData.token.id,
+        transactionId: this.paymentData.id
+      }).then(function(data){
+        console.log('successful call', data);
+      });
+    }.bind(this));
   }
 
 }
