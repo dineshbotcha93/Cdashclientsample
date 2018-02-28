@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
-
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { NgSwitch } from '@angular/common';
 
 @Component({
   selector: 'app-notification-summary',
@@ -10,12 +12,106 @@ import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.
 })
 export class NotificationSummaryComponent implements OnInit {
   notificationSummaryList: any = [];
+  modalObject:any = [];
+  modalRef: BsModalRef;
+  modalType : string ='';
 
-  constructor(private sensorSummaryService: SensorSummaryService) { }
+  constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
-    let Obj: Array<any> = [];
+  
+    this.getNotificationDetails();
+  }
+
+  getNotificationDetails(){
     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails().then((result) => {
-      console.log('result-->', result);
+
+    //   let object = [  
+    //     {  
+    //        "notification":{  
+    //           "notificationID":1569,
+    //           "name":"Temp out of Range - delete",
+    //           "text":"Temp out of range",
+    //           "notificationClass":"Advanced",
+    //           "active":false,
+    //           "lastDateSent":"2018-01-10T18:45:14",
+    //           "threshold":0,
+    //           "comparer":"",
+    //           "snooze":60.0,
+    //           "advancedNotificationID":11,
+    //           "advanceNotificationName":"Advanced Temperature Range",
+    //           "advancedNotificationType":null
+    //        },
+    //        "devices":[  
+    //           {  
+    //              "deviceID":1153235073,
+    //              "deviceName":"test sensor",
+    //              "deviceType":"Commercial",
+    //              "deviceCategory":"Sensor"
+    //           }
+    //        ],
+    //        "users":[  
+    //           {  
+    //              "userID":3,
+    //              "userName":"Bill LastName",
+    //              "smsNumber":"555-555-1234",
+    //              "email":"Reclamationbin@gmail.com",
+    //              "notifyThroughEmail":false,
+    //              "notifyThroughPhone":false
+    //           },
+    //           {  
+    //              "userID":8,
+    //              "userName":"Harry LastName",
+    //              "smsNumber":"555-555-1234",
+    //              "email":"Reclamationbin@gmail.com",
+    //              "notifyThroughEmail":false,
+    //              "notifyThroughPhone":false
+    //           }
+    //        ]
+    //     },
+    //     {  
+    //       "notification":{  
+    //          "notificationID":1570,
+    //          "name":"Temp out of Range - delete",
+    //          "text":"Temp out of range",
+    //          "notificationClass":"Advanced",
+    //          "active":false,
+    //          "lastDateSent":"2018-01-10T18:45:14",
+    //          "threshold":0,
+    //          "comparer":"",
+    //          "snooze":60.0,
+    //          "advancedNotificationID":11,
+    //          "advanceNotificationName":"Advanced Temperature Range",
+    //          "advancedNotificationType":null
+    //       },
+    //       "devices":[  
+    //          {  
+    //             "deviceID":1153235073,
+    //             "deviceName":"test sensor",
+    //             "deviceType":"Commercial",
+    //             "deviceCategory":"Sensor"
+    //          }
+    //       ],
+    //       "users":[  
+    //          {  
+    //             "userID":3,
+    //             "userName":"Bill LastName",
+    //             "smsNumber":"555-555-1234",
+    //             "email":"Reclamationbin@gmail.com",
+    //             "notifyThroughEmail":false,
+    //             "notifyThroughPhone":false
+    //          },
+    //          {  
+    //             "userID":8,
+    //             "userName":"Harry LastName",
+    //             "smsNumber":"555-555-1234",
+    //             "email":"Reclamationbin@gmail.com",
+    //             "notifyThroughEmail":false,
+    //             "notifyThroughPhone":false
+    //          }
+    //       ]
+    //    }
+    //  ];
+    //  result = object;
       result.forEach((notify) => {
         let checkModelNotify = { active: false, inActive: true };
         if (notify.notification.active) {
@@ -25,114 +121,41 @@ export class NotificationSummaryComponent implements OnInit {
         this.notificationSummaryList.push(notify);
       });
     });
-
-    console.log('---->', this.notificationSummaryList);
-
-
-
-
-    // Obj = [
-    // {
-    //   ID: 1490,
-    //   Name: "1.1 1153232004 Receiving Dock Temp",
-    //   Text: "Gateway - Low Battery",
-    //   Type: "BatteryNotification",
-    //   Active: true,
-    //   LastDateSent: "2017-12-28",
-    //   SentVia: [
-    //   "SMS",
-    //   "EMAIL"
-    //   ],
-    //   checkModelNotify:checkModelNotify
-    // },
-    // {
-    //   ID: 1491,
-    //   Name: "1.2 1153232008 Temp Walk in Frig #1",
-    //   Text: "Gateway - Low Battery",
-    //   Type: "BatteryNotification",
-    //   Active: true,
-    //   LastDateSent: "2017-12-28",
-    //   SentVia: [
-    //   "SMS",
-    //   "EMAIL"
-    //   ],
-    //   checkModelNotify:checkModelNotify
-    // }
-    // ,
-    // {
-    //   ID: 1492,
-    //   Name: "1.2 1153232008 Temp Walk in Frig #1",
-    //   Text: "Gateway - Low Battery",
-    //   Type: "BatteryNotification",
-    //   Active: true,
-    //   LastDateSent: "2017-12-28",
-    //   SentVia: [
-    //   "SMS",
-    //   "EMAIL"
-    //   ],
-    //   checkModelNotify:checkModelNotify
-    // },
-    // {
-    //   ID: 1493,
-    //   Name: "1.2 1153232008 Temp Walk in Frig #1",
-    //   Text: "Gateway - Low Battery",
-    //   Type: "BatteryNotification",
-    //   Active: true,
-    //   LastDateSent: "2017-12-28",
-    //   SentVia: [
-    //   "SMS",
-    //   "EMAIL"
-    //   ],
-    //   checkModelNotify:checkModelNotify
-    // },
-    // {
-    //   ID: 1494,
-    //   Name: "1.2 1153232008 Temp Walk in Frig #1",
-    //   Text: "Gateway - Low Battery",
-    //   Type: "BatteryNotification",
-    //   Active: true,
-    //   LastDateSent: "2017-12-28",
-    //   SentVia: [
-    //   "SMS",
-    //   "EMAIL"
-    //   ],
-    //   checkModelNotify:checkModelNotify
-    // },
-    // {
-    //   ID: 1495,
-    //   Name: "1.2 1153232008 Temp Walk in Frig #1",
-    //   Text: "Gateway - Low Battery",
-    //   Type: "BatteryNotification",
-    //   Active: true,
-    //   LastDateSent: "2017-12-28",
-    //   SentVia: [
-    //   "SMS",
-    //   "EMAIL"
-    //   ],
-    //   checkModelNotify:checkModelNotify
-    // }
-    // ];
-
-    //this.notificationSummaryList = Obj;
-
-    console.log(this.notificationSummaryList);
   }
+
   onClickNotifyOn(e, notify) {
 
     this.notificationSummaryList.forEach(x => {
-
-      if (x === notify) {
-        x.checkModelNotify = { left: true, right: false };
+      if(x === notify){
+        console.log('enered');
+        x.notification.checkModelNotify = { active: true, inActive: false };
       }
-
     });
   }
 
   onClickNotifyOff(e, notify) {
     this.notificationSummaryList.forEach(x => {
-      if (x === notify) {
-        x.checkModelNotify = { left: false, right: true };
+      if(x === notify){
+        x.notification.checkModelNotify = { active: false, inActive: true };
       }
     });
   }
+
+  openModal(notifiy,template,type) {
+    this.modalObject = [];
+    this.modalType = type;
+
+    if(type === 'text'){
+      this.modalObject = {
+        text:notifiy.notification.text
+      };
+    }else if(type === 'device'){
+      this.modalObject = notifiy.devices;
+    } else if(type === 'user'){
+      this.modalObject = notifiy.users;
+    }
+    console.log('-------',this.modalObject);
+    this.modalRef = this.modalService.show(template);
+
+ }
 }
