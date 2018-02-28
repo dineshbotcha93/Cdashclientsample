@@ -12,11 +12,11 @@
       <tbody>
          <tr *ngFor="let notifiy of notificationSummaryList">
                <td>
-               <div class="col-md-4">
+               <div class="col-md-6 col-sm-12 col-xs-12">
                   <div class="btn-group">
-                     <label class="btn btn-primary" [ngModel]="notifiy.checkModelNotify.left" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
+                     <label class="btn btn-primary btn-xs" [ngModel]="notifiy.checkModelNotify.left" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
                      </label>
-                     <label class="btn btn-primary" [ngModel]="notifiy.checkModelNotify.right" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
+                     <label class="btn btn-primary btn-xs" [ngModel]="notifiy.checkModelNotify.right" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
                      </label>
                   </div>
                </div>
@@ -33,7 +33,7 @@
               [ngClass]="'editBTN'"
               (click)="onClickEditDetails()"  ><i class="fa fa-edit"></i> edit </button>&nbsp;
               <button type="button"
-                            class="btn btn-primary removeBTN"
+                            class="btn btn-primary btn-xs removeBTN"
                             (click)="onClickRemoveDetails()"><i class="fa fa-trash"></i> Remove </button></td>
          </tr>
       </tbody>
