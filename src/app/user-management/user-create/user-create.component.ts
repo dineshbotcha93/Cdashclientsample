@@ -56,6 +56,6 @@ constructor(private route:ActivatedRoute,
 		this.userRegisterModel.password = this.commonSharedService.getHahedPassword(this.userRegisterModel.email,this.userRegisterModel.password);
 		this.isNewUserRegistered = this.userManagementService.userRegistration(this.userRegisterModel);
 		//this.router.navigate(['/login']);
-		this.router.navigate(['/user-register/user-update',this.userRegisterModel.email]);
+		this.router.navigate(['/user-register/user-create/'+this.userRegisterModel.email+"/fill-details"]);
 	}
 }
