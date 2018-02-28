@@ -1,41 +1,52 @@
 <div *ngIf="notificationSummaryList">
-   <table class="table table-striped">
-      <thead>
-         <tr>
-           <th class="col-md-4">Notify</th>
-            <th class="col-md-2">Name</th>
-            <th class="col-md-2">Type</th>
-            <th class="col-md-2">LastDateSent</th>
-            <th class="col-md-2">Edit/Delete</th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let notifiy of notificationSummaryList">
-               <td>
-               <div class="col-md-6 col-sm-12 col-xs-12">
-                  <div class="btn-group">
-                     <label class="btn btn-primary btn-xs" [ngModel]="notifiy.checkModelNotify.left" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
-                     </label>
-                     <label class="btn btn-primary btn-xs" [ngModel]="notifiy.checkModelNotify.right" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
-                     </label>
-                  </div>
-               </div>
-            </td>
-
-
-
-            <td class="col-md-2" >{{notifiy.Name}}</td>
-            <td class="col-md-2" >{{notifiy.Type}}</td>
-            <td class="col-md-2" >{{notifiy.LastDateSent}}</td>
-            <td  class="col-md-2" >  <button type="button"
-              class="btn btn-primary"
-              value="edit"
-              [ngClass]="'editBTN'"
-              (click)="onClickEditDetails()"  ><i class="fa fa-edit"></i> edit </button>&nbsp;
-              <button type="button"
-                            class="btn btn-primary btn-xs removeBTN"
-                            (click)="onClickRemoveDetails()"><i class="fa fa-trash"></i> Remove </button></td>
-         </tr>
-      </tbody>
-   </table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="col-md-3">Status</th>
+        <th class="col-md-3">Notification</th>
+        <th class="col-md-2">Last Sent</th>
+        <th class="col-md-1">Text</th>
+        <th class="col-md-1">Devices</th>
+        <th class="col-md-1">Users</th>
+        <th class="col-md-2">Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notifiy of notificationSummaryList">
+        <td>
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="btn-group">
+              <label class="btn btn-primary btn-xs" [ngModel]="notifiy.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
+              </label>
+              <label class="btn btn-primary btn-xs" [ngModel]="notifiy.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
+              </label>
+            </div>
+          </div>
+        </td>
+        <td class="col-md-3">{{notifiy.notification.notificationClass}}/{{notifiy.notification.name}}</td>
+        <td class="col-md-2">{{notifiy.notification.lastDateSent}}</td>
+        <td class="col-md-1">
+          <a (click)="openModal(notifiy)">
+            <fa name="comment"></fa>
+          </a>
+        </td>
+        <td class="col-md-1">
+          <a (click)="openModal(notifiy)">
+            <fa name="tablet"></fa>
+          </a>
+        </td>
+        <td class="col-md-1">
+          <a (click)="openModal(notifiy)">
+            <fa name="user"></fa>
+          </a>
+        </td>
+        <td class="col-md-2">
+          <button type="button" class="btn btn-primary" value="edit" [ngClass]="'editBTN'" (click)="onClickEditDetails()">
+            <i class="fa fa-edit"></i> edit </button>&nbsp;
+          <button type="button" class="btn btn-primary btn-xs removeBTN" (click)="onClickRemoveDetails()">
+            <i class="fa fa-trash"></i> Remove </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
