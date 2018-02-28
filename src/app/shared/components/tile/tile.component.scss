@@ -27,6 +27,7 @@ $colors : red green yellow orange;
   color: #ffffff;
   position: relative;
   margin-bottom: 20px;
+  //cursor: pointer;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large){
     padding: 10px;

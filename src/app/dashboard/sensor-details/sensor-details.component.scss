@@ -4,7 +4,7 @@
   background-color: white;
 }
 
-.sd-gauga-chart-container, .message-history-container {
+.gauge-chart-container {
   margin-top: 20px;
 }
 
@@ -15,6 +15,7 @@
   text-align: center;
   background-color: $color-body-bg;
   border-radius: $border-radius-medium;
+  height: 43rem;
 
   ngx-gauge {
     margin-bottom: 20px;
@@ -29,4 +30,8 @@
     font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     color: $gauge-chart-forgroundColor;
   }
+}
+
+.message-history-container {
+  margin-top: 20px;
 }

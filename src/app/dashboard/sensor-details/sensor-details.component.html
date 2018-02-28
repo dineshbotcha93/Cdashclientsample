@@ -40,7 +40,7 @@
     </div>
 
     <!-- Gauge and CHart container -->
-    <div class="col-md-4 col-sm-4 col-xs-12 sd-gauga-chart-container">
+    <div class="col-md-4 col-sm-4 col-xs-12 gauge-chart-container">
       <div class="gauge-container">
         <app-gauge
           [type]="'arch'"
@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div class="col-md-8 col-sm-8 col-xs-12 sd-gauga-chart-container">
+    <div class="col-md-8 col-sm-8 col-xs-12 gauge-chart-container">
       <div class="graph-card">
         <canvas
           baseChart
@@ -68,7 +68,8 @@
           [chartType]="'line'"
           [datasets]="chartData"
           [labels]="chartLabels"
-          [options]="chartOptions"
+          [options]="getChartOptions"
+          [colors]="getChartColors"
           [legend]="true">
         </canvas>
       </div>
