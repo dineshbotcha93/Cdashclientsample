@@ -104,7 +104,12 @@ export class SensorSummaryService {
 
   getSentNotificationsDetails(){
     return this.requesterService
-    .getExternalRequest('/api/Notification/SentToNetwork?StartIndex=1&Count=100&FromDate=9/29/2014&ToDate=9/29/2014');
+    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
+  }
+
+  getNotificationSettingsDetails(){
+    return this.requesterService
+    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
   }
 
 }
