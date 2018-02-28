@@ -3,19 +3,20 @@
       <thead>
          <tr>
            <th class="col-md-4">Notify</th>
-            <th class="col-md-3">Name</th>
-            <th class="col-md-3">Type</th>
-            <th class="col-md-3">LastDateSent</th>
+            <th class="col-md-2">Name</th>
+            <th class="col-md-2">Type</th>
+            <th class="col-md-2">LastDateSent</th>
+            <th class="col-md-2">Edit/Delete</th>
          </tr>
       </thead>
       <tbody>
          <tr *ngFor="let notifiy of notificationSummaryList">
                <td>
-               <div class="col-md-4">
+               <div class="col-md-6 col-sm-12 col-xs-12">
                   <div class="btn-group">
-                     <label class="btn btn-primary" [ngModel]="notifiy.checkModelNotify.left" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
+                     <label class="btn btn-primary btn-xs" [ngModel]="notifiy.checkModelNotify.left" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
                      </label>
-                     <label class="btn btn-primary" [ngModel]="notifiy.checkModelNotify.right" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
+                     <label class="btn btn-primary btn-xs" [ngModel]="notifiy.checkModelNotify.right" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
                      </label>
                   </div>
                </div>
@@ -23,9 +24,17 @@
 
 
 
-            <td class="col-md-3" >{{notifiy.Name}}</td>
-            <td class="col-md-3" >{{notifiy.Type}}</td>
-            <td class="col-md-3" >{{notifiy.LastDateSent}}</td>
+            <td class="col-md-2" >{{notifiy.Name}}</td>
+            <td class="col-md-2" >{{notifiy.Type}}</td>
+            <td class="col-md-2" >{{notifiy.LastDateSent}}</td>
+            <td  class="col-md-2" >  <button type="button"
+              class="btn btn-primary"
+              value="edit"
+              [ngClass]="'editBTN'"
+              (click)="onClickEditDetails()"  ><i class="fa fa-edit"></i> edit </button>&nbsp;
+              <button type="button"
+                            class="btn btn-primary btn-xs removeBTN"
+                            (click)="onClickRemoveDetails()"><i class="fa fa-trash"></i> Remove </button></td>
          </tr>
       </tbody>
    </table>

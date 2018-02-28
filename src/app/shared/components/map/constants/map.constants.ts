@@ -21,9 +21,9 @@ export const MapConstants = {
     ALERTS:'4'
   },
   SENSOR_TYPE:{
-    HUMIDITY:'43',
-    CONTACT:'9',
-    TEMP:'2'
+    HUMIDITY:43,
+    CONTACT:9,
+    TEMP:2
   },
   READABLE_STATUS:{
     GOOD:'Good',
