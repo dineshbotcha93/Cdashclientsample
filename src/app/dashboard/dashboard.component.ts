@@ -31,7 +31,6 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   private loadedStatuses = false;
   private showList = false;
   private showMap = true;
-  private columns:Array<any>=[];
   private rows:Array<any>=['N/A'];
 
   constructor(
@@ -69,7 +68,8 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
 
         this.rows.push({
           title:rResult.title,
-          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city
+          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city,
+          id:rResult.id,
         });
 
       });
@@ -79,8 +79,6 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
       this.loadedStatuses = true;
       this.forceTranslations();
     });
-    this.columns.push({prop:'title',name:'Location Name'});
-    this.columns.push({prop:'address',name:'Address'});
   }
 
   ngAfterContentInit(){
@@ -119,7 +117,7 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
     this.showList = false;
   }
 
-  onUserEvent(event) {
-    console.log(':::::', event)
+  onLocationSelect(selectedLocation) {
+    this.gotoDetails(selectedLocation.id);
   }
 }
