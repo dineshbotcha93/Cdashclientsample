@@ -121,4 +121,11 @@ export class SensorSummaryService {
     return this.requesterService
     .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
   }
+
+  updateNotificationActiveState(requestObject:any){
+    console.log(requestObject);
+    let URL = '/api/Notification/ToggleNotification?NotificationID='+requestObject.NotificationID+'&On='+requestObject.On;
+    return this.requesterService
+    .putExternalRequest(URL,{});
+  }
 }

@@ -67,49 +67,7 @@ export class NotificationSummaryComponent implements OnInit {
     //              "notifyThroughPhone":false
     //           }
     //        ]
-    //     },
-    //     {  
-    //       "notification":{  
-    //          "notificationID":1570,
-    //          "name":"Temp out of Range - delete",
-    //          "text":"Temp out of range",
-    //          "notificationClass":"Advanced",
-    //          "active":false,
-    //          "lastDateSent":"2018-01-10T18:45:14",
-    //          "threshold":0,
-    //          "comparer":"",
-    //          "snooze":60.0,
-    //          "advancedNotificationID":11,
-    //          "advanceNotificationName":"Advanced Temperature Range",
-    //          "advancedNotificationType":null
-    //       },
-    //       "devices":[  
-    //          {  
-    //             "deviceID":1153235073,
-    //             "deviceName":"test sensor",
-    //             "deviceType":"Commercial",
-    //             "deviceCategory":"Sensor"
-    //          }
-    //       ],
-    //       "users":[  
-    //          {  
-    //             "userID":3,
-    //             "userName":"Bill LastName",
-    //             "smsNumber":"555-555-1234",
-    //             "email":"Reclamationbin@gmail.com",
-    //             "notifyThroughEmail":false,
-    //             "notifyThroughPhone":false
-    //          },
-    //          {  
-    //             "userID":8,
-    //             "userName":"Harry LastName",
-    //             "smsNumber":"555-555-1234",
-    //             "email":"Reclamationbin@gmail.com",
-    //             "notifyThroughEmail":false,
-    //             "notifyThroughPhone":false
-    //          }
-    //       ]
-    //    }
+    //     }
     //  ];
     //  result = object;
       result.forEach((notify) => {
@@ -125,19 +83,40 @@ export class NotificationSummaryComponent implements OnInit {
 
   onClickNotifyOn(e, notify) {
 
-    this.notificationSummaryList.forEach(x => {
-      if(x === notify){
-        console.log('enered');
-        x.notification.checkModelNotify = { active: true, inActive: false };
-      }
+    console.log('selected element-->',notify);
+
+    let requestObject = {
+      NotificationID:notify.notification.notificationID,
+      On:true
+    };
+
+    this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
+      console.log(result);
+      this.notificationSummaryList.forEach(x => {
+        if(x === notify){
+          console.log('enered');
+          x.notification.checkModelNotify = { active: true, inActive: false };
+        }
+      });
     });
   }
 
   onClickNotifyOff(e, notify) {
-    this.notificationSummaryList.forEach(x => {
-      if(x === notify){
-        x.notification.checkModelNotify = { active: false, inActive: true };
-      }
+    console.log('selected element-->',notify);
+
+    let requestObject = {
+      NotificationID:notify.notification.notificationID,
+      On:false
+    };
+
+    this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
+      console.log(result);
+      this.notificationSummaryList.forEach(x => {
+        if(x === notify){
+          console.log('enered');
+          x.notification.checkModelNotify = { active: false, inActive: true };
+        }
+      });
     });
   }
 
