@@ -121,7 +121,7 @@ export class SensorSummaryService {
 
   getNotificationSettingsDetails(){
     return this.requesterService
-    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
+    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1004');
   }
 
   updateNotificationActiveState(requestObject:any){

@@ -69,17 +69,17 @@ export class SensorSummaryComponent implements OnInit {
 
   netWorkIdToMove: string = null;
 
-  notificationRadio: any = 'overview';
+  // notificationRadio: any = 'overview';
 
   private mapStatus = MapConstants.STATUS;
   private doFilterByName: string = null;
   private doFilterByStatus: string = 'select';
   private doFilterByType: string = 'select';
 
-  minDate: Date;
-  maxDate: Date;
-  daterangepickerModel: Date[];
-  requestDateObject :any = [];
+  // minDate: Date;
+  // maxDate: Date;
+  // daterangepickerModel: Date[];
+  // requestDateObject :any = [];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -96,17 +96,17 @@ export class SensorSummaryComponent implements OnInit {
       this.getNetworkData();
       this.getDropdownDetails();
 
-      this.minDate = new Date();
-      this.maxDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 7);
-      this.maxDate.setDate(this.maxDate.getDate());
+      // this.minDate = new Date();
+      // this.maxDate = new Date();
+      // this.minDate.setDate(this.minDate.getDate() - 7);
+      // this.maxDate.setDate(this.maxDate.getDate());
 
-      this.daterangepickerModel = [this.minDate, this.maxDate];
+      // this.daterangepickerModel = [this.minDate, this.maxDate];
       
-      this.requestDateObject = {
-        fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
-        toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
-      };
+      // this.requestDateObject = {
+      //   fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
+      //   toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
+      // };
      
     });
     this.translate.use('en');
@@ -697,44 +697,44 @@ export class SensorSummaryComponent implements OnInit {
   }
 
 
-  onClickNotificationOverview(request:any) {
+  // onClickNotificationOverview(request:any) {
 
     
-    this.notificationRadio = 'overview';
-  }
+  //   this.notificationRadio = 'overview';
+  // }
 
-  onClickNotificationSummary() {
-    this.notificationRadio = 'summary';
-  }
+  // onClickNotificationSummary() {
+  //   this.notificationRadio = 'summary';
+  // }
 
-  onClickAddNotification() {
-    this.notificationRadio = 'addNotify';
-  }
-  onClickResetNotification() {
+  // onClickAddNotification() {
+  //   this.notificationRadio = 'addNotify';
+  // }
+  // onClickResetNotification() {
 
-    this.notificationRadio = 'summary';
-  }
+  //   this.notificationRadio = 'summary';
+  // }
   goBack() {
     this.router.navigate(['dashboard']);
 
   }
-  receiveAddNotificationMessage($event) {
-    console.log($event);
-    this.notificationRadio = 'summary';
-  }
+  // receiveAddNotificationMessage($event) {
+  //   console.log($event);
+  //   this.notificationRadio = 'summary';
+  // }
 
-  onClickDateRange() {
+  // onClickDateRange() {
 
-    console.log(this.daterangepickerModel);
+  //   console.log(this.daterangepickerModel);
 
-    console.log(this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy')+'  '+this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy'));
+  //   console.log(this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy')+'  '+this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy'));
     
-    let requestDateObject = {
-      fromDate:this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy'),
-      toDate:this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy')
-    }
+  //   let requestDateObject = {
+  //     fromDate:this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy'),
+  //     toDate:this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy')
+  //   }
     
-    this.onClickNotificationOverview(requestDateObject);
+  //   this.onClickNotificationOverview(requestDateObject);
 
-  }
+  // }
 }
