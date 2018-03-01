@@ -26,10 +26,10 @@ export class SensorDetailsService {
 
   getDataMessages(location,fromDate = null, toDate = null){
     if(fromDate == null){
-      fromDate = moment().format('DD/MM/YYYY');
+      fromDate = moment().format('MM/DD/YYYY');
     }
     if(toDate == null){
-      toDate = moment().add(5,'days').format('DD/MM/YYYY');
+      toDate = moment().add(5,'days').format('MM/DD/YYYY');
     }
     return this.requesterService
     .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate='+fromDate+'&ToDate='+toDate);
