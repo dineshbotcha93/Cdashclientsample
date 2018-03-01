@@ -39,8 +39,9 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
 
     console.log('hitting senty notofication');
-     console.log(this.sensorSummaryService.getSentNotificationsDetails());
+    // console.log(this.sensorSummaryService.getSentNotificationsDetails());
 
+    
     this.notificationOverviewObject = [
       {
         "notificationID": 1,
