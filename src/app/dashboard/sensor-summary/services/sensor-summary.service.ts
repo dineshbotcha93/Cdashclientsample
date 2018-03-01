@@ -84,10 +84,20 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
-  /* Remove  the gateway details*/
+  deleteGateway(id){
+    return this.requesterService
+    .deleteExternalRequest('/api/Gateway/Remove/'+id);
+  }
+
+  /* Remove  the sensor details*/
   removeSensorDetails(sensorObj:Array<any>){
     /*Place a mock call and return response*/
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+  }
+
+  deleteSensor(id){
+    return this.requesterService
+    .deleteExternalRequest('/api/Sensor/Remove/'+id);
   }
 
    /* Move  the gateway details*/
@@ -111,5 +121,4 @@ export class SensorSummaryService {
     return this.requesterService
     .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
   }
-
 }

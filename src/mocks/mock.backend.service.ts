@@ -187,6 +187,21 @@ export class MockBackendService {
         },(error)=>{
           c.mockError(new Error(error));
         });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Delete){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.delete(c.request.url,options).subscribe((response)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(response.json())
+          })));
+        },(error)=>{
+          c.mockError(new Error(error));
+        });
       }
     });
   }
