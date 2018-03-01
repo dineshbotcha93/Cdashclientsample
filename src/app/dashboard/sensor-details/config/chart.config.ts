@@ -49,25 +49,35 @@ export const ChartOptions = {
       y: null
     }
   },
-  legend: {
-    labels: {
-      // This more specific font property overrides the global property
-      fontColor: '#ffffff',
-      defaultFontColor: '#ffffff',
-    }
-  },
   options: {
+    legend: {
+      labels: {
+        // This more specific font property overrides the global property
+        fontColor: 'rgba(255, 50, 255, 1)',
+        defaultFontColor: 'rgba(255, 204, 101, 1)',
+        defaultFontFamily: 'roboto_regular',
+      }
+    },
     scale: {
-        ticks: {
-            beginAtZero: true,
-            min: 0,
-            userCallback: function(label, index, labels) {
-                // when the floored value is the same as the value we have a whole number
-                if (Math.floor(label) === label) {
-                    return label;
-                }
-            },
-        }
+      ticks: {
+        beginAtZero: true,
+        min: 0,
+        userCallback: function(label, index, labels) {
+          // when the floored value is the same as the value we have a whole number
+          if (Math.floor(label) === label) {
+              return label;
+          }
+        },
+      }
     }
   }
+};
+
+export const ChartColors = {
+  backgroundColor: 'rgba(255, 204, 101, 0.4)',
+  borderColor: 'rgba(255, 204, 101, 1)',
+  pointBackgroundColor: 'rgba(148, 159, 177, 1)',
+  pointBorderColor: '#fff',
+  pointHoverBackgroundColor: '#fff',
+  pointHoverBorderColor: 'rgba(148, 159, 177, 1)'
 };
