@@ -1,17 +1,29 @@
+<div class="login_wrapper">
+  <div class="form login_form">
+    <section class="login_content">
 <div class="table">
 	<h3>{{'userRegistration.title'|translate}}</h3>
 	<div class="white">
 		<p>{{'userRegistration.registrationMessage'|translate}}</p>
 	</div>
 	<form name="form" (ngSubmit)="onSubmit()">
+    <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+    <h1 class="login-title">Registration Form</h1>
+
+		<div>
+			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
 		<div class="form-group" >
 			<label for="email">{{'userRegistration.email'|translate}}</label>
 			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required />
 		</div>
 		<div class="form-group">
-			<input type="submit" value="Verify" class="btn btn-primary">
+      <div class="clearfix"></div>
+      <div class="separator"></div>
+			<input type="submit" value="Verify" class="btn btn-primary m-l-none">
 		</div>
 	</form>
+    </section>
+  </div>
 	<div class="white">
 			<h3>{{'userRegistration.disclaimerTitle'|translate}}</h3>
 			<p>{{'userRegistration.disclaimerMessage'|translate}}</p>
@@ -21,3 +33,4 @@
 		<p>{{'userRegistration.hintMessage'|translate}}</p>
 	</div>
 </div>
+

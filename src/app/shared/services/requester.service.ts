@@ -55,6 +55,14 @@ export class RequesterService {
     })
     .toPromise();
   }
+
+  deleteExternalRequest(url:string):Promise<any>{
+    return this.http.delete(SERVER_URLS.EXTERNAL_SERVER_URL+url).map(e=>e.json())
+    .catch(e=>{
+      throw e;
+    })
+    .toPromise();
+  }
 }
 
 

@@ -16,6 +16,9 @@
 @import "styles/global/table";
 @import "styles/global/modal";
 @import "styles/global/navigation";
+@import "styles/global/login";
+@import "styles/margins";
+
 
 #map {
   height: 100%;
@@ -30,7 +33,7 @@ html, body {
 
 
 .nav-sm .container.body .right_col, .right_col {
-  height: auto;
+  height: 100%;
 }
 
 
@@ -60,6 +63,18 @@ ul {
 
 .pointer-style {
   cursor: pointer;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.text-align-left {
+  text-align: left;
 }
 
 /* side-nav */
