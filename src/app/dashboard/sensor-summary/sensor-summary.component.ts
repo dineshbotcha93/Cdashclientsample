@@ -362,12 +362,19 @@ export class SensorSummaryComponent implements OnInit {
       this.selectedGateway = Object.assign({}, this.gateWayData);
       let selectedRemoveData = this.getSelectedRowDetailsToRemove();
       if (selectedRemoveData) {
-        /*Backend call to remove and get latest details*/
-        this.sensorSummaryService.removeGatewayDetails(selectedRemoveData).
-          subscribe(
-            res => { this.getNetworkData(); },
-            err => { }
-          );
+        selectedRemoveData.forEach((gateway)=>{
+          /*Backend call to remove and get latest details*/
+          // this.sensorSummaryService.removeGatewayDetails(selectedRemoveData).
+          //   subscribe(
+          //     res => { this.getNetworkData(); },
+          //     err => { }
+          //   );
+          this.sensorSummaryService.deleteGateway(gateway.gatewayID).then((e)=>{
+            if(e==true){
+              this.getNetworkData();
+            }
+          });
+        });
       }
     } else if (this.radioModel === 'sensor') {
       this.selectedSensor = Object.assign({}, this.allSensors);
@@ -375,11 +382,18 @@ export class SensorSummaryComponent implements OnInit {
 
       if (selectedRemoveData) {
         /*Backend call to remove and get latest details*/
-        this.sensorSummaryService.removeSensorDetails(selectedRemoveData).
-          subscribe(
-            res => { this.getNetworkData(); },
-            err => { }
-          );
+        selectedRemoveData.forEach((sensor)=>{
+          this.sensorSummaryService.deleteSensor(sensor.sensorID).then((e)=>{
+            if(e==true){
+              this.getNetworkData();
+            }
+          });
+        });
+        // this.sensorSummaryService.removeSensorDetails(selectedRemoveData).
+        //   subscribe(
+        //     res => { this.getNetworkData(); },
+        //     err => { }
+        //   );
       }
     }
 
@@ -409,6 +423,7 @@ export class SensorSummaryComponent implements OnInit {
       add: false,
       reset: true
     }
+    console.log(this);
     this.onCheckSetRestValues(false);
     this.isSelectedAll = false;
   }
@@ -624,11 +639,13 @@ export class SensorSummaryComponent implements OnInit {
 
 
   receiveMessage($event) {
+    console.log('received addition');
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
   }
 
   receiveCancelMessage($event) {
+    console.log('received cancelation');
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
   }
