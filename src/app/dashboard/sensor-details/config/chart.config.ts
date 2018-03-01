@@ -53,8 +53,9 @@ export const ChartOptions = {
     legend: {
       labels: {
         // This more specific font property overrides the global property
-        fontColor: '#ffffff',
-        defaultFontColor: '#ffffff',
+        fontColor: 'rgba(255, 50, 255, 1)',
+        defaultFontColor: 'rgba(255, 204, 101, 1)',
+        defaultFontFamily: 'roboto_regular',
       }
     },
     scale: {
@@ -73,10 +74,10 @@ export const ChartOptions = {
 };
 
 export const ChartColors = {
-  backgroundColor: 'rgba(148,159,177,1)',
-  borderColor: 'rgba(148,159,177,1)',
-  pointBackgroundColor: 'rgba(148,159,177,1)',
+  backgroundColor: 'rgba(255, 204, 101, 0.4)',
+  borderColor: 'rgba(255, 204, 101, 1)',
+  pointBackgroundColor: 'rgba(148, 159, 177, 1)',
   pointBorderColor: '#fff',
   pointHoverBackgroundColor: '#fff',
-  pointHoverBorderColor: 'rgba(148,159,177,1)'
+  pointHoverBorderColor: 'rgba(148, 159, 177, 1)'
 };

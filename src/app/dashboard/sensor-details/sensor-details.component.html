@@ -68,8 +68,8 @@
           [chartType]="'line'"
           [datasets]="chartData"
           [labels]="chartLabels"
-          [options]="getChartOptions"
-          [colors]="getChartColors"
+          [options]="chartOptions"
+          [colors]="chartColors"
           [legend]="true">
         </canvas>
       </div>
@@ -78,7 +78,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="message-history-container">
         <button class="btn btn-primary" (click)="export()">{{'global.exportPdf'|translate}}</button>
-        <div class="graph-card">
+        <div class="dark-theme">
           <app-datatable
             *ngIf="rows[0]!=='N/A'"
             [rows]="rows"

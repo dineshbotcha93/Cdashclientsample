@@ -28,20 +28,13 @@ export class SensorDetailsComponent {
   private rows: Array<any>=['N/A'];
   private columns: Array<any>=[];
   private limit: Number  = 10;
-  private data: Array<any>=[];
-  public chartLabels: Array<any>=[];
-  public chartOptions = null;
-  // public chartColors = null;
-  public chartColors = {
-    backgroundColor: 'rgba(148,159,177,1)',
-    borderColor: 'rgba(148,159,177,1)',
-    pointBackgroundColor: 'rgba(148,159,177,1)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(148,159,177,1)'
-  };
-  private chartData = [
-    { data: this.data, label: 'Temperature Vs. Time', fill: true },
+  private data: Array<any> = [];
+
+  public chartLabels: Array<any> = [];
+  public chartOptions: Array<any> = [ChartOptions];
+  public chartColors: Array<any> = [ChartColors];
+  public chartData = [
+    { data: this.data, label: 'Temperature Vs. Time', fill: false }
   ];
   @ViewChild("baseChart") chart: BaseChartDirective;
   @ViewChildren("tabs") tabs: QueryList<any>
@@ -59,7 +52,7 @@ export class SensorDetailsComponent {
     private modalService: BsModalService,
     private translate: TranslateService
   ){
-    this.chartOptions = ChartOptions;
+    // this.chartOptions = ChartOptions;
     //this.chartColors = ChartColors;
     this.route.params.subscribe((params)=>{
       this.detailId = params.id.toString();
@@ -73,11 +66,11 @@ export class SensorDetailsComponent {
     this.columns.push({prop: 'signalStrength', name: 'Signal Strength'});
     this.columns.push({prop: 'voltage', name: 'Voltage'});
 
-    this.chartOptions.legend = {
-      onClick: function(e) {
-        e.preventDefault();
-      }
-    }
+    // this.chartOptions.legend = {
+    //   onClick: function(e) {
+    //     e.preventDefault();
+    //   }
+    // }
     this.translate.use('en');
   }
 
@@ -168,18 +161,6 @@ export class SensorDetailsComponent {
 
   onChartClick(event) {
     console.log(event);
-  }
-
-  getChartOptions() {
-    return this.chartOptions;
-  }
-
-  getChartLabels() {
-    return this.chartLabels;
-  }
-
-  getChartColors() {
-    return this.chartColors;
   }
 
   goBack(){
