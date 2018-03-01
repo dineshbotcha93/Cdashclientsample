@@ -10,12 +10,13 @@ import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
 
+
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
   selector: 'app-sensor-summary',
   templateUrl: './sensor-summary.component.html',
   styleUrls: ['./sensor-summary.component.scss'],
-  providers: [MapService, SensorSummaryService, CommonSharedService, AlertSandbox]
+  providers: [MapService, SensorSummaryService, CommonSharedService, AlertSandbox,DatePipe]
 })
 export class SensorSummaryComponent implements OnInit {
   mapData: Object = null;
@@ -78,6 +79,7 @@ export class SensorSummaryComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   daterangepickerModel: Date[];
+  requestDateObject :any = [];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -85,7 +87,8 @@ export class SensorSummaryComponent implements OnInit {
     private sensorSummaryService: SensorSummaryService,
     private commonSharedService: CommonSharedService,
     private alertSandbox: AlertSandbox,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public datepipe: DatePipe
   ) {
     this.route.params.subscribe((params) => {
       this.netWorkId = params.id.toString();
@@ -99,28 +102,18 @@ export class SensorSummaryComponent implements OnInit {
       this.maxDate.setDate(this.maxDate.getDate());
 
       this.daterangepickerModel = [this.minDate, this.maxDate];
-
+      
+      this.requestDateObject = {
+        fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
+        toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
+      };
+     
     });
     this.translate.use('en');
   }
 
   ngOnInit() {
-    // this.mapService.getData().subscribe(e => {
-    //    for (let location of e.LocationGroup) {
-    //       location.Location.forEach((loc) => {
-    //          let Obj = {
-    //             Title: null,
-    //             Id: null
-    //          };
-    //          Obj.Id = loc.Id;
-    //          Obj.Title = loc.Title;
-    //          if (loc.Id === this.netWorkId) {
-    //             this.selectLocation = Obj;
-    //          }
-    //          this.locationData.push(Obj);
-    //       });
-    //    }
-    // });
+   
   }
 
   private getDropdownDetails() {
@@ -704,7 +697,9 @@ export class SensorSummaryComponent implements OnInit {
   }
 
 
-  onClickNotificationOverview() {
+  onClickNotificationOverview(request:any) {
+
+    
     this.notificationRadio = 'overview';
   }
 
@@ -731,7 +726,15 @@ export class SensorSummaryComponent implements OnInit {
   onClickDateRange() {
 
     console.log(this.daterangepickerModel);
-    this.onClickNotificationOverview();
+
+    console.log(this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy')+'  '+this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy'));
+    
+    let requestDateObject = {
+      fromDate:this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy'),
+      toDate:this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy')
+    }
+    
+    this.onClickNotificationOverview(requestDateObject);
 
   }
 }
