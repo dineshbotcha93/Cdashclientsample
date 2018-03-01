@@ -47,6 +47,14 @@ export class RequesterService {
     })
     .toPromise();
   }
+
+  putExternalRequest(url:string,body:object):Promise<any>{
+    return this.http.put(SERVER_URLS.EXTERNAL_SERVER_URL+url,body).map(e=>e.json())
+    .catch(e=>{
+      throw e;
+    })
+    .toPromise();
+  }
 }
 
 
