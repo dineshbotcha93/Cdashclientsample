@@ -88,6 +88,7 @@ export class SensorDetailsComponent {
     this.sensorDetailsService.getDataMessages(this.detailId,fromDate,toDate).then((result)=>{
       this.result = result;
       this.rows = [];
+      this.chartLabels = [];
       if(this.result.length == 0){
         this.alertSandbox.showAlert({data:'No Content'});
         return;
