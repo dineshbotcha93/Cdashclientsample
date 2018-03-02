@@ -54,11 +54,10 @@ export class SensorDetailsComponent {
     sensorDetailsService.getDetails(this.detailId).then((result)=>{
       this.sensorDetailsData = result;
     });
-    this.columns.push({prop:'messageID',name:'Message ID'});
-    this.columns.push({prop:'data',name:'Data'});
-    this.columns.push({prop:'messageDate',name:'Message Date'});
-    this.columns.push({prop:'signalStrength',name:'Signal Strength'});
-    this.columns.push({prop:'voltage',name:'Voltage'});
+    this.columns.push({prop:'messageDate',name:'Date'});
+    this.columns.push({prop:'signalStrength',name:'Signal'});
+    this.columns.push({prop:'battery',name:'Battery'});
+    this.columns.push({prop:'data',name:'Reading'});
 
     this.chartOptions = ChartOptions;
 
@@ -97,11 +96,10 @@ export class SensorDetailsComponent {
         this.data.push(res.plotValue);
         this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11,19));
         this.rows.push({
-          messageID:res.messageID,
           data:res.plotValue,
           messageDate:moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
           signalStrength:res.signalStrength,
-          voltage:res.voltage,
+          battery:res.battery,
         });
       });
     }).then((e)=>{
@@ -125,26 +123,24 @@ export class SensorDetailsComponent {
     console.log("clicked");
     const a = new jsPDF();
     var doc = new jsPDF();
-    var col = [{
-      title:"MessageID",
-      dataKey:"messageID"
-    },
+    var col = [
     {
-      title:"Temperature",
-      dataKey:"data"
-    },
-    {
-      title:"Message Date",
+      title:"Date",
       dataKey:"messageDate"
     },
     {
-        title:"Signal Strength",
+        title:"Signal",
         dataKey:"signalStrength"
     },
     {
-      title:"Voltage",
-      dataKey:"voltage"
-    }];
+      title:"Battery",
+      dataKey:"battery"
+    },
+    {
+      title:"Reading",
+      dataKey:"data"
+    },
+  ];
     var rows = [];
     console.log(doc);
     const item = this.rows;
