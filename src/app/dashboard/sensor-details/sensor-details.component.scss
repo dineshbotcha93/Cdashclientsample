@@ -4,7 +4,7 @@
   background-color: white;
 }
 
-.sd-gauga-chart-container, .message-history-container {
+.gauge-chart-container {
   margin-top: 20px;
 }
 
@@ -15,6 +15,7 @@
   text-align: center;
   background-color: $color-body-bg;
   border-radius: $border-radius-medium;
+  height: 43rem;
 
   ngx-gauge {
     margin-bottom: 20px;
@@ -30,3 +31,28 @@
     color: $gauge-chart-forgroundColor;
   }
 }
+
+.message-history-container {
+  margin-top: 20px;
+}
+
+
+/*.datatable-footer {
+  background: red;
+
+  .datatable-footer-inner {
+    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    color: $color-black;
+
+    .page-count {}
+
+    .datatable-pager {
+      a {
+        font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        color: $color-black;
+        line-height: initial;
+        margin: 0 2px;
+      }
+    }
+  }
+}*/
