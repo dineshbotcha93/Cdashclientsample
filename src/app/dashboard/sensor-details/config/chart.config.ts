@@ -54,13 +54,18 @@ export const ChartOptions = {
       y: null
     }
   },
+  // title: {
+  //   display: true,
+  //   text: 'Custom Chart Title'
+  // },
   legend: {
     labels: {
       // This more specific font property overrides the global property
       fontColor: 'rgba(255, 255, 255, 1)',
       defaultFontColor: 'rgba(255, 255, 255, 1)',
       defaultFontFamily: 'roboto_light',
-    }
+    },
+    onClick: (e) => e.stopPropagation()
   },
   scales: {
     ticks: {
