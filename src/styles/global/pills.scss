@@ -73,4 +73,10 @@ ul.bar_tabs, ul.nav-tabs {
     padding: 20px;
     margin-top: -5px;
   }
+
+  &.light-theme {
+    .tab-panel {
+      background: none;
+    }
+  }
 }

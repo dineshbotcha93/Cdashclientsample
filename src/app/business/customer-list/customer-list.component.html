@@ -6,7 +6,7 @@
         <div class="clearfix"></div>
       </div>
       <div class="col-md-1 col-sm-1 col-xs-12">
-        <input type="button" value="Back" (click)="goToPrevPage()"/>
+        <button class="btn btn-primary" (click)="goToPrevPage()"><i class="fa fa-chevron-left"></i> Back</button>
       </div>
       <!-- <pre>{{result|json}}</pre> -->
     </div>
@@ -18,7 +18,7 @@
             />
           </div>
           <div class="form-group col-md-2 col-sm-4 col-xs-12">
-            <select name="filter_by_status" class="form-control" 
+            <select name="filter_by_status" class="form-control"
             [(ngModel)]="doFilterByStatus"
             (ngModelChange)="filterByStatus()">
               <option value="all">All</option>
@@ -66,10 +66,10 @@
        [limit]="limit">
       </app-datatable>
       <ng-template #statusColorTmpl let-row="row" let-value="value">
-      <div class="square" *ngIf="value === 'Overdue'" style="background-color:#d9534f"></div>
-      <div class="square" *ngIf="value === 'Due'" style="float: left; background-color: #f0ad4e"></div>
-      <div class="square" *ngIf="value === 'New'" style="float: left;background-color: #3498DB"></div>
-      <div class="square" *ngIf="value === 'Renew'" style="float: left; background-color: #26B99A"></div>
+      <div class="circle" *ngIf="value === 'Overdue'" style="background-color:#d9534f"></div>
+      <div class="circle" *ngIf="value === 'Due'" style="float: left; background-color: #f0ad4e"></div>
+      <div class="circle" *ngIf="value === 'New'" style="float: left;background-color: #3498DB"></div>
+      <div class="circle" *ngIf="value === 'Renew'" style="float: left; background-color: #26B99A"></div>
       <span>{{value}}</span>
       </ng-template>
       <ng-template #renewalColTmpl let-row="row" let-value="value">
