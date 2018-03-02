@@ -7,8 +7,7 @@
           <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
           <!--<h3>{{'userRegistration.title'|translate}}</h3>-->
           <div class="form-group has-feedback" >
-            <input type="email" class="form-control has-feedback-left" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
-            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+            <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
           </div>
           <div class="form-group">
             <div class="clearfix"></div>
@@ -17,25 +16,25 @@
           </div>
         </form>
 
-      <div class="separator font-white align-left">
+      <div class="font-white align-left">
         <p>
           <b>Note:</b>
         {{'userRegistration.registrationMessage'|translate}}
         </p>
-        <p>
+        <!--<p>
           <a data-toggle="modal"
                   data-target="#disclaimerModal"
                   value="Edit"> Edit</a>
-        </p>
+        </p>-->
       </div>
-        <div class="alert alert-info alert-dismissible fade in">
+        <!--<div class="alert alert-info alert-dismissible fade in">
             <h4>{{'userRegistration.disclaimerTitle'|translate}}</h4>
             <p>{{'userRegistration.disclaimerMessage'|translate}}</p>
         </div>
         <div class="alert alert-info alert-dismissible fade in">
           <h4>{{'userRegistration.hintTitle'|translate}}</h4>
           <p>{{'userRegistration.hintMessage'|translate}}</p>
-        </div>
+        </div>-->
     </section>
   </div>
   <div>
@@ -44,7 +43,7 @@
 </div>
 
 
-<ng-template #disclaimerModal>
+<!--<ng-template #disclaimerModal>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -59,6 +58,6 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template>-->
 
 
