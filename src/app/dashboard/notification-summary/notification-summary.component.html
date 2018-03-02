@@ -1,4 +1,4 @@
-<div *ngIf="notificationSummaryList">
+<div *ngIf="notificationSummaryList?.length > 0">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -41,9 +41,9 @@
           </a>
         </td>
         <td class="col-md-2">
-          <button type="button" class="btn btn-primary" value="edit" [ngClass]="'editBTN'" (click)="onClickEditDetails()">
+          <button type="button" class="btn btn-primary" value="edit" [ngClass]="'editBTN'" (click)="onClickEditNotifyDetails(notifiy)">
             <i class="fa fa-edit"></i> edit </button>&nbsp;
-          <button type="button" class="btn btn-primary btn-xs removeBTN" (click)="onClickRemoveDetails()">
+          <button type="button" class="btn btn-primary btn-xs removeBTN" (click)="onClickRemoveNotifyDetails(notifiy)">
             <i class="fa fa-trash"></i> Remove </button>
         </td>
       </tr>
@@ -56,7 +56,7 @@
 
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Modal</h4>
+        <h4 class="modal-title pull-left">Details</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -130,9 +130,20 @@
                     {{user.email}}
                 </td>
                 <td>
-                    {{user.notifyThroughEmail}}/{{user.notifyThroughPhone}}
+                    <!-- {{user.notifyThroughEmail}}/{{user.notifyThroughPhone}} -->
+                    <fa name="envelope"></fa>&nbsp;  <fa name="mobile"></fa>
                 </td>
             </tr>
         </tbody>
     </table>
 </ng-template>
+
+
+
+        <!-- <div class="col-md-12 dark-theme" *ngIf="isEditNotify === true">
+                <app-notification-create
+                [allSensors] = "allSensors"
+                [gateWayData] = "gateWayData"
+                (createMessageEvent)="receiveAddNotificationMessage($event)"
+                ></app-notification-create> -->
+             <!-- </div> -->

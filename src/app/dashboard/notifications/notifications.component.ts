@@ -15,6 +15,7 @@ export class NotificationsComponent implements OnInit {
 
   notificationOverviewObject: any = [];
   modalObject: any = [];
+  @Input() dateRangeObject: any;
 
   modalRef: BsModalRef;
   constructor(private modalService: BsModalService,
@@ -40,7 +41,11 @@ export class NotificationsComponent implements OnInit {
 
     console.log('hitting senty notofication');
     // console.log(this.sensorSummaryService.getSentNotificationsDetails());
-
+    console.log('--date-->',this.dateRangeObject);
+    
+    this.sensorSummaryService.getSentNotificationsDetails(this.dateRangeObject).then((result) => {
+      console.log('result--->',result);
+    });
     
     this.notificationOverviewObject = [
       {

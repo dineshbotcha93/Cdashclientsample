@@ -106,19 +106,35 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
   }
 
+  moveGateway(GatewayID,NetworkID,CheckDigit){
+    return this.requesterService
+    .putExternalRequest(`/api/Gateway/Assign/${GatewayID}/${NetworkID}/${CheckDigit}`,{});
+  }
+
+
+
   /* Move  the gateway details*/
   moveGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/
     return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
-  getSentNotificationsDetails(){
+  getSentNotificationsDetails(requestObject:any){
+    // let URL = '/api/Notification/SentToNetwork?StartIndex=1&Count=100&FromDate='+requestObject.fromDate+'&ToDate='+requestObject.toDate;
+    let URL = '/api/Notification/SentToSensor?StartIndex=1&Count=100&FromDate='+requestObject.fromDate+'&ToDate='+requestObject.toDate;
     return this.requesterService
-    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
+    .getExternalRequest(URL);
   }
 
   getNotificationSettingsDetails(){
     return this.requesterService
-    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1000');
+    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID=1004');
+  }
+
+  updateNotificationActiveState(requestObject:any){
+    console.log(requestObject);
+    let URL = '/api/Notification/ToggleNotification?NotificationID='+requestObject.NotificationID+'&On='+requestObject.On;
+    return this.requesterService
+    .putExternalRequest(URL,{});
   }
 }
