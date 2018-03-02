@@ -106,6 +106,13 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
   }
 
+  moveGateway(GatewayID,NetworkID,CheckDigit){
+    return this.requesterService
+    .putExternalRequest(`/api/Gateway/Assign/${GatewayID}/${NetworkID}/${CheckDigit}`,{});
+  }
+
+
+
   /* Move  the gateway details*/
   moveGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/

@@ -573,12 +573,17 @@ export class SensorSummaryComponent implements OnInit {
         selectedCheckedData.push(x);
       }
     });
-
-    this.sensorSummaryService.moveSensorDetails(selectedCheckedData).
-      subscribe(
-        res => { this.getNetworkData(); },
-        err => { }
-      );
+    selectedCheckedData.forEach((scd)=>{
+      console.log(scd);
+      this.sensorSummaryService.moveGateway(scd.gatewayID,scd.networkID,1).then((e)=>{
+        console.log(e);
+      });
+    });
+    // this.sensorSummaryService.moveSensorDetails(selectedCheckedData).
+    //   subscribe(
+    //     res => { this.getNetworkData(); },
+    //     err => { }
+    //   );
   }
 
 

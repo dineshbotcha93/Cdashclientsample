@@ -1,33 +1,39 @@
-<h3>User Registration</h3>
-<div class="table">
-	<form name="form" [formGroup]="userCreateForm" (ngSubmit)="onSubmit()">
-		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" formControlName="isNewMaster" value="true"> New Master Account User
-		<input type="radio" name="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster" formControlName="isNewMaster" value="false"> Link Existing NotifEye Account User
-		<div class="form-group" >
-			<label for="firstName">First Name</label>
-			<input type="text" [(ngModel)]="userRegisterModel.firstName" formControlName="firstName" class="form-control" name="firstName" required />
-		</div>
-		<div class="form-group" >
-			<label for="email">Last Name</label>
-			<input type="text" [(ngModel)]="userRegisterModel.lastName" formControlName="lastName" class="form-control" name="lastName" required />
-		</div>
-		<div class="form-group" >
-			<label for="email">Email</label>
-			<input type="email" [(ngModel)]="userRegisterModel.email" formControlName="email" class="form-control" name="email" readonly="true"/>
-		</div>
-		<div class="form-group" >
-			<label for="password">Password</label>
-			<input type="password" [(ngModel)]="userRegisterModel.password" formControlName="password" class="form-control" />
-			<i class="fa fa-question" [tooltip]="tooltipTempate"></i>
-		</div>
-		<div class="form-group" >
-			<label for="confPassword">Confirm Pasword</label>
-			<input type="password" class="form-control" name="password" required />
-		</div>
-		<div class="form-group">
-			<input type="submit" value="Register" class="btn btn-primary" [disabled]="!userCreateForm.valid">
-		</div>
-	</form>
+<div class="login_wrapper" style="max-width:600px;">
+  <div class="form login_form">
+    <section class="login_content">
+      <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+    <form name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
+
+      <!--<h1 class="login-title">Registration Form</h1>-->
+      <div class="form-group" >
+      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="true"> New Master Account User
+      </div>
+      <div class="form-group" >
+      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="false"> Link Existing NotifEye Account
+      </div>
+      <div class="form-group" >
+        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.firstName" required placeholder="First Name"/>
+      </div>
+      <div class="form-group" >
+        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.lastName" required placeholder="Last Name"/>
+      </div>
+      <div class="form-group" >
+        <input type="email" class="form-control" name="email"  value="{{userRegisterModel.email}}" readonly="true" placeholder="Email"/>
+      </div>
+      <div class="form-group" >
+        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.password" required placeholder="Password"/>
+      </div>
+      <div class="form-group" >
+        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.confirmPassword" required placeholder="Confirm Pasword"/>
+      </div>
+      <div class="form-group">
+        <div class="clearfix"></div>
+        <div class="separator"></div>
+        <input type="submit" value="Register" class="btn btn-primary m-l-none">
+      </div>
+    </form>
+    </section>
+  </div>
 </div>
 <ng-template #tooltipTempate>
 		'Password' must be at least 8 characters long.
