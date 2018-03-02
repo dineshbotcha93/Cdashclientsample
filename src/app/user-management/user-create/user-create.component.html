@@ -1,9 +1,10 @@
-<div class="login_wrapper">
+<div class="login_wrapper" style="max-width:600px;">
   <div class="form login_form">
-    <section class="login_content text-align-left">
-    <form name="form" (ngSubmit)="onSubmit()">
+    <section class="login_content">
       <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
-      <h1 class="login-title">Registration Form</h1>
+    <form name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
+
+      <!--<h1 class="login-title">Registration Form</h1>-->
       <div class="form-group" >
       <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="true"> New Master Account User
       </div>
