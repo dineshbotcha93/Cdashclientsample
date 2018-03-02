@@ -15,6 +15,7 @@ export class NotificationSummaryComponent implements OnInit {
   modalObject:any = [];
   modalRef: BsModalRef;
   modalType : string ='';
+  isEditNotify : boolean = false;
 
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
@@ -135,6 +136,14 @@ export class NotificationSummaryComponent implements OnInit {
     }
     console.log('-------',this.modalObject);
     this.modalRef = this.modalService.show(template);
+
+ }
+
+ onClickEditNotifyDetails(notify){
+    console.log('notifiy--->',notify);
+
+    this.isEditNotify = true;
+    // this.notificationSummaryList = [];
 
  }
 }

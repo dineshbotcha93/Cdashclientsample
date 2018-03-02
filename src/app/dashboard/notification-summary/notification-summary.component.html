@@ -41,9 +41,9 @@
           </a>
         </td>
         <td class="col-md-2">
-          <button type="button" class="btn btn-primary" value="edit" [ngClass]="'editBTN'" (click)="onClickEditDetails()">
+          <button type="button" class="btn btn-primary" value="edit" [ngClass]="'editBTN'" (click)="onClickEditNotifyDetails(notifiy)">
             <i class="fa fa-edit"></i> edit </button>&nbsp;
-          <button type="button" class="btn btn-primary btn-xs removeBTN" (click)="onClickRemoveDetails()">
+          <button type="button" class="btn btn-primary btn-xs removeBTN" (click)="onClickRemoveNotifyDetails(notifiy)">
             <i class="fa fa-trash"></i> Remove </button>
         </td>
       </tr>
@@ -137,3 +137,13 @@
         </tbody>
     </table>
 </ng-template>
+
+
+
+        <!-- <div class="col-md-12 dark-theme" *ngIf="isEditNotify === true">
+                <app-notification-create
+                [allSensors] = "allSensors"
+                [gateWayData] = "gateWayData"
+                (createMessageEvent)="receiveAddNotificationMessage($event)"
+                ></app-notification-create> -->
+             </div>
