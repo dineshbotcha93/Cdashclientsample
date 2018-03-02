@@ -14,6 +14,7 @@ import {environment} from '../environments/environment';
 import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BusinessModule } from './business/business.module';
+import { UserProfileModule } from './user-profile/user-profile.module';
 
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -38,7 +39,8 @@ const appRoutes: Routes = [{
 },
 {
   path:'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule',
-}]
+}
+]
 
 let mockProvider = [];
 if(!environment.production)
@@ -53,7 +55,7 @@ if(!environment.production)
 }
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,7 @@ if(!environment.production)
     NgxDatatableModule,
     PipesModule,
     BusinessModule,
+    UserProfileModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
     /**
