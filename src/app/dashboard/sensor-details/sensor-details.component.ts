@@ -104,6 +104,8 @@ export class SensorDetailsComponent {
           voltage:res.voltage,
         });
       });
+    }).then((e)=>{
+      this.cd.detectChanges();
     }).catch((e)=>{
       this.alertSandbox.showAlert({data:'No Content'});
     });

@@ -33,7 +33,7 @@ export const ChartOptions = {
     enabled: false,
 
     // Enable drag-to-zoom behavior
-    drag: true,
+    drag: false,
 
     // Zooming directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow zooming in the y direction
