@@ -18,26 +18,26 @@ declare var jsPDF: any; // Important
   selector: 'app-sensor-details',
   templateUrl: './sensor-details.component.html',
   styleUrls: ['./sensor-details.component.scss'],
-  providers:[SensorDetailsService, AlertSandbox, BsModalService],
+  providers: [SensorDetailsService, AlertSandbox, BsModalService],
   encapsulation: ViewEncapsulation.None,
 })
 export class SensorDetailsComponent {
   private result;
   private sensorDetailsData;
   private detailId;
-  private rows: Array<any>=['N/A'];
-  private columns: Array<any>=[];
+  private rows: Array<any> = ['N/A'];
+  private columns: Array<any> = [];
   private limit: Number  = 10;
   private data: Array<any> = [];
 
   public chartLabels: Array<any> = [];
-  public chartOptions: Array<any> = [ChartOptions];
+  public chartOptions: any = ChartOptions;
   public chartColors: Array<any> = [ChartColors];
-  public chartData = [
+  public chartData: Array<any> = [
     { data: this.data, label: 'Temperature Vs. Time', fill: false }
   ];
-  @ViewChild("baseChart") chart: BaseChartDirective;
-  @ViewChildren("tabs") tabs: QueryList<any>
+  @ViewChild('baseChart') chart: BaseChartDirective;
+  @ViewChildren('tabs') tabs: QueryList<any>;
   bsValue: Date = moment().subtract(7, 'days').toDate();
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
@@ -51,10 +51,8 @@ export class SensorDetailsComponent {
     private cd: ChangeDetectorRef,
     private modalService: BsModalService,
     private translate: TranslateService
-  ){
-    // this.chartOptions = ChartOptions;
-    //this.chartColors = ChartColors;
-    this.route.params.subscribe((params)=>{
+  ) {
+    this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
    });
     sensorDetailsService.getDetails(this.detailId).then((result) => {
@@ -77,23 +75,23 @@ export class SensorDetailsComponent {
   ngAfterViewInit() {
     this.tabs.forEach((e) => {
       e.tabs.forEach((tab) => {
-        if(tab.tabTitle === 'Graph') {
+        if (tab.tabTitle === 'Graph') {
           tab.active = true;
         } else {
           tab.active = false;
         }
-      })
+      });
       this.cd.detectChanges();
     });
   }
 
-  onDateChange(event){
+  onDateChange(event) {
     const fromDate = moment(this.bsValue).format('MM/DD/YYYY');
     const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;
       this.rows = [];
-      if(this.result.length === 0){
+      if (this.result.length === 0) {
         this.alertSandbox.showAlert({data: 'No Content'});
         return;
       }
@@ -113,44 +111,44 @@ export class SensorDetailsComponent {
     });
   }
 
-  reset(attribute){
-    if(attribute=== 'zoom'){
+  reset(attribute) {
+    if (attribute === 'zoom') {
       this.chart.chart.resetZoom();
     }
   }
 
-  export(){
+  export() {
     console.log('clicked');
     const a = new jsPDF();
     const doc = new jsPDF();
     const col = [{
-      title: "MessageID",
-      dataKey: "messageID"
+      title: 'MessageID',
+      dataKey: 'messageID'
     },
     {
-      title: "Temperature",
-      dataKey: "data"
+      title: 'Temperature',
+      dataKey: 'data'
     },
     {
-      title: "Message Date",
-      dataKey: "messageDate"
+      title: 'Message Date',
+      dataKey: 'messageDate'
     },
     {
-        title: "Signal Strength",
-        dataKey: "signalStrength"
+        title: 'Signal Strength',
+        dataKey: 'signalStrength'
     },
     {
-      title: "Voltage",
-      dataKey: "voltage"
+      title: 'Voltage',
+      dataKey: 'voltage'
     }];
     const rows = [];
     console.log(doc);
     const item = this.rows;
     console.log(item);
 
-    for(var key in item){
-        var temp = [key, item[key]];
-        rows.push(temp);
+    for (let key in item) {
+      const temp = [key, item[key]];
+      rows.push(temp);
     }
     console.log(rows);
     doc.autoTable(col, this.rows);
@@ -163,7 +161,7 @@ export class SensorDetailsComponent {
     console.log(event);
   }
 
-  goBack(){
+  goBack() {
     let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId"); // fix for setting up selected network id
     this.router.navigate(['dashboard/sensor-summary', networkId]);
   }
