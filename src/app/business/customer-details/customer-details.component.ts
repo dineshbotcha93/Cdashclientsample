@@ -71,7 +71,6 @@ export class CustomerDetailsComponent implements OnInit {
   }
 
   goToPrevPage() {
-    console.log("Hello");
     this._location.back();
   }
   private getCustomerData() {
