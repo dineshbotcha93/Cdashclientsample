@@ -1,27 +1,29 @@
+@import "../../styles/variables";
+
 .payment-form {
-  width: 100%;
-  padding: 16px;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  justify-content: space-evenly;
 }
 
-td {
-  font-size: 12px;
-  text-align: center;
+th {
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 1em;
+}
+
+.table-panel {
+  background-color: #2a3F54;
+  border-radius: 20px;
+  margin-top: -5px;
 }
 
 .payment-info {
-  margin: 16px 0px 32px 0px;
-}
-
-td, th, td{
-  border: 1px solid black;
+  margin: 16px 0px 20px 0px;
 }
 
 .pay-info {
-  font-size: 12px;
-  margin: 0px;
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 0.5em;
 }
 
 .card-element {
@@ -56,4 +58,51 @@ td, th, td{
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
+}
+
+
+.customer-info-container {
+  .customer-info-left {
+    color: $color-grey-verydark;
+
+    .customer-name {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 2em;
+    }
+
+    .customer-address {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.25em;
+    }
+
+    .customer-contact-name {
+      margin-top: 15px;
+      padding:5px;
+    }
+
+    .customer-email {
+      float:left;
+      padding:5px;
+    }
+
+    .customer-phone {
+      padding:5px;
+    }
+
+    .customer-amount {
+      //  color:#00A421;
+      //padding:5px;
+    }
+
+    .usr-lbl {
+      font-weight:bold;
+      padding:5px;
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
 }

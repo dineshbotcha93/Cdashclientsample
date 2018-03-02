@@ -1,12 +1,11 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PaymentsService } from './services/payments.service';
-import {DashboardService} from '../dashboard/services/dashboard.service';
-
+import { CustomerDetailsService } from '../business/customer-details/services/customer-details.service';
 const stripe = Stripe('pk_test_rh7KqKZ2eaklfF1FO2WWURYX');
 
 @Component({
   selector: 'app-payments',
-  providers: [PaymentsService],
+  providers: [PaymentsService, CustomerDetailsService],
   styleUrls: ['./payments.component.scss'],
   templateUrl: './payments.component.html'
 })
@@ -15,8 +14,10 @@ export class PaymentsComponent implements OnInit {
 
   card: object;
   paymentData: Object;
+  customerData: Object = null;
+  acknowledgement = false;
 
-  constructor(private paymentsService: PaymentsService) {
+  constructor(private customerDetailsService: CustomerDetailsService, private paymentsService: PaymentsService) {
     paymentsService.getPaymentData().then(function(data) {
       this.paymentData = data;
     }.bind(this));
@@ -25,6 +26,7 @@ export class PaymentsComponent implements OnInit {
   ngOnInit()	{
 // Create an instance of Elements.
     const elements = stripe.elements();
+    this.getCustomerData();
 
 // Custom styling can be passed to options when creating an Element.
 // (Note that this demo uses a wider set of styles than the guide below.)
@@ -54,7 +56,8 @@ export class PaymentsComponent implements OnInit {
   }
 
   getToken() {
-    stripe.createToken(this.card).then(function(tokenData) {
+    console.log('checked', this.acknowledgement);
+    /*stripe.createToken(this.card).then(function(tokenData) {
       console.log('data is', tokenData);
       this.paymentsService.sendStripeToken({
         stripeToken: tokenData.token.id,
@@ -62,7 +65,18 @@ export class PaymentsComponent implements OnInit {
       }).then(function(data){
         console.log('successful call', data);
       });
-    }.bind(this));
+    }.bind(this));*/
+  }
+
+  logCheckbox(checkbox) {
+    console.log('checked', checkbox.checked);
+    this.acknowledgement = checkbox.checked;
+  }
+
+  private getCustomerData() {
+    this.customerDetailsService.getRealData('user2').then((result) => {
+      this.customerData = result.customer;
+    });
   }
 
 }
