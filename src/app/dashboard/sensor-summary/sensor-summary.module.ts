@@ -28,6 +28,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
+import { NotificationOverviewComponent } from '../notification-overview/notification-overview.component';
+
 
 
 const routes:Routes = [{
@@ -44,7 +46,8 @@ const routes:Routes = [{
     CreateDeviceComponent,
     NotificationsComponent,
     NotificationSummaryComponent,
-    NotificationCreateComponent],
+    NotificationCreateComponent,
+    NotificationOverviewComponent],
   imports:[
     RouterModule.forChild(routes),
     ContainersModule,
