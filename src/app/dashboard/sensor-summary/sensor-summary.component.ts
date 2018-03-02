@@ -125,9 +125,11 @@ export class SensorSummaryComponent implements OnInit {
         };
         Obj.Id = loc.networkID;
         Obj.Title = loc.networkName;
+        console.log(loc.networkID,+''+this.netWorkId);
         if (loc.networkID == this.netWorkId) {
           this.selectLocation = Obj;
         }
+        
         this.locationData.push(Obj);
       });
     });
@@ -345,6 +347,15 @@ export class SensorSummaryComponent implements OnInit {
 
   private onClickEditNetwork() {
 
+   
+
+    this.editNetworkData = {
+      name: this.selectLocation.Title,
+      notifyAlert: true,
+      holdNetwork: false
+    };
+
+    console.log('-------',this.editNetworkData);
     this.locationDataForMoveNetwork = this.locationData;
   }
   /*Remove the selected ,update and get refresh data drom network*/
@@ -626,11 +637,8 @@ export class SensorSummaryComponent implements OnInit {
   }
 
   onClickSaveNetworkDetail(e) {
-    this.editNetworkData = {
-      name: '',
-      notifyAlert: false,
-      holdNetwork: false
-    };
+    
+    console.log(this.editNetworkData);
   }
 
 
