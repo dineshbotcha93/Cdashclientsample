@@ -88,7 +88,7 @@ export class UserProfileComponent implements OnInit {
    this.userProfileService.getRealData().then(response => {
       console.log(response);
       this.responseData = response;
-      this.accountData = response.account;
+      this.accountData = response.account[0];
       this.expiryDate = new Date(response.account.subscriptionExpiry);
       this.updateRenewalLabel();
       this.loadPage = true;

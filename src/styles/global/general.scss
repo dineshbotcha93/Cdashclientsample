@@ -1,0 +1,86 @@
+#map {
+  height: 100%;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+
+.nav-sm .container.body .right_col, .right_col {
+  height: 100%;
+}
+
+
+/* ******************************** */
+/* ul */
+ul {
+  &.bar_tabs {
+    background: none;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+    }
+  }
+}
+/* ******************************** */
+
+/* ******************************** */
+/* General Styles */
+.top_tiles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dark-theme {
+  color: $color-white;
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.circle {
+  background: $color-grey;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  margin: 5px 10px 0px 0px;
+  float: left;
+}
+/* ******************************** */
+
+
+/* ******************************** */
+.pointer-style {
+  cursor: pointer;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.align-left {
+  align-items: left !important;
+}
+/* ******************************** */
+
+/* ******************************** */
+/* side-nav */
+//.nav-sm .container.body .col-md-3.left_col {
+//  min-height: 100%;
+//  width: 70px;
+//  padding: 0;
+//  z-index: 9999;
+//  position: absolute;
+//}
+/* ******************************** */
+
+
