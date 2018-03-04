@@ -18,6 +18,8 @@ export class UserRegisterComponent implements OnInit {
     confirmPassword:'',
     isNewMaster:false
   };
+  showPopup = false;
+
   isEmailVerified : boolean = false;
   constructor(
     private userManagementService : UserManagementService,
@@ -25,6 +27,16 @@ export class UserRegisterComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.translate.use('en');
+  }
+
+  modalClosed(event) {
+    console.log(event);
+    this.showPopup = false;
+  }
+
+  modalOpen(event) {
+    console.log(event);
+    this.showPopup = true;
   }
 
   ngOnInit() {}
