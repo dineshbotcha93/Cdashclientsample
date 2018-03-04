@@ -34,9 +34,7 @@
           <app-notification-create
           [allSensors] = "allSensors"
           [gateWayData] = "gateWayData"
-          [editNotifyObject] = "editNotifyObject"
           (createMessageEvent)="receiveAddNotificationMessage($event)"
-          [notifyOperationType] = "notifyOperationType"
           ></app-notification-create>
           <!-- <app-notification-summary></app-notification-summary> -->
        </div>
@@ -44,9 +42,7 @@
 
     <div *ngIf="notificationRadio === 'summary'">
        <div class="col-md-12 dark-theme">
-           <app-notification-summary 
-           (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
-           </app-notification-summary>
+           <app-notification-summary></app-notification-summary>
        </div>
     </div>
 

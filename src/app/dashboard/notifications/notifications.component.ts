@@ -1,124 +1,96 @@
-import { Component, OnInit, Output, EventEmitter, Input ,TemplateRef} from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
-
+import { Component, OnInit,Input, Output,ViewChild ,EventEmitter} from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss'],
-  providers: [SensorSummaryService]
+  styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
 
+  notificationRadio: any = 'overview';
+  isAddButtonRequired:boolean = true;
+  isResetButtonRequired:boolean = false;
+  EditNotifyMode : boolean = false;
 
-  notificationOverviewObject: any = [];
-  modalObject: any = [];
-  @Input() dateRangeObject: any;
+  minDate: Date;
+  maxDate: Date;
+  daterangepickerModel: Date[];
+  requestDateObject :any = [];
 
-  modalRef: BsModalRef;
-  constructor(private modalService: BsModalService,
-    private sensorSummaryService: SensorSummaryService) { }
+  @Input() allSensors: Array<any>;
+  @Input() gateWayData: Array<any>;
+  @Input() editNotifyObject: any;
+  @Input() notifyOperationType: string = "addNotify";
 
-   openModal(notifiy,template: TemplateRef<any>) {
+  @Output() createMessageEvent = new EventEmitter<boolean>();
+  @Output() editNotifyModeEvent = new EventEmitter<boolean>();
 
-     console.log(notifiy);
-     this.modalObject = [];
-
-     this.modalObject = {
-       email:notifiy.email,
-       smsNumber:notifiy.smsNumber,
-       text:'<table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="middle"> <table border="0" cellpadding="0" cellspacing="0" style="border-bottom: #333 1px solid; border-left: #333 1px solid; background-color: #ffffff; border-top: #333 1px solid; border-right: #333 1px solid" width="620"> <tbody> <tr> <td style="text-align: center; padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px" valign="top"> <img alt="NotifEye" border="0" src="http://monitoring.notifeyewireless.com/Content/images/logo.png" /></td> </tr> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="left" style="padding-bottom: 10px; padding-left: 0px; padding-right: 20px; padding-top: 10px" valign="top" width="370"> <p style="padding-bottom: 0px; margin: 10px 0px 0px 20px; padding-left: 0px; padding-right: 0px; font-family: arial; color: ##334873; font-size: 18px; padding-top: 0px"> <strong>NotifEye</strong></p> <p style="margin: 0px"> &nbsp;</p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> Hiro Adachi<br /><br />Gateway: Base Station - 1607990267<br />Gateway Type: Base Station<br />Network: Temp Sensor<br />Date: 1/5/2018 7:36 PM<br />Reading: Inactivity Alert.<br />WARNING! INTERNET CONNECTION LOST- POSSIBLE POWER FAILURE<br /></p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> &nbsp;</p> <p style="font-family: arial; color: #333; margin-left: 20px; font-size: 12px"> This email address is not monitored.&nbsp; Please do not respond to this message.</p> <div style="margin-top: -40px; margin-left: 250px"> &nbsp;</div> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table>',
-       userName:notifiy.userName,
-     };
-   //  console.log(this.modalObject);
-    this.modalRef = this.modalService.show(template);
-
-  }
+  constructor( private datepipe: DatePipe) { }
 
   ngOnInit() {
 
-    console.log('hitting senty notofication');
-    // console.log(this.sensorSummaryService.getSentNotificationsDetails());
-    console.log('--date-->',this.dateRangeObject);
-    
-    this.sensorSummaryService.getSentNotificationsDetails(this.dateRangeObject).then((result) => {
-      console.log('result--->',result);
-    });
-    
-    this.notificationOverviewObject = [
-      {
-        "notificationID": 1,
-        "name": "1.2 1153232008 Temp Walk in Frig #1",
-        "notificationType": "Advanced",
-        "deviceID": 3,
-        "deviceName": "Sensor",
-        "deviceType": "Application",
-        "reading": "435.6° F",
-        "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-        "text": "sample string 8",
-        "sentNotificationID": 9,
-        "userID": 10,
-        "userName": "Cooper One",
-        "smsNumber": "+1 123 456 7890",
-        "email": "cooper@cooper.com",
-        "type": "EMAIL",
-        "status": "EMAIL Sent"
-      },{
-        "notificationID": 1,
-        "name": "1.2 1153232008 Temp Walk in Frig #1",
-        "notificationType": "Advanced",
-        "deviceID": 3,
-        "deviceName": "Sensor",
-        "deviceType": "Application",
-        "reading": "435.6° F",
-        "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-        "text": "sample string 8",
-        "sentNotificationID": 9,
-        "userID": 10,
-        "userName": "Cooper One",
-        "smsNumber": "+1 123 456 7890",
-        "email": "cooper@cooper.com",
-        "type": "SMS",
-        "status": "SMS Sent"
-      },{
-        "notificationID": 1,
-        "name": "1.2 1153232008 Temp Walk in Frig #1",
-        "notificationType": "Advanced",
-        "deviceID": 3,
-        "deviceName": "Gateway",
-        "deviceType": "Application",
-        "reading": "435.6° F",
-        "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-        "text": "sample string 8",
-        "sentNotificationID": 9,
-        "userID": 10,
-        "userName": "Cooper One",
-        "smsNumber": "+1 123 456 7890",
-        "email": "cooper@cooper.com",
-        "type": "SMS",
-        "status": "SMS Sent"
-      },{
-        "notificationID": 1,
-        "name": "1.2 1153232008 Temp Walk in Frig #1",
-        "notificationType": "Advanced",
-        "deviceID": 3,
-        "deviceName": "Gateway",
-        "deviceType": "Application",
-        "reading": "435.6° F",
-        "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-        "text": "sample string 8",
-        "sentNotificationID": 9,
-        "userID": 10,
-        "userName": "Cooper One",
-        "smsNumber": "+1 123 456 7890",
-        "email": "cooper@cooper.com",
-        "type": "EMAIL",
-        "status": "EMAIL Sent"
-      }
-    ];
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 7);
+    this.maxDate.setDate(this.maxDate.getDate());
 
-    console.log('after sample json');
+    this.daterangepickerModel = [this.minDate, this.maxDate];
+    
+    this.requestDateObject = {
+      fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
+      toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
+    };
   }
+
+  onClickNotificationOverview(request:any) {
+    this.notificationRadio = 'overview';
+  }
+
+  onClickNotificationSummary() {
+    this.notificationRadio = 'summary';
+  }
+
+  onClickAddNotification() {
+    this.notificationRadio = 'addNotify';
+    this.isAddButtonRequired = false;
+    this.isResetButtonRequired = true;
+  }
+  onClickResetNotification() {
+    this.isAddButtonRequired = true;
+    this.isResetButtonRequired = false;
+    this.notificationRadio = 'summary';
+  }
+
+  receiveAddNotificationMessage($event) {
+    console.log($event);
+    this.notificationRadio = 'summary';
+     this.isAddButtonRequired = true;
+    this.isResetButtonRequired = false;
+  }
+  onClickDateRange() {
+
+    console.log(this.daterangepickerModel);
+
+    console.log(this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy')+'  '+this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy'));
+    
+    let requestDateObject = {
+      fromDate:this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy'),
+      toDate:this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy')
+    }
+    
+    this.onClickNotificationOverview(requestDateObject);
+
+  }
+
+  recieveEditNotifyValue($event) {
+    console.log($event);
+    this.notificationRadio = 'addNotify';
+    this.notifyOperationType = 'editNotify';
+    this.isAddButtonRequired = false;
+    this.isResetButtonRequired = true;
+    this.editNotifyObject = $event;
+
+  }
+
 }
