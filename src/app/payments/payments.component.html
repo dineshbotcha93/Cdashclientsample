@@ -2,7 +2,7 @@
   <div class="row">
     <h3>Payment Information</h3>
     <div class="col-sm-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12">
-      <form id="payment-form" class="payment-form" (ngSubmit)="getToken()">
+      <form id="payment-form" class="payment-form" (ngSubmit)="routeToStripe()">
         <div class="customer-info-container">
           <div class="col-md-6 customer-info-left"  style="margin-bottom: 10px;">
             <div class="customer-name">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <!--<h4> Renewal Information </h4>-->
+        <h4> Renewal Information </h4>
         <div class="col-md-12 table-panel dark-theme">
           <table class="table table-striped payment-info">
             <thead>
@@ -95,17 +95,6 @@
             I acknowledge that I have read and agree to the Terms and Conditions
           </label>
         </div>
-        <!--<div class="col-md-12 table-panel dark-theme" style="margin-top: 20px; padding-bottom: 20px;">
-          <div class="col-sm-offset-1 col-sm-10 col-xs-12">
-            <div class="col-xs-2">
-              <i class="far fa-credit-card"></i>
-            </div>
-            <div class="col-xs-10">Credit Card Information</div>
-          </div>
-          <div id="card-element" class="card-element col-sm-offset-1 col-sm-10 col-xs-12" style="margin-top: 20px;">
-            &lt;!&ndash; A Stripe Element will be inserted here. &ndash;&gt;
-          </div>
-        </div>-->
 
         <div class="form-group form-submit">
           <button type="submit" class="btn btn-success" [(disabled)]="!acknowledgement">continue</button>
@@ -113,8 +102,4 @@
       </form>
     </div>
   </div>
-  <!--<h3>Payment Information</h3>
-  <div class="col-sm-offset-2 col-lg-8 col-md-8 col-sm-8 col-xs-12 dark-theme">
-
-  </div>-->
 </app-layout>
