@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ElementRef} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -8,6 +8,7 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 import {Location} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
+import * as $ from 'jquery';
 
 export interface RenewalData {
   sno: string;
@@ -70,8 +71,15 @@ export class UserProfileComponent implements OnInit {
   private isShowUserTable: Boolean = true;
   private labelRenewal: string = null;
   private expiryDate: Date = null;
+  private isNotifBtn: Boolean = false;
+  private isNetworkBtn: Boolean = false;
+  public isUserContentCollapsed: Boolean = false;
+  public isNotifContentCollapsed: Boolean = true;
+  public isNetworkContentCollapsed: Boolean = true;
+
   constructor(private userProfileService: UserProfileService,
-  private _location: Location) {
+  private _location: Location, private ele: ElementRef) {
+   // console.log(ele.nativeElement.getAttribute('section'));
   }
   ngOnInit() {
     this.getUserProfileData();
@@ -88,7 +96,7 @@ export class UserProfileComponent implements OnInit {
    this.userProfileService.getRealData().then(response => {
       console.log(response);
       this.responseData = response;
-      this.accountData = response.account;
+      this.accountData = response.account[0];
       this.expiryDate = new Date(response.account.subscriptionExpiry);
       this.updateRenewalLabel();
       this.loadPage = true;
@@ -117,8 +125,34 @@ export class UserProfileComponent implements OnInit {
   }
   addUser() {
     this.isShowUserTable = false;
+    window.scrollTo(0, document.documentElement.offsetHeight);
   }
   goToPrevPage() {
     this._location.back();
+  }
+  toggleContent(e) {
+   let section = e.currentTarget.attributes.section.value;
+    this.isUserContentCollapsed = true;
+    this.isNotifContentCollapsed  = true;
+    this.isNetworkContentCollapsed  = true;
+    if (section === 'user-content') {
+      this.isUserContentCollapsed = false;
+    } else if (section === 'notif-content') {
+      this.isNotifContentCollapsed  = false;
+    } else {
+      this.isNetworkContentCollapsed  = false;
+    }
+  }
+
+  navigateToNotifSection() {
+    this.isUserContentCollapsed = true;
+    this.isNotifContentCollapsed  = false;
+    this.isNotifBtn = true;
+  }
+
+  navigateToNetworkSection() {
+    this.isNotifContentCollapsed  = true;
+    this.isNetworkContentCollapsed  = false;
+    this.isNetworkBtn = true;
   }
 }

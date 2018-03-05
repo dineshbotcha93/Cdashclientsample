@@ -7,6 +7,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { ContainersModule} from '../shared/containers';
 import {ComponentsModule} from '../shared/components';
 import { FormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
 {
@@ -26,7 +27,8 @@ const routes: Routes = [
     CommonModule,
     ContainersModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
+    NgbModule.forRoot(),
   ],
   declarations: [UserProfileComponent],
   providers: [
