@@ -1,0 +1,44 @@
+<div class="login_wrapper" style="max-width:600px;">
+  <div class="form login_form">
+    <section class="login_content">
+
+
+        <form name="form" (ngSubmit)="onSubmit()">
+          <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+          <!--<h3>{{'userRegistration.title'|translate}}</h3> -->
+          <div class="form-group has-feedback" >
+            <input type="email" class="form-control has-feedback-left" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
+            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+          </div>
+          <div class="form-group">
+            <div class="clearfix"></div>
+            <div class="separator"></div>
+            <input type="submit" value="Verify" class="btn btn-primary m-l-none">
+          </div>
+        </form>
+
+      <div class="separator font-white align-left text-align-left">
+        <p>
+          <b>Note:</b>
+        {{'userRegistration.registrationMessage'|translate}}
+        </p>
+        <p>
+          <a (click)="showPopup = true" value="Additional Setup">Additional Setup</a>
+        </p>
+      </div>
+
+        <!--<div class="alert alert-info alert-dismissible fade in">
+          <h4>{{'userRegistration.hintTitle'|translate}}</h4>
+          <p>{{'userRegistration.hintMessage'|translate}}</p>
+        </div>-->
+    </section>
+  </div>
+</div>
+
+
+<!--<button (click)="showPopup = true">Show pop-up</button>-->
+
+<modal [isOpen]="showPopup" title="{{'userRegistration.disclaimerTitle' | translate}}"
+       (onClose)="modalClosed($event)">
+  <p>{{'userRegistration.disclaimerMessage'|translate}}</p>
+</modal>

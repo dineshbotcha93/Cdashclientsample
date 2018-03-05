@@ -1,0 +1,105 @@
+<app-layout>
+  <div class="row">
+    <h3>Payment Information</h3>
+    <div class="col-sm-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+      <form id="payment-form" class="payment-form" (ngSubmit)="routeToStripe()">
+        <div class="customer-info-container">
+          <div class="col-md-6 customer-info-left"  style="margin-bottom: 10px;">
+            <div class="customer-name">
+              Name Here
+              <!--{{customerData.name}}-->
+            </div>
+            <div class="customer-address"><!--{{customerData.address}}--> Address Here</div>
+            <div class="customer-contact-name">
+              <span class="usr-lbl">Contact Name:</span><!--{{customerData.contactName}}--> Contact Name Here</div>
+            <div class="customer-email">
+              <span class="usr-lbl">Email:</span>
+              <a href="#"><!--{{customerData.contactEmail}}--> Contact Email Here</a>,</div>
+            <div class="customer-phone">
+              <span>Phone:</span>
+              <a href="#">Contact Number here</a>
+            </div>
+          </div>
+        </div>
+        <h4> Renewal Information </h4>
+        <div class="col-md-12 table-panel dark-theme">
+          <table class="table table-striped payment-info">
+            <thead>
+            <tr>
+              <th># of Sensors</th>
+              <th>Hosting Fee*</th>
+              <th>Total Annual Fee*</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{paymentData?.transactionInfo.numberOfSensor}}</td>
+              <td>See table below</td>
+              <td>${{paymentData?.transactionInfo.amount}}</td>
+            </tr>
+            <tr>
+              <td>Taxes</td>
+              <td></td>
+              <td>${{paymentData?.transactionInfo.tax}}</td>
+            </tr>
+            <tr>
+              <td><b>Total</b></td>
+              <td></td>
+              <td><b>${{paymentData?.transactionInfo.amount}}</b></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-6 table-panel dark-theme" style="margin-top:10px;">
+          <label class="col-xs-12 pay-info" for="pay-info" style="padding:5px;">
+            * Annual fee is subject to change based on number of handhelds.
+          </label>
+          <table id="pay-info" class="table table-striped pay-info">
+            <thead>
+              <tr>
+                <th> # of sensors</th>
+                <th> Annual Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1-24</td>
+                <td>$100.00</td>
+              </tr>
+              <tr>
+                <td>25-49</td>
+                <td>$150.00</td>
+              </tr>
+              <tr>
+                <td>50-74</td>
+                <td>$200.00</td>
+              </tr>
+              <tr>
+                <td>75-99</td>
+                <td>$225.00</td>
+              </tr>
+              <tr>
+                <td>100+</td>
+                <td>Contact Factory</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="disclaimer" style="margin-top:10px; font-size: 1em">
+          <p><b>The execution of this software service agreement by Customer shall constitute Customer's acceptance of the
+            terms and conditions of this agreement.</b></p>
+
+          <input type="checkbox" id="agreement" name='acknowledgement' [(ngModel)]="acknowledgement" />
+          <label for="agreement" style="font-weight: normal">
+            I acknowledge that I have read and agree to the Terms and Conditions
+          </label>
+        </div>
+
+        <div class="form-group form-submit">
+          <button type="submit" class="btn btn-success" [(disabled)]="!acknowledgement">continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-layout>

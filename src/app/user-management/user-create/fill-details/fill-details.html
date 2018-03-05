@@ -1,0 +1,80 @@
+<div class="login_wrapper" style="max-width:800px;">
+  <div class="form login_form">
+    <section class="login_content">
+      <form name="form" (ngSubmit)="onSubmit()" class="font-white">
+        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <div class="row">
+          <h1>User Details Form</h1>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-8">
+          <div class="form-group">
+            <label for="companyName">Company Name: </label>
+            <input type="text" name="company_name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="industryType">Industry Type: </label>
+            <select name="industry_type" class="form-control">
+              <option value="test">test</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="businessType">Business Type: </label>
+            <select name="business_type" class="form-control">
+              <option value="test">test</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="timeZone">Time Zone: </label>
+            <select name="timeZone" class="form-control">
+              <option value="test">test</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="placeOfPurchase">Where did you purchase your NotifEye system: </label>
+            <select name="placeOfPurchase" class="form-control">
+              <option value="test">test</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="companyName">Zip/Postal Code: </label>
+            <input type="text" name="zip_postalcode" class="form-control">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8">
+          <div class="form-group">
+            <label for="companyName">Street: </label>
+            <input type="text" name="street" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="companyName">Address: </label>
+            <input type="text" name="address" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="companyName">City: </label>
+            <input type="text" name="city" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="companyName">State/Province: </label>
+            <input type="text" name="state_province" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="companyName">Country: </label>
+            <input type="text" name="country" class="form-control">
+          </div>
+        </div>
+          <div class="form-group">
+            <div class="clearfix"></div>
+            <div class="separator"></div>
+            <input type="submit" value="Submit" class="btn btn-primary m-l-none float-right">
+            <input type="submit" value="Cancel" class="btn btn-primary m-l-none float-right">
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>
+
+
+
+

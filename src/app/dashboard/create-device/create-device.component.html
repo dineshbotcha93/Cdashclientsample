@@ -1,0 +1,54 @@
+
+	<!--  <div class="form-group">
+		<input type="text" class="form-control" name="filter_name" placeholder="New Network name" [(ngModel)]="deviceModel.name">
+	</div>
+	<div>
+		-->
+		<div>
+		<table class="table table-striped">
+			<!-- <thead>
+				<tr>
+					<th class="col-md-2"> Network Info</th>
+				</tr>
+			</thead> -->
+			<tbody>
+				<tr>
+					<td> {{deviceType}} Name </td>
+					<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" [(ngModel)]="deviceModel.name"></td>
+				</tr>
+				<tr>
+					<td> {{deviceType}} Id</td>
+					<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.id"></td>
+				</tr>
+				<tr>
+					<td> {{deviceType}} Code </td>
+					<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code"></td>
+				</tr>
+				<tr>
+					<td><label class="control-label col-form-label">Select Network Location:</label>
+						    
+					</td>
+					<td>
+						<div class="form-group ss-location">
+						    <select class="form-control" [(ngModel)]="deviceModel.network">
+							    <option *ngFor="let loc of inputNetworkData" [ngValue]="loc" >
+							      {{loc.Title}}
+							    </option>
+						    </select>
+						 </div>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> 
+						<button type="button"
+                            class="btn btn-primary removeBTN"
+                            (click)="onClickCancelDetail()"><i class="fa fa-trash"></i> Cancel </button> 
+					    <button type="button"
+                            class="btn btn-primary addBTN"
+                            (click)="onClickAddDetail()"><i class="fa fa-plus"></i> Add  </button></td>
+				</tr>
+				
+			</tbody>
+		</table>
+		</div>

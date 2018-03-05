@@ -1,0 +1,17 @@
+<agm-map
+(window:resize)="onResize($event)"
+[latitude]="markers[0].lat|stringToNumber"
+[longitude]="markers[0].lng|stringToNumber"
+[zoom]="5">
+<agm-marker-cluster *ngFor="let loc of markers" imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+<agm-marker *ngFor="let aLoc of markers"
+  [latitude]="aLoc.lat|stringToNumber"
+  [longitude]="aLoc.lng|stringToNumber"
+  [iconUrl]="'/assets/images/markers/new-red-marker.png'"
+  (markerClick)="clickedMarker(aLoc.status, aLoc.id)">
+  <agm-info-window>
+  <strong>InfoWindow content</strong>
+</agm-info-window>
+</agm-marker>
+</agm-marker-cluster>
+</agm-map>

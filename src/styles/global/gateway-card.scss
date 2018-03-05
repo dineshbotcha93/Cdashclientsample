@@ -1,0 +1,112 @@
+
+.gateway-cards {
+  .gateway-notAll, .gateway-all {
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+    }
+  }
+
+  .gateway-all {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.gateway-card {
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 0 20px 20px 0;
+  border-radius: $border-radius-medium;
+  flex-grow: 1;
+  text-align: center;
+  max-width: 50%;
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    max-width: none;
+    margin: 0 0 20px 0;
+  }
+
+  .pair {
+    padding: 10px 20px;
+    margin: 0;
+    color: $color-grey-verydark;
+    line-height: 1.5em;
+
+    .key {
+      font-size: 1em;
+    }
+
+    .value {
+      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.875em;
+    }
+  }
+
+  .top {
+    .gateway-id {
+      //margin-top: 15px;
+      //margin-bottom: 30px;
+    }
+
+    .gateway-date {
+      padding: 10px 0 5px 0;
+
+      .value {
+        font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        font-size: 0.85em;
+      }
+    }
+  }
+
+  .middle {
+    margin-bottom: -30px;
+  }
+
+  .bottom {
+    background-color: rgba(255, 255, 255, 0.35);
+    border-bottom-left-radius: $border-radius-medium;
+    border-bottom-right-radius: $border-radius-medium;
+    padding-top: 25px;
+  }
+
+  .gateway-icon {
+    padding: 0;
+
+    .icon {
+      display: inline-block;
+      width: 65px;
+      height: 65px;
+      border-radius: 50px;
+      background-color: $color-white;
+
+      img {
+        margin-top: 15%;
+      }
+    }
+  }
+
+  .gateway-name {
+    .value {
+      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.125em;
+      text-transform: uppercase;
+    }
+  }
+
+  .gateway-type {
+    .key {
+      font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 0.85em;
+    }
+
+    .value {
+      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.125em;
+      text-transform: uppercase;
+    }
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

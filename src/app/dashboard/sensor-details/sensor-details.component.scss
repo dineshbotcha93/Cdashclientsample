@@ -1,0 +1,37 @@
+@import "../../../styles/variables";
+
+.chart-style{
+  background-color: white;
+}
+
+.gauge-chart-container {
+  margin-top: 20px;
+}
+
+.gauge-container {
+  padding: 20px;
+  color: $color-white;
+  font-size: 0.85em;
+  text-align: center;
+  background-color: $color-body-bg;
+  border-radius: $border-radius-medium;
+  height: 43rem;
+
+  ngx-gauge {
+    margin-bottom: 20px;
+  }
+
+  .gauge-data {
+    font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    border-bottom: 1px solid $gauge-chart-backgroundColor;
+    padding-bottom: 10px;
+  }
+  .value {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    color: $gauge-chart-forgroundColor;
+  }
+}
+
+.message-history-container {
+  margin-top: 20px;
+}

@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'roboto_black';
+  src: url('./assets/fonts/roboto/Roboto-Black-webfont.eot');
+  src: url('./assets/fonts/roboto/Roboto-Black-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/Roboto-Black-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/Roboto-Black-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/Roboto-Black-webfont.svg#robotoblack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_bold';
+  src: url('./assets/fonts/roboto/Roboto-Bold-webfont.eot');
+  src: url('./assets/fonts/roboto/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/Roboto-Bold-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/Roboto-Bold-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/Roboto-Bold-webfont.svg#robotobold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_condensedbold';
+  src: url('./assets/fonts/roboto/RobotoCondensed-Bold-webfont.eot');
+  src: url('./assets/fonts/roboto/RobotoCondensed-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/RobotoCondensed-Bold-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/RobotoCondensed-Bold-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/RobotoCondensed-Bold-webfont.svg#roboto_condensedbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_light';
+  src: url('./assets/fonts/roboto/Roboto-Light-webfont.eot');
+  src: url('./assets/fonts/roboto/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/Roboto-Light-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/Roboto-Light-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/Roboto-Light-webfont.svg#robotolight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_medium';
+  src: url('./assets/fonts/roboto/Roboto-Medium-webfont.eot');
+  src: url('./assets/fonts/roboto/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/Roboto-Medium-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/Roboto-Medium-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/Roboto-Medium-webfont.svg#robotomedium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_regular';
+  src: url('./assets/fonts/roboto/Roboto-Regular-webfont.eot');
+  src: url('./assets/fonts/roboto/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/Roboto-Regular-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/Roboto-Regular-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto_thin';
+  src: url('./assets/fonts/roboto/Roboto-Thin-webfont.eot');
+  src: url('./assets/fonts/roboto/Roboto-Thin-webfont.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/roboto/Roboto-Thin-webfont.woff') format('woff'),
+        url('./assets/fonts/roboto/Roboto-Thin-webfont.ttf') format('truetype'),
+        url('./assets/fonts/roboto/Roboto-Thin-webfont.svg#robotothin') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'fontello';
+  src: url('./assets/fonts/fontello/fontello.eot');
+  src: url('./assets/fonts/fontello/fontello.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/fontello/fontello.woff2?') format('woff2'),
+        url('./assets/fonts/fontello/fontello.woff?') format('woff'),
+        url('./assets/fonts/fontello/fontello.ttf?') format('truetype'),
+        url('./assets/fonts/fontello/fontello.svg?#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-white {
+  color:#fff;
+}

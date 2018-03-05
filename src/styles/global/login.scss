@@ -1,0 +1,47 @@
+@import "../variables";
+
+.login_wrapper {
+  @media (min-width: $phone-small) and (max-width: $phone-large) {
+    margin-top: 0;
+  }
+}
+
+.login_content {
+  text-shadow: none;
+  background: $color-body-bg-lt;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 15px $color-black;
+
+  @media (min-width: $phone-small) and (max-width: $phone-large) {
+    padding: 20px;
+    margin: 20px;
+    height: 100%;
+  }
+
+  form {
+    margin: 0;
+  }
+
+  .login-logo {
+    margin-bottom: 20px;
+  }
+
+  .login-title {
+    &:before, &:after {
+      background: none;
+    }
+  }
+
+  h1, a {
+    color: $color-white
+  }
+
+  input.form-control {
+    box-shadow: none;
+  }
+
+  .m-l-none {
+    margin-left: 0 !important;
+  }
+}

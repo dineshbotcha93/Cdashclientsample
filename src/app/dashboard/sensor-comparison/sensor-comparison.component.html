@@ -1,0 +1,67 @@
+<app-layout>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h3>{{'sensorComparison.comparisonTitle' | translate}}: {{networkName}}</h3>
+          <button type="button" class="btn btn-primary" value="Back" (click)="goBack()">
+            <i _ngcontent-c1="" class="fa fa-chevron-left"></i>Back
+          </button>
+          <div class="clearfix"></div>
+          <div class="input-group col-xs-12 col-sm-4 col-lg-2">
+  <input type="text"
+  class="form-control"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  #dp="bsDatepicker"
+  (bsValueChange)="onDateChange($event)"
+  bsDatepicker [(bsValue)]="bsValue">
+  <span class="input-group-addon" (click)="dp.show() ">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+  </span>
+  </div>
+  <div class="input-group col-xs-12 col-sm-4 col-lg-2">
+  <input type="text"
+  class="form-control"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  #dp1="bsDatepicker"
+  (bsValueChange)="onDateChange($event)"
+  bsDatepicker [(bsValue)]="bsValueTwo">
+  <span class="input-group-addon" (click)="dp1.show() ">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+  </span>
+</div>
+        </div>
+        <div class="x_content">
+          <div class="loader" *ngIf="sensorNames.length == 0"></div>
+      <form class="form-horizontal" role="form" *ngIf="sensorNames.length > 0">
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+          <select name="sort" [(ngModel)]="sensorName" class="form-control" (change)="test()">
+            <option value="{{sensor.value}}" *ngFor='let sensor of sensorNames'>{{sensor.label}}</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+          <input type="button" class="btn btn-primary" value="Add Sensor" (click)="addSensor()"/>
+          <input type="button" class="btn btn-primary" value="Print Chart" (click)="print()" />
+          <input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />
+          <input type="button" class="btn btn-primary" value="Reset Chart" (click)="reset('chart')" />
+        </div>
+      </form>
+      <div style="width: 100%;">
+        <canvas
+        baseChart
+        #baseChart="base-chart"
+        [chartType]="'line'"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        *ngIf="chartData.length > 0"
+        [legend]="true">
+      </canvas>
+    </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout>

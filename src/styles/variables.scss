@@ -1,0 +1,81 @@
+/* Colors definition */
+$color-black: #000;
+$color-white: #fff;
+$color-grey-ultralight: #f9f9f9;
+$color-grey-verylight: #ebebeb;
+$color-grey-light: #ccc;
+$color-grey: #869ba6;
+$color-grey-dark: #6d6f70;
+$color-grey-verydark: #333;
+$color-red: #ee5a5a;
+$color-redLight: #f57676;
+
+$color-body-bg-lt: #2a3F54 + 35;
+$color-body-bg: #2a3F54;
+$color-counts-green: #00A421;
+
+$color-table-striped-th: $color-body-bg - 35;
+$color-table-striped-tr: $color-body-bg - 15;
+
+$color-dataTable-hover: #545454;
+
+/* Button Colors */
+$color-generalBTN-blue: #117a8b;
+$color-generalBTN-blue-rgb-025: rgba(17, 122, 139, 0.25);
+$color-generalBTN-blue-rgb-1: rgba(17, 122, 139, 1);
+$color-saveBTN-green: #28a745;
+$color-saveBTN-green-rgb-025: rgba(40, 167, 69, 0.25);
+$color-saveBTN-green-rgb-1: rgba(40, 167, 69, 1);
+$color-deleteBTN-red: #dc3545;
+$color-deleteBTN-red-rgb-025: rgba(220, 53, 69, 0.25);
+$color-deleteBTN-red-rgb-1: rgba(220, 53, 69, 1);
+
+/* Logo Colors */
+$cooper-atkins-red-color: #cd1041;
+$cooper-atkins-black-color: #231f20;
+$haccp-blue-color: #3a6d8e;
+$haccp-yellow-color: #ffe411;
+
+
+/* Site specific */
+$color-theme-black: #2f2f30;
+$color-theme-grey: #DEE9EE;
+$color-theme-blue: #87bcd3;
+$color-theme-lightBlue: #def5ff;
+$color-theme-violet: #353535;
+$color-theme-darkviolet: #2a2a2a;
+
+/* App-Tile colors */
+$appTile-icons: #edf0f0;
+$appTile-iconsBG: rgba(255,255,255,0.2);
+$appTile-BG-pink: #d9534f;
+$appTile-BG-info: #3498DB;
+$appTile-BG-lowBattery: #f0ad4e;
+$appTile-BG-success: #26B99A;
+$appTile-BG-warning: #73879C;
+
+$gateway-tile-BG-Blue: #4596FF;
+$gateway-tile-DrkBG-Blue: #0049BA;
+
+/* App Gauge Colors */
+$gauge-BG: rgba(75, 87, 100, 0.15);
+$gauge-chart-forgroundColor: rgba(255, 204, 101, 1);
+$gauge-chart-backgroundColor: rgba(75, 87, 100, 1);
+
+
+$border-radius: 4px;
+$border-radius-medium: 10px;
+$border-radius-big: 20px;
+
+/* Media Queries Mobile */
+$phone-small: 320px;
+$phone-medium: 480px;
+$phone-large: 640px;
+
+/* Media Queries Tablet */
+$tablet-small: 768px;
+$tablet-large: 992px;
+
+/* Media Queries Desktop */
+$laptop: 1224px;
+$wide-screen: 1440px;

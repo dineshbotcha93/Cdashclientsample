@@ -1,0 +1,46 @@
+<div class="left_col scroll-view">
+		<div class="navbar nav_title" style="border: 0;">
+
+		</div>
+  <!--<div class="side_nav_logo">
+    <img id="logo" src="assets/images/CooperAtkins_Logo.svg"/>
+  </div>-->
+
+		<div class="clearfix"></div>
+
+		<!-- menu profile quick info -->
+		<!--<div class="profile clearfix">
+			<div class="profile_pic">
+				<img src="assets/images/users/img.jpg" alt="..." class="img-circle profile_img">
+			</div>
+			<div class="profile_info">
+				<span>Welcome,</span>
+				<h2>{{userEmail}}</h2>
+			</div>
+		</div>-->
+		<!-- /menu profile quick info -->
+
+		<br>
+
+		<!-- sidebar menu -->
+		<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+			<div class="menu_section active">
+				<ul class="nav side-menu" style="">
+          <!--<li class="active"><a><i class="fa fa-home"></i> Notifeye <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu" style="display: block;">
+              <li class="current-page"><a (click)="clicker($event)" href="/dashboard"><i class="fa fa-home"></i> Account Summary</a></li>
+              <li><a (click)="clicker($event)" href="/dashboard">Payments</a></li>
+              <li><a (click)="clicker($event)" href="/dashboard">Settings</a></li>
+            </ul>
+          </li>-->
+
+					<li class="current-page"><a (click)="goToLink('/dashboard')"><span class="side-menu-logo"><img src="./assets/images/NotifEye_Logo.svg" alt=""></span></a></li>
+					<!--<li><a (click)="clicker($event)"><i class="fa fa-edit"></i> Forms</a></li>-->
+				</ul>
+			</div>
+		</div>
+		<!-- /sidebar menu -->
+	</div>
+	<!-- <a routerLink="/dashboard" routerLinkActive="current" class="current">
+		<i class="fa products"></i> <span>Dash</span>
+	</a> -->

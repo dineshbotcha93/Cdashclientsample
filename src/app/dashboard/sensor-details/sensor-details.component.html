@@ -1,0 +1,93 @@
+<app-layout>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <h3>{{sensorDetailsData?.sensorName}}</h3>
+    </div>
+    <div class="col-md-6">
+      {{'global.from'|translate}}
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               #dp="bsDatepicker"
+               (bsValueChange)="onDateChange($event)"
+               bsDatepicker [(bsValue)]="bsValue">
+        <span class="input-group-addon" (click)="dp.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      {{'global.to'|translate}}
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               #dp1="bsDatepicker"
+               (bsValueChange)="onDateChange($event)"
+               bsDatepicker [(bsValue)]="bsValueTwo">
+        <span class="input-group-addon" (click)="dp1.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <button class="btn btn-primary" (click)="goBack()"><i class="fa fa-chevron-left"></i> Back</button>
+      <button class="btn btn-primary" (click)="reset('zoom')">Reset zoom</button>
+    </div>
+
+    <!-- Gauge and CHart container -->
+    <div class="col-md-4 col-sm-4 col-xs-12 gauge-chart-container">
+      <div class="gauge-container">
+        <app-gauge
+          [type]="'arch'"
+          [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
+          [title]="">
+        </app-gauge>
+        <p class="gauge-data">
+          {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}</span>
+        </p>
+        <p class="gauge-data">
+          {{'sensorDetails.networkName'|translate}}: <span class="value">{{sensorDetailsData?.networkName ? sensorDetailsData?.networkName : 'N/A'}}</span>
+        </p>
+        <p class="gauge-data">
+          {{'sensorDetails.gatewayName'|translate}}: <span class="value">{{sensorDetailsData?.gatewayName ? sensorDetailsData?.gatewayName : 'N/A'}}</span>
+        </p>
+        <button class="btn btn-primary" (click)="addComments()">{{'global.comments'|translate}}</button>
+      </div>
+    </div>
+
+    <div class="col-md-8 col-sm-8 col-xs-12 gauge-chart-container">
+      <div class="graph-card">
+        <canvas
+          baseChart width="100%" height="100%"
+          #baseChart="base-chart"
+          [chartType]="'line'"
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [colors]="chartColors"
+          [legend]="true">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="message-history-container">
+        <button class="btn btn-primary" (click)="export()">{{'global.exportPdf'|translate}}</button>
+        <div class="dark-theme">
+          <app-datatable
+            *ngIf="rows[0]!=='N/A'"
+            [rows]="rows"
+            [columns]="columns"
+            [limit]="limit">
+          </app-datatable>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- / end of div.row -->
+</app-layout>

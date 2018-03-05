@@ -1,0 +1,11 @@
+@import "../../../styles/variables";
+
+.login_content {
+  form {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      box-shadow: none;
+    }
+  }
+}
