@@ -107,6 +107,11 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
     this.router.navigate(['dashboard/sensor-summary',locationID]);
   }
 
+  gotoNotificationList(sensor) {
+  console.log(':::::::::goToNotificationList' , sensor);
+    this.router.navigate(['dashboard/notificationList',sensor.status]);
+  }
+
   showListView() {
     this.showList = true;
     this.showMap = false;

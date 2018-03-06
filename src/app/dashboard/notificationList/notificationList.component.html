@@ -21,10 +21,10 @@
                       [(ngModel)]="doFilterByStatus"
                       (ngModelChange)="filterByStatus()">
                 <option value="all">All</option>
-                <option value="overdue" [selected]="doFilterByStatus =='overdue'">Overdue</option>
-                <option value="new" [selected]="doFilterByStatus =='new'">New</option>
-                <option value="renew" [selected]="doFilterByStatus =='renew'">Renew</option>
-                <option value="due" [selected]="doFilterByStatus =='due'">Due</option>
+                <option value="Alerts" [selected]="doFilterByStatus =='Alerts'">Alerts</option>
+                <option value="LowBattery" [selected]="doFilterByStatus =='LowBattery'">Low Battery</option>
+                <option value="Offline" [selected]="doFilterByStatus =='Offline'">Offline</option>
+                <option value="Advanced" [selected]="doFilterByStatus =='Advanced'">Advanced</option>
               </select>
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
@@ -67,8 +67,20 @@
                        [columns]="columns"
                        [limit]="limit">
         </app-datatable>
+        <ng-template #nDateColTmpl let-row="row" let-value="value">
+          <span>{{value | date:'MM-dd-yyyy'}}</span>
+        </ng-template>
+        <ng-template #sTypeColTmpl let-row="row" let-value="value">
+          <a class="anchor-datatable" (click)="showNotification(row)" >{{value}}</a>
+        </ng-template>
 
       </div>
     </div>
   </div>
 </app-layout>
+<modal [isOpen]="showPopup" title="'test'"
+       (onClose)="modalClosed($event)">
+  <p>{{'modalMessage'|translate}}</p>
+</modal>
+
+
