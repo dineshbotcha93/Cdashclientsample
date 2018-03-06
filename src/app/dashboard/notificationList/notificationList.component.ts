@@ -29,15 +29,18 @@ export class NotificationListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.columns.push({ prop: 'name', name: 'name'});
-    this.columns.push({ prop: 'notificationType', name: 'notificationType' });
-    /*this.columns.push({ prop: 'subscription', name: 'Subscription' });
-    this.columns.push({ prop: 'expiryDate', name: 'Renewal Date', cellTemplate: this.renewalColTmpl });
-    this.columns.push({ prop: 'contactName', name: 'Contact Name' });
-    this.columns.push({ prop: 'contactNumber', name: 'Contact Number', cellTemplate: this.phoneColTmpl });
-    this.columns.push({ prop: 'contactEmail', name: 'Contact Email', cellTemplate: this.emailColTmpl });
-    this.columns.push({ prop: 'numberOfSensors', name: 'Sensors', cellTemplate: this.sensorsColTmpl });
-    this.columns.push({ prop: 'amount', name: 'Amount', cellTemplate: this.amountColTmpl });*/
+    this.columns.push({ prop: 'name', name: 'Name'});
+    this.columns.push({ prop: 'notificationType', name: 'Notification Type' });
+    this.columns.push({ prop: 'deviceType', name: 'Device Type' });
+    this.columns.push({ prop: 'reading', name: 'Reading' });
+    this.columns.push({ prop: 'notificationDate', name: 'Notification Date' });
+    this.columns.push({ prop: 'type', name: 'Sent Type' });
+    this.columns.push({ prop: 'status', name: 'Status' });
+  }
+
+  goToPrevPage() {
+    this.router.navigate(['dashboard']);
+
   }
 
   rows = [
