@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { ReportsModule } from './reports/reports.module';
 import { PaymentsModule } from './payments/payments.module';
@@ -28,6 +29,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PipesModule }                  from './shared/pipes';
 import { CommonSharedService } from './shared/services/common-shared.service';
 import { SharedModule } from './shared/modules/shared.module';
+import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 
 
 const appRoutes: Routes = [{
@@ -60,6 +62,7 @@ if(!environment.production)
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ReportsModule,
     PaymentsModule,
     HttpModule,
@@ -72,6 +75,7 @@ if(!environment.production)
     UserProfileModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
+    ToastModule.forRoot(),
     /**
     * Store devtools instrument the store retaining past versions of state
     * and recalculating new states. This enables powerful time-travel
@@ -93,7 +97,8 @@ if(!environment.production)
     RequesterService,
     MockBackendService,
     mockProvider,
-    CommonSharedService
+    CommonSharedService,
+    ToastsManager
   ],
   bootstrap: [AppComponent]
 })
