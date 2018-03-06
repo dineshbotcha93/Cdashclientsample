@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { SensorSummaryComponent } from './sensor-summary.component';
 import { Routes, RouterModule } from '@angular/router';
-import { ContainersModule }         from '../../shared/containers';
-import { ComponentsModule }    from '../../shared/components';
+import { ContainersModule } from '../../shared/containers';
+import { ComponentsModule } from '../../shared/components';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../shared/pipes';
 import { FormsModule } from '@angular/forms';
@@ -32,12 +32,12 @@ import { NotificationOverviewComponent } from '../notification-overview/notifica
 
 
 
-const routes:Routes = [{
-  path:'',component:SensorSummaryComponent
+const routes: Routes = [{
+  path: '', component: SensorSummaryComponent
 }];
 
 @NgModule({
- declarations:[
+ declarations: [
     SensorSummaryComponent,
     FilterByCriteria,
     SlideAbleDirective,
@@ -48,7 +48,7 @@ const routes:Routes = [{
     NotificationSummaryComponent,
     NotificationCreateComponent,
     NotificationOverviewComponent],
-  imports:[
+  imports: [
     RouterModule.forChild(routes),
     ContainersModule,
     ComponentsModule,
@@ -56,8 +56,12 @@ const routes:Routes = [{
     PipesModule,
     FormsModule,
     AngularFontAwesomeModule,
-    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot(),ModalModule.forRoot()
-
+    SharedModule,
+    ButtonsModule.forRoot(),
+    TimepickerModule.forRoot(),
+    MultiselectDropdownModule,
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports: [
     Ng2SliderComponent,

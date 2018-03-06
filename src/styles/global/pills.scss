@@ -1,4 +1,6 @@
-
+/* ******************************** */
+/*  Tabs  */
+/* ******************************** */
 .tabs {
   cursor: pointer;
 }
@@ -21,7 +23,26 @@
   padding-bottom: 20px;
 }
 
+.tab-content {
+  .tab-panel {
+    background-color: $color-body-bg;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: -5px;
+  }
+
+  &.light-theme {
+    .tab-panel {
+      background: none;
+    }
+  }
+}
+/* ******************************** */
+
+
+/* ******************************** */
 /*  Pills */
+/* ******************************** */
 ul.bar_tabs, ul.nav-tabs {
   height: auto;
   border: 0;
@@ -65,18 +86,4 @@ ul.bar_tabs, ul.nav-tabs {
     }
   }
 }
-
-.tab-content {
-  .tab-panel {
-    background-color: $color-body-bg;
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: -5px;
-  }
-
-  &.light-theme {
-    .tab-panel {
-      background: none;
-    }
-  }
-}
+/* ******************************** */

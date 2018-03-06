@@ -1,15 +1,13 @@
 <app-layout>
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_title col-md-11 col-sm-11 col-xs-12">
-        <h3>Customers List</h3>
-        <div class="clearfix"></div>
-      </div>
-      <div class="col-md-1 col-sm-1 col-xs-12">
-        <input type="button" value="Back" (click)="goToPrevPage()" />
-      </div>
+    <div class="col-md-11 col-sm-11 col-xs-12">
+      <h3>Customers List</h3>
     </div>
-    <div class="customer-info-container">     
+    <div class="col-md-1 col-sm-1 col-xs-12">
+      <button class="btn btn-primary" (click)="goToPrevPage()"><i class="fa fa-chevron-left"></i> Back</button>
+    </div>
+
+    <div class="customer-info-container">
       <div *ngIf="loadedStatuses === true">
         <div class="col-md-6 customer-info-left">
           <div class="customer-name">
@@ -54,22 +52,25 @@
       </div>
     </div>
   </div>
+
   <div class="loader" *ngIf="customerData === null"></div>
+
   <div *ngIf="loadedStatuses === true">
     <div class="tabs_container">
-        
       <tabs>
-        <!-- Sensors Tab -->
-        <tab tabTitle="Network" class="tab-content">
+        <tab tabTitle="Network" class="tab-content light-theme">
           <div class="row x_content">
             <div class="col-md-12 sensors-info-container">
-              <app-datatable [rows]="networkRows" [columns]="networkColumns" [limit]="limit">
+              <app-datatable
+                [rows]="networkRows"
+                [columns]="networkColumns"
+                [limit]="limit">
               </app-datatable>
             </div>
           </div>
         </tab>
 
-        <tab tabTitle="Sensors" class="tab-content">
+        <tab tabTitle="Sensors" class="tab-content light-theme">
           <div class="row x_content">
             <div class="form-group col-sm-push-9 col-sm-3">
               <select name="filter_by_network" [(ngModel)]="doFilterByNetwork" class="form-control" (ngModelChange)="filterByNertwork(this)">
@@ -79,13 +80,16 @@
               </select>
             </div>
             <div class="col-md-12 sensors-info-container">
-              <app-datatable [rows]="sensorsRows" [columns]="sensorsColumns" [limit]="limit">
+              <app-datatable
+                [rows]="sensorsRows"
+                [columns]="sensorsColumns"
+                [limit]="limit">
               </app-datatable>
             </div>
           </div>
         </tab>
 
-        <tab tabTitle="Gateways" class="tab-content">
+        <tab tabTitle="Gateways" class="tab-content light-theme">
           <div class="row x_content">
             <div class="form-group col-sm-push-9 col-sm-3">
               <select name="filter_by_network" [(ngModel)]="doFilterByGateway" class="form-control" (ngModelChange)="filterByGateway()">
@@ -95,17 +99,22 @@
               </select>
             </div>
             <div class="col-md-12 sensors-info-container">
-              <app-datatable [rows]="gatewaysRows" [columns]="gatewaysColumns" [limit]="limit">
+              <app-datatable
+                [rows]="gatewaysRows"
+                [columns]="gatewaysColumns"
+                [limit]="limit">
               </app-datatable>
-
             </div>
           </div>
         </tab>
 
-        <tab tabTitle="Users" class="tab-content">
+        <tab tabTitle="Users" class="tab-content light-theme">
           <div class="row x_content">
             <div class="col-md-12 sensors-info-container">
-              <app-datatable [rows]="usersRows" [columns]="usersColumns" [limit]="limit">
+              <app-datatable
+                [rows]="usersRows"
+                [columns]="usersColumns"
+                [limit]="limit">
               </app-datatable>
               <ng-template #notificationColTmpl let-row="row" let-value="value">
                 <div>Email:
