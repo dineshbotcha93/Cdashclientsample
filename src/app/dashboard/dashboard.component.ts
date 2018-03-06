@@ -1,4 +1,10 @@
-import { Component, Injector, AfterContentInit, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  Injector,
+  AfterContentInit,
+  AfterViewInit,
+  ViewContainerRef
+} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -37,17 +43,14 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
     private dashboardService: DashboardService,
     private mapService:MapService,
     private router:Router,
-    private translate: TranslateService){
-
+    private translate: TranslateService
+  ){
     super();
 
     this.totalStatuses['alerts'] = {status:'Alerts',count:0,title:''};
     this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0,title:''};
     this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0,title:''};
     this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0,title:''};
-
-
-
 
     dashboardService.getRealData().then((realResults)=>{
 
@@ -105,6 +108,11 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   }
   gotoDetails(locationID){
     this.router.navigate(['dashboard/sensor-summary',locationID]);
+  }
+
+  gotoNotificationList(sensor) {
+  console.log(':::::::::goToNotificationList' , sensor);
+    this.router.navigate(['dashboard/notificationList',sensor.status]);
   }
 
   showListView() {

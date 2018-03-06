@@ -14,6 +14,7 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { Tab } from './tabs/tab.component';
 import { Tabs } from './tabs/tabs.component';
 import { GaugeComponent } from './gauge/gauge.component';
+import {ModalComponent} from "./modal/modal.component";
 
 // Google map integration
 import { AgmCoreModule } from '@agm/core';
@@ -34,7 +35,8 @@ export const COMPONENTS = [
   AlertsComponent,
   Tab,
   Tabs,
-  GaugeComponent
+  GaugeComponent,
+  ModalComponent
 ];
 
 @NgModule({

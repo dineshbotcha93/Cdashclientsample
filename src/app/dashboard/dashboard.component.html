@@ -6,7 +6,8 @@
       [count]="totalStatuses[i].count > 0 ? totalStatuses[i].count : '0'"
       [tileColorBy]="'status'"
       [tileContent]="totalStatuses[i].title"
-      [tileColor]="totalStatuses[i].status">
+      [tileColor]="totalStatuses[i].status"
+      (click)="gotoNotificationList(totalStatuses[i])">
       </app-tile>
     </div>
   </div>

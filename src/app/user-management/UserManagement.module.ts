@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule, EmailValidator } from '@angular/forms
 import { UserManagementService } from './user-management.service';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import {ComponentsModule}  from '../shared/components';
 import { SharedModule } from '../shared/modules/shared.module';
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    ComponentsModule,
     SharedModule
   ],
   exports:[
