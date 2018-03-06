@@ -8,8 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { NotificationOverviewComponent} from "../notification-overview/notification-overview.component";
-/*import { PipesModule } from '../../shared/pipes';*/
+
+
 
 
 const routes:Routes = [{
@@ -17,7 +17,7 @@ const routes:Routes = [{
 }]
 
 @NgModule({
-  declarations:[NotificationListComponent, NotificationOverviewComponent],
+  declarations:[NotificationListComponent],
   imports:[
     RouterModule.forChild(routes),
     CommonModule,
