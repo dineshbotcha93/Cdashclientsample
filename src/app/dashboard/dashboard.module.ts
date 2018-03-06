@@ -47,7 +47,7 @@ const routes: Routes = [
         }
       },
       {
-        path:'notificationList',
+        path:'notificationList/:status',
         pathMatch:'full',
         loadChildren: './notificationList/notificationList.module#NotificationListComponentModule',
         data:{
