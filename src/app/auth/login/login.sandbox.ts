@@ -39,16 +39,13 @@ export class LoginSandbox extends Sandbox {
     .then((e)=>{
       localStorage.setItem('com.cdashboard.token', e);
       this.requesterService.getExternalRequest('/api/User/Info').then((res)=>{
-        res.admin = false;
         if(res.admin){
           this.router.navigate(['business']);
         } else {
-          console.log(res);
           const isPrimaryContact = (res.userName === res.account[0].userName);
           const expiryDate = moment(res.account[0].subscriptionExpiry);
           const todaysDate = moment();
           let dateDifference = expiryDate.diff(todaysDate,'days');
-          dateDifference = -1;
           if(dateDifference >= 30){
             //this.toasterSandbox$.dispatch(new toasterActions.SuccessAction('test'));
             this.router.navigate(['dashboard']);
@@ -67,8 +64,6 @@ export class LoginSandbox extends Sandbox {
             }
             this.router.navigate(['user-profile']);
           }
-        //if(res.account[0].subscriptionExpiry)
-        //this.router.navigate(['dashboard']);
         }
       });
     });
