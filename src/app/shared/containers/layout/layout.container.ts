@@ -70,11 +70,11 @@ export class LayoutContainer {
 
     this.subscriptions.push(this.toasterState.subscribe((g)=>{
       if(g.TOASTER_SUCCESS){
-        this.toastr.success(g.payload, 'Success!').then((e)=>{
+        this.toastr.success(g.payload, 'Success!',{dismiss: 'click'}).then((e)=>{
           this.toasterState.dispatch(new toasterActions.SuccessAction());
         });
       } else if(g.TOASTER_ALERT){
-        this.toastr.error(g.payload,'Warning!').then((e)=>{
+        this.toastr.error(g.payload,'Warning!',{dismiss: 'click'}).then((e)=>{
           this.toasterState.dispatch(new toasterActions.AlertAction());
         });
       }
