@@ -4,6 +4,7 @@ import { DataTableComponent } from '../../shared/components/dataTable/dataTable.
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Location} from "@angular/common";
 
+
 @Component({
   selector: 'app-notificationList',
   templateUrl: './notificationList.component.html',
@@ -23,6 +24,9 @@ export class NotificationListComponent implements OnInit {
 
   showPopup = false;
   modalMessage ='';
+
+  private bsValue: Date = new Date();
+  private bsValueTwo: Date = new Date();
 
 
 
@@ -71,6 +75,22 @@ export class NotificationListComponent implements OnInit {
     }
   }
 
+  onChange($event) {
+    //console.log('::::on change',$event);
+    this.bsValue = $event;
+    this.items = this.rows.filter(item =>
+      new Date(item.notificationDate).getTime() > this.bsValue.getTime() && new Date(item.notificationDate).getTime() < this.bsValueTwo.getTime());
+    this.rows = this.items;
+  }
+
+  onChangeToDp($event) {
+    //console.log('::::on changeDP',$event);
+    this.bsValueTwo = $event;
+    this.items = this.rows.filter(item =>
+      new Date(item.notificationDate).getTime() > this.bsValue.getTime() && new Date(item.notificationDate).getTime() < this.bsValueTwo.getTime());
+    this.rows = this.items;
+  }
+
 
   goToPrevPage() {
     this.router.navigate(['dashboard']);
@@ -80,7 +100,7 @@ export class NotificationListComponent implements OnInit {
   showNotification(row) {
     console.log('::::::::::::', row);
     this.showPopup = true;
-    this.modalMessage = row.email;
+    this.modalMessage = row;
   }
 
   modalClosed(event) {
@@ -114,7 +134,7 @@ export class NotificationListComponent implements OnInit {
       "deviceName": "Sensor",
       "deviceType": "Application",
       "reading": "435.6° F",
-      "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
+      "notificationDate": "2018-03-18T12:53:49.1382867-05:00",
       "text": "sample string 8",
       "sentNotificationID": 9,
       "userID": 10,
@@ -131,7 +151,7 @@ export class NotificationListComponent implements OnInit {
       "deviceName": "Gateway",
       "deviceType": "Application",
       "reading": "435.6° F",
-      "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
+      "notificationDate": "2018-02-19T12:53:49.1382867-05:00",
       "text": "sample string 8",
       "sentNotificationID": 9,
       "userID": 10,
@@ -148,7 +168,7 @@ export class NotificationListComponent implements OnInit {
       "deviceName": "Gateway",
       "deviceType": "Application",
       "reading": "435.6° F",
-      "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
+      "notificationDate": "2018-02-17T12:40:49.1382867-05:00",
       "text": "sample string 8",
       "sentNotificationID": 9,
       "userID": 10,
@@ -166,7 +186,7 @@ export class NotificationListComponent implements OnInit {
       "deviceName": "Sensor",
       "deviceType": "Application",
       "reading": "435.6° F",
-      "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
+      "notificationDate": "2018-03-19T12:53:49.1382867-05:00",
       "text": "sample string 8",
       "sentNotificationID": 9,
       "userID": 10,
@@ -183,7 +203,7 @@ export class NotificationListComponent implements OnInit {
       "deviceName": "Sensor",
       "deviceType": "Application",
       "reading": "435.6° F",
-      "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
+      "notificationDate": "2018-02-19T12:23:49.1382867-05:00",
       "text": "sample string 8",
       "sentNotificationID": 9,
       "userID": 10,
