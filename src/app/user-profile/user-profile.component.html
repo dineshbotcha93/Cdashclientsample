@@ -1,7 +1,7 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_title col-md-11 col-sm-11 col-xs-12">
+      <div class="col-md-11 col-sm-11 col-xs-12">
         <h3>Account Details</h3>
         <div class="clearfix"></div>
       </div>
@@ -9,6 +9,7 @@
         <button class="btn btn-primary" (click)="goToPrevPage()"><i class="fa fa-chevron-left"></i> Back</button>
       </div>
     </div>
+
     <div class="customer-info-container">
       <div *ngIf="loadPage === true">
         <div class="col-md-6 customer-info-left">
@@ -20,38 +21,41 @@
             <span *ngIf="accountData.address2">{{accountData.address2}}</span>
             <span>{{accountData.city}}</span>
             <span>{{accountData.state}}</span>
-            <span>{{accountData.postalCode}}</span>
-            <span>{{accountData.country}}</span>
+            <div>{{accountData.postalCode}}</div>
+            <div>{{accountData.country}}</div>
           </div>
+
           <div class="customer-contact-name">
-            <span class="usr-lbl">Contact Name:</span>{{accountData.userFullName}}</div>
+            <span class="key">Contact Name: </span>{{accountData.userFullName}}</div>
           <div class="customer-email" *ngIf="accountData.emailAddress">
-            <span class="usr-lbl">Email:</span>
+            <span class="key">Email: </span>
             <a href="mailto:{{accountData.emailAddress}}">{{accountData.emailAddress}}</a>
           </div>
           <div class="customer-phone">
-            <span class="usr-lbl">Phone:</span>
+            <span class="key">Phone: </span>
             <a href="tel:{{accountData.ContactNumber}}"> {{accountData.smsNumber}}</a>
           </div>
         </div>
+
         <div class="col-md-6 network-card">
-          <div class="col-sm-12 network-card-top">
-            <div class="col-sm-7 customer-status">Subscription
-              <span> {{accountData.subscriptionType}}</span>
+          <div class="network-card-top">
+            <div class="left-text">Subscription
+              <span class="value">{{accountData.subscriptionType}}</span>
             </div>
-            <div class="col-sm-5 customer-amount">{{labelRenewal}}
-              <span> {{accountData.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
+            <div class="right-text">{{labelRenewal}}
+              <span class="value"> {{accountData.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
             </div>
           </div>
-          <div class="col-sm-12 network-card-bottom">
-            <div class="col-sm-4 gateway-count">Gateways
+
+          <div class="network-card-bottom">
+            <div class="gateway-count">Gateways
               <span>{{accountData.numGateways}}</span>
             </div>
-            <div class="col-sm-4 sensor-count">Sensor
+            <div class="sensor-count">Sensor
               <span>{{accountData.numSensors}}</span>
             </div>
-            <div class="col-sm-4" style="left:75%">
-              <a class="btn btn-primary addBTN" role="button" href="/payments" style="color:#fff; text-decoration: none;">Renew Contract</a>
+            <div class="network-button network-button-2">
+              <a class="btn btn-primary addBTN" role="button" href="/payments">Renew Contract</a>
             </div>
           </div>
         </div>
@@ -68,9 +72,9 @@
     <tabs>
       <tab tabTitle="My Profile" class="tab-content">
         <div class="row x_content">
-          <div class="col-sm-12 sensors-info-container">
+          <div class="col-md-12 sensors-info-container">
             <div *ngIf="loadPage === true">
-              <div class="col-sm-12">
+              <div class="col-md-12">
                 <form class="form-horizontal">
                   <div class="form-group">
                     <label class="col-sm-2">User Name :</label>

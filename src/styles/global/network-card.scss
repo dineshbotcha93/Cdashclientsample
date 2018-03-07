@@ -50,6 +50,38 @@
         font-size: 1.5em;
       }
     }
+
+    .left-text {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1em;
+      color: $color-white;
+      display: inline-block;
+
+      .value {
+        font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        color: $color-counts-green;
+        padding-left: 10px;
+      }
+    }
+
+    .right-text {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1em;
+      color: $color-white;
+      display: inline-block;
+      float: right;
+
+      .value {
+        font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        color: $color-counts-green;
+        padding-left: 10px;
+      }
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        float: none;
+      }
+    }
+
   }
 
   .network-card-bottom {
@@ -117,6 +149,17 @@
         @media (min-width: $phone-small) and (max-width: $tablet-large) {
           margin-left: -10px;
           margin-bottom: -10px;
+        }
+      }
+
+      &.network-button-2 {
+        bottom: 20px;
+        right: 20px;
+
+        a {
+          color: $color-white;
+          text-decoration: none;
+          margin: 0;
         }
       }
     }

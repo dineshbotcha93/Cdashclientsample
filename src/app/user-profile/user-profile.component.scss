@@ -37,16 +37,27 @@ table {
 
     .customer-contact-name {
       margin-top: 15px;
-      padding:5px;
+
+      .key {
+        font-weight: bold;
+      }
     }
 
     .customer-email {
-      float:left;
-      padding:5px;
+      // float: left;
+      margin-top: 5px;
+
+      .key {
+        font-weight: bold;
+      }
     }
 
     .customer-phone {
-      padding:5px;
+      margin-top: 5px;
+
+      .key {
+        font-weight: bold;
+      }
     }
 
     .customer-amount {
@@ -55,10 +66,10 @@ table {
     }
 
     .usr-lbl {
-      font-weight:bold;
-      padding:5px;
+      font-weight: bold;
+      padding: 5px;
     }
-    
+
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       font-size: 0.85em;
       margin-bottom: 10px;
@@ -126,7 +137,7 @@ table {
 //   }
 // }
 
-a:link, a:visited { 
+a:link, a:visited {
   color: #3498DB;
   cursor:pointer ;
 }
