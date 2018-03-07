@@ -39,7 +39,7 @@ export class LoginSandbox extends Sandbox {
     .then((e)=>{
       localStorage.setItem('com.cdashboard.token', e);
       this.requesterService.getExternalRequest('/api/User/Info').then((res)=>{
-        if(res.admin){
+        if(res.userName=="Admin"){
           this.router.navigate(['business']);
         } else {
           const isPrimaryContact = (res.userName === res.account[0].userName);
