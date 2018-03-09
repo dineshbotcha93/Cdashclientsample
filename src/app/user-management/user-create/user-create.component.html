@@ -1,3 +1,6 @@
+<user-flow-component [selected]="selectedStep">
+
+</user-flow-component>
 <div class="login_wrapper" style="max-width:600px;">
   <div class="form login_form">
     <section class="login_content">
@@ -33,6 +36,10 @@
       </div>
     </form>
     </section>
+    <user-flow-buttons
+    (onPreviousEmitter)="onPrevious($event)"
+    (onNextEmitter)="onNext($event)">
+    </user-flow-buttons>
   </div>
 </div>
 <ng-template #tooltipTempate>

@@ -1,3 +1,6 @@
+<user-flow-component [selected]="selectedStep">
+
+</user-flow-component>
 <div class="login_wrapper" style="max-width:800px;">
   <div class="form login_form">
     <section class="login_content">
@@ -14,20 +17,20 @@
           </div>
           <div class="form-group">
             <label for="industryType">Industry Type: </label>
-            <select name="industry_type" class="form-control">
-              <option value="test">test</option>
+            <select name="industry_type" class="form-control" (change)="industryChanged()" [(ngModel)]="selectedIndustry">
+              <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="businessType">Business Type: </label>
             <select name="business_type" class="form-control">
-              <option value="test">test</option>
+              <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="timeZone">Time Zone: </label>
             <select name="timeZone" class="form-control">
-              <option value="test">test</option>
+              <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
             </select>
           </div>
           <div class="form-group">
@@ -72,9 +75,9 @@
         </div>
       </form>
     </section>
+    <user-flow-buttons
+    (onPreviousEmitter)="onPrevious($event)"
+    (onNextEmitter)="onNext($event)">
+    </user-flow-buttons>
   </div>
 </div>
-
-
-
-
