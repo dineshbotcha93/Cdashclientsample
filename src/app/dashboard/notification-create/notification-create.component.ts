@@ -41,8 +41,8 @@ export class NotificationCreateComponent implements OnInit {
 
   scheduleObj: any = [];
 
-  @Input() allSensors: Array<any>;
-  @Input() gateWayData: Array<any>;
+  @Input() sensorList: Array<any>;
+  @Input() gatewayList: Array<any>;
   @Input() notifyOperationType: string;
   @Input() editNotifyObject: any;
 
@@ -73,20 +73,32 @@ export class NotificationCreateComponent implements OnInit {
   constructor() {}
 
   setEditNotifyDetails() {
-    if (this.notifyOperationType === "editNotify") {
+    if (this.notifyOperationType === "editNotify" ||  this.notifyOperationType === "addNotify" ) {
       console.log("before editing ", this.editNotifyObject);
+      let tempObject : any;
+      // tempObject = this.sensorList;
 
-      let notify = this.editNotifyObject.notification;
-      this.notificationModel.strNotificationName = notify.name;
-      this.notificationModel.strNotificationText = notify.text;
-      this.notificationModel.strSnoozeAlertValue = notify.snooze;
-      this.notificationModel.isNotificationActive = notify.active;
+      console.log("before editing ", this.sensorList[0]);
+
+      tempObject = this.notifyOperationType === "editNotify" ? this.editNotifyObject : this.sensorList[0];
+       console.log("after editing ", tempObject);
+
+      if(this.notifyOperationType === "editNotify"){
+
+            let notify = tempObject.notification;
+            this.notificationModel.strNotificationName = notify.name;
+            this.notificationModel.strNotificationText = notify.text;
+            this.notificationModel.strSnoozeAlertValue = notify.snooze;
+            this.notificationModel.isNotificationActive = notify.active;
+      }
 
       //user setting
       let userTempObj = [];
       let userSelectedObject = [];
 
-      this.editNotifyObject.users.forEach(user => {
+
+
+      tempObject.users.forEach(user => {
         let tempObj: any = [];
         (tempObj.id = user.userName), (tempObj.name = user.userName);
         userTempObj.push(tempObj);
@@ -104,7 +116,7 @@ export class NotificationCreateComponent implements OnInit {
       let gatewayModel = [];
       let gatewayObj = [];
 
-      this.editNotifyObject.devices.forEach(device => {
+     tempObject.devices.forEach(device => {
         let tempObj: any = [];
         (tempObj.id = device.deviceID), (tempObj.name = device.deviceName);
         if (device.deviceCategory === "Sensor") {
@@ -281,27 +293,27 @@ export class NotificationCreateComponent implements OnInit {
 
     this.notificationModel.selectNotifyMagnetList = Obj3;
 
-    let sensorObj = [];
+    // let sensorObj = [];
 
-    this.allSensors.forEach(sensor => {
-      let tempObj: any = [];
-      (tempObj.id = sensor.sensorID), (tempObj.name = sensor.sensorName);
+    // this.sensorList.forEach(sensor => {
+    //   let tempObj: any = [];
+    //   (tempObj.id = sensor.sensorID), (tempObj.name = sensor.sensorName);
 
-      sensorObj.push(tempObj);
-    });
+    //   sensorObj.push(tempObj);
+    // });
 
-    this.mySensorOptions = sensorObj;
+    // this.mySensorOptions = sensorObj;
 
-    sensorObj = [];
+    // sensorObj = [];
 
-    this.gateWayData.forEach(gateway => {
-      let tempObj: any = [];
-      (tempObj.id = gateway.gatewayID), (tempObj.name = gateway.name);
+    // this.gatewayList.forEach(gateway => {
+    //   let tempObj: any = [];
+    //   (tempObj.id = gateway.gatewayID), (tempObj.name = gateway.name);
 
-      sensorObj.push(tempObj);
-    });
+    //   sensorObj.push(tempObj);
+    // });
 
-    this.myGatewayOptions = sensorObj;
+    // this.myGatewayOptions = sensorObj;
 
     // userList
 

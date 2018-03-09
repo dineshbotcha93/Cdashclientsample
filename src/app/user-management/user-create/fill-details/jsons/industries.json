@@ -1,0 +1,1316 @@
+[
+  {
+    "IndustryClassificationID": 1,
+    "NAICS": 11,
+    "Name": "Agriculture, Forestry, Fishing and Hunting",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 2,
+    "NAICS": 1114,
+    "Name": "Greenhouse, Nursery, and Floriculture Production",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 3,
+    "NAICS": 111421,
+    "Name": "Nursery and Tree Production ",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 4,
+    "NAICS": 111422,
+    "Name": "Floriculture Production ",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 5,
+    "NAICS": 1119,
+    "Name": "Other Crop Farming",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 6,
+    "NAICS": 1133,
+    "Name": "Logging",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 7,
+    "NAICS": 114,
+    "Name": "Fishing, Hunting and Trapping",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 8,
+    "NAICS": 115116,
+    "Name": "Farm Management Services ",
+    "Parent": "1"
+  },
+  {
+    "IndustryClassificationID": 9,
+    "NAICS": 112,
+    "Name": "Animal Production and Aquaculture",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 10,
+    "NAICS": 1121,
+    "Name": "Cattle Ranching and Farming",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 11,
+    "NAICS": 112111,
+    "Name": "Beef Cattle Ranching and Farming ",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 12,
+    "NAICS": 112112,
+    "Name": "Cattle Feedlots ",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 13,
+    "NAICS": 11212,
+    "Name": "Dairy Cattle and Milk Production",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 14,
+    "NAICS": 11213,
+    "Name": "Dual-Purpose Cattle Ranching and Farming",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 15,
+    "NAICS": 1122,
+    "Name": "Hog and Pig Farming",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 16,
+    "NAICS": 1123,
+    "Name": "Poultry and Egg Production",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 17,
+    "NAICS": 11231,
+    "Name": "Chicken Egg Production",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 18,
+    "NAICS": 1124,
+    "Name": "Sheep and Goat Farming",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 19,
+    "NAICS": 1125,
+    "Name": "Aquaculture",
+    "Parent": "9"
+  },
+  {
+    "IndustryClassificationID": 20,
+    "NAICS": 21,
+    "Name": "Mining, Quarrying, and Oil and Gas Extraction",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 21,
+    "NAICS": 211,
+    "Name": "Oil and Gas Extraction",
+    "Parent": "20"
+  },
+  {
+    "IndustryClassificationID": 22,
+    "NAICS": 211111,
+    "Name": "Crude Petroleum and Natural Gas Extraction ",
+    "Parent": "20"
+  },
+  {
+    "IndustryClassificationID": 23,
+    "NAICS": 211112,
+    "Name": "Natural Gas Liquid Extraction ",
+    "Parent": "20"
+  },
+  {
+    "IndustryClassificationID": 24,
+    "NAICS": 212,
+    "Name": "Mining (except Oil and Gas)",
+    "Parent": "20"
+  },
+  {
+    "IndustryClassificationID": 25,
+    "NAICS": 22,
+    "Name": "Utilities",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 26,
+    "NAICS": 22111,
+    "Name": "Electric Power Generation ",
+    "Parent": "25"
+  },
+  {
+    "IndustryClassificationID": 27,
+    "NAICS": 221122,
+    "Name": "Electric Power Distribution ",
+    "Parent": "25"
+  },
+  {
+    "IndustryClassificationID": 28,
+    "NAICS": 2212,
+    "Name": "Natural Gas Distribution ",
+    "Parent": "25"
+  },
+  {
+    "IndustryClassificationID": 29,
+    "NAICS": 2213,
+    "Name": "Water, Sewage and Other Systems ",
+    "Parent": "25"
+  },
+  {
+    "IndustryClassificationID": 30,
+    "NAICS": 22131,
+    "Name": "Water Supply and Irrigation Systems ",
+    "Parent": "25"
+  },
+  {
+    "IndustryClassificationID": 31,
+    "NAICS": 22132,
+    "Name": "Sewage Treatment Facilities ",
+    "Parent": "25"
+  },
+  {
+    "IndustryClassificationID": 32,
+    "NAICS": 23,
+    "Name": "Construction",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 33,
+    "NAICS": 2361,
+    "Name": "Residential Building Construction",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 34,
+    "NAICS": 236118,
+    "Name": "Residential Remodelers ",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 35,
+    "NAICS": 2362,
+    "Name": "Nonresidential Building Construction",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 36,
+    "NAICS": 23621,
+    "Name": "Industrial Building Construction",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 37,
+    "NAICS": 23622,
+    "Name": "Commercial and Institutional Building Construction",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 38,
+    "NAICS": 2371,
+    "Name": "Utility System Construction",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 39,
+    "NAICS": 2373,
+    "Name": "Highway, Street, and Bridge Construction",
+    "Parent": "32"
+  },
+  {
+    "IndustryClassificationID": 40,
+    "NAICS": -2,
+    "Name": "Manufacturing",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 41,
+    "NAICS": 311,
+    "Name": "Food Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 42,
+    "NAICS": 312,
+    "Name": "Beverage and Tobacco Product Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 43,
+    "NAICS": 313,
+    "Name": "Clothing Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 44,
+    "NAICS": 321,
+    "Name": "Wood Product Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 45,
+    "NAICS": 322,
+    "Name": "Paper Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 46,
+    "NAICS": 323,
+    "Name": "Printing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 47,
+    "NAICS": 324,
+    "Name": "Petroleum and Coal Products Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 48,
+    "NAICS": 325,
+    "Name": "Chemical Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 49,
+    "NAICS": 3251,
+    "Name": "Basic Chemical Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 50,
+    "NAICS": 326,
+    "Name": "Plastics and Rubber Products Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 51,
+    "NAICS": 327,
+    "Name": "Nonmetallic Mineral Product Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 52,
+    "NAICS": 331,
+    "Name": "Primary Metal Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 53,
+    "NAICS": 332,
+    "Name": "Fabricated Metal Product Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 54,
+    "NAICS": 333,
+    "Name": "Machinery Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 55,
+    "NAICS": 334,
+    "Name": "Computer and Electronic Product Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 56,
+    "NAICS": 335,
+    "Name": "Electrical Equipment, Appliance, and Component Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 57,
+    "NAICS": 336,
+    "Name": "Transportation Equipment Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 58,
+    "NAICS": 337,
+    "Name": "Furniture and Related Product Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 59,
+    "NAICS": 339,
+    "Name": "Miscellaneous Other Manufacturing",
+    "Parent": "40"
+  },
+  {
+    "IndustryClassificationID": 60,
+    "NAICS": 42,
+    "Name": "Wholesale Trade",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 61,
+    "NAICS": 4231,
+    "Name": "Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 62,
+    "NAICS": 4232,
+    "Name": "Furniture and Home Furnishing Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 63,
+    "NAICS": 4233,
+    "Name": "Lumber and Other Construction Materials Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 64,
+    "NAICS": 4234,
+    "Name": "Professional and Commercial Equipment and Supplies Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 65,
+    "NAICS": 4235,
+    "Name": "Metal and Mineral (except Petroleum) Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 66,
+    "NAICS": 4236,
+    "Name": "Household Appliances and Electrical and Electronic Goods Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 67,
+    "NAICS": 4237,
+    "Name": "Hardware, and Plumbing and Heating Equipment and Supplies Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 68,
+    "NAICS": 4238,
+    "Name": "Machinery, Equipment, and Supplies Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 69,
+    "NAICS": 4239,
+    "Name": "Miscellaneous Durable Goods Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 70,
+    "NAICS": 4241,
+    "Name": "Paper and Paper Product Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 71,
+    "NAICS": 4242,
+    "Name": "Drugs and Druggists' Sundries Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 72,
+    "NAICS": 4243,
+    "Name": "Apparel, Piece Goods, and Notions Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 73,
+    "NAICS": 4244,
+    "Name": "Grocery and Related Product Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 74,
+    "NAICS": 4245,
+    "Name": "Farm Product Raw Material Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 75,
+    "NAICS": 4246,
+    "Name": "Chemical and Allied Products Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 76,
+    "NAICS": 4247,
+    "Name": "Petroleum and Petroleum Products Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 77,
+    "NAICS": 4248,
+    "Name": "Beer, Wine, and Distilled Alcoholic Beverage Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 78,
+    "NAICS": 4249,
+    "Name": "Miscellaneous Nondurable Goods Merchant Wholesalers ",
+    "Parent": "60"
+  },
+  {
+    "IndustryClassificationID": 79,
+    "NAICS": -1,
+    "Name": "Retail Trade",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 80,
+    "NAICS": 441,
+    "Name": "Motor Vehicle and Parts Dealers ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 81,
+    "NAICS": 442,
+    "Name": "Furniture and Home Furnishings Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 82,
+    "NAICS": 443,
+    "Name": "Electronics and Appliance Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 83,
+    "NAICS": 444,
+    "Name": "Building Material and Garden Equipment and Supplies Dealers ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 84,
+    "NAICS": 445,
+    "Name": "Food and Beverage Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 85,
+    "NAICS": 44611,
+    "Name": "Pharmacies and Drug Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 86,
+    "NAICS": 447,
+    "Name": "Gasoline Stations ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 87,
+    "NAICS": 448,
+    "Name": "Clothing and Clothing Accessories Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 88,
+    "NAICS": 451,
+    "Name": "Sporting Goods, Hobby, Musical Instrument, and Book Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 89,
+    "NAICS": 452,
+    "Name": "General Merchandise Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 90,
+    "NAICS": 4521,
+    "Name": "Department Stores ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 91,
+    "NAICS": 45291,
+    "Name": "Warehouse Clubs and Supercenters ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 92,
+    "NAICS": 453,
+    "Name": "Miscellaneous Store Retailers ",
+    "Parent": "79"
+  },
+  {
+    "IndustryClassificationID": 93,
+    "NAICS": -1,
+    "Name": "Transportation and Warehousing",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 94,
+    "NAICS": 481,
+    "Name": "Air Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 95,
+    "NAICS": 482,
+    "Name": "Rail Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 96,
+    "NAICS": 483,
+    "Name": "Water Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 97,
+    "NAICS": 484,
+    "Name": "Truck Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 98,
+    "NAICS": 485,
+    "Name": "Transit and Ground Passenger Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 99,
+    "NAICS": 486,
+    "Name": "Pipeline Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 100,
+    "NAICS": 487,
+    "Name": "Scenic and Sightseeing Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 101,
+    "NAICS": 488,
+    "Name": "Support Activities for Transportation",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 102,
+    "NAICS": 491,
+    "Name": "Postal Service",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 103,
+    "NAICS": 4911,
+    "Name": "Postal Service",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 104,
+    "NAICS": 492,
+    "Name": "Couriers and Messengers",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 105,
+    "NAICS": 493,
+    "Name": "Warehousing and Storage",
+    "Parent": "93"
+  },
+  {
+    "IndustryClassificationID": 106,
+    "NAICS": 51,
+    "Name": "Information",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 107,
+    "NAICS": 511,
+    "Name": "Publishing Industries (except Internet)",
+    "Parent": "106"
+  },
+  {
+    "IndustryClassificationID": 108,
+    "NAICS": 512,
+    "Name": "Motion Picture and Sound Recording Industries",
+    "Parent": "106"
+  },
+  {
+    "IndustryClassificationID": 109,
+    "NAICS": 515,
+    "Name": "Broadcasting (except Internet)",
+    "Parent": "106"
+  },
+  {
+    "IndustryClassificationID": 110,
+    "NAICS": 517,
+    "Name": "Telecommunications",
+    "Parent": "106"
+  },
+  {
+    "IndustryClassificationID": 111,
+    "NAICS": 518,
+    "Name": "Data Processing, Hosting, and Related Services",
+    "Parent": "106"
+  },
+  {
+    "IndustryClassificationID": 112,
+    "NAICS": 519,
+    "Name": "Other Information Services",
+    "Parent": "106"
+  },
+  {
+    "IndustryClassificationID": 113,
+    "NAICS": 52,
+    "Name": "Finance and Insurance",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 114,
+    "NAICS": 521,
+    "Name": "Monetary Authorities-Central Bank",
+    "Parent": "113"
+  },
+  {
+    "IndustryClassificationID": 115,
+    "NAICS": 522,
+    "Name": "Credit Intermediation and Related Activities",
+    "Parent": "113"
+  },
+  {
+    "IndustryClassificationID": 116,
+    "NAICS": 523,
+    "Name": "Securities, Commodity Contracts, and Other Financial Investments and Related Activities",
+    "Parent": "113"
+  },
+  {
+    "IndustryClassificationID": 117,
+    "NAICS": 524,
+    "Name": "Insurance Carriers and Related Activities",
+    "Parent": "113"
+  },
+  {
+    "IndustryClassificationID": 118,
+    "NAICS": 525,
+    "Name": "Funds, Trusts, and Other Financial Vehicles ",
+    "Parent": "113"
+  },
+  {
+    "IndustryClassificationID": 119,
+    "NAICS": 53,
+    "Name": "Real Estate and Rental and Leasing",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 120,
+    "NAICS": 5311,
+    "Name": "Lessors of Real Estate",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 121,
+    "NAICS": 5312,
+    "Name": "Offices of Real Estate Agents and Brokers",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 122,
+    "NAICS": 53131,
+    "Name": "Real Estate Property Managers ",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 123,
+    "NAICS": 531311,
+    "Name": "Residential Property Managers ",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 124,
+    "NAICS": 531312,
+    "Name": "Nonresidential Property Managers ",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 125,
+    "NAICS": 5321,
+    "Name": "Automotive Equipment Rental and Leasing",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 126,
+    "NAICS": 5322,
+    "Name": "Consumer Goods Rental",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 127,
+    "NAICS": 5323,
+    "Name": "General Rental Centers",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 128,
+    "NAICS": 5324,
+    "Name": "Commercial and Industrial Machinery and Equipment Rental and Leasing",
+    "Parent": "119"
+  },
+  {
+    "IndustryClassificationID": 129,
+    "NAICS": 54,
+    "Name": "Professional, Scientific, and Technical Services",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 130,
+    "NAICS": 5411,
+    "Name": "Legal Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 131,
+    "NAICS": 5412,
+    "Name": "Accounting, Tax Preparation, Bookkeeping, and Payroll Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 132,
+    "NAICS": 5413,
+    "Name": "Architectural, Engineering, and Related Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 133,
+    "NAICS": 5414,
+    "Name": "Specialized Design Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 134,
+    "NAICS": 5415,
+    "Name": "Computer Systems Design and Related Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 135,
+    "NAICS": 5416,
+    "Name": "Management, Scientific, and Technical Consulting Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 136,
+    "NAICS": 5417,
+    "Name": "Scientific Research and Development Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 137,
+    "NAICS": 5418,
+    "Name": "Advertising, Public Relations, and Related Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 138,
+    "NAICS": 5419,
+    "Name": "Other Professional, Scientific, and Technical Services",
+    "Parent": "129"
+  },
+  {
+    "IndustryClassificationID": 139,
+    "NAICS": 56,
+    "Name": "Administrative and Support and Waste Management and Remediation Services",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 140,
+    "NAICS": 5611,
+    "Name": "Office Administrative Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 141,
+    "NAICS": 5612,
+    "Name": "Facilities Support Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 142,
+    "NAICS": 5613,
+    "Name": "Employment Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 143,
+    "NAICS": 5614,
+    "Name": "Business Support Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 144,
+    "NAICS": 5615,
+    "Name": "Travel Arrangement and Reservation Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 145,
+    "NAICS": 5616,
+    "Name": "Investigation and Security Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 146,
+    "NAICS": 5617,
+    "Name": "Services to Buildings and Dwellings",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 147,
+    "NAICS": 5619,
+    "Name": "Other Support Services",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 148,
+    "NAICS": 5621,
+    "Name": "Waste Collection ",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 149,
+    "NAICS": 5622,
+    "Name": "Waste Treatment and Disposal ",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 150,
+    "NAICS": 5629,
+    "Name": "Remediation and Other Waste Management Services ",
+    "Parent": "139"
+  },
+  {
+    "IndustryClassificationID": 151,
+    "NAICS": 61,
+    "Name": "Educational Services",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 152,
+    "NAICS": 6111,
+    "Name": "Elementary and Secondary Schools",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 153,
+    "NAICS": 6112,
+    "Name": "Junior Colleges",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 154,
+    "NAICS": 6113,
+    "Name": "Colleges, Universities, and Professional Schools",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 155,
+    "NAICS": 6114,
+    "Name": "Business Schools and Computer and Management Training",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 156,
+    "NAICS": 6115,
+    "Name": "Technical and Trade Schools ",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 157,
+    "NAICS": 6116,
+    "Name": "Other Schools and Instruction",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 158,
+    "NAICS": 6117,
+    "Name": "Educational Support Services",
+    "Parent": "151"
+  },
+  {
+    "IndustryClassificationID": 159,
+    "NAICS": 62,
+    "Name": "Health Care and Social Assistance",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 160,
+    "NAICS": 6211,
+    "Name": "Offices of Physicians",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 161,
+    "NAICS": 6212,
+    "Name": "Offices of Dentists",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 162,
+    "NAICS": 6213,
+    "Name": "Offices of Other Health Practitioners",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 163,
+    "NAICS": 6214,
+    "Name": "Outpatient Care Centers",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 164,
+    "NAICS": 6215,
+    "Name": "Medical and Diagnostic Laboratories",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 165,
+    "NAICS": 6216,
+    "Name": "Home Health Care Services",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 166,
+    "NAICS": 6219,
+    "Name": "Other Ambulatory Health Care Services",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 167,
+    "NAICS": 6221,
+    "Name": "General Medical and Surgical Hospitals",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 168,
+    "NAICS": 6222,
+    "Name": "Psychiatric and Substance Abuse Hospitals",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 169,
+    "NAICS": 6223,
+    "Name": "Specialty (except Psychiatric and Substance Abuse) Hospitals",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 170,
+    "NAICS": 6231,
+    "Name": "Nursing Care Facilities (Skilled Nursing Facilities)",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 171,
+    "NAICS": 6232,
+    "Name": "Residential Intellectual and Developmental Disability, Mental Health, and Substance Abuse Facilities",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 172,
+    "NAICS": 6233,
+    "Name": "Continuing Care Retirement Communities and Assisted Living Facilities for the Elderly",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 173,
+    "NAICS": 6239,
+    "Name": "Other Residential Care Facilities",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 174,
+    "NAICS": 6241,
+    "Name": "Individual and Family Services",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 175,
+    "NAICS": 6242,
+    "Name": "Community Food and Housing, and Emergency and Other Relief Services",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 176,
+    "NAICS": 6243,
+    "Name": "Vocational Rehabilitation Services",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 177,
+    "NAICS": 6244,
+    "Name": "Child Day Care Services",
+    "Parent": "159"
+  },
+  {
+    "IndustryClassificationID": 178,
+    "NAICS": 71,
+    "Name": "Arts, Entertainment, and Recreation",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 179,
+    "NAICS": 7115,
+    "Name": "Independent Artists, Writers, and Performers",
+    "Parent": "178"
+  },
+  {
+    "IndustryClassificationID": 180,
+    "NAICS": 712,
+    "Name": "Museums, Historical Sites, and Similar Institutions",
+    "Parent": "178"
+  },
+  {
+    "IndustryClassificationID": 181,
+    "NAICS": 7131,
+    "Name": "Amusement Parks and Arcades",
+    "Parent": "178"
+  },
+  {
+    "IndustryClassificationID": 182,
+    "NAICS": 7132,
+    "Name": "Gambling Industries",
+    "Parent": "178"
+  },
+  {
+    "IndustryClassificationID": 183,
+    "NAICS": 7139,
+    "Name": "Other Amusement and Recreation Industries",
+    "Parent": "178"
+  },
+  {
+    "IndustryClassificationID": 184,
+    "NAICS": 72,
+    "Name": "Accommodation and Food Services",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 185,
+    "NAICS": 72111,
+    "Name": "Hotels (except Casino Hotels) and Motels",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 186,
+    "NAICS": 72112,
+    "Name": "Casino Hotels",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 187,
+    "NAICS": 72119,
+    "Name": "Other Traveler Accommodation",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 188,
+    "NAICS": 721191,
+    "Name": "Bed-and-Breakfast Inns ",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 189,
+    "NAICS": 7212,
+    "Name": "RV (Recreational Vehicle) Parks and Recreational Camps",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 190,
+    "NAICS": 7213,
+    "Name": "Rooming and Boarding Houses",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 191,
+    "NAICS": 72231,
+    "Name": "Food Service Contractors",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 192,
+    "NAICS": 72232,
+    "Name": "Caterers",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 193,
+    "NAICS": 7225,
+    "Name": "Restaurants and Other Eating Places",
+    "Parent": "184"
+  },
+  {
+    "IndustryClassificationID": 194,
+    "NAICS": 81,
+    "Name": "Other Services (except Public Administration)",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 195,
+    "NAICS": 811111,
+    "Name": "General Automotive Repair ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 196,
+    "NAICS": 811192,
+    "Name": "Car Washes ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 197,
+    "NAICS": 8112,
+    "Name": "Electronic and Precision Equipment Repair and Maintenance",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 198,
+    "NAICS": 8114,
+    "Name": "Personal and Household Goods Repair and Maintenance",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 199,
+    "NAICS": 81221,
+    "Name": "Funeral Homes and Funeral Services ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 200,
+    "NAICS": 8123,
+    "Name": "Drycleaning and Laundry Services ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 201,
+    "NAICS": 81293,
+    "Name": "Parking Lots and Garages ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 202,
+    "NAICS": 81299,
+    "Name": "Personal Services ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 203,
+    "NAICS": 8131,
+    "Name": "Religious Organizations ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 204,
+    "NAICS": 8132,
+    "Name": "Grantmaking and Giving Services ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 205,
+    "NAICS": 8133,
+    "Name": "Social Advocacy Organizations ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 206,
+    "NAICS": 8134,
+    "Name": "Civic and Social Organizations ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 207,
+    "NAICS": 8139,
+    "Name": "Business, Professional, Labor, Political, and Similar Organizations ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 208,
+    "NAICS": 81393,
+    "Name": "Labor Unions and Similar Labor Organizations ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 209,
+    "NAICS": 81394,
+    "Name": "Political Organizations ",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 210,
+    "NAICS": 814,
+    "Name": "Private Households",
+    "Parent": "194"
+  },
+  {
+    "IndustryClassificationID": 211,
+    "NAICS": 92,
+    "Name": "Public Administration",
+    "Parent": null
+  },
+  {
+    "IndustryClassificationID": 212,
+    "NAICS": 921,
+    "Name": "Executive, Legislative, and Other General Government Support ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 213,
+    "NAICS": 922,
+    "Name": "Justice, Public Order, and Safety Activities ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 214,
+    "NAICS": 923,
+    "Name": "Administration of Human Resource Programs ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 215,
+    "NAICS": 924,
+    "Name": "Administration of Environmental Quality Programs ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 216,
+    "NAICS": 925,
+    "Name": "Administration of Housing Programs, Urban Planning, and Community Development ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 217,
+    "NAICS": 926,
+    "Name": "Administration of Economic Programs ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 218,
+    "NAICS": 927,
+    "Name": "Space Research and Technology ",
+    "Parent": "211"
+  },
+  {
+    "IndustryClassificationID": 219,
+    "NAICS": 928,
+    "Name": "National Security and International Affairs ",
+    "Parent": "211"
+  }
+]

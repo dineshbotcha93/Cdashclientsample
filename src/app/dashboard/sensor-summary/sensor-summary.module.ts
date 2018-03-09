@@ -15,10 +15,7 @@ import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 
 import { CreateDeviceComponent } from '../create-device/create-device.component';
 import { SharedModule } from '../../shared/modules/shared.module';
-import { NotificationsComponent } from '../notifications/notifications.component';
 
-import { NotificationSummaryComponent } from '../notification-summary/notification-summary.component';
-import { NotificationCreateComponent } from '../notification-create/notification-create.component';
 
 import { ButtonsModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
@@ -27,8 +24,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
-import { NotificationOverviewComponent } from '../notification-overview/notification-overview.component';
 
 
 
@@ -43,12 +38,8 @@ const routes: Routes = [{
     SlideAbleDirective,
     Ng2StyledDirective,
     Ng2SliderComponent,
-    CreateDeviceComponent,
-    NotificationsComponent,
-    NotificationSummaryComponent,
-    NotificationCreateComponent,
-    NotificationOverviewComponent],
-  imports: [
+    CreateDeviceComponent],
+  imports:[
     RouterModule.forChild(routes),
     ContainersModule,
     ComponentsModule,
