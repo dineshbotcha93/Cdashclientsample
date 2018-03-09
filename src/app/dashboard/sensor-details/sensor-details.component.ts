@@ -3,7 +3,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { SensorDetailsService } from './services/sensor-details.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
-import { ChartOptions, ChartColors } from './config/chart.config';
+import { ChartOptions, ChartColors } from '../chart.config';
 import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
