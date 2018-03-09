@@ -3,7 +3,8 @@ import { UserCreateComponent } from './user-create.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule, FormsModule,Validators  } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap';
-
+import { FlowDisplayModule } from '../flow-display/flow-display.module';
+import { FlowButtonsModule } from '../flow-buttons/flow-buttons.module';
 
 const routes: Routes = [{
     path:'',
@@ -20,7 +21,9 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     TooltipModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FlowDisplayModule,
+    FlowButtonsModule
   ],
   exports: [
     RouterModule
