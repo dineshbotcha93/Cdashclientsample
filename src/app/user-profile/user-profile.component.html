@@ -70,6 +70,7 @@
   <!-- <div *ngIf="loadPage === true"> -->
   <div class="tabs_container">
     <tabs>
+
       <tab tabTitle="My Profile" class="tab-content">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container">
@@ -137,20 +138,26 @@
                       </div>
                     </div>
                 </form>
-
+              </div>
             </div>
           </div>
         </div>
       </tab>
+
       <tab tabTitle="Users" class="tab-content light-theme">
         <div class="row x_content">
-          <div class="col-sm-12 sensors-info-container">
+          <div class="col-md-12 sensors-info-container">
             <div *ngIf="!isShowUserTable" class="pull-right col-sm-2">
               <button class="btn btn-primary addBTN" type="button" (click)="addUser()">
                 <i class="fa fa-plus"></i>Add User</button>
             </div>
             <div class="col-sm-12">
-              <app-datatable #userTable [rows]="userRows" [columns]="userColumns" [limit]="limit" *ngIf="isShowUserTable">
+              <app-datatable
+                #userTable
+                [rows]="userRows"
+                [columns]="userColumns"
+                [limit]="limit"
+                *ngIf="isShowUserTable">
               </app-datatable>
 
               <ng-template #notificationColTmpl let-row="row" let-value="value">
@@ -171,6 +178,7 @@
           </div>
         </div>
       </tab>
+
       <tab tabTitle="Renewal History" class="tab-content light-theme">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container">
@@ -184,6 +192,7 @@
           </div>
         </div>
       </tab>
+
       <tab tabTitle="Notifications" class="tab-content light-theme">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container">
@@ -191,8 +200,8 @@
           </div>
         </div>
       </tab>
+
     </tabs>
-    <!-- </div> -->
   </div>
 </app-layout>
 
