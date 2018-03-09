@@ -6,7 +6,7 @@ import { AuthGuard } from '../shared/services/auth-guard.service';
 import { AuthService } from '../shared/services/auth.service';
 import { ContainersModule} from '../shared/containers';
 import {ComponentsModule} from '../shared/components';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
@@ -28,6 +28,7 @@ const routes: Routes = [
     ContainersModule,
     ComponentsModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
   ],
   declarations: [UserProfileComponent],

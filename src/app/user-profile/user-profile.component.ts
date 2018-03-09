@@ -1,20 +1,23 @@
-import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ElementRef} from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ElementRef, group} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 import {Location} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
-import * as $ from 'jquery';
+import {UserProfile} from './user-profile';
+import { Url } from 'url';
 
 export interface RenewalData {
-  sno: string;
-  expiryDate: string;
-  previousRenewalDate: string;
+  //sno: string;
+//  expiryDate: string;
+  oldRenewalDate: string;
   newRenewalDate: string;
+  invoiceDownloadLink: string;
 }
 export interface UserData {
   name: string;
@@ -49,6 +52,8 @@ export interface AccountData {
   userName: string;
 }
 
+
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -62,7 +67,6 @@ export class UserProfileComponent implements OnInit {
   @ViewChild('invoiceColTmpl') invoiceColTmpl: TemplateRef<any>;
   private responseData: Object = null;
   private accountData: Array<AccountData> = null;
-  private renewalData: Object = null;
   private userRows: Array<UserData> = null;
   private userColumns: Array<any> = [];
   private renewalRows: Array<RenewalData> = null;
@@ -76,21 +80,40 @@ export class UserProfileComponent implements OnInit {
   public isUserContentCollapsed: Boolean = false;
   public isNotifContentCollapsed: Boolean = true;
   public isNetworkContentCollapsed: Boolean = true;
+  userForm = this.fb.group({
+    userName: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+   // notification: new FormBuilder().group({
+      emailAddress: new FormControl('', Validators.required),
+      admin: new FormControl(''),
+      directSMS: new FormControl(''),
+      smsNumber: new FormControl(''),
+      recievesMaintenanceByEmail: new FormControl(''),
+      recievesMaintenanceByPhone: new FormControl('')},
+   // }),
+ { validator: this.checkIfPasswordsMismatch('password', 'confirmPassword')}
+);
+  private user = new UserProfile();
 
   constructor(private userProfileService: UserProfileService,
-  private _location: Location, private ele: ElementRef) {
+  private _location: Location, private ele: ElementRef, private fb: FormBuilder) {
    // console.log(ele.nativeElement.getAttribute('section'));
   }
   ngOnInit() {
     this.getUserProfileData();
     this.prepareUserColumns();
     this.prepareRenewalColumns();
+    this.getRenewalData();
   }
   private getUserProfileData() {
    this.userProfileService.getData().subscribe(response => {
      // this.customerData = response[0];
       this.userRows = response[0].users;
-      this.renewalRows = response[0].renewal;
+     // this.renewalRows = response[0].renewal;
    });
 
    this.userProfileService.getRealData().then(response => {
@@ -99,8 +122,15 @@ export class UserProfileComponent implements OnInit {
       this.accountData = response.account[0];
       this.expiryDate = new Date(response.account.subscriptionExpiry);
       this.updateRenewalLabel();
-      this.loadPage = true;
+      //this.loadPage = true;
    });
+  }
+  private getRenewalData() {
+    this.userProfileService.getRenewalData().then(response => {
+           console.log(response);
+           this.renewalRows = response;
+           this.loadPage = true;
+    });
   }
   private prepareUserColumns() {
     this.userColumns.push({ prop: 'name', name: 'Name' });
@@ -109,11 +139,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   private prepareRenewalColumns() {
-    this.renewalColumns.push({ prop: 'sno', name: 'Sr.No'});
-    this.renewalColumns.push({ prop: 'expiryDate', name: 'Change Date' });
-    this.renewalColumns.push({ prop: 'previousRenewalDate', name: 'Previous Renewal Date'});
+   // this.renewalColumns.push({ prop: 'sno', name: 'Sr.No'});
+   // this.renewalColumns.push({ prop: 'expiryDate', name: 'Change Date' });
+    this.renewalColumns.push({ prop: 'oldRenewalDate', name: 'Previous Renewal Date'});
     this.renewalColumns.push({ prop: 'newRenewalDate', name: 'New Renewal Date'});
-    this.renewalColumns.push({ prop: 'sno', name: 'Invoice', cellTemplate: this.invoiceColTmpl});
+    this.renewalColumns.push({ prop: 'invoiceDownloadLink', name: 'Invoice', cellTemplate: this.invoiceColTmpl});
   }
 
   private updateRenewalLabel() {
@@ -145,6 +175,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   navigateToNotifSection() {
+    if (this.userForm.invalid) {
+     //return;
+    }
+    this.user = this.userForm.value;
+    console.log(this.user);
     this.isUserContentCollapsed = true;
     this.isNotifContentCollapsed  = false;
     this.isNotifBtn = true;
@@ -155,4 +190,39 @@ export class UserProfileComponent implements OnInit {
     this.isNetworkContentCollapsed  = false;
     this.isNetworkBtn = true;
   }
+
+  checkIfPasswordsMismatch (passwordKey: string, confirmPasswordKey: string) {
+    return (userForm: FormGroup) => {
+      let pwd = userForm.controls[passwordKey],
+       confirmPwd = userForm.controls[confirmPasswordKey];
+       if (pwd.value !== confirmPwd.value) {
+          return confirmPwd.setErrors({notEquivalent: true, Validators: 'required'});
+       } else {
+          // return confirmPwd.setErrors(null);
+       }
+    }
+  }
+  get userName() {
+    return this.userForm.get('userName');
+ }
+
+ get password() {
+   return this.userForm.get('password');
+ }
+ get confirmPassword() {
+   return this.userForm.get('confirmPassword');
+ }
+ get firstName() {
+   return this.userForm.get('firstName');
+ }
+ get lastName() {
+   return this.userForm.get('lastName');
+ }
+ get email() {
+   return this.userForm.get('email');
+ }
+ get emailAddress() {
+  return this.userForm.get('emailAddress');
+}
+ 
 }
