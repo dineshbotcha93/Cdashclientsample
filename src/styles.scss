@@ -8,6 +8,7 @@
 @import "styles/forms";
 @import "styles/fonts";
 @import "styles/icons";
+@import "styles/global/general";
 @import "styles/global/network-card";
 @import "styles/global/gateway-card";
 @import "styles/global/graph-card";
@@ -16,53 +17,5 @@
 @import "styles/global/table";
 @import "styles/global/modal";
 @import "styles/global/navigation";
-
-#map {
-  height: 100%;
-}
-
-html, body {
-  /*height: 100%;*/
-  margin: 0;
-  padding: 0;
-  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-}
-
-
-.nav-sm .container.body .right_col, .right_col {
-  height: auto;
-}
-
-
-/* ul */
-ul {
-  &.bar_tabs {
-    background: none;
-
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
-    }
-  }
-}
-/* ******* */
-
-
-.top_tiles {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-
-.dark-theme {
-  color: $color-white;
-  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-}
-
-/* side-nav */
-//.nav-sm .container.body .col-md-3.left_col {
-//  min-height: 100%;
-//  width: 70px;
-//  padding: 0;
-//  z-index: 9999;
-//  position: absolute;
-//}
+@import "styles/global/login";
+@import "styles/margins";

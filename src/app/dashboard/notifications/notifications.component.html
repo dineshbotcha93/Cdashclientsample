@@ -1,23 +1,58 @@
-<div *ngIf="notificationOverviewObject">
-   <table class="table table-striped">
-      <thead>
-         <tr>
-            <th class="col-md-3">Id</th>
-            <th class="col-md-3">Name</th>
-            <th class="col-md-3">Date</th>
-            <th class="col-md-3">Type</th>
-            <th class="col-md-3">Status</th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let notifiy of notificationOverviewObject">
-             
-            <td class="col-md-3" >{{notifiy.NotificationID}}</td>
-             <td class="col-md-3" >{{notifiy.Name}}</td>
-            <td class="col-md-3" >{{notifiy.NotificationDate}}</td>
-            <td class="col-md-3" >{{notifiy.Type}}</td>
-            <td class="col-md-3" >{{notifiy.Status}}</td>
-         </tr>
-      </tbody>
-   </table>
-</div>
+<div class="row">
+    <div class="col-md-4">
+       <form action="" class="dark-theme">
+          <input type="radio" checked name="notificationRadio" (click)="onClickNotificationOverview()" value="overview"> Sent Notifications
+          <input type="radio" name="notificationRadio" (click)="onClickNotificationSummary()" value="summary"> Notification Settings
+       </form>
+    </div>
+
+   <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group" *ngIf="notificationRadio === 'search' || notificationRadio === 'overview'">
+
+
+     <input class="form-control"
+            placeholder="Select Date Range"
+            ngModel
+            [(ngModel)]="daterangepickerModel"
+            bsDaterangepicker
+            [minDate]="minDate"
+            [maxDate]="maxDate" (ngModelChange)="onClickDateRange()">
+   </div>
+
+
+    <div class="col-md-4" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
+       <div class="form-group sensor-actions">
+          <button *ngIf = "isAddButtonRequired" type="button"
+             class="btn btn-primary addBTN"
+             (click)="onClickAddNotification()" ><i class="fa fa-plus"></i> Add Notification</button>
+          <button *ngIf = "isResetButtonRequired" type="button"
+             class="btn btn-primary removeBTN"
+             (click)="onClickResetNotification()" ><i class="fa fa-chevron-circle-left"></i>Reset Notification </button>
+       </div>
+    </div>
+    <div *ngIf="notificationRadio === 'addNotify'">
+       <div class="col-md-12 dark-theme">
+          <app-notification-create
+          [allSensors] = "allSensors"
+          [gateWayData] = "gateWayData"
+          [editNotifyObject] = "editNotifyObject"
+          (createMessageEvent)="receiveAddNotificationMessage($event)"
+          [notifyOperationType] = "notifyOperationType"
+          ></app-notification-create>
+          <!-- <app-notification-summary></app-notification-summary> -->
+       </div>
+    </div>
+
+    <div *ngIf="notificationRadio === 'summary'">
+       <div class="col-md-12 dark-theme">
+           <app-notification-summary 
+           (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
+           </app-notification-summary>
+       </div>
+    </div>
+
+     <div *ngIf="notificationRadio === 'overview'">
+       <div class="col-md-12 dark-theme">
+           <app-notification-overview [dateRangeObject] = "requestDateObject"></app-notification-overview>
+       </div>
+    </div>
+ </div>

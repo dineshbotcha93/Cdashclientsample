@@ -1,71 +1,161 @@
 <app-layout>
-  <h3>Payment Information</h3>
-  <div class="col-sm-offset-2 col-lg-8 col-md-8 col-sm-8 col-xs-12">
-    <form class="payment-form" id="payment-form" (ngSubmit)="getToken()">
-      <h4>Amount</h4>
+  <div class="row">
 
-      <table class="col-xs-12 payment-info">
-        <tr>
-          <th># of Sensors</th>
-          <th>Hosting Fee*</th>
-          <th>Total Annual Fee*</th>
-        </tr>
-        <tr>
-          <td>24</td>
-          <td>See table below</td>
-          <td>$100</td>
-        </tr>
-        <tr>
-          <td>Taxes</td>
-          <td> </td>
-          <td>$0</td>
-        </tr>
-        <tr>
-          <td>Total</td>
-          <td> </td>
-          <td>$100</td>
-        </tr>
-      </table>
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_content">
+      <div class="row sensor-summary-info m-b-sm">
 
-      <label class="col-xs-12 pay-info" for="pay-info">
-        * Annual fee is subject to change based on number of handhelds.
-      </label>
+        <div class="col-md-12 invoice-header">
+          <h3><i class="fa fa-globe"></i> Invoice</h3>
 
-      <table id="pay-info" class="col-lg-6 col-sm-8 col-xs-12 payment-info">
-        <tr>
-          <th> # of sensors</th>
-          <th> Annual Fee</th>
-        </tr>
-        <tr>
-          <td>1-24</td>
-          <td>$100.00</td>
-        </tr>
-        <tr>
-          <td>25-49</td>
-          <td>$150.00</td>
-        </tr>
-        <tr>
-          <td>50-74</td>
-          <td>$200.00</td>
-        </tr>
-        <tr>
-          <td>75-99</td>
-          <td>$225.00</td>
-        </tr>
-        <tr>
-          <td>100+</td>
-          <td>Contact Factory</td>
-        </tr>
-      </table>
+          <button class="btn btn-primary" (click)="goBack()">
+            <i class="fa fa-chevron-left"></i> Back</button>
+        </div>
 
-      <div id="card-element" class="card-element col-sm-8 col-xs-12">
-        <!-- A Stripe Element will be inserted here. -->
+        <div class="ss-info-container  font-white">
+          <div class="col-sm-12 network-card">
+            <div class="customer-name">
+              Name Here
+              <!--{{customerData.name}}-->
+            </div>
+            <div class="customer-address"><!--{{customerData.address}}--> Address Here</div>
+            <div class="customer-contact-name">
+              <span class="usr-lbl">Contact Name:</span><!--{{customerData.contactName}}--> Contact Name Here</div>
+            <div class="customer-email">
+              <span class="usr-lbl">Email:</span>
+              <a href="#"><!--{{customerData.contactEmail}}--> Contact Email Here</a>,</div>
+            <div class="customer-phone">
+              <span>Phone:</span>
+              <a href="#">Contact Number here</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group form-submit">
-        <button type="submit" class="btn btn-success">Cancel</button>
-        <button type="submit" class="btn btn-success">Submit</button>
+
+
+
+      <form id="payment-form" class="payment-form" (ngSubmit)="routeToStripe()">
+
+        <!--<h4> Renewal Information </h4>-->
+        <div class="row">
+          <div class="col-xs-12 table">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th># of Sensors</th>
+                <th>Hosting Fee*</th>
+                <th>Total Annual Fee*</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{paymentData?.transactionInfo.numberOfSensor}}</td>
+                <td>See table below</td>
+                <td>${{paymentData?.transactionInfo.amount}}</td>
+              </tr>
+              <tr>
+                <td>Taxes</td>
+                <td></td>
+                <td>${{paymentData?.transactionInfo.tax}}</td>
+              </tr>
+              <tr>
+                <td><b>Total</b></td>
+                <td></td>
+                <td><b>${{paymentData?.transactionInfo.amount}}</b></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+          <!-- accepted payments column -->
+          <div class="col-xs-6">
+            <p class="lead">Payment Methods:</p>
+            <img src="../../assets/images/visa.png" alt="Visa">
+            <img src="../../assets/images/mastercard.png" alt="Mastercard">
+            <img src="../../assets/images/american-express.png" alt="American Express">
+            <!--<img src="../../assets/images/paypal.png" alt="Paypal">-->
+            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+            </p>
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-6">
+            <p class="lead">Hosting Fee</p>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th># of Sensors</th>
+                  <th>Annual Fee*</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="width:50%">1-24</td>
+                  <td>$100.00</td>
+                </tr>
+                <tr>
+                  <td>25-49</td>
+                  <td>$150.00</td>
+                </tr>
+                <tr>
+                  <td>50-74</td>
+                  <td>$200.00</td>
+                </tr>
+                <tr>
+                  <td>75-99</td>
+                  <td>$225</td>
+                </tr>
+                <tr>
+                  <td>
+                    100+
+                  </td>
+                  <td>
+                    Contact Factory
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+
+          </div>
+          <div class="col-lg-6 col-md-6 float-right">
+            <p>* Annual fee is subject to change based on number of handhelds.</p>
+          </div>
+        </div>
+
+
+        <div id="disclaimer" style="margin-top:10px; font-size: 1em">
+          <p><b>The execution of this software service agreement by Customer shall constitute Customer's acceptance of the
+            terms and conditions of this agreement.</b></p>
+
+          <input type="checkbox" id="agreement" name='acknowledgement' [(ngModel)]="acknowledgement" />
+          <label for="agreement" style="font-weight: normal">
+            I acknowledge that I have read and agree to the Terms and Conditions
+          </label>
+        </div>
+
+        <div class="row no-print">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <button type="submit" class="btn payment-button pull-right" [(disabled)]="!acknowledgement"> <i class="fa fa-credit-card"></i>Submit Payment</button>
+          </div>
+
+        </div>
+      </form>
       </div>
-    </form>
+    </div>
+    </div>
   </div>
 </app-layout>

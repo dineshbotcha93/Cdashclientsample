@@ -1,4 +1,10 @@
-import { Component, Injector, AfterContentInit, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  Injector,
+  AfterContentInit,
+  AfterViewInit,
+  ViewContainerRef
+} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -8,6 +14,8 @@ import { MapConstants } from '../shared/components/map/constants/map.constants';
 import {Router} from '@angular/router';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { TranslateService } from '@ngx-translate/core';
+import { AbstractDashboardBase } from './abstractDashboard.component';
+
 export interface tileDetail{
   count:string;
   status:string;
@@ -20,18 +28,24 @@ export interface tileDetail{
   providers: [DashboardService,MapService],
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements AfterViewInit, AfterContentInit {
+export class DashboardComponent extends AbstractDashboardBase implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
   private mapData = [];
   private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
   private loadedStatuses = false;
+  private showList = false;
+  private showMap = true;
+  private rows:Array<any>=['N/A'];
+
   constructor(
     private dashboardService: DashboardService,
     private mapService:MapService,
     private router:Router,
-    private translate: TranslateService){
+    private translate: TranslateService
+  ){
+    super();
 
     this.totalStatuses['alerts'] = {status:'Alerts',count:0,title:''};
     this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0,title:''};
@@ -39,6 +53,9 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
     this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0,title:''};
 
     dashboardService.getRealData().then((realResults)=>{
+
+      this.rows = [];
+
       realResults.forEach((rResult)=>{
         mapService.geoCode(rResult.title+rResult.city+rResult.country).then((geoCoded)=>{
           if(geoCoded.results[0]){
@@ -51,6 +68,13 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
         this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
         this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
+
+        this.rows.push({
+          title:rResult.title,
+          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city,
+          id:rResult.id,
+        });
+
       });
       return realResults;
     }).then((real) => {
@@ -84,5 +108,24 @@ export class DashboardComponent implements AfterViewInit, AfterContentInit {
   }
   gotoDetails(locationID){
     this.router.navigate(['dashboard/sensor-summary',locationID]);
+  }
+
+  gotoNotificationList(sensor) {
+  console.log(':::::::::goToNotificationList' , sensor);
+    this.router.navigate(['dashboard/notificationList',sensor.status]);
+  }
+
+  showListView() {
+    this.showList = true;
+    this.showMap = false;
+  }
+
+  showMapView() {
+    this.showMap = true;
+    this.showList = false;
+  }
+
+  onLocationSelect(selectedLocation) {
+    this.gotoDetails(selectedLocation.id);
   }
 }

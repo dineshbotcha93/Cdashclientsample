@@ -3,10 +3,9 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_title col-md-11 col-sm-11 col-xs-12">
         <h3>Account Details</h3>
+        <button class="btn btn-primary" (click)="goToPrevPage()">
+          <i class="fa fa-chevron-left"></i> Back</button>
         <div class="clearfix"></div>
-      </div>
-      <div class="col-md-1 col-sm-1 col-xs-12">
-        <input type="button" value="Back" (click)="goToPrevPage()" />
       </div>
     </div>
     <div class="customer-info-container">
@@ -50,7 +49,7 @@
             <div class="col-sm-4 sensor-count">Sensor
               <span>{{accountData?.numSensors}}</span>
             </div>
-            <div class="col-sm-4" style="left:75%">
+            <div class="col-sm-4 renewal-pos">
               <a class="btn btn-primary addBTN" role="button" href="/payments" style="color:#fff; text-decoration: none;">Renew Contract</a>
             </div>
           </div>
@@ -63,7 +62,7 @@
   <!-- <div *ngIf="loadPage === true"> -->
   <div class="tabs_container">
     <tabs>
-      <tab tabTitle="My Profile" class="tab-content">
+      <tab tabTitle="My Profile" class="tab-content font-white">
         <div class="row x_content">
           <div class="col-sm-12 sensors-info-container">
             <div *ngIf="loadPage === true">
@@ -130,9 +129,9 @@
                     </div>
                   </div>
                 </form>
-              </div>
             </div>
           </div>
+        </div>
         </div>
       </tab>
       <tab tabTitle="Users" class="tab-content light-theme">
@@ -170,11 +169,24 @@
           <div class="col-md-12 sensors-info-container">
             <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">
             </app-datatable>
+            <ng-template #prevRenewalDateColTmpl let-row="row" let-value="value">
+              <span>{{value | date:'MM-dd-yyyy'}}</span>
+            </ng-template>
+            <ng-template #newRenewalDateColTmpl let-row="row" let-value="value">
+                <span>{{value | date:'MM-dd-yyyy'}}</span>
+              </ng-template>
             <ng-template #invoiceColTmpl let-row="row" let-value="value">
               <span style="cursor:pointer">
-               <a href="value"> <i class="fa fa-download"></i></a>
+               <a href="{{value}}"> <i class="fa fa-download"></i></a>
               </span>
             </ng-template>
+          </div>
+        </div>
+      </tab>
+      <tab tabTitle="Notifications" class="tab-content light-theme">
+        <div class="row x_content">
+          <div class="col-md-12 sensors-info-container">
+           <app-user-notifications></app-user-notifications>
           </div>
         </div>
       </tab>
@@ -308,7 +320,7 @@
 </ng-template>
 
 <ng-template #notificationSectionTmpl>
-  <div class="form-horizontal" [formGroup]="userForm">
+  <div class="form-horizontal" [formGroup]="notificationForm">
     <div class="col-sm-12">
       <div class="col-sm-6">
         <div class="form-group">
@@ -374,10 +386,12 @@
       </div>
     </div>
   </div>
+  <p>Form value: {{ notificationForm.value | json }}</p>
 </ng-template>
 
 <ng-template #networkSectionTmpl>
-  <div class="col-sm-12">
+  <div class="row">
+  <div class="col-sm-12" style="height:200px; overflow-y:scroll;border:1px solid #ccc;">
     <div class="col-sm-6">
       <div class="form-group">
         <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
@@ -453,11 +467,14 @@
           <span class="chkbox-lbl">Network-11</span>
         </label>
       </div>
+    </div>
+    </div>
+  </div>
+  <div class="col-sm-12">
       <div class="form-group">
-        <div class="col-sm-push-9 col-sm-3">
+        <div class="col-sm-push-10 col-sm-2" style="margin-top:10px">
           <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save">
         </div>
       </div>
     </div>
-  </div>
 </ng-template>

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { UserCreateComponent } from './user-create.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule,Validators  } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap';
+
 
 const routes: Routes = [{
     path:'',
@@ -16,6 +18,7 @@ const routes: Routes = [{
   declarations: [UserCreateComponent],
   imports:[
     RouterModule.forChild(routes),
+    TooltipModule.forRoot(),
     ReactiveFormsModule,
     FormsModule
   ],

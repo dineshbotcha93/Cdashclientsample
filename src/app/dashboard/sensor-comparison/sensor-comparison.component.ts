@@ -4,7 +4,7 @@ import { SensorDetailsService } from '../sensor-details/services/sensor-details.
 import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
-import { ChartOptions } from './config/chart.config';
+import { ChartOptions, ChartColors } from '../chart.config';
 import { environment } from '../../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment/moment';
@@ -28,6 +28,7 @@ export class SensorComparisonComponent{
   private sensorNames:Array<Object> = [];
   private data:Array<any>=[];
   private chartLabels:Array<any>=[];
+  public chartColors: Array<any> = [ChartColors];
   private networkName:string = '';
   private location:number = 0;
   private chartOptions = null;
@@ -168,7 +169,7 @@ export class SensorComparisonComponent{
   }
 
   goBack(){
-    let networkId = localStorage.getItem("com.cdashboard.networkId");
+    let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
     this.router.navigate(['dashboard/sensor-summary',networkId]);
   }
 }

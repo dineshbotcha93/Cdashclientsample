@@ -26,3 +26,71 @@
     }
   }
 }
+
+
+// ------------------ \\
+// datatable styles   \\
+// ------------------ \\
+.ngx-datatable {
+  border: 1px solid $color-grey-light;
+}
+
+.datatable-body-row {
+  color: $color-black;
+}
+
+.datatable-header-cell {
+  font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $color-body-bg;
+  //font-weight: bold;
+}
+
+.datatable-footer {
+  background: $color-grey-light !important;
+
+  .datatable-pager {
+    a {
+      color: red;
+    }
+  }
+
+  .datatable-footer-inner {
+    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    color: $color-black;
+
+    .page-count {}
+
+    .datatable-pager {
+      ul, .pager {
+        li, li:not(.disabled), .pages:not(.disabled) {
+          a {
+            font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+            font-weight: bold;
+            background-color: $color-grey-light;
+            color: $color-black;
+            line-height: initial;
+            margin: 0 2px;
+          }
+
+          &:hover {
+            a {
+              background-color: $color-grey;
+              color: $color-white;
+              font-weight: bold;
+            }
+          }
+
+          &.active {
+            a {
+              background-color: $color-dataTable-hover;
+              color: $color-white;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+

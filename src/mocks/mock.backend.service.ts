@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {MockBackend, MockConnection} from "@angular/http/testing";
 import { SERVICE_CONSTANTS } from '../app/shared/constants/service.constants';
 import { SERVER_URLS } from '../app/shared/constants/serverUrl.constants';
+import { RequestMethod } from '@angular/http';
 import {
   ResponseOptions,
   RequestOptions,
@@ -140,7 +141,7 @@ export class MockBackendService {
         },(error)=>{
           c.mockError(new Error(error));
         });
-      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 1){
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Post){
         let headers = new Headers();
         headers.append('Content-Type','application/json');
 
@@ -156,7 +157,7 @@ export class MockBackendService {
         },(error)=>{
           c.mockError(new Error(error));
         });
-      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === 0){
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Get){
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         if(!!localStorage.getItem('com.cdashboard.token')){
@@ -165,6 +166,36 @@ export class MockBackendService {
         this.http = new Http(this.realBackend, this.options);
         let options = new RequestOptions({ headers: headers });
         this.http.get(c.request.url,options).subscribe((response)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(response.json())
+          })));
+        },(error)=>{
+          c.mockError(new Error(error));
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Put){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.put(c.request.url,c.request.getBody(),options).subscribe((response)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(response.json())
+          })));
+        },(error)=>{
+          c.mockError(new Error(error));
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Delete){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.delete(c.request.url,options).subscribe((response)=>{
           c.mockRespond(new Response(new ResponseOptions({
             body: JSON.stringify(response.json())
           })));

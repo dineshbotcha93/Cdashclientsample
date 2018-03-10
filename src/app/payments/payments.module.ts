@@ -4,12 +4,38 @@ import {Routes,RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ContainersModule } from '../shared/containers';
 import { CommonModule } from '@angular/common';
-import {SharedModule} from '../shared/modules/shared.module';
-import {ComponentsModule} from '../shared/components';
+import { SharedModule } from '../shared/modules/shared.module';
+import { ComponentsModule } from '../shared/components';
+import { AuthGuard } from '../shared/services/auth-guard.service';
+import { StripeModule } from './stripe/stripe.module';
+import { StripeComponent } from './stripe/stripe.component';
+import { PaymentSummaryModule } from './payments-summary/payment-summary.module';
+import { PaymentSummaryComponent} from './payments-summary/payment-summary.component';
 
 export const routes: Routes = [
-  { path:'payments', component: PaymentsComponent }
-]
+  {
+    path: 'payments',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: PaymentsComponent
+      },
+      {
+        path: 'confirm',
+        component: PaymentsComponent
+      },
+      {
+        path: 'confirm/:id',
+        component: StripeComponent
+      },
+      {
+        path: 'success',
+        component: PaymentSummaryComponent
+      }
+    ]
+  },
+];
 @NgModule({
   declarations: [
     PaymentsComponent
@@ -21,7 +47,9 @@ export const routes: Routes = [
     ComponentsModule,
     ContainersModule,
     FormsModule,
-    SharedModule
+    StripeModule,
+    SharedModule,
+    PaymentSummaryModule
   ]
 })
 export class PaymentsModule {

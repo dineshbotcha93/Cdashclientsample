@@ -1,62 +1,50 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-
-const stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+import { PaymentsService } from './services/payments.service';
+import {Router} from '@angular/router';
+import { CustomerDetailsService } from '../business/customer-details/services/customer-details.service';
+const stripe = Stripe('pk_test_rh7KqKZ2eaklfF1FO2WWURYX');
 
 @Component({
   selector: 'app-payments',
+  providers: [PaymentsService, CustomerDetailsService],
   styleUrls: ['./payments.component.scss'],
   templateUrl: './payments.component.html'
 })
 
 export class PaymentsComponent implements OnInit {
+  paymentData: Object;
+  customerData: Object = null;
+  acknowledgement = false;
+  transactionId: String = null;
 
-  cardNumber: string;
-  cardHolderName: string;
-  expiryMonth: string;
-  expiryYear: string;
-  cvc: string;
-  card: object;
-
-  constructor() {
+  constructor(private customerDetailsService: CustomerDetailsService, private paymentsService: PaymentsService, private router: Router) {
+    paymentsService.getPaymentData().then(function(data) {
+      this.paymentData = data;
+      this.transactionId = data.id;
+      this.paymentData.transactionInfo.amount = (data.transactionInfo.amount / 100).toFixed(2);
+      this.paymentData.transactionInfo.tax = (data.transactionInfo.tax / 100).toFixed(2);
+    }.bind(this));
   }
 
   ngOnInit()	{
 // Create an instance of Elements.
     const elements = stripe.elements();
-
-// Custom styling can be passed to options when creating an Element.
-// (Note that this demo uses a wider set of styles than the guide below.)
-    const style = {
-      base: {
-        color: '#32325d',
-        lineHeight: '18px',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: 'antialiased',
-        fontSize: '16px',
-        '::placeholder': {
-          color: '#aab7c4'
-        }
-      },
-      invalid: {
-        color: '#fa755a',
-        iconColor: '#fa755a'
-      }
-    };
-
-// Create an instance of the card Element.
-    const card = elements.create('card', {style: style});
-
-// Add an instance of the card Element into the `card-element` <div>.
-    card.mount('#card-element');
-    this.card = card;
+    this.getCustomerData();
   }
 
-  getToken() {
-    stripe.createToken(this.card, function(err, token) {
-      console.log('error is', err);
-      console.log('token is', token);
+  private getCustomerData() {
+    this.customerDetailsService.getRealData('user2').then((result) => {
+      this.customerData = result.customer;
     });
-    alert(`Token is working for ${this.cardNumber} ${this.cardHolderName}`);
+  }
+
+  routeToStripe() {
+    this.router.navigate(['payments/confirm/' + this.transactionId]);
+  }
+
+  goBack() {
+    this.router.navigate(['user-profile']);
+
   }
 
 }

@@ -4,6 +4,7 @@ import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
 import { SERVER_URLS } from '../../../shared/constants/serverUrl.constants';
 // import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class SensorSummaryService {
@@ -83,10 +84,20 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
-  /* Remove  the gateway details*/
+  deleteGateway(id){
+    return this.requesterService
+    .deleteExternalRequest('/api/Gateway/Remove/'+id);
+  }
+
+  /* Remove  the sensor details*/
   removeSensorDetails(sensorObj:Array<any>){
     /*Place a mock call and return response*/
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+  }
+
+  deleteSensor(id){
+    return this.requesterService
+    .deleteExternalRequest('/api/Sensor/Remove/'+id);
   }
 
    /* Move  the gateway details*/
@@ -95,10 +106,35 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
   }
 
+  moveGateway(GatewayID,NetworkID,CheckDigit){
+    return this.requesterService
+    .putExternalRequest(`/api/Gateway/Assign/${GatewayID}/${NetworkID}/${CheckDigit}`,{});
+  }
+
+
+
   /* Move  the gateway details*/
   moveGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/
     return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
+  getSentNotificationsDetails(requestObject:any){
+    // let URL = '/api/Notification/SentToNetwork?StartIndex=1&Count=100&FromDate='+requestObject.fromDate+'&ToDate='+requestObject.toDate;
+    let URL = '/api/Notification/SentToSensor?StartIndex=1&Count=100&FromDate='+requestObject.fromDate+'&ToDate='+requestObject.toDate;
+    return this.requesterService
+    .getExternalRequest(URL);
+  }
+
+  getNotificationSettingsDetails(networkId:string){
+    return this.requesterService
+    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID='+networkId);
+  }
+
+  updateNotificationActiveState(requestObject:any){
+    console.log(requestObject);
+    let URL = '/api/Notification/ToggleNotification?NotificationID='+requestObject.NotificationID+'&On='+requestObject.On;
+    return this.requesterService
+    .putExternalRequest(URL,{});
+  }
 }
