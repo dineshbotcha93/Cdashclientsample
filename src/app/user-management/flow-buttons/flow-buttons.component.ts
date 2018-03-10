@@ -1,4 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Output,
+  Input,
+  EventEmitter } from '@angular/core';
 
 @Component({
   selector:'user-flow-buttons',
@@ -9,6 +13,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class FlowButtonsComponent {
   @Output() onPreviousEmitter: EventEmitter<any> = new EventEmitter();
   @Output() onNextEmitter: EventEmitter<any> = new EventEmitter();
+  @Input() previousShow: boolean;
+  @Input() nextShow: boolean;
 
   onPrevious($event){
     this.onPreviousEmitter.emit("clicked");
@@ -17,4 +23,5 @@ export class FlowButtonsComponent {
   onNext($event){
     this.onNextEmitter.emit("clicked");
   }
+
 }

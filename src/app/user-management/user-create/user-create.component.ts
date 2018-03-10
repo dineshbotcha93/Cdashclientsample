@@ -26,7 +26,9 @@ userRegisterModel:  UserManagementForm = {
 	lastName:'',
 	password:'',
 	confirmPassword:'',
-	isNewMaster: true
+	isNewMaster: "true",
+	notifEyeUsername: '',
+	notifEyePassword: ''
 	};
 isNewUserRegistered : boolean = false;
 userCreateForm: FormGroup;
@@ -68,5 +70,11 @@ constructor(private route:ActivatedRoute,
 
 	onNext($event){
 		console.log("not implemented yet");
+	}
+
+	masterChange($event){
+		if(!this.userRegisterModel.isNewMaster){
+
+		}
 	}
 }
