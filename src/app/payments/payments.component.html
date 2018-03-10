@@ -1,7 +1,9 @@
 <app-layout>
   <div class="row">
-
-    <div class="col-md-12">
+    <!--<div *ngIf="paymentDataError !== null" class="col-md-12">
+      <span>Unfortunately, we cannot present your Payment Data at this point of time. Please try again later</span>
+    </div>-->
+    <div  class="col-md-12">
       <div class="x_panel">
         <div class="x_content">
       <div class="row sensor-summary-info m-b-sm">
@@ -16,25 +18,24 @@
         <div class="ss-info-container  font-white">
           <div class="col-sm-12 network-card">
             <div class="customer-name">
-              Name Here
-              <!--{{customerData.name}}-->
+              Customer Name : {{paymentData?.transactionInfo.accountName}}
             </div>
-            <div class="customer-address"><!--{{customerData.address}}--> Address Here</div>
+            <div class="customer-address">
+              Address : {{paymentData?.transactionInfo.address}}
+            </div>
             <div class="customer-contact-name">
-              <span class="usr-lbl">Contact Name:</span><!--{{customerData.contactName}}--> Contact Name Here</div>
+              <span class="usr-lbl">Contact Name:</span> {{paymentData?.transactionInfo.primaryUserName}}</div>
             <div class="customer-email">
               <span class="usr-lbl">Email:</span>
-              <a href="#"><!--{{customerData.contactEmail}}--> Contact Email Here</a>,</div>
+              <span>{{paymentData?.transactionInfo.email}}</span>
+            </div>
             <div class="customer-phone">
               <span>Phone:</span>
-              <a href="#">Contact Number here</a>
+              <span>{{paymentData?.transactionInfo.phone}}</span>
             </div>
           </div>
         </div>
       </div>
-
-
-
 
       <form id="payment-form" class="payment-form" (ngSubmit)="routeToStripe()">
 
@@ -63,7 +64,7 @@
               <tr>
                 <td><b>Total</b></td>
                 <td></td>
-                <td><b>${{paymentData?.transactionInfo.amount}}</b></td>
+                <td><b>${{paymentData?.transactionInfo.total}}</b></td>
               </tr>
               </tbody>
             </table>
@@ -75,18 +76,18 @@
 
         <div class="row">
           <!-- accepted payments column -->
-          <div class="col-xs-6">
+          <div class="col-md-6 col-xs-12">
             <p class="lead">Payment Methods:</p>
             <img src="../../assets/images/visa.png" alt="Visa">
             <img src="../../assets/images/mastercard.png" alt="Mastercard">
             <img src="../../assets/images/american-express.png" alt="American Express">
             <!--<img src="../../assets/images/paypal.png" alt="Paypal">-->
-            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px; padding-bottom: 20px;">
+              <app-stripe></app-stripe>
             </p>
           </div>
           <!-- /.col -->
-          <div class="col-xs-6">
+          <div class="col-md-6 col-xs-12">
             <p class="lead">Hosting Fee</p>
             <div class="table-responsive">
               <table class="table">
@@ -137,7 +138,7 @@
         </div>
 
 
-        <div id="disclaimer" style="margin-top:10px; font-size: 1em">
+        <!--<div id="disclaimer" style="margin-top:10px; font-size: 1em">
           <p><b>The execution of this software service agreement by Customer shall constitute Customer's acceptance of the
             terms and conditions of this agreement.</b></p>
 
@@ -145,7 +146,7 @@
           <label for="agreement" style="font-weight: normal">
             I acknowledge that I have read and agree to the Terms and Conditions
           </label>
-        </div>
+        </div>-->
 
         <div class="row no-print">
           <div class="col-lg-12 col-md-12 col-sm-12">

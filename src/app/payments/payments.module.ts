@@ -38,7 +38,8 @@ export const routes: Routes = [
 ];
 @NgModule({
   declarations: [
-    PaymentsComponent
+    PaymentsComponent,
+    StripeComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
