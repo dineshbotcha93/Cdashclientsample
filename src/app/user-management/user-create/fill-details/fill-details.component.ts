@@ -18,7 +18,7 @@ export class FillDetailsComponent {
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
   constructor(private fillDetailsService: FillDetailsService, private router: Router){
-    this.selectedStep = 3;
+    this.selectedStep = 2;
     this.fillDetailsService.getIndustries().subscribe((e)=>{
       e.forEach((res)=>{
         res.forEach((r)=>{

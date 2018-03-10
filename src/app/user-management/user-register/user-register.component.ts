@@ -16,19 +16,19 @@ export class UserRegisterComponent implements OnInit {
     lastName:'',
     password:'',
     confirmPassword:'',
-    isNewMaster:false
+    isNewMaster: "false",
+  	notifEyeUsername: '',
+  	notifEyePassword: ''
   };
   showPopup = false;
 
   isEmailVerified : boolean = false;
-  selectedStep: number;
   constructor(
     private userManagementService : UserManagementService,
     private router:Router,
     private translate: TranslateService
   ) {
     this.translate.use('en');
-    this.selectedStep = 1;
   }
 
   modalClosed(event) {
