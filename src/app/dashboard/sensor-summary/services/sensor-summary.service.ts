@@ -106,8 +106,8 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
   }
 
-  moveGateway(GatewayID,NetworkID,CheckDigit){
-     const URL = '/api/Sensor/'+GatewayID+'/AssignTo?NetworkID='+NetworkID;
+  moveGateway(deviceId,networkID,checkDigit,deviceType){
+     const URL = '/api/'+deviceType+'/'+deviceId+'/AssignTo?NetworkID='+networkID;
      // +'/CheckDigit='+CheckDigit;
     console.log('URL----',URL);
      return this.requesterService

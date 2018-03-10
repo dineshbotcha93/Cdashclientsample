@@ -576,7 +576,7 @@ export class SensorSummaryComponent implements OnInit {
 
     let tempObj: any = [];
     let selectedCheckedData: any = [];
-
+    const deviceType = this.radioModel === 'gateway' ? 'Gateway' : 'Sensor';
     console.log('gatewaydata--or sensor to move--->',gatewaydata);
     console.log('this.netWorkIdToMove to move ',this.netWorkIdToMove);
     console.log('Initial network-->',this.selectLocation);
@@ -593,7 +593,7 @@ export class SensorSummaryComponent implements OnInit {
      console.log('Ids to move  network-->',selectedCheckedData);
      selectedCheckedData.forEach((scd)=>{
       console.log(scd);
-      this.sensorSummaryService.moveGateway(scd,this.netWorkIdToMove,1).then((e)=>{
+      this.sensorSummaryService.moveGateway(scd,this.netWorkIdToMove,1,deviceType).then((e)=>{
         console.log(e);
       });
     });
