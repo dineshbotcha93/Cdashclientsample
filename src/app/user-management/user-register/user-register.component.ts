@@ -16,7 +16,9 @@ export class UserRegisterComponent implements OnInit {
     lastName:'',
     password:'',
     confirmPassword:'',
-    isNewMaster:false
+    isNewMaster: "false",
+  	notifEyeUsername: '',
+  	notifEyePassword: ''
   };
   showPopup = false;
 

@@ -1,3 +1,6 @@
+<user-flow-component
+[selected]="selectedStep">
+</user-flow-component>
 <div class="login_wrapper" style="max-width:600px;">
   <div class="form login_form">
     <section class="login_content">
@@ -6,11 +9,12 @@
 
       <!--<h1 class="login-title">Registration Form</h1>-->
       <div class="form-group" >
-      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="true"> New Master Account User
+      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="true" (change)="masterChange($event)" checked="checked"> New Master Account User
       </div>
       <div class="form-group" >
-      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="false"> Link Existing NotifEye Account
+      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="false" (change)="masterChange($event)"> Link Existing NotifEye Account
       </div>
+      <div *ngIf="userRegisterModel.isNewMaster=='true'">
       <div class="form-group" >
         <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.firstName" required placeholder="First Name"/>
       </div>
@@ -20,11 +24,20 @@
       <div class="form-group" >
         <input type="email" class="form-control" name="email"  value="{{userRegisterModel.email}}" readonly="true" placeholder="Email"/>
       </div>
+    </div>
       <div class="form-group" >
         <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.password" required placeholder="Password"/>
       </div>
       <div class="form-group" >
         <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.confirmPassword" required placeholder="Confirm Pasword"/>
+      </div>
+      <div *ngIf="userRegisterModel.isNewMaster=='false'">
+        <div class="form-group" >
+          <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.notifEyeUsername" required placeholder="NotifEye Username"/>
+        </div>
+        <div class="form-group" >
+          <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.notifEyePassword" required placeholder="NotifEye Password"/>
+        </div>
       </div>
       <div class="form-group">
         <div class="clearfix"></div>
@@ -33,6 +46,12 @@
       </div>
     </form>
     </section>
+    <user-flow-buttons
+    (onPreviousEmitter)="onPrevious($event)"
+    (onNextEmitter)="onNext($event)"
+    [previousShow]="false"
+    [nextShow]="true">
+    </user-flow-buttons>
   </div>
 </div>
 <ng-template #tooltipTempate>
