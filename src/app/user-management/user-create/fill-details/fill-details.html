@@ -77,7 +77,9 @@
     </section>
     <user-flow-buttons
     (onPreviousEmitter)="onPrevious($event)"
-    (onNextEmitter)="onNext($event)">
+    (onNextEmitter)="onNext($event)"
+    [previousShow]="true"
+    [nextShow]="true">
     </user-flow-buttons>
   </div>
 </div>
