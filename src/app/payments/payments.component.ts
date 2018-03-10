@@ -42,4 +42,9 @@ export class PaymentsComponent implements OnInit {
     this.router.navigate(['payments/confirm/' + this.transactionId]);
   }
 
+  goBack() {
+    this.router.navigate(['user-profile']);
+
+  }
+
 }

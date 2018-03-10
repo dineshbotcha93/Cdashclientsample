@@ -26,10 +26,13 @@ userRegisterModel:  UserManagementForm = {
 	lastName:'',
 	password:'',
 	confirmPassword:'',
-	isNewMaster: true
+	isNewMaster: "true",
+	notifEyeUsername: '',
+	notifEyePassword: ''
 	};
 isNewUserRegistered : boolean = false;
 userCreateForm: FormGroup;
+selectedStep: number;
 constructor(private route:ActivatedRoute,
 			private router:Router,
 			private formBuilder: FormBuilder,
@@ -43,6 +46,7 @@ constructor(private route:ActivatedRoute,
 					password:['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]]
 
 				});
+				this.selectedStep = 1;
 			}
 
 	ngOnInit() {
@@ -57,5 +61,20 @@ constructor(private route:ActivatedRoute,
 		this.isNewUserRegistered = this.userManagementService.userRegistration(this.userRegisterModel);
 		//this.router.navigate(['/login']);
 		this.router.navigate(['/user-register/user-create/'+this.userRegisterModel.email+"/fill-details"]);
+	}
+
+	onPrevious($event){
+		console.log($event);
+		this.router.navigate(['user-register']);
+	}
+
+	onNext($event){
+		console.log("not implemented yet");
+	}
+
+	masterChange($event){
+		if(!this.userRegisterModel.isNewMaster){
+
+		}
 	}
 }
