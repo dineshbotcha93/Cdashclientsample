@@ -44,7 +44,7 @@ constructor(private route:ActivatedRoute,
 					password:['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]]
 
 				});
-				this.selectedStep = 2;
+				this.selectedStep = 1;
 			}
 
 	ngOnInit() {
