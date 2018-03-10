@@ -9,8 +9,7 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 import {Location} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
-import {UserProfile} from './user-profile';
-import { Url } from 'url';
+import {UserProfile} from './user.module';
 
 export interface RenewalData {
   //sno: string;
@@ -65,6 +64,8 @@ export class UserProfileComponent implements OnInit {
   @ViewChild('isAdminColTmpl') isAdminColTmpl: TemplateRef<any>;
   @ViewChild('notificationColTmpl') notificationColTmpl: TemplateRef<any>;
   @ViewChild('invoiceColTmpl') invoiceColTmpl: TemplateRef<any>;
+  @ViewChild('prevRenewalDateColTmpl') prevRenewalDateColTmpl: TemplateRef<any>;
+  @ViewChild('newRenewalDateColTmpl') newRenewalDateColTmpl: TemplateRef<any>;
   private responseData: Object = null;
   private accountData: Array<AccountData> = null;
   private userRows: Array<UserData> = null;
@@ -87,17 +88,18 @@ export class UserProfileComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-   // notification: new FormBuilder().group({
-      emailAddress: new FormControl('', Validators.required),
-      admin: new FormControl(''),
-      directSMS: new FormControl(''),
-      smsNumber: new FormControl(''),
-      recievesMaintenanceByEmail: new FormControl(''),
-      recievesMaintenanceByPhone: new FormControl('')},
-   // }),
- { validator: this.checkIfPasswordsMismatch('password', 'confirmPassword')}
-);
-  private user = new UserProfile();
+    admin: new FormControl(''),
+   //{ validator: this.checkIfPasswordsMismatch('password', 'confirmPassword')}
+  });
+  notificationForm = this.fb.group ({
+  emailAddress: new FormControl('', Validators.required),
+  directSMS: new FormControl(''),
+  smsNumber: new FormControl(''),
+  recievesMaintenanceByEmail: new FormControl(''),
+  recievesMaintenanceByPhone: new FormControl(''),
+});
+  private user = new UserProfile.User();
+  private notification = new UserProfile.Notification();
 
   constructor(private userProfileService: UserProfileService,
   private _location: Location, private ele: ElementRef, private fb: FormBuilder) {
@@ -117,7 +119,7 @@ export class UserProfileComponent implements OnInit {
    });
 
    this.userProfileService.getRealData().then(response => {
-      console.log(response);
+      //console.log(response);
       this.responseData = response;
       this.accountData = response.account[0];
       this.expiryDate = new Date(response.account.subscriptionExpiry);
@@ -127,7 +129,7 @@ export class UserProfileComponent implements OnInit {
   }
   private getRenewalData() {
     this.userProfileService.getRenewalData().then(response => {
-           console.log(response);
+          // console.log(response);
            this.renewalRows = response;
            this.loadPage = true;
     });
@@ -141,8 +143,8 @@ export class UserProfileComponent implements OnInit {
   private prepareRenewalColumns() {
    // this.renewalColumns.push({ prop: 'sno', name: 'Sr.No'});
    // this.renewalColumns.push({ prop: 'expiryDate', name: 'Change Date' });
-    this.renewalColumns.push({ prop: 'oldRenewalDate', name: 'Previous Renewal Date'});
-    this.renewalColumns.push({ prop: 'newRenewalDate', name: 'New Renewal Date'});
+    this.renewalColumns.push({ prop: 'oldRenewalDate', name: 'Previous Renewal Date', cellTemplate: this.prevRenewalDateColTmpl});
+    this.renewalColumns.push({ prop: 'newRenewalDate', name: 'New Renewal Date', cellTemplate: this.newRenewalDateColTmpl});
     this.renewalColumns.push({ prop: 'invoiceDownloadLink', name: 'Invoice', cellTemplate: this.invoiceColTmpl});
   }
 
@@ -176,10 +178,10 @@ export class UserProfileComponent implements OnInit {
 
   navigateToNotifSection() {
     if (this.userForm.invalid) {
-     //return;
+     return;
     }
     this.user = this.userForm.value;
-    console.log(this.user);
+    //console.log(this.user);
     this.isUserContentCollapsed = true;
     this.isNotifContentCollapsed  = false;
     this.isNotifBtn = true;
