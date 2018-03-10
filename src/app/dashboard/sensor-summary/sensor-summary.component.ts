@@ -381,6 +381,7 @@ export class SensorSummaryComponent implements OnInit {
         });
       }
     } else if (this.radioModel === 'sensor') {
+      
       this.selectedSensor = Object.assign({}, this.allSensors);
       let selectedRemoveData = this.getSelectedRowDetailsToRemove();
 
