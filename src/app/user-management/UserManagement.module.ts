@@ -7,7 +7,8 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import {ComponentsModule}  from '../shared/components';
 import { SharedModule } from '../shared/modules/shared.module';
-
+import { FlowDisplayModule } from './flow-display/flow-display.module';
+import { FlowButtonsModule } from './flow-buttons/flow-buttons.module';
 const routes: Routes = [
 {
   path:'',
@@ -23,7 +24,7 @@ const routes: Routes = [
 @NgModule({
   declarations:[
     UserRegisterComponent,
-    UserUpdateComponent,
+    UserUpdateComponent
   ],
   providers:[
     UserManagementService
@@ -34,7 +35,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    FlowDisplayModule
   ],
   exports:[
     RouterModule

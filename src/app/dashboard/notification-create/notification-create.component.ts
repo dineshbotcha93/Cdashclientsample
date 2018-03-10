@@ -1,31 +1,31 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NotificationModel } from '../../shared/models/NotificationModel';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { NotificationModel } from "../../shared/models/NotificationModel";
 
-import { IMultiSelectOption,IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+import {
+  IMultiSelectOption,
+  IMultiSelectSettings
+} from "angular-2-dropdown-multiselect";
 
 @Component({
-  selector: 'app-notification-create',
-  templateUrl: './notification-create.component.html',
-  styleUrls: ['./notification-create.component.scss']
+  selector: "app-notification-create",
+  templateUrl: "./notification-create.component.html",
+  styleUrls: ["./notification-create.component.scss"]
 })
 export class NotificationCreateComponent implements OnInit {
-
   subNotificationTypes: any = [];
   isReadingTypeAvailable: boolean = false;
-  
-  
+
   isSensorNotificationForm1: boolean = false;
   isSensorNotificationForm2: boolean = false;
   isSensorNotificationForm3: boolean = false;
   isSensorNotificationForm4: boolean = false;
   isSensorNotificationForm5: boolean = false;
-  
+
   isButtonFooterRequired: boolean = false;
   isPreviousButtonRequired: boolean = false;
   isNextButtonRequired: boolean = true;
 
-
-  currentPageValue: string = 'page1';
+  currentPageValue: string = "page1";
   isLessThanValue: any = [];
   tempTypeValue: any = [];
   selectIsLessThanValue: any = [];
@@ -41,11 +41,12 @@ export class NotificationCreateComponent implements OnInit {
 
   scheduleObj: any = [];
 
-  @Input() allSensors: Array<any>;
-  @Input() gateWayData: Array<any>;
+  @Input() sensorList: Array<any>;
+  @Input() gatewayList: Array<any>;
+  @Input() notifyOperationType: string;
+  @Input() editNotifyObject: any;
 
   @Output() createMessageEvent = new EventEmitter<boolean>();
-
 
   notificationModel: NotificationModel;
   sensorOptionsModel: number[];
@@ -57,202 +58,262 @@ export class NotificationCreateComponent implements OnInit {
 
   mySettings: IMultiSelectSettings = {
     enableSearch: false,
-    checkedStyle: 'fontawesome',
-    buttonClasses: 'btn btn-default btn-block',
+    checkedStyle: "fontawesome",
+    buttonClasses: "btn btn-default btn-block",
     dynamicTitleMaxItems: 2,
     displayAllSelectedText: true
   };
-  
+
   selectSubNotificationList: any = [];
-  selectTempCompareList:any = [];
-  selectTempTypeList:any = [];
+  selectTempCompareList: any = [];
+  selectTempTypeList: any = [];
 
-  constructor() { }
+  // isComponentToCreate:string = 'addNotify';
+
+  constructor() {}
+
+  setEditNotifyDetails() {
+    if (this.notifyOperationType === "editNotify" ||  this.notifyOperationType === "addNotify" ) {
+      console.log("before editing ", this.editNotifyObject);
+      let tempObject : any;
+      // tempObject = this.sensorList;
+
+      console.log("before editing ", this.sensorList[0]);
+
+      tempObject = this.notifyOperationType === "editNotify" ? this.editNotifyObject : this.sensorList[0];
+       console.log("after editing ", tempObject);
+
+      if(this.notifyOperationType === "editNotify"){
+
+            let notify = tempObject.notification;
+            this.notificationModel.strNotificationName = notify.name;
+            this.notificationModel.strNotificationText = notify.text;
+            this.notificationModel.strSnoozeAlertValue = notify.snooze;
+            this.notificationModel.isNotificationActive = notify.active;
+      }
+
+      //user setting
+      let userTempObj = [];
+      let userSelectedObject = [];
 
 
+
+      tempObject.users.forEach(user => {
+        let tempObj: any = [];
+        (tempObj.id = user.userName), (tempObj.name = user.userName);
+        userTempObj.push(tempObj);
+        userSelectedObject.push(tempObj.id);
+      });
+
+      this.myUserOptions = [];
+      this.myUserOptions = userTempObj;
+      this.userOptionsModel = userSelectedObject;
+
+      //sensor setting
+
+      let sensorObj = [];
+      let sensorModel = [];
+      let gatewayModel = [];
+      let gatewayObj = [];
+
+     tempObject.devices.forEach(device => {
+        let tempObj: any = [];
+        (tempObj.id = device.deviceID), (tempObj.name = device.deviceName);
+        if (device.deviceCategory === "Sensor") {
+           sensorObj.push(tempObj);
+           sensorModel.push(device.deviceID);
+        } else {
+          gatewayObj.push(tempObj);
+           gatewayModel.push(device.deviceID);
+        }
+      });
+
+      this.sensorOptionsModel = sensorModel;
+      this.gatewayOptionsModel = gatewayModel;
+      // this.mySensorOptions = [];
+      // this.myGatewayOptions = [];
+       this.mySensorOptions = sensorObj;
+      this.myGatewayOptions = gatewayObj;
+
+      this.isSensorNotificationForm1 = true;
+      this.isButtonFooterRequired = true;
+    }
+  }
 
   setInitialModelValues() {
-
     this.notificationModel = {
-
-      selectSubNotificationList: '',
-      strNotificationName: '',
-      strNotificationText: '',
+      selectSubNotificationList: "",
+      strNotificationName: "",
+      strNotificationText: "",
       selectTempCompareList: [],
       selectTempTypeList: [],
       scheduleNotificationCheck: { left: true, right: false },
-      strSnoozeAlertValue: '',
+      strSnoozeAlertValue: "",
       scheduleSnoozeCheck: { left: true, right: false },
       isNotificationActive: true,
 
-      strLowBatteryNotifyValue: '',
-      strInactivePeriodValue: '',
+      strLowBatteryNotifyValue: "",
+      strInactivePeriodValue: "",
 
-      strAfterAlertValue: '',
-      strTimeFrameValue: '',
-      strMessageCountValue: '',
-      strAfterNotifyValue: '',
-      strLowerTempHumidiftyValue: '',
-      strHigherTempHumidiftyValue: '',
+      strAfterAlertValue: "",
+      strTimeFrameValue: "",
+      strMessageCountValue: "",
+      strAfterNotifyValue: "",
+      strLowerTempHumidiftyValue: "",
+      strHigherTempHumidiftyValue: "",
       selectNotifyMagnetList: [],
 
       scheduleInlineNotifyCheck: { left: true, right: false },
-      notificationTemplate:''
+      notificationTemplate: ""
     };
-
-    
-
   }
 
   ngOnInit() {
-
     this.setInitialModelValues();
 
     this.isReadingTypeAvailable = false;
 
     let Obj = [
       {
-        id: '01',
-        value: 'LessThan'
-      }, {
-        id: '02',
-        value: 'greaterThan'
+        id: "01",
+        value: "LessThan"
+      },
+      {
+        id: "02",
+        value: "greaterThan"
       }
     ];
-
 
     this.selectTempCompareList = Obj;
 
     let Obj2 = [
       {
-        id: '01',
-        value: 'Celcius'
-      }, {
-        id: '02',
-        value: 'Fahrenheit'
+        id: "01",
+        value: "Celcius"
+      },
+      {
+        id: "02",
+        value: "Fahrenheit"
       }
-
     ];
 
     this.selectTempTypeList = Obj2;
 
     let tempObject3 = [
       {
-        id: '01',
-        value: 'All Day'
-      }, {
-        id: '02',
-        value: 'Off'
-      }, {
-        id: '03',
-        value: 'Between'
-      }, {
-        id: '04',
-        value: 'Between and After'
-      }, {
-        id: '05',
-        value: 'Before'
-      }, {
-        id: '06',
-        value: 'After'
+        id: "01",
+        value: "All Day"
+      },
+      {
+        id: "02",
+        value: "Off"
+      },
+      {
+        id: "03",
+        value: "Between"
+      },
+      {
+        id: "04",
+        value: "Between and After"
+      },
+      {
+        id: "05",
+        value: "Before"
+      },
+      {
+        id: "06",
+        value: "After"
       }
-
     ];
 
     this.scheduleObj = [
       {
-        day: 'Monday',
-        value: 'monday',
+        day: "Monday",
+        value: "monday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
       },
       {
-        day: 'Tuesday',
-        value: 'tuesday',
+        day: "Tuesday",
+        value: "tuesday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
       },
       {
-        day: 'Wednesday',
-        value: 'wednesday',
+        day: "Wednesday",
+        value: "wednesday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
       },
       {
-        day: 'Thursday',
-        value: 'thursday',
+        day: "Thursday",
+        value: "thursday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
       },
       {
-        day: 'Friday',
-        value: 'friday',
+        day: "Friday",
+        value: "friday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
       },
       {
-        day: 'Saturday',
-        value: 'saturday',
+        day: "Saturday",
+        value: "saturday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
-      }, {
-        day: 'Sunday',
-        value: 'sunday',
+      },
+      {
+        day: "Sunday",
+        value: "sunday",
         scheduleObj: tempObject3,
         timePickerBefore: this.timePickerBefore,
         timePickerAfter: this.timePickerAfter
       }
     ];
 
-
-
     this.dailySheduleNotificationList = [];
-
 
     let Obj3 = [
       {
-        id: '01',
-        value: 'Closed'
-      }, {
-        id: '02',
-        value: 'Open'
+        id: "01",
+        value: "Closed"
+      },
+      {
+        id: "02",
+        value: "Open"
       }
     ];
 
     this.notificationModel.selectNotifyMagnetList = Obj3;
 
-    let sensorObj = [];
+    // let sensorObj = [];
 
-    this.allSensors.forEach((sensor) => {
-      let tempObj: any = [];
-      tempObj.id = sensor.sensorID,
-        tempObj.name = sensor.sensorName
+    // this.sensorList.forEach(sensor => {
+    //   let tempObj: any = [];
+    //   (tempObj.id = sensor.sensorID), (tempObj.name = sensor.sensorName);
 
-      sensorObj.push(tempObj);
+    //   sensorObj.push(tempObj);
+    // });
 
-    });
+    // this.mySensorOptions = sensorObj;
 
-    this.mySensorOptions = sensorObj;
+    // sensorObj = [];
 
-    sensorObj = [];
+    // this.gatewayList.forEach(gateway => {
+    //   let tempObj: any = [];
+    //   (tempObj.id = gateway.gatewayID), (tempObj.name = gateway.name);
 
-    this.gateWayData.forEach((gateway) => {
-      let tempObj: any = [];
-      tempObj.id = gateway.gatewayID,
-      tempObj.name = gateway.name
+    //   sensorObj.push(tempObj);
+    // });
 
-      sensorObj.push(tempObj);
-
-    });
-
-    this.myGatewayOptions = sensorObj;
-
+    // this.myGatewayOptions = sensorObj;
 
     // userList
 
@@ -507,23 +568,22 @@ export class NotificationCreateComponent implements OnInit {
 
     userObj = userResponseObj.AccountUserList;
 
-    userObj.forEach((user) => {
+    userObj.forEach(user => {
       let tempObj: any = [];
 
-        tempObj.id = user.Name,
-        tempObj.name = user.Name
+      (tempObj.id = user.Name), (tempObj.name = user.Name);
 
       userTempObj.push(tempObj);
-
     });
 
     this.myUserOptions = userTempObj;
 
+    this.setEditNotifyDetails();
   }
 
-  onChangeSensorSelect(e) { }
-  onChangeGatewaySelect(e) { }
-  onChangeUserSelect(e) { }
+  onChangeSensorSelect(e) {}
+  onChangeGatewaySelect(e) {}
+  onChangeUserSelect(e) {}
   onClickSensorNotify() {
     this.isReadingTypeAvailable = true;
 
@@ -532,16 +592,16 @@ export class NotificationCreateComponent implements OnInit {
 
     this.isButtonFooterRequired = false;
 
-    this.notificationModel.notificationTemplate = 'sensorNotification';
-    
+    this.notificationModel.notificationTemplate = "sensorNotification";
+
     let Obj = [
       {
-        id: '01',
-        value: 'Please Select One'
+        id: "01",
+        value: "Please Select One"
       },
       {
-        id: '02',
-        value: 'Temperature'
+        id: "02",
+        value: "Temperature"
       }
     ];
 
@@ -552,79 +612,77 @@ export class NotificationCreateComponent implements OnInit {
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm1 = false;
     this.isButtonFooterRequired = false;
-    this.notificationModel.notificationTemplate = 'advancedNotification';
+    this.notificationModel.notificationTemplate = "advancedNotification";
 
-    console.log('onClickSensorNotify');
+    console.log("onClickSensorNotify");
     let Obj = [
       {
-        id: '01',
-        value: 'Please Select One'
+        id: "01",
+        value: "Please Select One"
       },
       {
-        id: '02',
-        value: 'Notify after aware period'
+        id: "02",
+        value: "Notify after aware period"
       },
       {
-        id: '03',
-        value: 'Back Online'
+        id: "03",
+        value: "Back Online"
       },
       {
-        id: '04',
-        value: 'Battery Below 10'
+        id: "04",
+        value: "Battery Below 10"
       },
       {
-        id: '05',
-        value: 'Gateway On Battery'
+        id: "05",
+        value: "Gateway On Battery"
       },
       {
-        id: '06',
-        value: 'Frequent Aware Messages'
+        id: "06",
+        value: "Frequent Aware Messages"
       },
       {
-        id: '07',
-        value: 'First Aware Message'
+        id: "07",
+        value: "First Aware Message"
       },
       {
-        id: '08',
-        value: 'First Non-Aware Message'
+        id: "08",
+        value: "First Non-Aware Message"
       },
       {
-        id: '09',
-        value: 'Aware State Changed'
+        id: "09",
+        value: "Aware State Changed"
       },
       {
-        id: '10',
-        value: 'Gateway Switched to Line Power'
+        id: "10",
+        value: "Gateway Switched to Line Power"
       },
       {
-        id: '11',
-        value: 'Notify after not aware period'
+        id: "11",
+        value: "Notify after not aware period"
       },
       {
-        id: '12',
-        value: 'Advanced Temperature Range'
+        id: "12",
+        value: "Advanced Temperature Range"
       },
       {
-        id: '13',
-        value: 'Advanced Humidity'
+        id: "13",
+        value: "Advanced Humidity"
       },
       {
-        id: '14',
-        value: 'Advanced Open / Closed'
+        id: "14",
+        value: "Advanced Open / Closed"
       },
       {
-        id: '15',
-        value: 'Advanced Temperature'
+        id: "15",
+        value: "Advanced Temperature"
       }
     ];
     this.selectSubNotificationList = Obj;
-
 
     console.log(this.subNotificationTypes);
   }
 
   onClickBatteryNotify() {
-
     this.isReadingTypeAvailable = false;
 
     this.isSensorNotificationForm1 = true;
@@ -633,13 +691,10 @@ export class NotificationCreateComponent implements OnInit {
 
     this.isButtonFooterRequired = true;
 
-    this.notificationModel.notificationTemplate = 'batteryNotification';
-
+    this.notificationModel.notificationTemplate = "batteryNotification";
   }
 
   onClickInActivityNotify() {
-
-
     this.isReadingTypeAvailable = false;
 
     this.isSensorNotificationForm1 = true;
@@ -647,39 +702,43 @@ export class NotificationCreateComponent implements OnInit {
     this.isSensorNotificationForm2 = false;
     this.isButtonFooterRequired = true;
 
-    this.notificationModel.notificationTemplate = 'inActiveNotification';
-
+    this.notificationModel.notificationTemplate = "inActiveNotification";
   }
 
   onChangeNotifictaion(e) {
     this.isSensorNotificationForm1 = true;
     this.isButtonFooterRequired = true;
-    console.log('selected Notification type-->',e);
+    console.log("selected Notification type-->", e);
     this.notificationModel.selectSubNotificationList = e;
     console.log(this.notificationModel);
-
   }
 
-  onChangeLessThanValue(e){
-    console.log('selected less/greater than value-->',e);
+  onChangeLessThanValue(e) {
+    console.log("selected less/greater than value-->", e);
     this.notificationModel.selectTempCompareList = e;
     console.log(this.notificationModel);
   }
 
-  onChangeTempTypeValue(e){
-    console.log('selected celcius/foreighht than value-->',e);
+  onChangeTempTypeValue(e) {
+    console.log("selected celcius/foreighht than value-->", e);
     this.notificationModel.selectTempTypeList = e;
     console.log(this.notificationModel);
   }
 
   onClickAlways(e) {
-    this.notificationModel.scheduleNotificationCheck = { left: true, right: false };
+    this.notificationModel.scheduleNotificationCheck = {
+      left: true,
+      right: false
+    };
 
     this.dailySheduleNotificationList = [];
   }
 
   onClickSchedule(e) {
-    this.notificationModel.scheduleNotificationCheck = { left: false, right: true };
+    this.notificationModel.scheduleNotificationCheck = {
+      left: false,
+      right: true
+    };
     this.dailySheduleNotificationList = this.scheduleObj;
   }
 
@@ -696,85 +755,77 @@ export class NotificationCreateComponent implements OnInit {
   }
 
   onClickNext(value) {
-    console.log('next-->', value);
-    if (value === 'page1') {
+    console.log("next-->", value);
+    if (value === "page1") {
       this.isSensorNotificationForm2 = true;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm3 = false;
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm5 = false;
-      this.currentPageValue = 'page2';
+      this.currentPageValue = "page2";
       this.isPreviousButtonRequired = true;
-    } else if (value === 'page2') {
+    } else if (value === "page2") {
       this.isSensorNotificationForm2 = false;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm5 = false;
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm3 = true;
-      this.currentPageValue = 'page3';
-    }
-    else if (value === 'page3') {
+      this.currentPageValue = "page3";
+    } else if (value === "page3") {
       this.isSensorNotificationForm4 = true;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm2 = false;
       this.isSensorNotificationForm3 = false;
       this.isSensorNotificationForm5 = false;
-      this.currentPageValue = 'page4';
-    }
-    else if (value === 'page4') {
+      this.currentPageValue = "page4";
+    } else if (value === "page4") {
       this.isSensorNotificationForm5 = true;
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm2 = false;
       this.isSensorNotificationForm3 = false;
-      this.currentPageValue = 'page5';
+      this.currentPageValue = "page5";
       this.isNextButtonRequired = false;
     }
-
   }
 
   onClickPrevious(value) {
-
-    console.log('prev-->', value);
-    if (value === 'page2') {
+    console.log("prev-->", value);
+    if (value === "page2") {
       this.isSensorNotificationForm2 = false;
       this.isSensorNotificationForm1 = true;
       this.isSensorNotificationForm3 = false;
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm5 = false;
-      this.currentPageValue = 'page1';
+      this.currentPageValue = "page1";
       this.isPreviousButtonRequired = false;
-    } else if (value === 'page3') {
+    } else if (value === "page3") {
       this.isSensorNotificationForm2 = true;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm5 = false;
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm3 = false;
-      this.currentPageValue = 'page2';
-    } else if (value === 'page4') {
+      this.currentPageValue = "page2";
+    } else if (value === "page4") {
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm2 = false;
       this.isSensorNotificationForm3 = true;
       this.isSensorNotificationForm5 = false;
-      this.currentPageValue = 'page3';
-    } else if (value === 'page5') {
+      this.currentPageValue = "page3";
+    } else if (value === "page5") {
       this.isSensorNotificationForm5 = false;
       this.isSensorNotificationForm4 = true;
       this.isSensorNotificationForm1 = false;
       this.isSensorNotificationForm2 = false;
       this.isSensorNotificationForm3 = false;
-      this.currentPageValue = 'page4';
+      this.currentPageValue = "page4";
       this.isNextButtonRequired = true;
-
     }
-
   }
 
   onClickCreateNotification(value) {
-
     console.log(this.notificationModel);
     this.createMessageEvent.emit(true);
   }
-
 }

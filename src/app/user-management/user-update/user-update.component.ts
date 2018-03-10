@@ -23,7 +23,9 @@ firstName:'',
 lastName:'',
 password:'',
 confirmPassword:'',
-isNewMaster:false
+isNewMaster: "false",
+notifEyeUsername: '',
+notifEyePassword: ''
 };
 
 constructor(private route:ActivatedRoute,

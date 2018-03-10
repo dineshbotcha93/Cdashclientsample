@@ -75,7 +75,7 @@
               <select name="filter_by_network" [(ngModel)]="doFilterByNetwork" class="form-control" (ngModelChange)="filterByNertwork(this)">
                 <option value='select' disabled selected>Select Network</option>
                 <option value='all'>All</option>
-                <option *ngFor="let row of networkRows" value="{{row.csNetID}}">{{row.csNetID}}</option>
+                <option *ngFor="let row of networkRows" value="{{row.csNetID}}">{{row.name}}</option>
               </select>
             </div>
             <div class="col-md-12 sensors-info-container">
@@ -91,7 +91,7 @@
               <select name="filter_by_network" [(ngModel)]="doFilterByGateway" class="form-control" (ngModelChange)="filterByGateway()">
                 <option value='select' disabled selected>Select Network</option>
                 <option value='all'>All</option>
-                <option *ngFor="let row of networkRows" value="{{row.csNetID}}">{{row.csNetID}}</option>
+                <option *ngFor="let row of networkRows" value="{{row.csNetID}}">{{row.name}}</option>
               </select>
             </div>
             <div class="col-md-12 sensors-info-container">

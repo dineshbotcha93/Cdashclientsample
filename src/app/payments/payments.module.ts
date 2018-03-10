@@ -22,14 +22,6 @@ export const routes: Routes = [
         component: PaymentsComponent
       },
       {
-        path: 'confirm',
-        component: PaymentsComponent
-      },
-      {
-        path: 'confirm/:id',
-        component: StripeComponent
-      },
-      {
         path: 'success',
         component: PaymentSummaryComponent
       }
@@ -38,7 +30,9 @@ export const routes: Routes = [
 ];
 @NgModule({
   declarations: [
-    PaymentsComponent
+    PaymentsComponent,
+    StripeComponent,
+    PaymentSummaryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

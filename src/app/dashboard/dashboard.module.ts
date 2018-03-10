@@ -8,6 +8,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { ComponentsModule }    from '../shared/components';
 import { ContainersModule }         from '../shared/containers';
 import { SharedModule } from '../shared/modules/shared.module';
+import {NotificationListComponentModule} from "./notificationList/notificationList.module";
 
 const routes: Routes = [
   {
@@ -43,6 +44,14 @@ const routes: Routes = [
         loadChildren: './sensor-comparison/sensor-comparison.module#SensorComparisonModule',
         data:{
           breadcrumb:'sensor-comparison'
+        }
+      },
+      {
+        path:'notificationList/:status',
+        pathMatch:'full',
+        loadChildren: './notificationList/notificationList.module#NotificationListComponentModule',
+        data:{
+          breadcrumb:'notificationList'
         }
       }
     ]

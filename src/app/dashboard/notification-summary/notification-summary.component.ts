@@ -15,7 +15,10 @@ export class NotificationSummaryComponent implements OnInit {
   modalObject:any = [];
   modalRef: BsModalRef;
   modalType : string ='';
+
   isEditNotify : boolean = false;
+
+  @Output() editNotifyModeEvent = new EventEmitter<any>();
 
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
@@ -24,53 +27,54 @@ export class NotificationSummaryComponent implements OnInit {
   }
 
   getNotificationDetails(){
-    let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails().then((result) => {
+    let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails('1485').then((result) => {
+      console.log('',result);
 
-    //   let object = [  
-    //     {  
-    //        "notification":{  
-    //           "notificationID":1569,
-    //           "name":"Temp out of Range - delete",
-    //           "text":"Temp out of range",
-    //           "notificationClass":"Advanced",
-    //           "active":false,
-    //           "lastDateSent":"2018-01-10T18:45:14",
-    //           "threshold":0,
-    //           "comparer":"",
-    //           "snooze":60.0,
-    //           "advancedNotificationID":11,
-    //           "advanceNotificationName":"Advanced Temperature Range",
-    //           "advancedNotificationType":null
-    //        },
-    //        "devices":[  
-    //           {  
-    //              "deviceID":1153235073,
-    //              "deviceName":"test sensor",
-    //              "deviceType":"Commercial",
-    //              "deviceCategory":"Sensor"
-    //           }
-    //        ],
-    //        "users":[  
-    //           {  
-    //              "userID":3,
-    //              "userName":"Bill LastName",
-    //              "smsNumber":"555-555-1234",
-    //              "email":"Reclamationbin@gmail.com",
-    //              "notifyThroughEmail":false,
-    //              "notifyThroughPhone":false
-    //           },
-    //           {  
-    //              "userID":8,
-    //              "userName":"Harry LastName",
-    //              "smsNumber":"555-555-1234",
-    //              "email":"Reclamationbin@gmail.com",
-    //              "notifyThroughEmail":false,
-    //              "notifyThroughPhone":false
-    //           }
-    //        ]
-    //     }
-    //  ];
-    //  result = object;
+      let object = [  
+        {  
+           "notification":{  
+              "notificationID":1569,
+              "name":"Temp out of Range - delete",
+              "text":"Temp out of range",
+              "notificationClass":"Advanced",
+              "active":false,
+              "lastDateSent":"2018-01-10T18:45:14",
+              "threshold":0,
+              "comparer":"",
+              "snooze":60.0,
+              "advancedNotificationID":11,
+              "advanceNotificationName":"Advanced Temperature Range",
+              "advancedNotificationType":null
+           },
+           "devices":[  
+              {  
+                 "deviceID":1153235073,
+                 "deviceName":"test sensor",
+                 "deviceType":"Commercial",
+                 "deviceCategory":"Sensor"
+              }
+           ],
+           "users":[  
+              {  
+                 "userID":3,
+                 "userName":"Bill LastName",
+                 "smsNumber":"555-555-1234",
+                 "email":"Reclamationbin@gmail.com",
+                 "notifyThroughEmail":false,
+                 "notifyThroughPhone":false
+              },
+              {  
+                 "userID":8,
+                 "userName":"Harry LastName",
+                 "smsNumber":"555-555-1234",
+                 "email":"Reclamationbin@gmail.com",
+                 "notifyThroughEmail":false,
+                 "notifyThroughPhone":false
+              }
+           ]
+        }
+     ];
+     result = object;
       result.forEach((notify) => {
         let checkModelNotify = { active: false, inActive: true };
         if (notify.notification.active) {
@@ -140,10 +144,9 @@ export class NotificationSummaryComponent implements OnInit {
  }
 
  onClickEditNotifyDetails(notify){
-    console.log('notifiy--->',notify);
-
+   console.log(notify);
     this.isEditNotify = true;
-    // this.notificationSummaryList = [];
+    this.editNotifyModeEvent.emit(notify);
 
  }
 }
