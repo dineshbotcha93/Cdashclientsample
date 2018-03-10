@@ -296,7 +296,7 @@
 </ng-template>
 
 <ng-template #gateWayDataTemplate>
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="gateWayData?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -325,7 +325,7 @@
 
 <ng-template #sensorDataTemplate>
 
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">

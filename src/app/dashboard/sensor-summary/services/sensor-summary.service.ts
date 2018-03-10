@@ -79,9 +79,9 @@ export class SensorSummaryService {
   }
 
   /* Remove  the gateway details*/
-  removeGatewayDetails(gatewayObj:Array<any>){
+  removeGatewayDetails(id: string,network:string){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+    // return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
   deleteGateway(id){
@@ -107,8 +107,11 @@ export class SensorSummaryService {
   }
 
   moveGateway(GatewayID,NetworkID,CheckDigit){
-    return this.requesterService
-    .putExternalRequest(`/api/Gateway/Assign/${GatewayID}/${NetworkID}/${CheckDigit}`,{});
+     const URL = '/api/Sensor/'+GatewayID+'/AssignTo?NetworkID='+NetworkID;
+     // +'/CheckDigit='+CheckDigit;
+    console.log('URL----',URL);
+     return this.requesterService
+    .putExternalRequest(URL,{});
   }
 
 
