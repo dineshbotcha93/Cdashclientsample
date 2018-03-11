@@ -381,13 +381,14 @@ export class SensorSummaryComponent implements OnInit {
         });
       }
     } else if (this.radioModel === 'sensor') {
-      
+
       this.selectedSensor = Object.assign({}, this.allSensors);
       let selectedRemoveData = this.getSelectedRowDetailsToRemove();
 
       if (selectedRemoveData) {
         /*Backend call to remove and get latest details*/
         selectedRemoveData.forEach((sensor)=>{
+          console.log('sensor to remove ',sensor);
           this.sensorSummaryService.deleteSensor(sensor.sensorID).then((e)=>{
             if(e==true){
               this.getNetworkData();
@@ -419,6 +420,7 @@ export class SensorSummaryComponent implements OnInit {
 
   onClickAddDetail() {
     this.isSelectedToAddDevice = true;
+    debugger;
 
     //on success
     this.disable = {

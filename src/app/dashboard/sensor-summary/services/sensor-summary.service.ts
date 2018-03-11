@@ -108,6 +108,7 @@ export class SensorSummaryService {
 
   moveGateway(deviceId,networkID,checkDigit,deviceType){
      const URL = '/api/'+deviceType+'/'+deviceId+'/AssignTo?NetworkID='+networkID;
+     // +'&CheckDigit=AAA';
      // +'/CheckDigit='+CheckDigit;
     console.log('URL----',URL);
      return this.requesterService
