@@ -7,16 +7,19 @@
         <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
       </div>
       <div class="modal-body">
-        <div *ngIf="!renewalError" class="alert alert-success">
+        <div *ngIf="!renewalError && !loading" class="alert alert-success">
           <strong>Congratulations!</strong> Your payment is successful. Your new Renewal Date is : {{newRenewalDate | date : "MMMM d, y" }}
         </div>
         <div *ngIf="renewalError" class="alert alert-danger">
           <strong>Sorry!</strong> Unfortunately your payment could not be processed. You can either Retry or Try again later.
         </div>
+        <div *ngIf="loading" class="alert alert-info">
+          <i class="fa fa-spinner fa-spin"></i><strong> Please Wait!</strong> Your payment request is in progress...
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" *ngIf="renewalError" class="btn btn-default" data-dismiss="modal" (click)="closePopup()">Retry</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="routeToUserProfile()">
+        <button type="button" *ngIf="!renewalError && !loading" class="btn btn-default" data-dismiss="modal" (click)="routeToUserProfile()">
           To User Profile
         </button>
       </div>
