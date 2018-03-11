@@ -36,7 +36,7 @@
           <div class="form-group">
             <label for="placeOfPurchase">Where did you purchase your NotifEye system: </label>
             <select name="placeOfPurchase" class="form-control">
-              <option value="test">test</option>
+              <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
             </select>
           </div>
           <div class="form-group">

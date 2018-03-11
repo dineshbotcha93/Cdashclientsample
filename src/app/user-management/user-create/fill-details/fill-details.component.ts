@@ -17,6 +17,7 @@ export class FillDetailsComponent {
   selectedIndustry: object;
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
+  placeOfPurchase: Array<object> = [];
   constructor(private fillDetailsService: FillDetailsService, private router: Router){
     this.selectedStep = 2;
     this.fillDetailsService.getIndustries().subscribe((e)=>{
@@ -35,6 +36,13 @@ export class FillDetailsComponent {
         this.timeZones.push({id:tZ.TimeZoneID,name:tZ.DisplayName});
       });
     });
+    this.placeOfPurchase = [
+      {name:'Foodservice Distributor'},
+      {name:'HVAC/R Wholesaler'},
+      {name:'Industrial Catalog'},
+      {name:'Online'},
+      {name:'Other'}
+    ]
   }
 
   industryChanged(){
