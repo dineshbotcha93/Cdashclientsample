@@ -420,8 +420,6 @@ export class SensorSummaryComponent implements OnInit {
 
   onClickAddDetail() {
     this.isSelectedToAddDevice = true;
-    debugger;
-
     //on success
     this.disable = {
       edit: false,
