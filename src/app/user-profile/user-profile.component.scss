@@ -37,27 +37,16 @@ table {
 
     .customer-contact-name {
       margin-top: 15px;
-
-      .key {
-        font-weight: bold;
-      }
+      padding:5px;
     }
 
     .customer-email {
-      // float: left;
-      margin-top: 5px;
-
-      .key {
-        font-weight: bold;
-      }
+      float:left;
+      padding:5px;
     }
 
     .customer-phone {
-      margin-top: 5px;
-
-      .key {
-        font-weight: bold;
-      }
+      padding:5px;
     }
 
     .customer-amount {
@@ -66,10 +55,10 @@ table {
     }
 
     .usr-lbl {
-      font-weight: bold;
-      padding: 5px;
+      font-weight:bold;
+      padding:5px;
     }
-
+    
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       font-size: 0.85em;
       margin-bottom: 10px;
@@ -137,7 +126,7 @@ table {
 //   }
 // }
 
-a:link, a:visited {
+a:link, a:visited { 
   color: #3498DB;
   cursor:pointer ;
 }
@@ -146,4 +135,32 @@ a:hover {
   color: #3498DB;
   text-decoration: underline;
   cursor: pointer ;
+}
+
+.form-control-static {
+  padding-top: 0px;
+}
+
+.chkbox-lbl {
+  font-family: serif;
+}
+
+.chk-box {
+  margin-right: 10px;
+}
+
+.alert-error {
+  padding : 3px;
+  font-size: 14px;
+}
+
+.renewal-pos {
+  left:75%;
+}
+
+@media (min-width: $phone-small) and (max-width: $tablet-large) {
+  .renewal-pos {
+    left:0px;
+    margin-top:25px;
+  }
 }
