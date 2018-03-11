@@ -6,14 +6,13 @@ import { AuthGuard } from '../shared/services/auth-guard.service';
 import { AuthService } from '../shared/services/auth.service';
 import { ContainersModule} from '../shared/containers';
 import {ComponentsModule} from '../shared/components';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { UserNotificationsComponent } from './user-notifications/user-notifications.component';
-
 import { NotificationSummaryComponent } from '../dashboard/notification-summary/notification-summary.component';
 import { NotificationCreateComponent } from '../dashboard/notification-create/notification-create.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { ButtonsModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
@@ -38,6 +37,8 @@ const routes: Routes = [
     ContainersModule,
     ComponentsModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgbModule.forRoot(),
     ModalModule.forRoot(),
     AngularFontAwesomeModule,
     ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot()

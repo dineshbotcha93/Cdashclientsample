@@ -16,19 +16,19 @@ export class UserRegisterComponent implements OnInit {
     lastName:'',
     password:'',
     confirmPassword:'',
-    isNewMaster:false
+    isNewMaster: "false",
+  	notifEyeUsername: '',
+  	notifEyePassword: ''
   };
   showPopup = false;
 
   isEmailVerified : boolean = false;
-  selectedStep: number;
   constructor(
     private userManagementService : UserManagementService,
     private router:Router,
     private translate: TranslateService
   ) {
     this.translate.use('en');
-    this.selectedStep = 1;
   }
 
   modalClosed(event) {
@@ -44,9 +44,15 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(){
-    this.isEmailVerified = this.userManagementService.getEmailVerification(this.userRegisterModel);
-    if(this.isEmailVerified){
-      this.router.navigate(['user-register/user-create',this.userRegisterModel.email]);
-    }
+    this.isEmailVerified = null;
+    this.userManagementService.getEmailVerification(this.userRegisterModel).then((e)=>{
+      if(e!=null){
+        this.isEmailVerified = true;
+      }
+    }).then((r)=>{
+      if(this.isEmailVerified){
+        this.router.navigate(['user-register/user-create',this.userRegisterModel.email]);
+      }
+    });
   }
 }

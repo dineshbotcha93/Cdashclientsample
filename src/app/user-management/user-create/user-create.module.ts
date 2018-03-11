@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule,Validators  } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap';
 import { FlowDisplayModule } from '../flow-display/flow-display.module';
 import { FlowButtonsModule } from '../flow-buttons/flow-buttons.module';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [{
     path:'',
@@ -23,7 +24,8 @@ const routes: Routes = [{
     ReactiveFormsModule,
     FormsModule,
     FlowDisplayModule,
-    FlowButtonsModule
+    FlowButtonsModule,
+    CommonModule
   ],
   exports: [
     RouterModule
