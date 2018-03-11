@@ -44,9 +44,15 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(){
-    this.isEmailVerified = this.userManagementService.getEmailVerification(this.userRegisterModel);
-    if(this.isEmailVerified){
-      this.router.navigate(['user-register/user-create',this.userRegisterModel.email]);
-    }
+    this.isEmailVerified = null;
+    this.userManagementService.getEmailVerification(this.userRegisterModel).then((e)=>{
+      if(e!=null){
+        this.isEmailVerified = true;
+      }
+    }).then((r)=>{
+      if(this.isEmailVerified){
+        this.router.navigate(['user-register/user-create',this.userRegisterModel.email]);
+      }
+    });
   }
 }
