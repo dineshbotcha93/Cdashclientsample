@@ -136,3 +136,31 @@ a:hover {
   text-decoration: underline;
   cursor: pointer ;
 }
+
+.form-control-static {
+  padding-top: 0px;
+}
+
+.chkbox-lbl {
+  font-family: serif;
+}
+
+.chk-box {
+  margin-right: 10px;
+}
+
+.alert-error {
+  padding : 3px;
+  font-size: 14px;
+}
+
+.renewal-pos {
+  left:75%;
+}
+
+@media (min-width: $phone-small) and (max-width: $tablet-large) {
+  .renewal-pos {
+    left:0px;
+    margin-top:25px;
+  }
+}
