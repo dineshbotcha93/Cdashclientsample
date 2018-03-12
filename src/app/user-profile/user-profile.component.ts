@@ -78,9 +78,12 @@ export class UserProfileComponent implements OnInit {
   private expiryDate: Date = null;
   private isNotifBtn: Boolean = false;
   private isNetworkBtn: Boolean = false;
-  public isUserContentCollapsed: Boolean = false;
-  public isNotifContentCollapsed: Boolean = true;
-  public isNetworkContentCollapsed: Boolean = true;
+  private isUserContentCollapsed: Boolean = false;
+  private isNotifContentCollapsed: Boolean = true;
+  private isNetworkContentCollapsed: Boolean = true;
+  private isProfileContentCollapsed: Boolean = false;
+  private isNetworksContentCollapsed: Boolean = true;
+
   userForm = this.fb.group({
     userName: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -94,6 +97,7 @@ export class UserProfileComponent implements OnInit {
   notificationForm = this.fb.group ({
   emailAddress: new FormControl('', Validators.required),
   directSMS: new FormControl(''),
+  smsProvider: new FormControl(''),
   smsNumber: new FormControl(''),
   recievesMaintenanceByEmail: new FormControl(''),
   recievesMaintenanceByPhone: new FormControl(''),
@@ -119,7 +123,7 @@ export class UserProfileComponent implements OnInit {
    });
 
    this.userProfileService.getRealData().then(response => {
-      //console.log(response);
+     // console.log(response);
       this.responseData = response;
       this.accountData = response.account[0];
       this.expiryDate = new Date(response.account.subscriptionExpiry);
@@ -174,6 +178,18 @@ export class UserProfileComponent implements OnInit {
     } else {
       this.isNetworkContentCollapsed  = false;
     }
+  }
+
+  toggleProfileContent(e) {
+    let section = e.currentTarget.attributes.section.value;
+    this.isProfileContentCollapsed = true;
+    this.isNetworksContentCollapsed  = true;
+    if (section === 'profile-content') {
+      this.isProfileContentCollapsed = false;
+    } else {
+      this.isNetworksContentCollapsed  = false;
+    }
+
   }
 
   navigateToNotifSection() {
