@@ -336,8 +336,10 @@
             <input type="checkbox" name="allSensor" [(ngModel)]="isSelectedAll" (change)="onCheckAll($event)" />
           </div>
         </th>
-        <th class="col-md-6">Sensor Id</th>
-        <th class="col-md-5">Sensor Name</th>
+        <th class="col-md-3">Sensor Id</th>
+        <th class="col-md-3">Sensor Name</th>
+        <th class="col-md-3">Sensor Interval</th>
+        <th class="col-md-3">Sensor Atrributes</th>
 
       </tr>
     </thead>
@@ -346,10 +348,24 @@
         <td class="col-md-1">
           <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.sensorName" (change)="onClickInlineCheckBox($event,sensor)">
         </td>
-        <td class="col-md-6">{{sensor.sensorID}}</td>
-        <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
-        <td *ngIf="sensor.gateWayEditOption ==='edit'">
+        <td class="col-md-3">{{sensor.sensorID}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorSliderValue}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
+        </td>
+         <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorSliderValue}}" [(ngModel)]="sensor.sensorSliderValue">
+        </td>
+        <td class="col-md-3">
+          <div class="form-group ss-location">
+              <select class="form-control" [(ngModel)]="selectTempTypeList[1]" (ngModelChange)="onChangeTempTypeValue($event)">
+                <option *ngFor="let not of selectTempTypeList" [ngValue]="not">
+                  {{not.value}}
+                </option>
+              </select>
+            </div>
+          </div>
         </td>
 
       </tr>

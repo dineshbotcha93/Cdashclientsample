@@ -80,6 +80,7 @@ export class SensorSummaryComponent implements OnInit {
   // maxDate: Date;
   // daterangepickerModel: Date[];
   // requestDateObject :any = [];
+    selectTempTypeList: any = [];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -502,8 +503,15 @@ export class SensorSummaryComponent implements OnInit {
   }
 
 
+    onChangeTempTypeValue(e) {
+    console.log("selected celcius/foreighht than value-->", e);
+   
+  }
+
+
   private setEditSensorDetails() {
     this.selectedSensor = Object.assign({}, this.allSensors);
+    console.log('this.allSensors--->',this.allSensors);
     let isRecordSelected: boolean = false;
     this.disable = {
       edit: false,
@@ -512,6 +520,20 @@ export class SensorSummaryComponent implements OnInit {
       add: true,
       reset: false
     }
+
+    let Obj2 = [
+      {
+        id: "01",
+        value: "Celcius"
+      },
+      {
+        id: "02",
+        value: "Fahrenheit"
+      }
+    ];
+
+    this.selectTempTypeList = Obj2;
+
     if (this.editSaveModel === 'Edit') {
       this.allSensors.forEach(x => {
         if (x.checked) {

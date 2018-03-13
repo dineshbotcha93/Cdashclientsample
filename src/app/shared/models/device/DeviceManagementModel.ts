@@ -14,6 +14,7 @@ export class DeviceManagementModel {
   public powerSourceID:  string;
   public customerID:  string;
 
+
   constructor() {
   }
 }

@@ -27,6 +27,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 
+
 const routes:Routes = [{
   path:'',component:SensorSummaryComponent
 }];
