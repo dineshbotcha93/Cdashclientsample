@@ -23,7 +23,6 @@ export const routes: Routes = [
 ];
 @NgModule({
   declarations: [
-    StripeComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
