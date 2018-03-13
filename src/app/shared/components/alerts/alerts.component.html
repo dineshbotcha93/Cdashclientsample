@@ -1,10 +1,10 @@
-  <div *ngIf="showDiv" class="alert alert-danger mt-l">
+  <div *ngIf="showDiv" class="alert alert-danger mt-l" (click)="onClose('alert')">
     <h3>{{alertContent}}</h3>
   </div>
-  <div *ngIf="showGood" class="alert alert-success mt-l">
+  <div *ngIf="showGood" class="alert alert-success mt-l" (click)="onClose('success')">
     <h3>{{successContent}}</h3>
   </div>
-  <div *ngIf="isWarning" class="alert alert-warning mt-l">
+  <div *ngIf="isWarning" class="alert alert-warning mt-l" (click)="onClose('warning')">
     <h3>{{warningContent}}</h3>
   </div>
 <!-- <button (click)="showAlert()">Show Alert</button>

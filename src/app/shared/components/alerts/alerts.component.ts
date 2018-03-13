@@ -17,6 +17,7 @@ export class AlertsComponent {
   private alertSandboxSubscription;
   private successSandboxSubscription;
   private warningSandboxSubscription;
+  @Input() close;
   constructor(public alertSandbox$: AlertSandbox){
 
   }
@@ -26,30 +27,36 @@ export class AlertsComponent {
       if(e.type == true){
         this.showDiv = true;
         this.alertContent = e.payload['data'];
-        setTimeout(()=>{
-          this.showDiv = false;
-          this.showAlert(e.payload);
-        },2000)
+        if(e.payload['autohide'] || (e.payload['autohide']==undefined)){
+          setTimeout(()=>{
+            this.showDiv = false;
+            this.showAlert(e.payload);
+          },2000)
+        }
       }
     });
     this.successSandboxSubscription = this.alertSandbox$.getSuccess().subscribe((e)=>{
       if(e.type == true){
         this.showGood = true;
         this.successContent = e.payload['data'];
-        setTimeout(()=>{
-          this.showGood = false;
-          this.showSuccess();
-        },2000)
+        if(e.payload['autohide'] || (e.payload['autohide']==undefined)){
+          setTimeout(()=>{
+            this.showGood = false;
+            this.showSuccess();
+          },2000);
+        }
       }
     });
     this.warningSandboxSubscription = this.alertSandbox$.getWarning().subscribe((e)=>{
       if(e.type == true){
         this.isWarning = true;
         this.warningContent = e.payload['data'];
-        setTimeout(()=>{
-          this.isWarning = false;
-          this.showWarning();
-        },2000)
+        if(e.payload['autohide'] || (e.payload['autohide']==undefined)){
+          setTimeout(()=>{
+            this.isWarning = false;
+            this.showWarning();
+          },2000)
+        }
       }
     });
   }
@@ -64,6 +71,21 @@ export class AlertsComponent {
 
   showWarning(content = null){
     this.alertSandbox$.showWarning(content);
+  }
+
+  onClose(type){
+    if(type=='alert'){
+      this.showDiv = false;
+      this.showAlert();
+    }
+    if(type=='success'){
+      this.showGood = false;
+      this.showSuccess();
+    }
+    if(type=='warning'){
+      this.isWarning = false;
+      this.showWarning();
+    }
   }
 
   ngOnDestroy(){
