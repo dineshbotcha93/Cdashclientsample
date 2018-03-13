@@ -339,7 +339,7 @@
         <th class="col-md-3">Sensor Id</th>
         <th class="col-md-3">Sensor Name</th>
         <th class="col-md-3">Sensor Interval</th>
-        <th class="col-md-3">Sensor Atrributes</th>
+        <th class="col-md-3">Sensor Reading</th>
 
       </tr>
     </thead>
@@ -357,7 +357,7 @@
          <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorSliderValue}}" [(ngModel)]="sensor.sensorSliderValue">
         </td>
-        <td class="col-md-3">
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
           <div class="form-group ss-location">
               <select class="form-control" [(ngModel)]="selectTempTypeList[1]" (ngModelChange)="onChangeTempTypeValue($event)">
                 <option *ngFor="let not of selectTempTypeList" [ngValue]="not">
@@ -365,7 +365,9 @@
                 </option>
               </select>
             </div>
-          </div>
+          
+        </td>
+         <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.currentReading}}
         </td>
 
       </tr>
