@@ -1,0 +1,35 @@
+@import "./../variables";
+
+.payment-card {
+  background-color: $color-body-bg;
+  border-radius: $border-radius-medium;
+  position: relative;
+  padding: 20px;
+  margin: 0 20px 20px 0;
+  color: $color-white;
+
+  a {
+    color: $color-white;
+
+    &:hover, &:visited, &:active {
+      color: $color-white;
+    }
+  }
+
+  .customer-name,
+  .customer-address {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    color: $appTile-BG-lowBattery;
+  }
+
+  .customer-contact-name,
+  .customer-email,
+  .customer-phone {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 1.15em;
+
+    .usr-lbl {
+      color: $appTile-BG-lowBattery;
+    }
+  }
+}
