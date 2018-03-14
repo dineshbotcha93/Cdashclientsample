@@ -102,18 +102,18 @@ export class SensorSummaryComponent implements OnInit {
       // this.maxDate.setDate(this.maxDate.getDate());
 
       // this.daterangepickerModel = [this.minDate, this.maxDate];
-      
+
       // this.requestDateObject = {
       //   fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
       //   toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
       // };
-     
+
     });
     this.translate.use('en');
   }
 
   ngOnInit() {
-   
+
   }
 
   private getDropdownDetails() {
@@ -129,7 +129,7 @@ export class SensorSummaryComponent implements OnInit {
         if (loc.networkID == this.netWorkId) {
           this.selectLocation = Obj;
         }
-        
+
         this.locationData.push(Obj);
       });
     });
@@ -177,7 +177,7 @@ export class SensorSummaryComponent implements OnInit {
       sens.gateWayEditOption = 'display';
       sens.sensorSliderValue = '10';
       // hardcoded for now
-      sens.sensorType = 2;
+      sens.sensorType = sens.type;
       this.allSensors.push(sens);
     });
     this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
@@ -347,7 +347,7 @@ export class SensorSummaryComponent implements OnInit {
 
   private onClickEditNetwork() {
 
-   
+
 
     this.editNetworkData = {
       name: this.selectLocation.Title,
@@ -637,7 +637,7 @@ export class SensorSummaryComponent implements OnInit {
   }
 
   onClickSaveNetworkDetail(e) {
-    
+
     console.log(this.editNetworkData);
   }
 
@@ -712,7 +712,7 @@ export class SensorSummaryComponent implements OnInit {
 
   // onClickNotificationOverview(request:any) {
 
-    
+
   //   this.notificationRadio = 'overview';
   // }
 
@@ -741,12 +741,12 @@ export class SensorSummaryComponent implements OnInit {
   //   console.log(this.daterangepickerModel);
 
   //   console.log(this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy')+'  '+this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy'));
-    
+
   //   let requestDateObject = {
   //     fromDate:this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy'),
   //     toDate:this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy')
   //   }
-    
+
   //   this.onClickNotificationOverview(requestDateObject);
 
   // }
