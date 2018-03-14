@@ -4,7 +4,7 @@
 <div class="login_wrapper" style="max-width:800px;">
   <div class="form login_form">
     <section class="login_content">
-      <form name="form" (ngSubmit)="onSubmit()" class="font-white">
+      <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="font-white">
         <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
         <div class="row">
           <h1>User Details Form</h1>
@@ -13,38 +13,38 @@
         <div class="col-sm-12 col-md-6 col-lg-8">
           <div class="form-group">
             <label for="companyName">Company Name: </label>
-            <input type="text" name="company_name" class="form-control">
+            <input type="text" formControlName="company_name" class="form-control">
           </div>
           <div class="form-group">
             <label for="industryType">Industry Type: </label>
-            <select name="industry_type" class="form-control" (change)="industryChanged()" [(ngModel)]="selectedIndustry">
+            <select formControlName="industry_type" class="form-control" (change)="industryChanged()">
               <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="businessType">Business Type: </label>
-            <select name="business_type" class="form-control">
+            <select formControlName="business_type" class="form-control">
               <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="timeZone">Time Zone: </label>
-            <select name="timeZone" class="form-control">
+            <select formControlName="timeZone" class="form-control">
               <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="placeOfPurchase">Where did you purchase your NotifEye system: </label>
-            <select name="placeOfPurchase" class="form-control">
+            <select formControlName="placeOfPurchase" class="form-control">
               <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="companyName">Zip/Postal Code: </label>
-            <input type="text" name="zip_postalcode" class="form-control">
+            <input type="text" formControlName="zip_postalcode" class="form-control">
           </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-8">
+        <!--<div class="col-sm-12 col-md-6 col-lg-8">
           <div class="form-group">
             <label for="companyName">Street: </label>
             <input type="text" name="street" class="form-control">
@@ -65,7 +65,7 @@
             <label for="companyName">Country: </label>
             <input type="text" name="country" class="form-control">
           </div>
-        </div>
+        </div>-->
           <div class="form-group">
             <div class="clearfix"></div>
             <div class="separator"></div>
@@ -73,6 +73,7 @@
             <input type="submit" value="Cancel" class="btn btn-primary m-l-none float-right">
           </div>
         </div>
+        <address-form-component (formReady)="addFormControl('address', $event)"></address-form-component>
       </form>
     </section>
     <user-flow-buttons

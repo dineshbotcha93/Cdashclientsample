@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FillDetailsService } from './fill-details.service';
 import {Router} from '@angular/router';
+import { FormGroup,FormBuilder ,FormControl,Validators , FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -10,7 +11,7 @@ import {Router} from '@angular/router';
   providers: [FillDetailsService]
 })
 
-export class FillDetailsComponent {
+export class FillDetailsComponent implements OnInit {
   selectedStep: number;
   industries: Array<object> = [];
   businessType: Array<object> = [];
@@ -18,7 +19,10 @@ export class FillDetailsComponent {
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
   placeOfPurchase: Array<object> = [];
-  constructor(private fillDetailsService: FillDetailsService, private router: Router){
+
+  public accountForm: FormGroup;
+
+  constructor(private fillDetailsService: FillDetailsService, private router: Router, private fb: FormBuilder){
     this.selectedStep = 2;
     this.fillDetailsService.getIndustries().subscribe((e)=>{
       e.forEach((res)=>{
@@ -45,6 +49,26 @@ export class FillDetailsComponent {
     ]
   }
 
+  ngOnInit(){
+
+
+    this.accountForm = this.fb.group({
+      "company_name": new FormControl("", Validators.required),
+      "industry_type": new FormControl("", Validators.required),
+      "business_type": new FormControl("", Validators.required),
+      "timeZone": new FormControl("", Validators.required),
+      "placeOfPurchase": new FormControl("", Validators.required),
+      "zip_postalcode": new FormControl("", Validators.required)
+    });
+
+
+  }
+
+
+  private addFormControl(name: string, formGroup: FormGroup) : void {
+    this.accountForm.addControl(name, formGroup);
+  }
+
   industryChanged(){
     console.log("selected industry");
     console.log(this.selectedIndustry);
@@ -58,5 +82,16 @@ export class FillDetailsComponent {
 
   onNext($event){
     console.log("not implemented yet");
+  }
+
+  onSubmit(){
+    console.log("form..");
+    console.log(this.accountForm.value);
+    if(this.accountForm.valid){
+      console.log("form is valid");
+      console.log(this.accountForm.value);
+    } else {
+
+    }
   }
 }
