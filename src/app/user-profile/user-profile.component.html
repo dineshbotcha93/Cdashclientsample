@@ -258,24 +258,11 @@
             </div>
           </div>
         </div>
-        <div class="form-group required">
-          <label class="col-sm-3 lbl-ctrl" for="email-address">Email Address</label>
-          <div class="col-sm-6">
-            <input type="email" class="form-control" formControlName="email" id="email-address" placeholder="Email Address">
-            <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert-error alert-danger">
-              <div *ngIf="email.errors.required">
-              Email is required.
-              </div>
-              <div *ngIf="email.errors.email">
-                Email is not valid.
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div class="form-group">
           <label class="col-sm-3 form-check-input" for="IsAdministrator">Is Administrator</label>
           <div class="col-sm-1">
-            <input type="checkbox" formControlName="admin" class="form-check-input" id="IsAdministrator">
+            <input type="checkbox" formControlName="admin" class="form-check-input" id="IsAdministrator15">
           </div>
         </div>
         <div class="form-group">
@@ -292,18 +279,30 @@
   <div class="form-horizontal" [formGroup]="notificationForm">
     <div class="col-sm-12">
       <div class="col-sm-6">
-        <div class="form-group">
-          <label class=" col-sm-3" for="email">Email Address :</label>
-          <div class="col-sm-6">
-            <input type="email" class="form-control" formControlName="emailAddress" placeholder="Enter email">
-          </div>
-        </div>
+          <div class="form-group required">
+              <label class="col-sm-3 lbl-ctrl" for="email-address">Email Address</label>
+              <div class="col-sm-6">
+                <input type="email" class="form-control" formControlName="email" id="email-address" placeholder="Email Address">
+                <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert-error alert-danger">
+                  <div *ngIf="email.errors.required">
+                  Email is required.
+                  </div>
+                  <div *ngIf="email.errors.email">
+                    Email is not valid.
+                  </div>
+                </div>
+              </div>
+            </div>
         <div class="form-group">
           <label class=" col-sm-3" for="sms-settings">Text (SMS) Settings :</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="directSMS" id="sms-settings" placeholder="Text (SMS) Settings">
+            <select class="form-control" formControlName="directSMS" name="directSMS">
+                <option [ngValue]="0">External Provider</option>
+                <option [ngValue]="1">Direct Delivery</option>
+            </select>
           </div>
         </div>
+        <div *ngIf="!isDirectSMS">
         <div class="form-group">
           <label class=" col-sm-3" for="sms-provider">SMS Provider :</label>
           <div class="col-sm-6">
@@ -318,11 +317,22 @@
               </select>
           </div>
         </div>
+      </div>
         <div class="form-group">
           <label class=" col-sm-3" for="mobile-number">Mobile Number :</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number" placeholder="Mobile Number">
-            <small class="form-text text-muted">Number formats vary depending on SMS provider.</small>
+            <input type="text" *ngIf="isCountryCode" class="form-control country-code" formControlName="countryCode">
+            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number" 
+              [ngClass]= "{'with-country-code':isCountryCode}" placeholder="Mobile Number">
+            <small class="form-text text-muted" *ngIf="!isCountryCode">Requires a 10 digit format.</small>
+            <small class="form-text text-muted" *ngIf="isCountryCode">
+              <span>Charges will be incured for direct delivery of SMS messages and voice notifications.
+                Phone numbers should be entered in E.164 format.  help
+               <a data-toggle="collapse" href="#numberFormating" role="button" (click)="scrollPageDown()">
+                 Learn about E.164 formatting
+                </a> </span>
+            </small>
+            
           </div>
         </div>
       </div>
@@ -362,6 +372,11 @@
         </div>
       </div>
     </div>
+    <div class="collapse col-sm-10" id="numberFormating">
+        <div class="card card-body">
+           <ng-container *ngTemplateOutlet="numberFormatTmpl"></ng-container>
+        </div>
+      </div>
   </div>
   <!-- <p>Form value: {{ notificationForm.value | json }}</p> -->
 </ng-template>
@@ -371,37 +386,37 @@
   <div class="col-sm-12 network-container">
     <div class="col-sm-6">
       <div class="form-group">
-        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator1">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Can See Network Atlantic City Margaritaville</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator2">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-1</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator3">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-2</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator4">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-3</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator5">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-4</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator6">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-5</span>
         </label>
@@ -409,37 +424,37 @@
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator7">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-6</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator8">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-7</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator9">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-8</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator10">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-9</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator11">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-10</span>
         </label>
       </div>
       <div class="form-group">
-        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator">
+        <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator12">
         <label class="form-check-input" for="IsAdministrator">
           <span class="chkbox-lbl">Network-11</span>
         </label>
@@ -583,6 +598,16 @@
           </p>
         </div>
       </div>
+</ng-template>
+<ng-template #numberFormatTmpl>
+<small class="form-text text-muted">
+  <p>
+    This format is the internationally-standardized format for all phone numbers, and it includes all the relevant information to route calls and SMS messages globally. E.164 numbers can have a maximum of fifteen digits and are usually written as follows: [+][country code][subscriber number including area code]. Phone numbers that are not formatted in E.164 may work, but it depends on the phone or handset that is being used.
+</p>
+<p>
+    For example, to convert a US phone number (999 888 7777) to E.164 format, one would need to add the ‘+’ prefix and the country code (which is 1) in front of the number (+1 999 888 7777). In the UK and many other countries internationally, local dialing requires the addition of a 0 in front of the subscriber number. However, to use E.164 formatting, this 0 must be removed. A number such as 022 3333 4444 in the UK would be formatted as +44 22 3333 4444.
+</p>
+</small>
 </ng-template>
 <ng-template #tooltipTempate>
 		'Password' must be at least 8 characters long.

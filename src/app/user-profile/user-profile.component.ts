@@ -84,6 +84,8 @@ export class UserProfileComponent implements OnInit {
   private isProfileContentCollapsed: Boolean = false;
   private isNetworksContentCollapsed: Boolean = true;
   private isUserFormValid: Boolean = false;
+  private isDirectSMS: Boolean = false;
+  private isCountryCode: Boolean = false;
  // private pwdPattern = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$';
 
   userForm = this.fb.group({
@@ -92,18 +94,18 @@ export class UserProfileComponent implements OnInit {
     confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
     admin: new FormControl('')},
    { validator: this.checkIfPasswordsMismatch('password', 'confirmPassword')}
   );
   notificationForm = this.fb.group ({
-  emailAddress: new FormControl('', Validators.required),
+  email: new FormControl('', [Validators.required, Validators.email]),
   directSMS: new FormControl(''),
   smsProvider: new FormControl(''),
   smsNumber: new FormControl(''),
   recievesMaintenanceByEmail: new FormControl(''),
   recievesMaintenanceByPhone: new FormControl(''),
 });
+ 
   private user = new UserProfile.User();
   private notification = new UserProfile.Notification();
 
@@ -115,7 +117,7 @@ export class UserProfileComponent implements OnInit {
     this.getUserProfileData();
     this.prepareUserColumns();
     this.prepareRenewalColumns();
-    this.getRenewalData();
+    this.updateNotifFormControls();
   }
   private getUserProfileData() {
    this.userProfileService.getData().subscribe(response => {
@@ -131,16 +133,10 @@ export class UserProfileComponent implements OnInit {
      // this.renewalRows = response.paymentHistories;
       this.expiryDate = new Date(response.user.account[0].subscriptionExpiry);
       this.updateRenewalLabel();
-      //this.loadPage = true;
+      this.loadPage = true;
    });
   }
-  private getRenewalData() {
-    this.userProfileService.getRenewalData().then(response => {
-          // console.log(response);
-           this.renewalRows = response;
-           this.loadPage = true;
-    });
-  }
+  
   private prepareUserColumns() {
     this.userColumns.push({ prop: 'name', name: 'Name' });
     this.userColumns.push({ prop: 'NotificationTypes', name: 'Notification', cellTemplate: this.notificationColTmpl});
@@ -164,6 +160,9 @@ export class UserProfileComponent implements OnInit {
   }
   addUser() {
     this.isShowUserTable = false;
+    window.scrollTo(0, document.documentElement.offsetHeight);
+  }
+  scrollPageDown() {
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
   goToPrevPage() {
@@ -224,6 +223,19 @@ export class UserProfileComponent implements OnInit {
        }
     }
   }
+
+  private updateNotifFormControls() {
+    this.notificationForm.controls['directSMS'].setValue(0, {onlySelf: true});
+    this.notificationForm.controls['directSMS'].valueChanges.subscribe((value) => {
+      if (value === 0) {
+        this.isDirectSMS = false;
+        this.isCountryCode = false;
+      } else {
+        this.isDirectSMS = true;
+        this.isCountryCode = true;
+      }
+   });
+  }
   get userName() {
     return this.userForm.get('userName');
  }
@@ -241,10 +253,10 @@ export class UserProfileComponent implements OnInit {
    return this.userForm.get('lastName');
  }
  get email() {
-   return this.userForm.get('email');
+   return this.notificationForm.get('email');
  }
- get emailAddress() {
-  return this.userForm.get('emailAddress');
-}
+ get directSMS() {
+   return this.notificationForm.get('directSMS');
+ }
  
 }
