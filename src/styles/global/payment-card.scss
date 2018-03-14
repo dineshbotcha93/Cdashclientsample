@@ -33,3 +33,25 @@
     }
   }
 }
+
+.creditCard-container {
+  margin: 10px;
+
+  .ccTitle-container {
+    margin-bottom: 5px;
+
+    .cc-icon {
+      font-size: 1.25em;
+      display: inline-block;
+    }
+
+    .cc-title {
+      font-size: 1.25em;
+      display: inline-block;
+    }
+  }
+
+  .card-element {
+
+  }
+}
