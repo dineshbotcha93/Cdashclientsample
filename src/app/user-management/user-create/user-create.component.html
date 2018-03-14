@@ -1,71 +1,78 @@
-<user-flow-component
-  [selected]="selectedStep">
-</user-flow-component>
+
 <div class="login_wrapper" style="max-width:600px;">
   <div class="form login_form">
     <section class="login_content">
       <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
-      <form name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
+
+      <div *ngIf="!isValidForm" class="alert alert-danger" ng->
+        <span>{{userCreationError || 'Entered form is invalid!!!'}}</span>
+      </div>
+
+      <form [formGroup]="userCreateForm" name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
 
         <h1 class="login-title" style="display: flex; justify-content: center">User Registration</h1>
         <div class="row">
           <div class="form-group col-md-6 col-xs-12">
-            <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster"
+            <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
                    value="true" (change)="masterChange($event)" checked="checked"> New Master Account User
           </div>
           <div class="form-group col-md-6 col-xs-12">
-            <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster"
+            <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
                    value="false" (change)="masterChange($event)"> Link Existing NotifEye Account
           </div>
         </div>
 
         <div class="col-md-offset-1 col-md-10 col-xs-12 m-t-lg">
           <div class="form-group row" style="padding-left: 10px; padding-right: 10px;">
-            <label for="username">User Name: </label>
+            <span><strong>User Name : </strong></span>
             <span id="username">{{userRegisterModel.email}}</span>
           </div>
 
           <div *ngIf="userRegisterModel.isNewMaster=='true'">
             <div class="form-group">
-              <input type="text" class="form-control" name="firstName" [(ngModel)]="userRegisterModel.firstName" required
+              <input type="text" class="form-control" name="firstName" formControlName="firstName" required
                      placeholder="First Name"/>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="lastName" [(ngModel)]="userRegisterModel.lastName" required
+              <input type="text" class="form-control" name="lastName" formControlName="lastName" required
                      placeholder="Last Name"/>
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" name="email" value="{{userRegisterModel.email}}" readonly="true"
+              <input type="email" class="form-control" name="email" formControlName="email" value="{{userRegisterModel.email}}" readonly="true"
                      placeholder="Email"/>
             </div>
           </div>
+
           <div class="form-group">
-            <input type="password" class="form-control" name="password" [(ngModel)]="userRegisterModel.password" required
-                   placeholder="Password" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."/>
+            <input type="password" class="form-control" name="password"
+                   formControlName="password" required placeholder="Password"/>
           </div>
+
           <div class="form-group">
             <input type="password" class="form-control" name="confirmPassword"
-                   [(ngModel)]="userRegisterModel.confirmPassword" required placeholder="Confirm Pasword"/>
+                   formControlName="confirmPassword" required placeholder="Confirm Password"/>
           </div>
+
           <div *ngIf="userRegisterModel.isNewMaster=='false'">
             <div class="form-group">
               <input type="text" class="form-control" name="notifEyeUserName"
-                     [(ngModel)]="userRegisterModel.notifEyeUsername" required placeholder="NotifEye Username"/>
+                     formControlName="notifEyeUsername" required placeholder="NotifEye Username"/>
             </div>
             <div class="form-group">
               <input type="password" class="form-control" name="notifEyePassword"
-                     [(ngModel)]="userRegisterModel.notifEyePassword" required placeholder="NotifEye Password"/>
+                     formControlName="notifEyePassword" required placeholder="NotifEye Password"/>
             </div>
           </div>
           <div class="form-group">
-            <input type="submit" value="Continue" class="btn btn-primary m-l-none pull-right">
+            <button type="submit" class="btn btn-primary m-l-none pull-right" placement="top" ngbTooltip="Tooltip on top">Continue</button>
           </div>
         </div>
       </form>
     </section>
   </div>
 </div>
-<ng-template #tooltipTempate>
+
+<ng-template #tooltipTempate style="margin:0 auto">
   'Password' must be at least 8 characters long.
   Password should contain At least one special case characters
   Password should contain At least one alphabet.
