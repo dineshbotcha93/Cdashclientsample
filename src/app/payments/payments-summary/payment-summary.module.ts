@@ -23,7 +23,6 @@ export const routes: Routes = [
 ];
 @NgModule({
   declarations: [
-    PaymentSummaryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

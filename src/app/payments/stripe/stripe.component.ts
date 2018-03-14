@@ -13,17 +13,15 @@ import { PaymentsService } from '../services/payments.service';
 export class StripeComponent implements OnInit {
 
   card: object;
-  paymentData: Object;
   customerData: Object = null;
-  acknowledgement = false;
   stripe: any = null;
+  validationError: String = null;
 
   constructor(private stripeService: StripeService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.stripe = Stripe('pk_test_rh7KqKZ2eaklfF1FO2WWURYX');
   }
 
   ngOnInit() {
-    this.checkForActiveTransaction();
 // Create an instance of Elements.
     const elements = this.stripe.elements();
 
@@ -52,23 +50,18 @@ export class StripeComponent implements OnInit {
 // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
     this.card = card;
-  }
 
-  getToken() {
-    this.stripe.createToken(this.card).then(function(tokenData) {
-      this.stripeService.sendStripeToken({
-        stripeToken: tokenData.token.id,
-        transactionId: this.activatedRoute.snapshot.params['id']
-      }).then(function(data){
-        this.router.navigate(['payments/success']);
-      }.bind(this));
+    card.addEventListener('change', function(event) {
+      if (event.error) {
+        this.validationError = event.error.message;
+      } else {
+        this.validationError = null;
+      }
     }.bind(this));
   }
 
-  checkForActiveTransaction() {
-    /*if ( transactionId === null) {
-      this.router.navigate(['payments']);
-    }*/
+  public getToken() {
+    return this.stripe.createToken(this.card);
   }
 
 }
