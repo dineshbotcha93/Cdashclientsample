@@ -131,8 +131,14 @@ export class SensorSummaryService {
   }
 
   getNotificationSettingsDetails(networkId:string){
+    // return this.requesterService
+    // .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID='+networkId);
+
     return this.requesterService
-    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID='+networkId);
+    .getExternalRequest('/api/Notification/AccountNotifications?StartIndex=1&Count=2&AccountID='+networkId);
+
+    
+
   }
 
   updateNotificationActiveState(requestObject:any){
@@ -140,5 +146,17 @@ export class SensorSummaryService {
     let URL = '/api/Notification/ToggleNotification?NotificationID='+requestObject.NotificationID+'&On='+requestObject.On;
     return this.requesterService
     .putExternalRequest(URL,{});
+  }
+
+  createNotificationDetails(requestObject:any){
+     let URL = '/api/Notification';
+    return this.requesterService
+    .postExternalRequest(URL,requestObject);
+  }
+
+   UpdateNotificationDetails(requestObject:any){
+     let URL = '/api/Notification';
+    return this.requesterService
+    .putExternalRequest(URL,requestObject);
   }
 }

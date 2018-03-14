@@ -16,6 +16,7 @@
   <div *ngIf="notificationRadio === 'summary'">
        <div class="col-md-12">
            <app-notification-summary 
+          [sensorList] = "sensorList"
            (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
            </app-notification-summary>
        </div>

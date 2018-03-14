@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { NotificationModel } from "../../shared/models/NotificationModel";
+import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
+
 
 import {
   IMultiSelectOption,
@@ -9,7 +11,8 @@ import {
 @Component({
   selector: "app-notification-create",
   templateUrl: "./notification-create.component.html",
-  styleUrls: ["./notification-create.component.scss"]
+  styleUrls: ["./notification-create.component.scss"],
+   providers: [SensorSummaryService]
 })
 export class NotificationCreateComponent implements OnInit {
   subNotificationTypes: any = [];
@@ -70,7 +73,7 @@ export class NotificationCreateComponent implements OnInit {
 
   // isComponentToCreate:string = 'addNotify';
 
-  constructor() {}
+  constructor(private sensorSummaryService: SensorSummaryService) {}
 
   setEditNotifyDetails() {
     if (this.notifyOperationType === "editNotify" ||  this.notifyOperationType === "addNotify" ) {
@@ -118,13 +121,13 @@ export class NotificationCreateComponent implements OnInit {
 
      tempObject.devices.forEach(device => {
         let tempObj: any = [];
-        (tempObj.id = device.deviceID), (tempObj.name = device.deviceName);
+        (tempObj.id = device.deviceName), (tempObj.name = device.deviceID);
         if (device.deviceCategory === "Sensor") {
            sensorObj.push(tempObj);
-           sensorModel.push(device.deviceID);
+           sensorModel.push(device.deviceName);
         } else {
           gatewayObj.push(tempObj);
-           gatewayModel.push(device.deviceID);
+          gatewayModel.push(device.deviceName);
         }
       });
 
@@ -293,27 +296,6 @@ export class NotificationCreateComponent implements OnInit {
 
     this.notificationModel.selectNotifyMagnetList = Obj3;
 
-    // let sensorObj = [];
-
-    // this.sensorList.forEach(sensor => {
-    //   let tempObj: any = [];
-    //   (tempObj.id = sensor.sensorID), (tempObj.name = sensor.sensorName);
-
-    //   sensorObj.push(tempObj);
-    // });
-
-    // this.mySensorOptions = sensorObj;
-
-    // sensorObj = [];
-
-    // this.gatewayList.forEach(gateway => {
-    //   let tempObj: any = [];
-    //   (tempObj.id = gateway.gatewayID), (tempObj.name = gateway.name);
-
-    //   sensorObj.push(tempObj);
-    // });
-
-    // this.myGatewayOptions = sensorObj;
 
     // userList
 
@@ -825,7 +807,54 @@ export class NotificationCreateComponent implements OnInit {
   }
 
   onClickCreateNotification(value) {
-    console.log(this.notificationModel);
-    this.createMessageEvent.emit(true);
+    console.log('this.notificationModel------>',this.notificationModel);
+
+    // backend method
+
+    let requestObject = {
+      
+        "text": this.notificationModel.strNotificationText,
+        "name": this.notificationModel.strNotificationName,
+        "scale": "",
+        "notificationClass": "Advanced",
+        "compareType": "sample string 5",
+        "comparerValue": 6.1,
+        "accountID": 7,
+        "advancedNotificationID": 8,
+        "monnitApplicationID": 9,
+        "gatewayID": 10,
+        "sensorID": 11,
+        "snooze": 12.1,
+        "startTime": "sample string 13",
+        "endTime": "sample string 14",
+        "schedule": {
+          "sundayDayOfWeek": "sample string 1",
+          "mondayDayOfWeek": "sample string 2",
+          "tuesdayDayOfWeek": "sample string 3",
+          "wednesdayDayOfWeek": "sample string 4",
+          "thursdayDayOfWeek": "sample string 5",
+          "fridayDayOfWeek": "sample string 6",
+          "saturdayDayOfWeek": "sample string 7"
+        }
+
+    }
+    // console.log('this.notifyOperationType',this.notifyOperationType);
+
+      if (this.notifyOperationType === "addNotify" ) {
+         this.sensorSummaryService.createNotificationDetails(requestObject).then((result) => {
+
+            //Emit true if 1
+           this.createMessageEvent.emit(true);
+        });
+      }else if(this.notifyOperationType === "editNotify") {
+         this.sensorSummaryService.UpdateNotificationDetails(requestObject).then((result) => {
+
+            //Emit true if 1
+           this.createMessageEvent.emit(true);
+        });
+      }
+   
+
+   
   }
 }
