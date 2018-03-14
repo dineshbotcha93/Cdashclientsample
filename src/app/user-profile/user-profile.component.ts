@@ -83,17 +83,19 @@ export class UserProfileComponent implements OnInit {
   private isNetworkContentCollapsed: Boolean = true;
   private isProfileContentCollapsed: Boolean = false;
   private isNetworksContentCollapsed: Boolean = true;
+  private isUserFormValid: Boolean = false;
+ // private pwdPattern = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$';
 
   userForm = this.fb.group({
     userName: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    admin: new FormControl(''),
-   //{ validator: this.checkIfPasswordsMismatch('password', 'confirmPassword')}
-  });
+    admin: new FormControl('')},
+   { validator: this.checkIfPasswordsMismatch('password', 'confirmPassword')}
+  );
   notificationForm = this.fb.group ({
   emailAddress: new FormControl('', Validators.required),
   directSMS: new FormControl(''),
@@ -123,10 +125,11 @@ export class UserProfileComponent implements OnInit {
    });
 
    this.userProfileService.getRealData().then(response => {
-     // console.log(response);
-      this.responseData = response;
-      this.accountData = response.account[0];
-      this.expiryDate = new Date(response.account.subscriptionExpiry);
+      console.log(response);
+      this.responseData = response.user;
+      this.accountData = response.user.account[0];
+     // this.renewalRows = response.paymentHistories;
+      this.expiryDate = new Date(response.user.account[0].subscriptionExpiry);
       this.updateRenewalLabel();
       //this.loadPage = true;
    });
@@ -194,8 +197,9 @@ export class UserProfileComponent implements OnInit {
 
   navigateToNotifSection() {
     if (this.userForm.invalid) {
-     return;
+     //return;
     }
+    this.isUserFormValid = true;
     this.user = this.userForm.value;
     //console.log(this.user);
     this.isUserContentCollapsed = true;
