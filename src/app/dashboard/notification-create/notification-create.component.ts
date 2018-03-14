@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { NotificationModel } from "../../shared/models/NotificationModel";
-import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
-
+import { SensorSummaryService } from "../sensor-summary/services/sensor-summary.service";
 
 import {
   IMultiSelectOption,
@@ -12,7 +11,7 @@ import {
   selector: "app-notification-create",
   templateUrl: "./notification-create.component.html",
   styleUrls: ["./notification-create.component.scss"],
-   providers: [SensorSummaryService]
+  providers: [SensorSummaryService]
 })
 export class NotificationCreateComponent implements OnInit {
   subNotificationTypes: any = [];
@@ -76,30 +75,37 @@ export class NotificationCreateComponent implements OnInit {
   constructor(private sensorSummaryService: SensorSummaryService) {}
 
   setEditNotifyDetails() {
-    if (this.notifyOperationType === "editNotify" ||  this.notifyOperationType === "addNotify" ) {
+    if (
+      this.notifyOperationType === "editNotify" ||
+      this.notifyOperationType === "addNotify"
+    ) {
       console.log("before editing ", this.editNotifyObject);
-      let tempObject : any;
+      let tempObject: any;
       // tempObject = this.sensorList;
 
       console.log("before editing ", this.sensorList[0]);
 
-      tempObject = this.notifyOperationType === "editNotify" ? this.editNotifyObject : this.sensorList[0];
-       console.log("after editing ", tempObject);
+      tempObject =
+        this.notifyOperationType === "editNotify"
+          ? this.editNotifyObject
+          : this.sensorList[0];
+      console.log("after editing ", tempObject);
 
-      if(this.notifyOperationType === "editNotify"){
+      if (this.notifyOperationType === "editNotify") {
+        let notify = tempObject.notification;
 
-            let notify = tempObject.notification;
-            this.notificationModel.strNotificationName = notify.name;
-            this.notificationModel.strNotificationText = notify.text;
-            this.notificationModel.strSnoozeAlertValue = notify.snooze;
-            this.notificationModel.isNotificationActive = notify.active;
+        this.notificationModel.strNotificationName = notify.name;
+        this.notificationModel.strNotificationText = notify.text;
+        this.notificationModel.strSnoozeAlertValue = notify.snooze;
+        this.notificationModel.isNotificationActive = notify.active;
+
+        console.log("notify--->", notify.notificationID);
+        this.getNotificationScheduleDetails(notify.notificationID);
       }
 
       //user setting
       let userTempObj = [];
       let userSelectedObject = [];
-
-
 
       tempObject.users.forEach(user => {
         let tempObj: any = [];
@@ -119,12 +125,12 @@ export class NotificationCreateComponent implements OnInit {
       let gatewayModel = [];
       let gatewayObj = [];
 
-     tempObject.devices.forEach(device => {
+      tempObject.devices.forEach(device => {
         let tempObj: any = [];
         (tempObj.id = device.deviceName), (tempObj.name = device.deviceID);
         if (device.deviceCategory === "Sensor") {
-           sensorObj.push(tempObj);
-           sensorModel.push(device.deviceName);
+          sensorObj.push(tempObj);
+          sensorModel.push(device.deviceName);
         } else {
           gatewayObj.push(tempObj);
           gatewayModel.push(device.deviceName);
@@ -135,7 +141,7 @@ export class NotificationCreateComponent implements OnInit {
       this.gatewayOptionsModel = gatewayModel;
       // this.mySensorOptions = [];
       // this.myGatewayOptions = [];
-       this.mySensorOptions = sensorObj;
+      this.mySensorOptions = sensorObj;
       this.myGatewayOptions = gatewayObj;
 
       this.isSensorNotificationForm1 = true;
@@ -169,6 +175,277 @@ export class NotificationCreateComponent implements OnInit {
       scheduleInlineNotifyCheck: { left: true, right: false },
       notificationTemplate: ""
     };
+  }
+
+  getNotificationScheduleDetails(networkID: string) {
+    this.sensorSummaryService
+      .getNotificationScheduleList(networkID)
+      .then(result => {
+        console.log("schedule Result-->", result);
+
+         this.scheduleObj = [];
+         let tempObject3 = [
+          {
+            id: "01",
+            value: "All Day"
+          },
+          {
+            id: "02",
+            value: "Off"
+          },
+          {
+            id: "03",
+            value: "Between"
+          },
+          {
+            id: "04",
+            value: "Between and After"
+          },
+          {
+            id: "05",
+            value: "Before"
+          },
+          {
+            id: "06",
+            value: "After"
+          }
+        ];
+
+        let selectedObj = [];
+        selectedObj.push(tempObject3[1]);
+
+         result.forEach(schedule => {
+
+           console.log(schedule);
+
+           let tempObj = {
+               day:schedule.DayOfWeek,
+               value:schedule.DayOfWeek,
+               scheduleObj:tempObject3,
+               timePickerBefore: this.timePickerBefore,
+               timePickerAfter: this.timePickerAfter,
+               selectScheduleObj:selectedObj
+           }
+
+           this.scheduleObj.push(tempObj);
+         });
+
+     console.log(' this.scheduleObj, this.scheduleObj');
+    // ];
+
+        // let scheduleObject = [
+        //   {
+        //     DayOfWeek: "Monday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   },
+        //   {
+        //     DayOfWeek: "Tuesday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   },
+        //   {
+        //     DayOfWeek: "Wednesday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   },
+        //   {
+        //     DayOfWeek: "Thursday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   },
+        //   {
+        //     DayOfWeek: "Friday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   },
+        //   {
+        //     DayOfWeek: "Saturday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   },
+        //   {
+        //     DayOfWeek: "Sunday",
+        //     FirstEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     SecondEnteredTime: {
+        //       Ticks: 0,
+        //       Days: 0,
+        //       Hours: 0,
+        //       Milliseconds: 0,
+        //       Minutes: 0,
+        //       Seconds: 0,
+        //       TotalDays: 0,
+        //       TotalHours: 0,
+        //       TotalMilliseconds: 0,
+        //       TotalMinutes: 0,
+        //       TotalSeconds: 0
+        //     },
+        //     NotificationSchedule: "All_Day"
+        //   }
+        // ];
+      });
   }
 
   ngOnInit() {
@@ -229,57 +506,57 @@ export class NotificationCreateComponent implements OnInit {
       }
     ];
 
-    this.scheduleObj = [
-      {
-        day: "Monday",
-        value: "monday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      },
-      {
-        day: "Tuesday",
-        value: "tuesday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      },
-      {
-        day: "Wednesday",
-        value: "wednesday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      },
-      {
-        day: "Thursday",
-        value: "thursday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      },
-      {
-        day: "Friday",
-        value: "friday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      },
-      {
-        day: "Saturday",
-        value: "saturday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      },
-      {
-        day: "Sunday",
-        value: "sunday",
-        scheduleObj: tempObject3,
-        timePickerBefore: this.timePickerBefore,
-        timePickerAfter: this.timePickerAfter
-      }
-    ];
+    // this.scheduleObj = [
+    //   {
+    //     day: "Monday",
+    //     value: "monday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   },
+    //   {
+    //     day: "Tuesday",
+    //     value: "tuesday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   },
+    //   {
+    //     day: "Wednesday",
+    //     value: "wednesday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   },
+    //   {
+    //     day: "Thursday",
+    //     value: "thursday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   },
+    //   {
+    //     day: "Friday",
+    //     value: "friday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   },
+    //   {
+    //     day: "Saturday",
+    //     value: "saturday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   },
+    //   {
+    //     day: "Sunday",
+    //     value: "sunday",
+    //     scheduleObj: tempObject3,
+    //     timePickerBefore: this.timePickerBefore,
+    //     timePickerAfter: this.timePickerAfter
+    //   }
+    // ];
 
     this.dailySheduleNotificationList = [];
 
@@ -295,7 +572,6 @@ export class NotificationCreateComponent implements OnInit {
     ];
 
     this.notificationModel.selectNotifyMagnetList = Obj3;
-
 
     // userList
 
@@ -807,54 +1083,51 @@ export class NotificationCreateComponent implements OnInit {
   }
 
   onClickCreateNotification(value) {
-    console.log('this.notificationModel------>',this.notificationModel);
+    console.log("this.notificationModel------>", this.notificationModel);
 
     // backend method
 
     let requestObject = {
-      
-        "text": this.notificationModel.strNotificationText,
-        "name": this.notificationModel.strNotificationName,
-        "scale": "",
-        "notificationClass": "Advanced",
-        "compareType": "sample string 5",
-        "comparerValue": 6.1,
-        "accountID": 7,
-        "advancedNotificationID": 8,
-        "monnitApplicationID": 9,
-        "gatewayID": 10,
-        "sensorID": 11,
-        "snooze": 12.1,
-        "startTime": "sample string 13",
-        "endTime": "sample string 14",
-        "schedule": {
-          "sundayDayOfWeek": "sample string 1",
-          "mondayDayOfWeek": "sample string 2",
-          "tuesdayDayOfWeek": "sample string 3",
-          "wednesdayDayOfWeek": "sample string 4",
-          "thursdayDayOfWeek": "sample string 5",
-          "fridayDayOfWeek": "sample string 6",
-          "saturdayDayOfWeek": "sample string 7"
-        }
-
-    }
+      text: this.notificationModel.strNotificationText,
+      name: this.notificationModel.strNotificationName,
+      scale: "",
+      notificationClass: "Advanced",
+      compareType: "sample string 5",
+      comparerValue: 6.1,
+      accountID: 7,
+      advancedNotificationID: 8,
+      monnitApplicationID: 9,
+      gatewayID: 10,
+      sensorID: 11,
+      snooze: 12.1,
+      startTime: "sample string 13",
+      endTime: "sample string 14",
+      schedule: {
+        sundayDayOfWeek: "sample string 1",
+        mondayDayOfWeek: "sample string 2",
+        tuesdayDayOfWeek: "sample string 3",
+        wednesdayDayOfWeek: "sample string 4",
+        thursdayDayOfWeek: "sample string 5",
+        fridayDayOfWeek: "sample string 6",
+        saturdayDayOfWeek: "sample string 7"
+      }
+    };
     // console.log('this.notifyOperationType',this.notifyOperationType);
 
-      if (this.notifyOperationType === "addNotify" ) {
-         this.sensorSummaryService.createNotificationDetails(requestObject).then((result) => {
-
-            //Emit true if 1
-           this.createMessageEvent.emit(true);
+    if (this.notifyOperationType === "addNotify") {
+      this.sensorSummaryService
+        .createNotificationDetails(requestObject)
+        .then(result => {
+          //Emit true if 1
+          this.createMessageEvent.emit(true);
         });
-      }else if(this.notifyOperationType === "editNotify") {
-         this.sensorSummaryService.UpdateNotificationDetails(requestObject).then((result) => {
-
-            //Emit true if 1
-           this.createMessageEvent.emit(true);
+    } else if (this.notifyOperationType === "editNotify") {
+      this.sensorSummaryService
+        .UpdateNotificationDetails(requestObject)
+        .then(result => {
+          //Emit true if 1
+          this.createMessageEvent.emit(true);
         });
-      }
-   
-
-   
+    }
   }
 }

@@ -159,4 +159,11 @@ export class SensorSummaryService {
     return this.requesterService
     .putExternalRequest(URL,requestObject);
   }
+
+  getNotificationScheduleList(networkID:string){
+     let URL = '/api/Notification/ScheduleList?NotificationID='+networkID;
+    return this.requesterService
+    .getExternalRequest(URL);
+   
+  }
 }

@@ -130,7 +130,7 @@ export class SensorSummaryComponent implements OnInit {
         if (loc.networkID == this.netWorkId) {
           this.selectLocation = Obj;
         }
-        
+        console.log('this.selectLocation',this.selectLocation);
         this.locationData.push(Obj);
       });
     });
