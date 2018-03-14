@@ -279,7 +279,7 @@ export class UserProfileService {
   }
 
 getRealData() {
- return this.requestService.getExternalRequest('/api/User/Info');
+ return this.requestService.getExternalRequest('/api/User/Details');
 }
 
 getRenewalData() {
