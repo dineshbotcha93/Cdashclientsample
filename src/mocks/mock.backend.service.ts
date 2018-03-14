@@ -12,6 +12,9 @@ import {
   XHRBackend,
   Headers
  } from "@angular/http";
+import { Router } from '@angular/router';
+import { AlertSandbox } from '../app/shared/components/alerts/alerts.sandbox';
+
 
 @Injectable()
 export class MockBackendService {
@@ -19,7 +22,9 @@ export class MockBackendService {
     private backend: MockBackend,
     private http: Http,
     private options: BaseRequestOptions,
-    private realBackend: XHRBackend
+    private realBackend: XHRBackend,
+    private router: Router,
+    private alertSandbox: AlertSandbox
   ) {}
 
   start(): void {
@@ -132,7 +137,7 @@ export class MockBackendService {
         c.mockRespond(new Response(new ResponseOptions({
           body: JSON.stringify(body)
         })));
-      } else if(c.request.url.match(/google/g) && c.request.method === 0){
+      } else if(c.request.url.match(/google/g) && c.request.method === RequestMethod.Get){
         this.http = new Http(this.realBackend, this.options);
         this.http.get(c.request.url).subscribe((result)=>{
           c.mockRespond(new Response(new ResponseOptions({
@@ -155,6 +160,10 @@ export class MockBackendService {
             body: JSON.stringify(result.json())
           })));
         },(error)=>{
+          if(error.status == 401){
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+            this.router.navigate(['/login']);
+          }
           c.mockError(new Error(error));
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Get){
@@ -170,6 +179,10 @@ export class MockBackendService {
             body: JSON.stringify(response.json())
           })));
         },(error)=>{
+          if(error.status == 401){
+            this.router.navigate(['/login']);
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+          }
           c.mockError(new Error(error));
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Put){
@@ -185,6 +198,10 @@ export class MockBackendService {
             body: JSON.stringify(response.json())
           })));
         },(error)=>{
+          if(error.status == 401){
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+            this.router.navigate(['/login']);
+          }
           c.mockError(new Error(error));
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Delete){
@@ -200,6 +217,10 @@ export class MockBackendService {
             body: JSON.stringify(response.json())
           })));
         },(error)=>{
+          if(error.status == 401){
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+            this.router.navigate(['/login']);
+          }
           c.mockError(new Error(error));
         });
       }
