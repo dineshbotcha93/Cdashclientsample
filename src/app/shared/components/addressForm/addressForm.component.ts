@@ -2,55 +2,11 @@ import {Component, OnInit, EventEmitter} from "@angular/core";
 import { Input, Output } from "@angular/core";
 import { FormGroup,FormBuilder ,FormControl,Validators, ReactiveFormsModule } from '@angular/forms';
 import {AddressFormService} from "./addressForm.service";
-import {FillDetailsService} from "../../../user-management/user-create/fill-details/fill-details.service";
 
 
 @Component({
   selector: 'address-form-component',
-  template: `
-	<form [formGroup]="addressForm">
-    <div class="form-group">
-      <label for="country">Country</label>
-      <select formControlName="country" (change)="onSelectCountry($event.target.value)"> 
-        <option *ngFor="let country of countries" [ngValue]="country.name">{{country.name}}</option>
-      </select>
-    </div>
-		<div class="form-group">
-			<label for="street">Address 1</label>
-			<input name="street" class="form-control" type="text" formControlName="street" />
-			<div *ngIf="addressForm.get('street').touched">
-				<div *ngIf="addressForm.get('street').hasError('required')">This field is required.</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="housenumber">Address 2</label>
-			<input name="housenumber" class="form-control" type="text" formControlName="housenumber" />
-			<!--<div *ngIf="addressForm.get('housenumber').touched">
-				<div *ngIf="addressForm.get('housenumber').hasError('required')">This field is required.</div>
-			</div>-->
-		</div>
-		<div class="form-group">
-			<label for="city">City</label>
-			<input name="city" class="form-control" type="text" formControlName="city" />
-			<div *ngIf="addressForm.get('city').touched">
-				<div *ngIf="addressForm.get('city').hasError('required')">This field is required.</div>
-			</div>
-		</div>
-    <div class="form-group">
-      <label for="state">State</label>
-      <select formControlName="state">
-        <option *ngFor="let state of states" [ngValue]="state.name">{{state.name}}</option>
-      </select>
-    </div>
-		<div class="form-group">
-			<label for="zipcode">Postal Code</label>
-			<input name="zipcode" class="form-control" type="text" formControlName="zipcode" />
-			<div *ngIf="addressForm.get('zipcode').touched">
-				<div *ngIf="addressForm.get('zipcode').hasError('required')">This field is required.</div>
-			</div>
-		</div>
-	</form>
-`,
+  templateUrl: './addressForm.component.html',
   providers: [AddressFormService]
 })
 export class AddressFormComponent implements OnInit {
@@ -65,6 +21,7 @@ export class AddressFormComponent implements OnInit {
   private selectedCountry = 'united states';
 
   constructor(private fb: FormBuilder, private AddressFormService: AddressFormService) {
+
     this.addressForm = this.fb.group({
       "street": new FormControl("", Validators.required),
       "housenumber": new FormControl(),
@@ -74,15 +31,8 @@ export class AddressFormComponent implements OnInit {
       "country": new FormControl()
     });
 
-    this.AddressFormService.getStates().subscribe((e)=>{
-      this.states = e[0];
-      console.log(this.states);
-    })
-    this.AddressFormService.getCountries().subscribe((e)=>{
-      this.countries = e[0];
-      console.log(this.countries);
-    });
-
+    this.loadCountries();
+    this.loadStates();
   }
 
   ngOnInit(): void {
@@ -93,6 +43,23 @@ export class AddressFormComponent implements OnInit {
 
   onSelectCountry(countryid) {
     console.log('selected country;', countryid);
+   // this.selectedCountry = countryid;
 
+  }
+
+  loadStates() {
+
+    this.AddressFormService.getStates().subscribe((e)=>{
+      this.states = e[0];
+      console.log(this.states);
+    })
+  }
+
+  loadCountries() {
+
+    this.AddressFormService.getCountries().subscribe((e)=>{
+      this.countries = e[0];
+      console.log(this.countries);
+    });
   }
 }

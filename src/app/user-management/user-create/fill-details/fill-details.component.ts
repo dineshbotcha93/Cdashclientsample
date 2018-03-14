@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import { FormGroup,FormBuilder ,FormControl,Validators , FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+
 @Component({
   selector: 'fill-details',
   templateUrl: './fill-details.html',
@@ -87,11 +88,24 @@ export class FillDetailsComponent implements OnInit {
   onSubmit(){
     console.log("form..");
     console.log(this.accountForm.value);
-    if(this.accountForm.valid){
-      console.log("form is valid");
-      console.log(this.accountForm.value);
-    } else {
+   // if(this.accountForm.valid){
 
-    }
+      console.log(this.accountForm.value);
+
+      // set the token to the header before making the api call
+      // submit data to the new account creation api
+      this.createNewUserAccount(this.accountForm);
+
+   /* } else {
+
+    }*/
+  }
+
+  private createNewUserAccount(accountForm: FormGroup) {
+
+    this.fillDetailsService.createNewUserAccount(accountForm.value).then((e)=>{
+      console.log(e);
+    })
+
   }
 }
