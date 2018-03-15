@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FlowDisplayModule } from '../../flow-display/flow-display.module';
 import { FlowButtonsModule } from '../../flow-buttons/flow-buttons.module';
+import {ComponentsModule} from '../../../shared/components';
+import { ReactiveFormsModule  } from '@angular/forms';
 
 const routes: Routes = [{
     path:'',component: FillDetailsComponent
@@ -17,7 +19,9 @@ const routes: Routes = [{
     FlowDisplayModule,
     FlowButtonsModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 

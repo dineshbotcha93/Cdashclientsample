@@ -20,6 +20,13 @@ export const MapConstants = {
     MISSED_COMMUNICATION:'3',
     ALERTS:'4'
   },
+  NEW_STATUS_NUMBERS:{
+    OK: '0',
+    WARNING: '1',
+    ALERT:'2',
+    INACTIVE:'3',
+    SLEEPING:'4',
+  },
   SENSOR_TYPE:{
     HUMIDITY:43,
     CONTACT:9,

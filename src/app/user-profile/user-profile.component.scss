@@ -21,62 +21,7 @@ table {
     }
   }
 }
-.customer-info-container {
-  .customer-info-left {
-    color: $color-grey-verydark;
 
-    .customer-name {
-      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      font-size: 2.5em;
-    }
-
-    .customer-address {
-      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      font-size: 1.25em;
-    }
-
-    .customer-contact-name {
-      margin-top: 15px;
-
-      .key {
-        font-weight: bold;
-      }
-    }
-
-    .customer-email {
-      // float: left;
-      margin-top: 5px;
-
-      .key {
-        font-weight: bold;
-      }
-    }
-
-    .customer-phone {
-      margin-top: 5px;
-
-      .key {
-        font-weight: bold;
-      }
-    }
-
-    .customer-amount {
-    //  color:#00A421;
-      //padding:5px;
-    }
-
-    .usr-lbl {
-      font-weight:bold;
-      padding:5px;
-    }
-
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
-      margin-bottom: 10px;
-      width: 100%;
-    }
-  }
-}
 .customer-status {
   color:#ffffff;
   font-size: 20px;
@@ -168,10 +113,33 @@ a:hover {
 .renewal-pos {
   left:75%;
 }
-
 @media (min-width: $phone-small) and (max-width: $tablet-large) {
   .renewal-pos {
-    left:0px;
+    left:9%;
     margin-top:25px;
   }
+}
+
+.form-group.required > .lbl-ctrl::after {
+  content: "*";
+  color:red;
+}
+.notif-icons {
+  float:left;
+  padding-right:10px;
+}
+
+.modal-ctrl {
+  margin-bottom: 10px;
+}
+.account-modal-body {
+  background-color: #fff;
+}
+.account-modal-footer {
+  border-top: none;
+}
+.network-container {
+  height:200px;
+  overflow-y:scroll;
+  border:1px solid #ccc;
 }
