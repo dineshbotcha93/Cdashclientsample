@@ -58,7 +58,7 @@ table {
       font-weight:bold;
       padding:5px;
     }
-    
+
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       font-size: 0.85em;
       margin-bottom: 10px;
@@ -126,7 +126,7 @@ table {
 //   }
 // }
 
-a:link, a:visited { 
+a:link, a:visited {
   color: #3498DB;
   cursor:pointer ;
 }
@@ -182,7 +182,7 @@ a:hover {
   border-top: none;
 }
 .network-container {
-  height:200px; 
+  height:200px;
   overflow-y:scroll;
   border:1px solid #ccc;
 }
