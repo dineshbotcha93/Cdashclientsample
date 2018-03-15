@@ -18,6 +18,10 @@ export class UserManagementService {
     return true;
   }
 
+  public registerNotifEyeUser(userRegisterModel: UserManagementForm): Promise<any> {
+    return this.requesterService.postExternalRequest('/api/User/RegisterNotifEyeUser', userRegisterModel);
+  }
+
   public userDetailsUpdation(userRegisterModel : UserManagementForm): boolean{
     return true;
   }

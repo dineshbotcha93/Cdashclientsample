@@ -282,8 +282,4 @@ getRealData() {
  return this.requestService.getExternalRequest('/api/User/Details');
 }
 
-getRenewalData() {
-  return this.requestService.getExternalRequest('/api/Payment/PaymentHistoryList?Offset=0&PageSize=3');
-}
-
 }
