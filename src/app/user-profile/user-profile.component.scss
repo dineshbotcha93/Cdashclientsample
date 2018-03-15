@@ -21,51 +21,7 @@ table {
     }
   }
 }
-.customer-info-container {
-  .customer-info-left {
-    color: $color-grey-verydark;
 
-    .customer-name {
-      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      font-size: 2.5em;
-    }
-
-    .customer-address {
-      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      font-size: 1.25em;
-    }
-
-    .customer-contact-name {
-      margin-top: 15px;
-      padding:5px;
-    }
-
-    .customer-email {
-      float:left;
-      padding:5px;
-    }
-
-    .customer-phone {
-      padding:5px;
-    }
-
-    .customer-amount {
-    //  color:#00A421;
-      //padding:5px;
-    }
-
-    .usr-lbl {
-      font-weight:bold;
-      padding:5px;
-    }
-
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
-      margin-bottom: 10px;
-      width: 100%;
-    }
-  }
-}
 .customer-status {
   color:#ffffff;
   font-size: 20px;
@@ -163,6 +119,7 @@ a:hover {
     margin-top:25px;
   }
 }
+
 .form-group.required > .lbl-ctrl::after {
   content: "*";
   color:red;
@@ -185,13 +142,4 @@ a:hover {
   height:200px;
   overflow-y:scroll;
   border:1px solid #ccc;
-}
-.country-code {
-  width: 20%;
-  float: left;
-}
-
-.with-country-code {
-  margin-left: 25%;
-  width: 75%;
 }
