@@ -74,11 +74,11 @@
                     </div>
                     <div class="form-group">
                       <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
-                        <option value="good">Good</option>
-                        <option value="low signal">Low Signal</option>
-                        <option value="low battery">Low Battery</option>
-                        <option value="missed communication">Missed Communication</option>
-                        <option value="alerts">Alerts</option>
+                        <option value="ok">Ok</option>
+                        <option value="warning">Warning</option>
+                        <option value="alert">Alert</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="sleeping">Sleeping</option>
                         <option value="select" selected>All</option>
                       </select>
                     </div>

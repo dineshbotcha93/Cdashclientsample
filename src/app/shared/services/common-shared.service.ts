@@ -13,15 +13,15 @@ export class CommonSharedService {
 
 	evaluateSensorStatus(criteria,sensorDetail,aSensor){
 		switch(criteria){
-			case 'good':
+			case 'ok':
 			return (sensorDetail['status'] == 0) ? aSensor:'';
-			case 'low signal':
+			case 'warning':
 			return (sensorDetail['status'] == 1) ? aSensor:'';
-			case 'low battery':
+			case 'alert':
 			return (sensorDetail['status'] == 2) ? aSensor:'';
-			case 'missed communication':
+			case 'inactive':
 			return (sensorDetail['status'] == 3) ? aSensor:'';
-			case 'alerts':
+			case 'sleeping':
 			return (sensorDetail['status'] == 4) ? aSensor:'';
 			default:
 			return aSensor;
