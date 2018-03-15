@@ -85,16 +85,18 @@ export class TileComponent {
     }
   }
 
-  getSensorTileIcon(sensorType,status){
+  getSensorTileIcon(sensorType,tileContent){
       switch(sensorType){
         case this.mapConstants.SENSOR_TYPE.TEMP:
         return 'fa-thermometer-half';
         case this.mapConstants.SENSOR_TYPE.HUMIDITY:
         return 'fa-tint';
-        case this.mapConstants.SENSOR_TYPE.CONTACT && status == '3':
-        return 'fa-lock';
-        case this.mapConstants.SENSOR_TYPE.CONTACT && status == '4':
-        return 'fa-lock-open';
+        case (this.mapConstants.SENSOR_TYPE.CONTACT):
+        if(tileContent == 'Closed'){
+          return 'fa-lock';
+        } else {
+          return 'fa-lock-open';
+        }
         default:
         return 'fa-tablet';
     }
