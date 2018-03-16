@@ -7,6 +7,7 @@ export class UserManagementForm {
   public isNewMaster: string;
   public notifEyeUsername: string;
 	public notifEyePassword: string;
+	public productName: string;
 
   constructor(userManagementForm: any) {
     this.isNewMaster = 'false';
@@ -17,5 +18,6 @@ export class UserManagementForm {
     this.confirmPassword = userManagementForm.confirmPassword    || '';
     this.notifEyeUsername = userManagementForm.notifEyeUsername || '';
     this.notifEyePassword = userManagementForm.notifEyePassword || '';
+    this.productName = userManagementForm.productName || '';
   }
 }

@@ -21,7 +21,8 @@ export class UserCreateComponent implements OnInit {
     confirmPassword: '',
     isNewMaster: 'false',
     notifEyeUsername: '',
-    notifEyePassword: ''
+    notifEyePassword: '',
+    productName: ''
   };
   isValidForm = true;
   passwordMatch = false;
@@ -29,6 +30,7 @@ export class UserCreateComponent implements OnInit {
   selectedStep: number;
   userCreationError: string|null = null;
   userName: string|null = null;
+  registrationToken = 'neJZu1bFakP44zrpk9s3WrpbO0Y+Boeoz6pLYzQD87E=';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -56,6 +58,7 @@ export class UserCreateComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.userRegisterModel.email = params['email'];
       this.userCreateForm.patchValue({'email': params['email']});
+      this.registrationToken = params['token'];
     });
   }
 
@@ -65,8 +68,7 @@ export class UserCreateComponent implements OnInit {
     this.isValidForm = this.userCreateForm.valid && this.passwordMatch;
 
     if (this.isValidForm) {
-      this.populateUserRegisterModel();
-      this.userManagementService.registerNotifEyeUser(this.userRegisterModel)
+      this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
         .then(() => {
           this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
         })
@@ -82,13 +84,15 @@ export class UserCreateComponent implements OnInit {
     this.router.navigate(['user-register']);
   }
 
-  private populateUserRegisterModel() {
-    this.userRegisterModel.email = this.userCreateForm.get('email').value;
-    this.userRegisterModel.password = this.commonSharedService
-      .getHahedPassword(this.userRegisterModel.email, this.userCreateForm.get('password').value);
-    this.userRegisterModel.confirmPassword = this.userRegisterModel.password;
-    this.userRegisterModel.notifEyeUsername = this.userCreateForm.get('notifEyeUsername').value;
-    this.userRegisterModel.notifEyePassword = this.userCreateForm.get('notifEyePassword').value;
+  private populateRegisterExistingUserModel(): object {
+    return {
+      dashboardUserName: this.userRegisterModel.email,
+      dashboardPassword: this.userRegisterModel.password,
+      productName: 'NotifEye',
+      email: this.userRegisterModel.email,
+      notifeyeUserName: this.userRegisterModel.notifEyeUsername,
+      notifeyePassword: this.userRegisterModel.notifEyePassword
+    };
   }
 
   onNext($event) {
