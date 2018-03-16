@@ -47,6 +47,7 @@ export class NotificationCreateComponent implements OnInit {
   @Input() gatewayList: Array<any>;
   @Input() notifyOperationType: string;
   @Input() editNotifyObject: any;
+   @Input() accountData: any;
 
   @Output() createMessageEvent = new EventEmitter<boolean>();
 
