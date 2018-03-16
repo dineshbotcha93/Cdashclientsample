@@ -41,7 +41,7 @@
             <div class="col-sm-5 customer-amount">{{labelRenewal}}
               <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
             </div>
-            <div class="col-sm-3">                
+            <div class="col-sm-3">
                 <button type="button" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
                     <i class="fa fa-edit"></i>Edit Account</button>
             </div>
@@ -207,7 +207,7 @@
         <div class="form-group required">
           <label class="col-sm-3 lbl-ctrl" for="password">Password</label>
           <div class="col-sm-7">
-            <input type="password" class="form-control" formControlName="password" id="password" 
+            <input type="password" class="form-control" formControlName="password" id="password"
              style="width:85%; display:inline-block" placeholder="Password">
             <!-- <button type="button" class="btn btn-outline-secondary" placement="top" ngbTooltip="Tooltip on top">
               <i class="fa fa-question-circle"></i></button> -->
@@ -258,7 +258,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="form-group">
           <label class="col-sm-3 form-check-input" for="IsAdministrator">Is Administrator</label>
           <div class="col-sm-1">
@@ -322,7 +322,7 @@
           <label class=" col-sm-3" for="mobile-number">Mobile Number :</label>
           <div class="col-sm-6">
             <input type="text" *ngIf="isCountryCode" class="form-control country-code" formControlName="countryCode">
-            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number" 
+            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number"
               [ngClass]= "{'with-country-code':isCountryCode}" placeholder="Mobile Number">
             <small class="form-text text-muted" *ngIf="!isCountryCode">Requires a 10 digit format.</small>
             <small class="form-text text-muted" *ngIf="isCountryCode">
@@ -332,7 +332,7 @@
                  Learn about E.164 formatting
                 </a> </span>
             </small>
-            
+
           </div>
         </div>
       </div>
@@ -486,7 +486,7 @@
       <div class="modal-footer account-modal-footer">
       <button type="button" class="btn btn-primary addBTN" data-dismiss="modal">
         <i class="fa fa-save"></i>Update Account
-      </button>  
+      </button>
       </div>
     </div>
   </div>
@@ -495,7 +495,7 @@
 <ng-template #editAccountFormTmpl>
     <div class="col-sm-12 modal-ctrl">
         <label for="companyName" class="col-sm-4">Account Number : </label>
-        <input type="text" name="accountNumber" [ngModel] ="accountData?.accountID" class="col-sm-8">
+        <input type="text" name="accountNumber" [ngModel] ="accountData?.accountID" class="col-sm-8" disabled>
     </div>
     <div class="col-sm-12 modal-ctrl">
       <label for="companyName" class="col-sm-4">Company Name : </label>
@@ -506,14 +506,17 @@
       <input type="text" name="primaryContact" [ngModel] ="accountData?.smsNumber" class="col-sm-8">
     </div>
       <div class="col-sm-12 modal-ctrl">
-        <label for="timeZone" class="col-sm-4">Time Zone: </label>
+        <!--<label for="timeZone" class="col-sm-4">Time Zone: </label>
         <select name="timeZone" class="col-sm-8" [ngModel] ="accountData?.timeZone">
           <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
-        </select>
+        </select>-->
+
+        <timeZone-list [selectedTimeZone]="accountData?.timeZoneID"></timeZone-list>
+
       </div>
       <div class="col-sm-12 modal-ctrl">
         <label for="companyName" class="col-sm-4">Address: </label>
-        <input type="text" name="address" class="col-sm-8" [ngModel] ="accountData?.address"> 
+        <input type="text" name="address" class="col-sm-8" [ngModel] ="accountData?.address">
       </div>
       <div class="col-sm-12 modal-ctrl">
         <label for="companyName" class="col-sm-4">Address2: </label>
