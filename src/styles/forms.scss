@@ -103,3 +103,21 @@ input[type="email"],
 input[type="password"] {
   box-shadow: none;
 }
+
+
+.inner-addon {
+  position: relative;
+
+  .inner-addon-icon {
+    position: absolute;
+    left: 0;
+    padding: 5px 15px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  input {
+    padding-left: 50px;
+    width: 100%;
+  }
+}

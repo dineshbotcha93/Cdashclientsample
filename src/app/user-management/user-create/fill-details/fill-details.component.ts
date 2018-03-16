@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FillDetailsService } from './fill-details.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import { FormGroup,FormBuilder ,FormControl,Validators , FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {NewUserRegistrationForm , AccountRegistrationForm } from "./fill-details.component.model";
 
 
 @Component({
@@ -20,11 +20,18 @@ export class FillDetailsComponent implements OnInit {
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
   placeOfPurchase: Array<object> = [];
+  stepOneData = {};
 
   public accountForm: FormGroup;
+  postData: object = {};
 
-  constructor(private fillDetailsService: FillDetailsService, private router: Router, private fb: FormBuilder){
+  constructor(private fillDetailsService: FillDetailsService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute){
     this.selectedStep = 2;
+
+    this.stepOneData = route.data.map(d => d.userData);
+
+
+
     this.fillDetailsService.getIndustries().subscribe((e)=>{
       e.forEach((res)=>{
         res.forEach((r)=>{
@@ -70,10 +77,9 @@ export class FillDetailsComponent implements OnInit {
     this.accountForm.addControl(name, formGroup);
   }
 
-  industryChanged(){
-    console.log("selected industry");
-    console.log(this.selectedIndustry);
-    this.businessTypeSelection = this.businessType.filter((res)=>res['id'] == this.selectedIndustry );
+  industryChanged(id){
+    console.log("selected industry", id);
+    this.businessTypeSelection = this.businessType.filter((res)=>res['id'] == id );
   }
 
   onPrevious($event){
@@ -93,6 +99,8 @@ export class FillDetailsComponent implements OnInit {
       console.log(this.accountForm.value);
 
       // set the token to the header before making the api call
+
+    this.prepareAccountRegistrationForm();
       // submit data to the new account creation api
       this.createNewUserAccount(this.accountForm);
 
@@ -107,5 +115,10 @@ export class FillDetailsComponent implements OnInit {
       console.log(e);
     })
 
+  }
+
+  private prepareAccountRegistrationForm() {
+
+    //prepare the post data here
   }
 }
