@@ -31,7 +31,7 @@ export class NotificationSummaryComponent implements OnInit {
   }
 
    getNotificationDetails(){
-     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails('222').then((result) => {
+     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails('68').then((result) => {
 
      console.log('sensorList-------',this.sensorList);
      // let result = this.sensorList;
