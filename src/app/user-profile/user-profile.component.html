@@ -96,11 +96,11 @@
       <tab tabTitle="Users" class="tab-content light-theme">
         <div class="row x_content">
           <div class="col-sm-12 sensors-info-container">
-            <div *ngIf="isShowUserTable" class="pull-right col-sm-2" style="margin-top: -20px;">
-              <button class="btn btn-primary addBTN" type="button" (click)="addUser()">
+            <div *ngIf="isShowUserTable" class="pull-right col-sm-2">
+              <button class="btn btn-primary addBTN float-right" type="button" (click)="addUser()">
                 <i class="fa fa-plus"></i>Add User</button>
             </div>
-            <div class="col-sm-12" style="margin-top: -12px;">
+            <div class="col-sm-12">
               <app-datatable #userTable [rows]="userRows" [columns]="userColumns" [limit]="limit" *ngIf="isShowUserTable">
               </app-datatable>
 
@@ -130,7 +130,7 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Renewal History" class="tab-content light-theme">
+      <tab tabTitle="Payment History" class="tab-content light-theme">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container">
             <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">

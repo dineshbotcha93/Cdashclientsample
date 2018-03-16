@@ -1,14 +1,16 @@
-<div class="col-md-12" *ngIf="notifyOperationType == 'addNotify'">
-  <div class="form-group sensor-actions">
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickSensorNotify()">
+<div class="col-md-12 m-l-n-sm" *ngIf="notifyOperationType == 'addNotify'">
+
+
+    <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
       <i class="fa fa-edit"></i> Sensor Reading Notification </button>
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickBatteryNotify()">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
       <i class="fa fa-edit"></i> Battery Notification </button>
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickInActivityNotify()">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
       <i class="fa fa-edit"></i> Inactivity Notification </button>
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickAdvanceNotify()">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
       <i class="fa fa-edit"></i> Advanced Notification </button>
-  </div>
+
+
 </div>
 <div *ngIf="isReadingTypeAvailable">
   <table class="table table-striped">
@@ -33,6 +35,7 @@
 {{subNotificationTypes[id]}}
 <!-- page 1 -->
 <div *ngIf="isSensorNotificationForm1">
+  Notification Details:
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -270,6 +273,7 @@
 </div>
 <!-- page 2 -->
 <div *ngIf="isSensorNotificationForm2">
+  Schedule Details:
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -292,7 +296,7 @@
         <td>
           <div class="col-md-4">
             <div class="form-group ss-location">
-              <select class="form-control" (ngModelChange)="onChangeNotifictaion($event)">
+              <select class="form-control" [(ngModel)]="dayily.selectScheduleObj[0]" (ngModelChange)="onChangeNotifictaion($event)">
                 <option *ngFor="let not of dayily.scheduleObj" [ngValue]="not">
                   {{not.value}}
                 </option>
@@ -311,6 +315,7 @@
   </table>
 </div>
 <div *ngIf="isSensorNotificationForm3">
+  Available Sensor Details:
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -343,6 +348,7 @@
   </div>
 </div>
 <div *ngIf="isSensorNotificationForm4">
+  Available Gateway Details:
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -375,6 +381,7 @@
   </div>
 </div>
 <div *ngIf="isSensorNotificationForm5">
+  Available User Details:
   <table class="table table-striped">
     <tbody>
       <tr>

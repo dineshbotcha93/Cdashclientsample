@@ -45,7 +45,9 @@
         <app-gauge
           [type]="'arch'"
           [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
-          [title]="">
+          [title]=""
+          [gaugeAppendText]="sensorDetailsData?.corF ? sensorDetailsData?.corF : ' '"
+        >
         </app-gauge>
         <p class="gauge-data">
           {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}</span>

@@ -62,13 +62,15 @@
       </div>
 
       <div>
+        <div class="loader" *ngIf="rows.length == 0"></div>
         <app-datatable #dataTable
+                       *ngIf="rows.length > 0"
                        [rows]="rows"
                        [columns]="columns"
                        [limit]="limit">
         </app-datatable>
         <ng-template #nDateColTmpl let-row="row" let-value="value">
-          <span>{{value | date:'MM-dd-yyyy'}}</span>
+          <span>{{value | date:'MM-dd-yyyy hh:mm:ss'}}</span>
         </ng-template>
         <ng-template #sTypeColTmpl let-row="row" let-value="value">
           <a class="anchor-datatable" (click)="showNotification(row)" >{{value}}</a>
@@ -88,7 +90,13 @@
     <input class="form-control" type="text" id="email" name="email" value="{{modalMessage.email}}" disabled/>
   <label for="sms">Phone Number : </label>
     <input class="form-control" type="text" id="sms" name="sms" value="{{modalMessage.smsNumber}}" disabled/>
+<<<<<<< HEAD
+    
+=======
+  <label for="text">Text: </label>
+    <div [innerHTML]="modalMessage.text">
+    </div>
+>>>>>>> feature/dashboard
   </form>
+
 </modal>
-
-

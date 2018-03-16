@@ -1,10 +1,20 @@
 export class DeviceManagementModel {
+  
   public name:  string;
-  public id:    string;
+  public gatewayID:    string;
   public code:  string;
-  public network:any = [];
+  public networkID:string;
+  public gatewayTypeID:  string;
+
+  public serialNumber:  string;
+  public macAddress:  string;
+  public radioBand:  string;
+  public apnFirmwareVersion:  string;
+  public gatewayFirmwareVersion:  string;
+  public powerSourceID:  string;
+  public customerID:  string;
 
 
-  constructor(deviceManagementForm: any) {
+  constructor() {
   }
 }
