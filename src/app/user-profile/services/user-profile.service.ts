@@ -282,4 +282,8 @@ getRealData() {
  return this.requestService.getExternalRequest('/api/User/Details');
 }
 
+updateAccountAPI(postData) {
+  return this.requestService.putExternalRequest('/api/Account', postData);
+}
+
 }
