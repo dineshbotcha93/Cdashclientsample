@@ -68,7 +68,7 @@ export class UserCreateComponent implements OnInit {
     this.isValidForm = this.userCreateForm.valid && this.passwordMatch;
 
     if (this.isValidForm) {
-      this.userManagementService.registerNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
+      this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
         .then(() => {
           this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
         })
