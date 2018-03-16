@@ -127,6 +127,11 @@ input[type="password"] {
 .form-group {
   margin-bottom: 10px;
   text-align: left;
+
+  .error {
+    font-size: 0.85em;
+    color: $color-redLight;
+  }
 }
 
 

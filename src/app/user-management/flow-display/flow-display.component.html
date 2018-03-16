@@ -1,29 +1,20 @@
 <div class="form_wizard wizard_horizontal">
   <ul class="wizard_steps anchor">
     <li>
-      <a   [ngClass]="{'disabled':selected == 1}">
+      <a [ngClass]="{'disabled':selected == 1}">
         <span class="step_no">1</span>
-        <span class="step_descr font-white">
-                                              User Registration
-                                          </span>
+        <span class="step_descr">
+          User Registration
+        </span>
       </a>
     </li>
     <li>
-      <a   [ngClass]="{'disabled':selected == 2}">
+      <a [ngClass]="{'disabled':selected == 2}">
         <span class="step_no">2</span>
-        <span class="step_descr font-white">
-                                              Account Registration
-                                          </span>
+        <span class="step_descr">
+          Account Registration
+        </span>
       </a>
     </li>
   </ul>
 </div>
-
-
-
-<!--<table border="1" class="table">
-  <tr>
-    <td [ngClass]="{'selected':selected == 1}">Step One</td>
-    <td [ngClass]="{'selected':selected == 2}">Step Two</td>
-  </tr>
-</table>-->
