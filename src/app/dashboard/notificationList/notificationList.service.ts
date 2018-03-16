@@ -7,6 +7,6 @@ export class NotificationListService {
 
   }
   getNotificationList(){
-    return this.requesterService.getExternalRequest('/api/Notification/SentToAccount?AccountID=168&StartIndex=1&Count=100&FromDate=3-11-2018&ToDate=3-12-2018');
+    return this.requesterService.getExternalRequest('/api/Notification/SentToAccount?AccountID=194&StartIndex=1&Count=100&FromDate=3-12-2018&ToDate=3-14-2018');
   }
 }
