@@ -114,6 +114,7 @@ input[type="password"] {
     padding: 5px 15px;
     pointer-events: none;
     z-index: 10;
+    color: $color-grey-dark;
   }
 
   input {
@@ -121,3 +122,11 @@ input[type="password"] {
     width: 100%;
   }
 }
+
+
+.form-group {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+

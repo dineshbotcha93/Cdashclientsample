@@ -104,7 +104,21 @@ ul {
 
 
 /* ******************************** */
-/* ngx-gauge - global styles */
+.onboarding_container {
+  max-width: 40em;
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 1em;
+  color: $color-white;
+  text-align: left;
+
+  h1.onboarding-title {
+    text-align: center;
+
+    &:before, &:after {
+      background: none;
+    }
+  }
+}
 
 
 /* ******************************** */
