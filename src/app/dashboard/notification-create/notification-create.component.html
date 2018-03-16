@@ -1,14 +1,16 @@
-<div class="col-md-12" *ngIf="notifyOperationType == 'addNotify'">
-  <div class="form-group sensor-actions">
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickSensorNotify()">
+<div class="col-md-12 m-l-n-sm" *ngIf="notifyOperationType == 'addNotify'">
+
+
+    <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
       <i class="fa fa-edit"></i> Sensor Reading Notification </button>
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickBatteryNotify()">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
       <i class="fa fa-edit"></i> Battery Notification </button>
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickInActivityNotify()">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
       <i class="fa fa-edit"></i> Inactivity Notification </button>
-    <button type="button" class="btn btn-primary editBTN" (click)="onClickAdvanceNotify()">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
       <i class="fa fa-edit"></i> Advanced Notification </button>
-  </div>
+
+
 </div>
 <div *ngIf="isReadingTypeAvailable">
   <table class="table table-striped">
