@@ -2,6 +2,9 @@
     	<app-notification-summary></app-notification-summary>
   </div>
  -->
+<div class="row">
+
+
    <div class="col-md-4" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
        <div class="form-group sensor-actions">
           <button *ngIf = "isAddButtonRequired" type="button"
@@ -15,7 +18,7 @@
 
   <div *ngIf="notificationRadio === 'summary'">
        <div class="col-md-12">
-           <app-notification-summary 
+           <app-notification-summary
           [sensorList] = "sensorList"
            (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
            </app-notification-summary>
@@ -33,3 +36,4 @@
           ></app-notification-create>
          </div>
     </div>
+</div>

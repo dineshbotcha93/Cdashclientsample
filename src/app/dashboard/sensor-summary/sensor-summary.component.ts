@@ -480,6 +480,7 @@ export class SensorSummaryComponent implements OnInit {
       */
 
       let gateWayDataToUpdate: Array<any> = [];
+
        this.selectedUserDataForOperation.forEach(eidtObject => {
          this.gateWayData.forEach(x => {
         let tempObj: any = [];
@@ -492,15 +493,16 @@ export class SensorSummaryComponent implements OnInit {
                      macAddress :x.macAddress,
                      heartBeat:x.heartbeat,
                      serialNumber:x.serialNumber
-            }    
+            }  ;
+             gateWayDataToUpdate.push(tempObj);  
         }
-          gateWayDataToUpdate.push(tempObj);
+         
           tempObj = [];
       });
 
        });
 
-      console.log(gateWayDataToUpdate);
+      console.log('---------->',gateWayDataToUpdate);
 
       /*BACKEND call to update gateway details*/
 

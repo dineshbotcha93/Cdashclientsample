@@ -1,0 +1,4 @@
+<label for="timeZone" class="col-sm-4">Time Zone: </label>
+<select name="timeZone" class="col-sm-8" [ngModel]="selectedTime">
+  <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
+</select>

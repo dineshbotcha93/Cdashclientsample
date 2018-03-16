@@ -23,7 +23,7 @@ export class FillDetailsService{
 
     console.log(':::: create new user service :::', postData);
     return this.requesterService
-      .postExternalRequest('', postData);
+      .postExternalRequest('api/User/RegisterNewUser', postData);
 
   }
 }
