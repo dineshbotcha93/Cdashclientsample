@@ -14,12 +14,15 @@ import {UserProfile} from './user.module';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 declare var $: any;
 
-export interface RenewalData {
+export interface PaymentHistoryData {
   //sno: string;
 //  expiryDate: string;
-  oldRenewalDate: string;
   newRenewalDate: string;
   invoiceDownloadLink: string;
+  historyDate: string;
+  totalAmount: string;
+  customerName: string;
+  //StripeChargeID:
 }
 export interface UserData {
   name: string;
@@ -72,13 +75,14 @@ export class UserProfileComponent implements OnInit {
   @ViewChild('invoiceColTmpl') invoiceColTmpl: TemplateRef<any>;
   @ViewChild('prevRenewalDateColTmpl') prevRenewalDateColTmpl: TemplateRef<any>;
   @ViewChild('newRenewalDateColTmpl') newRenewalDateColTmpl: TemplateRef<any>;
+  @ViewChild('amountColTmpl') amountColTmpl: TemplateRef<any>;
   @ViewChild('actionsColTmpl') actionsColTmpl: TemplateRef<any>;
   private responseData: Object = null;
   private accountData: Array<AccountData> = [];
   private UpdateAccountData: Array<AccountData> = [];
   private userRows: Array<UserData> = null;
   private userColumns: Array<any> = [];
-  private renewalRows: Array<RenewalData> = null;
+  private renewalRows: Array<PaymentHistoryData> = null;
   private renewalColumns: Array<any> = [];
   private loadPage: Boolean = false;
   private isShowUserTable: Boolean = true;
@@ -155,7 +159,7 @@ editAccountForm = this.fb.group ({
       this.userRows = response.users;
       this.accountData = response.user.account[0];
       this.UpdateAccountData = response.user.account;
-     // this.renewalRows = response.paymentHistories;
+      this.renewalRows = response.paymentHistories;
       this.expiryDate = new Date(response.user.account[0].subscriptionExpiry);
       this.updateRenewalLabel();
       this.loadPage = true;
@@ -169,10 +173,10 @@ editAccountForm = this.fb.group ({
   }
 
   private prepareRenewalColumns() {
-   // this.renewalColumns.push({ prop: 'sno', name: 'Sr.No'});
-   // this.renewalColumns.push({ prop: 'expiryDate', name: 'Change Date' });
-    this.renewalColumns.push({ prop: 'oldRenewalDate', name: 'Previous Renewal Date', cellTemplate: this.prevRenewalDateColTmpl});
-    this.renewalColumns.push({ prop: 'newRenewalDate', name: 'New Renewal Date', cellTemplate: this.newRenewalDateColTmpl});
+    this.renewalColumns.push({ prop: 'historyDate', name: 'Payment Date', cellTemplate: this.prevRenewalDateColTmpl});
+    this.renewalColumns.push({ prop: 'newRenewalDate', name: 'Renewed Till', cellTemplate: this.newRenewalDateColTmpl});
+    this.renewalColumns.push({ prop: 'totalAmount', name: 'Amount Paid', cellTemplate: this.amountColTmpl});
+    this.renewalColumns.push({ prop: 'customerName', name: 'Paid By'});
     this.renewalColumns.push({ prop: 'invoiceDownloadLink', name: 'Invoice', cellTemplate: this.invoiceColTmpl});
   }
 

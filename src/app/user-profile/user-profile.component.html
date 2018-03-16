@@ -141,6 +141,9 @@
             <ng-template #newRenewalDateColTmpl let-row="row" let-value="value">
               <span>{{value | date:'MM-dd-yyyy'}}</span>
             </ng-template>
+            <ng-template #amountColTmpl let-row="row" let-value="value">
+                <span>{{value | currency}}</span>
+              </ng-template>
             <ng-template #invoiceColTmpl let-row="row" let-value="value">
               <span style="cursor:pointer">
                 <a href="{{value}}">
