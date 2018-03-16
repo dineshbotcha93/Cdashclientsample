@@ -87,11 +87,11 @@ export class UserCreateComponent implements OnInit {
   private populateRegisterExistingUserModel(): object {
     return {
       dashboardUserName: this.userRegisterModel.email,
-      dashboardPassword: this.userRegisterModel.password,
+      dashboardPassword: this.commonSharedService.getEncodedPassword(this.userCreateForm.get("password").value),
       productName: 'NotifEye',
       email: this.userRegisterModel.email,
-      notifeyeUserName: this.userRegisterModel.notifEyeUsername,
-      notifeyePassword: this.userRegisterModel.notifEyePassword
+      notifeyeUserName: this.userCreateForm.get("notifEyeUsername").value,
+      notifeyePassword: this.commonSharedService.getEncodedPassword(this.userCreateForm.get("notifEyePassword").value)
     };
   }
 

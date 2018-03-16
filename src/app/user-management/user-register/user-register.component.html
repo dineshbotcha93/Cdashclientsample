@@ -1,6 +1,6 @@
 <app-alerts (close)="onClose()"></app-alerts>
 
-<div class="login_wrapper verifyEmail_container">
+<div class="login_wrapper onboarding_container">
   <div class="form login_form">
     <section class="login_content">
       <form name="form" (ngSubmit)="onSubmit()">
@@ -26,7 +26,7 @@
         {{'userRegistration.registrationMessage'|translate}}
         </p>
         <p>
-          <a (click)="showPopup = true" value="Additional Setup">Additional Setup</a>
+          <a (click)="showPopup = true" value="Additional Setup"><i class="fa fa-arrow-right"></i> Additional Setup</a>
         </p>
       </div>
 

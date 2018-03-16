@@ -1,5 +1,5 @@
 
-<div class="login_wrapper" style="max-width:800px;">
+<div class="login_wrapper onboarding_container">
 
   <div class="form login_form">
     <section class="login_content">
@@ -13,105 +13,77 @@
         <div class="row">
           <!--<h1>User Details Form</h1>-->
         </div>
-        <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyName">Company Name </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="text" formControlName="company_name" class="form-control">
-            </div>
-            <div *ngIf="accountForm.get('company_name').touched">
-              <div *ngIf="accountForm.get('company_name').hasError('required')" class="alert">Company Name is required.</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="industryType">Industry Type </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <select formControlName="industry_type" class="form-control" (change)="industryChanged($event.target.value)">
-                <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
-              </select>
-            </div>
-            <div *ngIf="accountForm.get('industry_type').touched">
-              <div *ngIf="accountForm.get('industry_type').hasError('required')">Industry Type is required.</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <select formControlName="business_type" class="form-control">
-                <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
-              </select>
-            </div>
-            <div *ngIf="accountForm.get('business_type').touched">
-              <div *ngIf="accountForm.get('business_type').hasError('required')">Business Type is required.</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeZone">Time Zone </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <select formControlName="timeZone" class="form-control">
-                <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
-              </select>
-            </div>
-            <div *ngIf="accountForm.get('timeZone').touched">
-              <div *ngIf="accountForm.get('timeZone').hasError('required')">Time Zone is required.</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <select formControlName="placeOfPurchase" class="form-control">
-                <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
-              </select>
-            </div>
-            <div *ngIf="accountForm.get('placeOfPurchase').touched">
-              <div *ngIf="accountForm.get('placeOfPurchase').hasError('required')">Purchase source is required.</div>
-            </div>
-          </div>
-          <!--<div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="companyName">Zip/Postal Code: </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="text" formControlName="zip_postalcode" class="form-control">
-            </div>
-          </div>-->
-        </div>
-        <!--<div class="col-sm-12 col-md-6 col-lg-8">
-          <div class="form-group">
-            <label for="companyName">Street: </label>
-            <input type="text" name="street" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="companyName">Address: </label>
-            <input type="text" name="address" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="companyName">City: </label>
-            <input type="text" name="city" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="companyName">State/Province: </label>
-            <input type="text" name="state_province" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="companyName">Country: </label>
-            <input type="text" name="country" class="form-control">
-          </div>
-        </div>-->
+
+        <div class="row fillDetails-container">
           <div class="col-sm-12 col-md-12 col-lg-12">
-          <address-form-component (formReady)="addFormControl('address', $event)"></address-form-component>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name </label>
+              <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
+                <span class="inner-addon-icon"><i class="fa fa-building"></i></span>
+                <input type="text" formControlName="company_name" class="form-control">
+              </div>
+              <div *ngIf="accountForm.get('company_name').touched">
+                <div class="error" *ngIf="accountForm.get('company_name').hasError('required')">Company Name is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="industryType">Industry Type </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="industry_type" class="form-control" (change)="industryChanged($event.target.value)">
+                  <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountForm.get('industry_type').touched">
+                <div class="error" *ngIf="accountForm.get('industry_type').hasError('required')">Industry Type is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="business_type" class="form-control">
+                  <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountForm.get('business_type').touched">
+                <div class="error" *ngIf="accountForm.get('business_type').hasError('required')">Business Type is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeZone">Time Zone </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="timeZone" class="form-control">
+                  <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountForm.get('timeZone').touched">
+                <div class="error" *ngIf="accountForm.get('timeZone').hasError('required')">Time Zone is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="placeOfPurchase" class="form-control">
+                  <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountForm.get('placeOfPurchase').touched">
+                <div class="error" *ngIf="accountForm.get('placeOfPurchase').hasError('required')">Purchase source is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <address-form-component (formReady)="addFormControl('address', $event)"></address-form-component>
           </div>
           <div class="clearfix"></div>
           <div class="separator"></div>
           <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-group float-right">
-
-              <input type="submit" value="Submit" class="btn btn-primary m-l-none float-right">
-              <input type="submit" value="Cancel" class="btn btn-primary m-l-none float-right">
+              <input type="submit" value="Submit" class="btn btn-primary m-l-none">
+              <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
             </div>
             </div>
           </div>
-
         </div>
       </form>
     </section>
