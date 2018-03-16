@@ -17,6 +17,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 const routes: Routes = [
 {
@@ -39,6 +40,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
+    ToastModule.forRoot(),
     ModalModule.forRoot(),
     AngularFontAwesomeModule,
     ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot()
