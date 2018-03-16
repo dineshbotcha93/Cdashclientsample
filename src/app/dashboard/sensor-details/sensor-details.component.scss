@@ -19,6 +19,16 @@
 
   ngx-gauge {
     margin-bottom: 20px;
+
+    .reading-label {
+      font-size: 0.7em;
+    }
+
+    .reading-affix {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      color: $color-white;
+      font-size: 1.5rem;
+    }
   }
 
   .gauge-data {

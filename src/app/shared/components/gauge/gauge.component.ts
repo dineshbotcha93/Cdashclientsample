@@ -21,9 +21,10 @@ export class GaugeComponent {
   /*gaugeType = "arch";
   gaugeValue = 28.3;
   gaugeLabel = "Temp";
-  gaugeAppendText = "F";*/
+  gaugeAppendText = 'F';*/
 
   @Input() title;
   @Input() value;
   @Input() type;
+  @Input() gaugeAppendText;
 }

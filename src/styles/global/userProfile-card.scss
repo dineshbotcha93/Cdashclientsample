@@ -1,0 +1,18 @@
+
+.userProfile-card {
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  background-color: $color-body-bg;
+  color: $color-white;
+
+  .name {
+    font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    color: $color-counts-green;
+    font-size: 3rem;
+  }
+
+  .username {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 2rem;
+    color: $color-white;
+  }
+}
