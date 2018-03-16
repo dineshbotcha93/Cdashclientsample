@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { FillDetailsService } from './fill-details.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { FormGroup,FormBuilder ,FormControl,Validators , FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NewUserRegistrationForm , AccountRegistrationForm } from "./fill-details.component.model";
+import {AddressFormComponent} from '../../../shared/components/addressForm/addressForm.component';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {NewUserRegistrationForm , AccountRegistrationForm } from "./fill-details
   providers: [FillDetailsService]
 })
 
-export class FillDetailsComponent implements OnInit {
+export class FillDetailsComponent implements OnInit, AfterViewInit {
   selectedStep: number;
   industries: Array<object> = [];
   businessType: Array<object> = [];
@@ -24,6 +25,9 @@ export class FillDetailsComponent implements OnInit {
 
   public accountForm: FormGroup;
   postData: object = {};
+
+  @ViewChild('addressForm')
+  addressForm: AddressFormComponent;
 
   constructor(private fillDetailsService: FillDetailsService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute){
     this.selectedStep = 2;
@@ -58,18 +62,38 @@ export class FillDetailsComponent implements OnInit {
   }
 
   ngOnInit(){
-
-
     this.accountForm = this.fb.group({
-      "company_name": new FormControl("", Validators.required),
-      "industry_type": new FormControl("", Validators.required),
-      "business_type": new FormControl("", Validators.required),
-      "timeZone": new FormControl("", Validators.required),
-      "placeOfPurchase": new FormControl("", Validators.required),
-      "zip_postalcode": new FormControl("", Validators.required)
+      company_name: new FormControl('', Validators.required),
+      industry_type: new FormControl('', Validators.required),
+      business_type: new FormControl('', Validators.required),
+      timeZone: new FormControl('', Validators.required),
+      placeOfPurchase: new FormControl('', Validators.required),
+      zip_postalcode: new FormControl('', Validators.required)
     });
+  }
 
-
+  ngAfterViewInit() {
+    console.log('implementing after view init');
+    this.fillDetailsService.fetchExistingUserInfo()
+      .then(data => {
+        console.log('user info', data.account[0]);
+        const userInfo = data.account[0];
+        this.accountForm.patchValue({
+          company_name: userInfo.companyName,
+          timeZone: userInfo.timeZoneID
+        });
+        this.addressForm.addressForm.patchValue({
+          country: userInfo.country,
+          street: userInfo.address,
+          housenumber: userInfo.address2,
+          city: userInfo.city,
+          zipcode: userInfo.postalCode,
+          state: userInfo.state,
+        });
+      })
+      .catch(error => {
+        console.log('error in fetching user details info', error.message);
+      });
   }
 
 

@@ -26,4 +26,8 @@ export class FillDetailsService{
       .postExternalRequest('api/User/RegisterNewUser', postData);
 
   }
+
+  fetchExistingUserInfo() {
+    return this.requesterService.getExternalRequest('/api/User/Info');
+  }
 }
