@@ -299,7 +299,7 @@
 </ng-template>
 
 <ng-template #gateWayDataTemplate>
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="gateWayData?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -328,7 +328,7 @@
 
 <ng-template #sensorDataTemplate>
 
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -336,8 +336,9 @@
             <input type="checkbox" name="allSensor" [(ngModel)]="isSelectedAll" (change)="onCheckAll($event)" />
           </div>
         </th>
-        <th class="col-md-6">Sensor Id</th>
-        <th class="col-md-5">Sensor Name</th>
+        <th class="col-md-3">Sensor Id</th>
+        <th class="col-md-3">Sensor Name</th>
+        <th class="col-md-3">Sensor Interval</th>
 
       </tr>
     </thead>
@@ -346,11 +347,16 @@
         <td class="col-md-1">
           <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.sensorName" (change)="onClickInlineCheckBox($event,sensor)">
         </td>
-        <td class="col-md-6">{{sensor.sensorID}}</td>
-        <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
-        <td *ngIf="sensor.gateWayEditOption ==='edit'">
+        <td class="col-md-3">{{sensor.sensorID}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.heartBeat}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
         </td>
+         <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <input class="form-control" type="text" name="sensorName" value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
+        </td>
+       
 
       </tr>
     </tbody>

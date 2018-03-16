@@ -1,54 +1,120 @@
+<div>
+  <table class="table table-striped">
+    <tbody *ngIf="deviceType === 'GATEWAY'">
+      <tr >
+        <td> Gateway Type </td>
+        <td>
+          <div class="form-group ss-location">
+            <select class="form-control" [ngModel]="gatewayTypeObject[0]" (ngModelChange)="onChangeGatewayType($event)">
+              <option *ngFor="let device of gatewayTypeObject" [ngValue]="device">
+                {{device.name}}
+              </option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="deviceType === 'SENSOR'">
+        <td> {{deviceType}} Name </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" [(ngModel)]="deviceModel.name">
+        </td>
+      </tr>
+      <tr *ngIf = "this.deviceModel.gatewayTypeID === '2' || this.deviceModel.gatewayTypeID === '7'  ">
+        <td> Gateway ID</td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.gatewayID">
+        </td>
+      </tr>
+      <tr *ngIf = "this.deviceModel.gatewayTypeID === '2' || this.deviceModel.gatewayTypeID === '7' ">
+        <td> Gateway Code </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code">
+        </td>
+      </tr>
+      <tr *ngIf = "this.deviceModel.gatewayTypeID === '-99'">
+        <td> Serial Number </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.serialNumber">
+        </td>
+      </tr>
 
-	<!--  <div class="form-group">
-		<input type="text" class="form-control" name="filter_name" placeholder="New Network name" [(ngModel)]="deviceModel.name">
-	</div>
-	<div>
-		-->
-		<div>
-		<table class="table table-striped">
-			<!-- <thead>
-				<tr>
-					<th class="col-md-2"> Network Info</th>
-				</tr>
-			</thead> -->
-			<tbody>
-				<tr>
-					<td> {{deviceType}} Name </td>
-					<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" [(ngModel)]="deviceModel.name"></td>
-				</tr>
-				<tr>
-					<td> {{deviceType}} Id</td>
-					<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.id"></td>
-				</tr>
-				<tr>
-					<td> {{deviceType}} Code </td>
-					<td>  <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code"></td>
-				</tr>
-				<tr>
-					<td><label class="control-label col-form-label">Select Network Location:</label>
-						    
-					</td>
-					<td>
-						<div class="form-group ss-location">
-						    <select class="form-control" [(ngModel)]="deviceModel.network">
-							    <option *ngFor="let loc of inputNetworkData" [ngValue]="loc" >
-							      {{loc.Title}}
-							    </option>
-						    </select>
-						 </div>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td> 
-						<button type="button"
-                            class="btn btn-primary removeBTN"
-                            (click)="onClickCancelDetail()"><i class="fa fa-trash"></i> Cancel </button> 
-					    <button type="button"
-                            class="btn btn-primary addBTN"
-                            (click)="onClickAddDetail()"><i class="fa fa-plus"></i> Add  </button></td>
-				</tr>
-				
-			</tbody>
-		</table>
-		</div>
+      <tr *ngIf = "this.deviceModel.gatewayTypeID === '-99'">
+        <td> Mac Address</td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.macAddress">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="control-label col-form-label">Select Network Location:</label>
+
+        </td>
+        <td>
+          <div class="form-group ss-location">
+            <select class="form-control" [(ngModel)]="selectedNetwork">
+              <option *ngFor="let loc of inputNetworkData" [ngValue]="loc">
+                {{loc.Title}}
+              </option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button type="button" class="btn btn-primary removeBTN" (click)="onClickCancelDetail()">
+            <i class="fa fa-trash"></i> Cancel </button>
+          <button type="button" class="btn btn-primary addBTN" (click)="onClickAddDetail()">
+            <i class="fa fa-plus"></i> Add </button>
+        </td>
+      </tr>
+	</tbody>
+
+	<tbody *ngIf="deviceType === 'SENSOR'">
+     
+      <tr >
+        <td> Sensor Name </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" [(ngModel)]="deviceModel.name">
+        </td>
+      </tr>
+      <tr>
+        <td> Sensor ID</td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.id">
+        </td>
+      </tr>
+      <tr>
+        <td> Sensor Code </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code">
+        </td>
+      </tr>
+      
+      <tr>
+        <td>
+          <label class="control-label col-form-label">Select Network Location:</label>
+
+        </td>
+        <td>
+          <div class="form-group ss-location">
+            <select class="form-control" [(ngModel)]="deviceModel.network">
+              <option *ngFor="let loc of inputNetworkData" [ngValue]="loc">
+                {{loc.Title}}
+              </option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button type="button" class="btn btn-primary removeBTN" (click)="onClickCancelDetail()">
+            <i class="fa fa-trash"></i> Cancel </button>
+          <button type="button" class="btn btn-primary addBTN" (click)="onClickAddDetail()">
+            <i class="fa fa-plus"></i> Add </button>
+        </td>
+      </tr>
+	</tbody>
+  </table>
+</div>
