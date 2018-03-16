@@ -101,7 +101,7 @@ export class SensorSummaryService {
 
   deleteSensor(id){
     return this.requesterService
-    .deleteExternalRequest('/api/Sensor/Remove/'+id);
+    .deleteExternalRequest('/api/Sensor/'+id+'/Remove');
   }
 
    /* Move  the gateway details*/
