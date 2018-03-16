@@ -1,8 +1,6 @@
 @import "../../../styles/variables";
 
-.verifyEmail_container {
-  max-width: 30em;
-
+.onboarding_container {
   .verifyEmailNotes-container {
     font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 1em;
@@ -15,19 +13,11 @@
       &:hover {
         text-decoration: underline;
       }
+
+      .fa {
+        padding-right: 10px;
+      }
     }
   }
 }
 
-.table{
-  width: 50%;
-  margin: 0 auto;
-}
-
-.white{
-  background-color:white;
-}
-
-.tab-content .tab-panel {
-  background: none !important;
-}

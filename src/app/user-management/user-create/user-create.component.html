@@ -1,5 +1,5 @@
 
-<div class="login_wrapper" style="max-width:600px;">
+<div class="login_wrapper onboarding_container">
   <div class="form login_form">
     <section class="login_content">
       <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
@@ -8,9 +8,9 @@
         <span>{{userCreationError || 'Entered form is invalid!!!'}}</span>
       </div>
 
-      <form [formGroup]="userCreateForm" name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
+      <form [formGroup]="userCreateForm" name="form" (ngSubmit)="onSubmit()">
 
-        <h1 class="login-title" style="display: flex; justify-content: center">User Registration</h1>
+        <h1 class="onboarding-title">User Registration</h1>
         <div class="row">
           <div class="form-group col-md-6 col-xs-12">
             <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
@@ -29,36 +29,42 @@
           </div>
 
           <div *ngIf="userRegisterModel.isNewMaster=='true'">
-            <div class="form-group">
+            <div class="inner-addon">
+              <span class="inner-addon-icon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" name="firstName" formControlName="firstName" required
                      placeholder="First Name"/>
             </div>
-            <div class="form-group">
+            <div class="inner-addon">
+              <span class="inner-addon-icon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" name="lastName" formControlName="lastName" required
                      placeholder="Last Name"/>
             </div>
-            <div class="form-group">
-              <input type="email" class="form-control" name="email" formControlName="email" value="{{userRegisterModel.email}}" readonly="true"
-                     placeholder="Email"/>
+            <div class="inner-addon">
+              <span class="inner-addon-icon"><i class="fa fa-envelope"></i></span>
+              <input type="email" class="form-control" name="email" formControlName="email" value="{{userRegisterModel.email}}" readonly="true" placeholder="Email"/>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="inner-addon">
+            <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
             <input type="password" class="form-control" name="password"
                    formControlName="password" required placeholder="Password"/>
           </div>
 
-          <div class="form-group">
+          <div class="inner-addon">
+            <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
             <input type="password" class="form-control" name="confirmPassword"
                    formControlName="confirmPassword" required placeholder="Confirm Password"/>
           </div>
 
           <div *ngIf="userRegisterModel.isNewMaster=='false'">
-            <div class="form-group">
+            <div class="inner-addon">
+              <span class="inner-addon-icon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" name="notifEyeUserName"
                      formControlName="notifEyeUsername" required placeholder="NotifEye Username"/>
             </div>
-            <div class="form-group">
+            <div class="inner-addon">
+              <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
               <input type="password" class="form-control" name="notifEyePassword"
                      formControlName="notifEyePassword" required placeholder="NotifEye Password"/>
             </div>
