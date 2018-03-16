@@ -1,62 +1,80 @@
-<user-flow-component
-[selected]="selectedStep">
-</user-flow-component>
+
 <div class="login_wrapper" style="max-width:600px;">
   <div class="form login_form">
     <section class="login_content">
       <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
-    <form name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
 
-      <!--<h1 class="login-title">Registration Form</h1>-->
-      <div class="form-group" >
-      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="true" (change)="masterChange($event)" checked="checked"> New Master Account User
+      <div *ngIf="!isValidForm" class="alert alert-danger" ng->
+        <span>{{userCreationError || 'Entered form is invalid!!!'}}</span>
       </div>
-      <div class="form-group" >
-      <input type="radio" name="isNewMaster" class=" float-left" [(ngModel)]="userRegisterModel.isNewMaster" value="false" (change)="masterChange($event)"> Link Existing NotifEye Account
-      </div>
-      <div *ngIf="userRegisterModel.isNewMaster=='true'">
-      <div class="form-group" >
-        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.firstName" required placeholder="First Name"/>
-      </div>
-      <div class="form-group" >
-        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.lastName" required placeholder="Last Name"/>
-      </div>
-      <div class="form-group" >
-        <input type="email" class="form-control" name="email"  value="{{userRegisterModel.email}}" readonly="true" placeholder="Email"/>
-      </div>
-    </div>
-      <div class="form-group" >
-        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.password" required placeholder="Password"/>
-      </div>
-      <div class="form-group" >
-        <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.confirmPassword" required placeholder="Confirm Pasword"/>
-      </div>
-      <div *ngIf="userRegisterModel.isNewMaster=='false'">
-        <div class="form-group" >
-          <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.notifEyeUsername" required placeholder="NotifEye Username"/>
+
+      <form [formGroup]="userCreateForm" name="form" (ngSubmit)="onSubmit()" class="font-white text-align-left">
+
+        <h1 class="login-title" style="display: flex; justify-content: center">User Registration</h1>
+        <div class="row">
+          <div class="form-group col-md-6 col-xs-12">
+            <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
+                   value="true" (change)="masterChange($event)" checked="checked"> New Master Account User
+          </div>
+          <div class="form-group col-md-6 col-xs-12">
+            <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
+                   value="false" (change)="masterChange($event)"> Link Existing NotifEye Account
+          </div>
         </div>
-        <div class="form-group" >
-          <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.notifEyePassword" required placeholder="NotifEye Password"/>
+
+        <div class="col-md-offset-1 col-md-10 col-xs-12 m-t-lg">
+          <div class="form-group row" style="padding-left: 10px; padding-right: 10px;">
+            <span><strong>User Name : </strong></span>
+            <span id="username">{{userRegisterModel.email}}</span>
+          </div>
+
+          <div *ngIf="userRegisterModel.isNewMaster=='true'">
+            <div class="form-group">
+              <input type="text" class="form-control" name="firstName" formControlName="firstName" required
+                     placeholder="First Name"/>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="lastName" formControlName="lastName" required
+                     placeholder="Last Name"/>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" name="email" formControlName="email" value="{{userRegisterModel.email}}" readonly="true"
+                     placeholder="Email"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" name="password"
+                   formControlName="password" required placeholder="Password"/>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" name="confirmPassword"
+                   formControlName="confirmPassword" required placeholder="Confirm Password"/>
+          </div>
+
+          <div *ngIf="userRegisterModel.isNewMaster=='false'">
+            <div class="form-group">
+              <input type="text" class="form-control" name="notifEyeUserName"
+                     formControlName="notifEyeUsername" required placeholder="NotifEye Username"/>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="notifEyePassword"
+                     formControlName="notifEyePassword" required placeholder="NotifEye Password"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary m-l-none pull-right" placement="top" ngbTooltip="Tooltip on top">Continue</button>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="clearfix"></div>
-        <div class="separator"></div>
-        <input type="submit" value="Register" class="btn btn-primary m-l-none">
-      </div>
-    </form>
+      </form>
     </section>
-    <user-flow-buttons
-    (onPreviousEmitter)="onPrevious($event)"
-    (onNextEmitter)="onNext($event)"
-    [previousShow]="false"
-    [nextShow]="true">
-    </user-flow-buttons>
   </div>
 </div>
-<ng-template #tooltipTempate>
-		'Password' must be at least 8 characters long.
-		Password should contain At least one special case characters
-		Password should contain At least one alphabet.
-		Password should contain At least one numeric value.
+
+<ng-template #tooltipTempate style="margin:0 auto">
+  'Password' must be at least 8 characters long.
+  Password should contain At least one special case characters
+  Password should contain At least one alphabet.
+  Password should contain At least one numeric value.
 </ng-template>

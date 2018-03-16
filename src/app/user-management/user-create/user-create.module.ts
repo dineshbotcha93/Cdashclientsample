@@ -6,6 +6,8 @@ import { TooltipModule } from 'ngx-bootstrap';
 import { FlowDisplayModule } from '../flow-display/flow-display.module';
 import { FlowButtonsModule } from '../flow-buttons/flow-buttons.module';
 import { CommonModule } from '@angular/common';
+import {ComponentsModule} from '../../shared/components';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [{
     path:'',
@@ -20,16 +22,18 @@ const routes: Routes = [{
   declarations: [UserCreateComponent],
   imports:[
     RouterModule.forChild(routes),
-    TooltipModule.forRoot(),
+    NgbModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
     FlowDisplayModule,
     FlowButtonsModule,
-    CommonModule
+    CommonModule,
+    ComponentsModule
   ],
   exports: [
     RouterModule
   ]
 })
 
-export class UserCreateModule {}
+export class UserCreateModule {
+}

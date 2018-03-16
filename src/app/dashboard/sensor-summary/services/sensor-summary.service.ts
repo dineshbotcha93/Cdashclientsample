@@ -69,13 +69,17 @@ export class SensorSummaryService {
   /* Edit the gateway details*/
   updateGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+    
+     return this.requesterService
+    .putExternalRequest('/api/Gateway/BulkUpdate',gatewayObj);
   }
 
   /* Edit the Sensor details*/
   updateSensorDetails(sensorObj:Array<any>){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+    return this.requesterService
+    .putExternalRequest('/api/Sensor/BulkUpdate',sensorObj);
+
   }
 
   /* Remove  the gateway details*/

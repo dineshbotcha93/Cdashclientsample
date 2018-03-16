@@ -72,27 +72,33 @@ export class TileComponent {
   }
   getTileStatusByColorNum(number){
     switch(number){
-      case this.mapConstants.STATUS_NUMBERS.GOOD:
+      case this.mapConstants.NEW_STATUS_NUMBERS.OK:
       return 'bg-green';
-      case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
+      case this.mapConstants.NEW_STATUS_NUMBERS.INACTIVE:
       return 'bg-warning';
-      case this.mapConstants.STATUS_NUMBERS.ALERTS:
+      case this.mapConstants.NEW_STATUS_NUMBERS.ALERT:
       return 'bg-pink';
-      case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
+      case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
       return 'bg-info';
-      case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
+      case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
       return 'bg-lowBattery';
     }
   }
 
-  getSensorTileIcon(sensorType){
+  getSensorTileIcon(sensorType,tileContent){
       switch(sensorType){
         case this.mapConstants.SENSOR_TYPE.TEMP:
         return 'fa-thermometer-half';
         case this.mapConstants.SENSOR_TYPE.HUMIDITY:
         return 'fa-tint';
+        case (this.mapConstants.SENSOR_TYPE.CONTACT):
+        if(tileContent == 'Closed'){
+          return 'fa-lock';
+        } else {
+          return 'fa-lock-open';
+        }
         default:
-        break;
+        return 'fa-tablet';
     }
   }
 
