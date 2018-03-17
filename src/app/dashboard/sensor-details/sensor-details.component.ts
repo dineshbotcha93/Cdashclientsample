@@ -11,6 +11,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalContentComponent } from './modals/modalContent.component';
 import { TranslateService } from '@ngx-translate/core';
+import {Angular2Csv} from 'angular2-csv/Angular2-csv';
+import { TableColumn } from '@swimlane/ngx-datatable';
 import * as moment from 'moment/moment';
 declare var jsPDF: any; // Important
 
@@ -178,4 +180,41 @@ export class SensorDetailsComponent {
     this.bsModalRef.content.closeBtnName = 'Close';
     this.bsModalRef.content.saveBtnName = 'Save';
   }
+
+  /*Export CSV functionality */
+  exportAsCSV() {
+    const columns: TableColumn[] = this.columns;
+    const headers =
+        columns
+            .map((column: TableColumn) => column.name)
+            .filter((e) => e);  // remove column without name (i.e. falsy value)
+
+    const rows: any[] = this.rows.map((row) => {
+        let r = {};
+        columns.forEach((column) => {
+            if (!column.name) { return; }   // ignore column without name
+            if (column.prop) {
+                let prop = column.prop;
+                r[prop] = (typeof row[prop] === 'boolean') ? (row[prop]) ? 'Yes'
+                                                                         : 'No'
+                                                           : row[prop];
+            } else {
+                // special cases handled here
+            }
+        })
+        return r;
+    });
+
+    const options = {
+        fieldSeparator  : ',',
+        quoteStrings    : '"',
+        decimalseparator: '.',
+        showLabels      : true,
+        headers         : headers,
+        showTitle       : false,
+        title           : 'Report',
+        useBom          : true,
+    };
+    return new Angular2Csv(rows, 'report', options);
+}
 }

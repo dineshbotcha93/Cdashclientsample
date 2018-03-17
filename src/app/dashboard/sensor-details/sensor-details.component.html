@@ -80,6 +80,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="message-history-container">
         <button class="btn btn-primary" (click)="export()">{{'global.exportPdf'|translate}}</button>
+        <input type="button" class="btn btn-primary col-md-3 col-sm-4 col-xs-12" value="Export" (click)="exportAsCSV()"/>
+
         <div class="dark-theme">
           <app-datatable
             *ngIf="rows[0]!=='N/A'"
