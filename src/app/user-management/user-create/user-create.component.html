@@ -10,22 +10,35 @@
 
       <form [formGroup]="userCreateForm" name="form" (ngSubmit)="onSubmit()">
 
-        <h1 class="onboarding-title">User Registration</h1>
-        <div class="row">
-          <div class="form-group col-md-6 col-xs-12">
-            <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
-                   value="true" (change)="masterChange($event)" checked="checked"> New Master Account User
-          </div>
-          <div class="form-group col-md-6 col-xs-12">
-            <input type="radio" name="isNewMaster" class=" float-left" formControlName="isNewMaster" [(ngModel)]="userRegisterModel.isNewMaster"
-                   value="false" (change)="masterChange($event)"> Link Existing NotifEye Account
+        <!--<h1 class="onboarding-title">User Registration</h1>-->
+        <div class="row gap-top">
+          <div class="col-md-offset-1 col-md-10 col-xs-10 radioButtons-container">
+            <div class="form-group">
+              <input type="radio"
+                     class=""
+                     name="isNewMaster"
+                     formControlName="isNewMaster"
+                     value="true"
+                     [(ngModel)]="userRegisterModel.isNewMaster"
+                     (change)="masterChange($event)"
+                     checked="checked"> New Master Account User
+            </div>
+            <div class="form-group">
+              <input type="radio"
+                     class=""
+                     name="isNewMaster"
+                     formControlName="isNewMaster"
+                     value="false"
+                     [(ngModel)]="userRegisterModel.isNewMaster"
+                     (change)="masterChange($event)"> Link Existing NotifEye Account
+            </div>
           </div>
         </div>
 
         <div class="col-md-offset-1 col-md-10 col-xs-12 m-t-lg">
           <div class="form-group row" style="padding-left: 10px; padding-right: 10px;">
             <span><strong>User Name : </strong></span>
-            <span id="username">{{userRegisterModel.email}}</span>
+            <span id="username" class="display-username" >{{userRegisterModel.email}}</span>
           </div>
 
           <div *ngIf="userRegisterModel.isNewMaster=='true'">

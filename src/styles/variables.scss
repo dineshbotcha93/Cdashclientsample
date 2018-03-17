@@ -9,6 +9,7 @@ $color-grey-dark: #6d6f70;
 $color-grey-verydark: #333;
 $color-red: #ee5a5a;
 $color-redLight: #f57676;
+$color-yellow: rgba(255, 204, 101, 1);
 
 $color-body-bg-lt: #2a3F54 + 35;
 $color-body-bg: #2a3F54;
@@ -59,13 +60,16 @@ $gateway-tile-DrkBG-Blue: #0049BA;
 
 /* App Gauge Colors */
 $gauge-BG: rgba(75, 87, 100, 0.15);
-$gauge-chart-forgroundColor: rgba(255, 204, 101, 1);
+$gauge-chart-forgroundColor: $color-yellow;
 $gauge-chart-backgroundColor: rgba(75, 87, 100, 1);
 
+
+$body-max-width: 1440px;
 
 $border-radius: 4px;
 $border-radius-medium: 10px;
 $border-radius-big: 20px;
+$border-radius-extraBig: 40px;
 
 /* Media Queries Mobile */
 $phone-small: 320px;
