@@ -1,1 +1,25 @@
-<create-network></create-network>
+<div class="login_wrapper onboarding_container">
+
+  <div class="form login_form">
+    <section class="login_content">
+      <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+      <user-flow-component [selected]="selectedStep">
+
+      </user-flow-component>
+
+      <form (ngSubmit)="onSubmit()" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
+        <create-network (formReady)="addFormControl('createNetworkForm', $event)"></create-network>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group float-right">
+              <input type="submit" value="Submit" class="btn btn-primary m-l-none">
+              <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </section>
+  </div>
+</div>

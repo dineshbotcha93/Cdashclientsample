@@ -12,9 +12,12 @@ export class NetworkSetupComponent implements OnInit {
 
 
   public networkFormSetup: FormGroup;
+  selectedStep: number;
 
 
   constructor(private fb: FormBuilder) {
+
+    this.selectedStep = 3;
 
     this.networkFormSetup = this.fb.group({
 
@@ -23,6 +26,15 @@ export class NetworkSetupComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  private addFormControl(name: string, formGroup: FormGroup) : void {
+    console.log('::::::setup network form:::');
+    this.networkFormSetup.addControl(name, formGroup);
+  }
+
+  onSubmit() {
+    console.log('::::::create network form:::', this.networkFormSetup.value);
   }
 
 }

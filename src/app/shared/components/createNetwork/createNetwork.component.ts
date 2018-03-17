@@ -10,7 +10,8 @@ import { FormGroup,FormBuilder ,FormControl,Validators, ReactiveFormsModule } fr
 })
 export class CreateNetworkComponent implements OnInit {
 
-
+  @Output()
+  private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   public createNetworkForm: FormGroup;
 
 
@@ -28,6 +29,8 @@ export class CreateNetworkComponent implements OnInit {
   }
 
   private addFormControl(name: string, formGroup: FormGroup) : void {
+
+    console.log(':::::into addformcontrol networksetup', FormGroup);
     this.createNetworkForm.addControl(name, formGroup);
   }
 
