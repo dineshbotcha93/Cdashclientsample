@@ -1,0 +1,34 @@
+import {Component, OnInit, EventEmitter} from "@angular/core";
+import { Input, Output } from "@angular/core";
+import { FormGroup,FormBuilder ,FormControl,Validators, ReactiveFormsModule } from '@angular/forms';
+
+
+
+@Component({
+  selector: 'create-network',
+  templateUrl: './createNetwork.component.html'
+})
+export class CreateNetworkComponent implements OnInit {
+
+
+  public createNetworkForm: FormGroup;
+
+
+  constructor(private fb: FormBuilder) {
+
+    this.createNetworkForm = this.fb.group({
+      "name": new FormControl("", Validators.required),
+      "isActive": new FormControl("", Validators.required)
+
+    });
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  private addFormControl(name: string, formGroup: FormGroup) : void {
+    this.createNetworkForm.addControl(name, formGroup);
+  }
+
+}

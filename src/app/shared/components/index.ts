@@ -17,6 +17,7 @@ import { GaugeComponent } from './gauge/gauge.component';
 import {ModalComponent} from "./modal/modal.component";
 import {AddressFormComponent} from "./addressForm/addressForm.component";
 import {TimeZonesListComponent} from "./timeZonesList/timeZonesList.component";
+import { CreateNetworkComponent } from "./createNetwork/createNetwork.component";
 
 // Google map integration
 import { AgmCoreModule } from '@agm/core';
@@ -40,7 +41,8 @@ export const COMPONENTS = [
   GaugeComponent,
   ModalComponent,
   AddressFormComponent,
-  TimeZonesListComponent
+  TimeZonesListComponent,
+  CreateNetworkComponent
 ];
 
 @NgModule({
