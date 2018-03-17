@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
-import {Location} from '@angular/common';
+import {Location,AsyncPipe} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
 import { FillDetailsService } from '../user-management/user-create/fill-details/fill-details.service';
 import {UserProfile} from './user.module';
