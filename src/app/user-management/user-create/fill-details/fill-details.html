@@ -10,8 +10,8 @@
 
       <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="form-horizontal form-label-left font-white">
 
-        <div class="row">
-          <!--<h1>User Details Form</h1>-->
+        <div *ngIf="accountUpdateStatus.error" class="alert alert-danger" ng->
+          <span>{{accountUpdateStatus.message || 'Entered form is invalid!!!'}}</span>
         </div>
 
         <div class="row fillDetails-container">
@@ -26,7 +26,7 @@
                 <div class="error" *ngIf="accountForm.get('company_name').hasError('required')">Company Name is required.</div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="accountInfo.industryType">
               <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="industryType">Industry Type </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select formControlName="industry_type" class="form-control" (change)="industryChanged($event.target.value)">
@@ -37,7 +37,7 @@
                 <div class="error" *ngIf="accountForm.get('industry_type').hasError('required')">Industry Type is required.</div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="accountInfo.businessType">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select formControlName="business_type" class="form-control">
@@ -59,11 +59,11 @@
                 <div class="error" *ngIf="accountForm.get('timeZone').hasError('required')">Time Zone is required.</div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="accountInfo.placeOfPurchase">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select formControlName="placeOfPurchase" class="form-control">
-                  <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
+                  <option value="{{pop.id}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
                 </select>
               </div>
               <div *ngIf="accountForm.get('placeOfPurchase').touched">
