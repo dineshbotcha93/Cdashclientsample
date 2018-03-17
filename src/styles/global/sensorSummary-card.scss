@@ -1,0 +1,61 @@
+@import "../variables";
+
+
+.sensorSummaryCard-container {
+  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $color-grey-verydark;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  .ssCard-left {
+    .ssCard-name {
+      font-size: 2.5em;
+
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        font-size: 1.75em;
+      }
+    }
+    .ssCard-id {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.875em;
+    }
+  }
+
+  .ssCard-right {
+    .ssCard-small {
+      padding: 10px;
+      margin: 10px;
+      min-width: 7em;
+      display: inline-block;
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 1.5em;
+      text-align: center;
+      border: 1px solid $color-grey-light;
+      border-radius: $border-radius-medium;
+      background: $color-grey-verylight;
+
+      @media (min-width: $phone-small) and (max-width: $phone-large) {
+        font-size: 1.25em;
+        margin-left: 0;
+        min-width: auto;
+      }
+
+      .value {
+        font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        color: $color-yellow;
+        font-size: 1.875em;
+        text-shadow: 2px 2px 2px $color-grey-verydark;
+
+        @media (min-width: $phone-small) and (max-width: $phone-large) {
+          font-size: 1.45em;
+        }
+      }
+    }
+    .ssCard-count {
+
+    }
+    .ssCard-button {
+      display: inline-block
+    }
+  }
+}
