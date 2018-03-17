@@ -32,7 +32,7 @@ export class UserNotificationsComponent implements OnInit {
 
   ngOnInit() {
   	
-    console.log('accountData',this.accountData);
+    console.log('accountData-----',this.accountData);
   	this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
     	console.log('result----->',result);
        this.sensorList = result;
