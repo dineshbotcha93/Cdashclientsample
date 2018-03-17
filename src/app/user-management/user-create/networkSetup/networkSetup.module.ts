@@ -10,10 +10,7 @@ import {ComponentsModule} from '../../../shared/components/index';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [{
-  path:'',
-  children:[{
     path: '', component:NetworkSetupComponent
-  }]
 }];
 
 @NgModule({
@@ -27,9 +24,6 @@ const routes: Routes = [{
     FlowButtonsModule,
     CommonModule,
     ComponentsModule
-  ],
-  exports: [
-    RouterModule
   ]
 })
 

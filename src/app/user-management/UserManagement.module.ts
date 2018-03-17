@@ -39,8 +39,7 @@ const routes: Routes = [
     FormsModule,
     ComponentsModule,
     SharedModule,
-    FlowDisplayModule,
-    NetworkSetupModule
+    FlowDisplayModule
   ],
   exports:[
     RouterModule

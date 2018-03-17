@@ -16,10 +16,10 @@ const routes: Routes = [{
     },{
       path:'fill-details', loadChildren: './fill-details/fill-details.module#FillDetailsModule'
     },
-      {
-        path: 'network-setup', loadChildren:'./network-setup/network-setup.module#NetworkSetupModule'
-      }
-    ]
+    {
+      path: 'network-setup', loadChildren:'./networkSetup/networkSetup.module#NetworkSetupModule'
+    }
+  ]
 }];
 
 @NgModule({
