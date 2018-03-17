@@ -1,55 +1,87 @@
-import { Component, OnInit ,Output, EventEmitter,Input } from '@angular/core';
-import { DeviceManagementModel } from '../../shared/models/device/DeviceManagementModel';
-import { CreateDeviceService } from './services/create-device.service';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { DeviceManagementModel } from "../../shared/models/device/DeviceManagementModel";
+import { CreateDeviceService } from "./services/create-device.service";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'app-create-device',
-  templateUrl: './create-device.component.html',
-  providers:[CreateDeviceService],
-  styleUrls: ['./create-device.component.scss']
+  selector: "app-create-device",
+  templateUrl: "./create-device.component.html",
+  providers: [CreateDeviceService],
+  styleUrls: ["./create-device.component.scss"]
 })
 export class CreateDeviceComponent implements OnInit {
+  @Input() deviceType: string;
+  @Input() inputNetworkData: Array<any> = [];
 
-   @Input() deviceType: string ;
-   @Input() inputNetworkData:Array<any> = [];
+  @Input() selectedNetwork: any;
 
-   @Input() selectedNetwork:Array<any> = [];
+  @Output() messageEvent = new EventEmitter<boolean>();
 
+  @Output() messageCancelEvent = new EventEmitter<boolean>();
 
-   @Output() messageEvent = new EventEmitter<boolean>();
+  message: boolean = false;
+  gatewayTypeObject: any = [];
+  deviceModel: DeviceManagementModel;
 
-   @Output() messageCancelEvent = new EventEmitter<boolean>();
+  setDeviceModelInitiate() {
+    this.deviceModel = {
+      name: "",
+      gatewayID: "",
+      code: "",
+      networkID: "",
+      gatewayTypeID: "",
+      serialNumber: "",
+      macAddress: "",
+      radioBand: "",
+      apnFirmwareVersion: "",
+      gatewayFirmwareVersion: "",
+      powerSourceID: "11",
+      customerID: "85"
+    };
+  }
 
-  	message: boolean = false;
-
-	deviceModel: DeviceManagementModel =
-	{
-		name:  '',
-		id:    '',
-		code:  '',
-		network: []
-	};
-
-
-  constructor(private createDeviceService: CreateDeviceService) { }
+  constructor(private createDeviceService: CreateDeviceService) {}
 
   ngOnInit() {
-  	this.deviceType = this.deviceType.toUpperCase();
-    this.deviceModel.network=this.selectedNetwork;
+    this.setDeviceModelInitiate();
+
+    this.deviceType = this.deviceType.toUpperCase();
+
+    this.gatewayTypeObject = [
+      {
+        typeId: "-99",
+        name: "Base Station"
+      },
+      {
+        typeId: "2",
+        name: "USB Service"
+      },
+      {
+        typeId: "7",
+        name: "Ethernet Gateway 3.0"
+      }
+    ];
+
+    console.log(this.gatewayTypeObject);
+    this.deviceModel.gatewayTypeID = this.gatewayTypeObject[0].typeId;
+    console.log(this.deviceModel);
   }
 
-  onClickAddDetail(){
-      console.log(this.deviceModel);
-      console.log(this.createDeviceService);
-      this.createDeviceService.createGateway(this.deviceModel).then((e)=>{
-        console.log(e);
-      })
-  	 this.messageEvent.emit(this.message);
+  onClickAddDetail() {
+    console.log(this.deviceModel);
+    this.deviceModel.networkID = this.selectedNetwork.Id;
+    this.createDeviceService.createGateway(this.deviceModel).then(e => {});
+    this.messageEvent.emit(this.message);
   }
 
-  onClickCancelDetail(){
-     this.messageCancelEvent.emit(this.message);
+  onClickCancelDetail() {
+    this.messageCancelEvent.emit(this.message);
   }
 
+  onChangeGatewayType(e) {
+    this.setDeviceModelInitiate();
+    this.deviceModel.gatewayTypeID = e.typeId;
+    console.log(this.deviceModel);
+    console.log(this.selectedNetwork);
+  }
 }

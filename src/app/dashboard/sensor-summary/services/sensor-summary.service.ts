@@ -69,19 +69,23 @@ export class SensorSummaryService {
   /* Edit the gateway details*/
   updateGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+    
+     return this.requesterService
+    .putExternalRequest('/api/Gateway/BulkUpdate',gatewayObj);
   }
 
   /* Edit the Sensor details*/
   updateSensorDetails(sensorObj:Array<any>){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
+    return this.requesterService
+    .putExternalRequest('/api/Sensor/BulkUpdate',sensorObj);
+
   }
 
   /* Remove  the gateway details*/
-  removeGatewayDetails(gatewayObj:Array<any>){
+  removeGatewayDetails(id: string,network:string){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+    // return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
   }
 
   deleteGateway(id){
@@ -97,7 +101,7 @@ export class SensorSummaryService {
 
   deleteSensor(id){
     return this.requesterService
-    .deleteExternalRequest('/api/Sensor/Remove/'+id);
+    .deleteExternalRequest('/api/Sensor/'+id+'/Remove');
   }
 
    /* Move  the gateway details*/
@@ -106,9 +110,13 @@ export class SensorSummaryService {
     return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
   }
 
-  moveGateway(GatewayID,NetworkID,CheckDigit){
-    return this.requesterService
-    .putExternalRequest(`/api/Gateway/Assign/${GatewayID}/${NetworkID}/${CheckDigit}`,{});
+  moveGateway(deviceId,networkID,checkDigit,deviceType){
+     const URL = '/api/'+deviceType+'/'+deviceId+'/AssignTo?NetworkID='+networkID;
+     // +'&CheckDigit=AAA';
+     // +'/CheckDigit='+CheckDigit;
+    console.log('URL----',URL);
+     return this.requesterService
+    .putExternalRequest(URL,{});
   }
 
 
@@ -127,8 +135,14 @@ export class SensorSummaryService {
   }
 
   getNotificationSettingsDetails(networkId:string){
+    // return this.requesterService
+    // .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID='+networkId);
+
     return this.requesterService
-    .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID='+networkId);
+    .getExternalRequest('/api/Notification/AccountNotifications?StartIndex=1&Count=10&AccountID='+networkId);
+
+    
+
   }
 
   updateNotificationActiveState(requestObject:any){
@@ -136,5 +150,24 @@ export class SensorSummaryService {
     let URL = '/api/Notification/ToggleNotification?NotificationID='+requestObject.NotificationID+'&On='+requestObject.On;
     return this.requesterService
     .putExternalRequest(URL,{});
+  }
+
+  createNotificationDetails(requestObject:any){
+     let URL = '/api/Notification';
+    return this.requesterService
+    .postExternalRequest(URL,requestObject);
+  }
+
+   UpdateNotificationDetails(requestObject:any){
+     let URL = '/api/Notification';
+    return this.requesterService
+    .putExternalRequest(URL,requestObject);
+  }
+
+  getNotificationScheduleList(networkID:string){
+     let URL = '/api/Notification/ScheduleList?NotificationID='+networkID;
+    return this.requesterService
+    .getExternalRequest(URL);
+   
   }
 }

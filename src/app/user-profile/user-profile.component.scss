@@ -113,10 +113,18 @@ a:hover {
 .renewal-pos {
   left:75%;
 }
+
+.lbl-account {
+  width:26%;
+}
+
 @media (min-width: $phone-small) and (max-width: $tablet-large) {
   .renewal-pos {
     left:9%;
     margin-top:25px;
+  }
+  .lbl-account {
+    width:100%
   }
 }
 

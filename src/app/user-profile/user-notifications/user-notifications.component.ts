@@ -21,17 +21,19 @@ export class UserNotificationsComponent implements OnInit {
   
 
   // @Input() sensorList: any;
-   @Input() sensorList: any;
+  @Input() sensorList: any;
   @Input() gatewayList: Array<any>;
   @Input() editNotifyObject: any;
   @Input() notifyOperationType: string = "addNotify";
+  @Input() accountData: any;
 
 
   constructor(private sensorSummaryService: SensorSummaryService) { }
 
   ngOnInit() {
   	
-  	this.sensorSummaryService.getNotificationSettingsDetails('1485').then((result) => {
+    console.log('accountData',this.accountData);
+  	this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
     	console.log('result----->',result);
        this.sensorList = result;
     });

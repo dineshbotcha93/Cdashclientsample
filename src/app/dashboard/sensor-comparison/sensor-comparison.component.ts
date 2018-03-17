@@ -27,11 +27,11 @@ export class SensorComparisonComponent{
   private sensorName:string = '1156073157';
   private sensorNames:Array<Object> = [];
   private data:Array<any>=[];
-  private chartLabels:Array<any>=[];
+  public chartLabels:Array<any>=[];
   public chartColors: Array<any> = [ChartColors];
   private networkName:string = '';
   private location:number = 0;
-  private chartOptions = null;
+  public chartOptions = null;
   private netWorkId = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
 
@@ -53,6 +53,9 @@ export class SensorComparisonComponent{
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
+      labels: {
+        fontColor: '#fff'
+      },
       onClick:function(e,legendItem){
         this.sensorNames.push({
           label:this.chartData[legendItem.datasetIndex].label,

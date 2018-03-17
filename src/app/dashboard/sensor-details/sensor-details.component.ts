@@ -54,7 +54,7 @@ export class SensorDetailsComponent {
   ) {
     this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
-   });
+    });
     sensorDetailsService.getDetails(this.detailId).then((result) => {
       this.sensorDetailsData = result;
     });
@@ -64,8 +64,13 @@ export class SensorDetailsComponent {
     this.columns.push({prop: 'data', name: 'Reading'});
 
     this.translate.use('en');
-  }
 
+    this.chartOptions.legend = {
+      labels: {
+        fontColor: '#fff'
+      }
+    };
+  }
   ngAfterViewInit() {
     this.tabs.forEach((e) => {
       e.tabs.forEach((tab) => {
