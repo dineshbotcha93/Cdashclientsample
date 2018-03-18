@@ -139,7 +139,7 @@ export class SensorSummaryService {
     // .getExternalRequest('/api/Notification/NetworkNotifications?StartIndex=1&Count=2&NetworkID='+networkId);
 
     return this.requesterService
-    .getExternalRequest('/api/Notification/AccountNotifications?StartIndex=1&Count=10&AccountID='+'68');
+    .getExternalRequest('/api/Notification/AccountNotifications?StartIndex=1&Count=10&AccountID='+'71');
 
     
 

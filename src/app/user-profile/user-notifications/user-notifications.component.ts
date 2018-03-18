@@ -43,6 +43,7 @@ export class UserNotificationsComponent implements OnInit {
     this.notificationRadio = 'addNotify';
     this.isAddButtonRequired = false;
     this.isResetButtonRequired = true;
+    this.notifyOperationType = 'addNotify';
     
   }
   onClickResetNotification() {

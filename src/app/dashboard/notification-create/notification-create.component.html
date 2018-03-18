@@ -21,7 +21,7 @@
         </td>
         <td>
           <div class="col-md-6">
-            <select class="form-control" [(ngModel)]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
+            <select class="form-control" [ngModel]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
               <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">
                 {{not.value}}
               </option>
@@ -32,7 +32,7 @@
     </tbody>
   </table>
 </div>
-{{subNotificationTypes[id]}}
+<!-- {{subNotificationTypes[id]}} -->
 <!-- page 1 -->
 <div *ngIf="isSensorNotificationForm1">
   Notification Details:
@@ -58,8 +58,25 @@
           </div>
         </td>
       </tr>
+
+       <tr *ngIf="notificationModel.subnotificationClassType === '9'">
+        <td>
+          <label class="control-label col-form-label">Notification when magnet is:</label>
+        </td>
+        <td>
+          <div class="col-md-8">
+            <div class="form-group ss-location">
+              <select class="form-control" [ngModel]="selectOpenCloseType[0]" (ngModelChange)="onChangeSelectOpenCloseType($event)">
+                <option *ngFor="let less of selectOpenCloseType" [ngValue]="less">
+                  {{less.value}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </td>
+      </tr>
       <!-- <ng-container *ngTemplateOutlet="notificationTemplate"></ng-container> -->
-      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' )||  (subNotificationTypes.id === '14' && templateName ==='advancedNotification')">
+      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType !== '9')||  (subNotificationTypes.id === '14' && templateName ==='advancedNotification')">
         <td>
           <label class="control-label col-form-label">Notify when sensor temperature reading is:</label>
         </td>
@@ -74,7 +91,7 @@
             </div>
           </div>
           <div class="col-md-3">
-            <input type="text" class="form-control" name="filter_name" placeholder="Enter Temp">
+            <input type="text" class="form-control" name="filter_name" placeholder="Enter Temp" [(ngModel)]="notificationModel.compareValue">
           </div>
           <div class="col-md-2">
             <label class="control-label col-form-label">degrees</label>
@@ -289,25 +306,28 @@
           </div>
         </td>
       </tr>
-      <tr *ngFor="let dayily of dailySheduleNotificationList">
+      <tr *ngFor="let dayily of notificationModel.scheduleDayObjectList">
         <td>
-          <label class="control-label col-form-label">{{dayily.day}}:</label>
+          <label class="control-label col-form-label">{{dayily.dayOfWeek}}:</label>
         </td>
         <td>
           <div class="col-md-4">
             <div class="form-group ss-location">
-              <select class="form-control" [(ngModel)]="dayily.selectScheduleObj[0]" (ngModelChange)="onChangeNotifictaion($event)">
-                <option *ngFor="let not of dayily.scheduleObj" [ngValue]="not">
+              <select class="form-control" [ngModel]="dayily.selectScheduleObj" (ngModelChange)="onChangeScheduleObject($event,dayily)">
+                <option *ngFor="let not of dayily.scheduleDayObject" [ngValue]="not">
                   {{not.value}}
                 </option>
+
               </select>
             </div>
           </div>
-          <div class="col-md-3">
-            <timepicker [(ngModel)]="dayily.timePickerBefore"></timepicker>
+          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === 'Between' || dayily.selectScheduleObj.id === 'Before_and_After'
+            || dayily.selectScheduleObj.id === 'Before'">
+            <timepicker [(ngModel)]="dayily.timePickerBefore" (click)="onClickBeforeTimeValue($event,dayily)"></timepicker>
           </div>
-          <div class="col-md-3">
-            <timepicker [(ngModel)]="dayily.timePickerAfter"></timepicker>
+          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === 'Between' || dayily.selectScheduleObj.id === 'Before_and_After'
+            || dayily.selectScheduleObj.id === 'After'">
+            <timepicker [(ngModel)]="dayily.timePickerAfter" (click)="onClickAfterTimeValue($event,dayily)"></timepicker>
           </div>
         </td>
       </tr>
