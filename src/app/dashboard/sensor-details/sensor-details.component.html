@@ -41,7 +41,8 @@
 
     <!-- Gauge and CHart container -->
     <div class="col-md-4 col-sm-4 col-xs-12 gauge-chart-container">
-      <div class="gauge-container">
+      <div class="loader" *ngIf="!sensorDetailsData?.sensorID"></div>
+      <div class="gauge-container" *ngIf="sensorDetailsData?.sensorID">
         <app-gauge
           [type]="'arch'"
           [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
@@ -63,7 +64,8 @@
     </div>
 
     <div class="col-md-8 col-sm-8 col-xs-12 gauge-chart-container">
-      <div class="graph-card">
+      <div class="loader" *ngIf="chartData[0].data.length == 0"></div>
+      <div class="graph-card" *ngIf="chartData[0].data.length > 0">
         <canvas
           baseChart width="100%" height="100%"
           #baseChart="base-chart"
@@ -78,8 +80,11 @@
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="message-history-container">
+      <div class="loader" *ngIf="rows[0]=='N/A'"></div>
+      <div class="message-history-container" *ngIf="rows[0]!=='N/A'">
         <button class="btn btn-primary" (click)="export()">{{'global.exportPdf'|translate}}</button>
+        <input type="button" class="btn btn-primary col-md-3 col-sm-4 col-xs-12" value="Export" (click)="exportAsCSV()"/>
+
         <div class="dark-theme">
           <app-datatable
             *ngIf="rows[0]!=='N/A'"
