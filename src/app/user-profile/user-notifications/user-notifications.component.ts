@@ -16,6 +16,7 @@ export class UserNotificationsComponent implements OnInit {
   EditNotifyMode : boolean = false;
 
 
+
   @Output() editNotifyModeEvent = new EventEmitter<boolean>();
   @Output() createMessageEvent = new EventEmitter<boolean>();
   
@@ -26,6 +27,7 @@ export class UserNotificationsComponent implements OnInit {
   @Input() editNotifyObject: any;
   @Input() notifyOperationType: string = "addNotify";
   @Input() accountData: any;
+  @Input() globalNotificationsList: any;
 
 
   constructor(private sensorSummaryService: SensorSummaryService) { }
@@ -36,6 +38,11 @@ export class UserNotificationsComponent implements OnInit {
   	this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
     	console.log('result----->',result);
        this.sensorList = result;
+    });
+
+    this.sensorSummaryService.getGlobalNotificationsList(this.accountData.accountID).then((result) => {
+      console.log('globalNotificationsList----->',result);
+       this.globalNotificationsList = result;
     });
   }
 
@@ -53,7 +60,7 @@ export class UserNotificationsComponent implements OnInit {
   }
 
  recieveEditNotifyValue($event) {
-    console.log($event);
+   
     this.notificationRadio = 'addNotify';
     this.notifyOperationType = 'editNotify';
     this.isAddButtonRequired = false;

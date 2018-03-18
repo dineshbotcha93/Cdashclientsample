@@ -113,7 +113,7 @@
         </td>
         <td>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="filter_name" [(ngModel)]="notificationModel.strLowBatteryNotifyValue" placeholder="Enter Text">
+            <input type="text" class="form-control" name="filter_name" [(ngModel)]="notificationModel.compareValue" placeholder="Enter Text">
           </div>%
         </td>
       </tr>
@@ -123,7 +123,7 @@
         </td>
         <td>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="filter_name" placeholder="Enter Text" [(ngModel)]="notificationModel.strInactivePeriodValue">
+            <input type="text" class="form-control" name="filter_name" placeholder="Enter Text" [(ngModel)]="notificationModel.compareValue">
           </div>minutes without communication.
         </td>
       </tr>
@@ -411,7 +411,7 @@
         <td>
           <div class="col-md-8">
             <div>
-              <ss-multiselect-dropdown [options]="myUserOptions" [settings]="mySettings" [(ngModel)]="userOptionsModel" (ngModelChange)="onChangeUserSelect($event)"></ss-multiselect-dropdown>
+              <ss-multiselect-dropdown [options]="myUserOptions" [settings]="mySettings" [(ngModel)]="userOptionsModel" (ngModelChange)="onChangeUserSelect($event,myUserOptions)"></ss-multiselect-dropdown>
             </div>
           </div>
         </td>
