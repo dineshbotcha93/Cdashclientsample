@@ -286,4 +286,6 @@ updateAccountAPI(postData) {
   return this.requestService.putExternalRequest('/api/Account', postData);
 }
 
+
+
 }
