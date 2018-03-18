@@ -69,7 +69,7 @@ export class SensorSummaryService {
   /* Edit the gateway details*/
   updateGatewayDetails(gatewayObj:Array<any>){
     /*Place a mock call and return response*/
-    
+
      return this.requesterService
     .putExternalRequest('/api/Gateway/BulkUpdate',gatewayObj);
   }
@@ -141,7 +141,7 @@ export class SensorSummaryService {
     return this.requesterService
     .getExternalRequest('/api/Notification/AccountNotifications?StartIndex=1&Count=10&AccountID='+networkId);
 
-    
+
 
   }
 
@@ -168,6 +168,10 @@ export class SensorSummaryService {
      let URL = '/api/Notification/ScheduleList?NotificationID='+networkID;
     return this.requesterService
     .getExternalRequest(URL);
-   
+  }
+
+  createNetwork(postData){
+    return this.requesterService
+      .postExternalRequest('/api/Network', postData);
   }
 }

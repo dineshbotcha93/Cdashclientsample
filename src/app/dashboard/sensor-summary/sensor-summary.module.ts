@@ -5,7 +5,7 @@ import { ContainersModule } from '../../shared/containers';
 import { ComponentsModule } from '../../shared/components';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../shared/pipes';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterByCriteria } from './pipes/filterByCriteria.pipe';
 
 import { Ng2SliderComponent } from 'ng2-slider-component/ng2-slider.component';
@@ -46,6 +46,7 @@ const routes: Routes = [{
     CommonModule,
     PipesModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFontAwesomeModule,
     SharedModule,
     ButtonsModule.forRoot(),
