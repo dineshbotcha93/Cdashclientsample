@@ -16,7 +16,6 @@ export class CreateNetworkComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder) {
-
     this.createNetworkForm = this.fb.group({
       "name": new FormControl("", Validators.required),
       "isActive": new FormControl("", Validators.required)
@@ -25,12 +24,12 @@ export class CreateNetworkComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.formReady.emit(this.createNetworkForm);
 
   }
 
   private addFormControl(name: string, formGroup: FormGroup) : void {
 
-    console.log(':::::into addformcontrol networksetup', FormGroup);
     this.createNetworkForm.addControl(name, formGroup);
   }
 
