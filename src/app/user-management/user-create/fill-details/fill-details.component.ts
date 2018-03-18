@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FillDetailsService} from './fill-details.service';
+import {UserManagementService} from '../../user-management.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AccountRegistrationForm} from './fill-details.component.model';
@@ -36,13 +37,9 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     message: ''
   };
 
-  constructor(private fillDetailsService: FillDetailsService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private fillDetailsService: FillDetailsService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private userManagementService: UserManagementService) {
     this.selectedStep = 2;
-
-    this.stepOneData = route.data.map(d => d.userData);
-
     this.accountInfo = {};
-
 
     this.fillDetailsService.getIndustries().subscribe((e) => {
       e.forEach((res) => {
@@ -55,6 +52,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         });
       });
     });
+
     this.fillDetailsService.getTimeZones().subscribe((e) => {
       e[0].forEach((tZ) => {
         this.timeZones.push({id: tZ.TimeZoneID, name: tZ.DisplayName});
@@ -81,6 +79,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.stepOneData = this.userManagementService.getUserData();
     this.fillDetailsService.fetchExistingUserInfo()
       .then(data => {
         console.log('user info', data.account[0]);
@@ -129,13 +128,15 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
     console.log(this.accountForm.value);
 
+    this.accountUpdateStatus.error = !this.addressForm.validateAddress();
+
     // set the token to the header before making the api call
 
     this.prepareAccountRegistrationForm();
     // submit data to the new account creation api
     // this.createNewUserAccount(this.accountForm);
 
-    this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
+    //this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
 
   }
 
@@ -153,7 +154,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     const payloadData = {
       accountID: this.accountInfo.accountID,
       timeZone: accountForm.get('timeZone').value,
-      resellerID: this.accountInfo.resellerID,
+      resellerID: 1,
       companyName: accountForm.get('company_name').value,
       address: addressForm.get('street').value,
       address2: addressForm.get('housenumber').value,

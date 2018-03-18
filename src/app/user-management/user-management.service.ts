@@ -5,6 +5,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class UserManagementService {
+  private userCreationData = {};
   constructor(private requesterService: RequesterService) {
 
   }
@@ -30,5 +31,13 @@ export class UserManagementService {
 
   public userDetailsUpdation(userRegisterModel: UserManagementForm): boolean{
     return true;
+  }
+
+  public saveUserData(userData: any): void {
+    this.userCreationData = userData;
+  }
+
+  public getUserData(): object {
+    return this.userCreationData;
   }
 }
