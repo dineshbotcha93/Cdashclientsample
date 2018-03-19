@@ -114,7 +114,7 @@ export class NetworkSetupComponent implements OnInit {
   prepoulateEditModal(selectedNetwork) {
 
     console.log('::::network form::', this.networkFormSetup.controls['createNetworkForm']);
-
+    //this.networkFormSetup.value = createObject;
     //this.networkFormSetup.controls["createNetworkForm"].setValue({ name : selectedNetwork.name});
     /*this.addressForm = this.networkFormSetup.controls["createNetworkForm"].value.address;
     console.log(this.addressForm.controls["createNetworkForm"].value.address);
