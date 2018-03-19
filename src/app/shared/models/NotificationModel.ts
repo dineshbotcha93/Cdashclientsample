@@ -33,6 +33,7 @@ export class NotificationModel {
 	 public gatewayList:any = [];
 	 public sensorList:any = [];
 	 public userList:any = [];
+	 public notificationID: string;
 
 
 }
