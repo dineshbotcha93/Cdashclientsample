@@ -15,8 +15,17 @@ export class NetworkSetupService {
   }
 
   createNetwork(postData){
+
+    console.log('::::create network POST DATA:::', postData);
     return this.requesterService
-      .postExternalRequest('api/Network', postData);
+      .postExternalRequest('/api/Network', postData);
+  }
+
+  editNetwork(putData){
+
+    console.log('::::create network PUT DATA:::', putData);
+    return this.requesterService
+      .putExternalRequest('/api/Network', putData);
   }
 }
 

@@ -29,7 +29,9 @@
     }
   }
   .modal-body {
-    background-color: $color-grey-verylight;
+    background: $color-grey-ultralight;
+    max-height: 30em;
+    overflow-y: auto;
   }
   .modal-footer {
 

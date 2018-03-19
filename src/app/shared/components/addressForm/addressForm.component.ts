@@ -26,7 +26,7 @@ export class AddressFormComponent implements OnInit {
       "street": new FormControl("", Validators.required),
       "housenumber": new FormControl(),
       "city": new FormControl("", Validators.required),
-      "zipcode": new FormControl("", [Validators.required, Validators.pattern(/\d+/g)]),
+      "zipcode": new FormControl("", [Validators.required]),
       "state": new FormControl(),
       "country": new FormControl()
     });
@@ -64,6 +64,6 @@ export class AddressFormComponent implements OnInit {
   }
 
   validateAddress() {
-      return false;
+      return true;
   }
 }

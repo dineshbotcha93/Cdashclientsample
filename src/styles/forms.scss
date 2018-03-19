@@ -102,6 +102,14 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   box-shadow: none;
+
+  &[readonly="true"] {
+    background: $color-grey-light;
+
+    &:focus {
+      background: $color-grey-light;
+    }
+  }
 }
 
 
