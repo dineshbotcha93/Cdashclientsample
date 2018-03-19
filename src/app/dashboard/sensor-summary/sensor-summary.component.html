@@ -248,6 +248,7 @@
 
 <ng-template #networkEditModal>
   <div class="modal fade" id="myNetworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left font-white">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -257,14 +258,16 @@
           <h4 class="modal-title" id="myModalLabel">Edit Network</h4>
         </div>
         <div class="modal-body">
+          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm"></create-network>
           <ng-container *ngTemplateOutlet="networkModal"></ng-container>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="onClickSaveNetworkDetail($event)">
-            <i class="fa fa-save"></i> Save changes </button>
+          <input type="submit" value="Save changes" class="btn btn-primary addBTN">
+            <i class="fa fa-save"></i>
         </div>
       </div>
     </div>
+  </form>
   </div>
 </ng-template>
 
@@ -306,7 +309,7 @@
           Send notifications for this Network
         </td>
         <td>
-          <input type="checkbox" [(ngModel)]="editNetworkData.notifyAlert">
+          <input type="checkbox" [(ngModel)]="editNetworkData.sendNotifications">
         </td>
       </tr>
       <tr>

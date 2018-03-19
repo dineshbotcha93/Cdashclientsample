@@ -174,4 +174,9 @@ export class SensorSummaryService {
     return this.requesterService
       .postExternalRequest('/api/Network', postData);
   }
+
+  updateNetwork(putData){
+    return this.requesterService
+      .putExternalRequest('/api/Network', putData);
+  }
 }

@@ -54,11 +54,18 @@ export class SensorSummaryComponent implements OnInit {
   /*Model to update*/
   locationDataForMoveNetwork: any = [];
   selectedUserDataForOperation: any = [];
-  editNetworkData: Object = {
+  editNetworkData: any = {
     name: '',
-    notifyAlert: true,
-    holdNetwork: false
-
+    sendNotifications: true,
+    holdNetwork: false,
+    address: '',
+    address2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country:'',
+    latitude: 0,
+    longitude: 0
   };
   enable: boolean = false;
 
@@ -95,6 +102,7 @@ export class SensorSummaryComponent implements OnInit {
     selectTempTypeList: any = [];
     showPopup: boolean = false;
     private networkFormSetup: FormGroup;
+    private networkEditForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -107,6 +115,9 @@ export class SensorSummaryComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.networkFormSetup = this.fb.group({
+
+    });
+    this.networkEditForm = this.fb.group({
 
     });
     this.route.params.subscribe((params) => {
@@ -358,7 +369,20 @@ export class SensorSummaryComponent implements OnInit {
 
   private onSubmit(action){
     //console.log(this.networkFormSetup.get('createNetworkForm').get("address").get("street"));
-    this.preparePostData();
+    if(action=='editNetwork'){
+      console.log(this.networkEditForm);
+      const editNetworkForm = this.networkEditForm.get('editNetworkForm');
+      console.log(editNetworkForm.get("address").value.street);
+      this.editNetworkData.address = editNetworkForm.get("address").value.street;
+      this.editNetworkData.address2 = editNetworkForm.get("address").value.housenumber;
+      this.editNetworkData.city = editNetworkForm.get("address").value.city;
+      this.editNetworkData.postalCode = editNetworkForm.get("address").value.zipcode;
+      this.editNetworkData.state = editNetworkForm.get("address").value.state;
+      this.editNetworkData.country = editNetworkForm.get("address").value.country;
+      this.onClickSaveNetworkDetail();
+    } else {
+      this.preparePostData();
+    }
   }
 
   preparePostData() {
@@ -392,6 +416,11 @@ export class SensorSummaryComponent implements OnInit {
     this.networkFormSetup.addControl(name, formGroup);
   }
 
+  private addEditFormControl(name: string, formGroup: FormGroup) : void {
+    console.log(':::::: network edit form::::::', name);
+    this.networkEditForm.addControl(name, formGroup);
+  }
+
   /*Move the selected ,update and get refresh data drom network*/
   private onClickMoveDetails() {
     this.selectedUserDataForOperation = [];
@@ -413,12 +442,35 @@ export class SensorSummaryComponent implements OnInit {
   private onClickEditNetwork() {
 
 
-
+    console.log(this.mapData);
     this.editNetworkData = {
+      networkID: this.netWorkId,
       name: this.selectLocation.Title,
-      notifyAlert: true,
-      holdNetwork: false
+      sendNotifications: true,
+      address: '',
+      address2: '',
+      city:'',
+      state:'',
+      postalCode: '',
+      country: '',
+      latitude: 0,
+      longitude: 0
+      //holdNetwork: false
     };
+
+//     this.editNetworkData = {
+//       "networkID": 1,
+// "name": "sample string 2",
+// "sendNotifications": true,
+// "address": "sample string 4",
+// "address2": "sample string 5",
+// "city": "sample string 6",
+// "state": "sample string 7",
+// "postalCode": "sample string 8",
+// "country": "sample string 9",
+// "latitude": 10.1,
+// "longitude": 11.1
+//     }
 
     // console.log('-------',this.editNetworkData);
     this.locationDataForMoveNetwork = this.locationData;
@@ -783,9 +835,11 @@ export class SensorSummaryComponent implements OnInit {
     gateway.checked = false;
   }
 
-  onClickSaveNetworkDetail(e) {
-
-    // console.log(this.editNetworkData);
+  onClickSaveNetworkDetail() {
+    console.log(this.editNetworkData);
+    this.sensorSummaryService.updateNetwork(this.editNetworkData).then((g)=>{
+      console.log(g);
+    })
   }
 
 
