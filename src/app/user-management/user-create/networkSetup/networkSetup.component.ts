@@ -4,7 +4,7 @@ import { FormGroup,FormBuilder ,FormControl,Validators, ReactiveFormsModule } fr
 import { NetworkSetupService } from "./networkSetup.service";
 import { NetworkModel } from '../../../shared/models/network/networkModel';
 import { MapService} from "../../../shared/components/map/services/map.service";
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'network-setup',
   templateUrl: './networkSetup.component.html',
@@ -41,7 +41,7 @@ export class NetworkSetupComponent implements OnInit {
   };
 
 
-  constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService) {
+  constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService, private router:Router) {
 
     this.selectedStep = 3;
 
@@ -157,6 +157,9 @@ export class NetworkSetupComponent implements OnInit {
     });
   }
 
+  goToProfile() {
+    this.router.navigate(['/user-profile']);
+  }
   addNetwork(){
     this.showPopup = true;
   }
