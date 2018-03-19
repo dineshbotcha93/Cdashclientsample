@@ -19,7 +19,7 @@
                        [limit]="limit">
         </app-datatable>
         <ng-template #editModal let-row="row" let-value="value">
-          {{value}}<a class="anchor-datatable" (click)="showAddressEditModal(row)" ><i class="fa fa-edit">Edit</i></a>
+          <a class="anchor-datatable" (click)="showAddressEditModal(row)" >{{value}}<i class="fa fa-edit">Edit</i></a>
         </ng-template>
 
       </div>
@@ -29,23 +29,7 @@
   </div>
 </div>
 
-<!--<modal [isOpen]="showEditPopup" title="Edit Network"
-       (onClose)="editModalClosed($event)">
-  <form (ngSubmit)="onSubmit('edit')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
-    <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>
-
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group float-right">
-          <input type="submit" value="Submit" class="btn btn-primary m-l-none">
-          <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
-        </div>
-      </div>
-    </div>
-  </form>
-
-</modal>-->
-<modal [isOpen]="showPopup" title="Add Network"
+<modal [isOpen]="showPopup" title="Add/Edit Network"
        (onClose)="modalClosed($event)">
   <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
     <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>

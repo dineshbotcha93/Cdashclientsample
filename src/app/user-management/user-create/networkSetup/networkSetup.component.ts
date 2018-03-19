@@ -23,7 +23,22 @@ export class NetworkSetupComponent implements OnInit {
   modalMessage ='';
   @ViewChild('editModal') editModal: TemplateRef<any>;
   private rows = [];
-  private networkModel: NetworkModel;
+  isEdit = false;
+  selectedNetworkID = 0;
+  addressForm: FormGroup;
+  public networkModel = {
+  networkID: 0,
+  name :'',
+  address : '',
+  address2 :'',
+  city:'',
+  state:'',
+  postalCode:'',
+  country:'',
+  isActive:true,
+  latitude:0,
+  longitude:0
+  };
 
 
   constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService) {
@@ -59,51 +74,80 @@ export class NetworkSetupComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.prepareDataTableColumns();
 
   }
 
   private addFormControl(name: string, formGroup: FormGroup) : void {
-    console.log(':::::: network setup form:::' ,name);
     this.networkFormSetup.addControl(name, formGroup);
   }
 
-  onSubmitEdit() {
-    console.log('Submit Edit', this.networkFormSetup.value);
-    this.showPopup = false;
-  }
+  onSubmit() {
+    console.log('Submit Add', this.networkFormSetup.get("createNetworkForm").value);
 
-  onSubmit( action ) {
-    console.log('::::::Action:::::', action);
-    console.log('Submit Add', this.networkFormSetup.value);
+    this.prepareSubmitData(this.networkFormSetup.get("createNetworkForm").value);
 
-    this.preparePostData();
-
-    if(action==='add') {
+    if(this.isEdit) {
+      this.networkSetupService.editNetwork(this.networkModel).then(e => {
+        //show success message,close pop up
+        this.showPopup = false;
+        this.isEdit = false;
+      });
+    } else {
       this.networkSetupService.createNetwork(this.networkModel).then(e => {
-
         //show success message,close pop up
         this.showPopup = false;
       });
-    } else {
-      console.log('::::EDIT::::');
     }
-
   }
 
-  preparePostData() {
+  showAddressEditModal(selectedRow) {
+    console.log(selectedRow);
+    this.networkModel.networkID= selectedRow.id;
+    this.isEdit = true;
 
-    this.networkModel.address = this.networkFormSetup.get("street").value;
-    this.networkModel.address2 = this.networkFormSetup.get("housenumber").value;
-    this.networkModel.city = this.networkFormSetup.get("city").value;
-    this.networkModel.postalCode = this.networkFormSetup.get("zipcode").value;
-    this.networkModel.state = this.networkFormSetup.get("state").value;
-    this.networkModel.country = this.networkFormSetup.get("country").value;
-    this.networkModel.name = this.networkFormSetup.get("name").value;
+    this.prepoulateEditModal(selectedRow);
+
+    this.showPopup = true;
+  }
+
+  prepoulateEditModal(selectedNetwork) {
+
+    console.log('::::network form::', this.networkFormSetup.controls['createNetworkForm']);
+
+    //this.networkFormSetup.controls["createNetworkForm"].setValue({ name : selectedNetwork.name});
+    /*this.addressForm = this.networkFormSetup.controls["createNetworkForm"].value.address;
+    console.log(this.addressForm.controls["createNetworkForm"].value.address);
+    this.addressForm.controls['country'].setValue(selectedNetwork.country);*/
+    /*this.addressForm.value.street = selectedNetwork.address;
+    this.addressForm.value.housenumber = selectedNetwork.address2;
+    this.addressForm.value.state = selectedNetwork.state;
+    this.addressForm.value.zipcode = selectedNetwork.postalcode;*/
+  }
+
+  prepareSubmitData(formData) {
+
+    this.networkModel.address = formData.address.street;
+
+    if(formData.address.housenumber !== null) {
+      this.networkModel.address2 = formData.address.housenumber;
+    }
+
+    this.networkModel.city = formData.address.city;
+    this.networkModel.postalCode = formData.address.zipcode;
+
+    if(formData.address.state) {
+      this.networkModel.state = formData.address.state;
+    }
+
+
+    this.networkModel.country = formData.address.country;
+    this.networkModel.name = formData.name;
     this.networkModel.isActive = true;
 
-    this.mapService.geoCode(this.networkFormSetup.get("street").value+this.networkFormSetup.get("city").value+this.networkFormSetup.get("country").value).then((geoCoded)=>{
+    this.mapService.geoCode(formData.address.street+this.networkModel.address2+formData.address.city+formData.address.country).then((geoCoded)=>{
+
+      //if invalid address add error message
       if(geoCoded.results[0]){
 
         this.networkModel.latitude = geoCoded.results[0].geometry.location.lat;
@@ -111,22 +155,6 @@ export class NetworkSetupComponent implements OnInit {
 
       }
     });
-  }
-
-
-  showAddressModal(row) {
-    console.log('::::::::::::', row);
-    this.showPopup = true;
-    this.modalMessage = row;
-  }
-
-  showAddressEditModal(row) {
-    this.showEditPopup = true;
-  }
-
-  editModalClosed(event) {
-    console.log(event);
-    this.showEditPopup = false;
   }
 
   addNetwork(){
@@ -140,7 +168,7 @@ export class NetworkSetupComponent implements OnInit {
 
   private prepareDataTableColumns() {
     this.columns.push({ prop: 'title', name: 'Network Name'});
-    this.columns.push({ prop: 'city', name: 'Address', cellTemplate: this.editModal});
+    this.columns.push({ prop: 'city', name: '', cellTemplate: this.editModal});
   }
 
 }
