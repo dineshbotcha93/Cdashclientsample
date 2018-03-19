@@ -247,28 +247,22 @@
 </ng-template>
 
 <ng-template #networkEditModal>
-  <div class="modal fade" id="myNetworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Network"
+         (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left font-white">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><i class="fa fa-times"></i></span>
-          </button>
           <h4 class="modal-title" id="myModalLabel">Edit Network</h4>
-        </div>
-        <div class="modal-body">
           <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm"></create-network>
           <ng-container *ngTemplateOutlet="networkModal"></ng-container>
-        </div>
-        <div class="modal-footer">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group float-right">
           <input type="submit" value="Save changes" class="btn btn-primary addBTN">
             <i class="fa fa-save"></i>
+          </div>
         </div>
       </div>
-    </div>
   </form>
-  </div>
+</modal>
 </ng-template>
 
 <ng-template #gatewayModal>

@@ -101,6 +101,7 @@ export class SensorSummaryComponent implements OnInit {
   // requestDateObject :any = [];
     selectTempTypeList: any = [];
     showPopup: boolean = false;
+    showEditPopup: boolean = false;
     private networkFormSetup: FormGroup;
     private networkEditForm: FormGroup;
 
@@ -365,6 +366,7 @@ export class SensorSummaryComponent implements OnInit {
 
   private modalClosed(event){
     this.showPopup = false;
+    this.showEditPopup = false;
   }
 
   private onSubmit(action){
@@ -440,9 +442,8 @@ export class SensorSummaryComponent implements OnInit {
   }
 
   private onClickEditNetwork() {
+    this.showEditPopup = true;
 
-
-    console.log(this.mapData);
     this.editNetworkData = {
       networkID: this.netWorkId,
       name: this.selectLocation.Title,
@@ -839,6 +840,7 @@ export class SensorSummaryComponent implements OnInit {
     console.log(this.editNetworkData);
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then((g)=>{
       console.log(g);
+      this.showEditPopup = false;
     })
   }
 
