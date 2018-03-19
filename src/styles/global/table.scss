@@ -127,5 +127,43 @@
     }
   }
 }
+
+
+.editNetworkSetup-dataTable {
+  .ngx-datatable {
+    .datatable-body-row {
+      color: $color-white;
+    }
+
+    .datatable-header-cell {
+      color: $color-white;
+      font-weight: bolder;
+      font-size: 1em;
+      text-transform: uppercase;
+      text-align: left;
+      background: $color-body-bg;
+    }
+
+    .datatable-footer {
+      .page-count {
+        text-align: right;
+      }
+    }
+
+    .anchor-datatable {
+      cursor: pointer;
+
+      span {
+        padding-left: 10px;
+      }
+
+      &.editNetworkSetup-button {
+        span {
+          float: right;
+        }
+      }
+    }
+  }
+}
 /* ******************************** */
 
