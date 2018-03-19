@@ -372,9 +372,8 @@ export class SensorSummaryComponent implements OnInit {
   private onSubmit(action){
     //console.log(this.networkFormSetup.get('createNetworkForm').get("address").get("street"));
     if(action=='editNetwork'){
-      console.log(this.networkEditForm);
       const editNetworkForm = this.networkEditForm.get('editNetworkForm');
-      console.log(editNetworkForm.get("address").value.street);
+      this.editNetworkData.name = editNetworkForm.get("name").value;
       this.editNetworkData.address = editNetworkForm.get("address").value.street;
       this.editNetworkData.address2 = editNetworkForm.get("address").value.housenumber;
       this.editNetworkData.city = editNetworkForm.get("address").value.city;
@@ -443,17 +442,17 @@ export class SensorSummaryComponent implements OnInit {
 
   private onClickEditNetwork() {
     this.showEditPopup = true;
-
+    console.log(this.mapData);
     this.editNetworkData = {
       networkID: this.netWorkId,
       name: this.selectLocation.Title,
       sendNotifications: true,
-      address: '',
-      address2: '',
-      city:'',
-      state:'',
-      postalCode: '',
-      country: '',
+      address: this.mapData['address'],
+      address2: this.mapData['address2'],
+      city:this.mapData['city'],
+      state:this.mapData['state'],
+      postalCode: this.mapData['postalCode'],
+      country: this.mapData['country'],
       latitude: 0,
       longitude: 0
       //holdNetwork: false
