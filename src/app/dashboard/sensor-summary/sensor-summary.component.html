@@ -252,7 +252,6 @@
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left font-white">
           <h4 class="modal-title" id="myModalLabel">Edit Network</h4>
           <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm"></create-network>
-          <ng-container *ngTemplateOutlet="networkModal"></ng-container>
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group float-right">
@@ -289,7 +288,7 @@
   </table>
 </ng-template>
 
-<ng-template #networkModal>
+<!-- <ng-template #networkModal>
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -316,7 +315,7 @@
       </tr>
     </tbody>
   </table>
-</ng-template>
+</ng-template> -->
 
 <ng-template #gateWayDataTemplate>
   <table class="table table-striped" *ngIf="gateWayData?.length>0">
