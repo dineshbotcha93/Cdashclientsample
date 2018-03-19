@@ -77,8 +77,9 @@ $colors : red green yellow orange;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large) {
     font-size: 0.75em;
-    padding: 5px;
+    padding: 5px !important;
     margin-bottom: 5px;
+    min-height: auto;
   }
 
   @media (min-width: 767px) {

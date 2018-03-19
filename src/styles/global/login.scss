@@ -28,7 +28,17 @@
     input[type="email"],
     input[type="password"] {
       box-shadow: none;
-      margin-bottom: 0;
+      border: 0;
+
+      &:focus {
+        border: 0;
+      }
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      input[type="submit"] {
+        margin-left: initial;
+      }
     }
   }
 
@@ -52,5 +62,15 @@
 
   .m-l-none {
     margin-left: 0 !important;
+  }
+
+  .radioButtons-container {
+    input {
+      margin-left: 10px;
+    }
+  }
+
+  .display-username {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   }
 }

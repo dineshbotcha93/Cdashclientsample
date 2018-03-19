@@ -15,7 +15,11 @@ const routes: Routes = [{
       path: '', component:UserCreateComponent
     },{
       path:'fill-details', loadChildren: './fill-details/fill-details.module#FillDetailsModule'
-    }]
+    },
+    {
+      path: 'network-setup', loadChildren:'./networkSetup/networkSetup.module#NetworkSetupModule'
+    }
+  ]
 }];
 
 @NgModule({
