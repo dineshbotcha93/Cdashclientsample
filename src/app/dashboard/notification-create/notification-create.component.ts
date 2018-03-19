@@ -60,6 +60,9 @@
     selectTempCompareList: any = [];
     selectTempTypeList: any = [];
     selectOpenCloseType: any = [];
+
+
+
       // isComponentToCreate:string = 'addNotify';
       constructor(private sensorSummaryService: SensorSummaryService) {}
       setEditNotifyDetails() {
@@ -696,7 +699,9 @@
       this.isSensorNotificationForm1 = true;
       this.isButtonFooterRequired = true;
 
-
+      if(e.id === "2"){
+         this.notificationModel.compareType = "Less_Than";
+      }
 
       // this.notificationModel.compareValue = "";
       if (e.id === "9") {
