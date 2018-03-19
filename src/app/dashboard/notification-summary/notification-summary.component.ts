@@ -19,6 +19,7 @@ export class NotificationSummaryComponent implements OnInit {
   isEditNotify : boolean = false;
 
   @Input() sensorList: Array<any>;
+   @Input() accountData: any;
 
   @Output() editNotifyModeEvent = new EventEmitter<any>();
 
@@ -26,12 +27,11 @@ export class NotificationSummaryComponent implements OnInit {
   ngOnInit() {
   
      this.getNotificationDetails();
-
    
   }
 
    getNotificationDetails(){
-     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails('68').then((result) => {
+     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
 
      console.log('sensorList-------',this.sensorList);
      // let result = this.sensorList;

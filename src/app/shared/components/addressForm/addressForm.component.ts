@@ -52,7 +52,7 @@ export class AddressFormComponent implements OnInit {
     this.AddressFormService.getStates().subscribe((e)=>{
       this.states = e[0];
       console.log(this.states);
-    })
+    });
   }
 
   loadCountries() {
@@ -61,5 +61,9 @@ export class AddressFormComponent implements OnInit {
       this.countries = e[0];
       console.log(this.countries);
     });
+  }
+
+  validateAddress() {
+      return false;
   }
 }
