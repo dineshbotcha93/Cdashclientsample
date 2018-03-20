@@ -89,6 +89,7 @@ export class NetworkSetupComponent implements OnInit {
     this.prepareSubmitData(this.networkFormSetup.get("createNetworkForm").value);
 
     if(this.isEdit) {
+      console.log("hereee");
       this.networkSetupService.editNetwork(this.networkModel).then(e => {
         //show success message,close pop up
         this.showPopup = false;
@@ -126,6 +127,20 @@ export class NetworkSetupComponent implements OnInit {
     this.addressForm.value.housenumber = selectedNetwork.address2;
     this.addressForm.value.state = selectedNetwork.state;
     this.addressForm.value.zipcode = selectedNetwork.postalcode;*/
+    console.log(selectedNetwork);
+    const populatedData = {
+      name: selectedNetwork.title,
+      address:{
+        street: selectedNetwork.address,
+        housenumber:selectedNetwork.address2,
+        city: selectedNetwork.city,
+        zipcode: selectedNetwork.postalCode,
+        state: selectedNetwork.state,
+        country: selectedNetwork.country
+      },
+      isActive:true
+    }
+    this.networkFormSetup.setValue({createNetworkForm:populatedData});
   }
 
   prepareSubmitData(formData) {
