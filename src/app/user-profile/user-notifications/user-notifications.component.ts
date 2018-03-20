@@ -16,6 +16,7 @@ export class UserNotificationsComponent implements OnInit {
   EditNotifyMode : boolean = false;
 
 
+
   @Output() editNotifyModeEvent = new EventEmitter<boolean>();
   @Output() createMessageEvent = new EventEmitter<boolean>();
   
@@ -25,15 +26,23 @@ export class UserNotificationsComponent implements OnInit {
   @Input() gatewayList: Array<any>;
   @Input() editNotifyObject: any;
   @Input() notifyOperationType: string = "addNotify";
+  @Input() accountData: any;
+  @Input() globalNotificationsList: any;
 
 
   constructor(private sensorSummaryService: SensorSummaryService) { }
 
   ngOnInit() {
   	
-  	this.sensorSummaryService.getNotificationSettingsDetails('168').then((result) => {
+    console.log('accountData-----',this.accountData);
+  	this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
     	console.log('result----->',result);
        this.sensorList = result;
+    });
+
+    this.sensorSummaryService.getGlobalNotificationsList(this.accountData.accountID).then((result) => {
+      console.log('globalNotificationsList----->',result);
+       this.globalNotificationsList = result;
     });
   }
 
@@ -41,6 +50,7 @@ export class UserNotificationsComponent implements OnInit {
     this.notificationRadio = 'addNotify';
     this.isAddButtonRequired = false;
     this.isResetButtonRequired = true;
+    this.notifyOperationType = 'addNotify';
     
   }
   onClickResetNotification() {
@@ -50,7 +60,7 @@ export class UserNotificationsComponent implements OnInit {
   }
 
  recieveEditNotifyValue($event) {
-    console.log($event);
+   
     this.notificationRadio = 'addNotify';
     this.notifyOperationType = 'editNotify';
     this.isAddButtonRequired = false;

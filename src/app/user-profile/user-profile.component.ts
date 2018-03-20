@@ -6,9 +6,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
-import { Location } from '@angular/common';
-import { UserProfileService } from './services/user-profile.service';
+import {Angular2Csv} from 'angular2-csv/Angular2-csv';
+import {Location,AsyncPipe} from '@angular/common';
+import {UserProfileService} from './services/user-profile.service';
 import { FillDetailsService } from '../user-management/user-create/fill-details/fill-details.service';
 import { UserProfile } from './user.module';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -18,7 +18,7 @@ declare var $: any;
 export interface NetworkData {
   networkID: number;
   networkName: string;
-  sendNotifications: boolean;
+  canAccess: boolean;
 }
 export interface PaymentHistoryData {
   //sno: string;
@@ -75,7 +75,7 @@ export interface AccountData {
   providers: [UserProfileService, FillDetailsService]
 })
 
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('isAdminColTmpl') isAdminColTmpl: TemplateRef<any>;
   @ViewChild('notificationColTmpl') notificationColTmpl: TemplateRef<any>;
   @ViewChild('invoiceColTmpl') invoiceColTmpl: TemplateRef<any>;
@@ -155,11 +155,15 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.updateNotifFormControls();
     this.populateTimeZones();
-    this.getUserProfileData();
-    this.getNetworkData();
     this.prepareUserColumns();
     this.prepareRenewalColumns();
   }
+
+  ngAfterViewInit() {
+    this.getUserProfileData();
+    this.updateNotifFormControls();
+  }
+
   private populateTimeZones() {
     this.fillDetailsService.getTimeZones().subscribe((e) => {
       e[0].forEach((tZ) => {
@@ -183,11 +187,11 @@ export class UserProfileComponent implements OnInit {
       this.loadPage = true;
     });
   }
-  private getNetworkData() {
-    this.userProfileService.getNetworkData().then(response => {
-      this.networkData = response;
-    });
-  }
+  // private getNetworkData() {
+  //   this.userProfileService.getNetworkData().then(response => {
+  //     this.networkData = response;
+  //   });
+  // }
   saveUserData() {
     let postData = JSON.stringify(this.prepareSaveData());
     this.userProfileService.saveUserData(postData).then(response => {
@@ -291,7 +295,8 @@ export class UserProfileComponent implements OnInit {
       this.isUserContentCollapsed = false;
     } else if (section === 'notif-content') {
       this.isNotifContentCollapsed = false;
-    } else {
+    } else if (section === 'network-content') {
+      this.getNetworksByUser(this.loggedInUserId);
       this.isNetworkContentCollapsed = false;
     }
   }
@@ -322,6 +327,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   navigateToNetworkSection() {
+    this.getNetworksByUser(this.loggedInUserId);
     this.isNotifContentCollapsed = true;
     this.isNetworkContentCollapsed = false;
     this.isNetworkBtn = true;
@@ -395,7 +401,7 @@ export class UserProfileComponent implements OnInit {
   getNetworksByUser(userId) {
     this.myNetworks = [];
     this.userProfileService.getUserNetworks(userId).then(response => {
-      this.myNetworks = response;
+      this.networkData = response;
     })
     .catch(error => {
       console.log(error);

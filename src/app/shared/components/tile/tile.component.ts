@@ -44,11 +44,12 @@ export class TileComponent {
     console.log(this.tileSandbox);
     console.log(event);
   }
-  getTileColor(status,tileColorBy){
+  getTileColor(status,tileColorBy,tileContent){
     switch(status){
       case this.mapStatus.LOW_BATTERY:
       return 'bg-lowBattery';
       case this.mapStatus.ALERTS:
+      console.log("TILE CONTENT "+tileContent);
       return 'bg-pink';
       case this.mapStatus.LOW_SIGNAL:
       return 'bg-info';
@@ -70,13 +71,17 @@ export class TileComponent {
       break;
     }
   }
-  getTileStatusByColorNum(number){
+  getTileStatusByColorNum(number,tileContent){
     switch(number){
       case this.mapConstants.NEW_STATUS_NUMBERS.OK:
       return 'bg-green';
       case this.mapConstants.NEW_STATUS_NUMBERS.INACTIVE:
       return 'bg-warning';
       case this.mapConstants.NEW_STATUS_NUMBERS.ALERT:
+      const recordedTemp = parseFloat(tileContent);
+      if(recordedTemp < 40){
+        return 'bg-info';
+      }
       return 'bg-pink';
       case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
       return 'bg-info';

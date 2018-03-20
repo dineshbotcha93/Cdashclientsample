@@ -156,8 +156,10 @@
       </tab>
       <tab tabTitle="Notifications" class="tab-content light-theme">
         <div class="row x_content">
-          <div class="col-md-12 sensors-info-container">
-            <app-user-notifications></app-user-notifications>
+          <div class="col-md-12 sensors-info-container" *ngIf="accountData">
+           <app-user-notifications
+              [accountData]="accountData">
+           </app-user-notifications>
           </div>
         </div>
       </tab>
@@ -388,7 +390,8 @@
     <div class="col-sm-12">
       <div class="col-sm-6" *ngFor="let network of networkData;">
         <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" [attr.networkID]="network.networkID" disabled>
+          <input type="checkbox" class="chk-box form-check-input" [attr.networkID]="network.networkID" [attr.checked]="network.canAccess? 'true' : null" 
+          [disabled]="isNetworkBtn">
           <label class="form-check-input">
             <span class="chkbox-lbl">{{network.networkName}}</span>
           </label>
