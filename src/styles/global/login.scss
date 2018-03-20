@@ -33,6 +33,14 @@
       &:focus {
         border: 0;
       }
+
+      &[readonly="true"] {
+        background: $color-grey-light;
+
+        &:focus {
+          background: $color-grey-light;
+        }
+      }
     }
 
     @media (min-width: $phone-small) and (max-width: $tablet-large) {

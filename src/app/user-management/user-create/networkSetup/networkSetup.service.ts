@@ -27,5 +27,9 @@ export class NetworkSetupService {
     return this.requesterService
       .putExternalRequest('/api/Network', putData);
   }
+
+  fetchUserInfo() {
+    return this.requesterService.getExternalRequest('/api/User/Info');
+  }
 }
 
