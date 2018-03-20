@@ -60,6 +60,11 @@ export class UserCreateComponent implements OnInit {
       this.userRegisterModel.email = params['email'];
       this.userCreateForm.patchValue({'email': params['email']});
       this.registrationToken = params['token'];
+
+      if (this.userRegisterModel.email === undefined || this.registrationToken === undefined) {
+        this.isValidForm = false;
+        this.userCreationError = `The link you've provided is invalid. Please check your email for the link again`;
+      }
     });
   }
 
@@ -73,11 +78,13 @@ export class UserCreateComponent implements OnInit {
     if (this.isValidForm) {
       if (this.userCreateForm.get('isNewMaster').value === 'true') {
         const userData = this.populateRegisterNewUserModel();
-        this.userManagementService.saveUserData(userData);
+        this.userManagementService.saveRegistrationData(userData);
         this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
       } else {
         this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
-          .then(() => {
+          .then((data) => {
+            localStorage.setItem('com.cdashboard.token', data);
+            this.userManagementService.saveRegistrationData(this.populateRegisterNewUserModel());
             this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
           })
           .catch((error: Error) => {
@@ -102,6 +109,8 @@ export class UserCreateComponent implements OnInit {
       productName: 'NotifEye',
       firstName: this.userCreateForm.get('firstName').value,
       lastName: this.userCreateForm.get('lastName').value,
+      isNewMaster: true,
+      registrationToken: this.registrationToken
     };
   }
 
@@ -112,7 +121,8 @@ export class UserCreateComponent implements OnInit {
       productName: 'NotifEye',
       email: this.userRegisterModel.email,
       notifeyeUserName: this.userCreateForm.get('notifEyeUsername').value,
-      notifeyePassword: this.commonSharedService.getEncodedPassword(this.userCreateForm.get('notifEyePassword').value)
+      notifeyePassword: this.commonSharedService.getEncodedPassword(this.userCreateForm.get('notifEyePassword').value),
+      isNewMaster: false,
     };
   }
 

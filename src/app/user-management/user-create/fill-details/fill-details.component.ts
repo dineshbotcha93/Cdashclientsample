@@ -3,9 +3,8 @@ import {FillDetailsService} from './fill-details.service';
 import {UserManagementService} from '../../user-management.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AccountRegistrationForm} from './fill-details.component.model';
 import {AddressFormComponent} from '../../../shared/components/addressForm/addressForm.component';
-import {add} from 'ngx-bootstrap/chronos';
+
 
 
 @Component({
@@ -23,10 +22,12 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
   placeOfPurchase: Array<object> = [];
-  stepOneData = {};
+  stepOneData:any = null;
 
   public accountForm: FormGroup;
+  private isNewMaster = false;
   private accountInfo: any;
+  private email = null;
   postData: object = {};
 
   @ViewChild('addressForm')
@@ -74,33 +75,41 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       business_type: new FormControl('', Validators.required),
       timeZone: new FormControl('', Validators.required),
       placeOfPurchase: new FormControl('', Validators.required),
-      zip_postalcode: new FormControl('', Validators.required)
     });
   }
 
   ngAfterViewInit() {
-    this.stepOneData = this.userManagementService.getUserData();
-    this.fillDetailsService.fetchExistingUserInfo()
-      .then(data => {
-        console.log('user info', data.account[0]);
-        this.accountInfo = data.account[0];
-        this.accountForm.patchValue({
-          company_name: this.accountInfo.companyName,
-          timeZone: this.accountInfo.timeZoneID,
-          placeOfPurchase: this.accountInfo.reselect
+    this.stepOneData = this.userManagementService.getRegistrationData();
+
+    if(this.stepOneData) {
+      this.isNewMaster = this.stepOneData.isNewMaster;
+      this.email = this.stepOneData.email;
+    }
+
+    if(!this.isNewMaster) {
+      this.fillDetailsService.fetchExistingUserInfo()
+        .then(data => {
+          console.log('user info', data.account[0]);
+          this.accountInfo = data.account[0];
+          this.email = data.email;
+          this.accountForm.patchValue({
+            company_name: this.accountInfo.companyName,
+            timeZone: this.accountInfo.timeZoneID,
+            placeOfPurchase: this.accountInfo.reselect
+          });
+          this.addressForm.addressForm.patchValue({
+            country: this.accountInfo.country,
+            street: this.accountInfo.address,
+            housenumber: this.accountInfo.address2,
+            city: this.accountInfo.city,
+            zipcode: this.accountInfo.postalCode,
+            state: this.accountInfo.state,
+          });
+        })
+        .catch(error => {
+          console.log('error in fetching user details info', error.message);
         });
-        this.addressForm.addressForm.patchValue({
-          country: this.accountInfo.country,
-          street: this.accountInfo.address,
-          housenumber: this.accountInfo.address2,
-          city: this.accountInfo.city,
-          zipcode: this.accountInfo.postalCode,
-          state: this.accountInfo.state,
-        });
-      })
-      .catch(error => {
-        console.log('error in fetching user details info', error.message);
-      });
+    }
   }
 
 
@@ -123,29 +132,13 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    console.log(this.accountForm.value);
-    // if(this.accountForm.valid){
+    this.accountUpdateStatus.error = !this.accountForm.valid || !this.addressForm.validateAddress();
 
-    console.log(this.accountForm.value);
-
-    this.accountUpdateStatus.error = !this.addressForm.validateAddress();
-
-    // set the token to the header before making the api call
-
-    this.prepareAccountRegistrationForm();
-    // submit data to the new account creation api
-    // this.createNewUserAccount(this.accountForm);
-
-    //this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
-
-  }
-
-  private createNewUserAccount(accountForm: FormGroup) {
-
-    this.fillDetailsService.createNewUserAccount(accountForm.value).then((e) => {
-      console.log(e);
-    });
-
+    if(this.isNewMaster) {
+      this.createNewMasterUser(this.accountForm, this.addressForm.addressForm);
+    } else {
+      this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
+    }
   }
 
   private updateExistingUserAccount(accountForm: FormGroup, addressForm: FormGroup) {
@@ -166,7 +159,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
     this.fillDetailsService.updateExistingUserInfo(payloadData)
       .then((data) => {
-        console.log('Update Works', data);
+        localStorage.setItem('com.cdashboard.token', data);
+        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
       })
       .catch((error) => {
         this.accountUpdateStatus.error = true;
@@ -175,8 +169,42 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  private prepareAccountRegistrationForm() {
+  private createNewMasterUser(accountForm: FormGroup, addressForm: FormGroup) {
+    const payloadData = {
+      dashboardUserName: this.stepOneData.dashboardUserName,
+      dashboardPassword: this.stepOneData.dashboardPassword,
+      firstName: this.stepOneData.firstName,
+      lastName: this.stepOneData.lastName,
+      productName: this.stepOneData.productName,
+      email: this.stepOneData.email,
+      account: {
+        companyName: accountForm.get('company_name').value,
+        address: addressForm.get('street').value,
+        address2: addressForm.get('housenumber').value,
+        city: addressForm.get('city').value,
+        state: addressForm.get('state').value,
+        country: addressForm.get('country').value,
+        postalCode: addressForm.get('zipcode').value,
+        purchaseLocation: accountForm.get('placeOfPurchase').value,
+        industryType: accountForm.get('industry_type').value,
+        businessType: accountForm.get('business_type').value,
+        timeZone: accountForm.get('timeZone').value,
+        latitude: 43.6425662,
+        longitude: -79.3892455
+      }
+    };
 
-    //prepare the post data here
+
+
+    this.userManagementService.registerNewMaster(payloadData, this.stepOneData.registrationToken)
+      .then((data) => {
+        localStorage.setItem('com.cdashboard.token', data);
+
+        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+      })
+      .catch(error => {
+        this.accountUpdateStatus.error = true;
+        this.accountUpdateStatus.message = error.message;
+      });
   }
 }

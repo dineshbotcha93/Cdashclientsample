@@ -26,10 +26,10 @@
                 <div class="error" *ngIf="accountForm.get('company_name').hasError('required')">Company Name is required.</div>
               </div>
             </div>
-            <div class="form-group" *ngIf="accountInfo.industryType">
+            <div class="form-group" *ngIf="isNewMaster || accountInfo.industryType">
               <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="industryType">Industry Type </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <select formControlName="industry_type" class="form-control" (change)="industryChanged($event.target.value)">
+              <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="industry_type" class="form-control m-b-md" (change)="industryChanged($event.target.value)">
                   <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
                 </select>
               </div>
@@ -37,10 +37,10 @@
                 <div class="error" *ngIf="accountForm.get('industry_type').hasError('required')">Industry Type is required.</div>
               </div>
             </div>
-            <div class="form-group" *ngIf="accountInfo.businessType">
+            <div class="form-group" *ngIf="isNewMaster || accountInfo.businessType">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select formControlName="business_type" class="form-control">
+                <select formControlName="business_type" class="form-control m-b-md">
                   <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
                 </select>
               </div>
@@ -51,7 +51,7 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeZone">Time Zone </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select formControlName="timeZone" class="form-control">
+                <select formControlName="timeZone" class="form-control m-b-md">
                   <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
                 </select>
               </div>
@@ -59,11 +59,11 @@
                 <div class="error" *ngIf="accountForm.get('timeZone').hasError('required')">Time Zone is required.</div>
               </div>
             </div>
-            <div class="form-group" *ngIf="accountInfo.placeOfPurchase">
+            <div class="form-group" *ngIf="isNewMaster || accountInfo.placeOfPurchase">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <select formControlName="placeOfPurchase" class="form-control">
-                  <option value="{{pop.id}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
+              <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+                <select formControlName="placeOfPurchase" class="form-control m-b-md">
+                  <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
                 </select>
               </div>
               <div *ngIf="accountForm.get('placeOfPurchase').touched">
