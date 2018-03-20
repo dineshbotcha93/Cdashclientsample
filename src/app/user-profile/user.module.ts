@@ -10,7 +10,7 @@ export class User {
 }
 export class Notification {
   email: string;
-  directSMS: Boolean;
+  directSMS: string;
   smsNumber: string;
   externalSMSProvider: string;
   recievesMaintenanceByEmail: Boolean;

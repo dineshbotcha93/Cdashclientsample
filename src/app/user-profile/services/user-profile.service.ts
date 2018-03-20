@@ -286,4 +286,16 @@ updateAccountAPI(postData) {
   return this.requestService.putExternalRequest('/api/Account', postData);
 }
 
+getNetworkData() {
+  return this.requestService.getExternalRequest('/api/Network');
+}
+
+saveUserData(postData) {
+  return this.requestService.postExternalRequest('/api/User', postData);
+}
+
+getUserNetworks(userId) {
+  return this.requestService.getExternalRequest('/api/User/'+ userId +'/NetworkPermissions');
+}
+
 }
