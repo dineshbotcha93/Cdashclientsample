@@ -82,7 +82,9 @@ export class UserCreateComponent implements OnInit {
         this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
       } else {
         this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
-          .then(() => {
+          .then((data) => {
+            localStorage.setItem('com.cdashboard.token', data);
+            this.userManagementService.saveRegistrationData(this.populateRegisterNewUserModel());
             this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
           })
           .catch((error: Error) => {

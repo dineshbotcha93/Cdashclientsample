@@ -6,7 +6,7 @@
       <user-flow-component [selected]="selectedStep">
       </user-flow-component>
 
-      <div class="loader gap-top gap-bottom" *ngIf="rows.length == 0"></div>
+      <div class="loader gap-top gap-bottom" *ngIf="!rows"></div>
 
       <div>
         <button class="btn btn-lg btn-success gap-bottom" (click)="addNetwork()">Add Network</button>

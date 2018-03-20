@@ -69,7 +69,7 @@ export interface AccountData {
   providers: [UserProfileService, FillDetailsService]
 })
 
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('isAdminColTmpl') isAdminColTmpl: TemplateRef<any>;
   @ViewChild('notificationColTmpl') notificationColTmpl: TemplateRef<any>;
   @ViewChild('invoiceColTmpl') invoiceColTmpl: TemplateRef<any>;
@@ -134,17 +134,21 @@ editAccountForm = this.fb.group ({
   private editAccount = new UserProfile.RealEditAccount();
 
   constructor(private userProfileService: UserProfileService, private fillDetailsService : FillDetailsService,
-  private _location: Location, private ele: ElementRef, private fb: FormBuilder, 
+  private _location: Location, private ele: ElementRef, private fb: FormBuilder,
   private toastr: ToastsManager,vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
   }
   ngOnInit() {
     this.populateTimeZones();
-    this.getUserProfileData();
     this.prepareUserColumns();
     this.prepareRenewalColumns();
+  }
+
+  ngAfterViewInit() {
+    this.getUserProfileData();
     this.updateNotifFormControls();
   }
+
   private populateTimeZones() {
     this.fillDetailsService.getTimeZones().subscribe((e) => {
       e[0].forEach((tZ) => {
@@ -373,5 +377,5 @@ get resellerID(){
 get timeZoneID(){
   return this.editAccountForm.get('timeZoneID');
 }
- 
+
 }

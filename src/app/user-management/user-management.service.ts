@@ -50,7 +50,7 @@ export class UserManagementService {
     this.userCreationData = userData;
   }
 
-  public getRegistrationData(): object {
+  public getRegistrationData(): any {
     return this.userCreationData;
   }
 }

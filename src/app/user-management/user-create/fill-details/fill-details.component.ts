@@ -3,9 +3,8 @@ import {FillDetailsService} from './fill-details.service';
 import {UserManagementService} from '../../user-management.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AccountRegistrationForm} from './fill-details.component.model';
 import {AddressFormComponent} from '../../../shared/components/addressForm/addressForm.component';
-import {add} from 'ngx-bootstrap/chronos';
+
 
 
 @Component({
@@ -26,8 +25,9 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   stepOneData:any = null;
 
   public accountForm: FormGroup;
-  private isNewMaster = true;
+  private isNewMaster = false;
   private accountInfo: any;
+  private email = null;
   postData: object = {};
 
   @ViewChild('addressForm')
@@ -81,10 +81,9 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.stepOneData = this.userManagementService.getRegistrationData();
 
-    console.log('step one data', this.stepOneData);
-
     if(this.stepOneData) {
       this.isNewMaster = this.stepOneData.isNewMaster;
+      this.email = this.stepOneData.email;
     }
 
     if(!this.isNewMaster) {
@@ -92,6 +91,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         .then(data => {
           console.log('user info', data.account[0]);
           this.accountInfo = data.account[0];
+          this.email = data.email;
           this.accountForm.patchValue({
             company_name: this.accountInfo.companyName,
             timeZone: this.accountInfo.timeZoneID,
@@ -159,7 +159,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
     this.fillDetailsService.updateExistingUserInfo(payloadData)
       .then((data) => {
-        console.log('Update Works', data);
+        localStorage.setItem('com.cdashboard.token', data);
+        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
       })
       .catch((error) => {
         this.accountUpdateStatus.error = true;
@@ -197,6 +198,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
     this.userManagementService.registerNewMaster(payloadData, this.stepOneData.registrationToken)
       .then((data) => {
+        localStorage.setItem('com.cdashboard.token', data);
+
         this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
       })
       .catch(error => {
