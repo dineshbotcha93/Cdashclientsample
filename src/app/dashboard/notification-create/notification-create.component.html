@@ -76,7 +76,7 @@
         </td>
       </tr>
       <!-- <ng-container *ngTemplateOutlet="notificationTemplate"></ng-container> -->
-      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType !== '9')||  (subNotificationTypes.id === '14' && templateName ==='advancedNotification')">
+      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '2')||  (subNotificationTypes.id === '14' && templateName ==='advancedNotification')">
         <td>
           <label class="control-label col-form-label">Notify when sensor temperature reading is:</label>
         </td>
@@ -107,6 +107,31 @@
           </div>
         </td>
       </tr>
+
+
+      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '43')">
+        <td>
+          <label class="control-label col-form-label">Notify when sensor Humidity reading is:</label>
+        </td>
+        <td>
+          <div class="col-md-3">
+            <div class="form-group ss-location">
+              <select class="form-control" [(ngModel)]="selectSensorHumidityType[0]" (ngModelChange)="onChangeLessThanValue($event)">
+                <option *ngFor="let less of selectSensorHumidityType" [ngValue]="less">
+                  {{less.value}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" name="filter_name" placeholder="Enter Temp" [(ngModel)]="notificationModel.compareValue">
+          </div>
+         
+         
+        </td>
+      </tr>
+
+
       <tr *ngIf="notificationModel.notificationTemplate ==='batteryNotification'">
         <td>
           <label class="control-label col-form-label">Notify when battery is below:</label>

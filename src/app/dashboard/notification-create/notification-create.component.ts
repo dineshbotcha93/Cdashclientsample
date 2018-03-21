@@ -60,6 +60,7 @@ export class NotificationCreateComponent implements OnInit {
   selectTempCompareList: any = [];
   selectTempTypeList: any = [];
   selectOpenCloseType: any = [];
+  selectSensorHumidityType: any = [];
     // isComponentToCreate:string = 'addNotify';
     constructor(private sensorSummaryService: SensorSummaryService) {}
     setEditNotifyDetails() {
@@ -494,11 +495,11 @@ ngOnInit() {
   this.dailySheduleNotificationList = [];
   let Obj3 = [
   {
-    id: "01",
+    id: "1",
     value: "Closed"
   },
   {
-    id: "02",
+    id: "0",
     value: "Open"
   }
   ];
@@ -551,15 +552,42 @@ ngOnInit() {
     console.log(this.selectSubNotificationList);
     let openCloseObj = [
     {
-      id: "True",
+      id: "1",
       value: "Closed"
     },
     {
-      id: "False",
+      id: "0",
       value: "Open"
     }
     ];
     this.selectOpenCloseType = openCloseObj;
+    let sensorHumidty = [
+    {
+      id: "Equal",
+      value: "Equal"
+    },
+    {
+      id: "Not_Equal",
+      value: "Not_Equal"
+    },
+     {
+      id: "Less_Than",
+      value: "Less Than"
+    },
+    {
+      id: "Greater_Than",
+      value: "Greater Than"
+    },{
+      id: "Greater_Than_or_Equal",
+      value: "Greater_Than_or_Equal"
+    },
+    {
+      id: "Less_Than_or_Equal",
+      value: "Less_Than_or_Equal"
+    }
+    ];
+    this.selectSensorHumidityType = sensorHumidty;
+
   }
   onClickAdvanceNotify() {
     this.notificationModel.notificationClassType = "5";
@@ -654,13 +682,16 @@ ngOnInit() {
   onChangeNotifictaion(e) {
     this.isSensorNotificationForm1 = true;
     this.isButtonFooterRequired = true;
+    console.log(e);
 
     this.notificationModel.compareValue = "";
     if (e.id === "9") {
-      this.notificationModel.compareValue = "True";
+      this.notificationModel.compareType = "Equal";
+       this.notificationModel.compareValue= "1";
     }
+
     this.notificationModel.subnotificationClassType = e.id;
-    console.log(this.notificationModel);
+    // console.log(this.notificationModel);
   }
   onChangeScheduleObject(e,scheduleObj){
 
@@ -675,6 +706,7 @@ ngOnInit() {
   }
   onChangeSelectOpenCloseType(e) {
 
+    console.log(e);
     this.notificationModel.compareValue = e.id;
 
   }
