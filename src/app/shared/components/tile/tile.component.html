@@ -17,6 +17,7 @@
     <div> {{tileContent}}</div>
     <div *ngIf="tileDetails?.lastCommunicationDate" class="title">
       {{tileDetails?.lastCommunicationDate|dateFormat:'DD/MM/YYYY'}}
+      <br/>{{tileDetails?.lastCommunicationDate|dateFormat:'hh:mm:ss'}}
     </div>
     <!--<i *ngIf="tileColorBy=='sensorType'" class="fa {{getTileStatusIconByColorNum(tileColor)}} special"></i>
     <div *ngIf="tileColorBy=='sensorType'">{{getTileStatusTextByColorNum(tileColor)}}</div>-->
