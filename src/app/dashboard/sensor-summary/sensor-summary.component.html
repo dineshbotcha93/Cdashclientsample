@@ -37,12 +37,12 @@
                 <div class="ssCard-button">
                   <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
                           value="Edit">
-                    <i class="fa fa-edit"></i> Edit Network</button>
+                    <i class="fa fa-edit"></i> Edit Location</button>
                 </div>
                 <div class="ssCard-button">
                   <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-toggle="modal" data-target="#networkAddModal"
                           value="Add">
-                    <i class="fa fa-edit"></i> Add Network</button>
+                    <i class="fa fa-edit"></i> Add Location</button>
                 </div>
               </div>
             </div>
@@ -228,7 +228,7 @@
 </ng-template>
 
 <ng-template #networkAddModal>
-  <modal id="networkAddModal" [isOpen]="showPopup" title="Add Network"
+  <modal id="networkAddModal" [isOpen]="showPopup" title="Add Location"
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
       <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>
@@ -247,7 +247,7 @@
 </ng-template>
 
 <ng-template #networkEditModal>
-  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Network"
+  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Location"
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left font-white">
           <h4 class="modal-title" id="myModalLabel">Edit Network</h4>

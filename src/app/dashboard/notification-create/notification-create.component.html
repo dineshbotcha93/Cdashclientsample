@@ -346,12 +346,12 @@
               </select>
             </div>
           </div>
-          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === 'Between' || dayily.selectScheduleObj.id === 'Before_and_After'
-            || dayily.selectScheduleObj.id === 'Before'">
+          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
+            || dayily.selectScheduleObj.id === '4'">
             <timepicker [(ngModel)]="dayily.timePickerBefore" (click)="onClickBeforeTimeValue($event,dayily)"></timepicker>
           </div>
-          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === 'Between' || dayily.selectScheduleObj.id === 'Before_and_After'
-            || dayily.selectScheduleObj.id === 'After'">
+          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
+            || dayily.selectScheduleObj.id === '5'">
             <timepicker [(ngModel)]="dayily.timePickerAfter" (click)="onClickAfterTimeValue($event,dayily)"></timepicker>
           </div>
         </td>

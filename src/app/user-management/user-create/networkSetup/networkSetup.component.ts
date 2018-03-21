@@ -4,6 +4,7 @@ import { FormGroup,FormBuilder ,FormControl,Validators, ReactiveFormsModule } fr
 import { NetworkSetupService } from "./networkSetup.service";
 import { NetworkModel } from '../../../shared/models/network/networkModel';
 import { MapService} from "../../../shared/components/map/services/map.service";
+import { UserManagementService } from '../../user-management.service';
 import {Router} from '@angular/router';
 @Component({
   selector: 'network-setup',
@@ -22,7 +23,7 @@ export class NetworkSetupComponent implements OnInit {
   showEditPopup = false;
   modalMessage ='';
   @ViewChild('editModal') editModal: TemplateRef<any>;
-  private rows = [];
+  private rows = null;
   isEdit = false;
   selectedNetworkID = 0;
   addressForm: FormGroup;
@@ -41,7 +42,7 @@ export class NetworkSetupComponent implements OnInit {
   };
 
 
-  constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService, private router:Router) {
+  constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService, private router:Router,  private userManagementService: UserManagementService) {
 
     this.selectedStep = 3;
 
@@ -88,15 +89,18 @@ export class NetworkSetupComponent implements OnInit {
     this.prepareSubmitData(this.networkFormSetup.get("createNetworkForm").value);
 
     if(this.isEdit) {
+      console.log("hereee");
       this.networkSetupService.editNetwork(this.networkModel).then(e => {
         //show success message,close pop up
         this.showPopup = false;
         this.isEdit = false;
+        this.getNetworkList();
       });
     } else {
       this.networkSetupService.createNetwork(this.networkModel).then(e => {
         //show success message,close pop up
         this.showPopup = false;
+        this.getNetworkList();
       });
     }
   }
@@ -123,6 +127,20 @@ export class NetworkSetupComponent implements OnInit {
     this.addressForm.value.housenumber = selectedNetwork.address2;
     this.addressForm.value.state = selectedNetwork.state;
     this.addressForm.value.zipcode = selectedNetwork.postalcode;*/
+    console.log(selectedNetwork);
+    const populatedData = {
+      name: selectedNetwork.title,
+      address:{
+        street: selectedNetwork.address,
+        housenumber:selectedNetwork.address2,
+        city: selectedNetwork.city,
+        zipcode: selectedNetwork.postalCode,
+        state: selectedNetwork.state,
+        country: selectedNetwork.country
+      },
+      isActive:true
+    }
+    this.networkFormSetup.setValue({createNetworkForm:populatedData});
   }
 
   prepareSubmitData(formData) {
@@ -158,7 +176,12 @@ export class NetworkSetupComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigate(['/user-profile']);
+    this.networkSetupService.fetchUserInfo()
+      .then(() => {
+        console.log('routing to profile', this.userManagementService.getRegistrationData().email);
+        localStorage.setItem('currentUser', JSON.stringify({'username': this.userManagementService.getRegistrationData().email}));
+        this.router.navigate(['user-profile']);
+      });
   }
   addNetwork(){
     this.showPopup = true;
