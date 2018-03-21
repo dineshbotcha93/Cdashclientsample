@@ -138,6 +138,7 @@
         if(notify.notificationClass === 'Inactivity'){
           this.onClickInActivityNotify();
         }else if(notify.notificationClass === 'Application'){
+          
           this.onClickSensorNotify();
 
         }else if(notify.notificationClass === 'Low_Battery' || notify.notificationClass === 'Low Battery'){
