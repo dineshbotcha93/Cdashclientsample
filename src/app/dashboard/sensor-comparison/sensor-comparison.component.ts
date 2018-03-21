@@ -114,8 +114,8 @@ export class SensorComparisonComponent{
       const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
       this.sensorDetailsService.getDataMessages(this.sensorName,fromDate,toDate).then((result)=>{
         result.forEach((res)=>{
-          tempData.push(res.plotValue);
           if(this.chartLabels.indexOf(new Date(res.messageDate).toISOString().slice(11,19))==-1){
+            tempData.push(res.plotValue);
             this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
           }
         });
