@@ -13,6 +13,7 @@ export class PaymentSummaryComponent {
   @Input() isOpen = false;
   @Input() newRenewalDate: string = null;
   @Input() renewalError = false;
+  @Input() loading = false;
 
   constructor(private modalService: NgbModal, private router: Router) {
   }
@@ -32,15 +33,4 @@ export class PaymentSummaryComponent {
   routeToUserProfile() {
     this.router.navigate(['user-profile']);
   }
-
-
-  /*private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }*/
 }

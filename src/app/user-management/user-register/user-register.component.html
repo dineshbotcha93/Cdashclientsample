@@ -1,27 +1,32 @@
-<div class="login_wrapper" style="max-width:600px;">
+<app-alerts (close)="onClose()"></app-alerts>
+
+<div class="login_wrapper onboarding_container">
   <div class="form login_form">
     <section class="login_content">
-        <form name="form" (ngSubmit)="onSubmit()">
-          <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
-          <!--<h3>{{'userRegistration.title'|translate}}</h3> -->
-          <div class="form-group has-feedback" >
-            <input type="email" class="form-control has-feedback-left" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
-            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-          </div>
-          <div class="form-group">
-            <div class="clearfix"></div>
-            <div class="separator"></div>
-            <input type="submit" value="Verify" class="btn btn-primary m-l-none">
-          </div>
-        </form>
+      <form name="form" (ngSubmit)="onSubmit()">
+        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <!--<h3>{{'userRegistration.title'|translate}}</h3> -->
+        <div class="inner-addon">
+          <span class="inner-addon-icon"><i class="fa fa-envelope"></i></span>
+          <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
+        </div>
 
-      <div class="separator font-white align-left text-align-left">
+        <div class="form-group">
+          <div class="clearfix"></div>
+          <input type="submit" value="Verify" class="btn btn-primary m-l-none">
+        </div>
+
+
+
+      </form>
+
+      <div class="verifyEmailNotes-container gap-top">
         <p>
           <b>Note:</b>
         {{'userRegistration.registrationMessage'|translate}}
         </p>
         <p>
-          <a (click)="showPopup = true" value="Additional Setup">Additional Setup</a>
+          <a (click)="showPopup = true" value="Additional Setup"><i class="fa fa-arrow-right"></i> Additional Setup</a>
         </p>
       </div>
 

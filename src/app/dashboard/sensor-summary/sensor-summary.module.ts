@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SensorSummaryComponent } from './sensor-summary.component';
 import { Routes, RouterModule } from '@angular/router';
-import { ContainersModule }         from '../../shared/containers';
-import { ComponentsModule }    from '../../shared/components';
+import { ContainersModule } from '../../shared/containers';
+import { ComponentsModule } from '../../shared/components';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../../shared/pipes';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterByCriteria } from './pipes/filterByCriteria.pipe';
 
 import { Ng2SliderComponent } from 'ng2-slider-component/ng2-slider.component';
@@ -27,12 +27,12 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 
-const routes:Routes = [{
-  path:'',component:SensorSummaryComponent
+const routes: Routes = [{
+  path: '', component: SensorSummaryComponent
 }];
 
 @NgModule({
- declarations:[
+ declarations: [
     SensorSummaryComponent,
     FilterByCriteria,
     SlideAbleDirective,
@@ -46,9 +46,14 @@ const routes:Routes = [{
     CommonModule,
     PipesModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFontAwesomeModule,
-    SharedModule, ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot(),ModalModule.forRoot()
-
+    SharedModule,
+    ButtonsModule.forRoot(),
+    TimepickerModule.forRoot(),
+    MultiselectDropdownModule,
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports: [
     Ng2SliderComponent,

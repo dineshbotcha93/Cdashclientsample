@@ -1,6 +1,8 @@
 @import "../variables";
 
 .login_wrapper {
+  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+
   @media (min-width: $phone-small) and (max-width: $phone-large) {
     margin-top: 0;
   }
@@ -21,6 +23,31 @@
 
   form {
     margin: 0;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      box-shadow: none;
+      border: 0;
+
+      &:focus {
+        border: 0;
+      }
+
+      &[readonly="true"] {
+        background: $color-grey-light;
+
+        &:focus {
+          background: $color-grey-light;
+        }
+      }
+    }
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      input[type="submit"] {
+        margin-left: initial;
+      }
+    }
   }
 
   .login-logo {
@@ -43,5 +70,15 @@
 
   .m-l-none {
     margin-left: 0 !important;
+  }
+
+  .radioButtons-container {
+    input {
+      margin-left: 10px;
+    }
+  }
+
+  .display-username {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   }
 }

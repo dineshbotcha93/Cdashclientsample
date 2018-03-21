@@ -1,10 +1,13 @@
 export class NotificationModel {
 
-	 public selectSubNotificationList:any = [];
+
+	 public notificationClassType:string;
+	 public subnotificationClassType:string
 	 public strNotificationName: string;
 	 public strNotificationText: string;
-	 public selectTempCompareList:any = [];
-	 public selectTempTypeList:any = [];
+	 public compareType:string;
+	 public compareValue: string;
+	 public scale:string;
 	 public scheduleNotificationCheck: any  =  { left: false, right: false };
 	 public strSnoozeAlertValue : string;
 	 public scheduleSnoozeCheck: any  =  { left: false, right: false };
@@ -25,5 +28,12 @@ export class NotificationModel {
 	 public scheduleInlineNotifyCheck: any  =  { left: false, right: false };
 
 	 public notificationTemplate: string;
+	 public advancedNotificationID: string;
+	 public scheduleDayObjectList :any=[];
+	 public gatewayList:any = [];
+	 public sensorList:any = [];
+	 public userList:any = [];
+	 public notificationID: string;
+
 
 }

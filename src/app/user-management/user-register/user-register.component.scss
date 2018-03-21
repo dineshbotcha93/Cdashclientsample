@@ -1,12 +1,23 @@
-.table{
-  width: 50%;
-  margin: 0 auto;
+@import "../../../styles/variables";
+
+.onboarding_container {
+  .verifyEmailNotes-container {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 1em;
+    color: $color-white;
+    text-align: left;
+
+    a {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      .fa {
+        padding-right: 10px;
+      }
+    }
+  }
 }
 
-.white{
-  background-color:white;
-}
-
-.tab-content .tab-panel {
-  background: none !important;
-}

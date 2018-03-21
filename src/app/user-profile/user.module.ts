@@ -1,19 +1,55 @@
 export module UserProfile {
 export class User {
-  active: Boolean;
-  admin: Boolean;
-  email: string;
-  userFullName: string;
-  userID: number;
   userName: string;
-  voiceNumber: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  admin: Boolean;
+  //userID: number;
 }
 export class Notification {
-  emailAddress: string;
+  email: string;
   directSMS: Boolean;
   smsNumber: string;
   externalSMSProvider: string;
   recievesMaintenanceByEmail: Boolean;
   recievesMaintenanceByPhone: Boolean;
 }
+
+export class UpdateAccount {
+  accountID: number;
+  //address: string;
+  //address2: string;
+  //city: string;
+  companyName: string;
+  //country: string;
+  //postalCode: string;
+  resellerID: number;
+  //state: string;
+  timeZoneID: number;
+  address: Object;
+ }
+
+export class Address {
+  street: string;
+  housenumber: string;
+  city: string;
+  country: string;
+  zipcode: string;
+  state: string;
+ }
+
+ export class RealEditAccount {
+  accountID: number;
+  address: string;
+  address2: string;
+  city: string;
+  companyName: string;
+  country: string;
+  postalCode: string;
+  resellerID: number;
+  state: string;
+  timeZone: number;
+ }
 }

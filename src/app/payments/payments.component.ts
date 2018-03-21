@@ -16,7 +16,6 @@ import { PaymentSummaryComponent } from './payments-summary/payment-summary.comp
 export class PaymentsComponent {
   paymentData: Object;
   customerData: Object = null;
-  acknowledgement = true;
   transactionId: String = null;
   paymentDataError: Error = null;
   showConfirmation = false;
@@ -43,6 +42,8 @@ export class PaymentsComponent {
   }
 
   confirmPayment() {
+    this.loading = true;
+    this.showConfirmation = true;
     // Fetch Token From Stripe
     this.stripe.getToken().then(function(tokenData) {
       // Use the fetched token to confirm payment using Payments API
@@ -51,11 +52,12 @@ export class PaymentsComponent {
         transactionId: this.transactionId
       }).then(function(data){
         this.newRenewalDate = data.transaction.transactionInfo.newRenewalDate;
-        this.showConfirmation = true;
+        this.loading = false;
       }.bind(this));
     }.bind(this))
       .catch(function() {
         this.renewalError = true;
+        this.loading = false;
       });
   }
 

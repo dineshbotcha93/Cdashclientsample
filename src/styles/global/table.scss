@@ -1,4 +1,6 @@
-
+/* ******************************** */
+/* Table styles /*
+/* ******************************** */
 .dark-theme {
   .table-striped {
     color: $color-white;
@@ -27,31 +29,64 @@
   }
 }
 
+.light-theme {
 
-// ------------------ \\
-// datatable styles   \\
-// ------------------ \\
+}
+/* ******************************** */
+
+
+/* ******************************** */
+/* datatable styles /*
+/* ******************************** */
 .ngx-datatable {
   border: 1px solid $color-grey-light;
+
+  .datatable-row-center {
+    width: 100%;
+  }
+
+  .datatable-header-inner {
+    .datatable-header-cell {
+      width: inherit;
+    }
+  }
+
+  .datatable-body {
+    .datatable-scroll {
+      width: 100%;
+    }
+    .datatable-body-row {
+      .datatable-body-cell {
+        width: inherit;
+        padding: 0 0.75rem;
+      }
+    }
+  }
+
+  &.bootstrap {
+    .datatable-body {
+      .datatable-body-row {
+        padding: 0.75rem 0 !important;
+      }
+    }
+  }
+}
+
+
+.datatable-header-cell {
+  font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $color-body-bg;
 }
 
 .datatable-body-row {
   color: $color-black;
 }
 
-.datatable-header-cell {
-  font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  color: $color-body-bg;
-  //font-weight: bold;
-}
-
 .datatable-footer {
   background: $color-grey-light !important;
 
   .datatable-pager {
-    a {
-      color: red;
-    }
+    a {}
   }
 
   .datatable-footer-inner {
@@ -93,4 +128,42 @@
   }
 }
 
+
+.editNetworkSetup-dataTable {
+  .ngx-datatable {
+    .datatable-body-row {
+      color: $color-white;
+    }
+
+    .datatable-header-cell {
+      color: $color-white;
+      font-weight: bolder;
+      font-size: 1em;
+      text-transform: uppercase;
+      text-align: left;
+      background: $color-body-bg;
+    }
+
+    .datatable-footer {
+      .page-count {
+        text-align: right;
+      }
+    }
+
+    .anchor-datatable {
+      cursor: pointer;
+
+      span {
+        padding-left: 10px;
+      }
+
+      &.editNetworkSetup-button {
+        span {
+          float: right;
+        }
+      }
+    }
+  }
+}
+/* ******************************** */
 

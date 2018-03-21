@@ -1,16 +1,25 @@
-#map {
-  height: 100%;
+html {
+  height: 100vh;
 }
 
 html, body {
+  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   margin: 0;
   padding: 0;
-  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  max-width: $body-max-width;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
-.nav-sm .container.body .right_col, .right_col {
-  height: 100%;
+.nav-sm {
+  .container.body {
+    .right_col,
+    .right_col {
+      height: 100vh;
+      box-shadow: 0 0 15px $color-black;
+    }
+  }
 }
 
 
@@ -47,7 +56,32 @@ ul {
   margin: 5px 10px 0px 0px;
   float: left;
 }
+
+.total-amount {
+  color: $appTile-BG-lowBattery;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+
+#disclaimer {
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 1em;
+}
 /* ******************************** */
+
+
+
+/* ******************************** */
+.parent-container {
+  margin: 4em 0;
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    margin: 1em 0;
+  }
+}
+/* ******************************** */
+
 
 
 /* ******************************** */
@@ -71,21 +105,37 @@ ul {
   align-items: left !important;
 }
 
-.payment-button {
-  background: #26B99A;
-  color : #fff;
+.gap-top { margin-top: 40px; }
+.gap-right { margin-right: 40px; }
+.gap-bottom { margin-bottom: 40px; }
+.gap-left { margin-left: 40px; }
+/* ******************************** */
+
+
+
+/* ******************************** */
+.onboarding_container {
+  max-width: 40em;
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 1em;
+  color: $color-white;
+  text-align: left;
+
+  h1.onboarding-title {
+    text-align: center;
+
+    &:before, &:after {
+      background: none;
+    }
+  }
 }
 /* ******************************** */
 
-/* ******************************** */
-/* side-nav */
-//.nav-sm .container.body .col-md-3.left_col {
-//  min-height: 100%;
-//  width: 70px;
-//  padding: 0;
-//  z-index: 9999;
-//  position: absolute;
-//}
-/* ******************************** */
 
+
+/* ******************************** */
+#map {
+  height: 100%;
+}
+/* ******************************** */
 

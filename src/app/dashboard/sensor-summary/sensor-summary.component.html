@@ -6,7 +6,7 @@
         <div class="col-md-8">
           <h3>
             <i class="fa fa-location-arrow"></i>
-            Location Details
+            Location Summary
           </h3>
           <button class="btn btn-primary" (click)="goBack()">
             <i class="fa fa-chevron-left"></i> Back</button>
@@ -20,32 +20,36 @@
             </select>
           </div>
         </div>
-        <div class="ss-info-container">
-          <!-- <div class="col-md-6 ss-info-left">
-            <div class="ss-info-location">{{mapData?.title}}</div>
-            <div class="ss-info-address">{{mapData?.city}} {{mapData?.postalCode}} {{mapData?.country}}</div>
-          </div> -->
-          <div class="col-sm-12 network-card">
-            <div class="network-card-top">
-              <div class="network-name">{{selectLocation?.Title}}</div>
-              <div class="network-id">{{mapData?.title}}</div>
-            </div>
-            <div class="network-card-bottom">
-              <div class="gateway-count">Gateways
-                <span>{{mapData?.noOfGateways}}</span>
+        <div class="ss-info-container col-md-12">
+          <div class="sensorSummaryCard-container">
+            <div class="row">
+              <div class="col-md-6 ssCard-left">
+                <div class="ssCard-name">{{selectLocation?.Title}}</div>
+                <div class="ssCard-id">{{mapData?.address}}{{mapData?.address2}}{{mapData?.city}}{{mapData?.postalCode}}{{mapData?.country}}</div>
               </div>
-              <div class="sensor-count">Sensor
-                <span>{{mapData?.noOfSensors}}</span>
-              </div>
-              <div class="network-button">
-                <button type="button" class="btn btn-primary network-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
-                  value="Edit">
-                  <i class="fa fa-edit"></i> Edit</button>
+              <div class="col-md-6 ssCard-right">
+                <div class="ssCard-small ssCard-count">Gateways
+                  <span class="value">{{mapData?.noOfGateways}}</span>
+                </div>
+                <div class="ssCard-small ssCard-count">Sensor
+                  <span class="value">{{mapData?.noOfSensors}}</span>
+                </div>
+                <div class="ssCard-button">
+                  <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
+                          value="Edit">
+                    <i class="fa fa-edit"></i> Edit Location</button>
+                </div>
+                <div class="ssCard-button">
+                  <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-toggle="modal" data-target="#networkAddModal"
+                          value="Add">
+                    <i class="fa fa-edit"></i> Add Location</button>
+                </div>
               </div>
             </div>
           </div>
           <div>
             <ng-container *ngTemplateOutlet="networkEditModal"></ng-container>
+            <ng-container *ngTemplateOutlet="networkAddModal"></ng-container>
           </div>
         </div>
       </div>
@@ -74,11 +78,11 @@
                     </div>
                     <div class="form-group">
                       <select name="filter_by_status" [(ngModel)]="doFilterByStatus" class="form-control" (ngModelChange)="filterStatus()">
-                        <option value="good">Good</option>
-                        <option value="low signal">Low Signal</option>
-                        <option value="low battery">Low Battery</option>
-                        <option value="missed communication">Missed Communication</option>
-                        <option value="alerts">Alerts</option>
+                        <option value="ok">Ok</option>
+                        <option value="warning">Warning</option>
+                        <option value="alert">Alert</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="sleeping">Sleeping</option>
                         <option value="select" selected>All</option>
                       </select>
                     </div>
@@ -141,7 +145,7 @@
               <div class="col-md-4">
                 <form action="" class="dark-theme">
                   <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
-                  <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway"> Gateway
+                  <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway" class="m-l-md"> Gateway
                 </form>
               </div>
 
@@ -207,7 +211,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true"><i class="fa fa-times"></i></span>
           </button>
           <h4 class="modal-title" id="myModalLabel">Move Gateway Details</h4>
         </div>
@@ -223,26 +227,41 @@
   </div>
 </ng-template>
 
-<ng-template #networkEditModal>
-  <div class="modal fade" id="myNetworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">Edit Network</h4>
-        </div>
-        <div class="modal-body">
-          <ng-container *ngTemplateOutlet="networkModal"></ng-container>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="onClickSaveNetworkDetail($event)">
-            <i class="fa fa-save"></i> Save changes </button>
+<ng-template #networkAddModal>
+  <modal id="networkAddModal" [isOpen]="showPopup" title="Add Location"
+         (onClose)="modalClosed($event)">
+    <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
+      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group float-right">
+            <input type="submit" value="Submit" class="btn btn-primary m-l-none">
+            <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </form>
+
+  </modal>
+</ng-template>
+
+<ng-template #networkEditModal>
+  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Location"
+         (onClose)="modalClosed($event)">
+    <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left font-white">
+          <h4 class="modal-title" id="myModalLabel">Edit Network</h4>
+          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm"></create-network>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group float-right">
+          <input type="submit" value="Save changes" class="btn btn-primary addBTN">
+            <i class="fa fa-save"></i>
+          </div>
+        </div>
+      </div>
+  </form>
+</modal>
 </ng-template>
 
 <ng-template #gatewayModal>
@@ -269,7 +288,7 @@
   </table>
 </ng-template>
 
-<ng-template #networkModal>
+<!-- <ng-template #networkModal>
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -283,7 +302,7 @@
           Send notifications for this Network
         </td>
         <td>
-          <input type="checkbox" [(ngModel)]="editNetworkData.notifyAlert">
+          <input type="checkbox" [(ngModel)]="editNetworkData.sendNotifications">
         </td>
       </tr>
       <tr>
@@ -296,10 +315,10 @@
       </tr>
     </tbody>
   </table>
-</ng-template>
+</ng-template> -->
 
 <ng-template #gateWayDataTemplate>
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="gateWayData?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -328,7 +347,7 @@
 
 <ng-template #sensorDataTemplate>
 
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -336,8 +355,9 @@
             <input type="checkbox" name="allSensor" [(ngModel)]="isSelectedAll" (change)="onCheckAll($event)" />
           </div>
         </th>
-        <th class="col-md-6">Sensor Id</th>
-        <th class="col-md-5">Sensor Name</th>
+        <th class="col-md-3">Sensor Id</th>
+        <th class="col-md-3">Sensor Name</th>
+        <th class="col-md-3">Sensor Interval</th>
 
       </tr>
     </thead>
@@ -346,11 +366,16 @@
         <td class="col-md-1">
           <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.sensorName" (change)="onClickInlineCheckBox($event,sensor)">
         </td>
-        <td class="col-md-6">{{sensor.sensorID}}</td>
-        <td class="col-md-5" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
-        <td *ngIf="sensor.gateWayEditOption ==='edit'">
+        <td class="col-md-3">{{sensor.sensorID}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.heartBeat}}</td>
+        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
         </td>
+         <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <input class="form-control" type="text" name="sensorName" value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
+        </td>
+
 
       </tr>
     </tbody>

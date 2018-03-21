@@ -44,11 +44,12 @@ export class TileComponent {
     console.log(this.tileSandbox);
     console.log(event);
   }
-  getTileColor(status,tileColorBy){
+  getTileColor(status,tileColorBy,tileContent){
     switch(status){
       case this.mapStatus.LOW_BATTERY:
       return 'bg-lowBattery';
       case this.mapStatus.ALERTS:
+      console.log("TILE CONTENT "+tileContent);
       return 'bg-pink';
       case this.mapStatus.LOW_SIGNAL:
       return 'bg-info';
@@ -70,29 +71,39 @@ export class TileComponent {
       break;
     }
   }
-  getTileStatusByColorNum(number){
+  getTileStatusByColorNum(number,tileContent){
     switch(number){
-      case this.mapConstants.STATUS_NUMBERS.GOOD:
+      case this.mapConstants.NEW_STATUS_NUMBERS.OK:
       return 'bg-green';
-      case this.mapConstants.STATUS_NUMBERS.MISSED_COMMUNICATION:
+      case this.mapConstants.NEW_STATUS_NUMBERS.INACTIVE:
       return 'bg-warning';
-      case this.mapConstants.STATUS_NUMBERS.ALERTS:
+      case this.mapConstants.NEW_STATUS_NUMBERS.ALERT:
+      const recordedTemp = parseFloat(tileContent);
+      if(recordedTemp < 40){
+        return 'bg-info';
+      }
       return 'bg-pink';
-      case this.mapConstants.STATUS_NUMBERS.LOW_SIGNAL:
+      case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
       return 'bg-info';
-      case this.mapConstants.STATUS_NUMBERS.LOW_BATTERY:
+      case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
       return 'bg-lowBattery';
     }
   }
 
-  getSensorTileIcon(sensorType){
+  getSensorTileIcon(sensorType,tileContent){
       switch(sensorType){
         case this.mapConstants.SENSOR_TYPE.TEMP:
         return 'fa-thermometer-half';
         case this.mapConstants.SENSOR_TYPE.HUMIDITY:
         return 'fa-tint';
+        case (this.mapConstants.SENSOR_TYPE.CONTACT):
+        if(tileContent == 'Closed'){
+          return 'fa-lock';
+        } else {
+          return 'fa-lock-open';
+        }
         default:
-        break;
+        return 'fa-tablet';
     }
   }
 
