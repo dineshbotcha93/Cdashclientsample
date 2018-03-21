@@ -1,26 +1,41 @@
 html {
+  //height: 100%;
   height: 100vh;
+  min-height: 100%;
 }
 
-html, body {
+body {
   font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   margin: 0;
   padding: 0;
   max-width: $body-max-width;
   margin-left: auto;
   margin-right: auto;
-}
+  //height: 100%;
+  height: 100vh;
+  min-height: 100%;
 
-
-.nav-sm {
   .container.body {
-    .right_col,
+    //height: 100%;
+    height: 100vh;
+    min-height: 100%;
+
     .right_col {
+      //height: 100%;
       height: 100vh;
+      min-height: 100%;
       box-shadow: 0 0 15px $color-black;
+    }
+
+    .main_container {
+      //height: 100%;
+      height: 100vh;
+      min-height: 100%;
     }
   }
 }
+
+
 
 
 /* ******************************** */
@@ -67,6 +82,13 @@ ul {
 #disclaimer {
   font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   font-size: 1em;
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  width: 30px;
+  height: 30px;
 }
 /* ******************************** */
 
