@@ -60,6 +60,7 @@
     selectTempCompareList: any = [];
     selectTempTypeList: any = [];
     selectOpenCloseType: any = [];
+    selectSensorHumidityType: any = [];
 
 
 
@@ -137,6 +138,7 @@
         if(notify.notificationClass === 'Inactivity'){
           this.onClickInActivityNotify();
         }else if(notify.notificationClass === 'Application'){
+          
           this.onClickSensorNotify();
 
         }else if(notify.notificationClass === 'Low_Battery' || notify.notificationClass === 'Low Battery'){
@@ -497,6 +499,29 @@
     }];
     this.selectTempCompareList = Obj;
 
+
+
+     let humidityObjects = [{
+      id: "Less_Than",
+      value: "Less_Than"
+    },{
+      id: "Greater_Than",
+      value: "Greater_Than"
+    },{
+      id: "Equal",
+      value: "Equal"
+    },{
+      id: "Not_Equal",
+      value: "Not_Equal"
+    },{
+      id: "Greater_Than_or_Equal",
+      value: "Greater_Than_or_Equal"
+    },{
+      id: "Less_Than_or_Equal",
+      value: "Less_Than_or_Equal"
+    }];
+    this.selectSensorHumidityType = humidityObjects;
+
     let Obj2 = [
     {
       id: "C",
@@ -539,11 +564,11 @@
     this.dailySheduleNotificationList = [];
 
     let Obj3 = [{
-      id: "01",
+      id: "1",
       value: "Closed"
     },
     {
-      id: "02",
+      id: "0",
       value: "Open"
     }];
 
@@ -596,11 +621,11 @@
 
       let openCloseObj = [
       {
-        id: "True",
+        id: "1",
         value: "Closed"
       },
       {
-        id: "False",
+        id: "0",
         value: "Open"
       }
       ];
@@ -705,7 +730,8 @@
 
       // this.notificationModel.compareValue = "";
       if (e.id === "9") {
-        this.notificationModel.compareValue = "True";
+        this.notificationModel.compareValue = "1";
+         this.notificationModel.compareType = "Equal";
       }
       this.notificationModel.subnotificationClassType = e.id;
 
