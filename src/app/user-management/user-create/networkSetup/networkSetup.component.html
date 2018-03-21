@@ -4,50 +4,39 @@
     <section class="login_content">
       <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
       <user-flow-component [selected]="selectedStep">
-
       </user-flow-component>
 
-
+      <div class="loader gap-top gap-bottom" *ngIf="rows.length == 0"></div>
 
       <div>
-        <div class="loader" *ngIf="rows.length == 0"></div>
-        <button *ngIf="rows.length != 0" class="btn btn-success btn-lg" (click)="addNetwork()">Add Network</button>
-        <app-datatable #dataTable
+        <button class="btn btn-lg btn-success gap-bottom" (click)="addNetwork()">Add Network</button>
+        <app-datatable class="editNetworkSetup-dataTable"
+                       #dataTable
                        *ngIf="rows.length > 0"
                        [rows]="rows"
                        [columns]="columns"
                        [limit]="limit">
         </app-datatable>
         <ng-template #editModal let-row="row" let-value="value">
-          {{value}}<a class="anchor-datatable" (click)="showAddressEditModal(row)" ><i class="fa fa-edit">Edit</i></a>
+          <a class="anchor-datatable editNetworkSetup-button" (click)="showAddressEditModal(row)" >{{value}} <span><i class="fa fa-edit"></i> Edit</span> </a>
         </ng-template>
-
       </div>
 
+      <div class="clearfix"></div>
+
+      <div class="row m-l-md gap-top">
+        <div class="col-md-12">
+          <button class="btn btn-default float-right m-l-md" (click)="goToProfile()">Continue</button>
+        </div>
+      </div>
 
     </section>
   </div>
 </div>
 
-<!--<modal [isOpen]="showEditPopup" title="Edit Network"
-       (onClose)="editModalClosed($event)">
-  <form (ngSubmit)="onSubmit('edit')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
-    <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>
-
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group float-right">
-          <input type="submit" value="Submit" class="btn btn-primary m-l-none">
-          <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
-        </div>
-      </div>
-    </div>
-  </form>
-
-</modal>-->
-<modal [isOpen]="showPopup" title="Add Network"
+<modal [isOpen]="showPopup" title="Add/Edit Network"
        (onClose)="modalClosed($event)">
-  <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left font-white">
+  <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
     <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>
 
     <div class="row">

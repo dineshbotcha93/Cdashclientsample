@@ -35,8 +35,8 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
   private loadedStatuses = false;
-  private showList = false;
-  private showMap = true;
+  private showList = true;
+  private showMap = false;
   private rows:Array<any>=['N/A'];
 
   constructor(
@@ -57,24 +57,27 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
       this.rows = [];
 
       realResults.forEach((rResult)=>{
-        mapService.geoCode(rResult.title+rResult.city+rResult.country).then((geoCoded)=>{
-          if(geoCoded.results[0]){
-            rResult.lat=geoCoded.results[0].geometry.location.lat;
-            rResult.lng=geoCoded.results[0].geometry.location.lng;
-          }
-        });
+        // mapService.geoCode(rResult.title+rResult.city+rResult.country).then((geoCoded)=>{
+        //   if(geoCoded.results[0]){
+        //     rResult.lat=geoCoded.results[0].geometry.location.lat;
+        //     rResult.lng=geoCoded.results[0].geometry.location.lng;
+        //   }
+        // });
         //rResult.alerts
         this.totalStatuses['alerts'].count+= rResult.alerts;
         this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
         this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
-
+        console.log(rResult);
         this.rows.push({
           title:rResult.title,
           address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city,
           id:rResult.id,
+          lat: rResult.latitude,
+          lng: rResult.longitude
         });
-
+        rResult.lat = rResult.latitude;
+        rResult.lng = rResult.longitude;
       });
       return realResults;
     }).then((real) => {
