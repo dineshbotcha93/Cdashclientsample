@@ -26,7 +26,7 @@ const routes: Routes = [{
   declarations: [UserCreateComponent],
   imports:[
     RouterModule.forChild(routes),
-    NgbModule.forRoot(),
+    NgbModule,
     ReactiveFormsModule,
     FormsModule,
     FlowDisplayModule,

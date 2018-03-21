@@ -10,7 +10,6 @@ import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.scss'],
-  providers: [NgbTooltipConfig],
 })
 
 export class UserCreateComponent implements OnInit {

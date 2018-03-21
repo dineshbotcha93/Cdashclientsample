@@ -1,3 +1,16 @@
 @import "../../../styles/variables";
 
+:host {
+  /deep/ .popover {
+    display: inherit;
+    padding: 8px;
+    color: black;
+  }
+
+  /deep/ .popover-header {
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+  }
+}
 

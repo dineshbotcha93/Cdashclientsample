@@ -8,8 +8,8 @@
 
       </user-flow-component>
 
-      <div *ngIf="!isValidForm" class="alert alert-danger" ng->
-        <span>{{userCreationError || 'Entered form is invalid!!!'}}</span>
+      <div *ngIf="!isValidForm" class="alert alert-danger">
+        <span>{{userCreationError || 'Please verify the details entered for your registraiton'}}</span>
       </div>
 
       <form [formGroup]="userCreateForm" name="form" class="form-horizontal form-label-left font-white" (ngSubmit)="onSubmit()">
@@ -86,7 +86,8 @@
           <label class="control-label col-md-4 col-sm-4 col-xs-12">Password </label>
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
             <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
-            <input type="password" class="form-control" name="password" required
+            <input type="password" class="form-control" name="password" required placement="top"
+                   triggers="focus" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements"
                    formControlName="password" required placeholder="Password"/>
           </div>
           <div *ngIf="userCreateForm.get('password').touched">
@@ -130,17 +131,28 @@
           </div>
         </div>
 
+        <!--<div style="background-color: white">
+          <button type="button" class="btn btn-outline-secondary">
+            I've got markup and bindings in my tooltip!
+          </button>
+        </div>-->
+
+        <!--<ng-template #tipContent>Hello !</ng-template>-->
+
+
         <div class="form-group">
-          <button type="submit" class="btn btn-primary m-l-none pull-right" placement="top" ngbTooltip="Tooltip on top">Continue</button>
+          <button type="submit" class="btn btn-primary m-l-none pull-right">Continue</button>
         </div>
       </form>
     </section>
   </div>
 </div>
 
-<ng-template #tooltipTempate style="margin:0 auto">
-  'Password' must be at least 8 characters long.
-  Password should contain At least one special case characters
-  Password should contain At least one alphabet.
-  Password should contain At least one numeric value.
+<ng-template #tooltipTempate>
+  <ul>
+    <li>'Password' must be at least 8 characters long.</li>
+    <li>Password should contain At least one special case characters.</li>
+    <li>Password should contain At least one alphabet.</li>
+    <li>Password should contain At least one numeric value.</li>
+  </ul>
 </ng-template>
