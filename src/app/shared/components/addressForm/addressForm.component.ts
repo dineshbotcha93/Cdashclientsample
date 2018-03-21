@@ -19,6 +19,7 @@ export class AddressFormComponent implements OnInit {
   private states = [];
   private countries = [];
   private selectedCountry = 'united states';
+  private isUsa = true;
 
   constructor(private fb: FormBuilder, private AddressFormService: AddressFormService) {
 
@@ -33,18 +34,27 @@ export class AddressFormComponent implements OnInit {
 
     this.loadCountries();
     this.loadStates();
+
+    this.addressForm.valueChanges.forEach((v)=>{
+      if(v.country!=='US'){
+        this.isUsa = false;
+      } else {
+        this.isUsa = true;
+      }
+    })
   }
 
   ngOnInit(): void {
     this.formReady.emit(this.addressForm);
-
-    console.log('addressform oninit', this.addressForm.value);
   }
 
   onSelectCountry(countryid) {
     console.log('selected country;', countryid);
-   // this.selectedCountry = countryid;
-
+   if(parseInt(countryid)!== 230){
+     this.isUsa = false;
+   } else {
+     this.isUsa = true;
+   }
   }
 
   loadStates() {
