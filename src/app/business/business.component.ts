@@ -49,7 +49,7 @@ export class BusinessComponent {
   }
   @ViewChild('baseChart') chart: BaseChartDirective;
   constructor(private businessService: BusinessService, private mapService: MapService, private router: Router) {
-    
+
     businessService.getRealData().then((realResults) => {
       this.tileData = realResults.status;
       let tileDataObj: Array<any> = realResults.status;
@@ -59,21 +59,23 @@ export class BusinessComponent {
        this.pieChartData.push(tileObj.count);
       }
       realResults.customers.forEach(element => {
-        mapService.geoCode(element.address).then((geoCoded)=>{
-          if(geoCoded.results[0]){
-            element.lat = geoCoded.results[0].geometry.location.lat;
-            element.lng = geoCoded.results[0].geometry.location.lng;
-          }
-        });
+        // mapService.geoCode(element.address).then((geoCoded)=>{
+        //   if(geoCoded.results[0]){
+        //     element.lat = geoCoded.results[0].geometry.location.lat;
+        //     element.lng = geoCoded.results[0].geometry.location.lng;
+        //   }
+        // });
+        element.lat = element.latitude;
+        element.lng = element.longitude;
       });
       this.loadedStatuses = true;
       localStorage.setItem('com.cdashboard.customerData', JSON.stringify(realResults.customers));
       return realResults;
     }).then((mData) => {
-      this.mapData = mData;
+      this.mapData = mData.customers;
      // this.loadedStatuses = true;
     });
-   
+
     // mapService.getData().subscribe(e => {
     //   this.mapData = e;
     //   this.mapData.height = '100px';
