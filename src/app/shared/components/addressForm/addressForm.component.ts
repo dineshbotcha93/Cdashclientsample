@@ -2,18 +2,21 @@ import {Component, OnInit, EventEmitter} from "@angular/core";
 import { Input, Output } from "@angular/core";
 import { FormGroup,FormBuilder ,FormControl,Validators, ReactiveFormsModule } from '@angular/forms';
 import {AddressFormService} from "./addressForm.service";
+import { MapService } from '../../../shared/components/map/services/map.service';
 
 
 @Component({
   selector: 'address-form-component',
   templateUrl: './addressForm.component.html',
-  providers: [AddressFormService]
+  providers: [AddressFormService, MapService]
 })
 export class AddressFormComponent implements OnInit {
 
 
   @Output()
   private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output()
+  private validAddress: EventEmitter<any> = new EventEmitter<any>();
   public addressForm: FormGroup;
 
   private states = [];
@@ -21,7 +24,11 @@ export class AddressFormComponent implements OnInit {
   private selectedCountry = 'united states';
   private isUsa = true;
 
-  constructor(private fb: FormBuilder, private AddressFormService: AddressFormService) {
+  constructor(
+    private fb: FormBuilder,
+    private AddressFormService: AddressFormService,
+    private mapService: MapService
+  ) {
 
     this.addressForm = this.fb.group({
       "street": new FormControl("", Validators.required),
@@ -29,7 +36,7 @@ export class AddressFormComponent implements OnInit {
       "city": new FormControl("", Validators.required),
       "zipcode": new FormControl("", [Validators.required]),
       "state": new FormControl(),
-      "country": new FormControl()
+      "country": new FormControl("", [Validators.required])
     });
 
     this.loadCountries();
@@ -40,6 +47,25 @@ export class AddressFormComponent implements OnInit {
         this.isUsa = false;
       } else {
         this.isUsa = true;
+      }
+      if(this.addressForm.get('country').value!=='Select Country' &&
+        this.addressForm.get('country').value!=='' &&
+        this.addressForm.valid
+      ){
+        const country = this.addressForm.get('country').value;
+        const street = this.addressForm.get('street').value;
+        const city = this.addressForm.get('city').value;
+        const zipcode = this.addressForm.get('zipcode').value;
+        const state = this.addressForm.get('state').value;
+        const housenumber = this.addressForm.get('housenumber').value;
+        this.mapService.geoCode(housenumber+street+city+zipcode+state+country).then((geoCoded)=>{
+          console.log(geoCoded.status);
+          if(geoCoded.status == 'OK'){
+            this.validateAddress();
+          }
+        });
+      } else {
+        this.validAddress.emit(false);
       }
     })
   }
@@ -74,6 +100,7 @@ export class AddressFormComponent implements OnInit {
   }
 
   validateAddress() {
+      this.validAddress.emit(true);
       return true;
   }
 }

@@ -11,6 +11,6 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-12 col-lg-12">
-    <address-form-component (formReady)="addFormControl('address', $event)"></address-form-component>
+    <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="isValidAddress($event)"></address-form-component>
   </div>
 </form>
