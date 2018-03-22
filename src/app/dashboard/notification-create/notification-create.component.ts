@@ -57,9 +57,18 @@
       displayAllSelectedText: true
     };
     selectSubNotificationList: any = [];
+
     selectTempCompareList: any = [];
+    selectedTempCompareList: any = [];
+
+
     selectTempTypeList: any = [];
+
     selectOpenCloseType: any = [];
+    selectedOpenCloseType: any = [];
+
+    selectSensorHumidityType: any = [];
+    selectedSensorHumidityType: any = [];
 
 
 
@@ -134,15 +143,22 @@
          this.notificationModel.compareValue= notify.threshold;
          this.notificationModel.compareType = notify.comparer;
          this.notificationModel.notificationID = notify.notificationID;
+
+         // let humidObject
+
+
+
+
         if(notify.notificationClass === 'Inactivity'){
           this.onClickInActivityNotify();
         }else if(notify.notificationClass === 'Application'){
+          
           this.onClickSensorNotify();
 
         }else if(notify.notificationClass === 'Low_Battery' || notify.notificationClass === 'Low Battery'){
           this.onClickBatteryNotify();
         }
-      }else{
+        }else{
           this.setInitialModelValues();
           this.getNotificationScheduleDetailsForAddNotify();
 
@@ -152,10 +168,10 @@
 
           let userGlobalList = this.globalNotificationsList.users;
 
-          
+
           let userTempObj = [];
           let userSelectedObject = [];
-          
+
           userGlobalList.forEach(user => {
             let tempObj: any = [];
             tempObj = {
@@ -436,7 +452,7 @@
           value: "After"
         }
         ];
-       
+
       enum DayType {
               All_Day = "0",
               Off = "1",
@@ -459,7 +475,7 @@
       result.forEach(schedule => {
         let selectedScheduleObj;
 
-      
+
             tempObject3.forEach(dayObject => {
 
               if(dayObject.value === schedule.NotificationSchedule){
@@ -482,12 +498,13 @@
       // ];
       this.dailySheduleNotificationList = this.scheduleObj;
       this.notificationModel.scheduleDayObjectList = this.scheduleObj;
-     
+
     });
   }
   ngOnInit() {
     this.setInitialModelValues();
     this.isReadingTypeAvailable = false;
+
     let Obj = [{
       id: "Less_Than",
       value: "Less Than"
@@ -496,6 +513,11 @@
       value: "Greater Than"
     }];
     this.selectTempCompareList = Obj;
+    this.selectedTempCompareList = Obj[0];
+
+
+
+     
 
     let Obj2 = [
     {
@@ -539,16 +561,16 @@
     this.dailySheduleNotificationList = [];
 
     let Obj3 = [{
-      id: "01",
+      id: "1",
       value: "Closed"
     },
     {
-      id: "02",
+      id: "0",
       value: "Open"
     }];
 
     this.notificationModel.selectNotifyMagnetList = Obj3
-     
+
     this.setEditNotifyDetails();
     }
 
@@ -574,6 +596,7 @@
       this.isSensorNotificationForm2 = false;
       this.isButtonFooterRequired = false;
       this.notificationModel.notificationTemplate = "sensorNotification";
+
       let Obj = [
       {
         id: "1",
@@ -596,15 +619,81 @@
 
       let openCloseObj = [
       {
-        id: "True",
+        id: "1",
         value: "Closed"
       },
       {
-        id: "False",
+        id: "0",
         value: "Open"
       }
       ];
       this.selectOpenCloseType = openCloseObj;
+      this.selectedOpenCloseType = openCloseObj[0];
+
+
+      let humidityObjects = [{
+        id: "Less_Than",
+        value: "Less Than"
+        },{
+        id: "Greater_Than",
+        value: "Greater Than"
+        },{
+          id: "Equal",
+          value: "Equal"
+        },{
+          id: "Not_Equal",
+          value: "Not Equal"
+        },{
+          id: "Greater_Than_or_Equal",
+          value: "Greater Than or Equal"
+        },{
+          id: "Less_Than_or_Equal",
+          value: "Less Than or Equal"
+        }];
+
+      this.selectSensorHumidityType = humidityObjects;
+      
+
+      if(this.notifyOperationType === "editNotify"){
+        humidityObjects.forEach(humid => {
+          console.log('humid-->',humid);
+          if(humid.value === this.notificationModel.compareType){
+            this.selectedSensorHumidityType  = humid;
+            this.notificationModel.compareType=humid.id;
+          }
+      });
+
+        // temperature edit
+      //    this.selectTempCompareList.forEach(humid => {
+      //      debugger;
+      //     console.log('humid-->',humid);
+      //     if(humid.value === this.notificationModel.compareType){
+      //       this.selectedTempCompareList = [];
+      //       this.selectedTempCompareList  = humid;
+      //       this.notificationModel.compareType=humid.id;
+      //     }
+      // });
+
+        // open/close edit
+         this.selectOpenCloseType.forEach(humid => {
+          console.log('humid-->',humid);
+          if(humid.id === this.notificationModel.compareValue.toString()){
+            this.selectedOpenCloseType = [];
+            this.selectedOpenCloseType  = humid;
+            this.notificationModel.compareValue=humid.id;
+          }
+      });
+
+
+
+
+    }else{
+         this.selectedSensorHumidityType  = humidityObjects[0];
+          // this.selectedTempCompareList  = humid;
+    }
+
+
+
     }
     onClickAdvanceNotify() {
       this.notificationModel.notificationClassType = "5";
@@ -705,7 +794,8 @@
 
       // this.notificationModel.compareValue = "";
       if (e.id === "9") {
-        this.notificationModel.compareValue = "True";
+        this.notificationModel.compareValue = "1";
+         this.notificationModel.compareType = "Equal";
       }
       this.notificationModel.subnotificationClassType = e.id;
 
@@ -849,7 +939,7 @@
           this.notificationModel.userList.forEach(selectedUser => {
             let tempObj = [];
             let notifyType = [];
-            
+
             if(selectedUser === user.id){
                 if(user['emailNotify']){
                   notifyType = [1,2];

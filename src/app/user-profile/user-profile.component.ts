@@ -143,6 +143,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     timeZoneID: new FormControl(''),
   });
 
+disableSubmitButton = true;
+
 
   private user = new UserProfile.User();
   private notification = new UserProfile.Notification();
@@ -557,4 +559,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   get countryCode() {
     return this.notificationForm.get('countryCode');
   }
+enableSubmit($event){
+  this.disableSubmitButton = !$event;
+}
+
 }
