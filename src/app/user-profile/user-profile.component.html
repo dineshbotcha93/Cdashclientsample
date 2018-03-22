@@ -500,7 +500,7 @@
           <ng-container *ngTemplateOutlet="editAccountFormTmpl"></ng-container>
         </div>
         <div class="modal-footer account-modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="updateAccount()">
+          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="updateAccount()" [ngClass]="{'btn-disable':disableSubmitButton}">
             <i class="fa fa-save"></i>Update Account
           </button>
         </div>
@@ -539,7 +539,7 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12">
-      <address-form-component (formReady)="addFormControl('address', $event)" ></address-form-component>
+      <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="enableSubmit($event)"></address-form-component>
     </div>
   </form>
 </ng-template>

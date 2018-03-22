@@ -231,13 +231,12 @@
   <modal id="networkAddModal" [isOpen]="showPopup" title="Add Location"
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
-      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup"></create-network>
+      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup" (enableSubmit)="enableSubmit($event)"></create-network>
 
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="form-group float-right">
-            <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
-            <input type="submit" value="Submit" class="btn btn-primary m-l-none">
+            <input type="submit" value="Submit" class="btn btn-primary m-l-none" [ngClass]="{'btn-disable':disableSubmitButton}">
           </div>
         </div>
       </div>
@@ -251,11 +250,11 @@
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left">
           <!--<h4 class="modal-title" id="myModalLabel">Edit Network</h4>-->
-          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm"></create-network>
+          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)"></create-network>
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group float-right">
-          <input type="submit" value="Save changes" class="btn btn-primary addBTN">
+          <input type="submit" value="Save changes" class="btn btn-primary addBTN" [ngClass]="{'btn-disable':disableSubmitButton}">
             <!--<i class="fa fa-save"></i>-->
           </div>
         </div>

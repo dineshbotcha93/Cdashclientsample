@@ -12,6 +12,8 @@ export class CreateNetworkComponent implements OnInit {
 
   @Output()
   private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output()
+  private enableSubmit: EventEmitter<any> = new EventEmitter<any>();
   public createNetworkForm: FormGroup;
 
 
@@ -31,6 +33,12 @@ export class CreateNetworkComponent implements OnInit {
   private addFormControl(name: string, formGroup: FormGroup) : void {
 
     this.createNetworkForm.addControl(name, formGroup);
+  }
+
+  private isValidAddress($event){
+    console.log('is valid address');
+    console.log($event);
+    this.enableSubmit.emit($event);
   }
 
 }
