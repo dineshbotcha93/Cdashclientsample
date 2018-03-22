@@ -10,7 +10,6 @@ import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.scss'],
-  providers: [NgbTooltipConfig],
 })
 
 export class UserCreateComponent implements OnInit {
@@ -84,7 +83,7 @@ export class UserCreateComponent implements OnInit {
         this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
           .then((data) => {
             localStorage.setItem('com.cdashboard.token', data);
-            this.userManagementService.saveRegistrationData(this.populateRegisterNewUserModel());
+            this.userManagementService.saveRegistrationData(this.populateRegisterExistingUserModel());
             this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
           })
           .catch((error: Error) => {

@@ -82,9 +82,11 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="loader" *ngIf="rows[0]=='N/A'"></div>
       <div class="message-history-container" *ngIf="rows[0]!=='N/A'">
-        <button class="btn btn-primary" (click)="export()">{{'global.exportPdf'|translate}}</button>
-        <input type="button" class="btn btn-primary col-md-3 col-sm-4 col-xs-12" value="Export" (click)="exportAsCSV()"/>
-
+        <div class="row">
+        <button class="btn btn-primary col-md-3 col-sm-4 col-xs-12" (click)="export()">{{'global.exportPdf'|translate}}</button>
+        <button class="btn btn-primary col-md-3 col-sm-4 col-xs-12" (click)="exportAsCSV()">Export</button>
+      </div>
+        <div class="row">
         <div class="dark-theme">
           <app-datatable
             *ngIf="rows[0]!=='N/A'"
@@ -93,6 +95,7 @@
             [limit]="limit">
           </app-datatable>
         </div>
+      </div>
       </div>
     </div>
 

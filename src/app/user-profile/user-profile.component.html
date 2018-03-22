@@ -422,7 +422,7 @@
           <ng-container *ngTemplateOutlet="editAccountFormTmpl"></ng-container>
         </div>
         <div class="modal-footer account-modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="updateAccount()">
+          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="updateAccount()" [ngClass]="{'btn-disable':disableSubmitButton}">
             <i class="fa fa-save"></i>Update Account
           </button>
         </div>
@@ -461,7 +461,7 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12">
-      <address-form-component (formReady)="addFormControl('address', $event)" ></address-form-component>
+      <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="enableSubmit($event)"></address-form-component>
     </div>
   </form>
 </ng-template>
@@ -481,7 +481,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2">SMS Number :</label>
+    <label class="col-sm-2">Cell Phone (SMS Number) :</label>
     <div class="col-sm-2">
       <p class="form-control-static">{{responseData?.smsNumber}}</p>
     </div>

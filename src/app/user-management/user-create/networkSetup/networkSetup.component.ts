@@ -22,6 +22,7 @@ export class NetworkSetupComponent implements OnInit {
   showPopup = false;
   showEditPopup = false;
   modalMessage ='';
+  disableSubmitButton = true;
   @ViewChild('editModal') editModal: TemplateRef<any>;
   private rows = null;
   isEdit = false;
@@ -195,6 +196,12 @@ export class NetworkSetupComponent implements OnInit {
   private prepareDataTableColumns() {
     this.columns.push({ prop: 'title', name: 'Network Name'});
     this.columns.push({ prop: 'city', name: '', cellTemplate: this.editModal});
+  }
+
+  private enableSubmit($event){
+    console.log("caught enable");
+    this.disableSubmitButton = !$event;
+    console.log($event);
   }
 
 }

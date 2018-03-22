@@ -8,9 +8,9 @@ import { PipesModule } from '../../shared/pipes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterByCriteria } from './pipes/filterByCriteria.pipe';
 
-import { Ng2SliderComponent } from 'ng2-slider-component/ng2-slider.component';
-import { SlideAbleDirective } from 'ng2-slideable-directive/slideable.directive';
-import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
+// import { Ng2SliderComponent } from 'ng2-slider-component/ng2-slider.component';
+// import { SlideAbleDirective } from 'ng2-slideable-directive/slideable.directive';
+// import { Ng2StyledDirective } from 'ng2-styled-directive/ng2-styled.directive';
 
 
 import { CreateDeviceComponent } from '../create-device/create-device.component';
@@ -35,9 +35,6 @@ const routes: Routes = [{
  declarations: [
     SensorSummaryComponent,
     FilterByCriteria,
-    SlideAbleDirective,
-    Ng2StyledDirective,
-    Ng2SliderComponent,
     CreateDeviceComponent],
   imports:[
     RouterModule.forChild(routes),
@@ -56,8 +53,6 @@ const routes: Routes = [{
     ModalModule.forRoot()
   ],
   exports: [
-    Ng2SliderComponent,
-    Ng2StyledDirective,
     CreateDeviceComponent,
     RouterModule
   ]
