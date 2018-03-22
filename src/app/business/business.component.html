@@ -25,7 +25,7 @@
         <h3>Customers Locations</h3>
         <div class="x_panel">
           <div class="x_content">
-            <!-- <app-map [markers]="mapData"></app-map> -->
+            <app-map [markers]="mapData" *ngIf="mapData?.length > 0"></app-map>
           </div>
         </div>
       </div>
