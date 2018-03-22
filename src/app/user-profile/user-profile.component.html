@@ -116,10 +116,10 @@
                 <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
               </ng-template>
               <ng-template #actionsColTmpl let-row="row">
-                <button class="btn btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
+                <button class="btn btn-xs btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
                   <i class="fa fa-edit"></i>Edit
                 </button>
-                <button class="btn btn-primary removeBTN" type="button">
+                <button class="btn btn-xs btn-primary removeBTN" type="button" (click)="deleteUser(row.userID)">
                   <i class="fa fa-trash"></i>Remove
                 </button>
               </ng-template>
@@ -130,7 +130,7 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Payment History" class="tab-content light-theme">
+      <tab tabTitle="Payment History" class="tab-content light-theme" (click)="getPaymentHistory()">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container">
             <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">
@@ -174,7 +174,7 @@
     <div class="row" style="margin-bottom:10px">
       <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">Details</button>
       <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button>
-      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Networks</button>
+      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="isNetworkBtn" (click)="toggleContent($event)">Networks</button>
     </div>
     <div class="row">
       <div class="col">
@@ -209,12 +209,12 @@
         <div class="form-group required">
           <label class="col-sm-3 lbl-ctrl" for="email-address">Email/User Name</label>
           <div class="col-sm-6">
-            <input type="email" class="form-control" formControlName="email" id="email-address" placeholder="Email Address">
-            <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert-error alert-danger">
-              <div *ngIf="email.errors.required">
+            <input type="email" class="form-control" formControlName="dashboardUserName" id="email-address" placeholder="Email Address">
+            <div *ngIf="dashboardUserName.invalid && (dashboardUserName.touched || dashboardUserName.dirty)" class="alert-error alert-danger">
+              <div *ngIf="dashboardUserName.errors.required">
                 Email is required.
               </div>
-              <div *ngIf="email.errors.email">
+              <div *ngIf="dashboardUserName.errors.email">
                 Email is not valid.
               </div>
             </div>
@@ -370,9 +370,14 @@
             <small class="form-check-input">Text</small>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="!isEditForm">
           <div class="col-sm-push-9 col-sm-3">
             <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save" (click)="saveUserData()">
+          </div>
+        </div>
+        <div class="form-group" *ngIf="isEditForm">
+          <div class="col-sm-push-9 col-sm-3">
+            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Update" (click)="updateUserData()">
           </div>
         </div>
       </div>
@@ -386,12 +391,11 @@
 </ng-template>
 
 <ng-template #networkSectionTmpl>
-  <div class="row network-container">
+  <div class="row network-container" [formGroup]="networkForm">
     <div class="col-sm-12">
       <div class="col-sm-6" *ngFor="let network of networkData;">
         <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" [attr.networkID]="network.networkID" [attr.checked]="network.canAccess? 'true' : null" 
-          [disabled]="isNetworkBtn">
+          <input type="checkbox" class="chk-box form-check-input" formControlName="{{network.networkID}}">
           <label class="form-check-input">
             <span class="chkbox-lbl">{{network.networkName}}</span>
           </label>
@@ -402,7 +406,7 @@
   <div class="col-sm-12" *ngIf="isNetworksContentCollapsed">
     <div class="form-group">
       <div class="col-sm-push-10 col-sm-2" style="margin-top:10px">
-        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save Networks">
+        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" (click)="saveUserNetworkPermssions()" value="Save Networks">
       </div>
     </div>
   </div>

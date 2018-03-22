@@ -1,20 +1,21 @@
 export module UserProfile {
 export class User {
-  userName: string;
-  password: string;
+  dashboardUserName: string;
+  dashboardPassword: string;
   confirmPassword: string;
   firstName: string;
   lastName: string;
-  admin: Boolean;
+  isAdmin: Boolean;
   //userID: number;
 }
 export class Notification {
-  email: string;
-  directSMS: string;
+  directSMS: number;
   smsNumber: string;
-  externalSMSProvider: string;
-  recievesMaintenanceByEmail: Boolean;
-  recievesMaintenanceByPhone: Boolean;
+  smsCarrierID: number;
+  recievesSensorNotificationByText: number;
+  recievesMaintenanceByEmail: number;
+  recievesMaintenanceByPhone: number;
+  countryCode: string;
 }
 
 export class UpdateAccount {
