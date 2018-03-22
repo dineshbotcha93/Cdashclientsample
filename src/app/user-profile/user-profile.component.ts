@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
-import {Location,AsyncPipe} from '@angular/common';
+import {Location, AsyncPipe} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
 import { FillDetailsService } from '../user-management/user-create/fill-details/fill-details.service';
 import { UserProfile } from './user.module';
@@ -92,6 +92,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private renewalRows: Array<PaymentHistoryData> = null;
   private renewalColumns: Array<any> = [];
   private loggedInUserId: number;
+  private editRecordUserId: number;
+  private newRecordUserId: number;
   private myNetworks: Array<any> = [];
   private loadPage: Boolean = false;
   private isShowUserTable: Boolean = true;
@@ -111,11 +113,11 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private limit = 10;
   private timeZones: Array<object> = [];
   private accId: number;
+  private isEditForm: Boolean = false;
   // private pwdPattern = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$';
 
   userForm = this.fb.group({
-    //dashboardUserName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
     dashboardPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
@@ -132,8 +134,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     recievesSensorNotificationByText: new FormControl(''),
     recievesMaintenanceByEmail: new FormControl(''),
     recievesMaintenanceByPhone: new FormControl(''),
-  });
-
+  }); 
+  networkForm = this.fb.group({});
   editAccountForm = this.fb.group({
     accountID: new FormControl(''),
     companyName: new FormControl(''),
@@ -157,11 +159,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     this.populateTimeZones();
     this.prepareUserColumns();
     this.prepareRenewalColumns();
+    this.getPaymentHistory();
   }
 
   ngAfterViewInit() {
     this.getUserProfileData();
-    this.updateNotifFormControls();
+   // this.updateNotifFormControls();
   }
 
   private populateTimeZones() {
@@ -173,14 +176,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   }
   private getUserProfileData() {
     this.userProfileService.getRealData().then(response => {
-      console.log(response);
       this.responseData = response.user;
       this.loggedInUserId = response.user.userID;
       this.userRows = response.users;
       this.accountData = response.user.account[0];
       this.accId = response.user.account[0].accountID;
       this.UpdateAccountData = response.user.account;
-      this.renewalRows = response.paymentHistories;
       this.isAdmin = response.user.admin;
       this.expiryDate = new Date(response.user.account[0].subscriptionExpiry);
       this.updateRenewalLabel();
@@ -195,10 +196,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   saveUserData() {
     let postData = JSON.stringify(this.prepareSaveData());
     this.userProfileService.saveUserData(postData).then(response => {
+      this.newRecordUserId = response;
       this.userForm.reset({});
       this.notificationForm.reset({});
       this.toastr.success('User created successfully');
       this.navigateToNetworkSection();
+    })
+    .catch(e => {
+      this.toastr.error(e.message);
     });
   }
   private prepareSaveData() {
@@ -206,9 +211,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       .getEncodedPassword(this.userForm.get('dashboardPassword').value);
     this.userForm.get('dashboardPassword').setValue(encodedPWD);
     let userObj = Object.assign({}, this.userForm.value, this.notificationForm.value);
-    userObj.dashboardUserName = this.userForm.get('email').value;
+    userObj.email = this.userForm.get('dashboardUserName').value;
     delete userObj['confirmPassword'];
     userObj.account = { 'accountID': this.accId };
+    userObj.recievesSensorNotificationByVoice = 0;
     userObj.productName = 'Notifeye';
     userObj.voiceNumber = '';
     if (this.notificationForm.get('directSMS').value === '1') {
@@ -247,7 +253,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   }
   addUser() {
     this.userForm.reset({});
+    this.notificationForm.reset({});
     this.isShowUserTable = false;
+    this.isEditForm = false;
+    this.updateNotifFormControls();
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
   showEditUserForm(userId) {
@@ -255,28 +264,77 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     let row: Array<UserData> = null;
     row = this.userRows.filter(item => item.userID === userId);
     this.populateUserEditForm(row);
-    //this.populateNotifEditForm(row);
+    this.populateNotifEditForm(row);
+    this.isEditForm = true;
+    this.editRecordUserId = userId;
   }
   private populateUserEditForm(row) {
-    let userObj = new UserProfile.User;
-    userObj.userName = row[0].userName;
-    userObj.password = 'password';
-    userObj.confirmPassword = 'password';
-    userObj.firstName = row[0].userName;
-    userObj.lastName = row[0].userName;
-    userObj.admin = row[0].admin;
+    let userObj = new UserProfile.User();
+    userObj.dashboardUserName = row[0].emailAddress;
+    userObj.dashboardPassword = '123456A@';
+    userObj.confirmPassword = '123456A@';
+    userObj.firstName = row[0].firstName;
+    userObj.lastName = row[0].lastName;
+    userObj.isAdmin = row[0].admin;
     this.userForm.setValue(userObj);
   }
-  // private populateNotifEditForm(row) {
-  //   let notifObj = new UserProfile.Notification;
-  //   notifObj.email = row[0].emailAddress;
-  //   notifObj.directSMS = false;
-  //   notifObj.externalSMSProvider = 'sms';
-  //   notifObj.smsNumber = '123454567891';
-  //   notifObj.recievesMaintenanceByEmail = true;
-  //   notifObj.recievesMaintenanceByPhone = true;
-  //   this.notificationForm.setValue(notifObj);
-  // }
+  private populateNotifEditForm(row) {
+    let notifObj = new UserProfile.Notification;
+    notifObj.directSMS = Number(row[0].directSMS);
+    notifObj.smsCarrierID = row[0].smsCarrierID;
+    notifObj.smsNumber = row[0].smsNumber;
+    notifObj.countryCode = '91';//---Remove HardCODE---
+    notifObj.recievesSensorNotificationByText = row[0].recievesNotificaitonsBySMS;
+    notifObj.recievesMaintenanceByEmail = row[0].recievesMaintenanceByEmail;
+    notifObj.recievesMaintenanceByPhone = row[0].recievesMaintenanceBySMS;
+    this.notificationForm.setValue(notifObj);
+    if (row[0].directSMS === false) {
+      this.isDirectSMS = false;
+      this.isCountryCode = false;
+      this.notificationForm.controls['smsCarrierID'].setValue(notifObj.smsCarrierID, { onlySelf: true });
+    } else {
+      this.isDirectSMS = true;
+      this.isCountryCode = true;
+    }
+  }
+  updateUserData() {
+   let postData = JSON.stringify(this.prepareUpdateData());
+    console.log(postData);
+    this.userProfileService.updateUserData(postData).then(response => {
+      this.userForm.reset({});
+      this.notificationForm.reset({});
+      this.toastr.success('User updated successfully');
+      this.showUsersTab();
+    });
+  }
+  private prepareUpdateData() {
+    let pwd = this.userForm.get('dashboardPassword').value;
+    if (pwd !== '123456A@') {
+    let encodedPWD = this.commonSharedService
+      .getEncodedPassword(pwd);
+      this.userForm.get('dashboardPassword').setValue(encodedPWD);
+    }
+    else {
+      this.userForm.get('dashboardPassword').setValue('');
+    }
+    
+    let userObj = Object.assign({}, this.userForm.value, this.notificationForm.value);
+    userObj.email = this.userForm.get('dashboardUserName').value;
+    delete userObj['confirmPassword'];
+    userObj.account = { 'accountID': this.accId };
+    if (this.notificationForm.get('directSMS').value === '1') {
+      userObj.smsCarrierID = 0;
+      userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
+    }
+    delete userObj['countryCode'];
+    userObj.isAdmin = (this.userForm.get('isAdmin').value === null) ? 0 : Number(this.userForm.get('isAdmin').value);
+    userObj.recievesSensorNotificationByText = Number(this.notificationForm.get('recievesSensorNotificationByText').value);
+    userObj.recievesMaintenanceByEmail = Number(this.notificationForm.get('recievesMaintenanceByEmail').value);
+    userObj.recievesMaintenanceByPhone = Number(this.notificationForm.get('recievesMaintenanceByPhone').value);
+    userObj.userID = this.editRecordUserId;
+    userObj.networkPermissions = [];
+    return userObj;
+  }
   showUsersTab() {
     this.isShowUserTable = true;
   }
@@ -352,6 +410,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       if (value === '0') {
         this.isDirectSMS = false;
         this.isCountryCode = false;
+        this.notificationForm.controls['smsCarrierID'].setValue('', { onlySelf: true });
       } else {
         this.isDirectSMS = true;
         this.isCountryCode = true;
@@ -398,16 +457,62 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getNetworksByUser(userId) {
+  getNetworksByUser(id) {
     this.myNetworks = [];
+    let userId = this.isEditForm? this.editRecordUserId : id;
     this.userProfileService.getUserNetworks(userId).then(response => {
       this.networkData = response;
+      response.forEach(item => {
+        this.networkForm.addControl(item.networkID, new FormControl(false));              
+      });
+      return response;
+    }
+  )
+    .then((response) => {
+    response.forEach(item => {
+        if(item.canAccess === true) {
+          let id = item.networkID;
+          this.networkForm.patchValue({ id : true, tc:true});
+        }
+      });  
     })
     .catch(error => {
       console.log(error);
     });
   }
 
+  getPaymentHistory() { 
+    this.userProfileService.getPaymentHistoryData().then(response => {
+      this.renewalRows = response;
+    });
+  }
+
+  saveUserNetworkPermssions() {
+    let data = this.networkForm.value;
+    let selectedNetworks =  [];
+    let customerId = this.isEditForm? this.editRecordUserId : this.newRecordUserId;
+    Object.keys(data).forEach(function(key) {
+      if(data[key] === true) {
+        selectedNetworks.push(key);
+      }
+    });
+    let postData = {
+      'customerID': customerId,
+      'permissionList': [],
+      'networkList': selectedNetworks
+    }
+   this.userProfileService.postUserNetworkPermissions(postData).then(response => {
+      this.showUsersTab();
+      this.toastr.success('User permissions saved successfully');
+      this.getUserProfileData();
+    });
+  }
+  deleteUser(userId) {
+     this.userProfileService.deleteUser(userId).then(response => {
+      this.toastr.success('User removed successfully');
+      this.getUserProfileData();
+     });
+  }
   private addFormControl(name: string, formGroup: FormGroup): void {
     this.editAccountForm.addControl(name, formGroup);
   }
@@ -427,9 +532,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   }
   get lastName() {
     return this.userForm.get('lastName');
-  }
-  get email() {
-    return this.userForm.get('email');
   }
   get directSMS() {
     return this.notificationForm.get('directSMS');
