@@ -127,6 +127,8 @@ editAccountForm = this.fb.group ({
   timeZoneID: new FormControl(''),
 });
 
+disableSubmitButton = true;
+
 
   private user = new UserProfile.User();
   private notification = new UserProfile.Notification();
@@ -376,6 +378,10 @@ get resellerID(){
 }
 get timeZoneID(){
   return this.editAccountForm.get('timeZoneID');
+}
+
+enableSubmit($event){
+  this.disableSubmitButton = !$event;
 }
 
 }

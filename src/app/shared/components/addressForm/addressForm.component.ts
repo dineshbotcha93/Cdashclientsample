@@ -52,12 +52,12 @@ export class AddressFormComponent implements OnInit {
         this.addressForm.get('country').value!=='' &&
         this.addressForm.valid
       ){
-        const country = this.addressForm.get('country').value;
-        const street = this.addressForm.get('street').value;
-        const city = this.addressForm.get('city').value;
-        const zipcode = this.addressForm.get('zipcode').value;
-        const state = this.addressForm.get('state').value;
-        const housenumber = this.addressForm.get('housenumber').value;
+        const country = this.addressForm.get('country').value || '';
+        const street = this.addressForm.get('street').value || '';
+        const city = this.addressForm.get('city').value || '';
+        const zipcode = this.addressForm.get('zipcode').value || '';
+        const state = this.addressForm.get('state').value || '';
+        const housenumber = this.addressForm.get('housenumber').value || '';
         this.mapService.geoCode(housenumber+street+city+zipcode+state+country).then((geoCoded)=>{
           console.log(geoCoded.status);
           if(geoCoded.status == 'OK'){

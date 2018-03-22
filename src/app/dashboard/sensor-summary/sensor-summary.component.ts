@@ -86,6 +86,7 @@ export class SensorSummaryComponent implements OnInit {
   netWorkIdToMove: string = null;
 
   selectDetailsToEditOrSave:any = [];
+  disableSubmitButton: boolean = true;
 
   // notificationRadio: any = 'overview';
 
@@ -361,6 +362,7 @@ export class SensorSummaryComponent implements OnInit {
   }
 
   private onClickAddNetwork() {
+    this.disableSubmitButton = true;
     this.showPopup = true;
   }
 
@@ -443,6 +445,7 @@ export class SensorSummaryComponent implements OnInit {
 
   private onClickEditNetwork() {
     this.showEditPopup = true;
+    this.disableSubmitButton = true;
     console.log(this.mapData);
     this.editNetworkData = {
       name: this.selectLocation.Title,
@@ -910,6 +913,12 @@ export class SensorSummaryComponent implements OnInit {
     // console.log(this.selectLocation);
     localStorage.setItem("com.cdashboard.selectedNetworkId", this.selectLocation.Id);
     this.router.navigate(['dashboard/sensor-comparison', 'I1']);
+  }
+
+  enableSubmit($event){
+    console.log('got enable submit');
+    console.log($event);
+    this.disableSubmitButton = !$event;
   }
 
 
