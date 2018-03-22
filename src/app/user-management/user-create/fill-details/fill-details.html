@@ -52,7 +52,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeZone">Time Zone </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select formControlName="timeZone" class="form-control m-b-md">
-                  <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
+                  <option value="{{tZ.name}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
                 </select>
               </div>
               <div *ngIf="accountForm.get('timeZone').touched">

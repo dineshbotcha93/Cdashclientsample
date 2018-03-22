@@ -87,7 +87,7 @@
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
             <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
             <input type="password" class="form-control" name="password" required placement="top"
-                   triggers="focus" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements"
+                   triggers="focus:blur" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements"
                    formControlName="password" required placeholder="Password"/>
           </div>
           <div *ngIf="userCreateForm.get('password').touched">

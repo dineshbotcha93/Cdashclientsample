@@ -12,7 +12,7 @@
         <button class="btn btn-lg btn-success gap-bottom" (click)="addNetwork()">Add Network</button>
         <app-datatable class="editNetworkSetup-dataTable"
                        #dataTable
-                       *ngIf="rows.length > 0"
+                       *ngIf="rows && rows.length > 0"
                        [rows]="rows"
                        [columns]="columns"
                        [limit]="limit">
