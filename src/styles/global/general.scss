@@ -1,3 +1,8 @@
+html {
+  //height: 100%;
+  height: 100vh;
+  min-height: 100%;
+}
 
 body {
   font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
@@ -6,10 +11,26 @@ body {
   max-width: $body-max-width;
   margin-left: auto;
   margin-right: auto;
+  //height: 100%;
+  height: 100vh;
+  min-height: 100%;
 
   .container.body {
+    //height: 100%;
+    height: 100vh;
+    min-height: 100%;
+
     .right_col {
+      //height: 100%;
+      /*height: 100vh;*/
+      min-height: 100%;
       box-shadow: 0 0 15px $color-black;
+    }
+
+    .main_container {
+      //height: 100%;
+      height: 100vh;
+      min-height: 100%;
     }
   }
 }
