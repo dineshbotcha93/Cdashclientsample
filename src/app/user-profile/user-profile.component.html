@@ -116,10 +116,10 @@
                 <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
               </ng-template>
               <ng-template #actionsColTmpl let-row="row">
-                <button class="btn btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
+                <button class="btn btn-xs btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
                   <i class="fa fa-edit"></i>Edit
                 </button>
-                <button class="btn btn-primary removeBTN" type="button">
+                <button class="btn btn-xs btn-primary removeBTN" type="button" (click)="deleteUser(row.userID)">
                   <i class="fa fa-trash"></i>Remove
                 </button>
               </ng-template>
@@ -130,7 +130,7 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Payment History" class="tab-content light-theme">
+      <tab tabTitle="Payment History" class="tab-content light-theme" (click)="getPaymentHistory()">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container">
             <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">
@@ -174,7 +174,7 @@
     <div class="row" style="margin-bottom:10px">
       <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">Details</button>
       <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button>
-      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Networks</button>
+      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="isNetworkBtn" (click)="toggleContent($event)">Networks</button>
     </div>
     <div class="row">
       <div class="col">
@@ -207,12 +207,15 @@
     <div class="col-sm-12">
       <div class="col-sm-6">
         <div class="form-group required">
-          <label class="col-sm-3 lbl-ctrl" for="username">User Name</label>
+          <label class="col-sm-3 lbl-ctrl" for="email-address">Email/User Name</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="userName" class="form-control" placeholder="User Name">
-            <div *ngIf="userName.invalid && (userName.touched || userName.dirty)" class="alert-error alert-danger">
-              <div *ngIf="userName.errors?.required">
-                Name is required.
+            <input type="email" class="form-control" formControlName="dashboardUserName" id="email-address" placeholder="Email Address">
+            <div *ngIf="dashboardUserName.invalid && (dashboardUserName.touched || dashboardUserName.dirty)" class="alert-error alert-danger">
+              <div *ngIf="dashboardUserName.errors.required">
+                Email is required.
+              </div>
+              <div *ngIf="dashboardUserName.errors.email">
+                Email is not valid.
               </div>
             </div>
           </div>
@@ -220,15 +223,15 @@
         <div class="form-group required">
           <label class="col-sm-3 lbl-ctrl" for="password">Password</label>
           <div class="col-sm-7">
-            <input type="password" class="form-control" formControlName="password" id="password" style="width:85%; display:inline-block"
+            <input type="password" class="form-control" formControlName="dashboardPassword" id="password" style="width:85%; display:inline-block"
               placeholder="Password">
             <!-- <button type="button" class="btn btn-outline-secondary" placement="top" ngbTooltip="Tooltip on top">
               <i class="fa fa-question-circle"></i></button> -->
-            <div *ngIf="password.invalid && (password.touched || password.dirty)" class="alert-error alert-danger" style="width: 85%;">
-              <div *ngIf="password.errors?.required">
+            <div *ngIf="dashboardPassword.invalid && (dashboardPassword.touched || dashboardPassword.dirty)" class="alert-error alert-danger" style="width: 85%;">
+              <div *ngIf="dashboardPassword.errors?.required">
                 Password is required.
               </div>
-              <div *ngIf="password.errors.pattern">
+              <div *ngIf="dashboardPassword.errors.pattern">
                 Password is not valid.
               </div>
             </div>
@@ -275,7 +278,7 @@
         <div class="form-group">
           <label class="col-sm-3 form-check-input" for="IsAdministrator">Is Administrator</label>
           <div class="col-sm-1">
-            <input type="checkbox" formControlName="admin" class="form-check-input">
+            <input type="checkbox" formControlName="isAdmin" class="form-check-input">
           </div>
         </div>
         <div class="form-group">
@@ -294,27 +297,13 @@
 <ng-template #notificationSectionTmpl>
   <div class="form-horizontal" [formGroup]="notificationForm">
     <div class="col-sm-12">
-      <div class="col-sm-6">
-        <div class="form-group required">
-          <label class="col-sm-3 lbl-ctrl" for="email-address">Email Address</label>
-          <div class="col-sm-6">
-            <input type="email" class="form-control" formControlName="email" id="email-address" placeholder="Email Address">
-            <div *ngIf="email.invalid && (email.touched || email.dirty)" class="alert-error alert-danger">
-              <div *ngIf="email.errors.required">
-                Email is required.
-              </div>
-              <div *ngIf="email.errors.email">
-                Email is not valid.
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="col-sm-6">        
         <div class="form-group">
           <label class=" col-sm-3" for="sms-settings">Text (SMS) Settings :</label>
           <div class="col-sm-6">
             <select class="form-control" formControlName="directSMS" name="directSMS">
-              <option [ngValue]="0">External Provider</option>
-              <option [ngValue]="1">Direct Delivery</option>
+              <option [value]="0">External Provider</option>
+              <option [value]="1">Direct Delivery</option>
             </select>
           </div>
         </div>
@@ -322,13 +311,13 @@
           <div class="form-group">
             <label class=" col-sm-3" for="sms-provider">SMS Provider :</label>
             <div class="col-sm-6">
-              <select class="form-control" id="sms-provider" name="sms-provider" formControlName="smsProvider">
+              <select class="form-control" id="sms-provider" name="sms-provider" formControlName="smsCarrierID">
                 <option value="">Select One</option>
-                <option selected="selected" value="1">AT&T SMS</option>
-                <option value="2">AT&T MMS</option>
-                <option value="3">Sprint PCS</option>
-                <option value="4">T-Mobile </option>
-                <option value="5">Verizon</option>
+                <option selected="selected" [value]="1">AT&T SMS</option>
+                <option [value]="2">AT&T MMS</option>
+                <option [value]="3">Sprint PCS</option>
+                <option [value]="4">T-Mobile </option>
+                <option [value]="5">Verizon</option>
               </select>
             </div>
           </div>
@@ -360,11 +349,11 @@
             </div>
           </label>
           <div class="col-sm-6">
-            <input type="checkbox" class="form-check-input" id="email">
+            <input type="checkbox" class="form-check-input" id="email" checked="checked" disabled>
             <small class="form-check-input">Email (Required)</small>
           </div>
           <div class="col-sm-6">
-            <input type="checkbox" class="form-check-input" id="text">
+            <input type="checkbox" class="form-check-input" id="text" formControlName="recievesSensorNotificationByText">
             <small class="form-check-input">Text</small>
           </div>
         </div>
@@ -381,9 +370,14 @@
             <small class="form-check-input">Text</small>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="!isEditForm">
           <div class="col-sm-push-9 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Next" (click)="navigateToNetworkSection()">
+            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save" (click)="saveUserData()">
+          </div>
+        </div>
+        <div class="form-group" *ngIf="isEditForm">
+          <div class="col-sm-push-9 col-sm-3">
+            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Update" (click)="updateUserData()">
           </div>
         </div>
       </div>
@@ -397,81 +391,13 @@
 </ng-template>
 
 <ng-template #networkSectionTmpl>
-  <div class="row">
-    <div class="col-sm-12 network-container">
-      <div class="col-sm-6">
+  <div class="row network-container" [formGroup]="networkForm">
+    <div class="col-sm-12">
+      <div class="col-sm-6" *ngFor="let network of networkData;">
         <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator1">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Can See Network Atlantic City Margaritaville</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator2">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-1</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator3">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-2</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator4">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-3</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator5">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-4</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator6">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-5</span>
-          </label>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator7">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-6</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator8">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-7</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator9">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-8</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator10">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-9</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class=" chk-box form-check-input" id="IsAdministrator11">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-10</span>
-          </label>
-        </div>
-        <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" id="IsAdministrator12">
-          <label class="form-check-input" for="IsAdministrator">
-            <span class="chkbox-lbl">Network-11</span>
+          <input type="checkbox" class="chk-box form-check-input" formControlName="{{network.networkID}}">
+          <label class="form-check-input">
+            <span class="chkbox-lbl">{{network.networkName}}</span>
           </label>
         </div>
       </div>
@@ -480,7 +406,7 @@
   <div class="col-sm-12" *ngIf="isNetworksContentCollapsed">
     <div class="form-group">
       <div class="col-sm-push-10 col-sm-2" style="margin-top:10px">
-        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save">
+        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" (click)="saveUserNetworkPermssions()" value="Save Networks">
       </div>
     </div>
   </div>
