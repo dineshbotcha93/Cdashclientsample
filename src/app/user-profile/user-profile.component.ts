@@ -2,17 +2,18 @@ import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ElementRef, g
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
-import {Location, AsyncPipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
 import { FillDetailsService } from '../user-management/user-create/fill-details/fill-details.service';
 import { UserProfile } from './user.module';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { CommonSharedService } from '../shared/services/common-shared.service';
+import 'rxjs/add/operator/map';
 declare var $: any;
 
 export interface NetworkData {
@@ -135,7 +136,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     recievesMaintenanceByEmail: new FormControl(''),
     recievesMaintenanceByPhone: new FormControl(''),
   }); 
-  networkForm = this.fb.group({});
+   networkForm = this.fb.group({});
   editAccountForm = this.fb.group({
     accountID: new FormControl(''),
     companyName: new FormControl(''),
@@ -152,9 +153,15 @@ disableSubmitButton = true;
   private editAccount = new UserProfile.RealEditAccount();
 
   constructor(private userProfileService: UserProfileService, private fillDetailsService: FillDetailsService,
-    private _location: Location, private ele: ElementRef, private fb: FormBuilder, private commonSharedService: CommonSharedService,
+    private route: ActivatedRoute, private router: Router, private ele: ElementRef,
+     private fb: FormBuilder, private commonSharedService: CommonSharedService,
     private toastr: ToastsManager, vcr: ViewContainerRef) {
+     
+      this.route.params.subscribe((params) => {
+        console.log(params);
+      });
     this.toastr.setRootViewContainerRef(vcr);
+    this.buildNetworks();
   }
   ngOnInit() {
     this.updateNotifFormControls();
@@ -344,7 +351,7 @@ disableSubmitButton = true;
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
   goToPrevPage() {
-    this._location.back();
+    this.router.navigate(['dashboard']);
   }
   toggleContent(e) {
     let section = e.currentTarget.attributes.section.value;
@@ -369,7 +376,7 @@ disableSubmitButton = true;
       this.isProfileContentCollapsed = false;
     } else if (section === 'networks-content') {
       this.isNetworksContentCollapsed = false;
-      this.getNetworksByUser(this.loggedInUserId);
+      //this.getNetworksByUser(this.loggedInUserId);
     }
 
   }
@@ -464,9 +471,6 @@ disableSubmitButton = true;
     let userId = this.isEditForm? this.editRecordUserId : id;
     this.userProfileService.getUserNetworks(userId).then(response => {
       this.networkData = response;
-      response.forEach(item => {
-        this.networkForm.addControl(item.networkID, new FormControl(false));              
-      });
       return response;
     }
   )
@@ -474,7 +478,7 @@ disableSubmitButton = true;
     response.forEach(item => {
         if(item.canAccess === true) {
           let id = item.networkID;
-          this.networkForm.patchValue({ id : true, tc:true});
+        //  this.networkForm.patchValue({ id : true, tc:true});
         }
       });  
     })
@@ -515,6 +519,20 @@ disableSubmitButton = true;
       this.getUserProfileData();
      });
   }
+   buildNetworks() {
+    this.userProfileService.getUserNetworks(82).then(response => {
+      this.networkData = response;
+      return response;
+    })
+    .then((response) => {
+      const arr = response.map(network => {
+        return this.fb.control(network.canAccess);
+      });
+      this.networkForm = this.fb.group({
+            networkList: this.fb.array(arr)
+          });
+    });
+   }
   private addFormControl(name: string, formGroup: FormGroup): void {
     this.editAccountForm.addControl(name, formGroup);
   }
@@ -559,8 +577,12 @@ disableSubmitButton = true;
   get countryCode() {
     return this.notificationForm.get('countryCode');
   }
+  get networkList() {
+    return this.networkForm.get('networkList');
+  }
 enableSubmit($event){
   this.disableSubmitButton = !$event;
 }
+
 
 }
