@@ -355,9 +355,12 @@
             <input type="checkbox" name="allSensor" [(ngModel)]="isSelectedAll" (change)="onCheckAll($event)" />
           </div>
         </th>
-        <th class="col-md-3">Sensor Id</th>
-        <th class="col-md-3">Sensor Name</th>
-        <th class="col-md-3">Sensor Interval</th>
+        <th class="col-md-2">Sensor Id</th>
+        <th class="col-md-2">Sensor Name</th>
+        <th class="col-md-1">Heartbeat</th>
+        <th class="col-md-1">Min Threshold</th>
+        <th class="col-md-1">Max Threshold</th>
+         <th class="col-md-3">Scale</th>
 
       </tr>
     </thead>
@@ -366,17 +369,36 @@
         <td class="col-md-1">
           <input type="checkbox" [(ngModel)]="sensor.checked" [name]="sensor.sensorName" (change)="onClickInlineCheckBox($event,sensor)">
         </td>
-        <td class="col-md-3">{{sensor.sensorID}}</td>
-        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
-        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.heartBeat}}</td>
-        <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
+        <td class="col-md-2">{{sensor.sensorID}}</td>
+        <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.sensorName}}</td>
+        <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.heartBeat}}</td>
+         <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.minimumThreshold}}</td>
+          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.maximumThreshold}}</td>
+        
+        <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
         </td>
-         <td class="col-md-3" *ngIf="sensor.gateWayEditOption ==='edit'">
+         <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
         </td>
+         <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <input class="form-control" type="text" name="sensorName" value="{{sensor.minimumThreshold}}" [(ngModel)]="sensor.minimumThreshold">
+        </td>
+         <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <input class="form-control" type="text" name="sensorName" value="{{sensor.maximumThreshold}}" [(ngModel)]="sensor.maximumThreshold">
+        </td>
 
-
+           <!-- <td class="col-md-3">{{sensor.scale}}</td> -->
+             <td>
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="btn-group">
+              <label class="btn btn-primary btn-xs" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
+              </label>
+              <label class="btn btn-primary btn-xs" [(ngModel)]="sensor.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,sensor)">F
+              </label>
+            </div>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

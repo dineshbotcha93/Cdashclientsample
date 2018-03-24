@@ -105,26 +105,24 @@ export class SensorSummaryService {
   }
 
    /* Move  the gateway details*/
-  moveSensorDetails(sensorObj:Array<any>){
+  moveSensorDetails(moveSensorObj){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', sensorObj);
-  }
-
-  moveGateway(deviceId,networkID,checkDigit,deviceType){
-     const URL = '/api/'+deviceType+'/'+deviceId+'/AssignTo?NetworkID='+networkID;
+      const URL = '/api/Sensor/BulkAssignTo';
      // +'&CheckDigit=AAA';
      // +'/CheckDigit='+CheckDigit;
     console.log('URL----',URL);
      return this.requesterService
-    .putExternalRequest(URL,{});
+    .putExternalRequest(URL,moveSensorObj);
   }
 
-
-
-  /* Move  the gateway details*/
-  moveGatewayDetails(gatewayObj:Array<any>){
+    moveGatewayDetails(moveGatewayObj){
     /*Place a mock call and return response*/
-    return this.http.post('http://jsonplaceholder.typicode.com/posts', gatewayObj);
+      const URL = '/api/Gateway/BulkAssignTo';
+     // +'&CheckDigit=AAA';
+     // +'/CheckDigit='+CheckDigit;
+    console.log('URL----',URL);
+     return this.requesterService
+    .putExternalRequest(URL,moveGatewayObj);
   }
 
   getSentNotificationsDetails(requestObject:any){
@@ -181,5 +179,10 @@ export class SensorSummaryService {
   }
   getGlobalNotificationsList(accountID:string) {
      return this.requesterService.getExternalRequest('/api/Account/'+'72'+'/Details');
+  }
+
+  updateSensorScale(putData){
+    return this.requesterService
+      .putExternalRequest('/api/Sensor/UpdateAttribute', putData);
   }
 }
