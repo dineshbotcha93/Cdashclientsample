@@ -26,7 +26,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
   public accountForm: FormGroup;
   private isNewMaster = false;
-  private accountInfo: any;
+  private accountInfo: any = null;
   private email = null;
   postData: object = {};
 
@@ -203,7 +203,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         purchaseLocation: accountForm.get('placeOfPurchase').value,
         industryType: accountForm.get('industry_type').value,
         businessType: accountForm.get('business_type').value,
-        timeZone: accountForm.get('timeZone').value,
+        timeZone: this.fetchTimeZone(accountForm.get('timeZone').value).id,
         latitude: coordinates.latitude,
         longitude: coordinates.longitude,
       }
