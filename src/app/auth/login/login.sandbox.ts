@@ -39,6 +39,14 @@ export class LoginSandbox extends Sandbox {
     .then((e)=>{
       localStorage.setItem('com.cdashboard.token', e);
       this.requesterService.getExternalRequest('/api/User/Info').then((res)=>{
+
+    
+
+        //set global Object
+
+          localStorage.setItem('com.cdashboard.userInfoObject', JSON.stringify(res));
+
+
         if(res.userName=="Admin"){
           this.router.navigate(['business']);
         } else {

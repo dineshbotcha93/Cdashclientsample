@@ -175,8 +175,12 @@
 
               <div *ngIf="isSelectedToAddDevice">
                 <div class="col-md-12 dark-theme">
-                  <app-create-device [deviceType]="radioModel" [inputNetworkData]="locationData" [selectedNetwork]="selectLocation" (messageEvent)="receiveMessage($event)"
-                    (messageCancelEvent)="receiveCancelMessage($event)">
+                  <app-create-device [deviceType]="radioModel" 
+                  [inputNetworkData]="locationData" 
+                  [selectedNetwork]="selectLocation" 
+                  [accountID]="accountID" 
+                  (messageEvent)="receiveMessage($event)"
+                  (messageCancelEvent)="receiveCancelMessage($event)">
                   </app-create-device>
                 </div>
               </div>

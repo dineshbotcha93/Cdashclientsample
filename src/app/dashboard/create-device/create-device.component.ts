@@ -14,6 +14,8 @@ export class CreateDeviceComponent implements OnInit {
   @Input() inputNetworkData: Array<any> = [];
 
   @Input() selectedNetwork: any;
+   @Input() accountID: any;
+  
 
   @Output() messageEvent = new EventEmitter<boolean>();
 
@@ -33,7 +35,7 @@ export class CreateDeviceComponent implements OnInit {
       gatewayTypeID: "",
       serialNumber: "",
       macAddress: "",
-      accountID: "71",
+      accountID: "",
       minThreshold: 10,
       maxThreshold: 100,
       heartBeat: 30,
@@ -45,6 +47,8 @@ export class CreateDeviceComponent implements OnInit {
 
   ngOnInit() {
     this.setDeviceModelInitiate();
+
+    console.log('accountID',this.accountID);
 
     this.deviceType = this.deviceType.toUpperCase();
 
@@ -90,7 +94,7 @@ export class CreateDeviceComponent implements OnInit {
       requestObject = {
         sensorID: this.deviceModel.id,
         networkID: this.deviceModel.networkID,
-        accountID: this.deviceModel.accountID,
+        accountID: this.accountID,
         monnitApplicationID: this.deviceModel.monnitApplicationID,
         name: this.deviceModel.name,
         sensorCode: this.deviceModel.code,

@@ -108,6 +108,7 @@ export class SensorSummaryComponent implements OnInit {
   showEditPopup: boolean = false;
   private networkFormSetup: FormGroup;
   private networkEditForm: FormGroup;
+  accountID:string;
 
   constructor(
     private route: ActivatedRoute,
@@ -143,7 +144,15 @@ export class SensorSummaryComponent implements OnInit {
     this.translate.use("en");
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+    console.log(userInfoObject);
+    userInfoObject['account'].forEach(loc => {
+       console.log('loc', loc);
+       this.accountID = loc.accountID;
+     });
+  }
 
   private getDropdownDetails() {
     this.sensorSummaryService.getNetworkLocations().then(result => {
@@ -560,6 +569,8 @@ export class SensorSummaryComponent implements OnInit {
   }
 
   onClickAddDetail() {
+
+    console.log('accountID',this.accountID);
     this.isSelectedToAddDevice = true;
     //on success
     this.disable = {
