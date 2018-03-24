@@ -39,4 +39,14 @@ export class SensorDetailsService {
     return this.requesterService
     .getExternalRequest('/api/Sensor/Details/'+location);
   }
+
+  saveComments(comments){
+    return this.requesterService
+    .putExternalRequest('/api/Sensor/Note',comments);
+  }
+
+  getComments(sensorId){
+    return this.requesterService
+    .getExternalRequest('/api/Sensor/'+sensorId+'/Note');
+  }
 }

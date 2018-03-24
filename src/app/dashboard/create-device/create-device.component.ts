@@ -14,6 +14,8 @@ export class CreateDeviceComponent implements OnInit {
   @Input() inputNetworkData: Array<any> = [];
 
   @Input() selectedNetwork: any;
+   @Input() accountID: any;
+  
 
   @Output() messageEvent = new EventEmitter<boolean>();
 
@@ -26,17 +28,18 @@ export class CreateDeviceComponent implements OnInit {
   setDeviceModelInitiate() {
     this.deviceModel = {
       name: "",
+      id: "",
       gatewayID: "",
       code: "",
       networkID: "",
       gatewayTypeID: "",
       serialNumber: "",
       macAddress: "",
-      radioBand: "",
-      apnFirmwareVersion: "",
-      gatewayFirmwareVersion: "",
-      powerSourceID: "11",
-      customerID: "85"
+      accountID: "",
+      minThreshold: 10,
+      maxThreshold: 100,
+      heartBeat: 30,
+      monnitApplicationID: "1"
     };
   }
 
@@ -45,21 +48,23 @@ export class CreateDeviceComponent implements OnInit {
   ngOnInit() {
     this.setDeviceModelInitiate();
 
+    console.log('accountID',this.accountID);
+
     this.deviceType = this.deviceType.toUpperCase();
 
     this.gatewayTypeObject = [
       {
         typeId: "-99",
         name: "Base Station"
-      },
-      {
-        typeId: "2",
-        name: "USB Service"
-      },
-      {
-        typeId: "7",
-        name: "Ethernet Gateway 3.0"
       }
+      // {
+      //   typeId: "2",
+      //   name: "USB Service"
+      // },
+      // {
+      //   typeId: "7",
+      //   name: "Ethernet Gateway 3.0"
+      // }
     ];
 
     console.log(this.gatewayTypeObject);
@@ -69,9 +74,58 @@ export class CreateDeviceComponent implements OnInit {
 
   onClickAddDetail() {
     console.log(this.deviceModel);
+    console.log(this.deviceType);
     this.deviceModel.networkID = this.selectedNetwork.Id;
-    this.createDeviceService.createGateway(this.deviceModel).then(e => {});
-    this.messageEvent.emit(this.message);
+
+    // this.messageEvent.emit(this.message);
+
+    let requestObject: any = [];
+
+    if (this.deviceType === "SENSOR") {
+      let monnitId = this.deviceModel.id.substring(0, 2);
+
+      this.deviceModel.monnitApplicationID = "2";
+      if (monnitId === "21") {
+        this.deviceModel.monnitApplicationID = "43";
+      } else if (monnitId === "21") {
+        this.deviceModel.monnitApplicationID = "9";
+      }
+
+      requestObject = {
+        sensorID: this.deviceModel.id,
+        networkID: this.deviceModel.networkID,
+        accountID: this.accountID,
+        monnitApplicationID: this.deviceModel.monnitApplicationID,
+        name: this.deviceModel.name,
+        sensorCode: this.deviceModel.code,
+        minimumThreshold: this.deviceModel.minThreshold,
+        maximumThreshold: this.deviceModel.maxThreshold,
+        heartBeat: this.deviceModel.heartBeat
+      };
+      console.log("requestObject", requestObject);
+      this.createDeviceService.createSensor(requestObject).then(e => {
+        this.messageEvent.emit(this.message);
+      });
+    }
+    if (this.deviceType === "GATEWAY") {
+      //for basestation
+      requestObject = {
+        gatewayID: this.deviceModel.serialNumber,
+        networkID: this.deviceModel.networkID,
+        name:
+          this.gatewayTypeObject[0].name +
+          " - " +
+          this.deviceModel.serialNumber,
+        gatewayTypeID: this.deviceModel.gatewayTypeID,
+        serialNumber: this.deviceModel.serialNumber,
+        macAddress: this.deviceModel.macAddress
+      };
+
+      console.log("requestObject", requestObject);
+      this.createDeviceService.createGateway(requestObject).then(e => {
+        this.messageEvent.emit(this.message);
+      });
+    }
   }
 
   onClickCancelDetail() {
@@ -79,8 +133,10 @@ export class CreateDeviceComponent implements OnInit {
   }
 
   onChangeGatewayType(e) {
+    debugger;
     this.setDeviceModelInitiate();
     this.deviceModel.gatewayTypeID = e.typeId;
+    this.deviceModel.name = e.name;
     console.log(this.deviceModel);
     console.log(this.selectedNetwork);
   }

@@ -179,6 +179,10 @@ export class SensorDetailsComponent {
     this.bsModalRef = this.modalService.show(ModalContentComponent, {initialState});
     this.bsModalRef.content.closeBtnName = 'Close';
     this.bsModalRef.content.saveBtnName = 'Save';
+    this.bsModalRef.content.detailId = this.detailId;
+    this.sensorDetailsService.getComments(this.detailId).then((e)=>{
+      this.bsModalRef.content.commentsBox = e;
+    });
   }
 
   /*Export CSV functionality */
