@@ -13,12 +13,12 @@
           </div>
         </td>
       </tr>
-      <tr *ngIf="deviceType === 'SENSOR'">
-        <td> {{deviceType}} Name </td>
+     <!--  <tr >
+        <td>Gateway Name </td>
         <td>
           <input type="text" class="form-control" name="filter_name" placeholder="Enter Name" [(ngModel)]="deviceModel.name">
         </td>
-      </tr>
+      </tr> -->
       <tr *ngIf = "this.deviceModel.gatewayTypeID === '2' || this.deviceModel.gatewayTypeID === '7'  ">
         <td> Gateway ID</td>
         <td>
@@ -88,6 +88,24 @@
         <td> Sensor Code </td>
         <td>
           <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code">
+        </td>
+      </tr>
+      <tr>
+        <td>Min Threshold </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.minThreshold">
+        </td>
+      </tr>
+      <tr>
+        <td>Max Threshold </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.maxThreshold">
+        </td>
+      </tr>
+       <tr>
+        <td>Heartbeat </td>
+        <td>
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.heartBeat">
         </td>
       </tr>
       
