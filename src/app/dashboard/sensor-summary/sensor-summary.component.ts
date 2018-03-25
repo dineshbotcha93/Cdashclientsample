@@ -495,21 +495,6 @@ export class SensorSummaryComponent implements OnInit {
     };
     console.log(this.networkEditForm);
     this.networkEditForm.setValue({ editNetworkForm: this.editNetworkData });
-    //     this.editNetworkData = {
-    //       "networkID": 1,
-    // "name": "sample string 2",
-    // "sendNotifications": true,
-    // "address": "sample string 4",
-    // "address2": "sample string 5",
-    // "city": "sample string 6",
-    // "state": "sample string 7",
-    // "postalCode": "sample string 8",
-    // "country": "sample string 9",
-    // "latitude": 10.1,
-    // "longitude": 11.1
-    //     }
-
-    // console.log('-------',this.editNetworkData);
     this.locationDataForMoveNetwork = this.locationData;
   }
   /*Remove the selected ,update and get refresh data drom network*/
@@ -611,7 +596,7 @@ export class SensorSummaryComponent implements OnInit {
         this.editSaveModel = "Save";
       } else return false;
     } else {
-      
+
       let gateWayDataToUpdate: Array<any> = [];
 
       this.selectedUserDataForOperation.forEach(eidtObject => {
@@ -822,7 +807,7 @@ export class SensorSummaryComponent implements OnInit {
         this.getNetworkData();
       }else if (deviceType === "Gateway") {
         console.log(selectedCheckedData);
-        
+
         requestObject = {
           gatewayIDs: selectedCheckedData,
           networkID: this.netWorkIdToMove
@@ -882,7 +867,14 @@ export class SensorSummaryComponent implements OnInit {
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
-      console.log(g);
+      //this.mapData = this.editNetworkData;
+      console.log(this.mapData);
+      this.mapData['address'] = this.editNetworkData.address;
+      this.mapData['city'] = this.editNetworkData.city;
+      this.mapData['country'] = this.editNetworkData.country;
+      this.mapData['state'] = this.editNetworkData.state;
+      this.mapData['postalCode'] = this.editNetworkData.postalCode;
+      this.mapData['address2'] = this.editNetworkData.address2;
       this.showEditPopup = false;
     });
   }
