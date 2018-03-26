@@ -1,16 +1,12 @@
 <div class="col-md-12 m-l-n-sm" *ngIf="notifyOperationType == 'addNotify'">
-
-
-    <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
-      <i class="fa fa-edit"></i> Sensor Reading Notification </button>
-    <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
-      <i class="fa fa-edit"></i> Battery Notification </button>
-    <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
-      <i class="fa fa-edit"></i> Inactivity Notification </button>
-    <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
-      <i class="fa fa-edit"></i> Advanced Notification </button>
-
-
+  <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
+  <i class="fa fa-edit"></i> Sensor Reading Notification </button>
+  <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
+  <i class="fa fa-edit"></i> Battery Notification </button>
+  <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
+  <i class="fa fa-edit"></i> Inactivity Notification </button>
+  <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
+  <i class="fa fa-edit"></i> Advanced Notification </button>
 </div>
 <div *ngIf="isReadingTypeAvailable">
   <table class="table table-striped">
@@ -58,8 +54,7 @@
           </div>
         </td>
       </tr>
-
-       <tr *ngIf="notificationModel.subnotificationClassType === '9'">
+      <tr *ngIf="notificationModel.subnotificationClassType === '9'">
         <td>
           <label class="control-label col-form-label">Notification when magnet is:</label>
         </td>
@@ -76,7 +71,7 @@
         </td>
       </tr>
       <!-- <ng-container *ngTemplateOutlet="notificationTemplate"></ng-container> -->
-      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '2')||  (subNotificationTypes.id === '14' && templateName ==='advancedNotification')">
+      <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '2')">
         <td>
           <label class="control-label col-form-label">Notify when sensor temperature reading is:</label>
         </td>
@@ -107,8 +102,6 @@
           </div>
         </td>
       </tr>
-
-
       <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '43')">
         <td>
           <label class="control-label col-form-label">Notify when sensor Humidity reading is:</label>
@@ -126,12 +119,10 @@
           <div class="col-md-3">
             <input type="text" class="form-control" name="filter_name" placeholder="Enter Temp" [(ngModel)]="notificationModel.compareValue">
           </div>
-         
-         
+          
+          
         </td>
       </tr>
-
-
       <tr *ngIf="notificationModel.notificationTemplate ==='batteryNotification'">
         <td>
           <label class="control-label col-form-label">Notify when battery is below:</label>
@@ -152,7 +143,7 @@
           </div>minutes without communication.
         </td>
       </tr>
-      <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '02' || selectSubNotificationList.id === '03')">
+     <!--  <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '2' || selectSubNotificationList.id === '3')">
         <td>
           <label class="control-label col-form-label">Alert After :</label>
         </td>
@@ -162,7 +153,7 @@
           </div>
         </td>
       </tr>
-      <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '06')">
+      <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '6')">
         <td>
           <label class="control-label col-form-label">Time Frame:</label>
         </td>
@@ -172,7 +163,7 @@
           </div>
         </td>
       </tr>
-      <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '06')">
+      <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '6')">
         <td>
           <label class="control-label col-form-label">Messagw Count:</label>
         </td>
@@ -277,7 +268,7 @@
             </div>
           </div>
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <td> Don't Alert again for (Snooze)</td>
         <td>
@@ -342,7 +333,6 @@
                 <option *ngFor="let not of dayily.scheduleDayObject" [ngValue]="not">
                   {{not.value}}
                 </option>
-
               </select>
             </div>
           </div>
@@ -465,16 +455,15 @@
     <div class="col-md-8">
       <div class="form-group sensor-actions">
         <button type="button" class="btn btn-primary removeBTN" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">
-          <i class="fa fa-trash"></i> previous </button>
+        <i class="fa fa-trash"></i> previous </button>
         <button type="button" class="btn btn-primary addBTN" (click)="onClickNext(currentPageValue)" *ngIf="isNextButtonRequired">
-          <i class="fa fa-plus"></i> Next </button>
+        <i class="fa fa-plus"></i> Next </button>
         <button type="button" class="btn btn-primary addBTN" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
-          <i class="fa fa-plus"></i> Submit </button>
+        <i class="fa fa-plus"></i> Submit </button>
       </div>
-
     </div>
   </div>
 </div>
 <ng-template #notificationTemplate>
-  <!-- <tr *ngIf="(templateName ==='sensorNotification' )||  (selectSubNotificationList.id === '14' && templateName ==='advancedNotification')"> -->
+<!-- <tr *ngIf="(templateName ==='sensorNotification' )||  (selectSubNotificationList.id === '14' && templateName ==='advancedNotification')"> -->
 </ng-template>

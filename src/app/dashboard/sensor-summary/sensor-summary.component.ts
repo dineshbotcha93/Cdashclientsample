@@ -151,9 +151,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   ngOnInit() {
 
     let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
-    console.log(userInfoObject);
+    // console.log(userInfoObject);
     userInfoObject['account'].forEach(loc => {
-       console.log('loc', loc);
+       // console.log('loc', loc);
        this.accountID = loc.accountID;
      });
   }
@@ -353,7 +353,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.editSaveModel = "Edit";
     }
 
-    console.log("Sensors after inline", this.allSensors);
+    // console.log("Sensors after inline", this.allSensors);
   }
 
   private onClickButtonReset() {
@@ -393,7 +393,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   private onSubmit(action) {
     //console.log(this.networkFormSetup.get('createNetworkForm').get("address").get("street"));
     if (action == "editNetwork") {
-      const editNetworkForm = this.networkEditForm.get("editNetworkForm");
+       const editNetworkForm = this.networkEditForm.get("editNetworkForm");
       this.editNetworkData.networkID = this.netWorkId;
       this.editNetworkData.name = editNetworkForm.get("name").value;
       this.editNetworkData.address = editNetworkForm.get(
@@ -453,12 +453,12 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
 
   private addFormControl(name: string, formGroup: FormGroup): void {
-    console.log(":::::: network setup form:::", name);
+    // console.log(":::::: network setup form:::", name);
     this.networkFormSetup.addControl(name, formGroup);
   }
 
   private addEditFormControl(name: string, formGroup: FormGroup): void {
-    console.log(":::::: network edit form::::::", name);
+    // console.log(":::::: network edit form::::::", name);
     this.networkEditForm.addControl(name, formGroup);
   }
 
@@ -497,7 +497,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       isActive: true
       //holdNetwork: false
     };
-    console.log(this.networkEditForm);
+    // console.log(this.networkEditForm);
     this.networkEditForm.setValue({ editNetworkForm: this.editNetworkData });
     this.locationDataForMoveNetwork = this.locationData;
   }
@@ -559,7 +559,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   onClickAddDetail() {
 
-    console.log('accountID',this.accountID);
+    // console.log('accountID',this.accountID);
     this.isSelectedToAddDevice = true;
     //on success
     this.disable = {
@@ -577,7 +577,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   private setEdiyGatewayDetails() {
     this.selectedGateway = Object.assign({}, this.gateWayData);
 
-    console.log("this.gateWayData", this.gateWayData);
+    // console.log("this.gateWayData", this.gateWayData);
     let isRecordSelected: boolean = false;
     this.disable = {
       edit: false,
@@ -620,16 +620,16 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         });
       });
 
-      console.log("---------->", gateWayDataToUpdate);
+      // console.log("---------->", gateWayDataToUpdate);
 
       /*BACKEND call to update gateway details*/
 
       this.sensorSummaryService
         .updateGatewayDetails(gateWayDataToUpdate)
         .then(result => {
-          console.log("--->result", result);
+          // console.log("--->result", result);
           result.forEach(resp => {
-            console.log("resp", resp.result);
+            // console.log("resp", resp.result);
 
             this.gateWayData.forEach(x => {
               if (x.checked) {
@@ -681,7 +681,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   private setEditSensorDetails() {
     // this.selectedSensor = Object.assign({}, this.allSensors);
-    console.log("this.allSensors- before edit or save-->", this.allSensors);
+    // console.log("this.allSensors- before edit or save-->", this.allSensors);
     let isRecordSelected: boolean = false;
     this.disable = {
       edit: false,
@@ -700,10 +700,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.selectedUserDataForOperation.push(x.sensorID);
         }
       });
-      console.log(
-        "after edit selectedUserDataForOperation",
-        this.selectedUserDataForOperation
-      );
+      //  console.log(
+      //   "after edit selectedUserDataForOperation",
+      //   this.selectedUserDataForOperation
+      // );
 
       if (isRecordSelected) {
         this.editSaveModel = "Save";
@@ -711,23 +711,20 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     } else {
       let sensorDataToUpdate: Array<any> = [];
 
-      console.log("Before Save Detailss to Update ", this.allSensors);
+      // console.log("Before Save Detailss to Update ", this.allSensors);
 
-      console.log(
-        "Before selectedUserDataForOperation",
-        this.selectedUserDataForOperation
-      );
+      // console.log(
+      //   "Before selectedUserDataForOperation",
+      //   this.selectedUserDataForOperation
+      // );
 
       this.selectedUserDataForOperation.forEach(eidtObject => {
         this.allSensors.forEach(x => {
-          console.log(eidtObject);
+          // console.log(eidtObject);
 
           let tempObj: any = [];
           if (x.sensorID === eidtObject) {
-            console.log("sensor to", x.sensorID);
-            console.log("sensor to", x.sensorName);
-            console.log("sensor to", x.sensorID);
-
+         
             tempObj = {
               sensorID: x.sensorID,
               sensorName: x.sensorName,
@@ -737,9 +734,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
             };
 
             sensorDataToUpdate.push(tempObj);
-            console.log("Edit Detailss to Update ", sensorDataToUpdate);
-            console.log("Edit Detailss to tempObj ", tempObj);
-            // tempObj = [];
           }
         });
       });
@@ -748,9 +742,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.sensorSummaryService
         .updateSensorDetails(sensorDataToUpdate)
         .then(result => {
-          console.log("--->result", result);
+          // console.log("--->result", result);
           result.forEach(resp => {
-            console.log("resp", resp.result);
+            // console.log("resp", resp.result);
 
             this.allSensors.forEach(x => {
               if (x.checked) {
@@ -796,10 +790,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         }
       });
 
-      console.log("deviceType", deviceType);
+      // console.log("deviceType", deviceType);
       let requestObject: any = [];
       if (deviceType === "Sensor") {
-        console.log(selectedCheckedData);
+        // console.log(selectedCheckedData);
         requestObject = {
           sensorIDs: selectedCheckedData,
           networkID: this.netWorkIdToMove
@@ -810,7 +804,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
         this.getNetworkData();
       }else if (deviceType === "Gateway") {
-        console.log(selectedCheckedData);
 
         requestObject = {
           gatewayIDs: selectedCheckedData,
@@ -871,6 +864,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
+<<<<<<< HEAD
+      // console.log(g);
+=======
       //this.mapData = this.editNetworkData;
       console.log(this.mapData);
       this.mapData['address'] = this.editNetworkData.address;
@@ -879,6 +875,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.mapData['state'] = this.editNetworkData.state;
       this.mapData['postalCode'] = this.editNetworkData.postalCode;
       this.mapData['address2'] = this.editNetworkData.address2;
+>>>>>>> feature/dashboard
       this.showEditPopup = false;
     });
   }
