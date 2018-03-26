@@ -131,7 +131,7 @@
 
         <div class="row no-print">
           <div class="col-md-12 col-sm-12">
-            <button type="submit" class="btn btn-lg payment-button pull-right" [(disabled)]="loading">
+            <button type="submit" class="btn btn-lg payment-button pull-right" [(disabled)]="!stripe.isValidCard">
               <i class="fa fa-credit-card"></i> Submit Payment
             </button>
           </div>

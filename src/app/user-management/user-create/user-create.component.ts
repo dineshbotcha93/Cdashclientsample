@@ -70,6 +70,9 @@ export class UserCreateComponent implements OnInit {
   onSubmit() {
 
     this.passwordMatch = this.userCreateForm.get('password').value === this.userCreateForm.get('confirmPassword').value;
+    if (!this.passwordMatch) {
+      this.userCreationError = `Entered passwords do not match`;
+    }
     this.isValidForm = this.userCreateForm.valid && this.passwordMatch;
 
     console.log('form validity', this.userCreateForm);
