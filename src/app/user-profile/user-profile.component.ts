@@ -257,12 +257,16 @@ disableSubmitButton = true;
     } else {
       this.labelRenewal = 'Overdue by';
     }
-  }
+  } 
   addUser() {
     this.userForm.reset({});
     this.notificationForm.reset({});
+    this.networkForm.reset({});
     this.isShowUserTable = false;
     this.isEditForm = false;
+    this.isUserContentCollapsed = false;
+    this.isNotifContentCollapsed = true;
+    this.isNetworkContentCollapsed = true;
     this.updateNotifFormControls();
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
@@ -284,7 +288,7 @@ disableSubmitButton = true;
     userObj.dashboardUserName = row[0].emailAddress;
     userObj.dashboardPassword = '123456A@';
     userObj.confirmPassword = '123456A@';
-    userObj.firstName = row[0].name;
+    userObj.firstName = row[0].firstName;
     userObj.lastName = row[0].lastName;
     userObj.isAdmin = row[0].admin;
     this.userForm.setValue(userObj);
@@ -486,12 +490,16 @@ disableSubmitButton = true;
 
   saveUserNetworkPermssions() {
     let data = this.networkForm.value;
+    let updateNetworkList = [];
     let selectedNetworks =  [];
+    let i = 0;
     let customerId = this.isEditForm? this.editRecordUserId : this.newRecordUserId;
-    Object.keys(data).forEach(function(key) {
-      if(data[key] === true) {
-        selectedNetworks.push(key);
-      }
+    this.networkData.forEach(item => {
+         item.canAccess = data.networkList[i];
+         if(item.canAccess === true) {
+          selectedNetworks.push(item.networkID);
+         }
+         i++;
     });
     let postData = {
       'customerID': customerId,

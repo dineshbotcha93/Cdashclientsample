@@ -41,7 +41,7 @@
             <div class="col-sm-5 customer-amount" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
               <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3" *ngIf="isAdmin">
               <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
                 <i class="fa fa-edit"></i>Edit Account</button>
             </div>
@@ -109,7 +109,7 @@
                   <a href="mailto:{{row.emailAddress}}">{{row.emailAddress}}</a>
                 </div>
                 <div>SMS:
-                  <a href="tel:{{row.smsNumber}}">{{row.smsNumber}}({{row.SMSProvider}})</a>
+                  <a href="tel:{{row.smsNumber}}">{{row.smsNumber}}</a>
                 </div>
               </ng-template>
               <ng-template #isAdminColTmpl let-row="row" let-value="value">
