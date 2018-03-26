@@ -130,7 +130,7 @@ a:hover {
 
 .form-group.required > .lbl-ctrl::after {
   content: "*";
-  color:red;
+  color:#FF0000;
 }
 .notif-icons {
   float:left;
@@ -159,3 +159,22 @@ a:hover {
 .with-country-code {
   width:80%;
 }
+
+.renewalColor, .renewalColor span{
+  color: #f30e0e;
+}
+
+:host {
+  /deep/ .popover {
+    display: inherit;
+    padding: 8px;
+    color: black;
+  }
+
+  /deep/ .popover-header {
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
