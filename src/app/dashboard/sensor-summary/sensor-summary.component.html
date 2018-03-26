@@ -34,7 +34,7 @@
                 <div class="ssCard-small ssCard-count">Sensor
                   <span class="value">{{mapData?.noOfSensors}}</span>
                 </div>
-                <div class="ssCard-small ssCard-button">
+                <div class="ssCard-small ssCard-button" *ngIf="isAdminUser()">
                   <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
                           value="Edit">
                     <i class="fa fa-edit"></i> Edit Location</button>
@@ -139,7 +139,7 @@
               </div>
             </div>
           </tab>
-          <tab tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
+          <tab *ngIf="isAdminUser()" tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
             <div class="row">
               <div class="col-md-4">
                 <form action="" class="dark-theme">
