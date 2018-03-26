@@ -267,9 +267,9 @@
           <label class="col-sm-3 lbl-ctrl" for="last-name">Last Name</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" formControlName="lastName" id="last-name" placeholder="Last Name">
-            <!-- <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="alert-error alert-danger">
+            <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="alert-error alert-danger">
               Last name is required.
-            </div> -->
+            </div>
           </div>
         </div>
 
@@ -368,18 +368,13 @@
             <small class="form-check-input">Text</small>
           </div>
         </div>
-        <div class="form-group" *ngIf="!isEditForm">
-          <div class="col-sm-push-3 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save" (click)="saveUserData()">
+        <div class="form-group" >
+          <div class="col-sm-push-3 col-sm-3" *ngIf="!isEditForm">
+            <input type="button" class="form-control btn btn-info addBTN" value="Save" (click)="saveUserData()">
           </div>
-          <div class=" col-sm-push-3 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
-          </div>
-        </div>
-        <div class="form-group" *ngIf="isEditForm">
-          <div class="col-sm-push-3 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Update" (click)="updateUserData()">
-          </div>
+          <div class="col-sm-push-3 col-sm-3" *ngIf="isEditForm">
+              <input type="button" class="form-control btn btn-info addBTN" value="Update" (click)="updateUserData()">
+            </div>
           <div class=" col-sm-push-3 col-sm-3">
             <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
           </div>
