@@ -16,6 +16,7 @@ import { AlertSandbox } from "../../shared/components/alerts/alerts.sandbox";
 import { DatePipe } from "@angular/common";
 import { TranslateService } from "@ngx-translate/core";
 import { NetworkModel } from "../../shared/models/network/networkModel";
+import {AbstractDashboardBase} from "../abstractDashboard.component";
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
@@ -30,7 +31,7 @@ import { NetworkModel } from "../../shared/models/network/networkModel";
     DatePipe
   ]
 })
-export class SensorSummaryComponent implements OnInit {
+export class SensorSummaryComponent extends AbstractDashboardBase implements OnInit {
   mapData: Object = null;
   allSensors: Array<any> = [];
   displayTiles: Object = null;
@@ -121,6 +122,9 @@ export class SensorSummaryComponent implements OnInit {
     public datepipe: DatePipe,
     private fb: FormBuilder
   ) {
+
+    super();
+
     this.networkFormSetup = this.fb.group({});
     this.networkEditForm = this.fb.group({});
     this.route.params.subscribe(params => {
