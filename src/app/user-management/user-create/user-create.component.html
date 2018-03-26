@@ -58,7 +58,7 @@
               <input type="text" class="form-control" name="firstName" formControlName="firstName"
                      placeholder="First Name"/>
             </div>
-            <div *ngIf="userCreateForm.get('firstName').touched">
+            <div *ngIf="!isValidForm || userCreateForm.get('firstName').touched">
               <div class="error" *ngIf="userCreateForm.get('firstName').hasError('required')">First Name is required.</div>
             </div>
           </div>
@@ -69,7 +69,7 @@
               <input type="text" class="form-control" name="lastName" formControlName="lastName"
                      placeholder="Last Name"/>
             </div>
-            <div *ngIf="userCreateForm.get('lastName').touched">
+            <div *ngIf="!isValidForm || userCreateForm.get('lastName').touched">
               <div class="error" *ngIf="userCreateForm.get('lastName').hasError('required')">Last Name is required.</div>
             </div>
           </div>
@@ -87,10 +87,10 @@
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
             <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
             <input type="password" class="form-control" name="password" required placement="top"
-                   triggers="focus" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements"
+                   triggers="focus:blur" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements"
                    formControlName="password" required placeholder="Password"/>
           </div>
-          <div *ngIf="userCreateForm.get('password').touched">
+          <div *ngIf="!isValidForm || userCreateForm.get('password').touched">
             <div class="error" *ngIf="userCreateForm.get('password').hasError('required')">Password is required.</div>
           </div>
         </div>
@@ -101,7 +101,7 @@
             <input type="password" class="form-control" name="confirmPassword" required
                    formControlName="confirmPassword" required placeholder="Confirm Password"/>
           </div>
-          <div *ngIf="userCreateForm.get('confirmPassword').touched">
+          <div *ngIf="!isValidForm || userCreateForm.get('confirmPassword').touched">
             <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('required')">Confirm Password is required.</div>
           </div>
         </div>
@@ -114,7 +114,7 @@
               <input type="text" class="form-control" name="notifEyeUserName"
                      formControlName="notifEyeUsername" required placeholder="NotifEye Username"/>
             </div>
-            <div *ngIf="userCreateForm.get('notifEyeUsername').touched">
+            <div *ngIf="!isValidForm || userCreateForm.get('notifEyeUsername').touched">
               <div class="error" *ngIf="userCreateForm.get('notifEyeUsername').hasError('required')">NotifEye Username is required.</div>
             </div>
           </div>
@@ -125,7 +125,7 @@
               <input type="password" class="form-control" name="notifEyePassword"
                      formControlName="notifEyePassword" required placeholder="NotifEye Password"/>
             </div>
-            <div *ngIf="userCreateForm.get('notifEyeUsername').touched">
+            <div *ngIf="!isValidForm || userCreateForm.get('notifEyeUsername').touched">
               <div class="error" *ngIf="userCreateForm.get('notifEyeUsername').hasError('required')">NotifEye Password is required.</div>
             </div>
           </div>
@@ -152,7 +152,7 @@
   <ul>
     <li>'Password' must be at least 8 characters long.</li>
     <li>Password should contain At least one special case characters.</li>
-    <li>Password should contain At least one alphabet.</li>
+    <li>Password should contain At least one upper case alphabet.</li>
     <li>Password should contain At least one numeric value.</li>
   </ul>
 </ng-template>

@@ -11,4 +11,9 @@ export class CreateDeviceService {
     return this.requesterService
     .postExternalRequest('/api/Gateway', postData);
   }
+
+  createSensor(postData){
+    return this.requesterService
+    .postExternalRequest('/api/Sensor', postData);
+  }
 }

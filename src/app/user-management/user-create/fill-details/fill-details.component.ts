@@ -26,7 +26,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
   public accountForm: FormGroup;
   private isNewMaster = false;
-  private accountInfo: any;
+  private accountInfo: any = null;
   private email = null;
   postData: object = {};
 
@@ -95,7 +95,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
           this.email = data.email;
           this.accountForm.patchValue({
             company_name: this.accountInfo.companyName,
-            timeZone: this.accountInfo.timeZoneID,
+            timeZone: this.accountInfo.timeZone,
             placeOfPurchase: this.accountInfo.reselect
           });
           this.addressForm.addressForm.patchValue({
@@ -145,9 +145,15 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   private updateExistingUserAccount(accountForm: FormGroup, addressForm: FormGroup) {
     console.log('update existing user account', accountForm);
 
+    const coordinates = this.addressForm.getCoordinates();
+    const selectedTimeZone: any = this.fetchTimeZone(this.accountForm.get('timeZone').value);
+    const reseller: any = this.placeOfPurchase.find((pop: any) => {
+      return pop.name === accountForm.get('placeOfPurchase').value
+    });
+
     const payloadData = {
       accountID: this.accountInfo.accountID,
-      timeZone: accountForm.get('timeZone').value,
+      timeZone: selectedTimeZone.id,
       resellerID: 1,
       companyName: accountForm.get('company_name').value,
       address: addressForm.get('street').value,
@@ -155,7 +161,9 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       city: addressForm.get('city').value,
       state: addressForm.get('state').value,
       country: addressForm.get('country').value,
-      postalCode: addressForm.get('zipcode').value
+      postalCode: addressForm.get('zipcode').value,
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
     };
 
     this.fillDetailsService.updateExistingUserInfo(payloadData)
@@ -169,7 +177,14 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       });
   }
 
+  private fetchTimeZone(name): any {
+    return this.timeZones.find((timezone: any) => {
+      return timezone.name === name;
+    });
+  }
+
   private createNewMasterUser(accountForm: FormGroup, addressForm: FormGroup) {
+    const coordinates = this.addressForm.getCoordinates();
     const payloadData = {
       dashboardUserName: this.stepOneData.dashboardUserName,
       dashboardPassword: this.stepOneData.dashboardPassword,
@@ -188,9 +203,9 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         purchaseLocation: accountForm.get('placeOfPurchase').value,
         industryType: accountForm.get('industry_type').value,
         businessType: accountForm.get('business_type').value,
-        timeZone: accountForm.get('timeZone').value,
-        latitude: 43.6425662,
-        longitude: -79.3892455
+        timeZone: this.fetchTimeZone(accountForm.get('timeZone').value).id,
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude,
       }
     };
 

@@ -2,18 +2,19 @@ import { Component, ViewChild, OnInit, AfterViewInit, TemplateRef, ElementRef, g
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
-import {Location, AsyncPipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {UserProfileService} from './services/user-profile.service';
 import { FillDetailsService } from '../user-management/user-create/fill-details/fill-details.service';
 import { UserProfile } from './user.module';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { CommonSharedService } from '../shared/services/common-shared.service';
-declare var $: any;
+import 'rxjs/add/operator/map';
+import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 
 export interface NetworkData {
   networkID: number;
@@ -105,7 +106,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private isNotifContentCollapsed: Boolean = true;
   private isNetworkContentCollapsed: Boolean = true;
   private isProfileContentCollapsed: Boolean = false;
-  private isNetworksContentCollapsed: Boolean = true;
+  private isNetworkProfileCollapsed: Boolean = true;
+  private isNtWorkProfile: Boolean = true;
   private isUserFormValid: Boolean = false;
   private isDirectSMS: Boolean = false;
   private isCountryCode: Boolean = false;
@@ -135,7 +137,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     recievesMaintenanceByEmail: new FormControl(''),
     recievesMaintenanceByPhone: new FormControl(''),
   }); 
-  networkForm = this.fb.group({});
+   networkForm = this.fb.group({});
   editAccountForm = this.fb.group({
     accountID: new FormControl(''),
     companyName: new FormControl(''),
@@ -152,9 +154,12 @@ disableSubmitButton = true;
   private editAccount = new UserProfile.RealEditAccount();
 
   constructor(private userProfileService: UserProfileService, private fillDetailsService: FillDetailsService,
-    private _location: Location, private ele: ElementRef, private fb: FormBuilder, private commonSharedService: CommonSharedService,
-    private toastr: ToastsManager, vcr: ViewContainerRef) {
+    private route: ActivatedRoute, private router: Router, private ele: ElementRef,
+     private fb: FormBuilder, private commonSharedService: CommonSharedService,
+     private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
+    config.placement = 'right';
+    this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
   }
   ngOnInit() {
     this.updateNotifFormControls();
@@ -252,23 +257,31 @@ disableSubmitButton = true;
     } else {
       this.labelRenewal = 'Overdue by';
     }
-  }
+  } 
   addUser() {
     this.userForm.reset({});
     this.notificationForm.reset({});
+    this.networkForm.reset({});
     this.isShowUserTable = false;
     this.isEditForm = false;
+    this.isUserContentCollapsed = false;
+    this.isNotifContentCollapsed = true;
+    this.isNetworkContentCollapsed = true;
     this.updateNotifFormControls();
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
   showEditUserForm(userId) {
+    this.isEditForm = true;
     this.isShowUserTable = false;
+    this.isUserContentCollapsed = false;
+    this.isNotifContentCollapsed = true;
+    this.isNetworkContentCollapsed = true;
     let row: Array<UserData> = null;
     row = this.userRows.filter(item => item.userID === userId);
     this.populateUserEditForm(row);
-    this.populateNotifEditForm(row);
-    this.isEditForm = true;
+    this.populateNotifEditForm(row);   
     this.editRecordUserId = userId;
+    this.isNetworkBtn = true;
   }
   private populateUserEditForm(row) {
     let userObj = new UserProfile.User();
@@ -301,7 +314,6 @@ disableSubmitButton = true;
   }
   updateUserData() {
    let postData = JSON.stringify(this.prepareUpdateData());
-    console.log(postData);
     this.userProfileService.updateUserData(postData).then(response => {
       this.userForm.reset({});
       this.notificationForm.reset({});
@@ -344,34 +356,42 @@ disableSubmitButton = true;
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
   goToPrevPage() {
-    this._location.back();
+    this.router.navigate(['dashboard']);
   }
-  toggleContent(e) {
+  toggleContent(e) {   
     let section = e.currentTarget.attributes.section.value;
     this.isUserContentCollapsed = true;
     this.isNotifContentCollapsed = true;
     this.isNetworkContentCollapsed = true;
+    this.isNtWorkProfile = false;
     if (section === 'user-content') {
       this.isUserContentCollapsed = false;
     } else if (section === 'notif-content') {
       this.isNotifContentCollapsed = false;
     } else if (section === 'network-content') {
-      this.getNetworksByUser(this.loggedInUserId);
+      let userId = this.isEditForm? this.editRecordUserId : this.loggedInUserId;
+      this.buildNetworks(userId);
       this.isNetworkContentCollapsed = false;
+      this.isNetworkBtn = true;
     }
   }
 
   toggleProfileContent(e) {
+    this.isNetworkBtn = false;
     let section = e.currentTarget.attributes.section.value;
+    this.isUserContentCollapsed = true;
+    this.isNotifContentCollapsed = true;
+    this.isNetworkContentCollapsed = true;
     this.isProfileContentCollapsed = true;
-    this.isNetworksContentCollapsed = true;
+    this.isNetworkProfileCollapsed = true;
+    this.isNtWorkProfile = true;    
     if (section === 'profile-content') {
       this.isProfileContentCollapsed = false;
     } else if (section === 'networks-content') {
-      this.isNetworksContentCollapsed = false;
-      this.getNetworksByUser(this.loggedInUserId);
+      let userId = this.isEditForm? this.editRecordUserId : this.loggedInUserId;
+      this.buildNetworks(userId);
+      this.isNetworkProfileCollapsed = false;
     }
-
   }
 
   navigateToNotifSection() {
@@ -380,14 +400,15 @@ disableSubmitButton = true;
     }
     this.isUserFormValid = true;
     this.user = this.userForm.value;
-    //console.log(this.user);
     this.isUserContentCollapsed = true;
     this.isNotifContentCollapsed = false;
     this.isNotifBtn = true;
   }
 
   navigateToNetworkSection() {
-    this.getNetworksByUser(this.loggedInUserId);
+    this.isNtWorkProfile = false;
+    let userId = this.isEditForm ? this.editRecordUserId : this.loggedInUserId;
+    this.buildNetworks(userId);
     this.isNotifContentCollapsed = true;
     this.isNetworkContentCollapsed = false;
     this.isNetworkBtn = true;
@@ -459,29 +480,7 @@ disableSubmitButton = true;
     });
   }
 
-  getNetworksByUser(id) {
-    this.myNetworks = [];
-    let userId = this.isEditForm? this.editRecordUserId : id;
-    this.userProfileService.getUserNetworks(userId).then(response => {
-      this.networkData = response;
-      response.forEach(item => {
-        this.networkForm.addControl(item.networkID, new FormControl(false));              
-      });
-      return response;
-    }
-  )
-    .then((response) => {
-    response.forEach(item => {
-        if(item.canAccess === true) {
-          let id = item.networkID;
-          this.networkForm.patchValue({ id : true, tc:true});
-        }
-      });  
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
+ 
 
   getPaymentHistory() { 
     this.userProfileService.getPaymentHistoryData().then(response => {
@@ -491,12 +490,16 @@ disableSubmitButton = true;
 
   saveUserNetworkPermssions() {
     let data = this.networkForm.value;
+    let updateNetworkList = [];
     let selectedNetworks =  [];
+    let i = 0;
     let customerId = this.isEditForm? this.editRecordUserId : this.newRecordUserId;
-    Object.keys(data).forEach(function(key) {
-      if(data[key] === true) {
-        selectedNetworks.push(key);
-      }
+    this.networkData.forEach(item => {
+         item.canAccess = data.networkList[i];
+         if(item.canAccess === true) {
+          selectedNetworks.push(item.networkID);
+         }
+         i++;
     });
     let postData = {
       'customerID': customerId,
@@ -504,6 +507,7 @@ disableSubmitButton = true;
       'networkList': selectedNetworks
     }
    this.userProfileService.postUserNetworkPermissions(postData).then(response => {
+     this.networkForm.reset({});
       this.showUsersTab();
       this.toastr.success('User permissions saved successfully');
       this.getUserProfileData();
@@ -515,6 +519,20 @@ disableSubmitButton = true;
       this.getUserProfileData();
      });
   }
+   buildNetworks(id) {
+    this.userProfileService.getUserNetworks(id).then(response => {
+      this.networkData = response;
+      return response;
+    })
+    .then((response) => {
+      const arr = response.map(network => {
+        return this.fb.control({value: network.canAccess, disabled: this.isNtWorkProfile});
+      });
+      this.networkForm = this.fb.group({
+            networkList: this.fb.array(arr)
+          });          
+    });
+   }
   private addFormControl(name: string, formGroup: FormGroup): void {
     this.editAccountForm.addControl(name, formGroup);
   }
@@ -559,8 +577,12 @@ disableSubmitButton = true;
   get countryCode() {
     return this.notificationForm.get('countryCode');
   }
+  get networkList() {
+    return this.networkForm.get('networkList');
+  }
 enableSubmit($event){
   this.disableSubmitButton = !$event;
 }
+
 
 }

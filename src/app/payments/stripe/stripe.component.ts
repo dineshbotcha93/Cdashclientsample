@@ -16,6 +16,7 @@ export class StripeComponent implements OnInit {
   customerData: Object = null;
   stripe: any = null;
   validationError: String = null;
+  isValidCard = false;
 
   constructor(private stripeService: StripeService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.stripe = Stripe('pk_test_rh7KqKZ2eaklfF1FO2WWURYX');
@@ -53,8 +54,10 @@ export class StripeComponent implements OnInit {
 
     card.addEventListener('change', function(event) {
       if (event.error) {
+        this.isValidCard = false;
         this.validationError = event.error.message;
       } else {
+        this.isValidCard = true;
         this.validationError = null;
       }
     }.bind(this));

@@ -42,23 +42,31 @@ export class PaymentsComponent {
   }
 
   confirmPayment() {
-    this.loading = true;
-    this.showConfirmation = true;
-    // Fetch Token From Stripe
-    this.stripe.getToken().then(function(tokenData) {
-      // Use the fetched token to confirm payment using Payments API
-      this.paymentsService.sendStripeToken({
-        stripeToken: tokenData.token.id,
-        transactionId: this.transactionId
-      }).then(function(data){
-        this.newRenewalDate = data.transaction.transactionInfo.newRenewalDate;
-        this.loading = false;
-      }.bind(this));
-    }.bind(this))
-      .catch(function() {
-        this.renewalError = true;
-        this.loading = false;
-      });
+    if (this.stripe.isValidCard) {
+      this.loading = true;
+      this.showConfirmation = true;
+      // Fetch Token From Stripe
+      this.stripe.getToken().then(function(tokenData) {
+        // Use the fetched token to confirm payment using Payments API
+        this.paymentsService.sendStripeToken({
+          stripeToken: tokenData.token.id,
+          transactionId: this.transactionId
+        }).then(function(data){
+          this.newRenewalDate = data.transaction.transactionInfo.newRenewalDate;
+          this.loading = false;
+        }.bind(this))
+        .catch(function() {
+          this.renewalError = true;
+          this.loading = false;
+          this.showConfirmation = false;
+        }.bind(this));
+      }.bind(this))
+        .catch(function() {
+          this.renewalError = true;
+          this.loading = false;
+          this.showConfirmation = false;
+        }.bind(this));
+    }
   }
 
   goBack() {

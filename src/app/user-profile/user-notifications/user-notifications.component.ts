@@ -14,7 +14,7 @@ export class UserNotificationsComponent implements OnInit {
   isAddButtonRequired:boolean = true;
   isResetButtonRequired:boolean = false;
   EditNotifyMode : boolean = false;
-
+accountID:string;
 
 
   @Output() editNotifyModeEvent = new EventEmitter<boolean>();
@@ -33,14 +33,23 @@ export class UserNotificationsComponent implements OnInit {
   constructor(private sensorSummaryService: SensorSummaryService) { }
 
   ngOnInit() {
+
+
+     let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+    console.log(userInfoObject);
+    userInfoObject['account'].forEach(loc => {
+       console.log('loc', loc);
+       this.accountID = loc.accountID;
+     });
+
   	
     console.log('accountData-----',this.accountData);
-  	this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
+  	this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
     	console.log('result----->',result);
        this.sensorList = result;
     });
 
-    this.sensorSummaryService.getGlobalNotificationsList(this.accountData.accountID).then((result) => {
+    this.sensorSummaryService.getGlobalNotificationsList(this.accountID).then((result) => {
       console.log('globalNotificationsList----->',result);
        this.globalNotificationsList = result;
     });

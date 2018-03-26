@@ -84,6 +84,10 @@ export class LayoutContainer {
   doLogout(){
     localStorage.removeItem("currentUser");
     localStorage.removeItem("com.cdashboard.token");
+    localStorage.removeItem("com.cdashboard.customerData");
+    localStorage.removeItem("com.cdashboard.networkId");
+    localStorage.removeItem("com.cdashboard.selectedNetworkId");
+    localStorage.removeItem("com.cdashboard.userInfoObject");
     this.router.navigate(['login']);
   }
 

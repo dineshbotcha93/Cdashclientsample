@@ -27,6 +27,7 @@ export class TileComponent {
   @Input() tileColorBy?: string;
   @Input() tileDetails?: object;
   @Input() sensorTileIcon?: string;
+  @Input() sensor?: any;
   private mapStatus = MapConstants.STATUS;
   private mapConstants = MapConstants;
   constructor(public tileSandbox: TileSandbox){
@@ -79,10 +80,13 @@ export class TileComponent {
       return 'bg-warning';
       case this.mapConstants.NEW_STATUS_NUMBERS.ALERT:
       const recordedTemp = parseFloat(tileContent);
-      if(recordedTemp < 40){
-        return 'bg-info';
+      if(this.sensor.status !== this.mapConstants.SENSOR_TYPE.CONTACT){
+        if(recordedTemp > this.sensor.minimumThreshold){
+          return 'bg-warning';
+        } else if(recordedTemp > this.sensor.maximumTreshold){
+          return 'bg-pink';
+        }
       }
-      return 'bg-pink';
       case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
       return 'bg-info';
       case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
