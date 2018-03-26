@@ -38,7 +38,7 @@
             <div class="col-sm-4 customer-status">Subscription
               <span> {{accountData?.subscriptionType}}</span>
             </div>
-            <div class="col-sm-5 customer-amount">{{labelRenewal}}
+            <div class="col-sm-5 customer-amount" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
               <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
             </div>
             <div class="col-sm-3">
@@ -82,7 +82,7 @@
                       <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
                     </div>
                   </div>
-                  <div class="collapse" id="collapseNetworks" [ngbCollapse]="isNetworksContentCollapsed">
+                  <div class="collapse" id="collapseNetworks" [ngbCollapse]="isNetworkProfileCollapsed">
                     <div class="card card-body">
                       <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
                     </div>
@@ -174,7 +174,7 @@
     <div class="row" style="margin-bottom:10px">
       <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">Details</button>
       <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button>
-      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="isNetworkBtn" (click)="toggleContent($event)">Networks</button>
+      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Networks</button>
     </div>
     <div class="row">
       <div class="col">
@@ -224,9 +224,7 @@
           <label class="col-sm-3 lbl-ctrl" for="password">Password</label>
           <div class="col-sm-7">
             <input type="password" class="form-control" formControlName="dashboardPassword" id="password" style="width:85%; display:inline-block"
-              placeholder="Password">
-            <!-- <button type="button" class="btn btn-outline-secondary" placement="top" ngbTooltip="Tooltip on top">
-              <i class="fa fa-question-circle"></i></button> -->
+              placeholder="Password" placement="top" triggers="focus:blur" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements">            
             <div *ngIf="dashboardPassword.invalid && (dashboardPassword.touched || dashboardPassword.dirty)" class="alert-error alert-danger" style="width: 85%;">
               <div *ngIf="dashboardPassword.errors?.required">
                 Password is required.
@@ -370,14 +368,15 @@
             <small class="form-check-input">Text</small>
           </div>
         </div>
-        <div class="form-group" *ngIf="!isEditForm">
-          <div class="col-sm-push-9 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Save" (click)="saveUserData()">
+        <div class="form-group" >
+          <div class="col-sm-push-3 col-sm-3" *ngIf="!isEditForm">
+            <input type="button" class="form-control btn btn-info addBTN" value="Save" (click)="saveUserData()">
           </div>
-        </div>
-        <div class="form-group" *ngIf="isEditForm">
-          <div class="col-sm-push-9 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" value="Update" (click)="updateUserData()">
+          <div class="col-sm-push-3 col-sm-3" *ngIf="isEditForm">
+              <input type="button" class="form-control btn btn-info addBTN" value="Update" (click)="updateUserData()">
+            </div>
+          <div class=" col-sm-push-3 col-sm-3">
+            <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
           </div>
         </div>
       </div>
@@ -393,20 +392,23 @@
 <ng-template #networkSectionTmpl>
   <div class="row network-container" [formGroup]="networkForm">
     <div class="col-sm-12">
-      <div class="col-sm-6" *ngFor="let network of networkData;">
+      <div class="col-sm-6" *ngFor="let network of networkList.controls; let i=index">
         <div class="form-group">
-          <input type="checkbox" class="chk-box form-check-input" formControlName="{{network.networkID}}">
+  <input type="checkbox" class="chk-box form-check-input" [formControl]="network">
           <label class="form-check-input">
-            <span class="chkbox-lbl">{{network.networkName}}</span>
+            <span class="chkbox-lbl">{{networkData[i].networkName}}</span>
           </label>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-12" *ngIf="isNetworksContentCollapsed">
+  <div class="col-sm-12" *ngIf="isNetworkBtn">
     <div class="form-group">
-      <div class="col-sm-push-10 col-sm-2" style="margin-top:10px">
+      <div class="col-sm-push-8 col-sm-2" style="margin-top:10px">
         <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" (click)="saveUserNetworkPermssions()" value="Save Networks">
+      </div>
+      <div class=" col-sm-push-8 col-sm-2" style="margin-top:10px">
+        <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
       </div>
     </div>
   </div>
@@ -550,6 +552,10 @@
   </small>
 </ng-template>
 <ng-template #tooltipTempate>
-  'Password' must be at least 8 characters long. Password should contain At least one special case characters Password should
-  contain At least one alphabet. Password should contain At least one numeric value.
+    <ul>
+        <li>'Password' must be at least 8 characters long.</li>
+        <li>Password should contain At least one special case characters.</li>
+        <li>Password should contain At least one alphabet.</li>
+        <li>Password should contain At least one numeric value.</li>
+      </ul>
 </ng-template>
