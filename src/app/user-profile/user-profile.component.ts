@@ -123,7 +123,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     dashboardPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl(''),
+    lastName: new FormControl('', [Validators.required]),
     isAdmin: new FormControl('')
   },
     { validator: this.checkIfPasswordsMismatch('dashboardPassword', 'confirmPassword') }
@@ -267,6 +267,7 @@ disableSubmitButton = true;
     window.scrollTo(0, document.documentElement.offsetHeight);
   }
   showEditUserForm(userId) {
+    this.isEditForm = true;
     this.isShowUserTable = false;
     this.isUserContentCollapsed = false;
     this.isNotifContentCollapsed = true;
@@ -274,8 +275,7 @@ disableSubmitButton = true;
     let row: Array<UserData> = null;
     row = this.userRows.filter(item => item.userID === userId);
     this.populateUserEditForm(row);
-    this.populateNotifEditForm(row);
-    this.isEditForm = true;
+    this.populateNotifEditForm(row);   
     this.editRecordUserId = userId;
     this.isNetworkBtn = true;
   }
@@ -292,7 +292,7 @@ disableSubmitButton = true;
   private populateNotifEditForm(row) {
     let notifObj = new UserProfile.Notification;
     notifObj.directSMS = Number(row[0].directSMS);
-    notifObj.smsCarrierID = row[0].externalSMSProviderID;
+    notifObj.smsCarrierID = row[0].smsCarrierID;
     notifObj.smsNumber = row[0].smsNumber;
     notifObj.countryCode = '91';//---Remove HardCODE---
     notifObj.recievesSensorNotificationByText = row[0].recievesNotificaitonsBySMS;
@@ -396,7 +396,6 @@ disableSubmitButton = true;
     }
     this.isUserFormValid = true;
     this.user = this.userForm.value;
-    //console.log(this.user);
     this.isUserContentCollapsed = true;
     this.isNotifContentCollapsed = false;
     this.isNotifBtn = true;
@@ -500,6 +499,7 @@ disableSubmitButton = true;
       'networkList': selectedNetworks
     }
    this.userProfileService.postUserNetworkPermissions(postData).then(response => {
+     this.networkForm.reset({});
       this.showUsersTab();
       this.toastr.success('User permissions saved successfully');
       this.getUserProfileData();
