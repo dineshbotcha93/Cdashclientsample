@@ -16,6 +16,7 @@ import { AlertSandbox } from "../../shared/components/alerts/alerts.sandbox";
 import { DatePipe } from "@angular/common";
 import { TranslateService } from "@ngx-translate/core";
 import { NetworkModel } from "../../shared/models/network/networkModel";
+import {AbstractDashboardBase} from "../abstractDashboard.component";
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
@@ -30,7 +31,7 @@ import { NetworkModel } from "../../shared/models/network/networkModel";
     DatePipe
   ]
 })
-export class SensorSummaryComponent implements OnInit {
+export class SensorSummaryComponent extends AbstractDashboardBase implements OnInit {
   mapData: Object = null;
   allSensors: Array<any> = [];
   displayTiles: Object = null;
@@ -121,6 +122,9 @@ export class SensorSummaryComponent implements OnInit {
     public datepipe: DatePipe,
     private fb: FormBuilder
   ) {
+
+    super();
+
     this.networkFormSetup = this.fb.group({});
     this.networkEditForm = this.fb.group({});
     this.route.params.subscribe(params => {
@@ -495,21 +499,6 @@ export class SensorSummaryComponent implements OnInit {
     };
     // console.log(this.networkEditForm);
     this.networkEditForm.setValue({ editNetworkForm: this.editNetworkData });
-    //     this.editNetworkData = {
-    //       "networkID": 1,
-    // "name": "sample string 2",
-    // "sendNotifications": true,
-    // "address": "sample string 4",
-    // "address2": "sample string 5",
-    // "city": "sample string 6",
-    // "state": "sample string 7",
-    // "postalCode": "sample string 8",
-    // "country": "sample string 9",
-    // "latitude": 10.1,
-    // "longitude": 11.1
-    //     }
-
-    // console.log('-------',this.editNetworkData);
     this.locationDataForMoveNetwork = this.locationData;
   }
   /*Remove the selected ,update and get refresh data drom network*/
@@ -611,7 +600,7 @@ export class SensorSummaryComponent implements OnInit {
         this.editSaveModel = "Save";
       } else return false;
     } else {
-      
+
       let gateWayDataToUpdate: Array<any> = [];
 
       this.selectedUserDataForOperation.forEach(eidtObject => {
@@ -815,8 +804,7 @@ export class SensorSummaryComponent implements OnInit {
 
         this.getNetworkData();
       }else if (deviceType === "Gateway") {
-        // console.log(selectedCheckedData);
-        
+
         requestObject = {
           gatewayIDs: selectedCheckedData,
           networkID: this.netWorkIdToMove
@@ -876,7 +864,18 @@ export class SensorSummaryComponent implements OnInit {
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
+<<<<<<< HEAD
       // console.log(g);
+=======
+      //this.mapData = this.editNetworkData;
+      console.log(this.mapData);
+      this.mapData['address'] = this.editNetworkData.address;
+      this.mapData['city'] = this.editNetworkData.city;
+      this.mapData['country'] = this.editNetworkData.country;
+      this.mapData['state'] = this.editNetworkData.state;
+      this.mapData['postalCode'] = this.editNetworkData.postalCode;
+      this.mapData['address2'] = this.editNetworkData.address2;
+>>>>>>> feature/dashboard
       this.showEditPopup = false;
     });
   }

@@ -34,7 +34,7 @@
                 <div class="ssCard-small ssCard-count">Sensor
                   <span class="value">{{mapData?.noOfSensors}}</span>
                 </div>
-                <div class="ssCard-small ssCard-button">
+                <div class="ssCard-small ssCard-button" *ngIf="isAdminUser()">
                   <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
                           value="Edit">
                     <i class="fa fa-edit"></i> Edit Location</button>
@@ -99,7 +99,7 @@
             </div>
             <div class="row top_tiles" *ngIf="gateway=='all'">
               <div *ngFor="let sensor of allSensors | filterByCriteria: doFilterByName: doFilterByStatus: doFilterByType" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <app-tile [tileContent]="sensor.sensorName" [tileDetails]="{fahrenHeight:sensor.currentReading,lastCommunicationDate:sensor.lastCommunicationDate}"
+                <app-tile [tileContent]="sensor.sensorName" [sensor]="sensor" [tileDetails]="{fahrenHeight:sensor.currentReading,lastCommunicationDate:sensor.lastCommunicationDate}"
                   [tileColorBy]="'sensorType'" [sensorTileIcon]="sensor.sensorType" (click)="gotoSummary(sensor)" [tileColor]="sensor.status+''">
                 </app-tile>
               </div>
@@ -139,7 +139,7 @@
               </div>
             </div>
           </tab>
-          <tab tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
+          <tab *ngIf="isAdminUser()" tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
             <div class="row">
               <div class="col-md-4">
                 <form action="" class="dark-theme">
@@ -173,10 +173,10 @@
 
               <div *ngIf="isSelectedToAddDevice">
                 <div class="col-md-12 dark-theme">
-                  <app-create-device [deviceType]="radioModel" 
-                  [inputNetworkData]="locationData" 
-                  [selectedNetwork]="selectLocation" 
-                  [accountID]="accountID" 
+                  <app-create-device [deviceType]="radioModel"
+                  [inputNetworkData]="locationData"
+                  [selectedNetwork]="selectLocation"
+                  [accountID]="accountID"
                   (messageEvent)="receiveMessage($event)"
                   (messageCancelEvent)="receiveCancelMessage($event)">
                   </app-create-device>
@@ -376,7 +376,7 @@
         <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.heartBeat}}</td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.minimumThreshold}}</td>
           <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.maximumThreshold}}</td>
-        
+
         <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
         </td>
