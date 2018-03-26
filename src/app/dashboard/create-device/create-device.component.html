@@ -22,26 +22,34 @@
       <tr *ngIf = "this.deviceModel.gatewayTypeID === '2' || this.deviceModel.gatewayTypeID === '7'  ">
         <td> Gateway ID</td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.gatewayID">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" 
+          tooltip="The Gateway ID can be found  on the back of the device."
+          [(ngModel)]="deviceModel.gatewayID">
         </td>
       </tr>
       <tr *ngIf = "this.deviceModel.gatewayTypeID === '2' || this.deviceModel.gatewayTypeID === '7' ">
         <td> Gateway Code </td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" 
+           tooltip="The Gateway code can be found  on the back of the device."
+           [(ngModel)]="deviceModel.code">
         </td>
       </tr>
       <tr *ngIf = "this.deviceModel.gatewayTypeID === '-99'">
         <td> Serial Number </td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.serialNumber">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter number" 
+            tooltip="The Serial number can be found  on the back of the device."
+            [(ngModel)]="deviceModel.serialNumber">
         </td>
       </tr>
 
       <tr *ngIf = "this.deviceModel.gatewayTypeID === '-99'">
         <td> Mac Address</td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.macAddress">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter mac address" 
+            tooltip="The Mac Address can be found  on the back of the device."
+            [(ngModel)]="deviceModel.macAddress">
         </td>
       </tr>
       <tr>
@@ -81,31 +89,40 @@
       <tr>
         <td> Sensor ID</td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" [(ngModel)]="deviceModel.id">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Id" 
+          tooltip="The Sensor ID can be found on the barcode label located on the back of the sensor."
+          [(ngModel)]="deviceModel.id">
         </td>
       </tr>
       <tr>
         <td> Sensor Code </td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.code">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" 
+            tooltip="The Sensor Code can be on the barcode label located on the back of the sensor."
+            [(ngModel)]="deviceModel.code">
         </td>
       </tr>
       <tr>
         <td>Min Threshold </td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.minThreshold">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Min Threshold" 
+          tooltip="Enter Minimum Temperature Threshold"
+          [(ngModel)]="deviceModel.minThreshold">
+
         </td>
       </tr>
       <tr>
         <td>Max Threshold </td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.maxThreshold">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter Max Threshold" 
+           tooltip="Enter Maximum Temperature Threshold"
+           [(ngModel)]="deviceModel.maxThreshold">
         </td>
       </tr>
        <tr>
         <td>Heartbeat </td>
         <td>
-          <input type="text" class="form-control" name="filter_name" placeholder="Enter Code" [(ngModel)]="deviceModel.heartBeat">
+          <input type="text" class="form-control" name="filter_name" placeholder="Enter heart beat" [(ngModel)]="deviceModel.heartBeat">
         </td>
       </tr>
       
@@ -136,3 +153,13 @@
 	</tbody>
   </table>
 </div>
+
+
+<ng-template #tooltipTempate>
+  <ul>
+    <li>'Password' must be at least 8 characters long.</li>
+    <li>Password should contain At least one special case characters.</li>
+    <li>Password should contain At least one alphabet.</li>
+    <li>Password should contain At least one numeric value.</li>
+  </ul>
+</ng-template>

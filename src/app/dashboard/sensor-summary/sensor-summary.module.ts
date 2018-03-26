@@ -24,6 +24,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap';
 
 
 
@@ -50,7 +52,8 @@ const routes: Routes = [{
     TimepickerModule.forRoot(),
     MultiselectDropdownModule,
     BsDatepickerModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   exports: [
     CreateDeviceComponent,
