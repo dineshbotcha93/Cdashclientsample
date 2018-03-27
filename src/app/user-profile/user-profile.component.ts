@@ -6,15 +6,15 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import {Angular2Csv} from 'angular2-csv/Angular2-csv';
-import {AsyncPipe} from '@angular/common';
-import {UserProfileService} from './services/user-profile.service';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { AsyncPipe } from '@angular/common';
+import { UserProfileService } from './services/user-profile.service';
 import { FillDetailsService } from '../user-management/user-create/fill-details/fill-details.service';
 import { UserProfile } from './user.module';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { CommonSharedService } from '../shared/services/common-shared.service';
 import 'rxjs/add/operator/map';
-import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 
 export interface NetworkData {
   networkID: number;
@@ -116,12 +116,13 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
-  // private pwdPattern = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$';
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
-    dashboardPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+    dashboardPassword: new FormControl('', [Validators.required, 
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+    confirmPassword: new FormControl('', [Validators.required,
+       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     isAdmin: new FormControl('')
@@ -136,8 +137,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     recievesSensorNotificationByText: new FormControl(''),
     recievesMaintenanceByEmail: new FormControl(''),
     recievesMaintenanceByPhone: new FormControl(''),
-  }); 
-   networkForm = this.fb.group({});
+  });
+  networkForm = this.fb.group({});
   editAccountForm = this.fb.group({
     accountID: new FormControl(''),
     companyName: new FormControl(''),
@@ -145,8 +146,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     timeZoneID: new FormControl(''),
   });
 
-disableSubmitButton = true;
-
+  disableSubmitButton = true;
 
   private user = new UserProfile.User();
   private notification = new UserProfile.Notification();
@@ -155,8 +155,8 @@ disableSubmitButton = true;
 
   constructor(private userProfileService: UserProfileService, private fillDetailsService: FillDetailsService,
     private route: ActivatedRoute, private router: Router, private ele: ElementRef,
-     private fb: FormBuilder, private commonSharedService: CommonSharedService,
-     private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
+    private fb: FormBuilder, private commonSharedService: CommonSharedService,
+    private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
     config.placement = 'right';
     this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
@@ -171,10 +171,7 @@ disableSubmitButton = true;
 
   ngAfterViewInit() {
     this.getUserProfileData();
-   // this.updateNotifFormControls();
   }
-
-  
   private populateTimeZones() {
     this.fillDetailsService.getTimeZones().subscribe((e) => {
       e[0].forEach((tZ) => {
@@ -196,11 +193,7 @@ disableSubmitButton = true;
       this.loadPage = true;
     });
   }
-  // private getNetworkData() {
-  //   this.userProfileService.getNetworkData().then(response => {
-  //     this.networkData = response;
-  //   });
-  // }
+ 
   saveUserData() {
     let postData = JSON.stringify(this.prepareSaveData());
     this.userProfileService.saveUserData(postData).then(response => {
@@ -210,9 +203,9 @@ disableSubmitButton = true;
       this.toastr.success('User created successfully');
       this.navigateToNetworkSection();
     })
-    .catch(e => {
-      this.toastr.error(e.message);
-    });
+      .catch(e => {
+        this.toastr.error(e.message);
+      });
   }
   private prepareSaveData() {
     let encodedPWD = this.commonSharedService
@@ -228,8 +221,7 @@ disableSubmitButton = true;
     if (this.notificationForm.get('directSMS').value === '1') {
       userObj.smsCarrierID = 0;
       userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
-    }
-    else{
+    } else {
       userObj.smsCarrierID = this.notificationForm.get('smsCarrierID').value;
       userObj.smsNumber = this.notificationForm.get('smsNumber').value;
     }
@@ -262,7 +254,7 @@ disableSubmitButton = true;
     } else {
       this.labelRenewal = 'Overdue by';
     }
-  } 
+  }
   addUser() {
     this.userForm.reset({});
     this.notificationForm.reset({});
@@ -284,7 +276,7 @@ disableSubmitButton = true;
     let row: Array<UserData> = null;
     row = this.userRows.filter(item => item.userID === userId);
     this.populateUserEditForm(row);
-    this.populateNotifEditForm(row);   
+    this.populateNotifEditForm(row);
     this.editRecordUserId = userId;
     this.isNetworkBtn = true;
   }
@@ -311,6 +303,7 @@ disableSubmitButton = true;
     if (row[0].directSMS === false) {
       this.isDirectSMS = false;
       this.isCountryCode = false;
+      notifObj.smsCarrierID = ([0, 1, 2, 3, 4, 5].indexOf(notifObj.smsCarrierID) === -1) ? 0 : notifObj.smsCarrierID;
       this.notificationForm.controls['smsCarrierID'].setValue(notifObj.smsCarrierID, { onlySelf: true });
     } else {
       this.isDirectSMS = true;
@@ -318,7 +311,7 @@ disableSubmitButton = true;
     }
   }
   updateUserData() {
-   let postData = JSON.stringify(this.prepareUpdateData());
+    let postData = JSON.stringify(this.prepareUpdateData());
     this.userProfileService.updateUserData(postData).then(response => {
       this.userForm.reset({});
       this.notificationForm.reset({});
@@ -329,14 +322,14 @@ disableSubmitButton = true;
   private prepareUpdateData() {
     let pwd = this.userForm.get('dashboardPassword').value;
     if (pwd !== '123456A@') {
-    let encodedPWD = this.commonSharedService
-      .getEncodedPassword(pwd);
+      let encodedPWD = this.commonSharedService
+        .getEncodedPassword(pwd);
       this.userForm.get('dashboardPassword').setValue(encodedPWD);
     }
     else {
       this.userForm.get('dashboardPassword').setValue('');
     }
-    
+
     let userObj = Object.assign({}, this.userForm.value, this.notificationForm.value);
     userObj.email = this.userForm.get('dashboardUserName').value;
     delete userObj['confirmPassword'];
@@ -345,7 +338,7 @@ disableSubmitButton = true;
       userObj.smsCarrierID = 0;
       userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
     }
-    else{
+    else {
       userObj.smsCarrierID = this.notificationForm.get('smsCarrierID').value;
       userObj.smsNumber = this.notificationForm.get('smsNumber').value;
     }
@@ -367,7 +360,7 @@ disableSubmitButton = true;
   goToPrevPage() {
     this.router.navigate(['dashboard']);
   }
-  toggleContent(e) {   
+  toggleContent(e) {
     let section = e.currentTarget.attributes.section.value;
     this.isUserContentCollapsed = true;
     this.isNotifContentCollapsed = true;
@@ -378,7 +371,7 @@ disableSubmitButton = true;
     } else if (section === 'notif-content') {
       this.isNotifContentCollapsed = false;
     } else if (section === 'network-content') {
-      let userId = this.isEditForm? this.editRecordUserId : this.loggedInUserId;
+      let userId = this.isEditForm ? this.editRecordUserId : this.loggedInUserId;
       this.buildNetworks(userId);
       this.isNetworkContentCollapsed = false;
       this.isNetworkBtn = true;
@@ -393,11 +386,11 @@ disableSubmitButton = true;
     this.isNetworkContentCollapsed = true;
     this.isProfileContentCollapsed = true;
     this.isNetworkProfileCollapsed = true;
-    this.isNtWorkProfile = true;    
+    this.isNtWorkProfile = true;
     if (section === 'profile-content') {
       this.isProfileContentCollapsed = false;
     } else if (section === 'networks-content') {
-      let userId = this.isEditForm? this.editRecordUserId : this.loggedInUserId;
+      let userId = this.isEditForm ? this.editRecordUserId : this.loggedInUserId;
       this.buildNetworks(userId);
       this.isNetworkProfileCollapsed = false;
     }
@@ -489,9 +482,9 @@ disableSubmitButton = true;
     });
   }
 
- 
 
-  getPaymentHistory() { 
+
+  getPaymentHistory() {
     this.userProfileService.getPaymentHistoryData().then(response => {
       this.renewalRows = response;
     });
@@ -500,48 +493,48 @@ disableSubmitButton = true;
   saveUserNetworkPermssions() {
     let data = this.networkForm.value;
     let updateNetworkList = [];
-    let selectedNetworks =  [];
+    let selectedNetworks = [];
     let i = 0;
-    let customerId = this.isEditForm? this.editRecordUserId : this.newRecordUserId;
+    let customerId = this.isEditForm ? this.editRecordUserId : this.newRecordUserId;
     this.networkData.forEach(item => {
-         item.canAccess = data.networkList[i];
-         if(item.canAccess === true) {
-          selectedNetworks.push(item.networkID);
-         }
-         i++;
+      item.canAccess = data.networkList[i];
+      if (item.canAccess === true) {
+        selectedNetworks.push(item.networkID);
+      }
+      i++;
     });
     let postData = {
       'customerID': customerId,
       'permissionList': [],
       'networkList': selectedNetworks
     }
-   this.userProfileService.postUserNetworkPermissions(postData).then(response => {
-     this.networkForm.reset({});
+    this.userProfileService.postUserNetworkPermissions(postData).then(response => {
+      this.networkForm.reset({});
       this.showUsersTab();
       this.toastr.success('User permissions saved successfully');
       this.getUserProfileData();
     });
   }
   deleteUser(userId) {
-     this.userProfileService.deleteUser(userId).then(response => {
+    this.userProfileService.deleteUser(userId).then(response => {
       this.toastr.success('User removed successfully');
       this.getUserProfileData();
-     });
+    });
   }
-   buildNetworks(id) {
+  buildNetworks(id) {
     this.userProfileService.getUserNetworks(id).then(response => {
       this.networkData = response;
       return response;
     })
-    .then((response) => {
-      const arr = response.map(network => {
-        return this.fb.control({value: network.canAccess, disabled: this.isNtWorkProfile});
+      .then((response) => {
+        const arr = response.map(network => {
+          return this.fb.control({ value: network.canAccess, disabled: this.isNtWorkProfile });
+        });
+        this.networkForm = this.fb.group({
+          networkList: this.fb.array(arr)
+        });
       });
-      this.networkForm = this.fb.group({
-            networkList: this.fb.array(arr)
-          });          
-    });
-   }
+  }
   private addFormControl(name: string, formGroup: FormGroup): void {
     this.editAccountForm.addControl(name, formGroup);
   }
@@ -589,9 +582,9 @@ disableSubmitButton = true;
   get networkList() {
     return this.networkForm.get('networkList');
   }
-enableSubmit($event){
-  this.disableSubmitButton = !$event;
-}
+  enableSubmit($event) {
+    this.disableSubmitButton = !$event;
+  }
 
 
 }
