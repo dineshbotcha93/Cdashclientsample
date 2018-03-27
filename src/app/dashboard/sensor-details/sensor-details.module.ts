@@ -15,6 +15,7 @@ import { ModalContentComponent } from './modals/modalContent.component';
 
 import 'hammerjs';
 import 'chartjs-plugin-zoom';
+import 'chartjs-plugin-annotation';
 
 
 const routes:Routes= [{
