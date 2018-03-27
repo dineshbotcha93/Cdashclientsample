@@ -82,13 +82,13 @@ export class TileComponent {
       const recordedTemp = parseFloat(tileContent);
       if(this.sensor.status !== this.mapConstants.SENSOR_TYPE.CONTACT){
         if(recordedTemp > this.sensor.minimumThreshold){
-          return 'bg-warning';
+          return 'bg-info';
         } else if(recordedTemp > this.sensor.maximumTreshold){
           return 'bg-pink';
         }
       }
       case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
-      return 'bg-info';
+      return 'bg-warnings';
       case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
       return 'bg-lowBattery';
     }

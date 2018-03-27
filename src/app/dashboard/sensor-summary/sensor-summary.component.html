@@ -24,8 +24,10 @@
           <div class="sensorSummaryCard-container">
             <div class="row">
               <div class="col-md-6 ssCard-left">
-                <div class="ssCard-name">{{selectLocation?.Title}}</div>
-                <div class="ssCard-id">{{mapData?.address}}{{mapData?.address2}}{{mapData?.city}}{{mapData?.postalCode}}{{mapData?.country}}</div>
+                <div class="ssCard-name" contenteditable="true" (input)="selectLocation.Title = $event.target.innerText">{{selectLocation.Title }}</div>
+                <div class="ssCard-id" contenteditable="true" (input)="mapData = $event.target.innerText">
+                  {{mapData?.address}}, {{mapData?.address2}}, {{mapData?.city}}, {{mapData?.postalCode}}, {{mapData?.country}}
+                </div>
               </div>
               <div class="col-md-6 ssCard-right">
                 <div class="ssCard-small ssCard-count">Gateways
