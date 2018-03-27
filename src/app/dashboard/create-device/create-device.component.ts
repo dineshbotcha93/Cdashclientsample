@@ -18,6 +18,7 @@ import { NgbTooltipConfig } from "@ng-bootstrap/ng-bootstrap";
 export class CreateDeviceComponent implements OnInit {
   isValidForm = true;
   deviceCreateForm: FormGroup;
+  deviceCreationError: string | null = null;
   @Input() deviceType: string;
   @Input() inputNetworkData: Array<any> = [];
 
@@ -45,10 +46,6 @@ export class CreateDeviceComponent implements OnInit {
     heartBeat: 30,
     monnitApplicationID: "1"
   };
-
-  // this.deviceModel = {
-
-  //  };
 
   setDeviceModelInitiate() {}
 
@@ -112,6 +109,7 @@ export class CreateDeviceComponent implements OnInit {
 
   onClickAddDetail() {
     this.deviceModel.networkID = this.selectedNetwork.Id;
+    this.deviceCreationError = null;
 
     // this.messageEvent.emit(this.message);
 
@@ -144,7 +142,10 @@ export class CreateDeviceComponent implements OnInit {
           console.log("requestObject", requestObject);
           this.createDeviceService.createSensor(requestObject).then(e => {
             this.messageEvent.emit(this.message);
-          });
+          }).catch(e=>{
+          this.isValidForm = false;
+          this.deviceCreationError = "Server error occured while creating sensor. Please try after sometime ";
+        });
         }
       } else {
         return false;
@@ -167,6 +168,9 @@ export class CreateDeviceComponent implements OnInit {
         console.log("requestObject", requestObject);
         this.createDeviceService.createGateway(requestObject).then(e => {
           this.messageEvent.emit(this.message);
+        }).catch(e=>{
+          this.isValidForm = false;
+          this.deviceCreationError = "Server error occured while creating gateway. Please try after sometime ";
         });
       } else {
         return false;
