@@ -9,7 +9,7 @@
       <div class="loader gap-top gap-bottom" *ngIf="!rows"></div>
 
       <div>
-        <button class="btn btn-lg btn-success gap-bottom" (click)="addNetwork()">Add Network</button>
+        <button class="btn btn-lg btn-success gap-bottom" (click)="addNetwork()">Add Location</button>
         <app-datatable class="editNetworkSetup-dataTable"
                        #dataTable
                        *ngIf="rows && rows.length > 0"
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<modal [isOpen]="showPopup" title="Add/Edit Network"
+<modal [isOpen]="showPopup" title="Add/Edit Location"
        (onClose)="modalClosed($event)">
   <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
     <create-network (formReady)="addFormControl('createNetworkForm', $event)" (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup"></create-network>
