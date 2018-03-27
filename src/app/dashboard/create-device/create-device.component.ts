@@ -116,7 +116,6 @@ export class CreateDeviceComponent implements OnInit {
     // this.messageEvent.emit(this.message);
 
     let requestObject: any = [];
-    debugger;
     this.isValidForm = this.deviceCreateForm.valid;
 
     if (this.deviceType === "SENSOR") {
@@ -174,9 +173,6 @@ export class CreateDeviceComponent implements OnInit {
       }
     }
 
-    if (this.deviceType === "GATEWAY") {
-      //for basestation
-    }
   }
 
   onClickCancelDetail() {
