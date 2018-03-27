@@ -174,6 +174,7 @@ disableSubmitButton = true;
    // this.updateNotifFormControls();
   }
 
+  
   private populateTimeZones() {
     this.fillDetailsService.getTimeZones().subscribe((e) => {
       e[0].forEach((tZ) => {
@@ -227,6 +228,10 @@ disableSubmitButton = true;
     if (this.notificationForm.get('directSMS').value === '1') {
       userObj.smsCarrierID = 0;
       userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
+    }
+    else{
+      userObj.smsCarrierID = this.notificationForm.get('smsCarrierID').value;
+      userObj.smsNumber = this.notificationForm.get('smsNumber').value;
     }
     delete userObj['countryCode'];
     userObj.isAdmin = (this.userForm.get('isAdmin').value === null) ? 0 : Number(this.userForm.get('isAdmin').value);
@@ -340,6 +345,10 @@ disableSubmitButton = true;
       userObj.smsCarrierID = 0;
       userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
     }
+    else{
+      userObj.smsCarrierID = this.notificationForm.get('smsCarrierID').value;
+      userObj.smsNumber = this.notificationForm.get('smsNumber').value;
+    }
     delete userObj['countryCode'];
     userObj.isAdmin = (this.userForm.get('isAdmin').value === null) ? 0 : Number(this.userForm.get('isAdmin').value);
     userObj.recievesSensorNotificationByText = Number(this.notificationForm.get('recievesSensorNotificationByText').value);
@@ -433,7 +442,7 @@ disableSubmitButton = true;
       if (value === '0') {
         this.isDirectSMS = false;
         this.isCountryCode = false;
-        this.notificationForm.controls['smsCarrierID'].setValue('', { onlySelf: true });
+        this.notificationForm.controls['smsCarrierID'].setValue('0', { onlySelf: true });
       } else {
         this.isDirectSMS = true;
         this.isCountryCode = true;
