@@ -68,10 +68,15 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
         this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
         this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
-        console.log(rResult);
+        const addressData = (rResult.address || '')+ ', '
+        + (rResult.address2 || '') + ', '
+        + (rResult.city|| '') + ', '
+        + (rResult.state || '') +', '
+        + (rResult.postalCode || '') + ', '
+        + (rResult.country || '') + '';
         this.rows.push({
           title:rResult.title,
-          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city,
+          address: addressData,
           id:rResult.id,
           lat: rResult.latitude,
           lng: rResult.longitude
@@ -114,7 +119,7 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   }
 
   gotoNotificationList(sensor) {
-  console.log(':::::::::goToNotificationList' , sensor);
+  // console.log(':::::::::goToNotificationList' , sensor);
     this.router.navigate(['dashboard/notificationList',sensor.status]);
   }
 

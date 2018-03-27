@@ -704,63 +704,63 @@
 
       let Obj = [
       {
-        id: "01",
+        id: "0",
         value: "Please Select One"
       },
       {
-        id: "02",
+        id: "1",
         value: "Notify after aware period"
       },
       {
-        id: "03",
+        id: "2",
         value: "Back Online"
       },
       {
-        id: "04",
+        id: "3",
         value: "Battery Below 10"
       },
       {
-        id: "05",
+        id: "4",
         value: "Gateway On Battery"
       },
       {
-        id: "06",
+        id: "5",
         value: "Frequent Aware Messages"
       },
       {
-        id: "07",
+        id: "6",
         value: "First Aware Message"
       },
       {
-        id: "08",
+        id: "7",
         value: "First Non-Aware Message"
       },
       {
-        id: "09",
+        id: "8",
         value: "Aware State Changed"
       },
       {
-        id: "10",
+        id: "9",
         value: "Gateway Switched to Line Power"
       },
       {
-        id: "11",
+        id: "10",
         value: "Notify after not aware period"
       },
       {
-        id: "12",
+        id: "11",
         value: "Advanced Temperature Range"
       },
       {
-        id: "13",
+        id: "12",
         value: "Advanced Humidity"
       },
       {
-        id: "14",
+        id: "13",
         value: "Advanced Open / Closed"
       },
       {
-        id: "15",
+        id: "14",
         value: "Advanced Temperature"
       }
       ];
@@ -785,6 +785,8 @@
       this.notificationModel.notificationTemplate = "inActiveNotification";
     }
     onChangeNotifictaion(e) {
+
+
       this.isSensorNotificationForm1 = true;
       this.isButtonFooterRequired = true;
 

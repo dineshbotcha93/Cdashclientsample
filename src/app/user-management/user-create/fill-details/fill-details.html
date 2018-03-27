@@ -22,7 +22,7 @@
                 <span class="inner-addon-icon"><i class="fa fa-building"></i></span>
                 <input type="text" formControlName="company_name" class="form-control">
               </div>
-              <div *ngIf="accountForm.get('company_name').touched">
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('company_name').touched">
                 <div class="error" *ngIf="accountForm.get('company_name').hasError('required')">Company Name is required.</div>
               </div>
             </div>
@@ -33,18 +33,18 @@
                   <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
                 </select>
               </div>
-              <div *ngIf="accountForm.get('industry_type').touched">
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('industry_type').touched">
                 <div class="error" *ngIf="accountForm.get('industry_type').hasError('required')">Industry Type is required.</div>
               </div>
             </div>
-            <div class="form-group" *ngIf="isNewMaster || accountInfo.businessType">
+            <div class="form-group" *ngIf="isNewMaster || (accountInfo && accountInfo.businessType)">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select formControlName="business_type" class="form-control m-b-md">
                   <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
                 </select>
               </div>
-              <div *ngIf="accountForm.get('business_type').touched">
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('business_type').touched">
                 <div class="error" *ngIf="accountForm.get('business_type').hasError('required')">Business Type is required.</div>
               </div>
             </div>
@@ -55,7 +55,7 @@
                   <option value="{{tZ.name}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
                 </select>
               </div>
-              <div *ngIf="accountForm.get('timeZone').touched">
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('timeZone').touched">
                 <div class="error" *ngIf="accountForm.get('timeZone').hasError('required')">Time Zone is required.</div>
               </div>
             </div>
@@ -66,7 +66,7 @@
                   <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
                 </select>
               </div>
-              <div *ngIf="accountForm.get('placeOfPurchase').touched">
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('placeOfPurchase').touched">
                 <div class="error" *ngIf="accountForm.get('placeOfPurchase').hasError('required')">Purchase source is required.</div>
               </div>
             </div>

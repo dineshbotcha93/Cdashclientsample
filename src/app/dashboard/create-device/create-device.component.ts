@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { DeviceManagementModel } from "../../shared/models/device/DeviceManagementModel";
 import { CreateDeviceService } from "./services/create-device.service";
 import { FormsModule } from "@angular/forms";
+import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: "app-create-device",
@@ -43,7 +44,12 @@ export class CreateDeviceComponent implements OnInit {
     };
   }
 
-  constructor(private createDeviceService: CreateDeviceService) {}
+  constructor(private createDeviceService: CreateDeviceService, private config: NgbTooltipConfig) {
+    
+   
+    config.placement = 'right';
+
+  }
 
   ngOnInit() {
     this.setDeviceModelInitiate();
