@@ -1,7 +1,7 @@
 <div>
 
   <div *ngIf="!isValidForm" class="alert alert-danger">
-        <span>Please verify the details entered for your device creation</span>
+        <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
   </div>
   <form [formGroup]="deviceCreateForm" name="form" class="form-horizontal form-label-left font-white" >
 
