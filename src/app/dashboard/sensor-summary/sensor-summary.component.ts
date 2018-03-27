@@ -724,7 +724,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
           let tempObj: any = [];
           if (x.sensorID === eidtObject) {
-         
+
             tempObj = {
               sensorID: x.sensorID,
               sensorName: x.sensorName,
@@ -864,9 +864,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
-<<<<<<< HEAD
-      // console.log(g);
-=======
       //this.mapData = this.editNetworkData;
       console.log(this.mapData);
       this.mapData['address'] = this.editNetworkData.address;
@@ -875,7 +872,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.mapData['state'] = this.editNetworkData.state;
       this.mapData['postalCode'] = this.editNetworkData.postalCode;
       this.mapData['address2'] = this.editNetworkData.address2;
->>>>>>> feature/dashboard
+
       this.showEditPopup = false;
     });
   }
