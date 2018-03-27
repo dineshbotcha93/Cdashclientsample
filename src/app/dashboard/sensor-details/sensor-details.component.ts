@@ -84,6 +84,14 @@ export class SensorDetailsComponent {
       });
       this.cd.detectChanges();
     });
+
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      this.chartOptions.pan.enabled = false;
+      this.chartOptions.zoom.enabled = false;
+    } else {
+      this.chartOptions.pan.enabled = true;
+      this.chartOptions.zoom.enabled = true;
+    }
   }
 
   onDateChange(event) {

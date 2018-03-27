@@ -43,11 +43,11 @@ accountID:string;
      });
 
   	
-    console.log('accountData-----',this.accountData);
-  	this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
-    	console.log('result----->',result);
-       this.sensorList = result;
-    });
+   //  console.log('accountData-----',this.accountData);
+  	// this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
+   //  	console.log('result----->',result);
+   //     this.sensorList = result;
+   //  });
 
     this.sensorSummaryService.getGlobalNotificationsList(this.accountID).then((result) => {
       console.log('globalNotificationsList----->',result);

@@ -58,15 +58,21 @@ export class PaymentsComponent {
         .catch(function() {
           this.renewalError = true;
           this.loading = false;
-          this.showConfirmation = false;
         }.bind(this));
       }.bind(this))
         .catch(function() {
           this.renewalError = true;
           this.loading = false;
-          this.showConfirmation = false;
         }.bind(this));
     }
+  }
+
+  resetConfirmation() {
+    this.renewalError = false;
+    this.loading = false;
+    this.showConfirmation = false;
+    this.newRenewalDate = null;
+    this.paymentDataError = null;
   }
 
   goBack() {

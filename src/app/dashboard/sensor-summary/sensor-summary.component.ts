@@ -864,7 +864,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
-      //this.mapData = this.editNetworkData;
+
       console.log(this.mapData);
       this.mapData['address'] = this.editNetworkData.address;
       this.mapData['city'] = this.editNetworkData.city;

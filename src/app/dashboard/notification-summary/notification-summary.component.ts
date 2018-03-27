@@ -15,6 +15,7 @@ export class NotificationSummaryComponent implements OnInit {
   modalObject:any = [];
   modalRef: BsModalRef;
   modalType : string ='';
+  accountID:string;
 
   isEditNotify : boolean = false;
 
@@ -31,7 +32,15 @@ export class NotificationSummaryComponent implements OnInit {
   }
 
    getNotificationDetails(){
-     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountData.accountID).then((result) => {
+
+        let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+    console.log(userInfoObject);
+    userInfoObject['account'].forEach(loc => {
+       console.log('loc', loc);
+       this.accountID = loc.accountID;
+     });
+
+     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
 
      console.log('sensorList-------',this.sensorList);
      // let result = this.sensorList;
@@ -80,14 +89,18 @@ export class NotificationSummaryComponent implements OnInit {
      //    }
      // ];
      // result = object;
-      result.forEach((notify) => {
-        let checkModelNotify = { active: false, inActive: true };
-        if (notify.notification.active) {
-          checkModelNotify = { active: true, inActive: false };
-        }
-        notify.notification.checkModelNotify = checkModelNotify;
-        this.notificationSummaryList.push(notify);
-      });
+      // result = [];
+     if(result.length > 0){
+          result.forEach((notify) => {
+          let checkModelNotify = { active: false, inActive: true };
+          if (notify.notification.active) {
+            checkModelNotify = { active: true, inActive: false };
+          }
+          notify.notification.checkModelNotify = checkModelNotify;
+          this.notificationSummaryList.push(notify);
+        });
+     }
+     
      });
   }
 
