@@ -70,7 +70,7 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
         this.rows.push({
           title:rResult.title,
-          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city,
+          address:(rResult.address || '')+ ' ' + (rResult.address2 || '') + ' ' + (rResult.city|| ''),
           id:rResult.id,
           lat: rResult.latitude,
           lng: rResult.longitude
