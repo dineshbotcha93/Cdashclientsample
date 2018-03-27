@@ -873,6 +873,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.mapData['postalCode'] = this.editNetworkData.postalCode;
       this.mapData['address2'] = this.editNetworkData.address2;
 
+      this.selectLocation.Title = this.editNetworkData.name;
       this.showEditPopup = false;
     });
   }
