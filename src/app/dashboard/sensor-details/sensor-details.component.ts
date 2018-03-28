@@ -67,7 +67,7 @@ export class SensorDetailsComponent {
     this.columns.push({prop: 'messageDate', name: 'Date'});
     this.columns.push({prop: 'signalStrength', name: 'Signal'});
     this.columns.push({prop: 'battery', name: 'Battery'});
-    this.columns.push({prop: 'data', name: 'Reading'});
+    this.columns.push({prop: 'displayData', name: 'Reading'});
 
     this.translate.use('en');
 
@@ -115,7 +115,7 @@ export class SensorDetailsComponent {
         this.data.push(res.plotValue);
         this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11, 19));
         this.rows.push({
-          data: res.plotValue,
+          displayData: res.displayData,
           messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
           signalStrength: res.signalStrength,
           battery: res.battery,
@@ -155,7 +155,7 @@ export class SensorDetailsComponent {
     },
     {
       title: 'Reading',
-      dataKey: 'data'
+      dataKey: 'displayData'
     },
   ];
     const rows = [];
