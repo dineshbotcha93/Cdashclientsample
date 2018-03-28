@@ -63,6 +63,10 @@ export class SensorDetailsComponent {
     });
     sensorDetailsService.getDetails(this.detailId).then((result) => {
       this.sensorDetailsData = result;
+
+      this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
+      this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+
     });
     this.columns.push({prop: 'messageDate', name: 'Date'});
     this.columns.push({prop: 'signalStrength', name: 'Signal'});
