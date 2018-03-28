@@ -110,6 +110,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   isValidForm = false;
   deviceCreationError: string | null = null;
 
+  isServiceCallSuccess = false;
+  deviceCreationSuccess: string | null = null;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -147,6 +150,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
      });
      this.isValidForm = true;
      this.deviceCreationError = null;
+
+     this.isServiceCallSuccess = false;
   }
 
   private getDropdownDetails() {
@@ -266,6 +271,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     };
     // this.deviceCreationError = null;
     this.isValidForm = true;
+    this.isServiceCallSuccess = false;
   }
   /*Selection Of Gateway radion*/
   private onSelectGatewayRadio() {
@@ -283,6 +289,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       add: false,
       reset: true
     };
+    this.isValidForm = true;
+    this.isServiceCallSuccess = false;
   }
 
   /*Selection Of Gateway radion*/
@@ -304,6 +312,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       };
     }
     this.isValidForm = true;
+    this.isServiceCallSuccess = false;
     // e.target.checked = true;
   }
 
@@ -328,6 +337,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   private onClickInlineCheckBox(e, gateway) {
     this.isValidForm = true;
+    this.isServiceCallSuccess = false;
     if (!e.target.checked) {
       gateway.gateWayEditOption = "display";
       this.counterToCheckSelected--;
@@ -363,7 +373,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   private onClickEditDetails() {
 
   this.isValidForm = true;
-
+  this.isServiceCallSuccess = false;
 
 
 
@@ -508,6 +518,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
             if (e == true) {
               this.getNetworkData();
             }
+            this.isServiceCallSuccess = true;
           });
         });
       }else{
@@ -527,6 +538,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
             if (e == true) {
               this.getNetworkData();
             }
+            this.isServiceCallSuccess = true;
           });
         });
       }else{
@@ -564,6 +576,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     // console.log(this);
     this.onCheckSetRestValues(false);
     this.isSelectedAll = false;
+    this.isServiceCallSuccess = false;
   }
 
   private setEdiyGatewayDetails() {
@@ -654,6 +667,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               reset: true
             };
           });
+          this.isServiceCallSuccess = true;
         }).catch(e=>{
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
@@ -745,6 +759,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               add: false,
               reset: true
             };
+            this.isServiceCallSuccess = true;
           });
         }).catch(e=>{
           this.isValidForm = false;
@@ -759,13 +774,12 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   /*Update the network assigned details*/
   private onClickSaveMoveNetwork(gatewaydata) {
+
     let tempObj: any = [];
     let selectedCheckedData: any = [];
     const deviceType = this.radioModel === "gateway" ? "Gateway" : "Sensor";
-
     if (
-      this.netWorkIdToMove !== null &&
-      this.netWorkIdToMove !== this.selectLocation.Id
+      this.netWorkIdToMove !== null && this.netWorkIdToMove !== this.selectLocation.Id
     ) {
       gatewaydata.forEach(x => {
         let tempObj: any = [];
@@ -785,9 +799,15 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         };
         this.sensorSummaryService
           .moveSensorDetails(requestObject)
-          .then(e => {});
+          .then(e => {
+            this.isServiceCallSuccess = true;
+             this.getNetworkData();
+          }).catch(e=>{
+          this.isValidForm = false;
+          this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
+        });
 
-        this.getNetworkData();
+       
       }else if (deviceType === "Gateway") {
 
         requestObject = {
@@ -796,12 +816,20 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         };
         this.sensorSummaryService
           .moveGatewayDetails(requestObject)
-          .then(e => {});
+          .then(e => {
 
         this.getNetworkData();
        this.radioModel = "gateway";
+          }).catch(e=>{
+          this.isValidForm = false;
+          this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
+        });
+
       }
     } else {
+      this.isValidForm = false;
+      this.deviceCreationError = "Please select different network to move";
+     // $('#modal').modal('hide');
       return false;
     }
   }
@@ -837,7 +865,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     });
     if (selectedCheckedData.length < 1) {
       this.isValidForm = false;
-      this.deviceCreationError = "Server error occured while editing sensor. Please try after sometime ";
+      this.deviceCreationError = "Please select details to Move";
       return false;
     } else {
       return selectedCheckedData;
@@ -867,14 +895,18 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
 
   receiveMessage($event) {
-    // console.log('received addition');
-    this.isDeviceAddedSucceess = $event;
+     this.isDeviceAddedSucceess = $event;
+    if($event){
+      this.isServiceCallSuccess = true;
+      this.getNetworkData();
+    }
+   
     this.isSelectedToAddDevice = false;
-    this.getNetworkData();
+   
   }
 
   receiveCancelMessage($event) {
-    // console.log('received cancelation');
+   
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
   }

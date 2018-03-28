@@ -143,6 +143,7 @@
           </tab>
           <tab *ngIf="isAdminUser()" tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
             <div class="row">
+
               <div class="col-md-4">
                 <form action="" class="dark-theme">
                   <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
@@ -292,38 +293,12 @@
   </table>
 </ng-template>
 
-<!-- <ng-template #networkModal>
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td> Network Name</td>
-        <td>
-          <input class="form-control" type="text" name="networkName" [(ngModel)]="editNetworkData.name">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Send notifications for this Network
-        </td>
-        <td>
-          <input type="checkbox" [(ngModel)]="editNetworkData.sendNotifications">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Holding Network
-        </td>
-        <td>
-          <input type="checkbox" [(ngModel)]="editNetworkData.holdNetwork">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</ng-template> -->
-
 <ng-template #gateWayDataTemplate>
- <div *ngIf="!isValidForm" class="alert alert-danger">
-        <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
+  <div *ngIf="!isValidForm" class="alert alert-danger">
+        <span>{{deviceCreationError ||  'Sorry, a technical error occurred! Please try again later.'}}</span>
+  </div>
+  <div *ngIf="isServiceCallSuccess" class="alert alert-success">
+        <span>Successfully updated</span>
   </div>
   <table class="table table-striped" *ngIf="gateWayData?.length>0">
     <thead>
@@ -357,6 +332,10 @@
   <div *ngIf="!isValidForm" class="alert alert-danger">
         <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
   </div>
+  <div *ngIf="isServiceCallSuccess" class="alert alert-success">
+        <span>Successfully updated</span>
+  </div>
+  
   <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>

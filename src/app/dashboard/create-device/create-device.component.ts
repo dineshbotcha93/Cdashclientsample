@@ -141,7 +141,7 @@ export class CreateDeviceComponent implements OnInit {
           };
           console.log("requestObject", requestObject);
           this.createDeviceService.createSensor(requestObject).then(e => {
-            this.messageEvent.emit(this.message);
+            this.messageEvent.emit(true);
           }).catch(e=>{
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while creating sensor. Please try after sometime ";
@@ -167,7 +167,7 @@ export class CreateDeviceComponent implements OnInit {
 
         console.log("requestObject", requestObject);
         this.createDeviceService.createGateway(requestObject).then(e => {
-          this.messageEvent.emit(this.message);
+          this.messageEvent.emit(true);
         }).catch(e=>{
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while creating gateway. Please try after sometime ";
@@ -180,7 +180,7 @@ export class CreateDeviceComponent implements OnInit {
   }
 
   onClickCancelDetail() {
-    this.messageCancelEvent.emit(this.message);
+    this.messageCancelEvent.emit(true);
   }
 
   onChangeGatewayType(e) {
