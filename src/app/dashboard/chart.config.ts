@@ -15,44 +15,21 @@ export const ChartOptions = {
   // Container for pan options
   pan: {
     // Boolean to enable panning
-    enabled: false,
+    enabled: true,
 
     // Panning directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow panning in the y direction
-    mode: 'xy',
-    rangeMin: {
-      // Format of min pan range depends on scale type
-      x: null,
-      y: null
-    },
-    rangeMax: {
-      // Format of max pan range depends on scale type
-      x: null,
-      y: null
-    }
+    mode: 'xy'
   },
 
   // Container for zoom options
   zoom: {
     // Boolean to enable zooming
-    enabled: false,
-
-    // Enable drag-to-zoom behavior
-    drag: false,
+    enabled: true,
 
     // Zooming directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow zooming in the y direction
-    mode: 'xy',
-    rangeMin: {
-      // Format of min zoom range depends on scale type
-      x: null,
-      y: null
-    },
-    rangeMax: {
-      // Format of max zoom range depends on scale type
-      x: null,
-      y: null
-    }
+    mode: 'xy'
   },
   // title: {
   //   display: true,

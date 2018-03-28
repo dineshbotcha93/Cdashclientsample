@@ -11,7 +11,7 @@
      "username":"Username",
      "password":"Password",
      "loginButton":"Login",
-     "newUser":"New User: Click to Register"
+     "newUser":"Create Account: Click to Register"
     }
   },
  "userRegistration":{
