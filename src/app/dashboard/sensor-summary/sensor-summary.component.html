@@ -322,6 +322,9 @@
 </ng-template> -->
 
 <ng-template #gateWayDataTemplate>
+ <div *ngIf="!isValidForm" class="alert alert-danger">
+        <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
+  </div>
   <table class="table table-striped" *ngIf="gateWayData?.length>0">
     <thead>
       <tr>
@@ -351,6 +354,9 @@
 
 <ng-template #sensorDataTemplate>
 
+  <div *ngIf="!isValidForm" class="alert alert-danger">
+        <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
+  </div>
   <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
@@ -380,16 +386,16 @@
           <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.maximumThreshold}}</td>
 
         <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.minimumThreshold}}" [(ngModel)]="sensor.minimumThreshold">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.minimumThreshold}}" [(ngModel)]="sensor.minimumThreshold">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.maximumThreshold}}" [(ngModel)]="sensor.maximumThreshold">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.maximumThreshold}}" [(ngModel)]="sensor.maximumThreshold">
         </td>
 
            <!-- <td class="col-md-3">{{sensor.scale}}</td> -->

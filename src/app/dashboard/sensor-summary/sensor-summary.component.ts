@@ -92,7 +92,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   selectDetailsToEditOrSave: any = [];
   disableSubmitButton: boolean = true;
 
-  // notificationRadio: any = 'overview';
 
   private mapStatus = MapConstants.STATUS;
   private doFilterByName: string = null;
@@ -100,16 +99,17 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   private doFilterByType: string = "select";
   private networkModel: NetworkModel = new NetworkModel();
 
-  // minDate: Date;
-  // maxDate: Date;
-  // daterangepickerModel: Date[];
-  // requestDateObject :any = [];
+
   selectTempTypeList: any = [];
   showPopup: boolean = false;
   showEditPopup: boolean = false;
   private networkFormSetup: FormGroup;
   private networkEditForm: FormGroup;
   accountID:string;
+
+  isValidForm = false;
+  deviceCreationError: string | null = null;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -133,17 +133,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.getNetworkData();
       this.getDropdownDetails();
 
-      // this.minDate = new Date();
-      // this.maxDate = new Date();
-      // this.minDate.setDate(this.minDate.getDate() - 7);
-      // this.maxDate.setDate(this.maxDate.getDate());
-
-      // this.daterangepickerModel = [this.minDate, this.maxDate];
-
-      // this.requestDateObject = {
-      //   fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
-      //   toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
-      // };
     });
     this.translate.use("en");
   }
@@ -156,6 +145,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
        // console.log('loc', loc);
        this.accountID = loc.accountID;
      });
+     this.isValidForm = true;
+     this.deviceCreationError = null;
   }
 
   private getDropdownDetails() {
@@ -273,6 +264,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       add: false,
       reset: true
     };
+    // this.deviceCreationError = null;
+    this.isValidForm = true;
   }
   /*Selection Of Gateway radion*/
   private onSelectGatewayRadio() {
@@ -310,7 +303,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         reset: true
       };
     }
-
+    this.isValidForm = true;
     // e.target.checked = true;
   }
 
@@ -332,16 +325,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   private plainValueChanged(event, sensor) {
     sensor.heartBeat = event.startValue;
   }
-  // getElement(data){
-  // if (typeof(data)=='string') {
-  //     return document.getElementById(data);
-  // }
-  // if (typeof(data)=='object' && data instanceof Element) {
-  //     return data;
-  // }
-  // return null;
-  // }
+
   private onClickInlineCheckBox(e, gateway) {
+    this.isValidForm = true;
     if (!e.target.checked) {
       gateway.gateWayEditOption = "display";
       this.counterToCheckSelected--;
@@ -351,9 +337,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
     if (this.counterToCheckSelected === 0 && this.editSaveModel === "Save") {
       this.editSaveModel = "Edit";
-    }
 
-    // console.log("Sensors after inline", this.allSensors);
+    }
+    
+
   }
 
   private onClickButtonReset() {
@@ -369,10 +356,17 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     this.onCheckSetRestValues(false);
     this.isSelectedAll = false;
     this.editSaveModel = "Edit";
+     this.isValidForm = true;
   }
 
   /*Edit the selected ,update and get refresh data drom network*/
   private onClickEditDetails() {
+
+  this.isValidForm = true;
+
+
+
+
     // this.selectedUserDataForOperation = [];
     this.radioModel === "gateway"
       ? this.setEdiyGatewayDetails()
@@ -503,24 +497,23 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
   /*Remove the selected ,update and get refresh data drom network*/
   private onClickRemoveDetails() {
+
     if (this.radioModel === "gateway") {
-      //backend function to be replaced with
       this.selectedGateway = Object.assign({}, this.gateWayData);
       let selectedRemoveData = this.getSelectedRowDetailsToRemove();
       if (selectedRemoveData) {
         selectedRemoveData.forEach(gateway => {
-          /*Backend call to remove and get latest details*/
-          // this.sensorSummaryService.removeGatewayDetails(selectedRemoveData).
-          //   subscribe(
-          //     res => { this.getNetworkData(); },
-          //     err => { }
-          //   );
+         
           this.sensorSummaryService.deleteGateway(gateway.gatewayID).then(e => {
             if (e == true) {
               this.getNetworkData();
             }
           });
         });
+      }else{
+         this.deviceCreationError = "Please select details to Remove";
+         this.isValidForm = false;
+         return false;
       }
     } else if (this.radioModel === "sensor") {
       this.selectedSensor = Object.assign({}, this.allSensors);
@@ -536,11 +529,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
             }
           });
         });
-        // this.sensorSummaryService.removeSensorDetails(selectedRemoveData).
-        //   subscribe(
-        //     res => { this.getNetworkData(); },
-        //     err => { }
-        //   );
+      }else{
+         this.deviceCreationError = "Please select details to Remove";
+         this.isValidForm = false;
+         return false;
       }
     }
 
@@ -598,7 +590,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       });
       if (isRecordSelected) {
         this.editSaveModel = "Save";
-      } else return false;
+      } else {
+          // if(this.counterToCheckSelected === 0 && this.editSaveModel === "Edit"){
+                this.deviceCreationError = "Please select details to edit";
+                this.isValidForm = false;
+                return false;
+           // }
+
+      }
     } else {
 
       let gateWayDataToUpdate: Array<any> = [];
@@ -613,24 +612,30 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               name: x.name,
               networkID: x.networkID
             };
-            gateWayDataToUpdate.push(tempObj);
+             if(x.name === ''){
+
+              this.isValidForm = false;
+              this.deviceCreationError = "Please enter valid details ";
+              return false;
+
+            }else{
+               this.isValidForm = true;
+               this.deviceCreationError = null;
+             gateWayDataToUpdate.push(tempObj);
+            }
+
+           
           }
 
           tempObj = [];
         });
       });
 
-      // console.log("---------->", gateWayDataToUpdate);
-
-      /*BACKEND call to update gateway details*/
-
+  
       this.sensorSummaryService
         .updateGatewayDetails(gateWayDataToUpdate)
         .then(result => {
-          // console.log("--->result", result);
           result.forEach(resp => {
-            // console.log("resp", resp.result);
-
             this.gateWayData.forEach(x => {
               if (x.checked) {
                 x.gateWayEditOption = "display";
@@ -649,29 +654,11 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               reset: true
             };
           });
+        }).catch(e=>{
+          this.isValidForm = false;
+          this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
         });
-      // this.sensorSummaryService.updateGatewayDetails(gateWayDataToUpdate).
-      // subscribe(
-      //   res => {
-      //     this.editSaveModel = 'Edit';
-      //     this.isSelectedAll = false;
-      //     this.disable = {
-      //       edit: false,
-      //       remove: false,
-      //       move: false,
-      //       add: false,
-      //       reset: true
-      //     };
-      //     //after backend call
-      //     this.gateWayData.forEach(x => {
-      //       if (x.checked) {
-      //         x.gateWayEditOption = 'display';
-      //         x.checked = false;
-      //       }
-      //     });
-      //   },
-      //   err => { }
-      // );
+     
     }
   }
 
@@ -680,8 +667,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
 
   private setEditSensorDetails() {
-    // this.selectedSensor = Object.assign({}, this.allSensors);
-    // console.log("this.allSensors- before edit or save-->", this.allSensors);
     let isRecordSelected: boolean = false;
     this.disable = {
       edit: false,
@@ -700,28 +685,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.selectedUserDataForOperation.push(x.sensorID);
         }
       });
-      //  console.log(
-      //   "after edit selectedUserDataForOperation",
-      //   this.selectedUserDataForOperation
-      // );
 
       if (isRecordSelected) {
         this.editSaveModel = "Save";
+      }else{
+         this.deviceCreationError = "Please select details to edit";
+                this.isValidForm = false;
+                return false;
       }
     } else {
       let sensorDataToUpdate: Array<any> = [];
 
-      // console.log("Before Save Detailss to Update ", this.allSensors);
-
-      // console.log(
-      //   "Before selectedUserDataForOperation",
-      //   this.selectedUserDataForOperation
-      // );
-
       this.selectedUserDataForOperation.forEach(eidtObject => {
         this.allSensors.forEach(x => {
-          // console.log(eidtObject);
-
           let tempObj: any = [];
           if (x.sensorID === eidtObject) {
 
@@ -733,7 +709,16 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               maximumThreshold:x.maximumThreshold
             };
 
-            sensorDataToUpdate.push(tempObj);
+            if(x.sensorName === '' || x.heartBeat === '' || x.minimumThreshold === '' ||x.maximumThreshold === '' ){
+              this.isValidForm = false;
+              this.deviceCreationError = "Please enter valid details ";
+              return false;
+            }else{
+               this.isValidForm = true;
+               this.deviceCreationError = null;
+              sensorDataToUpdate.push(tempObj);
+            }
+            
           }
         });
       });
@@ -742,10 +727,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.sensorSummaryService
         .updateSensorDetails(sensorDataToUpdate)
         .then(result => {
-          // console.log("--->result", result);
           result.forEach(resp => {
-            // console.log("resp", resp.result);
-
             this.allSensors.forEach(x => {
               if (x.checked) {
                 x.gateWayEditOption = "display";
@@ -764,6 +746,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               reset: true
             };
           });
+        }).catch(e=>{
+          this.isValidForm = false;
+          this.deviceCreationError = "Server error occured while editing sensor. Please try after sometime ";
         });
     }
   }
@@ -840,6 +825,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
 
   private getSelectedRowDetailsToMove() {
+     this.isValidForm = true;
     let selectedCheckedData: any = [];
     let selectedDetails =
       this.radioModel === "gateway" ? this.gateWayData : this.allSensors;
@@ -850,6 +836,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       }
     });
     if (selectedCheckedData.length < 1) {
+      this.isValidForm = false;
+      this.deviceCreationError = "Server error occured while editing sensor. Please try after sometime ";
       return false;
     } else {
       return selectedCheckedData;
