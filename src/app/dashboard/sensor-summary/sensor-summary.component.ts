@@ -907,6 +907,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   receiveCancelMessage($event) {
    
+    this.isValidForm = true;
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
   }
