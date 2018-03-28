@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import * as moment from 'moment/moment';
+import {ChartsModule} from 'ng2-charts/charts/charts';
 declare var jsPDF: any; // Important
 
 @Component({
@@ -45,6 +46,8 @@ export class SensorDetailsComponent {
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   bsModalRef: BsModalRef;
 
+
+
   constructor(
     private sensorDetailsService: SensorDetailsService,
     private router: Router,
@@ -52,7 +55,8 @@ export class SensorDetailsComponent {
     private alertSandbox: AlertSandbox,
     private cd: ChangeDetectorRef,
     private modalService: BsModalService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    // private tempChart = window.Chart;
   ) {
     this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
@@ -92,6 +96,8 @@ export class SensorDetailsComponent {
       this.chartOptions.pan.enabled = true;
       this.chartOptions.zoom.enabled = true;
     }
+
+    console.log('chart annotation');
   }
 
   onDateChange(event) {
@@ -115,6 +121,8 @@ export class SensorDetailsComponent {
           battery: res.battery,
         });
       });
+
+      /*console.log('chart', window.Chart);*/
     }).then((e) => {
       this.cd.detectChanges();
     }).catch((e) => {

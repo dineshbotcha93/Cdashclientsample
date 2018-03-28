@@ -66,6 +66,30 @@ export const ChartOptions = {
       },
     }],
   },
+  annotation: {
+    events: ["click"],
+    annotations: [
+      {
+        drawTime: "afterDatasetsDraw",
+        id: "hline1",
+        type: "line",
+        mode: "horizontal",
+        scaleID: "y-axis-0",
+        value: 1,
+        borderColor: "black",
+        borderWidth: 2,
+        label: {
+          backgroundColor: "red",
+          content: "Test Label",
+          enabled: false
+        },
+        onClick: function(e) {
+          // The annotation is is bound to the `this` variable
+          console.log("Annotation", e.type, this);
+        }
+      }
+    ]
+  },
 };
 
 export const ChartColors = {
