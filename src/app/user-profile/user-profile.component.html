@@ -54,7 +54,8 @@
               <span>{{accountData?.numSensors}}</span>
             </div>
             <div class="col-sm-4 renewal-pos">
-              <a class="btn btn-primary addBTN" role="button" href="/payments" style="color:#fff; text-decoration: none;">Renew Contract</a>
+              <a class="btn btn-primary addBTN btn-renew-contract" role="button" [class.btn-disabled]="accountData.numSensors == 0"
+              [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'">Renew Contract</a>
             </div>
           </div>
         </div>

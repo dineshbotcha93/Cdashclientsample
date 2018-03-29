@@ -164,6 +164,18 @@ a:hover {
   color: #f30e0e;
 }
 
+.btn-renew-contract {
+  color:#fff !important;
+  text-decoration: none !important;
+  background-color: #5ad977
+}
+
+.btn-disabled:link {
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: .65;
+}
+
 :host {
   /deep/ .popover {
     display: inherit;
