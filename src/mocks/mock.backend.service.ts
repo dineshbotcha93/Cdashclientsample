@@ -182,6 +182,8 @@ export class MockBackendService {
           if(error.status == 401){
             this.router.navigate(['/login']);
             this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+          } else if(error.status == 500){
+            this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
           }
           c.mockError(new Error(error));
         });
@@ -201,6 +203,8 @@ export class MockBackendService {
           if(error.status == 401){
             this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
             this.router.navigate(['/login']);
+          } else if(error.status == 500){
+            this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
           }
           c.mockError(new Error(error));
         });
@@ -220,6 +224,8 @@ export class MockBackendService {
           if(error.status == 401){
             this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
             this.router.navigate(['/login']);
+          } else if(error.status == 500){
+            this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
           }
           c.mockError(new Error(error));
         });
