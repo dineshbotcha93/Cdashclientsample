@@ -66,6 +66,26 @@ export const ChartOptions = {
       },
     }],
   },
+  annotation: {
+    drawTime: 'afterDatasetsDraw',
+    annotations: [{
+      id: 'hline1',
+      type: 'line',
+      mode: 'horizontal',
+      scaleID: 'y-axis-0',
+      value: 0,
+      borderColor: 'red',
+      borderWidth: 2
+    }, {
+      id: 'hline3',
+      type: 'line',
+      mode: 'horizontal',
+      scaleID: 'y-axis-0',
+      value: 0,
+      borderColor: 'blue',
+      borderWidth: 2,
+    }]
+  },
 };
 
 export const ChartColors = {

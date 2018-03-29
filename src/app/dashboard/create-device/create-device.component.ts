@@ -101,8 +101,8 @@ export class CreateDeviceComponent implements OnInit {
        this.deviceCreateForm = this.formBuilder.group({ 
           gatewayTypeID: [this.deviceModel.gatewayTypeID, [Validators.required]],
           networkID: [this.deviceModel.networkID, [Validators.required]],
-          serialNumber: [this.deviceModel.serialNumber, [Validators.required]],
-          macAddress: [this.deviceModel.macAddress, [Validators.required]]
+          serialNumber: [this.deviceModel.serialNumber, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+          macAddress: [this.deviceModel.macAddress, [Validators.required,Validators.pattern(/^([0-9]{2,2})+\:([0-9]{2,2})+\:([0-9]{2,2})+\:([0-9]{2,2})+$/)]]
         });
     }
   }
@@ -141,7 +141,7 @@ export class CreateDeviceComponent implements OnInit {
           };
           console.log("requestObject", requestObject);
           this.createDeviceService.createSensor(requestObject).then(e => {
-            this.messageEvent.emit(this.message);
+            this.messageEvent.emit(true);
           }).catch(e=>{
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while creating sensor. Please try after sometime ";
@@ -167,7 +167,7 @@ export class CreateDeviceComponent implements OnInit {
 
         console.log("requestObject", requestObject);
         this.createDeviceService.createGateway(requestObject).then(e => {
-          this.messageEvent.emit(this.message);
+          this.messageEvent.emit(true);
         }).catch(e=>{
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while creating gateway. Please try after sometime ";
@@ -180,7 +180,7 @@ export class CreateDeviceComponent implements OnInit {
   }
 
   onClickCancelDetail() {
-    this.messageCancelEvent.emit(this.message);
+    this.messageCancelEvent.emit(true);
   }
 
   onChangeGatewayType(e) {

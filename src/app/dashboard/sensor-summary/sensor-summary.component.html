@@ -143,6 +143,7 @@
           </tab>
           <tab *ngIf="isAdminUser()" tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
             <div class="row">
+
               <div class="col-md-4">
                 <form action="" class="dark-theme">
                   <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
@@ -292,36 +293,13 @@
   </table>
 </ng-template>
 
-<!-- <ng-template #networkModal>
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td> Network Name</td>
-        <td>
-          <input class="form-control" type="text" name="networkName" [(ngModel)]="editNetworkData.name">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Send notifications for this Network
-        </td>
-        <td>
-          <input type="checkbox" [(ngModel)]="editNetworkData.sendNotifications">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Holding Network
-        </td>
-        <td>
-          <input type="checkbox" [(ngModel)]="editNetworkData.holdNetwork">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</ng-template> -->
-
 <ng-template #gateWayDataTemplate>
+  <div *ngIf="!isValidForm" class="alert alert-danger">
+        <span>{{deviceCreationError ||  'Sorry, a technical error occurred! Please try again later.'}}</span>
+  </div>
+  <div *ngIf="isServiceCallSuccess" class="alert alert-success">
+        <span>Successfully updated</span>
+  </div>
   <table class="table table-striped" *ngIf="gateWayData?.length>0">
     <thead>
       <tr>
@@ -351,6 +329,13 @@
 
 <ng-template #sensorDataTemplate>
 
+  <div *ngIf="!isValidForm" class="alert alert-danger">
+        <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
+  </div>
+  <div *ngIf="isServiceCallSuccess" class="alert alert-success">
+        <span>Successfully updated</span>
+  </div>
+  
   <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
@@ -380,16 +365,16 @@
           <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.maximumThreshold}}</td>
 
         <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.minimumThreshold}}" [(ngModel)]="sensor.minimumThreshold">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.minimumThreshold}}" [(ngModel)]="sensor.minimumThreshold">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" value="{{sensor.maximumThreshold}}" [(ngModel)]="sensor.maximumThreshold">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.maximumThreshold}}" [(ngModel)]="sensor.maximumThreshold">
         </td>
 
            <!-- <td class="col-md-3">{{sensor.scale}}</td> -->

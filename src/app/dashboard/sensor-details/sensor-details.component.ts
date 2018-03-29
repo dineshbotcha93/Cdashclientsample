@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {Angular2Csv} from 'angular2-csv/Angular2-csv';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import * as moment from 'moment/moment';
+import {ChartsModule} from 'ng2-charts/charts/charts';
 declare var jsPDF: any; // Important
 
 @Component({
@@ -45,6 +46,8 @@ export class SensorDetailsComponent {
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   bsModalRef: BsModalRef;
 
+
+
   constructor(
     private sensorDetailsService: SensorDetailsService,
     private router: Router,
@@ -52,18 +55,23 @@ export class SensorDetailsComponent {
     private alertSandbox: AlertSandbox,
     private cd: ChangeDetectorRef,
     private modalService: BsModalService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    // private tempChart = window.Chart;
   ) {
     this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
     });
     sensorDetailsService.getDetails(this.detailId).then((result) => {
       this.sensorDetailsData = result;
+
+      this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
+      this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+
     });
     this.columns.push({prop: 'messageDate', name: 'Date'});
     this.columns.push({prop: 'signalStrength', name: 'Signal'});
     this.columns.push({prop: 'battery', name: 'Battery'});
-    this.columns.push({prop: 'data', name: 'Reading'});
+    this.columns.push({prop: 'displayData', name: 'Reading'});
 
     this.translate.use('en');
 
@@ -92,6 +100,8 @@ export class SensorDetailsComponent {
       this.chartOptions.pan.enabled = true;
       this.chartOptions.zoom.enabled = true;
     }
+
+    console.log('chart annotation');
   }
 
   onDateChange(event) {
@@ -109,12 +119,14 @@ export class SensorDetailsComponent {
         this.data.push(res.plotValue);
         this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11, 19));
         this.rows.push({
-          data: res.plotValue,
+          displayData: res.displayData,
           messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
           signalStrength: res.signalStrength,
           battery: res.battery,
         });
       });
+
+      /*console.log('chart', window.Chart);*/
     }).then((e) => {
       this.cd.detectChanges();
     }).catch((e) => {
@@ -147,7 +159,7 @@ export class SensorDetailsComponent {
     },
     {
       title: 'Reading',
-      dataKey: 'data'
+      dataKey: 'displayData'
     },
   ];
     const rows = [];
