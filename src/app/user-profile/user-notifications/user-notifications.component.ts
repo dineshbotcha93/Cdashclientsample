@@ -14,7 +14,11 @@ export class UserNotificationsComponent implements OnInit {
   isAddButtonRequired:boolean = true;
   isResetButtonRequired:boolean = false;
   EditNotifyMode : boolean = false;
-accountID:string;
+
+  accountID:string;
+
+  isValidForm = true;
+  deviceCreationError: string | null = null;
 
 
   @Output() editNotifyModeEvent = new EventEmitter<boolean>();
@@ -30,11 +34,13 @@ accountID:string;
   @Input() globalNotificationsList: any;
 
 
-  constructor(private sensorSummaryService: SensorSummaryService) { }
+  constructor(private sensorSummaryService: SensorSummaryService) { 
+   this.deviceCreationError = "Please white until loading complete ..... ";
+ }
 
   ngOnInit() {
 
-
+    this.isValidForm = false;
      let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
     console.log(userInfoObject);
     userInfoObject['account'].forEach(loc => {
@@ -42,17 +48,22 @@ accountID:string;
        this.accountID = loc.accountID;
      });
 
-  	
-   //  console.log('accountData-----',this.accountData);
-  	// this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
-   //  	console.log('result----->',result);
-   //     this.sensorList = result;
-   //  });
-
     this.sensorSummaryService.getGlobalNotificationsList(this.accountID).then((result) => {
       console.log('globalNotificationsList----->',result);
        this.globalNotificationsList = result;
+      
+      this.getNotificationsList();
+       
     });
+  }
+
+  getNotificationsList(){
+    this.isValidForm = false;
+       this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
+          this.sensorList = result;
+
+            this.isValidForm = true;
+        });
   }
 
    onClickAddNotification() {
@@ -82,6 +93,10 @@ accountID:string;
     this.notificationRadio = 'summary';
      this.isAddButtonRequired = true;
     this.isResetButtonRequired = false;
+
+     this.getNotificationsList();
+
+
   }
 
 }

@@ -5,6 +5,12 @@
     IMultiSelectOption,
     IMultiSelectSettings
   } from "angular-2-dropdown-multiselect";
+  import {
+  FormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from "@angular/forms";
   @Component({
     selector: "app-notification-create",
     templateUrl: "./notification-create.component.html",
@@ -70,95 +76,93 @@
     selectSensorHumidityType: any = [];
     selectedSensorHumidityType: any = [];
 
-
+     isValidForm = true;
+     deviceCreateForm: FormGroup;
+     deviceCreationError: string | null = null;
 
       // isComponentToCreate:string = 'addNotify';
-      constructor(private sensorSummaryService: SensorSummaryService) {}
+      constructor(private sensorSummaryService: SensorSummaryService, private formBuilder: FormBuilder) {
+        this.deviceCreationError = "Please until loading done....";
+      }
       setEditNotifyDetails() {
         if (
           this.notifyOperationType === "editNotify" ||
           this.notifyOperationType === "addNotify"
           ) {
         let tempObject: any;
-      // tempObject = this.sensorList;
-      // console.log("before editing ", this.sensorList[0]);
-      // console.log("this.editNotifyObject",this.editNotifyObject);
-      tempObject = this.notifyOperationType === "editNotify"? this.editNotifyObject: this.sensorList[0];
+
+      tempObject = this.notifyOperationType === "editNotify"? this.editNotifyObject: [];
 
       if (this.notifyOperationType === "editNotify") {
-        let notify = tempObject.notification;
-        this.notificationModel.strNotificationName = notify.name;
-        this.notificationModel.strNotificationText = notify.text;
-        this.notificationModel.strSnoozeAlertValue = notify.snooze;
-        this.notificationModel.isNotificationActive = notify.active;
-        this.getNotificationScheduleDetails(notify.notificationID);
-        this.isSensorNotificationForm1 = true;
-        this.isButtonFooterRequired = true;
-        //user setting
-        let userTempObj = [];
-        let userSelectedObject = [];
-        tempObject.users.forEach(user => {
-          let tempObj: any = [];
-          tempObj = {
-            id :user.userName,
-              name : user.userName,
-              userID: user.userID,
-              emailNotify:user.recievesMaintenanceByEmail,
-              smsNotify:user.recievesNotificaitonsBySMS
+          let notify = tempObject.notification;
+          this.notificationModel.strNotificationName = notify.name;
+          this.notificationModel.strNotificationText = notify.text;
+          this.notificationModel.strSnoozeAlertValue = notify.snooze;
+          this.notificationModel.isNotificationActive = notify.active;
+          this.getNotificationScheduleDetails(notify.notificationID);
+          this.isSensorNotificationForm1 = true;
+          this.isButtonFooterRequired = true;
+          //user setting
+          let userTempObj = [];
+          let userSelectedObject = [];
+          tempObject.users.forEach(user => {
+            let tempObj: any = [];
+            tempObj = {
+              id :user.userName,
+                name : user.userName,
+                userID: user.userID,
+                emailNotify:user.recievesMaintenanceByEmail,
+                smsNotify:user.recievesNotificaitonsBySMS
+            }
+
+            userTempObj.push(tempObj);
+            userSelectedObject.push(tempObj.id);
+          });
+          this.myUserOptions = [];
+          this.myUserOptions = userTempObj;
+          this.userOptionsModel = userSelectedObject;
+          // sensor setting
+          let sensorObj = [];
+          let sensorModel = [];
+          let gatewayModel = [];
+          let gatewayObj = [];
+          tempObject.devices.forEach(device => {
+            let tempObj: any = [];
+            (tempObj.id = device.deviceID);
+            (tempObj.name = device.deviceID);
+            if (device.deviceCategory === "Sensor") {
+              sensorObj.push(tempObj);
+              sensorModel.push(device.deviceID,);
+            } else {
+              gatewayObj.push(tempObj);
+              gatewayModel.push(device.deviceID);
+            }
+          });
+          this.sensorOptionsModel = sensorModel;
+          this.gatewayOptionsModel = gatewayModel;
+          this.mySensorOptions = sensorObj;
+          this.myGatewayOptions = gatewayObj;
+          this.notificationModel.sensorList = sensorModel;
+          this.notificationModel.gatewayList = gatewayModel;
+          this.notificationModel.userList = userSelectedObject;
+
+          //mapping of edit to update
+
+           this.notificationModel.compareValue= notify.threshold;
+           this.notificationModel.compareType = notify.comparer;
+           this.notificationModel.notificationID = notify.notificationID;
+
+          if(notify.notificationClass === 'Inactivity'){
+            this.onClickInActivityNotify();
+          }else if(notify.notificationClass === 'Application'){
+            
+            this.onClickSensorNotify();
+
+          }else if(notify.notificationClass === 'Low_Battery' || notify.notificationClass === 'Low Battery'){
+            this.onClickBatteryNotify();
           }
+      }else{
 
-          userTempObj.push(tempObj);
-          userSelectedObject.push(tempObj.id);
-        });
-        this.myUserOptions = [];
-        this.myUserOptions = userTempObj;
-        this.userOptionsModel = userSelectedObject;
-        // sensor setting
-        let sensorObj = [];
-        let sensorModel = [];
-        let gatewayModel = [];
-        let gatewayObj = [];
-        tempObject.devices.forEach(device => {
-          let tempObj: any = [];
-          (tempObj.id = device.deviceID);
-          (tempObj.name = device.deviceID);
-          if (device.deviceCategory === "Sensor") {
-            sensorObj.push(tempObj);
-            sensorModel.push(device.deviceID,);
-          } else {
-            gatewayObj.push(tempObj);
-            gatewayModel.push(device.deviceID);
-          }
-        });
-        this.sensorOptionsModel = sensorModel;
-        this.gatewayOptionsModel = gatewayModel;
-        this.mySensorOptions = sensorObj;
-        this.myGatewayOptions = gatewayObj;
-        this.notificationModel.sensorList = sensorModel;
-        this.notificationModel.gatewayList = gatewayModel;
-        this.notificationModel.userList = userSelectedObject;
-
-        //mapping of edit to update
-
-         this.notificationModel.compareValue= notify.threshold;
-         this.notificationModel.compareType = notify.comparer;
-         this.notificationModel.notificationID = notify.notificationID;
-
-         // let humidObject
-
-
-
-
-        if(notify.notificationClass === 'Inactivity'){
-          this.onClickInActivityNotify();
-        }else if(notify.notificationClass === 'Application'){
-          
-          this.onClickSensorNotify();
-
-        }else if(notify.notificationClass === 'Low_Battery' || notify.notificationClass === 'Low Battery'){
-          this.onClickBatteryNotify();
-        }
-        }else{
           this.setInitialModelValues();
           this.getNotificationScheduleDetailsForAddNotify();
 
@@ -217,41 +221,6 @@
           this.notificationModel.sensorList = sensorModel;
           this.notificationModel.gatewayList = gatewayModel;
       }
-      //user setting
-      // let userTempObj = [];
-      // let userSelectedObject = [];
-      // tempObject.users.forEach(user => {
-      //   let tempObj: any = [];
-      //   (tempObj.id = user.userName), (tempObj.name = user.userName);
-      //   userTempObj.push(tempObj);
-      //   userSelectedObject.push(tempObj.id);
-      // });
-      // this.myUserOptions = [];
-      // this.myUserOptions = userTempObj;
-      // this.userOptionsModel = userSelectedObject;
-      //sensor setting
-      // let sensorObj = [];
-      // let sensorModel = [];
-      // let gatewayModel = [];
-      // let gatewayObj = [];
-      // tempObject.devices.forEach(device => {
-      //   let tempObj: any = [];
-      //   (tempObj.id = device.deviceID), (tempObj.name = device.deviceID);
-      //   if (device.deviceCategory === "Sensor") {
-      //     sensorObj.push(tempObj);
-      //     sensorModel.push(device.deviceID);
-      //   } else {
-      //     gatewayObj.push(tempObj);
-      //     gatewayModel.push(device.deviceID);
-      //   }
-      // });
-      // this.sensorOptionsModel = sensorModel;
-      // this.gatewayOptionsModel = gatewayModel;
-      // this.mySensorOptions = sensorObj;
-      // this.myGatewayOptions = gatewayObj;
-      //   this.notificationModel.sensorList = sensorModel;
-      //   this.notificationModel.gatewayList = gatewayModel;
-      //   this.notificationModel.userList = userSelectedObject;
       }
     }
   setInitialModelValues() {
@@ -501,77 +470,79 @@
 
     });
   }
-  ngOnInit() {
-    this.setInitialModelValues();
-    this.isReadingTypeAvailable = false;
+    ngOnInit() {
+      this.isValidForm = false;
 
-    let Obj = [{
-      id: "Less_Than",
-      value: "Less Than"
-    },{
-      id: "Greater_Than",
-      value: "Greater Than"
-    }];
-    this.selectTempCompareList = Obj;
-    this.selectedTempCompareList = Obj[0];
+      let accountID;
+          let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+            userInfoObject['account'].forEach(loc => {
+           accountID= loc.accountID;
+         });
 
+      this.setInitialModelValues();
+      this.isReadingTypeAvailable = false;
 
+      let Obj = [{
+        id: "Less_Than",
+        value: "Less Than"
+      },{
+        id: "Greater_Than",
+        value: "Greater Than"
+      }];
+      this.selectTempCompareList = Obj;
+      this.selectedTempCompareList = Obj[0];
 
-     
+      let Obj2 = [{
+        id: "C",
+        value: "Celcius"
+      },{
+        id: "F",
+        value: "Fahrenheit"
+      }];
+      this.selectTempTypeList = Obj2;
 
-    let Obj2 = [
-    {
-      id: "C",
-      value: "Celcius"
-    },
-    {
-      id: "F",
-      value: "Fahrenheit"
-    }
-    ];
-    this.selectTempTypeList = Obj2;
+      let tempObject3 = [{
+        id: "01",
+        value: "All Day"
+      },
+      {
+        id: "02",
+        value: "Off"
+      },
+      {
+        id: "03",
+        value: "Between"
+      },
+      {
+        id: "04",
+        value: "Between and After"
+      },
+      {
+        id: "05",
+        value: "Before"
+      },
+      {
+        id: "06",
+        value: "After"
+      }];
 
-    let tempObject3 = [{
-      id: "01",
-      value: "All Day"
-    },
-    {
-      id: "02",
-      value: "Off"
-    },
-    {
-      id: "03",
-      value: "Between"
-    },
-    {
-      id: "04",
-      value: "Between and After"
-    },
-    {
-      id: "05",
-      value: "Before"
-    },
-    {
-      id: "06",
-      value: "After"
-    }];
+      if (this.notifyOperationType === "addNotify"){}
 
-    if (this.notifyOperationType === "addNotify"){}
+      this.dailySheduleNotificationList = [];
 
-    this.dailySheduleNotificationList = [];
+      let Obj3 = [{
+        id: "1",
+        value: "Closed"
+      },
+      {
+        id: "0",
+        value: "Open"
+      }];
 
-    let Obj3 = [{
-      id: "1",
-      value: "Closed"
-    },
-    {
-      id: "0",
-      value: "Open"
-    }];
+      this.notificationModel.selectNotifyMagnetList = Obj3
 
-    this.notificationModel.selectNotifyMagnetList = Obj3
+      this.setEditNotifyDetails();
 
-    this.setEditNotifyDetails();
     }
 
     onChangeSensorSelect(e) {
@@ -663,16 +634,6 @@
           }
       });
 
-        // temperature edit
-      //    this.selectTempCompareList.forEach(humid => {
-      //      debugger;
-      //     console.log('humid-->',humid);
-      //     if(humid.value === this.notificationModel.compareType){
-      //       this.selectedTempCompareList = [];
-      //       this.selectedTempCompareList  = humid;
-      //       this.notificationModel.compareType=humid.id;
-      //     }
-      // });
 
         // open/close edit
          this.selectOpenCloseType.forEach(humid => {
@@ -684,16 +645,9 @@
           }
       });
 
-
-
-
-    }else{
-         this.selectedSensorHumidityType  = humidityObjects[0];
-          // this.selectedTempCompareList  = humid;
-    }
-
-
-
+      }else{
+           this.selectedSensorHumidityType  = humidityObjects[0];
+      }
     }
     onClickAdvanceNotify() {
       this.notificationModel.notificationClassType = "5";

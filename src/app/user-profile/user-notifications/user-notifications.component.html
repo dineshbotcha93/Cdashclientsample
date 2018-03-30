@@ -1,10 +1,8 @@
-<!--   <div class="row">
-    	<app-notification-summary></app-notification-summary>
-  </div>
- -->
-<div class="row">
-
-
+ <div *ngIf="!isValidForm" class="alert alert-info">
+        <span>{{deviceCreationError || 'Please verify the details entered for your registraiton'}}</span>
+      </div>
+<div *ngIf="isValidForm">
+    <div class="row">
    <div class="col-md-4" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
        <div class="form-group sensor-actions">
           <button *ngIf = "isAddButtonRequired" type="button"
@@ -39,3 +37,5 @@
          </div>
     </div>
 </div>
+</div>
+
