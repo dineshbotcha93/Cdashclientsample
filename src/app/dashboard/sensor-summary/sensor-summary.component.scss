@@ -81,5 +81,8 @@ table {
   .sensor-actions {
     float: right;
   }
+  input[type='radio'] {
+    margin-right:20px;
+    margin-left:20px;
+  }
 }
-
