@@ -116,6 +116,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
+  private _userId: number = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
@@ -159,7 +160,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
     config.placement = 'right';
-    this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
+   
+    if(this._userId !== undefined) {
+    this.buildNetworks(this._userId);
+    }
   }
   ngOnInit() {
     this.updateNotifFormControls();
@@ -294,12 +298,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     let notifObj = new UserProfile.Notification;
     notifObj.directSMS = Number(row[0].directSMS);
     notifObj.smsCarrierID = row[0].smsCarrierID;
-    notifObj.smsNumber = row[0].smsNumber;
-    notifObj.countryCode = '91';//---Remove HardCODE---
     notifObj.recievesSensorNotificationByText = row[0].recievesNotificaitonsBySMS;
     notifObj.recievesMaintenanceByEmail = row[0].recievesMaintenanceByEmail;
-    notifObj.recievesMaintenanceByPhone = row[0].recievesMaintenanceBySMS;
-    this.notificationForm.setValue(notifObj);
+    notifObj.recievesMaintenanceByPhone = row[0].recievesMaintenanceBySMS;   
     if (row[0].directSMS === false) {
       this.isDirectSMS = false;
       this.isCountryCode = false;
@@ -308,7 +309,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     } else {
       this.isDirectSMS = true;
       this.isCountryCode = true;
+      let _countryCode = (row[0].smsNumber).slice(0, row[0].smsNumber.length - 10);
+      let _phoneNum = row[0].smsNumber.slice(row[0].smsNumber.length - 10, row[0].smsNumber.length);
+      notifObj.smsNumber = _phoneNum;
+      notifObj.countryCode = _countryCode;
     }
+    this.notificationForm.setValue(notifObj);
   }
   updateUserData() {
     let postData = JSON.stringify(this.prepareUpdateData());
@@ -334,7 +340,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     userObj.email = this.userForm.get('dashboardUserName').value;
     delete userObj['confirmPassword'];
     userObj.account = { 'accountID': this.accId };
-    if (this.notificationForm.get('directSMS').value === '1') {
+    if (this.notificationForm.get('directSMS').value === 1) {
       userObj.smsCarrierID = 0;
       userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
     }
