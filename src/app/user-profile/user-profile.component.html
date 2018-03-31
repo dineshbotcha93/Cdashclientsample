@@ -94,7 +94,7 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Users" class="tab-content light-theme">
+      <tab tabTitle="Users" class="tab-content light-theme" >
         <div class="row x_content">
           <div class="col-sm-12 sensors-info-container">
             <div *ngIf="isShowUserTable" class="pull-right col-sm-2">
@@ -104,8 +104,7 @@
             <div class="col-sm-12">
               <app-datatable #userTable [rows]="userRows" [columns]="userColumns" [limit]="limit" *ngIf="isShowUserTable">
               </app-datatable>
-
-              <ng-template #notificationColTmpl let-row="row" let-value="value">
+                <ng-template #notificationColTmpl let-row="row" let-value="value">
                 <div>Email:
                   <a href="mailto:{{row.emailAddress}}">{{row.emailAddress}}</a>
                 </div>
@@ -173,8 +172,8 @@
 <ng-template #userParentSectionTmpl>
   <div class="form-horizontal" *ngIf="!isShowUserTable">
     <div class="row" style="margin-bottom:10px">
-      <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">Details</button>
-      <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button>
+      <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">User Information</button>
+      <!-- <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button> -->
       <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Locations</button>
     </div>
     <div class="row">
@@ -182,16 +181,17 @@
         <div class="collapse.show" [ngbCollapse]="isUserContentCollapsed">
           <div class="card card-body">
             <ng-container *ngTemplateOutlet="addEditUserSectionTmpl"></ng-container>
+            <ng-container *ngTemplateOutlet="notificationSectionTmpl"></ng-container>
           </div>
         </div>
       </div>
-      <div class="col">
+      <!-- <div class="col">
         <div class="collapse" [ngbCollapse]="isNotifContentCollapsed">
           <div class="card card-body">
             <ng-container *ngTemplateOutlet="notificationSectionTmpl"></ng-container>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col">
         <div class="collapse" [ngbCollapse]="isNetworkContentCollapsed">
           <div class="card card-body">
@@ -205,7 +205,7 @@
 
 <ng-template #addEditUserSectionTmpl>
   <div class="form-horizontal" [formGroup]="userForm">
-    <div class="col-sm-12">
+    <div class="col-sm-12" style="margin-bottom: -5px;">
       <div class="col-sm-6">
         <div class="form-group required">
           <label class="col-sm-3 lbl-ctrl" for="email-address">Email/User Name</label>
@@ -281,14 +281,14 @@
             <input type="checkbox" formControlName="isAdmin" class="form-check-input">
           </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <div class="col-sm-push-3 col-sm-3">
             <input type="button" class="form-control btn btn-info addBTN" value="Next" (click)="navigateToNotifSection()">
           </div>
           <div class=" col-sm-push-3 col-sm-3">
             <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -299,7 +299,7 @@
     <div class="col-sm-12">
       <div class="col-sm-6">
         <div class="form-group">
-          <label class=" col-sm-3" for="sms-settings">Text (SMS) Settings :</label>
+          <label class=" col-sm-3" for="sms-settings">Text (SMS) Settings</label>
           <div class="col-sm-6">
             <select class="form-control" formControlName="directSMS" name="directSMS">
               <option [value]="0">External Provider</option>
@@ -309,7 +309,7 @@
         </div>
         <div *ngIf="!isDirectSMS">
           <div class="form-group">
-            <label class=" col-sm-3" for="sms-provider">SMS Provider :</label>
+            <label class=" col-sm-3" for="sms-provider">SMS Provider</label>
             <div class="col-sm-6">
               <select class="form-control" id="sms-provider" name="sms-provider" formControlName="smsCarrierID">
                 <option [value]="0">Select One</option>
@@ -323,13 +323,13 @@
           </div>
         </div>
         <div class="form-group">
-          <label class=" col-sm-3" for="mobile-number">Mobile Number :</label>
+          <label class=" col-sm-3" for="mobile-number">Mobile Number</label>
           <div class="col-sm-6">
-            <input type="text" *ngIf="isCountryCode" class="form-control country-code" formControlName="countryCode">
-            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number" [ngClass]="{'with-country-code':isCountryCode}"
+            <input type="text" *ngIf="isDirectSMS" class="form-control country-code" formControlName="countryCode">
+            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number" [ngClass]="{'with-country-code':isDirectSMS}"
               placeholder="Mobile Number">
-            <small class="form-text text-muted" *ngIf="!isCountryCode">Requires a 10 digit format.</small>
-            <small class="form-text text-muted" *ngIf="isCountryCode">
+            <small class="form-text text-muted" *ngIf="!isDirectSMS">Requires a 10 digit format.</small>
+            <small class="form-text text-muted" *ngIf="isDirectSMS">
               <span>Charges will be incured for direct delivery of SMS messages and voice notifications. Phone numbers should be
                 entered in E.164 format. help
                 <a data-toggle="collapse" href="#numberFormating" role="button" (click)="scrollPageDown()">
@@ -343,7 +343,7 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label class=" col-sm-4" for="email">System Notifications :
+          <label class=" col-sm-4" for="email">System Notifications
             <div style="display:block">
               <small class="form-text text-muted">Notification types enabled for user</small>
             </div>
@@ -358,7 +358,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class=" col-sm-4" for="system-maintenance">System Maintenance Information :
+          <label class=" col-sm-4" for="system-maintenance">System Maintenance Information
             <small class="form-text text-muted">Will be sent to user by</small>
           </label>
           <div class="col-sm-6">
