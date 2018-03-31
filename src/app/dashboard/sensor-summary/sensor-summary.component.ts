@@ -367,7 +367,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
          }
       }
     }
-
   }
 
   private onClickInlineCheckBox(e, gateway) {
