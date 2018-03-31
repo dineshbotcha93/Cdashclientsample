@@ -32,6 +32,7 @@ export class SensorDetailsComponent {
   private columns: Array<any> = [];
   private limit: Number  = 10;
   private data: Array<any> = [];
+  private defaultThreshold = 4294967295;
 
   public chartLabels: Array<any> = [];
   public chartOptions: any = ChartOptions;
@@ -58,15 +59,23 @@ export class SensorDetailsComponent {
     private translate: TranslateService,
     // private tempChart = window.Chart;
   ) {
+
+    this.chartOptions.annotation.annotations[0].value = null;
+    this.chartOptions.annotation.annotations[1].value = null;
+
     this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
     });
     sensorDetailsService.getDetails(this.detailId).then((result) => {
       this.sensorDetailsData = result;
 
-      this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
-      this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+      if (this.sensorDetailsData.maximumThreshold !== this.defaultThreshold) {
+        this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
+      }
 
+      if (this.sensorDetailsData.minimumThreshold !== this.defaultThreshold) {
+        this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+      }
     });
     this.columns.push({prop: 'messageDate', name: 'Date'});
     this.columns.push({prop: 'signalStrength', name: 'Signal'});
