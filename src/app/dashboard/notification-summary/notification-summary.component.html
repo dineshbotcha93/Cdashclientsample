@@ -52,7 +52,7 @@
 </div>
 
 <div *ngIf="notificationSummaryList?.length === 0" class="alert alert-info">
-        <span>No notifications are avaialable for this user</span>
+        <span>{{deviceCreationError}}</span>
 </div>
 <ng-template #template>
     <div class="modal-header">

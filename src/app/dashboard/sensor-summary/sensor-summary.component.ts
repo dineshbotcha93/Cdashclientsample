@@ -109,6 +109,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   isValidForm = false;
   deviceCreationError: string | null = null;
+  private deviceEditForm: FormGroup;
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
@@ -123,7 +124,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     private alertSandbox: AlertSandbox,
     private translate: TranslateService,
     public datepipe: DatePipe,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+     private deviceFormBuilder: FormBuilder
   ) {
 
     super();
@@ -138,6 +140,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
     });
     this.translate.use("en");
+
+     this.deviceEditForm = this.deviceFormBuilder.group({ 
+
+     });
   }
 
   ngOnInit() {
@@ -335,9 +341,37 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     sensor.heartBeat = event.startValue;
   }
 
+  onChangeDeviceInputType(oldValue,newValue,device,type){
+     if(newValue.length === 0){
+      switch (type) {
+        case "heartBeat": {
+           device.heartBeat = oldValue;
+            break;
+         }
+         case "sensorName": {
+           device.sensorName = oldValue;
+            break;
+         }
+         case "minimumThreshold": {
+           device.minimumThreshold = oldValue;
+            break;
+         }
+          case "maximumThreshold": {
+           device.maximumThreshold = oldValue;
+            break;
+         }
+         case "name": {
+           device.name = oldValue;
+            break;
+         }
+      }
+    }
+  }
+
   private onClickInlineCheckBox(e, gateway) {
     this.isValidForm = true;
     this.isServiceCallSuccess = false;
+
     if (!e.target.checked) {
       gateway.gateWayEditOption = "display";
       this.counterToCheckSelected--;
@@ -347,10 +381,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
     if (this.counterToCheckSelected === 0 && this.editSaveModel === "Save") {
       this.editSaveModel = "Edit";
-
     }
-    
-
   }
 
   private onClickButtonReset() {
@@ -644,8 +675,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         });
       });
 
-  
-      this.sensorSummaryService
+      if(gateWayDataToUpdate.length>0){
+        this.sensorSummaryService
         .updateGatewayDetails(gateWayDataToUpdate)
         .then(result => {
           result.forEach(resp => {
@@ -672,6 +703,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
         });
+     
+      }
      
     }
   }
@@ -707,7 +740,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
                 this.isValidForm = false;
                 return false;
       }
-    } else {
+    }else {
       let sensorDataToUpdate: Array<any> = [];
 
       this.selectedUserDataForOperation.forEach(eidtObject => {
@@ -737,7 +770,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         });
       });
 
-      /*BACKEND call to update gateway details*/
+   if(sensorDataToUpdate.length>0){
+            /*BACKEND call to update gateway details*/
       this.sensorSummaryService
         .updateSensorDetails(sensorDataToUpdate)
         .then(result => {
@@ -765,6 +799,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while editing sensor. Please try after sometime ";
         });
+   }
+ 
     }
   }
 
