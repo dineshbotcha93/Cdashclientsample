@@ -80,6 +80,8 @@
      deviceCreateForm: FormGroup;
      deviceCreationError: string | null = null;
 
+     advancedParameterObject:any = [];
+
       // isComponentToCreate:string = 'addNotify';
       constructor(private sensorSummaryService: SensorSummaryService, private formBuilder: FormBuilder) {
         this.deviceCreationError = "Please until loading done....";
@@ -165,6 +167,7 @@
 
           this.setInitialModelValues();
           this.getNotificationScheduleDetailsForAddNotify();
+
 
           let sensorGlobalList= this.globalNotificationsList.sensors;
 
@@ -252,7 +255,8 @@
       gatewayList:[],
       sensorList:[],
       userList:[],
-      notificationID:"0"
+      notificationID:"0",
+      advancedNotification:[]
     };
   }
   getNotificationScheduleDetailsForAddNotify(){
@@ -661,10 +665,10 @@
         id: "0",
         value: "Please Select One"
       },
-      {
-        id: "1",
-        value: "Notify after aware period"
-      },
+      // {
+      //   id: "1",
+      //   value: "Notify after aware period"
+      // },
       {
         id: "2",
         value: "Back Online"
@@ -677,30 +681,30 @@
         id: "4",
         value: "Gateway On Battery"
       },
-      {
-        id: "5",
-        value: "Frequent Aware Messages"
-      },
-      {
-        id: "6",
-        value: "First Aware Message"
-      },
-      {
-        id: "7",
-        value: "First Non-Aware Message"
-      },
-      {
-        id: "8",
-        value: "Aware State Changed"
-      },
+      // {
+      //   id: "5",
+      //   value: "Frequent Aware Messages"
+      // },
+      // {
+      //   id: "6",
+      //   value: "First Aware Message"
+      // },
+      // {
+      //   id: "7",
+      //   value: "First Non-Aware Message"
+      // },
+      // {
+      //   id: "8",
+      //   value: "Aware State Changed"
+      // },
       {
         id: "9",
         value: "Gateway Switched to Line Power"
       },
-      {
-        id: "10",
-        value: "Notify after not aware period"
-      },
+      // {
+      //   id: "10",
+      //   value: "Notify after not aware period"
+      // },
       {
         id: "11",
         value: "Advanced Temperature Range"
@@ -740,6 +744,9 @@
     }
     onChangeNotifictaion(e) {
 
+      console.log('template ', this.notificationModel.notificationTemplate );
+       console.log('notificationClassType ', this.notificationModel.notificationClassType );
+        console.log('subnotificationClassType ', this.notificationModel.subnotificationClassType );
 
       this.isSensorNotificationForm1 = true;
       this.isButtonFooterRequired = true;
@@ -755,7 +762,135 @@
       }
       this.notificationModel.subnotificationClassType = e.id;
 
+      if(this.notificationModel.notificationClassType){
+         this.notificationModel.advancedNotificationID=this.notificationModel.subnotificationClassType;
+      }
+      this.setAdvancedNotificationParameterList(this.notificationModel.subnotificationClassType);
     }
+
+
+    setAdvancedNotificationParameterList(subNotifyTyoe){
+
+      this.advancedParameterObject = [];
+
+       switch (subNotifyTyoe) {
+         case "1": {
+          this.advancedParameterObject.push(this.setAdvancedParameterDetails('Alert After','1',''));
+          break;
+         }
+        case "2": {
+          this.advancedParameterObject.push(this.setAdvancedParameterDetails('Alert After','2',''));
+          break;
+         }
+          case "5": {
+          this.advancedParameterObject.push(this.setAdvancedParameterDetails('Time Frame','6',''));
+          this.advancedParameterObject.push(this.setAdvancedParameterDetails('Message Count','7',''));
+          break;
+         }
+          case "5": {
+          this.advancedParameterObject.push(this.setAdvancedParameterDetails('Alert After','8',''));
+          break;
+         }
+         case "11": {
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Notify After  Minutes','9',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Less than Temperature','10',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Greater than Temperature','11',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('','12',''));
+            break;
+         }
+         case "12": {
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Notify After Minutes','13',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Less than Humidity','14',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Greater than Humidity','15',''));
+            break;
+         }
+         case "13": {
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Notify After Minutes','16',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Notify when magnet is','17',''));
+            break;
+         }
+          case "14": {
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Notify After Minutes','18',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('Notify when sensor temperature reading is','19',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('','20',''));
+           this.advancedParameterObject.push(this.setAdvancedParameterDetails('','21',''));
+            break;
+         }
+      }
+     } 
+
+    setAdvancedParameterDetails(label,id,Value){
+
+      let temp = this.getAdvancedSelectList(id);
+
+      let selectedTempObject;
+      if(temp !== undefined){
+        selectedTempObject = temp[0];
+      }
+
+      return {
+        labelValue:label,
+        parameterID:id,
+        parameterValue:Value,
+        parameterObject:temp,
+        parameterSelectedObject:selectedTempObject
+      }
+    }
+
+    getAdvancedSelectList(type){
+      let retunObject;
+       switch (type) {
+         case "12": {
+          retunObject =this.setTempList();
+          break;
+         }
+         case "17": {
+          retunObject =this.setMagnetList();
+          break;
+         }
+         case "19": {
+          retunObject =this.setTempReadingList();
+          break;
+         }
+         case "21": {
+           retunObject = this.setTempList();
+          break;
+         }
+        }
+        return retunObject;
+    }
+
+    setTempList(){
+      return [{
+        id: '1',
+        value: "Fahrenheit"
+      },{
+        id: '0',
+        value: "Celsius"
+      }];
+    }
+
+     setMagnetList(){
+      return [{
+        id: "0",
+        value: "Closed"
+      },{
+        id: "1",
+        value: "Open"
+      }];
+    }
+    setTempReadingList(){
+      return [{
+        id: "1",
+        value: "Greater Than"
+      },{
+        id: "0",
+        value: "Less Than"
+      }];
+    }
+
+
+
     onChangeScheduleObject(e,scheduleObj){
 
       scheduleObj.selectScheduleObj = e;
@@ -806,6 +941,8 @@
       this.isSensorNotificationForm1 = false;
     }
     onClickNext(value) {
+
+      console.log('notifyModel',this.advancedParameterObject);
 
       if (value === "page1") {
         this.isSensorNotificationForm2 = true;
@@ -876,6 +1013,18 @@
     }
     onClickCreateNotification(value) {
 
+      console.log('advanceNotification-->',this.advancedParameterObject);
+      if(this.advancedParameterObject.length > 0){
+       this.advancedParameterObject.forEach(obj => {
+         let tempObj = {
+           parameterID:obj.parameterID,
+           parameterValue:obj.parameterValue
+         }
+         this.notificationModel.advancedNotification.push(tempObj);
+       });
+      }
+
+      console.log('this.notificationModel.advancedNotification',this.notificationModel.advancedNotification);
       let tempObj = [];
       this.notificationModel.scheduleDayObjectList.forEach(sch => {
         let scechuleFinalObj = {
@@ -920,7 +1069,7 @@
           scale: this.notificationModel.scale,
           notificationClass: this.notificationModel.notificationClassType,
           compareType: this.notificationModel.compareType,
-           comparerValue:this.notificationModel.compareValue,
+          comparerValue:this.notificationModel.compareValue,
           accountID: '72',
           advancedNotificationID: this.notificationModel.advancedNotificationID,
           monnitApplicationID: this.notificationModel.subnotificationClassType,
@@ -932,7 +1081,8 @@
           endTime: "",
           schedule: tempObj,
           NotificationID:this.notificationModel.notificationID,
-          ApplySnoozeByTriggerDevice:1
+          ApplySnoozeByTriggerDevice:1,
+          advancedNotification:this.notificationModel.advancedNotification
         };
         console.log('requestObject',requestObject);
         // console.log('this.notifyOperationType',this.notifyOperationType);
