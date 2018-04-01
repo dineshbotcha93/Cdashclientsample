@@ -16,6 +16,7 @@ import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BusinessModule } from './business/business.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
+import { ForgotPasswordModule} from './user-management/forgot-password/forgot-password.module';
 
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -75,6 +76,7 @@ if(!environment.production)
     PipesModule,
     BusinessModule,
     UserProfileModule,
+    ForgotPasswordModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
     ToastModule.forRoot(),
