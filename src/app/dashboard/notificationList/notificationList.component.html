@@ -62,9 +62,14 @@
       </div>
 
       <div>
-        <div class="loader" *ngIf="rows.length == 0"></div>
+        <div class="loader" *ngIf="!rows"></div>
+        <div *ngIf="rows && rows.length == 0" class="col-md-8 col-sm-12 col-md-offset-2">
+          <span class="alert alert-danger font-white custom-alert" role="alert">
+            Unfortunately, There is no notifications data at this point of time.
+          </span>
+        </div>
         <app-datatable #dataTable
-                       *ngIf="rows.length > 0"
+                       *ngIf="rows && rows.length > 0"
                        [rows]="rows"
                        [columns]="columns"
                        [limit]="limit">
