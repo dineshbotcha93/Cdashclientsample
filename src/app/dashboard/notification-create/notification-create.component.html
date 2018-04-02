@@ -60,7 +60,7 @@
                   </div>
                 </td>
               </tr>
-              <tr *ngIf="notificationModel.subnotificationClassType === '9'">
+              <tr *ngIf="notificationModel.subnotificationClassType === '9' && notificationModel.notificationTemplate ==='sensorNotification'">
                 <td>
                   <label class="control-label col-form-label">Notification when magnet is:</label>
                 </td>
@@ -149,6 +149,29 @@
                   </div>minutes without communication.
                 </td>
               </tr>
+                 <ng-container *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && advancedParameterObject?.length >0" >
+               <tr *ngFor="let paramType of advancedParameterObject">
+                  <td>
+                  <label class="control-label col-form-label">{{paramType.labelValue}}</label>
+                </td>
+                <td>
+                  <div class="col-md-4" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
+                    <input type="text" class="form-control" name="filter_name"  [(ngModel)]="paramType.parameterValue" placeholder={{paramType.parameterID}}>
+                  </div>
+                  <div class="col-md-4" *ngIf="paramType.parameterObject?.length>0">
+                    <div class="form-group ss-location">
+                      <select class="form-control" [(ngModel)]="paramType.parameterSelectedObject">
+                        <option *ngFor="let not of paramType.parameterObject" [ngValue]="not">
+                          {{not.value}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </td>
+              
+              </tr>
+                </ng-container>
+
              <!--  <tr *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && (selectSubNotificationList.id === '2' || selectSubNotificationList.id === '3')">
                 <td>
                   <label class="control-label col-form-label">Alert After :</label>
@@ -312,7 +335,7 @@
         </div>
         <!-- page 2 -->
         <div *ngIf="isSensorNotificationForm2">
-          Schedule Details:
+
           <table class="table table-striped">
             <tbody>
               <tr>

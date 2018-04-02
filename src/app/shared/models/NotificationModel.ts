@@ -34,6 +34,7 @@ export class NotificationModel {
 	 public sensorList:any = [];
 	 public userList:any = [];
 	 public notificationID: string;
+	 public advancedNotification:any = [];
 
 
 }
