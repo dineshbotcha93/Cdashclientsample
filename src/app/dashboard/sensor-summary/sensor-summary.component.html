@@ -145,9 +145,12 @@
             <div class="row">
 
               <div class="col-md-4">
-                <form action="" class="dark-theme">
-                  <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
-                  <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway" class="m-l-md"> Gateway
+                <!-- <form action="" class="dark-theme"> -->
+                 <!--  <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
+                  <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway" class="m-l-md"> Gateway -->
+                  <form #f="ngForm"> 
+                      <input type="radio" value="sensor" name="device" [(ngModel)]="radioModel" (click)="onSelectSensorRadio()"> sensor
+                      <input type="radio" value="gateway" name="device" [(ngModel)]="radioModel" (click)="onSelectGatewayRadio()"> gateway
                 </form>
               </div>
 
