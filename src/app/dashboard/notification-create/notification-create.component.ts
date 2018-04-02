@@ -81,6 +81,7 @@
      deviceCreationError: string | null = null;
 
      advancedParameterObject:any = [];
+     accountID :string  = null;
 
       // isComponentToCreate:string = 'addNotify';
       constructor(private sensorSummaryService: SensorSummaryService, private formBuilder: FormBuilder) {
@@ -480,7 +481,7 @@
       let accountID;
           let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
             userInfoObject['account'].forEach(loc => {
-           accountID= loc.accountID;
+           this.accountID= loc.accountID;
          });
 
       this.setInitialModelValues();
@@ -1016,9 +1017,14 @@
       console.log('advanceNotification-->',this.advancedParameterObject);
       if(this.advancedParameterObject.length > 0){
        this.advancedParameterObject.forEach(obj => {
+         // debugger;
+         let tempvalue = obj.parameterValue?obj.parameterValue:obj.parameterSelectedObject.id;
+
+
+
          let tempObj = {
            parameterID:obj.parameterID,
-           parameterValue:obj.parameterValue
+           parameterValue:tempvalue
          }
          this.notificationModel.advancedNotification.push(tempObj);
        });
@@ -1069,16 +1075,17 @@
           scale: this.notificationModel.scale,
           notificationClass: this.notificationModel.notificationClassType,
           compareType: this.notificationModel.compareType,
-          comparerValue:this.notificationModel.compareValue,
-          accountID: '72',
+          // comparerValue:this.notificationModel.compareValue,
+          comparerValue:this.notificationModel.compareValue?this.notificationModel.compareValue:'0',
+          accountID: this.accountID,
           advancedNotificationID: this.notificationModel.advancedNotificationID,
           monnitApplicationID: this.notificationModel.subnotificationClassType,
           gatewayList: this.notificationModel.gatewayList,
           sensorList: this.notificationModel.sensorList,
           userList: userList,
           snooze: this.notificationModel.strSnoozeAlertValue,
-          startTime: "",
-          endTime: "",
+          // startTime: "",
+          // endTime: "",
           schedule: tempObj,
           NotificationID:this.notificationModel.notificationID,
           ApplySnoozeByTriggerDevice:1,
