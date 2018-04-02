@@ -97,7 +97,7 @@
       <tab tabTitle="Users" class="tab-content light-theme" >
         <div class="row x_content">
           <div class="col-sm-12 sensors-info-container">
-            <div *ngIf="isShowUserTable" class="pull-right col-sm-2">
+            <div *ngIf="isShowUserTable && isAdmin" class="pull-right col-sm-2">
               <button class="btn btn-primary addBTN float-right" type="button" (click)="addUser()">
                 <i class="fa fa-plus"></i>Add User</button>
             </div>

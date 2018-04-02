@@ -31,7 +31,7 @@ export class AlertsComponent {
           setTimeout(()=>{
             this.showDiv = false;
             this.showAlert(e.payload);
-          },2000)
+          },5000)
         }
       }
     });
@@ -43,7 +43,7 @@ export class AlertsComponent {
           setTimeout(()=>{
             this.showGood = false;
             this.showSuccess();
-          },2000);
+          },5000);
         }
       }
     });
