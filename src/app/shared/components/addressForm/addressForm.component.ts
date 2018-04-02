@@ -16,6 +16,8 @@ export class AddressFormComponent implements OnInit {
   private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output()
   private validAddress: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  private coordinates: EventEmitter<any> = new EventEmitter<any>();
   public addressForm: FormGroup;
 
   private states = [];
@@ -67,9 +69,11 @@ export class AddressFormComponent implements OnInit {
               this.longitude = geoCoded.results[0].geometry.location.lng;
             }
             this.validateAddress();
+            this.getCoordinates();
           }
         });
       } else {
+        this.getCoordinates();
         this.validAddress.emit(false);
       }
     });
@@ -110,6 +114,10 @@ export class AddressFormComponent implements OnInit {
   }
 
   getCoordinates() {
+    this.coordinates.emit({
+      latitude:this.latitude,
+      longitude:this.longitude
+    });
     return {
       latitude: this.latitude,
       longitude: this.longitude,

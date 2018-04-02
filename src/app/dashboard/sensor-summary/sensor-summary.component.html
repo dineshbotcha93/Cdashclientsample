@@ -240,7 +240,7 @@
   <modal id="networkAddModal" [isOpen]="showPopup" title="Add Location"
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
-      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup" (enableSubmit)="enableSubmit($event)"></create-network>
+      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
 
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -259,7 +259,7 @@
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left">
           <!--<h4 class="modal-title" id="myModalLabel">Edit Network</h4>-->
-          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)"></create-network>
+          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group float-right">
@@ -338,7 +338,7 @@
   <div *ngIf="isServiceCallSuccess" class="alert alert-success">
         <span>Successfully updated</span>
   </div>
-  
+
   <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>

@@ -14,6 +14,8 @@ export class CreateNetworkComponent implements OnInit {
   private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output()
   private enableSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  private grabbedCoordinates: EventEmitter<any> = new EventEmitter<any>();
   public createNetworkForm: FormGroup;
 
 
@@ -39,6 +41,12 @@ export class CreateNetworkComponent implements OnInit {
     console.log('is valid address');
     console.log($event);
     this.enableSubmit.emit($event);
+  }
+
+  private grabCoordinates($event){
+    console.log('grabbed coordinates is');
+    console.log($event);
+    this.grabbedCoordinates.emit($event);
   }
 
 }
