@@ -14,6 +14,7 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import { Location } from '@angular/common';
 import { NotificationListService } from './notificationList.service';
 import { UserProfileService } from '../../user-profile/services/user-profile.service';
+import {moment} from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-notificationList',
@@ -35,8 +36,8 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
   showPopup = false;
   modalMessage = '';
 
-  private bsValue: Date = new Date();
-  private bsValueTwo: Date = new Date();
+  fromDate: string = moment().subtract(1, 'days').format('MM-DD-YYYY');
+  toDate: string = moment().format('MM-DD-YYYY');
   private rows = null;
 
 
@@ -96,25 +97,25 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
     this.userProfileService.getRealData()
       .then(data => {
         this.accountID = data.user.account[0].accountID;
-        this.notificationListService.getNotificationList(this.accountID).then(e => {
+        this.notificationListService.getNotificationList(this.accountID, this.fromDate, this.toDate).then(e => {
           this.rows = e;
         });
       });
   }
 
   onChange($event) {
-    this.bsValue = $event;
+    this.fromDate = $event;
     this.items = this.rows
-      .filter(item => new Date(item.notificationDate).getTime() > this.bsValue.getTime()
-        && new Date(item.notificationDate).getTime() < this.bsValueTwo.getTime());
+      .filter(item => new Date(item.notificationDate).getTime() > new Date(this.fromDate).getTime()
+        && new Date(item.notificationDate).getTime() < new Date(this.toDate).getTime());
     this.rows = this.items;
   }
 
   onChangeToDp($event) {
-    this.bsValueTwo = $event;
+    this.toDate = $event;
     this.items = this.rows.filter(item =>
-      new Date(item.notificationDate).getTime() > this.bsValue.getTime()
-      && new Date(item.notificationDate).getTime() < this.bsValueTwo.getTime());
+      new Date(item.notificationDate).getTime() > new Date(this.fromDate).getTime()
+      && new Date(item.notificationDate).getTime() < new Date(this.toDate).getTime());
     this.rows = this.items;
   }
 

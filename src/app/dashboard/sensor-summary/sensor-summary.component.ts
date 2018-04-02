@@ -49,7 +49,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   selectedSensor: any = null;
 
-  radioModel: any = "sensor";
+  radioModel: any = "gateway";
   editSaveModel: string = "Edit";
   selectAllValue: Object = {
     checked: false
@@ -113,6 +113,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
+  latestCoordinates: any = null;
 
 
   constructor(
@@ -141,7 +142,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     });
     this.translate.use("en");
 
-     this.deviceEditForm = this.deviceFormBuilder.group({ 
+     this.deviceEditForm = this.deviceFormBuilder.group({
 
      });
   }
@@ -281,6 +282,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
   /*Selection Of Gateway radion*/
   private onSelectGatewayRadio() {
+    console.log('onSelectGatewayRadio');
     this.radioModel = "gateway";
     this.isSelectedToAddDevice = false;
 
@@ -445,6 +447,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.editNetworkData.country = editNetworkForm.get(
         "address"
       ).value.country;
+      console.log("edit network form");
+      console.log(editNetworkForm);
+      //console.log(this.addressForm.getCoordinates());
       this.onClickSaveNetworkDetail();
     } else {
       this.preparePostData();
@@ -544,7 +549,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       let selectedRemoveData = this.getSelectedRowDetailsToRemove();
       if (selectedRemoveData) {
         selectedRemoveData.forEach(gateway => {
-         
+
           this.sensorSummaryService.deleteGateway(gateway.gatewayID).then(e => {
             if (e == true) {
               this.getNetworkData();
@@ -668,7 +673,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
              gateWayDataToUpdate.push(tempObj);
             }
 
-           
+
           }
 
           tempObj = [];
@@ -703,9 +708,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.isValidForm = false;
           this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
         });
-     
+
       }
-     
+
     }
   }
 
@@ -765,7 +770,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
                this.deviceCreationError = null;
               sensorDataToUpdate.push(tempObj);
             }
-            
+
           }
         });
       });
@@ -800,7 +805,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.deviceCreationError = "Server error occured while editing sensor. Please try after sometime ";
         });
    }
- 
+
     }
   }
 
@@ -843,9 +848,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
         });
 
-       
-      }else if (deviceType === "Gateway") {
 
+      }else if (deviceType === "Gateway") {
         requestObject = {
           gatewayIDs: selectedCheckedData,
           networkID: this.netWorkIdToMove
@@ -915,6 +919,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
+    this.editNetworkData.latitude = Math.round(this.latestCoordinates.latitude * 10 ) / 10;
+    this.editNetworkData.longitude = Math.round(this.latestCoordinates.longitude * 10) / 10;
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
 
       console.log(this.mapData);
@@ -924,7 +930,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.mapData['state'] = this.editNetworkData.state;
       this.mapData['postalCode'] = this.editNetworkData.postalCode;
       this.mapData['address2'] = this.editNetworkData.address2;
-
+      this.mapData['latitude'] = this.editNetworkData.latitude;
+      this.mapData['longitude'] = this.editNetworkData.longitude;
       this.selectLocation.Title = this.editNetworkData.name;
       this.showEditPopup = false;
     });
@@ -936,13 +943,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.isServiceCallSuccess = true;
       this.getNetworkData();
     }
-   
+
     this.isSelectedToAddDevice = false;
-   
+
   }
 
   receiveCancelMessage($event) {
-   
+
     this.isValidForm = true;
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
@@ -1065,6 +1072,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         }
       });
     });
+  }
+
+  capturedCoordinates($event){
+    this.latestCoordinates = $event;
   }
 
   onClickNotifyOff(e, sensor) {
