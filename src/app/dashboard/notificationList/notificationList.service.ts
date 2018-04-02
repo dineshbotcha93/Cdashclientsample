@@ -7,9 +7,7 @@ export class NotificationListService {
   constructor(private requesterService: RequesterService) {
 
   }
-  getNotificationList(accountId: string) {
-    const fromDate = moment().subtract(1, 'days').format('MM-DD-YYYY');
-    const toDate = moment().format('MM-DD-YYYY');
+  getNotificationList(accountId: string, fromDate: string, toDate: string) {
     const url = `/api/Notification/SentToAccount?AccountID=${accountId}&StartIndex=1&Count=500&FromDate=${fromDate}&ToDate=${toDate}`;
     return this.requesterService
       .getExternalRequest(url);
