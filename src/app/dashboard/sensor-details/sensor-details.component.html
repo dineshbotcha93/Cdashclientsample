@@ -45,9 +45,9 @@
       <div class="gauge-container" *ngIf="sensorDetailsData?.sensorID">
         <app-gauge
           [type]="'arch'"
-          [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
+          [value]="sensorDetailsData?.readingValue"
           [title]=""
-          [gaugeAppendText]="sensorDetailsData?.corF ? sensorDetailsData?.corF : ' '"
+          [gaugeAppendText]="sensorDetailsData?.readingUnit ? sensorDetailsData?.readingUnit : ' '"
         >
         </app-gauge>
         <p class="gauge-data">
