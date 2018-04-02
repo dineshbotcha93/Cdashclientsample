@@ -49,7 +49,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   selectedSensor: any = null;
 
-  radioModel: any = "sensor";
+  radioModel: any = "gateway";
   editSaveModel: string = "Edit";
   selectAllValue: Object = {
     checked: false
@@ -281,6 +281,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
   /*Selection Of Gateway radion*/
   private onSelectGatewayRadio() {
+    console.log('onSelectGatewayRadio');
     this.radioModel = "gateway";
     this.isSelectedToAddDevice = false;
 
@@ -845,7 +846,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
        
       }else if (deviceType === "Gateway") {
-
         requestObject = {
           gatewayIDs: selectedCheckedData,
           networkID: this.netWorkIdToMove
