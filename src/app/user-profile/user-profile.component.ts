@@ -115,7 +115,6 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
-  private _userId: number = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
@@ -159,9 +158,8 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
     config.placement = 'right';
-   
-    if(this._userId !== undefined) {
-    this.buildNetworks(this._userId);
+    if (JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID !== undefined) {
+      this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
     }
   }
   ngOnInit() {
