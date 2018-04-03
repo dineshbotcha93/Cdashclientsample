@@ -91,7 +91,7 @@ export class CreateDeviceComponent implements OnInit {
         this.deviceCreateForm = this.formBuilder.group({
           id: [this.deviceModel.id, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
           name: [this.deviceModel.name, [Validators.required]],
-          code: [this.deviceModel.code, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+          code: [this.deviceModel.code, [Validators.required,Validators.minLength(1),Validators.maxLength(10)]],
           heartBeat: [this.deviceModel.heartBeat, [Validators.required]],
           minThreshold: [this.deviceModel.minThreshold, [Validators.required]],
           maxThreshold: [this.deviceModel.maxThreshold, [Validators.required]],
@@ -102,7 +102,7 @@ export class CreateDeviceComponent implements OnInit {
           gatewayTypeID: [this.deviceModel.gatewayTypeID, [Validators.required]],
           networkID: [this.deviceModel.networkID, [Validators.required]],
           serialNumber: [this.deviceModel.serialNumber, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
-          macAddress: [this.deviceModel.macAddress, [Validators.required,Validators.pattern(/^([0-9]{2,2})+\:([0-9]{2,2})+\:([0-9]{2,2})+\:([0-9]{2,2})+$/)]]
+          macAddress: [this.deviceModel.macAddress, [Validators.required,Validators.pattern(/^([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+$/)]]
         });
     }
   }
