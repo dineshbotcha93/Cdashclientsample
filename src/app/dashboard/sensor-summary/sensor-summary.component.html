@@ -37,10 +37,10 @@
                   <span class="value">{{mapData?.noOfSensors}}</span>
                 </div>
                 <div class="ssCard-small ssCard-button" *ngIf="isAdminUser()">
-                  <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
+                  <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-target="#myNetworkModal"
                           value="Edit">
                     <i class="fa fa-edit"></i> Edit Location</button>
-                  <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-toggle="modal" data-target="#networkAddModal"
+                  <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-target="#networkAddModal"
                           value="Add">
                     <i class="fa fa-edit"></i> Add Location</button>
                 </div>
@@ -148,7 +148,7 @@
                 <!-- <form action="" class="dark-theme"> -->
                  <!--  <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
                   <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway" class="m-l-md"> Gateway -->
-                  <form #f="ngForm"> 
+                  <form #f="ngForm">
                       <input type="radio" value="sensor" name="device" [(ngModel)]="radioModel" (click)="onSelectSensorRadio()"> sensor
                       <input type="radio" value="gateway" name="device" [(ngModel)]="radioModel" (click)="onSelectGatewayRadio()"> gateway
                 </form>

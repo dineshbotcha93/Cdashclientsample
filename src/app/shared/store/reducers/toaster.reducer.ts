@@ -22,19 +22,22 @@ export function reducer(state = INITIAL_STATE, action: actions.ToasterActions): 
     case actions.ToasterTypes.TOASTER_ALERT: {
       return Object.assign({}, state, {
         TOASTER_ALERT: !state.TOASTER_ALERT,
-        payload: action.payload
+        payload: action.payload,
+        data: action.data
       });
     }
     case actions.ToasterTypes.TOASTER_SUCCESS: {
       return Object.assign({}, state, {
         TOASTER_SUCCESS: !state.TOASTER_SUCCESS,
-        payload: action.payload
+        payload: action.payload,
+        data: action.data
       });
     }
     case actions.ToasterTypes.TOASTER_WARNING: {
       return Object.assign({}, state, {
         TOASTER_WARNING: !state.TOASTER_WARNING,
-        payload: action.payload
+        payload: action.payload,
+        data: action.data
       });
     }
     default: {
@@ -44,11 +47,11 @@ export function reducer(state = INITIAL_STATE, action: actions.ToasterActions): 
 };
 
 export const getAlert = (state: State) => {
-  return {type:state.TOASTER_ALERT,payload:state.payload};
+  return {type:state.TOASTER_ALERT,payload:state.payload,data:state.data};
 }
 export const getSuccess = (state: State) => {
-  return {type:state.TOASTER_SUCCESS,payload:state.payload};
+  return {type:state.TOASTER_SUCCESS,payload:state.payload,data:state.data};
 }
 export const getWarning = (state: State) => {
-  return {type:state.TOASTER_WARNING,payload:state.payload};
+  return {type:state.TOASTER_WARNING,payload:state.payload,data:state.data};
 }
