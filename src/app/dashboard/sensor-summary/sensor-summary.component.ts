@@ -17,6 +17,9 @@ import { DatePipe } from "@angular/common";
 import { TranslateService } from "@ngx-translate/core";
 import { NetworkModel } from "../../shared/models/network/networkModel";
 import {AbstractDashboardBase} from "../abstractDashboard.component";
+import * as store             from '../../shared/store';
+import * as toasterActions    from '../../shared/store/actions/toaster.action';
+import { Store }              from '@ngrx/store';
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
@@ -110,6 +113,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   isValidForm = false;
   deviceCreationError: string | null = null;
   private deviceEditForm: FormGroup;
+  private toasterSandbox$ = this.appState$.select(store.getToasterState);
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
@@ -126,7 +130,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     private translate: TranslateService,
     public datepipe: DatePipe,
     private fb: FormBuilder,
-     private deviceFormBuilder: FormBuilder
+     private deviceFormBuilder: FormBuilder,
+     protected appState$: Store<store.State>,
   ) {
 
     super();
@@ -487,8 +492,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       });
     this.sensorSummaryService.createNetwork(this.networkModel).then(e => {
       //show success message,close pop up
-      console.log(this);
       this.showPopup = false;
+      this.toasterSandbox$.dispatch(new toasterActions.SuccessAction('Saved',{dismiss: 'auto'}));
+    }).catch((f)=>{
+      this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Error: `+f.message,{dismiss: 'auto'}));
     });
   }
 
@@ -933,7 +940,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.mapData['latitude'] = this.editNetworkData.latitude;
       this.mapData['longitude'] = this.editNetworkData.longitude;
       this.selectLocation.Title = this.editNetworkData.name;
-      this.showEditPopup = false;
+      if(g == 0){
+        this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Error Saving Data`,{dismiss: 'auto'}));
+      } else {
+        this.showEditPopup = false;
+        this.toasterSandbox$.dispatch(new toasterActions.SuccessAction('Saved',{dismiss: 'auto'}));
+      }
+    }).catch(f=>{
+      this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Error: `+f.message,{dismiss: 'auto'}));
     });
   }
 

@@ -164,7 +164,7 @@ export class MockBackendService {
             this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
             this.router.navigate(['/login']);
           }
-          c.mockError(new Error(error));
+          c.mockError(error.json());
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Get){
         let headers = new Headers();
@@ -185,7 +185,7 @@ export class MockBackendService {
           } else if(error.status == 500){
             this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
           }
-          c.mockError(new Error(error));
+          c.mockError(error.json());
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Put){
         let headers = new Headers();
@@ -206,7 +206,7 @@ export class MockBackendService {
           } else if(error.status == 500){
             this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
           }
-          c.mockError(new Error(error));
+          c.mockError(error.json());
         });
       } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Delete){
         let headers = new Headers();
@@ -227,7 +227,7 @@ export class MockBackendService {
           } else if(error.status == 500){
             this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
           }
-          c.mockError(new Error(error));
+          c.mockError(error.json());
         });
       }
     });
