@@ -158,7 +158,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
     config.placement = 'right';
-    if (JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID !== undefined) {
+    if (localStorage.getItem('com.cdashboard.userInfoObject') !== null) {
       this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
     }
   }
