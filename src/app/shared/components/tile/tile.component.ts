@@ -88,7 +88,7 @@ export class TileComponent {
         }
       }
       case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
-      return 'bg-warnings';
+      return 'bg-warning';
       case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
       return 'bg-lowBattery';
     }

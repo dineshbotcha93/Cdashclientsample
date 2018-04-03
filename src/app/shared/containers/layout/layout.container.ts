@@ -70,11 +70,19 @@ export class LayoutContainer {
 
     this.subscriptions.push(this.toasterState.subscribe((g)=>{
       if(g.TOASTER_SUCCESS){
-        this.toastr.success(g.payload, 'Success!',{dismiss: 'click'}).then((e)=>{
-          this.toasterState.dispatch(new toasterActions.SuccessAction());
-        });
+        let actionToBeDone:any = g.data;
+        if(actionToBeDone==null){
+          actionToBeDone = {dismiss:'click'};
+        }
+          this.toastr.success(g.payload, 'Success!',actionToBeDone).then((e)=>{
+            this.toasterState.dispatch(new toasterActions.SuccessAction());
+          });
       } else if(g.TOASTER_ALERT){
-        this.toastr.error(g.payload,'Warning!',{dismiss: 'click'}).then((e)=>{
+        let actionToBeDone:any = g.data;
+        if(actionToBeDone==null){
+          actionToBeDone = {dismiss:'click'};
+        }
+        this.toastr.error(g.payload,'Warning!',actionToBeDone).then((e)=>{
           this.toasterState.dispatch(new toasterActions.AlertAction());
         });
       }

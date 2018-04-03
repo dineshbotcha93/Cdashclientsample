@@ -9,19 +9,19 @@ export const ToasterTypes = {
 
 export class AlertAction implements Action {
   type = ToasterTypes.TOASTER_ALERT;
-  constructor(public payload: any = null){
+  constructor(public payload: any = null, public data: any = null){
   }
 }
 
 export class SuccessAction implements Action {
   type = ToasterTypes.TOASTER_SUCCESS;
-  constructor(public payload: any = null){
+  constructor(public payload: any = null, public data: any = null){
   }
 }
 
 export class WarningAction implements Action {
   type = ToasterTypes.TOASTER_WARNING;
-  constructor(public payload: any = null){
+  constructor(public payload: any = null, public data: any = null){
   }
 }
 
