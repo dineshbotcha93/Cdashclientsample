@@ -449,6 +449,7 @@ export class NotificationCreateComponent implements OnInit {
       });
   }
   setNotificationFormDetails() {
+    console.log('-------->>>',this.notificationModel);
     this.notificationForm1 = this.formBuilder.group({
        name: [this.notificationModel.strNotificationName, [Validators.required]],
        text: [this.notificationModel.strNotificationText, [Validators.required]],
@@ -462,6 +463,7 @@ export class NotificationCreateComponent implements OnInit {
        scheduleSnoozeCheckLeft:[this.notificationModel.scheduleSnoozeCheck.left, [Validators.required]],
        scheduleSnoozeCheckRight:[this.notificationModel.scheduleSnoozeCheck.right, [Validators.required]],
     });
+     console.log('-------->>>',this.notificationForm1);
     this.isValidForm = true;
   }
   ngOnInit() {
@@ -539,7 +541,7 @@ export class NotificationCreateComponent implements OnInit {
     ];
     this.notificationModel.selectNotifyMagnetList = Obj3;
     this.setEditNotifyDetails();
-    this.setNotificationFormDetails();
+    // this.setNotificationFormDetails();
   }
   onChangeSensorSelect(e) {
     this.notificationModel.sensorList = this.sensorOptionsModel;
@@ -551,6 +553,7 @@ export class NotificationCreateComponent implements OnInit {
     this.notificationModel.userList = this.userOptionsModel;
   }
   onClickSensorNotify() {
+    this.isValidForm = true;
     this.notificationModel.notificationClassType = "Application";
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm1 = false;
@@ -638,6 +641,7 @@ export class NotificationCreateComponent implements OnInit {
     }
   }
   onClickAdvanceNotify() {
+    this.isValidForm = true;
     this.notificationModel.notificationClassType = "5";
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm1 = false;
@@ -705,9 +709,12 @@ export class NotificationCreateComponent implements OnInit {
         value: "Advanced Temperature"
       }
     ];
+    this.notificationModel.compareValue= "0";
     this.selectSubNotificationList = Obj;
+    this.setNotificationFormDetails();
   }
   onClickBatteryNotify() {
+    this.isValidForm = true;
     this.notificationModel.notificationClassType = "Low_Battery";
     this.isReadingTypeAvailable = false;
     this.isSensorNotificationForm1 = true;
@@ -717,6 +724,7 @@ export class NotificationCreateComponent implements OnInit {
     this.notificationModel.notificationTemplate = "batteryNotification";
   }
   onClickInActivityNotify() {
+    this.isValidForm = true;
     this.notificationModel.notificationClassType = "Inactivity";
     this.isReadingTypeAvailable = false;
     this.isSensorNotificationForm1 = true;
@@ -726,7 +734,7 @@ export class NotificationCreateComponent implements OnInit {
     this.notificationModel.notificationTemplate = "inActiveNotification";
   }
   onChangeNotifictaion(e) {
-    console.log("template ", this.notificationModel.notificationTemplate);
+    console.log("template ", this.notificationModel);
     console.log(
       "notificationClassType ",
       this.notificationModel.notificationClassType
@@ -752,6 +760,7 @@ export class NotificationCreateComponent implements OnInit {
     this.setAdvancedNotificationParameterList(
       this.notificationModel.subnotificationClassType
     );
+     console.log("template ", this.notificationModel);
   }
   setAdvancedNotificationParameterList(subNotifyTyoe) {
     this.advancedParameterObject = [];
@@ -952,7 +961,7 @@ export class NotificationCreateComponent implements OnInit {
   onClickNext(value) {
     console.log("notifyModel", this.advancedParameterObject);
     this.isValidForm = this.notificationForm1.valid;
-    debugger;
+    
     if (value === "page1") {
 
       if(this.isValidForm){
@@ -1027,6 +1036,7 @@ export class NotificationCreateComponent implements OnInit {
   }
   onClickCreateNotification(value) {
     console.log("advanceNotification-->", this.advancedParameterObject);
+
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {
         // debugger;
@@ -1040,6 +1050,7 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.advancedNotification.push(tempObj);
       });
     }
+
     console.log(
       "this.notificationModel.advancedNotification",
       this.notificationModel.advancedNotification
