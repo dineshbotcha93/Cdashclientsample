@@ -8,7 +8,7 @@ import {
   Validators
 } from "@angular/forms";
 import { NgbTooltipConfig } from "@ng-bootstrap/ng-bootstrap";
-
+import {ERROR_KEYS} from '../../shared/constants/error.constants';
 @Component({
   selector: "app-create-device",
   templateUrl: "./create-device.component.html",
@@ -144,7 +144,7 @@ export class CreateDeviceComponent implements OnInit {
             this.messageEvent.emit(true);
           }).catch(e=>{
           this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while creating sensor. Please try after sometime ";
+          this.deviceCreationError = ERROR_KEYS[e.StatusCode.toString()]?ERROR_KEYS[e.StatusCode.toString()]:"Server error occured while creating sensor. Please try after sometime ";
         });
         }
       } else {
@@ -170,7 +170,7 @@ export class CreateDeviceComponent implements OnInit {
           this.messageEvent.emit(true);
         }).catch(e=>{
           this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while creating gateway. Please try after sometime ";
+          this.deviceCreationError = ERROR_KEYS[e.StatusCode.toString()]?ERROR_KEYS[e.StatusCode.toString()]:"Server error occured while creating sensor. Please try after sometime ";
         });
       } else {
         return false;
