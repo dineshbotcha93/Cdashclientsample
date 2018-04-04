@@ -41,6 +41,7 @@ export class NetworkSetupComponent implements OnInit {
   latitude:0,
   longitude:0
   };
+  latestCoordinates: any = null;
 
 
   constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService, private router:Router,  private userManagementService: UserManagementService) {
@@ -144,6 +145,10 @@ export class NetworkSetupComponent implements OnInit {
     this.networkFormSetup.setValue({createNetworkForm:populatedData});
   }
 
+  capturedCoordinates($event){
+    this.latestCoordinates = $event;
+  }
+
   prepareSubmitData(formData) {
 
     this.networkModel.address = formData.address.street;
@@ -163,24 +168,17 @@ export class NetworkSetupComponent implements OnInit {
     this.networkModel.country = formData.address.country;
     this.networkModel.name = formData.name;
     this.networkModel.isActive = true;
-
-    this.mapService.geoCode(formData.address.street+this.networkModel.address2+formData.address.city+formData.address.country).then((geoCoded)=>{
-
-      //if invalid address add error message
-      if(geoCoded.results[0]){
-
-        this.networkModel.latitude = geoCoded.results[0].geometry.location.lat;
-        this.networkModel.longitude = geoCoded.results[0].geometry.location.lng;
-
-      }
-    });
+    this.networkModel.latitude = this.latestCoordinates.latitude;
+    this.networkModel.longitude = this.latestCoordinates.longitude;
   }
 
   goToProfile() {
     this.networkSetupService.fetchUserInfo()
-      .then(() => {
-        console.log('routing to profile', this.userManagementService.getRegistrationData().email);
-        localStorage.setItem('currentUser', JSON.stringify({'username': this.userManagementService.getRegistrationData().email}));
+      .then((response) => {
+        //console.log('routing to profile', this.userManagementService.getRegistrationData().email);
+      //  localStorage.setItem('currentUser', JSON.stringify({'username': this.userManagementService.getRegistrationData().email}));
+      localStorage.setItem('currentUser', JSON.stringify(response.email));
+      localStorage.setItem('com.cdashboard.userInfoObject', JSON.stringify(response));
         this.router.navigate(['user-profile']);
       });
   }

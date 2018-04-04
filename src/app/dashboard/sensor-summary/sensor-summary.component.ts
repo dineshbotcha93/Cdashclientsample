@@ -475,21 +475,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     this.networkModel.country = createNetworkForm.get("address").value.country;
     this.networkModel.name = createNetworkForm.get("name").value;
     this.networkModel.isActive = true;
+    this.networkModel.latitude = this.latestCoordinates.latitude;
+    this.networkModel.longitude = this.latestCoordinates.longitude;
 
-    this.mapService
-      .geoCode(
-        this.networkModel.address +
-          this.networkModel.city +
-          this.networkModel.country
-      )
-      .then(geoCoded => {
-        if (geoCoded.results[0]) {
-          this.networkModel.latitude =
-            geoCoded.results[0].geometry.location.lat;
-          this.networkModel.longitude =
-            geoCoded.results[0].geometry.location.lng;
-        }
-      });
     this.sensorSummaryService.createNetwork(this.networkModel).then(e => {
       //show success message,close pop up
       this.showPopup = false;
@@ -926,8 +914,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
-    this.editNetworkData.latitude = Math.round(this.latestCoordinates.latitude * 10 ) / 10;
-    this.editNetworkData.longitude = Math.round(this.latestCoordinates.longitude * 10) / 10;
+    this.editNetworkData.latitude = this.latestCoordinates.latitude;
+    this.editNetworkData.longitude = this.latestCoordinates.longitude;
     this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
 
       console.log(this.mapData);
