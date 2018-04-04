@@ -37,7 +37,7 @@
 <modal [isOpen]="showPopup" title="Add/Edit Location"
        (onClose)="modalClosed($event)">
   <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
-    <create-network (formReady)="addFormControl('createNetworkForm', $event)" (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup"></create-network>
+    <create-network (formReady)="addFormControl('createNetworkForm', $event)" (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
 
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
