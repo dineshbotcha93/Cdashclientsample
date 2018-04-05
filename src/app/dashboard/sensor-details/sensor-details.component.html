@@ -51,7 +51,7 @@
         >
         </app-gauge>
         <p class="gauge-data">
-          {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}</span>
+          {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate|date:'dd/MM/yyyy HH:mm:ss'}}</span>
         </p>
         <p class="gauge-data">
           {{'sensorDetails.networkName'|translate}}: <span class="value">{{sensorDetailsData?.networkName ? sensorDetailsData?.networkName : 'N/A'}}</span>
