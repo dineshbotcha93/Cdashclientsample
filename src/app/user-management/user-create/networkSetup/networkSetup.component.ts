@@ -177,7 +177,7 @@ export class NetworkSetupComponent implements OnInit {
       .then((response) => {
         //console.log('routing to profile', this.userManagementService.getRegistrationData().email);
       //  localStorage.setItem('currentUser', JSON.stringify({'username': this.userManagementService.getRegistrationData().email}));
-      localStorage.setItem('currentUser', JSON.stringify(response.email));
+      localStorage.setItem('currentUser', JSON.stringify({'username': response.email}));
       localStorage.setItem('com.cdashboard.userInfoObject', JSON.stringify(response));
         this.router.navigate(['user-profile']);
       });
