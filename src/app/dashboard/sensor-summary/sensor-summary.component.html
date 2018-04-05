@@ -117,8 +117,8 @@
                       <div class="value">{{aGateway.gatewayID}}</div>
                     </div>
                     <div class="pair gateway-date">
-                      <div class="value">{{aGateway.lastCommunicationDate|date:'dd/mm/yyyy'}}</div>
-                      {{aGateway.lastCommunicationDate|dateFormat:'hh:mm:ss'}}
+                      <div class="value">{{aGateway.lastCommunicationDate|dateFormat:'L'}}</div>
+                      {{aGateway.lastCommunicationDate|dateFormat:'HH:mm:ss'}}
                     </div>
                   </div>
                   <div class="middle">

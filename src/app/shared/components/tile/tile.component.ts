@@ -106,7 +106,7 @@ export class TileComponent {
         if(tileContent == 'Closed'){
           return 'fa-lock';
         } else {
-          return 'fa-lock-open';
+          return 'fa-unlock';
         }
         default:
         return 'fa-tablet';
