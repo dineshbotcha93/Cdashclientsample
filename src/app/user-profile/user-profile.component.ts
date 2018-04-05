@@ -115,6 +115,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
+  private isLoader: Boolean = false;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
@@ -181,6 +182,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     });
   }
   private getUserProfileData() {
+    this.isLoader = true;
     this.userProfileService.getRealData().then(response => {
       this.responseData = response.user;
       this.loggedInUserId = response.user.userID;
@@ -191,6 +193,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       this.isAdmin = response.user.admin;
       this.expiryDate = new Date(response.user.account[0].subscriptionExpiry);
       this.updateRenewalLabel();
+      this.isLoader = false;
       this.loadPage = true;
     });
   }
@@ -533,12 +536,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       return response;
     })
       .then((response) => {
+        if (response.length > 0) {
         const arr = response.map(network => {
           return this.fb.control({ value: network.canAccess, disabled: this.isNtWorkProfile });
         });
         this.networkForm = this.fb.group({
           networkList: this.fb.array(arr)
         });
+        }
       });
   }
   private addFormControl(name: string, formGroup: FormGroup): void {
