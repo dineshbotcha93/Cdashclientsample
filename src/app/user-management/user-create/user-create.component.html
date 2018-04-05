@@ -92,6 +92,9 @@
           </div>
           <div *ngIf="!isValidForm || userCreateForm.get('password').touched">
             <div class="error" *ngIf="userCreateForm.get('password').hasError('required')">Password is required.</div>
+            <div class="error" *ngIf="userCreateForm.get('password').hasError('pattern')">
+                Password is not valid.
+              </div>
           </div>
         </div>
         <div class="form-group row">
@@ -103,6 +106,12 @@
           </div>
           <div *ngIf="!isValidForm || userCreateForm.get('confirmPassword').touched">
             <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('required')">Confirm Password is required.</div>
+            <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('pattern')">
+                Confirm password is not valid.
+            </div>
+            <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('notEquivalent')">
+                Password mismatch error.
+            </div>
           </div>
         </div>
 
