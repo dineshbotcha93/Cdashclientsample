@@ -18,6 +18,7 @@ import { TimepickerModule } from 'ngx-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { TooltipModule } from 'ngx-bootstrap';
 
 const routes: Routes = [
 {
@@ -43,7 +44,7 @@ const routes: Routes = [
     ToastModule.forRoot(),
     ModalModule.forRoot(),
     AngularFontAwesomeModule,
-    ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot()
+    ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot(),TooltipModule.forRoot()
   ],
   declarations: [UserProfileComponent, UserNotificationsComponent,NotificationSummaryComponent,NotificationCreateComponent],
   providers: [

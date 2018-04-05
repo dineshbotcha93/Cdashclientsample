@@ -11,6 +11,8 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
+
+
 @Component({
   selector: "app-notification-create",
   templateUrl: "./notification-create.component.html",
@@ -76,6 +78,7 @@ export class NotificationCreateComponent implements OnInit {
   notificationForm3: FormGroup;
   notificationForm4: FormGroup;
   notificationForm5: FormGroup;
+
 
   notificationOperationError: string | null = null;
 
@@ -151,6 +154,7 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.compareValue = notify.threshold;
         this.notificationModel.compareType = notify.comparer;
         this.notificationModel.notificationID = notify.notificationID;
+
         if (notify.notificationClass === "Inactivity") {
           this.onClickInActivityNotify();
         } else if (notify.notificationClass === "Application") {
@@ -161,6 +165,7 @@ export class NotificationCreateComponent implements OnInit {
         ) {
           this.onClickBatteryNotify();
         }
+
       } else {
         this.setInitialModelValues();
         this.getNotificationScheduleDetailsForAddNotify();
@@ -169,6 +174,7 @@ export class NotificationCreateComponent implements OnInit {
         let userGlobalList = this.globalNotificationsList.users;
         let userTempObj = [];
         let userSelectedObject = [];
+
         userGlobalList.forEach(user => {
           let tempObj: any = [];
           tempObj = {
@@ -179,8 +185,9 @@ export class NotificationCreateComponent implements OnInit {
             smsNotify: user.recievesNotificaitonsBySMS
           };
           userTempObj.push(tempObj);
-          userSelectedObject.push(tempObj.id);
+          // userSelectedObject.push(tempObj.id);
         });
+
         this.myUserOptions = [];
         this.myUserOptions = userTempObj;
         this.userOptionsModel = userSelectedObject;
@@ -221,7 +228,7 @@ export class NotificationCreateComponent implements OnInit {
       compareType: "Less_Than",
       compareValue: "",
       scale: "F",
-      scheduleNotificationCheck: { left: true, right: false },
+      scheduleNotificationCheck: { left: false, right: true },
       strSnoozeAlertValue: "",
       scheduleSnoozeCheck: { left: true, right: false },
       isNotificationActive: true,
@@ -306,6 +313,13 @@ export class NotificationCreateComponent implements OnInit {
     ];
     let selectedObj = [];
     selectedObj.push(tempObject3[0]);
+
+    // let d = new Date();
+    //   d.setHours(17);
+    //   d.setMinutes(2);
+
+
+
     this.scheduleObj = [
       {
         dayOfWeek: "Monday",
@@ -382,6 +396,7 @@ export class NotificationCreateComponent implements OnInit {
     this.sensorSummaryService
       .getNotificationScheduleList(networkID)
       .then(result => {
+        console.log('result-->',result);
         this.scheduleObj = [];
         let tempObject3 = [
           {
@@ -429,8 +444,20 @@ export class NotificationCreateComponent implements OnInit {
         result.forEach(schedule => {
           let selectedScheduleObj;
           tempObject3.forEach(dayObject => {
+            let date1 = new Date();
+            let date2 = new Date();
             if (dayObject.value === schedule.NotificationSchedule) {
               selectedScheduleObj = dayObject;
+
+                 date1.setHours(schedule.FirstEnteredTime.Hours);
+                 date1.setMinutes(schedule.FirstEnteredTime.Minutes);
+
+                 date2.setHours(schedule.SecondEnteredTime.Hours);
+                 date2.setMinutes(schedule.SecondEnteredTime.Minutes);
+              
+                 this.timePickerBefore = date1;
+                 this.timePickerAfter = date2;
+               
             }
           });
           let tempObj = {
@@ -449,21 +476,21 @@ export class NotificationCreateComponent implements OnInit {
       });
   }
   setNotificationFormDetails() {
-    console.log('-------->>>',this.notificationModel);
+
+
     this.notificationForm1 = this.formBuilder.group({
        name: [this.notificationModel.strNotificationName, [Validators.required]],
        text: [this.notificationModel.strNotificationText, [Validators.required]],
-       compareValue: [this.notificationModel.compareValue, [Validators.required]],
+       compareValue: [this.notificationModel.compareValue, [Validators.minLength(1),Validators.maxLength(3),Validators.required,Validators.pattern(/^([0-9])+$/)]],
        compareType: [this.notificationModel.compareType, [Validators.required]],
        scale: [this.notificationModel.scale, [Validators.required]],
        parameterValue: [this.notificationModel.advancedNotification],
        parameterObject: [this.notificationModel.advancedNotification],
-       strSnoozeAlertValue: [this.notificationModel.strSnoozeAlertValue, [Validators.required]],
+       strSnoozeAlertValue: [this.notificationModel.strSnoozeAlertValue, [Validators.minLength(1),Validators.maxLength(3),Validators.required,Validators.pattern(/^([0-9])+$/)]],
        isNotificationActive:[this.notificationModel.isNotificationActive, [Validators.required]],
        scheduleSnoozeCheckLeft:[this.notificationModel.scheduleSnoozeCheck.left, [Validators.required]],
        scheduleSnoozeCheckRight:[this.notificationModel.scheduleSnoozeCheck.right, [Validators.required]],
     });
-     console.log('-------->>>',this.notificationForm1);
     this.isValidForm = true;
   }
   ngOnInit() {
@@ -553,6 +580,12 @@ export class NotificationCreateComponent implements OnInit {
     this.notificationModel.userList = this.userOptionsModel;
   }
   onClickSensorNotify() {
+    if( this.notifyOperationType === "addNotify"){
+         this.setInitialModelValues();
+         this.getNotificationScheduleDetailsForAddNotify();
+    }
+   
+       
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Application";
     this.isReadingTypeAvailable = true;
@@ -621,7 +654,6 @@ export class NotificationCreateComponent implements OnInit {
 
     if (this.notifyOperationType === "editNotify") {
       humidityObjects.forEach(humid => {
-        console.log("humid-->", humid);
         if (humid.value === this.notificationModel.compareType) {
           this.selectedSensorHumidityType = humid;
           this.notificationModel.compareType = humid.id;
@@ -629,7 +661,6 @@ export class NotificationCreateComponent implements OnInit {
       });
       // open/close edit
       this.selectOpenCloseType.forEach(humid => {
-        console.log("humid-->", humid);
         if (humid.id === this.notificationModel.compareValue.toString()) {
           this.selectedOpenCloseType = [];
           this.selectedOpenCloseType = humid;
@@ -639,8 +670,16 @@ export class NotificationCreateComponent implements OnInit {
     } else {
       this.selectedSensorHumidityType = humidityObjects[0];
     }
+    this.isSensorNotificationForm3
+    this.setNotificationFormDetails();
+    this.currentPageValue='page1';
   }
   onClickAdvanceNotify() {
+
+   if( this.notifyOperationType === "addNotify"){
+         this.setInitialModelValues();
+         this.getNotificationScheduleDetailsForAddNotify();
+    }
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "5";
     this.isReadingTypeAvailable = true;
@@ -712,8 +751,13 @@ export class NotificationCreateComponent implements OnInit {
     this.notificationModel.compareValue= "0";
     this.selectSubNotificationList = Obj;
     this.setNotificationFormDetails();
+    this.currentPageValue='page1';
   }
   onClickBatteryNotify() {
+    if( this.notifyOperationType === "addNotify"){
+         this.setInitialModelValues();
+         this.getNotificationScheduleDetailsForAddNotify();
+    }
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Low_Battery";
     this.isReadingTypeAvailable = false;
@@ -722,8 +766,14 @@ export class NotificationCreateComponent implements OnInit {
     this.isButtonFooterRequired = true;
     this.notificationModel.compareType = "Less_Than";
     this.notificationModel.notificationTemplate = "batteryNotification";
+    this.setNotificationFormDetails();
+    this.currentPageValue='page1';
   }
   onClickInActivityNotify() {
+    if( this.notifyOperationType === "addNotify"){
+         this.setInitialModelValues();
+         this.getNotificationScheduleDetailsForAddNotify();
+    }
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Inactivity";
     this.isReadingTypeAvailable = false;
@@ -732,17 +782,10 @@ export class NotificationCreateComponent implements OnInit {
     this.isButtonFooterRequired = true;
     this.notificationModel.compareType = "Equal";
     this.notificationModel.notificationTemplate = "inActiveNotification";
+    this.setNotificationFormDetails();
+    this.currentPageValue='page1';
   }
   onChangeNotifictaion(e) {
-    console.log("template ", this.notificationModel);
-    console.log(
-      "notificationClassType ",
-      this.notificationModel.notificationClassType
-    );
-    console.log(
-      "subnotificationClassType ",
-      this.notificationModel.subnotificationClassType
-    );
     this.isSensorNotificationForm1 = true;
     this.isButtonFooterRequired = true;
     if (e.id === "2") {
@@ -757,10 +800,12 @@ export class NotificationCreateComponent implements OnInit {
     if (this.notificationModel.notificationClassType) {
       this.notificationModel.advancedNotificationID = this.notificationModel.subnotificationClassType;
     }
-    this.setAdvancedNotificationParameterList(
-      this.notificationModel.subnotificationClassType
+    
+    if(this.notificationModel.notificationClassType === "5" ){
+        this.setAdvancedNotificationParameterList(
+        this.notificationModel.subnotificationClassType
     );
-     console.log("template ", this.notificationModel);
+    }
   }
   setAdvancedNotificationParameterList(subNotifyTyoe) {
     this.advancedParameterObject = [];
@@ -959,7 +1004,6 @@ export class NotificationCreateComponent implements OnInit {
     this.isSensorNotificationForm1 = false;
   }
   onClickNext(value) {
-    console.log("notifyModel", this.advancedParameterObject);
     this.isValidForm = this.notificationForm1.valid;
     
     if (value === "page1") {
@@ -973,7 +1017,7 @@ export class NotificationCreateComponent implements OnInit {
       this.currentPageValue = "page2";
       this.isPreviousButtonRequired = true;
       }else{
-        this.notificationOperationError = "Please fill all the fields";
+        this.notificationOperationError = "Please fill the valid fields";
       }
 
 
@@ -1035,8 +1079,8 @@ export class NotificationCreateComponent implements OnInit {
     }
   }
   onClickCreateNotification(value) {
-    console.log("advanceNotification-->", this.advancedParameterObject);
-
+    // debugger;
+    console.log(this.notificationModel.scheduleSnoozeCheck);
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {
         // debugger;
@@ -1051,12 +1095,10 @@ export class NotificationCreateComponent implements OnInit {
       });
     }
 
-    console.log(
-      "this.notificationModel.advancedNotification",
-      this.notificationModel.advancedNotification
-    );
     let tempObj = [];
-    this.notificationModel.scheduleDayObjectList.forEach(sch => {
+
+    if(!this.notificationModel.scheduleNotificationCheck.left){
+      this.notificationModel.scheduleDayObjectList.forEach(sch => {
       let scechuleFinalObj = {
         dayOfWeek: sch.dayOfWeekValue,
         scheduleDay: sch.selectScheduleObj.id,
@@ -1065,6 +1107,9 @@ export class NotificationCreateComponent implements OnInit {
       };
       tempObj.push(scechuleFinalObj);
     });
+    }
+   
+
     let userList = [];
     this.myUserOptions.forEach(user => {
       this.notificationModel.userList.forEach(selectedUser => {
@@ -1084,6 +1129,9 @@ export class NotificationCreateComponent implements OnInit {
         }
       });
     });
+
+    let snoozeTrigger = this.notificationModel.scheduleSnoozeCheck.left? 1 : 0;
+
     // backend method
     let requestObject = {
       text: this.notificationModel.strNotificationText,
@@ -1104,13 +1152,12 @@ export class NotificationCreateComponent implements OnInit {
       snooze: this.notificationModel.strSnoozeAlertValue,
       // startTime: "",
       // endTime: "",
-      schedule: tempObj,
+      schedule: [],
       NotificationID: this.notificationModel.notificationID,
-      ApplySnoozeByTriggerDevice: 1,
+      ApplySnoozeByTriggerDevice:snoozeTrigger,
       advancedNotification: this.notificationModel.advancedNotification
     };
-    console.log("requestObject", requestObject);
-    // console.log('this.notifyOperationType',this.notifyOperationType);
+    
     if (this.notifyOperationType === "addNotify") {
       this.sensorSummaryService
         .createNotificationDetails(requestObject)
@@ -1125,6 +1172,6 @@ export class NotificationCreateComponent implements OnInit {
           //Emit true if 1
           this.createMessageEvent.emit(true);
         });
-    }
+     }
   }
 }
