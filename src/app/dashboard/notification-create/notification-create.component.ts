@@ -11,6 +11,8 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
+
+
 @Component({
   selector: "app-notification-create",
   templateUrl: "./notification-create.component.html",
@@ -475,15 +477,16 @@ export class NotificationCreateComponent implements OnInit {
   }
   setNotificationFormDetails() {
 
+
     this.notificationForm1 = this.formBuilder.group({
        name: [this.notificationModel.strNotificationName, [Validators.required]],
        text: [this.notificationModel.strNotificationText, [Validators.required]],
-       compareValue: [this.notificationModel.compareValue, [Validators.required]],
+       compareValue: [this.notificationModel.compareValue, [Validators.minLength(1),Validators.maxLength(3),Validators.required,Validators.pattern(/^([0-9])+$/)]],
        compareType: [this.notificationModel.compareType, [Validators.required]],
        scale: [this.notificationModel.scale, [Validators.required]],
        parameterValue: [this.notificationModel.advancedNotification],
        parameterObject: [this.notificationModel.advancedNotification],
-       strSnoozeAlertValue: [this.notificationModel.strSnoozeAlertValue, [Validators.required]],
+       strSnoozeAlertValue: [this.notificationModel.strSnoozeAlertValue, [Validators.minLength(1),Validators.maxLength(3),Validators.required,Validators.pattern(/^([0-9])+$/)]],
        isNotificationActive:[this.notificationModel.isNotificationActive, [Validators.required]],
        scheduleSnoozeCheckLeft:[this.notificationModel.scheduleSnoozeCheck.left, [Validators.required]],
        scheduleSnoozeCheckRight:[this.notificationModel.scheduleSnoozeCheck.right, [Validators.required]],
@@ -1014,7 +1017,7 @@ export class NotificationCreateComponent implements OnInit {
       this.currentPageValue = "page2";
       this.isPreviousButtonRequired = true;
       }else{
-        this.notificationOperationError = "Please fill all the fields";
+        this.notificationOperationError = "Please fill the valid fields";
       }
 
 
