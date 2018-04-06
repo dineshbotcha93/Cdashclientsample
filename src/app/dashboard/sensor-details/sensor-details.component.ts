@@ -148,6 +148,20 @@ export class SensorDetailsComponent {
           signalStrength: res.signalStrength,
           battery: res.battery,
         });
+
+        this.chartOptions.tooltips = {
+          mode: 'index',
+          callbacks: {
+            label: function() {
+              return res.displayData;
+            }
+          }
+        };
+
+        this.chartOptions.hover = {
+          mode: 'index',
+          intersect: true
+        };
       });
 
       /*console.log('chart', window.Chart);*/
