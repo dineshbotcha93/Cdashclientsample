@@ -60,7 +60,7 @@ export class NotificationCreateComponent implements OnInit {
     enableSearch: false,
     checkedStyle: "fontawesome",
     buttonClasses: "btn btn-default btn-block",
-    dynamicTitleMaxItems: 2,
+    dynamicTitleMaxItems: 1,
     displayAllSelectedText: true
   };
   selectSubNotificationList: any = [];
@@ -78,6 +78,11 @@ export class NotificationCreateComponent implements OnInit {
   notificationForm3: FormGroup;
   notificationForm4: FormGroup;
   notificationForm5: FormGroup;
+
+  sensorListNamesList:any = [];
+  gatewayListNamesList:any = [];
+
+  isGatewayRequired :boolean = true;
 
 
   notificationOperationError: string | null = null;
@@ -115,7 +120,7 @@ export class NotificationCreateComponent implements OnInit {
           let tempObj: any = [];
           tempObj = {
             id: user.userName,
-            name: user.userName,
+            name: user.userID,
             userID: user.userID,
             emailNotify: user.recievesMaintenanceByEmail,
             smsNotify: user.recievesNotificaitonsBySMS
@@ -133,14 +138,23 @@ export class NotificationCreateComponent implements OnInit {
         let gatewayObj = [];
         tempObject.devices.forEach(device => {
           let tempObj: any = [];
-          tempObj.id = device.deviceID;
+          let tempNameObj :any = [];
+
+          tempObj.id = device.deviceName;
           tempObj.name = device.deviceID;
+
+          tempNameObj = {
+            id:device.deviceID,
+            name:device.deviceName
+          }
           if (device.deviceCategory === "Sensor") {
             sensorObj.push(tempObj);
-            sensorModel.push(device.deviceID);
+            sensorModel.push(device.deviceName);
+            this.sensorListNamesList.push(tempNameObj);
           } else {
             gatewayObj.push(tempObj);
-            gatewayModel.push(device.deviceID);
+            gatewayModel.push(device.deviceName);
+            this.gatewayListNamesList.push(tempNameObj);
           }
         });
         this.sensorOptionsModel = sensorModel;
@@ -199,19 +213,35 @@ export class NotificationCreateComponent implements OnInit {
         let gatewayObj = [];
         //gateway
         gatewayGlobalList.forEach(device => {
+          let tempNameObj :any = [];
           let tempObj: any = [];
-          (tempObj.id = device.gatewayID), (tempObj.name = device.gatewayID);
-          // gatewayModel.push(device.gatewayID);
+          (tempObj.id = device.name), (tempObj.name = device.gatewayID);
+
+           tempNameObj = {
+            id:device.gatewayID,
+            name:device.name
+          }
           gatewayObj.push(tempObj);
+          this.gatewayListNamesList.push(tempNameObj);
         });
         this.myGatewayOptions = gatewayObj;
         this.gatewayOptionsModel = gatewayModel;
+
         sensorGlobalList.forEach(device => {
+          let tempNameObj :any = [];
           let tempObj: any = [];
-          (tempObj.id = device.sensorID), (tempObj.name = device.sensorID);
+          // console.log(device);
+          (tempObj.id = device.sensorName), (tempObj.name = device.sensorID);
           // sensorModel.push(device.sensorID);
+          tempNameObj = {
+            id:device.sensorID,
+            name:device.sensorName
+          }
           sensorObj.push(tempObj);
+          this.sensorListNamesList.push(tempNameObj);
         });
+
+
         this.sensorOptionsModel = sensorModel;
         this.mySensorOptions = sensorObj;
         this.notificationModel.sensorList = sensorModel;
@@ -396,7 +426,6 @@ export class NotificationCreateComponent implements OnInit {
     this.sensorSummaryService
       .getNotificationScheduleList(networkID)
       .then(result => {
-        console.log('result-->',result);
         this.scheduleObj = [];
         let tempObject3 = [
           {
@@ -585,7 +614,7 @@ export class NotificationCreateComponent implements OnInit {
          this.getNotificationScheduleDetailsForAddNotify();
     }
    
-       
+    this.isGatewayRequired = false;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Application";
     this.isReadingTypeAvailable = true;
@@ -681,6 +710,7 @@ export class NotificationCreateComponent implements OnInit {
          this.getNotificationScheduleDetailsForAddNotify();
     }
     this.isValidForm = true;
+    this.isGatewayRequired = true;
     this.notificationModel.notificationClassType = "5";
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm1 = false;
@@ -758,6 +788,7 @@ export class NotificationCreateComponent implements OnInit {
          this.setInitialModelValues();
          this.getNotificationScheduleDetailsForAddNotify();
     }
+    this.isGatewayRequired = false;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Low_Battery";
     this.isReadingTypeAvailable = false;
@@ -774,6 +805,7 @@ export class NotificationCreateComponent implements OnInit {
          this.setInitialModelValues();
          this.getNotificationScheduleDetailsForAddNotify();
     }
+    this.isGatewayRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Inactivity";
     this.isReadingTypeAvailable = false;
@@ -806,6 +838,7 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.subnotificationClassType
     );
     }
+     this.setNotificationFormDetails();
   }
   setAdvancedNotificationParameterList(subNotifyTyoe) {
     this.advancedParameterObject = [];
@@ -1005,7 +1038,6 @@ export class NotificationCreateComponent implements OnInit {
   }
   onClickNext(value) {
     this.isValidForm = this.notificationForm1.valid;
-    
     if (value === "page1") {
 
       if(this.isValidForm){
@@ -1019,7 +1051,6 @@ export class NotificationCreateComponent implements OnInit {
       }else{
         this.notificationOperationError = "Please fill the valid fields";
       }
-
 
     } else if (value === "page2") {
       this.isSensorNotificationForm2 = false;
@@ -1035,6 +1066,12 @@ export class NotificationCreateComponent implements OnInit {
       this.isSensorNotificationForm3 = false;
       this.isSensorNotificationForm5 = false;
       this.currentPageValue = "page4";
+      if(!this.isGatewayRequired){
+         this.isSensorNotificationForm4 = false;
+         this.isSensorNotificationForm5 = true;
+          this.currentPageValue = "page5";
+          this.isNextButtonRequired = false;
+      }
     } else if (value === "page4") {
       this.isSensorNotificationForm5 = true;
       this.isSensorNotificationForm4 = false;
@@ -1076,6 +1113,12 @@ export class NotificationCreateComponent implements OnInit {
       this.isSensorNotificationForm3 = false;
       this.currentPageValue = "page4";
       this.isNextButtonRequired = true;
+
+      if(!this.isGatewayRequired){
+         this.isSensorNotificationForm4 = false;
+         this.isSensorNotificationForm3 = true;
+         this.currentPageValue = "page3";
+      }
     }
   }
   onClickCreateNotification(value) {
@@ -1132,6 +1175,30 @@ export class NotificationCreateComponent implements OnInit {
 
     let snoozeTrigger = this.notificationModel.scheduleSnoozeCheck.left? 1 : 0;
 
+
+
+    console.log(this.notificationModel.sensorList);
+
+    let sensorRequestObj = [];
+      this.sensorListNamesList.forEach(globalSensor => {
+        this.notificationModel.sensorList.forEach(selectSensor => {
+          if(globalSensor.name === selectSensor){
+            sensorRequestObj.push(globalSensor.id);
+          }
+        });
+      });
+
+      let gatewayObject = [];
+      this.gatewayListNamesList.forEach(globalgateway => {
+        this.notificationModel.gatewayList.forEach(selectgateway => {
+          if(globalgateway.name === selectgateway){
+            gatewayObject.push(globalgateway.id);
+          }
+        });
+      });
+
+  console.log('sensorRequestObj',sensorRequestObj);
+  console.log('gatewayObject',gatewayObject);
     // backend method
     let requestObject = {
       text: this.notificationModel.strNotificationText,
@@ -1146,8 +1213,8 @@ export class NotificationCreateComponent implements OnInit {
       accountID: this.accountID,
       advancedNotificationID: this.notificationModel.advancedNotificationID,
       monnitApplicationID: this.notificationModel.subnotificationClassType,
-      gatewayList: this.notificationModel.gatewayList,
-      sensorList: this.notificationModel.sensorList,
+      gatewayList: gatewayObject,
+      sensorList: sensorRequestObj,
       userList: userList,
       snooze: this.notificationModel.strSnoozeAlertValue,
       // startTime: "",

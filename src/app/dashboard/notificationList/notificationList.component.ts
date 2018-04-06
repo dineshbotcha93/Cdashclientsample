@@ -37,7 +37,7 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
   modalMessage = '';
 
   fromDate: string = moment().subtract(1, 'days').format('MM-DD-YYYY');
-  toDate: string = moment().format('MM-DD-YYYY');
+  toDate: string = moment().add(1, 'days').format('MM-DD-YYYY');
   private rows = null;
 
 

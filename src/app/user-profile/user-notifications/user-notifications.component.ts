@@ -4104,7 +4104,7 @@ export class UserNotificationsComponent implements OnInit {
       
       this.getNotificationsList();
        
-     });
+    });
   }
 
   getNotificationsList(){
