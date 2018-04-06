@@ -118,10 +118,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
-    dashboardPassword: new FormControl('', [Validators.required, 
-      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+    dashboardPassword: new FormControl('', [Validators.required,
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     confirmPassword: new FormControl('', [Validators.required,
-       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     isAdmin: new FormControl('')
@@ -194,7 +194,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       this.loadPage = true;
     });
   }
- 
+
   saveUserData() {
     if (this.userForm.invalid) {
            this.toastr.info('Please fill the mandatory fields');
@@ -301,7 +301,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     notifObj.smsCarrierID = row[0].smsCarrierID;
     notifObj.recievesSensorNotificationByText = row[0].recievesNotificaitonsBySMS;
     notifObj.recievesMaintenanceByEmail = row[0].recievesMaintenanceByEmail;
-    notifObj.recievesMaintenanceByPhone = row[0].recievesMaintenanceBySMS;   
+    notifObj.recievesMaintenanceByPhone = row[0].recievesMaintenanceBySMS;
     if (row[0].directSMS === false) {
       this.isDirectSMS = false;
       notifObj.countryCode = '';
@@ -313,7 +313,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       let _phoneNum = row[0].smsNumber.slice(row[0].smsNumber.length - 10, row[0].smsNumber.length);
       notifObj.smsNumber = _phoneNum;
       notifObj.countryCode = _countryCode;
-    }    
+    }
     this.notificationForm.setValue(notifObj);
     this.notificationForm.controls['smsCarrierID'].setValue(notifObj.smsCarrierID, { onlySelf: true });
   }
