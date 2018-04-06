@@ -164,7 +164,7 @@
             </label>
           </div></div>
           <div class="col-sm-3">{{notifiy.notification.notificationClass}}/{{notifiy.notification.name}}</div>
-          <div class="col-sm-2">{{notifiy.notification.lastDateSent}}</div>
+          <div class="col-sm-2">{{notifiy.notification.lastDateSent | date:'short'}}</div>
           <div class="col-sm-1"> <a (click)="openModal(notifiy,template,'text')">
             <fa name="comment"></fa>
           </a></div>
