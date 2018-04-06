@@ -38,7 +38,7 @@ export class SensorDetailsComponent {
   public chartOptions: any = ChartOptions;
   public chartColors: Array<any> = [ChartColors];
   public chartData: Array<any> = [
-    { data: this.data, label: 'Temperature Vs. Time', fill: false }
+    { data: this.data, label: '', fill: false }
   ];
   @ViewChild('baseChart') chart: BaseChartDirective;
   @ViewChildren('tabs') tabs: QueryList<any>;
@@ -75,6 +75,21 @@ export class SensorDetailsComponent {
 
       if (this.sensorDetailsData.minimumThreshold !== this.defaultThreshold) {
         this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+      }
+
+      switch (this.sensorDetailsData.sensorType) {
+        case 43:
+          this.chartData[0].label = 'Humidity vs Time';
+          break;
+        case 2:
+          this.chartData[0].label = 'Temperature vs Time';
+          break;
+        case 9:
+          this.chartData[0].label = 'State vs Time';
+          break;
+        default:
+          this.chartData[0].label = 'Temperature vs Time';
+          break;
       }
     });
     this.columns.push({prop: 'messageDate', name: 'Date'});
