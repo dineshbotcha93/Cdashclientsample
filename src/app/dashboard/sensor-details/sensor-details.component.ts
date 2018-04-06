@@ -42,7 +42,7 @@ export class SensorDetailsComponent {
   ];
   @ViewChild('baseChart') chart: BaseChartDirective;
   @ViewChildren('tabs') tabs: QueryList<any>;
-  bsValue: Date = moment().subtract(7, 'days').toDate();
+  bsValue: Date = moment().subtract(6, 'days').toDate();
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   bsModalRef: BsModalRef;

@@ -47,7 +47,9 @@ export class UserCreateComponent implements OnInit {
       confirmPassword: [this.userRegisterModel.confirmPassword, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]],
       notifEyeUsername: [this.userRegisterModel.notifEyeUsername, null],
       notifEyePassword: [this.userRegisterModel.notifEyePassword, null],
-    });
+    },
+    { validator: this.checkIfPasswordsMismatch('password', 'confirmPassword') }
+  );
 
     config.placement = 'right';
     /*config.triggers = 'focus';*/
@@ -148,6 +150,15 @@ export class UserCreateComponent implements OnInit {
       this.userCreateForm.get('notifEyeUsername').updateValueAndValidity();
       this.userCreateForm.get('notifEyePassword').setValidators([Validators.required]);
       this.userCreateForm.get('notifEyePassword').updateValueAndValidity();
+    }
+  }
+  checkIfPasswordsMismatch(passwordKey: string, confirmPasswordKey: string) {
+    return(userCreateForm: FormGroup) => {
+      let pwd = userCreateForm.controls[passwordKey],
+        confirmPwd = userCreateForm.controls[confirmPasswordKey];
+        if (pwd.value !== confirmPwd.value) {
+          return confirmPwd.setErrors({ notEquivalent: true, Validators: 'required'});
+        }
     }
   }
 }
