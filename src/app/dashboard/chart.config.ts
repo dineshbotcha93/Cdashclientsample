@@ -45,16 +45,25 @@ export const ChartOptions = {
     onClick: (e) => e.stopPropagation()
   },
   scales: {
-    ticks: {
-      beginAtZero: true,
-      min: 0,
-      userCallback: function(label, index, labels) {
-        // when the floored value is the same as the value we have a whole number
-        if (Math.floor(label) === label) {
-          return label;
-        }
+    yAxes: [{
+      ticks: {
+        beginAtZero:true,
+        min: 0,
+        userCallback: function(label, index, labels) {
+          // when the floored value is the same as the value we have a whole number
+          if (Math.floor(label) === label) {
+            return label;
+          }
+        },
+        fontColor: 'white'
       },
-    },
+    }],
+    xAxes: [{
+      ticks: {
+        beginAtZero:true,
+        fontColor: 'white'
+      },
+    }],
   },
   annotation: {
     drawTime: 'afterDatasetsDraw',
