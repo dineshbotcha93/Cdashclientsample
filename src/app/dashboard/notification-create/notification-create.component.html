@@ -20,13 +20,13 @@
           <label class="control-label col-form-label">Type of Sensor Reading:</label>
         </td>
         <td>
-          
+
             <select class="form-control" [ngModel]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
               <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">
                 {{not.value}}
               </option>
             </select>
-         
+
         </td>
       </tr>
     </tbody>
@@ -362,9 +362,9 @@
     <div class="col-md-8">
       <div class="form-group sensor-actions">
         <button type="button" class="btn btn-primary removeBTN" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">
-          <i class="fa fa-trash"></i> previous </button>
+          previous </button>
         <button type="button" class="btn btn-primary addBTN" (click)="onClickNext(currentPageValue)" *ngIf="isNextButtonRequired">
-          <i class="fa fa-plus"></i> Next </button>
+          Next </button>
         <button type="button" class="btn btn-primary addBTN" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
           <i class="fa fa-plus"></i> Submit </button>
       </div>
