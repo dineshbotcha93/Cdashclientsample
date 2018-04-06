@@ -67,7 +67,7 @@
           <td>
             <div class="col-md-8">
               <div class="form-group ss-location">
-                <select class="form-control" formControlName="compareValue" [ngModel]="selectedOpenCloseType" (ngModelChange)="onChangeSelectOpenCloseType($event)">
+                <select class="form-control" formControlName="compareType" [ngModel]="selectedOpenCloseType" (ngModelChange)="onChangeSelectOpenCloseType($event)">
                   <option *ngFor="let less of selectOpenCloseType" [ngValue]="less">
                     {{less.value}}
                   </option>
