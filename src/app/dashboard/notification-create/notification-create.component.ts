@@ -806,6 +806,7 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.subnotificationClassType
     );
     }
+     this.setNotificationFormDetails();
   }
   setAdvancedNotificationParameterList(subNotifyTyoe) {
     this.advancedParameterObject = [];
@@ -1005,7 +1006,6 @@ export class NotificationCreateComponent implements OnInit {
   }
   onClickNext(value) {
     this.isValidForm = this.notificationForm1.valid;
-    
     if (value === "page1") {
 
       if(this.isValidForm){
