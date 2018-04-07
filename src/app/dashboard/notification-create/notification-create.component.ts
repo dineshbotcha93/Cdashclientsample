@@ -238,10 +238,13 @@ export class NotificationCreateComponent implements OnInit {
         } else if (notify.notificationClass === "Application") {
           this.onClickSensorNotify();
         } else if (
-          notify.notificationClass === "Low_Battery" ||
-          notify.notificationClass === "Low Battery"
+          notify.notificationClass === "Low_Battery"
         ) {
           this.onClickBatteryNotify();
+        }else if (
+          notify.notificationClass === "Advanced" 
+        ) {
+          this.onClickAdvanceNotify();
         }
       } else {
         this.setInitialModelValues();
