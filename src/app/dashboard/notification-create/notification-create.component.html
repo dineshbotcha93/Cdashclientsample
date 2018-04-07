@@ -1,36 +1,31 @@
 <div *ngIf="globalNotificationsList?.length === 0" class="alert alert-info">
   <span>{{notificationOperationError}}</span>
 </div>
- <div class="row">
-<div class="col-sm-12" *ngIf="notifyOperationType == 'addNotify'">
-  <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
-    <i class="fa fa-edit"></i> Sensor Reading Notification </button>
-  <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
-    <i class="fa fa-edit"></i> Battery Notification </button>
-  <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
-    <i class="fa fa-edit"></i> Inactivity Notification </button>
-  <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
-    <i class="fa fa-edit"></i> Advanced Notification </button>
-</div></div>
-<div class="col-sm-8" *ngIf="isReadingTypeAvailable">
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td>
-          <label class="control-label col-form-label">Type of Sensor Reading:</label>
-        </td>
-        <td>
-
-            <select class="form-control" [ngModel]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
-              <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">
-                {{not.value}}
-              </option>
-            </select>
-
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-sm-12" *ngIf="notifyOperationType == 'addNotify'">
+    <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
+      <i class="fa fa-edit"></i> Sensor Reading Notification </button>
+    <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
+      <i class="fa fa-edit"></i> Battery Notification </button>
+    <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
+      <i class="fa fa-edit"></i> Inactivity Notification </button>
+    <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
+      <i class="fa fa-edit"></i> Advanced Notification </button>
+  </div>
+</div>
+<div class="col-sm-12" *ngIf="isReadingTypeAvailable">
+  <div class="row">
+       <div class="col-sm-4">
+          <span><label class="control-label col-form-label">Type of Sensor Reading:</label></span>
+      </div>
+       <div class="col-sm-4">
+         <select class="form-control" [ngModel]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
+            <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">
+              {{not.value}}
+            </option>
+          </select>
+      </div>
+  </div>
 </div>
 <!-- page 1 -->
 <div class="col-sm-12" *ngIf="isSensorNotificationForm1">
@@ -46,7 +41,7 @@
           </td>
           <td>
             <div class="col-md-8">
-              <input type="text" formControlName="name" class="form-control"  name="name" placeholder="Enter Name" [(ngModel)]="notificationModel.strNotificationName">
+              <input type="text" formControlName="name" class="form-control" name="name" placeholder="Enter Name" [(ngModel)]="notificationModel.strNotificationName">
             </div>
           </td>
         </tr>
@@ -91,7 +86,8 @@
               </div>
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter Temp" [(ngModel)]="notificationModel.compareValue" tooltip="Enter valid number">
+              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter Temp"
+                [(ngModel)]="notificationModel.compareValue" tooltip="Enter valid number">
             </div>
             <div class="col-md-2">
               <label class="control-label col-form-label">degrees</label>
@@ -122,7 +118,8 @@
               </div>
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter Temp" [(ngModel)]="notificationModel.compareValue">
+              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter Temp"
+                [(ngModel)]="notificationModel.compareValue">
             </div>
           </td>
         </tr>
@@ -143,7 +140,8 @@
           </td>
           <td>
             <div class="col-md-4">
-              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter minutes" [(ngModel)]="notificationModel.compareValue">
+              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter minutes"
+                [(ngModel)]="notificationModel.compareValue">
             </div>minutes without communication.
           </td>
         </tr>
@@ -154,8 +152,8 @@
             </td>
             <td>
               <div class="col-md-4" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
-                <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number" name="parameterValue" [(ngModel)]="paramType.parameterValue"
-                  placeholder="">
+                <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number" name="parameterValue"
+                  [(ngModel)]="paramType.parameterValue" placeholder="">
               </div>
               <div class="col-md-4" *ngIf="paramType.parameterObject?.length>0">
                 <div class="form-group ss-location">
@@ -173,8 +171,8 @@
           <td> Don't Alert again for (Snooze)</td>
           <td>
             <div class="col-md-2">
-              <input type="text" class="form-control" formControlName="strSnoozeAlertValue" tooltip="Enter valid number" name="strSnoozeAlertValue" [(ngModel)]="notificationModel.strSnoozeAlertValue"
-                placeholder="Enter snooze value">
+              <input type="text" class="form-control" formControlName="strSnoozeAlertValue" tooltip="Enter valid number" name="strSnoozeAlertValue"
+                [(ngModel)]="notificationModel.strSnoozeAlertValue" placeholder="Enter snooze value">
             </div>
             <div class="col-md-2"> Minutes</div>
           </td>
@@ -227,32 +225,32 @@
         </td>
       </tr>
 
-        <ng-container *ngIf="notificationModel.scheduleNotificationCheck.right">
-          <tr *ngFor="let dayily of notificationModel.scheduleDayObjectList">
-        <td>
-          <label class="control-label col-form-label">{{dayily.dayOfWeek}}:</label>
-        </td>
-        <td>
-          <div class="col-md-4">
-            <div class="form-group ss-location">
-              <select class="form-control" [ngModel]="dayily.selectScheduleObj" (ngModelChange)="onChangeScheduleObject($event,dayily)">
-                <option *ngFor="let not of dayily.scheduleDayObject" [ngValue]="not">
-                  {{not.value}}
-                </option>
-              </select>
+      <ng-container *ngIf="notificationModel.scheduleNotificationCheck.right">
+        <tr *ngFor="let dayily of notificationModel.scheduleDayObjectList">
+          <td>
+            <label class="control-label col-form-label">{{dayily.dayOfWeek}}:</label>
+          </td>
+          <td>
+            <div class="col-md-4">
+              <div class="form-group ss-location">
+                <select class="form-control" [ngModel]="dayily.selectScheduleObj" (ngModelChange)="onChangeScheduleObject($event,dayily)">
+                  <option *ngFor="let not of dayily.scheduleDayObject" [ngValue]="not">
+                    {{not.value}}
+                  </option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
+            <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
               || dayily.selectScheduleObj.id === '4'">
-            <timepicker [(ngModel)]="dayily.timePickerBefore" (click)="onClickBeforeTimeValue($event,dayily)"></timepicker>
-          </div>
-          <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
+              <timepicker [(ngModel)]="dayily.timePickerBefore" (click)="onClickBeforeTimeValue($event,dayily)"></timepicker>
+            </div>
+            <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
               || dayily.selectScheduleObj.id === '5'">
-            <timepicker [(ngModel)]="dayily.timePickerAfter" (click)="onClickAfterTimeValue($event,dayily)"></timepicker>
-          </div>
-        </td>
-      </tr>
-        </ng-container>
+              <timepicker [(ngModel)]="dayily.timePickerAfter" (click)="onClickAfterTimeValue($event,dayily)"></timepicker>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>
@@ -278,7 +276,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="col-md-3">Id</th>
+          <th class="col-md-3">Sensor Name</th>
         </tr>
       </thead>
       <tbody>
@@ -312,7 +310,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="col-md-3">Id</th>
+          <th class="col-md-3">Gateway Name</th>
         </tr>
       </thead>
       <tbody>
@@ -345,7 +343,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="col-md-3">Id</th>
+          <th class="col-md-3">User Id</th>
         </tr>
       </thead>
       <tbody>
@@ -358,17 +356,21 @@
 </div>
 <div class="col-sm-12" *ngIf="isButtonFooterRequired">
   <div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-8">
-      <div class="form-group sensor-actions">
-        <button type="button" class="btn btn-primary removeBTN" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">
+    <div class="form-group sensor-actions">
+      <div class="col-md-4">
+       
+      </div>
+      <div class="col-md-4">
+         <button type="button" class="btn btn-primary removeBTN" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">
           previous </button>
         <button type="button" class="btn btn-primary addBTN" (click)="onClickNext(currentPageValue)" *ngIf="isNextButtonRequired">
           Next </button>
-        <button type="button" class="btn btn-primary addBTN" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
+          <button type="button" class="btn btn-primary addBTN" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
           <i class="fa fa-plus"></i> Submit </button>
       </div>
+      </div>
+      <div class="col-md-4">
+        
     </div>
   </div>
 </div>
