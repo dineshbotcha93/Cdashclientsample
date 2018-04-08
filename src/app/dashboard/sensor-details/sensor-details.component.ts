@@ -139,9 +139,22 @@ export class SensorDetailsComponent {
         this.alertSandbox.showAlert({data: 'No Content'});
         return;
       }
+
+      result.sort((message1, message2) => {
+        const date1 = new Date(message1.messageDate);
+        const date2 = new Date(message2.messageDate);
+        if (date1 > date2) {
+          return 1;
+        }
+        if (date1 < date2) {
+          return -1;
+        }
+        return 0;
+      });
+
       result.forEach((res) => {
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11, 19));
+        this.chartLabels.push(moment(res.messageDate).format('hh:mm:ss a'));
         this.rows.push({
           displayData: res.displayData,
           messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
