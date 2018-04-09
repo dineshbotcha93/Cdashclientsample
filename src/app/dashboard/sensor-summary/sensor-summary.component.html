@@ -25,8 +25,17 @@
             <div class="row">
               <div class="col-md-6 ssCard-left">
                 <div class="ssCard-name" contenteditable="true" (input)="selectLocation.Title = $event.target.innerText">{{selectLocation.Title }}</div>
-                <div class="ssCard-id" contenteditable="true" (input)="mapData = $event.target.innerText">
+                <div class="ssCard-id"
+                contenteditable="true"
+                (input)="mapData = $event.target.innerText"
+                *ngIf="mapData?.address !== null && mapData?.city!== null && mapData?.postalCode!==null && mapData?.country!==null">
                   {{mapData?.address}}, {{mapData?.address2}}, {{mapData?.city}}, {{mapData?.postalCode}}, {{mapData?.country}}
+                </div>
+                <div class="ssCard-id"
+                contenteditable="true"
+                (input)="mapData = $event.target.innerText"
+                *ngIf="mapData?.address == null && mapData?.city == null && mapData?.postalCode==null && mapData?.country==null">
+                  No Address
                 </div>
               </div>
               <div class="col-md-6 ssCard-right">

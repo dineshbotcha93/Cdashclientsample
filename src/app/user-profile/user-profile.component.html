@@ -51,7 +51,7 @@
             <div class="col-sm-4 gateway-count">Gateways
               <span>{{accountData?.numGateways}}</span>
             </div>
-            <div class="col-sm-4 sensor-count">Sensor
+            <div class="col-sm-4 sensor-count">Sensors
               <span>{{accountData?.numSensors}}</span>
             </div>
             <div class="col-sm-4 renewal-pos">
@@ -78,7 +78,7 @@
                 <form class="form-horizontal">
                   <button class="btn btn-primary" [attr.section]="'profile-content'" type="button" (click)="toggleProfileContent($event)" aria-controls="collapseProfile">Profile</button>
                   <button class="btn btn-primary" [attr.section]="'networks-content'" type="button" (click)="toggleProfileContent($event)"
-                    aria-controls="collapseNetworks">My Networks</button>
+                    aria-controls="collapseNetworks">My Locations</button>
                   <div class="collapse" id="collapseProfile" [ngbCollapse]="isProfileContentCollapsed">
                     <div class="card card-body myProfile-temp">
                       <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
@@ -166,6 +166,7 @@
       </tab>
     </tabs>
     <!-- </div> -->
+  <!-- </div> -->
   </div>
 </app-layout>
 
@@ -408,7 +409,7 @@
   <div class="col-sm-12" *ngIf="isNetworkBtn">
     <div class="form-group">
       <div class="col-sm-push-8 col-sm-2" style="margin-top:10px">
-        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" (click)="saveUserNetworkPermssions()" value="Save Networks">
+        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" (click)="saveUserNetworkPermssions()" value="Save Locations">
       </div>
       <div class=" col-sm-push-8 col-sm-2" style="margin-top:10px">
         <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
