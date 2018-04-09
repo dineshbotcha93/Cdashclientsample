@@ -66,6 +66,78 @@ table {
   }
 }
 
+.myProfile-temp {
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $color-white;
+
+  .myProfile-personalInfoContainer {
+    background: $color-grey-ultralight;
+    border-radius: $border-radius-medium;
+    color: $color-black;
+    font-size: 1.25em;
+    padding: 10px;
+    margin: 10px 0;
+    width: 50%;
+    float: left;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+      width: 100%;
+    }
+
+    .fullName {
+      font-size: 2.25em;
+    }
+    .username {
+      font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      color: $color-counts-green;
+    }
+    .smsNumber {
+
+    }
+    .smsProvider {
+      font-size: 1.25rem;
+      color: $color-grey-dark;
+      text-transform: uppercase;
+    }
+    .email {
+
+    }
+  }
+
+  .myProfile-settingsContainer {
+    font-size: 1.25em;
+    padding: 0 10px;
+    margin: 10px 0;
+    width: 50%;
+    float: right;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      float: none;
+      width: 100%;
+    }
+  }
+}
+
+.myNetwork-temp {
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $color-white;
+
+  .network-container {
+    height: 200px;
+    overflow-y: scroll;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-radius: $border-radius-medium;
+    background: $color-grey-ultralight;
+  }
+
+  .chkbox-lbl, label {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif !important;;
+    color: $color-black;
+  }
+}
+
 .device-management-container {
   .sensor-actions {
     float: right;
@@ -145,11 +217,6 @@ a:hover {
 }
 .account-modal-footer {
   border-top: none;
-}
-.network-container {
-  height:200px;
-  overflow-y:scroll;
-  border:1px solid #ccc;
 }
 
 .country-code {
