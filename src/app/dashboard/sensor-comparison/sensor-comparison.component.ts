@@ -124,7 +124,13 @@ export class SensorComparisonComponent{
             return sens;
           }
         });
-        this.chartData.push({data:tempData,label:selectedSensor[0]['label'],fill:false});
+        const borderColor = ["#3e95cd","#8e5ea2","#3cba9f","#e8c3b9"]
+        this.chartData.push({
+          data:tempData,
+          label:selectedSensor[0]['label'],
+          fill:false,
+          borderColor: borderColor[this.location],
+        });
         if(this.chart){
           this.chart.ngOnDestroy();
           this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
