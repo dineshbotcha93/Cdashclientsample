@@ -1,12 +1,30 @@
 import {Injectable} from "@angular/core";
 import {MockBackend, MockConnection} from "@angular/http/testing";
 import { SERVICE_CONSTANTS } from '../app/shared/constants/service.constants';
-import {ResponseOptions, Response} from "@angular/http";
+import { SERVER_URLS } from '../app/shared/constants/serverUrl.constants';
+import { RequestMethod } from '@angular/http';
+import {
+  ResponseOptions,
+  RequestOptions,
+  Response,
+  Http,
+  BaseRequestOptions,
+  XHRBackend,
+  Headers
+ } from "@angular/http";
+import { Router } from '@angular/router';
+import { AlertSandbox } from '../app/shared/components/alerts/alerts.sandbox';
+
 
 @Injectable()
 export class MockBackendService {
   constructor(
-    private backend: MockBackend
+    private backend: MockBackend,
+    private http: Http,
+    private options: BaseRequestOptions,
+    private realBackend: XHRBackend,
+    private router: Router,
+    private alertSandbox: AlertSandbox
   ) {}
 
   start(): void {
@@ -119,6 +137,98 @@ export class MockBackendService {
         c.mockRespond(new Response(new ResponseOptions({
           body: JSON.stringify(body)
         })));
+      } else if(c.request.url.match(/google/g) && c.request.method === RequestMethod.Get){
+        this.http = new Http(this.realBackend, this.options);
+        this.http.get(c.request.url).subscribe((result)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(result.json())
+          })));
+        },(error)=>{
+          c.mockError(new Error(error));
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Post){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.post(c.request.url,c.request.getBody(),options).subscribe((result)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(result.json())
+          })));
+        },(error)=>{
+          if(error.status == 401){
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+            this.router.navigate(['/login']);
+          }
+          c.mockError(error.json());
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Get){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.get(c.request.url,options).subscribe((response)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(response.json())
+          })));
+        },(error)=>{
+          if(error.status == 401){
+            this.router.navigate(['/login']);
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+          } else if(error.status == 500){
+            this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
+          }
+          c.mockError(error.json());
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Put){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.put(c.request.url,c.request.getBody(),options).subscribe((response)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(response.json())
+          })));
+        },(error)=>{
+          if(error.status == 401){
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+            this.router.navigate(['/login']);
+          } else if(error.status == 500){
+            this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
+          }
+          c.mockError(error.json());
+        });
+      } else if(c.request.url.match(new RegExp(SERVER_URLS.EXTERNAL_SERVER_URL,"g")) && c.request.method === RequestMethod.Delete){
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        if(!!localStorage.getItem('com.cdashboard.token')){
+          headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        }
+        this.http = new Http(this.realBackend, this.options);
+        let options = new RequestOptions({ headers: headers });
+        this.http.delete(c.request.url,options).subscribe((response)=>{
+          c.mockRespond(new Response(new ResponseOptions({
+            body: JSON.stringify(response.json())
+          })));
+        },(error)=>{
+          if(error.status == 401){
+            this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
+            this.router.navigate(['/login']);
+          } else if(error.status == 500){
+            this.alertSandbox.showAlert({ data: 'Sorry, a technical error occurred! Please try again later.'});
+          }
+          c.mockError(error.json());
+        });
       }
     });
   }

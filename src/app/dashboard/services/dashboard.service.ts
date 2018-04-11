@@ -34,5 +34,8 @@ export class DashboardService {
       }
     ]);
   }
-
+  getRealData(){
+    return this.requesterService
+    .getExternalRequest('/api/Location/UserLocations');
+  }
 }

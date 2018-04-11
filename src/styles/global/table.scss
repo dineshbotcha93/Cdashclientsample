@@ -1,0 +1,171 @@
+/* ******************************** */
+/* Table styles /*
+/* ******************************** */
+.dark-theme {
+  .table-striped {
+    color: $color-white;
+    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+
+    thead {
+      tr {
+        th {
+          border-bottom: 2px solid $color-black;
+          background-color: $color-body-bg - 35;
+        }
+      }
+    }
+
+    tbody {
+      tr:nth-of-type(odd) {
+        background-color: $color-table-striped-tr;
+      }
+
+      tr {
+        td {
+          border-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.light-theme {
+
+}
+/* ******************************** */
+
+
+/* ******************************** */
+/* datatable styles /*
+/* ******************************** */
+.ngx-datatable {
+  border: 1px solid $color-grey-light;
+  background: $color-white;
+
+  .datatable-row-center {
+    width: 100%;
+  }
+
+  .datatable-header-inner {
+    .datatable-header-cell {
+      width: inherit;
+    }
+  }
+
+  .datatable-body {
+    .datatable-scroll {
+      width: 100%;
+    }
+    .datatable-body-row {
+      .datatable-body-cell {
+        width: inherit;
+        padding: 0 0.75rem;
+      }
+    }
+  }
+
+  &.bootstrap {
+    .datatable-body {
+      .datatable-body-row {
+        padding: 0.75rem 0 !important;
+      }
+    }
+  }
+}
+
+
+.datatable-header-cell {
+  font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $color-body-bg;
+}
+
+.datatable-body-row {
+  color: $color-black;
+}
+
+.datatable-footer {
+  background: $color-grey-light !important;
+
+  .datatable-pager {
+    a {}
+  }
+
+  .datatable-footer-inner {
+    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    color: $color-black;
+
+    .page-count {}
+
+    .datatable-pager {
+      ul, .pager {
+        li, li:not(.disabled), .pages:not(.disabled) {
+          a {
+            font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+            font-weight: bold;
+            background-color: $color-grey-light;
+            color: $color-black;
+            line-height: initial;
+            margin: 0 2px;
+          }
+
+          &:hover {
+            a {
+              background-color: $color-grey;
+              color: $color-white;
+              font-weight: bold;
+            }
+          }
+
+          &.active {
+            a {
+              background-color: $color-dataTable-hover;
+              color: $color-white;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+
+.editNetworkSetup-dataTable {
+  .ngx-datatable {
+    .datatable-body-row {
+      color: black;
+    }
+
+    .datatable-header-cell {
+      color: $color-white;
+      font-weight: bolder;
+      font-size: 1em;
+      text-transform: uppercase;
+      text-align: left;
+      background: $color-body-bg;
+    }
+
+    .datatable-footer {
+      .page-count {
+        text-align: right;
+      }
+    }
+
+    .anchor-datatable {
+      cursor: pointer;
+
+      span {
+        padding-left: 10px;
+        color:black;
+      }
+
+      &.editNetworkSetup-button {
+        span {
+          float: right;
+        }
+      }
+    }
+  }
+}
+/* ******************************** */
+

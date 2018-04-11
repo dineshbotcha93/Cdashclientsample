@@ -1,3 +1,57 @@
 {
-  "name":"Yo"
+ "global":{
+   "from":"From",
+   "to":"To",
+   "exportPdf":"Export to PDF",
+   "comments":"Comments"
+ },
+ "login":{
+   "componentHeading":"Cooper Atkins Dashboard",
+   "loginForm":{
+     "username":"Username",
+     "password":"Password",
+     "loginButton":"Login",
+     "newUser":"Create Account: Click to Register"
+    }
+  },
+ "userRegistration":{
+   "title":"User Registration",
+   "email":"Email",
+   "registrationMessage":"Use the link sent to the email and setup a new account",
+   "disclaimerTitle":"Additional Network Setup",
+   "disclaimerMessage":"Contact the Master Account Administrator for your login credentials. Upon loggin in, you can add a network for your kit, unless one has already been created by the administrator.",
+   "hintTitle":"Helpful Hint",
+   "hintMessage":"Hosting fees are charged per each master account, so it is important to verify which type of user (Master Account Administrator or network location) you are before setting up your online system."
+ },
+ "dashboardMain":{
+   "dashboardTitle":"Current Locations"
+ },
+ "sensorSummary":{
+   "sensorsTitle":"Sensors",
+   "gatewaysTitle":"Gateways",
+   "deviceManagementTitle":"Device Management",
+   "notificationTitle":"Notifications"
+  },
+ "sensorDetails":{
+   "sensorDetailsTitle":"Sensor Details Page",
+   "sensorName":"Sensor Name",
+   "currentReading":"Current Reading",
+   "lastCheckin": "Last Checkin",
+   "networkName": "Network",
+   "gatewayName": "Gateway",
+   "nextCheckin": "Next Checkin",
+   "tabs":{
+     "graph":"Graph",
+     "history":"History"
+   }
+ },
+ "tileStatus":{
+   "alert":"Alerts",
+   "lowBattery":"Low Battery",
+   "missedCommunication":"Offline",
+   "lowSignal":"Low Signal"
+ },
+ "sensorComparison":{
+   "comparisonTitle":"Sensor Comparison for Network"
+ }
 }

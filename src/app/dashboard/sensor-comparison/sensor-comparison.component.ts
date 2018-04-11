@@ -1,14 +1,17 @@
 import { Component,ViewChild } from '@angular/core';
+import { Router,ActivatedRoute } from '@angular/router';
 import { SensorDetailsService } from '../sensor-details/services/sensor-details.service';
+import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import 'chartjs-plugin-zoom';
-import { ChartOptions } from './config/chart.config';
+import { ChartOptions, ChartColors } from '../chart.config';
 import { environment } from '../../../environments/environment';
-
+import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment/moment';
 
 interface SensorDetail{
-  SensorName:string;
-  SensorID:number;
+  sensorName:string;
+  sensorID:number;
 }
 
 const now = new Date();
@@ -16,7 +19,7 @@ const now = new Date();
 @Component({
   selector:'app-sensor-comparison',
   templateUrl:'./sensor-comparison.component.html',
-  providers:[SensorDetailsService],
+  providers:[SensorDetailsService, SensorSummaryService],
   styleUrls: ['./sensor-comparison.component.scss'],
 })
 
@@ -24,17 +27,35 @@ export class SensorComparisonComponent{
   private sensorName:string = '1156073157';
   private sensorNames:Array<Object> = [];
   private data:Array<any>=[];
-  private chartLabels:Array<any>=[];
+  public chartLabels:Array<any>=[];
+  public chartColors: Array<any> = [ChartColors];
   private networkName:string = '';
   private location:number = 0;
-  private chartOptions = null;
+  public chartOptions = null;
+  private netWorkId = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
 
+  date: {year: number, month: number};
 
-  constructor(private sensorDetailsService:SensorDetailsService){
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
+
+  bsValue: Date = moment().subtract(6,'days').toDate();
+  bsValueTwo: Date = moment().toDate();
+  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+
+  constructor(private sensorDetailsService:SensorDetailsService,
+    private sensorSummaryService: SensorSummaryService,
+    private router:Router,
+    private route:ActivatedRoute,
+    private translate: TranslateService
+  ){
     this.sensorNames = this.getSensorNames();
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
+      labels: {
+        fontColor: '#fff'
+      },
       onClick:function(e,legendItem){
         this.sensorNames.push({
           label:this.chartData[legendItem.datasetIndex].label,
@@ -50,19 +71,25 @@ export class SensorComparisonComponent{
         }
       }.bind(this)
     }
+
+    this.translate.use('en');
   }
 
   getSensorNames():Array<Object>{
     let allNames:Array<Object> = [];
+    let allSensorIds: Array<Object> = [];
+    this.netWorkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
     if(!environment.production){
-      Promise.all([
-        this.sensorDetailsService.getData('1156073157'),
-        this.sensorDetailsService.getData('1156073158'),
-        this.sensorDetailsService.getData('1156073159'),
-        this.sensorDetailsService.getData('1156073160')
-      ]).then((result:Array<SensorDetail>)=>{
-        result.forEach((res:SensorDetail)=>{
-          allNames.push({label:res.SensorName,value:res.SensorID});
+      this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
+        result.sensors.forEach((allSensors)=>{
+          allSensorIds.push(this.sensorDetailsService.getDetails(allSensors.sensorID));
+        });
+        return allSensorIds;
+      }).then((allSensorIds)=>{
+        Promise.all(allSensorIds).then((result:Array<SensorDetail>)=>{
+          result.forEach((res:SensorDetail)=>{
+            allNames.push({label:res.sensorName,value:res.sensorID});
+          });
         });
       });
     }
@@ -70,23 +97,40 @@ export class SensorComparisonComponent{
   }
 
   test(){
-    console.log(this.sensorName);
+  }
+
+  onDateChange(event){
+    console.log(event);
   }
 
   addSensor(){
     let tempData = [];
     this.location++;
+    const selectedSensor = this.sensorNames.filter((sens)=>(sens['value'] == this.sensorName) ? sens: '');
     this.sensorNames = this.sensorNames.filter((sens)=>(sens['value']!=this.sensorName)? sens:'');
     let totalLocation = 10+this.location;
     if(this.sensorName!==''){
-      this.sensorDetailsService.getData(this.sensorName).then((result)=>{
-        result.DataMessages.forEach((res)=>{
-          tempData.push(res.PlotValue);
-          if(this.chartLabels.indexOf(new Date(res.MessageDate).toISOString().slice(11,19))==-1){
-            this.chartLabels.push(new Date(res.MessageDate).toISOString().slice(11,19));
+      const fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+      const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
+      this.sensorDetailsService.getDataMessages(this.sensorName,fromDate,toDate).then((result)=>{
+        result.forEach((res)=>{
+          if(this.chartLabels.indexOf(new Date(res.messageDate).toISOString().slice(11,19))==-1){
+            tempData.push(res.plotValue);
+            this.chartLabels.push(new Date(res.messageDate).toISOString().slice(11,19));
           }
         });
-        this.chartData.push({data:tempData,label:result.SensorName,fill:false});
+        const filteredData = this.sensorNames.filter((sens)=>{
+          if(this.netWorkId == sens['value']){
+            return sens;
+          }
+        });
+        const borderColor = ["#3e95cd","#8e5ea2","#3cba9f","#e8c3b9"]
+        this.chartData.push({
+          data:tempData,
+          label:selectedSensor[0]['label'],
+          fill:false,
+          borderColor: borderColor[this.location],
+        });
         if(this.chart){
           this.chart.ngOnDestroy();
           this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
@@ -133,12 +177,8 @@ export class SensorComparisonComponent{
     win.document.write("</body></html>");
   }
 
-  date: {year: number, month: number};
-
-  minDate = new Date(2017, 5, 10);
-  maxDate = new Date(2018, 9, 15);
-
-  bsValue: Date = new Date();
-  bsValueTwo: Date = new Date();
-  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  goBack(){
+    let networkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
+    this.router.navigate(['dashboard/sensor-summary',networkId]);
+  }
 }

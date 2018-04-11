@@ -1,10 +1,83 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, AfterViewInit, Input, ViewChild} from '@angular/core';
+import { PaymentsService } from './services/payments.service';
+import {Router} from '@angular/router';
+import { CustomerDetailsService } from '../business/customer-details/services/customer-details.service';
+import { StripeService } from './stripe/services/stripe.service';
+import { StripeComponent } from './stripe/stripe.component';
+import { PaymentSummaryComponent } from './payments-summary/payment-summary.component';
 
 @Component({
   selector: 'app-payments',
+  providers: [PaymentsService, CustomerDetailsService, StripeService],
   styleUrls: ['./payments.component.scss'],
   templateUrl: './payments.component.html'
 })
-export class PaymentsComponent{
+
+export class PaymentsComponent {
+  paymentData: Object;
+  customerData: Object = null;
+  transactionId: String = null;
+  paymentDataError: Error = null;
+  showConfirmation = false;
+  renewalError = false;
+  newRenewalDate: string = null;
+  loading = false;
+
+  @ViewChild('stripe')
+  stripe: StripeComponent;
+
+  @ViewChild('paymentModal')
+  paymentModal: PaymentSummaryComponent;
+
+  constructor(private customerDetailsService: CustomerDetailsService, private paymentsService: PaymentsService, private stripeService: StripeService, private router: Router) {
+    paymentsService.getPaymentData()
+      .then(function(data) {
+        this.paymentData = data;
+        this.transactionId = data.id;
+        this.paymentData.transactionInfo.amount = (data.transactionInfo.subscriptionAmount / 100).toFixed(2);
+        this.paymentData.transactionInfo.tax = (data.transactionInfo.taxAmount / 100).toFixed(2);
+        this.paymentData.transactionInfo.total = (data.transactionInfo.totalAmount / 100).toFixed(2);
+      }.bind(this))
+      .catch(error => this.paymentDataError = error);
+  }
+
+  confirmPayment() {
+    if (this.stripe.isValidCard) {
+      this.loading = true;
+      this.showConfirmation = true;
+      // Fetch Token From Stripe
+      this.stripe.getToken().then(function(tokenData) {
+        // Use the fetched token to confirm payment using Payments API
+        this.paymentsService.sendStripeToken({
+          stripeToken: tokenData.token.id,
+          transactionId: this.transactionId
+        }).then(function(data){
+          this.newRenewalDate = data.transaction.transactionInfo.newRenewalDate;
+          this.loading = false;
+        }.bind(this))
+        .catch(function() {
+          this.renewalError = true;
+          this.loading = false;
+        }.bind(this));
+      }.bind(this))
+        .catch(function() {
+          this.renewalError = true;
+          this.loading = false;
+        }.bind(this));
+    }
+  }
+
+  resetConfirmation() {
+    this.renewalError = false;
+    this.loading = false;
+    this.showConfirmation = false;
+    this.newRenewalDate = null;
+    this.paymentDataError = null;
+  }
+
+  goBack() {
+    this.router.navigate(['user-profile']);
+
+  }
 
 }

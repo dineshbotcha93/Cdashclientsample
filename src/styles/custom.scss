@@ -1,6 +1,7 @@
 @import "variables";
-
+@import "loader";
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+@import '../node_modules/ng2-toastr/bundles/ng2-toastr.min.css';
 
 .left_col {
   background: #2A3F54;
@@ -11,6 +12,7 @@
   padding: 0;
   z-index: 9999;
   position: absolute;
+  height: 100%;
 }
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {
   position: fixed;
@@ -25,8 +27,9 @@
 }
 .nav-sm .container.body .right_col {
   padding: 10px 20px;
-  margin-left: 70px;
+  /*margin-left: 70px;*/
   z-index: 2;
+  /*height: 100%;*/
 }
 .nav-sm .navbar.nav_title {
   width: 70px;
@@ -45,7 +48,7 @@
 }
 .nav-sm .main_container .top_nav {
   display: block;
-  margin-left: 70px;
+  /*margin-left: 70px;*/
   z-index: 2;
 }
 .nav-sm .nav.side-menu li a {
@@ -193,7 +196,7 @@
   }
 }
 .nav-md .container.body .col-md-3.left_col {
-  min-height: 100%;
+  height: 100%;
   width: 230px;
   padding: 0;
   position: absolute;
@@ -219,19 +222,34 @@ body .container.body .right_col {
   height: 57px;
 }
 @media (max-width: 991px) {
+  .nav-sm .main_container .top_nav {
+    display: block;
+    /*margin-left: 80px;*/
+    z-index: 2;
+  }
   .nav-md .container.body .right_col, .nav-md .container.body .top_nav {
+    width: 100%;
+    margin: 0;
+  }
+  .nav-sm .container.body .right_col, .nav-md .container.body .top_nav {
     width: 100%;
     margin: 0;
   }
   .nav-md .container.body .col-md-3.left_col {
     display: none;
   }
+
   .nav-md .container.body .right_col {
     width: 100%;
-    padding-right: 0
+    padding-right: 0;
+  }
+  .nav-sm .container.body .right_col {
+    width: 100%;
+    /*padding-left: 80px!important;*/
   }
   .right_col {
     padding: 10px !important;
+    height: 100%;
   }
 }
 @media (max-width: 1200px) {
@@ -257,7 +275,7 @@ body .container.body .right_col {
 }
 /**  ------------------------------------------  **/
 
-.blue {
+.blue, .datatable-header-cell {
   color: #3498DB;
 }
 .purple {
@@ -330,7 +348,8 @@ body .container.body .right_col {
 }
 .container {
   width: 100%;
-  padding: 0
+  padding: 0;
+  height: 100%;
 }
 .navbar-nav>li>a, .navbar-brand, .navbar-nav>li>a {
   color: #fff !important;
@@ -348,9 +367,11 @@ body {
 }
 .main_container .top_nav {
   display: block;
-  margin-left: 230px;
+  /*margin-left: 230px;*/
 }
-.main_container {}
+.main_container {
+  height: 100%;
+}
 .no-padding {
   padding: 0 !important;
 }
@@ -3634,7 +3655,7 @@ a.hiddenanchor {
 }
 .login_content div .reset_pass {
   margin-top: 13px !important;
-  margin-right: 39px;
+  margin-right: 10px;
   float: right;
 }
 .separator {
@@ -3665,7 +3686,7 @@ a.hiddenanchor {
 }
 .login_content form input[type="submit"], #content form .submit {
   float: left;
-  margin-left: 38px;
+  margin-left: 45px;
 }
 .button a {
   background: url(http://cssdeck.com/uploads/media/items/8/8bcLQqF.png) 0 -112px no-repeat;
@@ -4389,3 +4410,34 @@ ul.notifications {
   width:0px;
 }
 /** /Sensor comparision form styles **/
+/** customer list page styles **/
+.square {
+  background: #000;
+  width: 15px;
+  height: 15px;
+  margin: 3px 5px 0px 0px;
+  float: left;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  margin:0 auto;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+/** /customer list page styles **/

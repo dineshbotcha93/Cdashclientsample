@@ -1,6 +1,8 @@
 import { RequesterService } from '../../../shared/services/requester.service';
 import { Injectable } from '@angular/core';
 import { SERVICE_CONSTANTS } from '../../../shared/constants/service.constants';
+import * as moment from 'moment/moment';
+
 
 @Injectable()
 export class SensorDetailsService {
@@ -20,5 +22,34 @@ export class SensorDetailsService {
       default:
       break;
     }
+  }
+
+  getDataMessages(location,fromDate = null, toDate = null){
+    if(fromDate == null){
+      fromDate = moment().format('MM/DD/YYYY');
+    }
+    if(toDate == null){
+      toDate = moment().add(5,'days').format('MM/DD/YYYY');
+    } else {
+      toDate = moment().add(1,'days').format('MM/DD/YYYY');
+    }
+
+    return this.requesterService
+    .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate='+fromDate+'&ToDate='+toDate);
+  }
+
+  getDetails(location){
+    return this.requesterService
+    .getExternalRequest('/api/Sensor/Details/'+location);
+  }
+
+  saveComments(comments){
+    return this.requesterService
+    .putExternalRequest('/api/Sensor/Note',comments);
+  }
+
+  getComments(sensorId){
+    return this.requesterService
+    .getExternalRequest('/api/Sensor/'+sensorId+'/Note');
   }
 }

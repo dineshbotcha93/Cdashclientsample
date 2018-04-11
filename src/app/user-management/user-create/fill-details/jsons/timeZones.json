@@ -1,0 +1,218 @@
+[
+  {
+    "TimeZoneID": 0,
+    "DisplayName": "(GMT-10:00) Hawaii"
+  },
+  {
+    "TimeZoneID": 2,
+    "DisplayName": "(GMT-09:00) Alaska"
+  },
+  {
+    "TimeZoneID": 3,
+    "DisplayName": "(GMT-08:00) Pacific Time (US and Canada); Tijuana"
+  },
+  {
+    "TimeZoneID": 4,
+    "DisplayName": "(GMT-07:00) Mountain Time (US and Canada)"
+  },
+  {
+    "TimeZoneID": 5,
+    "DisplayName": "(GMT-07:00) Arizona"
+  },
+  {
+    "TimeZoneID": 6,
+    "DisplayName": "(GMT-06:00) Central Time (US and Canada"
+  },
+  {
+    "TimeZoneID": 7,
+    "DisplayName": "(GMT-05:00) Eastern Time (US and Canada)"
+  },
+  {
+    "TimeZoneID": 8,
+    "DisplayName": "(GMT-05:00) Jamaica, Panama"
+  },
+  {
+    "TimeZoneID": 9,
+    "DisplayName": "(GMT) Greenwich Mean Time: Dublin, Edinburgh, Lisbon, London"
+  },
+  {
+    "TimeZoneID": 10,
+    "DisplayName": "(GMT+02:00) Beirut"
+  },
+  {
+    "TimeZoneID": 11,
+    "DisplayName": "(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague"
+  },
+  {
+    "TimeZoneID": 12,
+    "DisplayName": "(GMT+03:00) Moscow, St. Petersburg, Volgograd"
+  },
+  {
+    "TimeZoneID": 13,
+    "DisplayName": "(GMT+04:00) Baku"
+  },
+  {
+    "TimeZoneID": 14,
+    "DisplayName": "(GMT+05:00) Islamabad, Karachi"
+  },
+  {
+    "TimeZoneID": 15,
+    "DisplayName": "(GMT+06:00) Almaty, Novosibirsk"
+  },
+  {
+    "TimeZoneID": 16,
+    "DisplayName": "(GMT+07:00) Krasnoyarsk"
+  },
+  {
+    "TimeZoneID": 17,
+    "DisplayName": "(GMT+08:00) Irkutsk, Ulaanbaatar"
+  },
+  {
+    "TimeZoneID": 18,
+    "DisplayName": "(GMT+09:00) Yakutsk"
+  },
+  {
+    "TimeZoneID": 19,
+    "DisplayName": "(GMT+10:00) Canberra, Melbourne, Sydney"
+  },
+  {
+    "TimeZoneID": 20,
+    "DisplayName": "(GMT+12:00) Fiji, Kamchatka, Marshall Is."
+  },
+  {
+    "TimeZoneID": 21,
+    "DisplayName": "(GMT) Monrovia, Reykjavik"
+  },
+  {
+    "TimeZoneID": 22,
+    "DisplayName": "(GMT+01:00) West Central Africa"
+  },
+  {
+    "TimeZoneID": 23,
+    "DisplayName": "(GMT+02:00) Harare, Pretoria"
+  },
+  {
+    "TimeZoneID": 24,
+    "DisplayName": "(GMT+03:00) Kuwait, Riyadh"
+  },
+  {
+    "TimeZoneID": 25,
+    "DisplayName": "(GMT+04:00) Abu Dhabi, Muscat"
+  },
+  {
+    "TimeZoneID": 26,
+    "DisplayName": "(GMT+05:00) Tashkent"
+  },
+  {
+    "TimeZoneID": 27,
+    "DisplayName": "(GMT+06:00) Astana, Dhaka"
+  },
+  {
+    "TimeZoneID": 28,
+    "DisplayName": "(GMT+07:00) Bangkok, Hanoi, Jakarta"
+  },
+  {
+    "TimeZoneID": 29,
+    "DisplayName": "(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi"
+  },
+  {
+    "TimeZoneID": 30,
+    "DisplayName": "(GMT+09:00) Osaka, Sapporo, Tokyo"
+  },
+  {
+    "TimeZoneID": 31,
+    "DisplayName": "(GMT+10:00) Guam, Port Moresby"
+  },
+  {
+    "TimeZoneID": 32,
+    "DisplayName": "(GMT+11:00) Magadan, Solomon Islands, New Caledonia"
+  },
+  {
+    "TimeZoneID": 33,
+    "DisplayName": "New Zealand, Wellington"
+  },
+  {
+    "TimeZoneID": 34,
+    "DisplayName": "(GMT+13:00) Nuku'alofa"
+  },
+  {
+    "TimeZoneID": 35,
+    "DisplayName": "(GMT-01:00) Azores"
+  },
+  {
+    "TimeZoneID": 36,
+    "DisplayName": "(GMT-01:00) Cape Verde Islands"
+  },
+  {
+    "TimeZoneID": 37,
+    "DisplayName": "(GMT-02:00) Mid-Atlantic"
+  },
+  {
+    "TimeZoneID": 38,
+    "DisplayName": "Brazil, Fernando de Noronha"
+  },
+  {
+    "TimeZoneID": 39,
+    "DisplayName": "(GMT-03:00) Buenos Aires"
+  },
+  {
+    "TimeZoneID": 40,
+    "DisplayName": "(GMT-03:00) Georgetown"
+  },
+  {
+    "TimeZoneID": 41,
+    "DisplayName": "(GMT-04:00) Atlantic Time (Canada)"
+  },
+  {
+    "TimeZoneID": 42,
+    "DisplayName": "(GMT-04:00) La Paz"
+  },
+  {
+    "TimeZoneID": 43,
+    "DisplayName": "(GMT-06:00) Saskatchewan"
+  },
+  {
+    "TimeZoneID": 44,
+    "DisplayName": "(GMT-11:00) Midway Island, Samoa"
+  },
+  {
+    "TimeZoneID": 45,
+    "DisplayName": "American Samoa"
+  },
+  {
+    "TimeZoneID": 46,
+    "DisplayName": "(GMT-12:00) International Date Line West"
+  },
+  {
+    "TimeZoneID": 47,
+    "DisplayName": "(GMT-04:30) Caracas"
+  },
+  {
+    "TimeZoneID": 48,
+    "DisplayName": "(GMT+03:30) Tehran"
+  },
+  {
+    "TimeZoneID": 49,
+    "DisplayName": "(GMT+04:30) Kabul"
+  },
+  {
+    "TimeZoneID": 50,
+    "DisplayName": "(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi"
+  },
+  {
+    "TimeZoneID": 51,
+    "DisplayName": "(GMT+06:30) Yangon Rangoon"
+  },
+  {
+    "TimeZoneID": 52,
+    "DisplayName": "(GMT+09:30) Adelaide"
+  },
+  {
+    "TimeZoneID": 53,
+    "DisplayName": "(GMT+09:30) Darwin"
+  },
+  {
+    "TimeZoneID": 54,
+    "DisplayName": "(GMT-03:30) Newfoundland"
+  }
+]

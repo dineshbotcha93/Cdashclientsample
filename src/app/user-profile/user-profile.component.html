@@ -1,0 +1,543 @@
+<app-layout>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_title col-md-11 col-sm-11 col-xs-12">
+        <h3>Account Details</h3>
+        <button class="btn btn-primary" (click)="goToPrevPage()">
+          <i class="fa fa-chevron-left"></i> Back</button>
+          <div class="loader" *ngIf="isLoader"></div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="customer-info-container">
+      <div *ngIf="loadPage === true">
+        <div class="col-md-6 customer-info-left">
+          <div class="customer-name">
+            {{accountData?.companyName}}
+          </div>
+          <div class="customer-address">
+            <span>{{accountData?.address}}</span>
+            <span *ngIf="accountData?.address2">{{accountData.address2}}</span>
+            <span>{{accountData?.city}}</span>
+            <span>{{accountData?.state}}</span>
+            <span>{{accountData?.postalCode}}</span>
+            <span>{{accountData?.country}}</span>
+          </div>
+          <div class="customer-contact-name">
+            <span class="usr-lbl">Contact Name:</span>{{accountData?.userFullName}}</div>
+          <div class="customer-email" *ngIf="accountData?.emailAddress">
+            <span class="usr-lbl">Email:</span>
+            <a href="mailto:{{accountData?.emailAddress}}">{{accountData?.emailAddress}}</a>
+          </div>
+          <div class="customer-phone">
+            <span class="usr-lbl">Phone:</span>
+            <a href="tel:{{accountData?.smsNumber}}"> {{accountData?.smsNumber}}</a>
+          </div>
+        </div>
+        <div class="col-md-6 network-card">
+          <div class="col-sm-12 network-card-top">
+            <div class="col-sm-4 customer-status">Subscription
+              <span> {{accountData?.subscriptionType}}</span>
+            </div>
+            <div class="col-sm-5 customer-amount" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
+              <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
+            </div>
+            <div class="col-sm-3" *ngIf="isAdmin">
+              <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
+                <i class="fa fa-edit"></i>Edit Account</button>
+            </div>
+          </div>
+          <div class="col-sm-12 network-card-bottom">
+            <div class="col-sm-4 gateway-count">Gateways
+              <span>{{accountData?.numGateways}}</span>
+            </div>
+            <div class="col-sm-4 sensor-count">Sensors
+              <span>{{accountData?.numSensors}}</span>
+            </div>
+            <div class="col-sm-4 renewal-pos">
+              <a class="btn btn-primary addBTN btn-renew-contract" role="button" [class.btn-disabled]="accountData.numSensors == 0"
+              [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'">Renew Contract</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <ng-container *ngTemplateOutlet="editAccountTmpl"></ng-container>
+    </div>
+  </div>
+  <!-- <div class="loader" *ngIf="customerData === null"></div> -->
+  <!-- <div *ngIf="loadPage === true"> -->
+  <div class="tabs_container">
+    <tabs>
+      <tab tabTitle="My Profile" class="tab-content font-white">
+        <div class="row x_content">
+          <div class="col-sm-12 sensors-info-container">
+            <div *ngIf="loadPage === true">
+              <div class="col-sm-12">
+                <form class="form-horizontal">
+                  <button class="btn btn-primary" [attr.section]="'profile-content'" type="button" (click)="toggleProfileContent($event)" aria-controls="collapseProfile">Profile</button>
+                  <button class="btn btn-primary" [attr.section]="'networks-content'" type="button" (click)="toggleProfileContent($event)"
+                    aria-controls="collapseNetworks">My Locations</button>
+                  <div class="collapse" id="collapseProfile" [ngbCollapse]="isProfileContentCollapsed">
+                    <div class="card card-body myProfile-temp">
+                      <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
+                    </div>
+                  </div>
+                  <div class="collapse" id="collapseNetworks" [ngbCollapse]="isNetworkProfileCollapsed">
+                    <div class="card card-body myNetwork-temp">
+                      <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <tab tabTitle="Users" class="tab-content light-theme">
+        <div class="row x_content">
+          <div class="col-sm-12 sensors-info-container">
+            <div *ngIf="isShowUserTable && isAdmin" class="pull-right col-sm-2">
+              <button class="btn btn-primary addBTN float-right" type="button" (click)="addUser()">
+                <i class="fa fa-plus"></i>Add User</button>
+            </div>
+            <div class="col-sm-12">
+              <app-datatable #userTable [rows]="userRows" [columns]="userColumns" [limit]="limit" *ngIf="isShowUserTable">
+              </app-datatable>
+                <ng-template #notificationColTmpl let-row="row" let-value="value">
+                <div>Email:
+                  <a href="mailto:{{row.emailAddress}}">{{row.emailAddress}}</a>
+                </div>
+                <div>SMS:
+                  <a href="tel:{{row.smsNumber}}">{{row.smsNumber}}</a>
+                </div>
+              </ng-template>
+              <ng-template #isAdminColTmpl let-row="row" let-value="value">
+                <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
+              </ng-template>
+              <ng-template #actionsColTmpl let-row="row">
+                <button class="btn btn-xs btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
+                  <i class="fa fa-edit"></i>Edit
+                </button>
+                <button class="btn btn-xs btn-primary removeBTN" type="button" (click)="deleteUser(row.userID)">
+                  <i class="fa fa-trash"></i>Remove
+                </button>
+              </ng-template>
+              <div class="col-sm-12">
+                <ng-container *ngTemplateOutlet="userParentSectionTmpl"></ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <tab tabTitle="Payment History" class="tab-content light-theme" (click)="getPaymentHistory()">
+        <div class="row x_content">
+          <div class="col-md-12 sensors-info-container">
+            <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">
+            </app-datatable>
+            <ng-template #prevRenewalDateColTmpl let-row="row" let-value="value">
+              <span>{{value | date:'MM-dd-yyyy'}}</span>
+            </ng-template>
+            <ng-template #newRenewalDateColTmpl let-row="row" let-value="value">
+              <span>{{value | date:'MM-dd-yyyy'}}</span>
+            </ng-template>
+            <ng-template #amountColTmpl let-row="row" let-value="value">
+                <span>{{value | currency}}</span>
+              </ng-template>
+            <ng-template #invoiceColTmpl let-row="row" let-value="value">
+              <span style="cursor:pointer">
+                <a href="{{value}}">
+                  <i class="fa fa-download"></i>
+                </a>
+              </span>
+            </ng-template>
+          </div>
+        </div>
+      </tab>
+      <tab tabTitle="Notifications" class="tab-content light-theme">
+        <div class="row x_content">
+          <div class="col-md-12 sensors-info-container" *ngIf="accountData">
+           <app-user-notifications
+              [accountData]="accountData">
+           </app-user-notifications>
+          </div>
+        </div>
+      </tab>
+    </tabs>
+    <!-- </div> -->
+  <!-- </div> -->
+  </div>
+</app-layout>
+
+<!-- All User Sections -->
+<ng-template #userParentSectionTmpl>
+  <div class="form-horizontal" *ngIf="!isShowUserTable">
+    <div class="row" style="margin-bottom:10px">
+      <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">User Information</button>
+      <!-- <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button> -->
+      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Locations</button>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="collapse.show" [ngbCollapse]="isUserContentCollapsed">
+          <div class="card card-body">
+            <ng-container *ngTemplateOutlet="addEditUserSectionTmpl"></ng-container>
+            <ng-container *ngTemplateOutlet="notificationSectionTmpl"></ng-container>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col">
+        <div class="collapse" [ngbCollapse]="isNotifContentCollapsed">
+          <div class="card card-body">
+            <ng-container *ngTemplateOutlet="notificationSectionTmpl"></ng-container>
+          </div>
+        </div>
+      </div> -->
+      <div class="col">
+        <div class="collapse" [ngbCollapse]="isNetworkContentCollapsed">
+          <div class="card card-body myNetwork-temp">
+            <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addEditUserSectionTmpl>
+  <div class="form-horizontal" [formGroup]="userForm">
+    <div class="col-sm-12" style="margin-bottom: -5px;">
+      <div class="col-sm-6">
+        <div class="form-group required">
+          <label class="col-sm-3 lbl-ctrl" for="email-address">Email/User Name</label>
+          <div class="col-sm-6">
+            <input type="email" class="form-control" formControlName="dashboardUserName" id="email-address"
+            placeholder="Email Address" [attr.disabled]="isEditForm? '' : null">
+            <div *ngIf="dashboardUserName.invalid && (dashboardUserName.touched || dashboardUserName.dirty)" class="alert-error alert-danger">
+              <div *ngIf="dashboardUserName.errors.required">
+                Email is required.
+              </div>
+              <div *ngIf="dashboardUserName.errors.email">
+                Email is not valid.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group required">
+          <label class="col-sm-3 lbl-ctrl" for="password">Password</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" formControlName="dashboardPassword" id="password" style="width:85%; display:inline-block"
+              placeholder="Password" placement="top" triggers="focus:blur" [ngbPopover]="tooltipTempate" popoverTitle="Password Requirements">
+            <div *ngIf="dashboardPassword.invalid && (dashboardPassword.touched || dashboardPassword.dirty)" class="alert-error alert-danger" style="width: 85%;">
+              <div *ngIf="dashboardPassword.errors?.required">
+                Password is required.
+              </div>
+              <div *ngIf="dashboardPassword.errors.pattern">
+                Password is not valid.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group required">
+          <label class="col-sm-3 lbl-ctrl" for="confirm-password">Confirm Password</label>
+          <div class="col-sm-6">
+            <input type="password" class="form-control" formControlName="confirmPassword" id="confirm-password" placeholder="Confirm password">
+            <div *ngIf="confirmPassword.invalid && (confirmPassword.touched || confirmPassword.dirty)" class="alert-error alert-danger">
+              <div *ngIf="confirmPassword.errors.required">
+                Confirm password is required.
+              </div>
+              <div *ngIf="confirmPassword.errors.pattern">
+                Confirm password is not valid.
+              </div>
+              <div *ngIf="confirmPassword.errors.notEquivalent">
+                Password mismatch error.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group required">
+          <label class="col-sm-3 lbl-ctrl" for="first-name">First Name</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" formControlName="firstName" id="first-name" placeholder="First Name">
+            <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)" class="alert-error alert-danger">
+              First name is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group required">
+          <label class="col-sm-3 lbl-ctrl" for="last-name">Last Name</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" formControlName="lastName" id="last-name" placeholder="Last Name">
+            <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="alert-error alert-danger">
+              Last name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 form-check-input" for="IsAdministrator">Is Administrator</label>
+          <div class="col-sm-1">
+            <input type="checkbox" formControlName="isAdmin" class="form-check-input">
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <div class="col-sm-push-3 col-sm-3">
+            <input type="button" class="form-control btn btn-info addBTN" value="Next" (click)="navigateToNotifSection()">
+          </div>
+          <div class=" col-sm-push-3 col-sm-3">
+            <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #notificationSectionTmpl>
+  <div class="form-horizontal" [formGroup]="notificationForm">
+    <div class="col-sm-12">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class=" col-sm-3" for="sms-settings">Text (SMS) Settings</label>
+          <div class="col-sm-6">
+            <select class="form-control" formControlName="directSMS" name="directSMS">
+              <option [value]="0">External Provider</option>
+              <option [value]="1">Direct Delivery</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="!isDirectSMS">
+          <div class="form-group">
+            <label class=" col-sm-3" for="sms-provider">SMS Provider</label>
+            <div class="col-sm-6">
+              <select class="form-control" id="sms-provider" name="sms-provider" formControlName="smsCarrierID">
+                <option [value]="0">Select One</option>
+                <option [value]="1">AT&T SMS</option>
+                <option [value]="2">AT&T MMS</option>
+                <option [value]="3">Sprint PCS</option>
+                <option [value]="4">T-Mobile </option>
+                <option [value]="5">Verizon</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class=" col-sm-3" for="mobile-number">Mobile Number</label>
+          <div class="col-sm-6">
+            <input type="text" *ngIf="isDirectSMS" class="form-control country-code" formControlName="countryCode">
+            <input type="text" class="form-control" formControlName="smsNumber" id="mobile-number" [ngClass]="{'with-country-code':isDirectSMS}"
+              placeholder="Mobile Number">
+            <small class="form-text text-muted" *ngIf="!isDirectSMS">Requires a 10 digit format.</small>
+            <small class="form-text text-muted" *ngIf="isDirectSMS">
+              <span>Charges will be incured for direct delivery of SMS messages and voice notifications. Phone numbers should be
+                entered in E.164 format. help
+                <a data-toggle="collapse" href="#numberFormating" role="button" (click)="scrollPageDown()">
+                  Learn about E.164 formatting
+                </a>
+              </span>
+            </small>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class=" col-sm-4" for="email">System Notifications
+            <div style="display:block">
+              <small class="form-text text-muted">Notification types enabled for user</small>
+            </div>
+          </label>
+          <div class="col-sm-6">
+            <input type="checkbox" class="form-check-input" id="email" checked="checked" disabled>
+            <small class="form-check-input">Email (Required)</small>
+          </div>
+          <div class="col-sm-6">
+            <input type="checkbox" class="form-check-input" id="text" formControlName="recievesSensorNotificationByText">
+            <small class="form-check-input">Text</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class=" col-sm-4" for="system-maintenance">System Maintenance Information
+            <small class="form-text text-muted">Will be sent to user by</small>
+          </label>
+          <div class="col-sm-6">
+            <input type="checkbox" class="form-check-input" formControlName="recievesMaintenanceByEmail">
+            <small class="form-check-input">Email</small>
+          </div>
+          <div class="col-sm-6">
+            <input type="checkbox" class="form-check-input" formControlName="recievesMaintenanceByPhone">
+            <small class="form-check-input">Text</small>
+          </div>
+        </div>
+        <div class="form-group" >
+          <div class="col-sm-push-3 col-sm-3" *ngIf="!isEditForm">
+            <input type="button" class="form-control btn btn-info addBTN" value="Save" (click)="saveUserData()">
+          </div>
+          <div class="col-sm-push-3 col-sm-3" *ngIf="isEditForm">
+              <input type="button" class="form-control btn btn-info addBTN" value="Update" (click)="updateUserData()">
+            </div>
+          <div class=" col-sm-push-3 col-sm-3">
+            <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="collapse col-sm-10" id="numberFormating">
+      <div class="card card-body">
+        <ng-container *ngTemplateOutlet="numberFormatTmpl"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #networkSectionTmpl>
+  <div class="row network-container" [formGroup]="networkForm" *ngIf="networkList !== null">
+    <div class="col-sm-12">
+      <div class="col-sm-6" *ngFor="let network of networkList.controls; let i=index">
+        <div class="form-group">
+          <input type="checkbox" class="chk-box form-check-input" [formControl]="network">
+          <label class="form-check-input">
+            <span class="chkbox-lbl">{{networkData[i].networkName}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="isNetworkBtn">
+    <div class="form-group">
+      <div class="col-sm-push-8 col-sm-2" style="margin-top:10px">
+        <input type="button" class="form-control btn btn-info addBTN" id="next-btn-user" (click)="saveUserNetworkPermssions()" value="Save Locations">
+      </div>
+      <div class=" col-sm-push-8 col-sm-2" style="margin-top:10px">
+        <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editAccountTmpl>
+  <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden>&times;</span>
+          </button>
+          <h4 class="modal-title">Edit Account</h4>
+        </div>
+        <div class="modal-body account-modal-body">
+          <ng-container *ngTemplateOutlet="editAccountFormTmpl"></ng-container>
+        </div>
+        <div class="modal-footer account-modal-footer">
+          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="updateAccount()" [ngClass]="{'btn-disable':disableSubmitButton}">
+            <i class="fa fa-save"></i>Update Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #editAccountFormTmpl>
+    <form [formGroup]="editAccountForm" class="form-horizontal form-label-left">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group">
+        <label for="companyName" class=" lbl-account control-label col-md-3 col-sm-3 col-xs-12">Account Number</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" formControlName="accountID" class="form-control" disabled>
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="companyName" class="control-label col-md-3 col-sm-3 col-xs-12">Company Name</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" formControlName="companyName" class="form-control">
+      </div>
+      </div>
+      <div class="form-group" style="display:none">
+        <label for="companyName" class="control-label col-md-3 col-sm-3 col-xs-12">resellerID</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" formControlName="resellerID" class="form-control">
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="timeZone" class="control-label col-md-3 col-sm-3 col-xs-12">Time Zone</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <select class="form-control" formControlName="timeZoneID">
+            <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="enableSubmit($event)"></address-form-component>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #myProfileTmpl>
+  <div class="myProfile-personalInfoContainer">
+    <div class="fullName">{{responseData?.userFullName}}</div>
+    <div class="username">{{responseData?.userName}}</div>
+    <div class="smsNumber">{{responseData?.smsNumber}} <span class="smsProvider" *ngIf="responseData?.externalSMSProvider">({{responseData?.externalSMSProvider}})</span></div>
+    <div class="email">{{responseData?.email}}</div>
+  </div>
+  <div class="myProfile-settingsContainer">
+    <div class="form-group">
+      <label class="col-sm-7">Is Administrator :</label>
+      <div class="col-sm-5">
+        <p class="form-control-static">
+          <input type="checkbox" name="isAdmin" value="responseData?.admin" [attr.checked]="responseData?.admin ? 'checked' : null"
+                 disabled>
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-7">Maintenance Notification:</label>
+      <div class="col-sm-5">
+        <p class="form-control-static notif-icons">
+          <i class="fa fa-envelope"></i>
+        </p>
+        <p class="form-control-static">
+          <i class="fa fa-comment"></i>
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-7">System Notifications :</label>
+      <div class="col-sm-5">
+        <p class="form-control-static notif-icons" *ngIf="responseData?.recievesMaintenanceByEmail">
+          <i class="fa fa-envelope"></i>
+        </p>
+        <p class="form-control-static" *ngIf="responseData?.recievesMaintenanceByPhone">
+          <i class="fa fa-comment"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #numberFormatTmpl>
+  <small class="form-text text-muted">
+    <p>
+      This format is the internationally-standardized format for all phone numbers, and it includes all the relevant information
+      to route calls and SMS messages globally. E.164 numbers can have a maximum of fifteen digits and are usually written
+      as follows: [+][country code][subscriber number including area code]. Phone numbers that are not formatted in E.164
+      may work, but it depends on the phone or handset that is being used.
+    </p>
+    <p>
+      For example, to convert a US phone number (999 888 7777) to E.164 format, one would need to add the ‘+’ prefix and the country
+      code (which is 1) in front of the number (+1 999 888 7777). In the UK and many other countries internationally, local
+      dialing requires the addition of a 0 in front of the subscriber number. However, to use E.164 formatting, this 0 must
+      be removed. A number such as 022 3333 4444 in the UK would be formatted as +44 22 3333 4444.
+    </p>
+  </small>
+</ng-template>
+<ng-template #tooltipTempate>
+    <ul>
+        <li>'Password' must be at least 8 characters long.</li>
+        <li>Password should contain at least one special character out of !@#$%^&*()</li>
+        <li>Password should contain At least one alphabet.</li>
+        <li>Password should contain At least one numeric value.</li>
+      </ul>
+</ng-template>

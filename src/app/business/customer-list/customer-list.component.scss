@@ -1,0 +1,20 @@
+
+a:link, a:visited { 
+    color: #3498DB;
+    cursor:pointer ;
+}
+
+a:hover {
+    color: #3498DB;
+    text-decoration: underline;
+    cursor: pointer ;
+}
+
+.from-date {
+    float:left; 
+    margin-right:20px
+}
+
+.sensor-cell {
+    padding-left:20px;
+}

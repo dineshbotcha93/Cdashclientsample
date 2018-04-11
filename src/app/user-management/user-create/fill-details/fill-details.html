@@ -1,0 +1,97 @@
+
+<div class="login_wrapper onboarding_container">
+
+  <div class="form login_form">
+    <section class="login_content">
+      <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+      <user-flow-component [selected]="selectedStep">
+
+      </user-flow-component>
+
+      <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="form-horizontal form-label-left font-white">
+
+        <div *ngIf="accountUpdateStatus.error" class="alert alert-danger" ng->
+          <span>{{accountUpdateStatus.message || 'Entered form is invalid!!!'}}</span>
+        </div>
+
+        <div class="row fillDetails-container">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name </label>
+              <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
+                <span class="inner-addon-icon"><i class="fa fa-building"></i></span>
+                <input type="text" formControlName="company_name" class="form-control">
+              </div>
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('company_name').touched">
+                <div class="error" *ngIf="accountForm.get('company_name').hasError('required')">Company Name is required.</div>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="isNewMaster || accountInfo.industryType">
+              <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="industryType">Industry Type </label>
+              <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="industry_type" class="form-control m-b-md" (change)="industryChanged($event.target.value)">
+                  <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('industry_type').touched">
+                <div class="error" *ngIf="accountForm.get('industry_type').hasError('required')">Industry Type is required.</div>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="isNewMaster || (accountInfo && accountInfo.businessType)">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="business_type" class="form-control m-b-md">
+                  <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('business_type').touched">
+                <div class="error" *ngIf="accountForm.get('business_type').hasError('required')">Business Type is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeZone">Time Zone </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select formControlName="timeZone" class="form-control m-b-md">
+                  <option value="{{tZ.name}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('timeZone').touched">
+                <div class="error" *ngIf="accountForm.get('timeZone').hasError('required')">Time Zone is required.</div>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="isNewMaster || accountInfo.placeOfPurchase">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
+              <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+                <select formControlName="placeOfPurchase" class="form-control m-b-md">
+                  <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="accountUpdateStatus.error || accountForm.get('placeOfPurchase').touched">
+                <div class="error" *ngIf="accountForm.get('placeOfPurchase').hasError('required')">Purchase source is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <address-form-component #addressForm (formReady)="addFormControl('address', $event)"></address-form-component>
+          </div>
+          <div class="clearfix"></div>
+          <div class="separator"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group float-right">
+              <input type="submit" value="Submit" class="btn btn-primary m-l-none">
+              <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+    <user-flow-buttons
+    (onPreviousEmitter)="onPrevious($event)"
+    (onNextEmitter)="onNext($event)"
+    [previousShow]="true"
+    [nextShow]="true">
+    </user-flow-buttons>
+  </div>
+</div>

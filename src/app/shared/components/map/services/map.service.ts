@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MapConstants } from '../constants/map.constants';
+import { API_KEYS } from '../../../../shared/constants/apiKeys.constants';
 import { Observable } from 'rxjs/Observable';
+import { RequesterService } from '../../../../shared/services/requester.service';
+import {GetNetworkLocation}  from '../../../../../mocks/GetNetworkLocation';
 import 'rxjs/add/observable/of';
 
 @Injectable()
@@ -8,7 +11,7 @@ export class MapService{
   private mapStatus = MapConstants.STATUS;
   private readableStatus = MapConstants.READABLE_STATUS;
 
-  constructor(){
+  constructor(private requesterService: RequesterService){
   }
 
   getIcon(status:string){
@@ -25,6 +28,22 @@ export class MapService{
       break;
     }
   }
+
+  geoCode(address:string){
+    const apiKeyPrefix = '&key='+API_KEYS.GOOGLE_GEOCODING_API_KEY;
+    return this.requesterService.getGoogleRequest(address+apiKeyPrefix)
+  }
+
+  geoCodeAll(){
+    let promises = [];
+    GetNetworkLocation.forEach((location)=>{
+      promises.push(this.geoCode(location.Name+location.PostalCode+location.City+location.State));
+    });
+    Promise.all(promises).then((e)=>{
+      console.log(e);
+    });
+  }
+
   getPriorityCount(record){
     let priority = null;
     if(record[this.mapStatus.ALERTS] > 0){

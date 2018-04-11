@@ -10,7 +10,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
         [rows]="rows"
         [limit]="limit"
         [columns]="columns"
-        [columnMode]="'force'"
+        [columnMode]="'flex'"
         [headerHeight]="40"
         [footerHeight]="40"
         [limit]="10"

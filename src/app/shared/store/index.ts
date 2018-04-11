@@ -18,6 +18,7 @@ import * as fromTiles        from './reducers/tiles.reducer';
 import * as fromTest         from './reducers/test.reducer';
 import * as fromAuth         from './reducers/auth.reducer';
 import * as fromAlerts       from './reducers/alert.reducer';
+import * as fromToaster      from './reducers/toaster.reducer';
 /**
  * We treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
@@ -28,6 +29,7 @@ export interface State {
     tests:       fromTest.State;
     auth:        fromAuth.State;
     alerts:      fromAlerts.State;
+    toaster:     fromToaster.State;
   }
 }
 
@@ -42,7 +44,8 @@ const reducers = {
   tiles:       fromTiles.reducer,
   tests:       fromTest.reducer,
   auth:        fromAuth.reducer,
-  alerts:      fromAlerts.reducer
+  alerts:      fromAlerts.reducer,
+  toaster:     fromToaster.reducer
 };
 
 export function store(state: any, action: any) {
@@ -64,3 +67,5 @@ export const getAlertState   = (state: State) => state.tiles.alerts;
 export const getShowAlert    = createSelector(getAlertState, fromAlerts.getAlert);
 export const getShowSuccess  = createSelector(getAlertState, fromAlerts.getSuccess);
 export const getShowWarning  = createSelector(getAlertState, fromAlerts.getWarning);
+export const getToasterState = (state: State) => state.tiles.toaster;
+export const getToasterSuccess = createSelector(getToasterState, fromToaster.getSuccess);

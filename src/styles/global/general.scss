@@ -1,0 +1,157 @@
+html {
+  height: 100vh;
+  min-height: 100%;
+}
+
+body {
+  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  max-width: $body-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100vh;
+  min-height: 100%;
+
+  .container.body {
+    height: 100vh;
+    min-height: 100%;
+
+    .right_col {
+      min-height: 100%;
+      box-shadow: 0 0 15px $color-black;
+    }
+
+    .main_container {
+      height: 100vh;
+      min-height: 100%;
+    }
+  }
+}
+
+
+
+
+/* ******************************** */
+/* ul */
+ul {
+  &.bar_tabs {
+    background: none;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 0.85em;
+    }
+  }
+}
+/* ******************************** */
+
+/* ******************************** */
+/* General Styles */
+.top_tiles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dark-theme {
+  color: $color-white;
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.circle {
+  background: $color-grey;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  margin: 5px 10px 0px 0px;
+  float: left;
+}
+
+.total-amount {
+  color: $appTile-BG-lowBattery;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+
+#disclaimer {
+  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 1em;
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  width: 30px;
+  height: 30px;
+}
+/* ******************************** */
+
+
+
+/* ******************************** */
+.parent-container {
+  margin: 4em 0;
+
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    margin: 1em 0;
+  }
+}
+/* ******************************** */
+
+
+
+/* ******************************** */
+.pointer-style {
+  cursor: pointer;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.align-left {
+  align-items: left !important;
+}
+
+.gap-top { margin-top: 40px; }
+.gap-right { margin-right: 40px; }
+.gap-bottom { margin-bottom: 40px; }
+.gap-left { margin-left: 40px; }
+/* ******************************** */
+
+
+
+/* ******************************** */
+.onboarding_container {
+  max-width: 40em;
+  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-size: 1em;
+  color: $color-white;
+  text-align: left;
+
+  h1.onboarding-title {
+    text-align: center;
+
+    &:before, &:after {
+      background: none;
+    }
+  }
+}
+/* ******************************** */
+
+
+
+/* ******************************** */
+#map {
+  height: 100%;
+}
+/* ******************************** */
+

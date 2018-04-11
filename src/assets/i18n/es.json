@@ -1,0 +1,50 @@
+{
+  "global":{
+    "from":"From [TBD]",
+    "to":"To [TBD]",
+    "exportPdf":"Export to PDF [TBD]",
+    "comments":"Comments [TBD]"
+  },
+  "login":{
+    "componentHeading":"Cooper Atkins Dashboard [TBD]",
+    "loginForm":{
+      "username":"Username [TBD]",
+      "password":"Password [TBD]",
+      "loginButton":"Login [TBD]",
+      "newUser":"New User: Click to Register [TBD]"
+    }
+  },
+  "userRegistration":{
+    "title":"User Registration [TBD]",
+    "email":"Email [TBD]",
+    "registrationMessage":"Use following link to setup Master Account or only if you are an existing NotifEye user [TBD]",
+    "disclaimerTitle":"Additional Network Setup [TBD]",
+    "disclaimerMessage":"Contact the Master Account Administrator for your login credentials. Upon loggin in, you can add a network for your kit, unless one has already been created by the administrator. [TBD]"
+  },
+  "dashboardMain":{
+    "dashboardTitle":"Current Locations [TBD]"
+  },
+  "sensorSummary":{
+    "sensorsTitle":"Sensors [TBD]",
+    "gatewaysTitle":"Gateways [TBD]",
+    "deviceManagementTitle":"Device Management [TBD]"
+  },
+  "sensorDetails":{
+    "sensorDetailsTitle":"Sensor Details Page [TBD]",
+    "sensorName":"Sensor Name [TBD]",
+    "currentReading":"Current Reading [TBD]",
+    "lastCheckin": "Last Checkin [TBD]",
+    "networkName": "Network [TBD]",
+    "gatewayName": "Gateway [TBD]",
+    "nextCheckin": "Next Checkin [TBD]"
+  },
+  "tileStatus":{
+    "alert":"Alerts [TBD]",
+    "lowBattery":"Low Battery [TBD]",
+    "missedCommunication":"Offline [TBD]",
+    "lowSignal":"Low Signal [TBD]"
+  },
+  "sensorComparison":{
+    "comparisonTitle":"Sensor Comparison for Network [TBD]"
+  }
+}

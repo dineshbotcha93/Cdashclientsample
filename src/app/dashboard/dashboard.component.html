@@ -1,21 +1,51 @@
 <app-layout>
-  <div class="row top_tiles">
-    <div *ngFor="let i of tileData" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+  <div class="row">
+    <div *ngIf="loadedStatuses == true">
+    <div *ngFor="let i of objectKeys(totalStatuses)" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
       <app-tile
-      [count]="i.count"
+      [count]="totalStatuses[i].count > 0 ? totalStatuses[i].count : '0'"
       [tileColorBy]="'status'"
-      [tileContent]="i.title"
-      [tileColor]="i.status">
+      [tileContent]="totalStatuses[i].title"
+      [tileColor]="totalStatuses[i].status"
+      (click)="gotoNotificationList(totalStatuses[i])">
       </app-tile>
     </div>
   </div>
+  </div>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <h3>Current Locations</h3>
-
+      <div class="col-md-10 col-sm-8 col-xs-12">
+        <h3>
+          <i class="fa fa-location-arrow"></i>
+          {{'dashboardMain.dashboardTitle'|translate}}
+        </h3>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-12">
+        <div class="list-view">
+          <a (click)="showListView()" [hidden]="showList"><i class="fa fa-list m-r-xs"></i> List View</a>
+          <a (click)="showMapView()" [hidden]="showMap">Map</a>
+        </div>
+      </div>
       <div class="x_panel">
-        <div class="x_content">
-          <app-map [markers]="mapData"></app-map>
+        <div class="x_content" [hidden]="showList">
+          <div class="loader" *ngIf="mapData.length == 0"></div>
+          <app-map [markers]="mapData" *ngIf="mapData.length > 0"></app-map>
+        </div>
+        <div class="x_content network-card dark-theme" [hidden]="showMap">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th class="col-md-2"> Location Name</th>
+              <th class="col-md-2"> Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of rows">
+              <td class="col-md-2 pointer-style" (click)="onLocationSelect(row)">{{row.title}}</td>
+              <td class="col-md-2">{{row.address}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

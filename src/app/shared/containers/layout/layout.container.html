@@ -1,15 +1,11 @@
-<div class="col-md-3 left_col">
-  <navigation [userEmail]="userEmail"></navigation>
-</div>
 <app-header
-[userImage]="userImage"
-[userEmail]="userEmail"
-(logout)="doLogout()">
+  [userImage]="userImage"
+  [userEmail]="userEmail"
+  (logout)="doLogout()">
 </app-header>
 <div class="right_col" role="main">
-
-<div>
-  <app-alerts></app-alerts>
-</div>
-      <ng-content></ng-content>
+  <div>
+    <app-alerts></app-alerts>
+  </div>
+  <ng-content></ng-content>
 </div>

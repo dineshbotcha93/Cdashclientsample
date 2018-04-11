@@ -19,9 +19,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.css"
       ],
-      "scripts": ["../node_modules/jquery/dist/jquery.min.js","../node_modules/bootstrap/dist/js/bootstrap.min.js","../node_modules/chart.js/dist/Chart.min.js"],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/chart.js/dist/Chart.min.js",
+        "../node_modules/jspdf/dist/jspdf.min.js",
+        "../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

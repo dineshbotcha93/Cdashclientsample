@@ -1,0 +1,39 @@
+@import "../variables";
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-dialog {
+  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  margin: 10% auto;
+
+  .modal-header {
+    .modal-title {
+      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      line-height: 2.5;
+      font-size: 2em;
+    }
+    .close {
+      font-size: 2em;
+      width: 50px;
+      height: 2.5em;
+      margin: 0;
+      background: $color-grey-light;
+      border-radius: $border-radius-extraBig;
+
+      span {
+        display: inline-block;
+        width: 50px;
+      }
+    }
+  }
+  .modal-body {
+    background: $color-grey-ultralight;
+    max-height: 30em;
+    overflow-y: auto;
+  }
+  .modal-footer {
+
+  }
+}

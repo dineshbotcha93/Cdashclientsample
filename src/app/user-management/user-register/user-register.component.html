@@ -1,12 +1,47 @@
-<h3>User Registration</h3>
-<div class="table">
-	<form name="form" (ngSubmit)="onSubmit()">
-		<div class="form-group" >
-			<label for="email">Email</label>
-			<input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required />
-		</div>
-		<div class="form-group">
-			<input type="submit" value="Verify" class="btn btn-primary">
-		</div>
-	</form>
+<app-alerts (close)="onClose()"></app-alerts>
+
+<div class="login_wrapper onboarding_container">
+  <div class="form login_form">
+    <section class="login_content">
+      <form name="form" (ngSubmit)="onSubmit()">
+        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <!--<h3>{{'userRegistration.title'|translate}}</h3> -->
+        <div class="inner-addon">
+          <span class="inner-addon-icon"><i class="fa fa-envelope"></i></span>
+          <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
+        </div>
+
+        <div class="form-group">
+          <div class="clearfix"></div>
+          <input type="submit" value="Verify" class="btn btn-primary m-l-none">
+        </div>
+
+
+
+      </form>
+
+      <div class="verifyEmailNotes-container gap-top">
+        <p>
+          <b>Note:</b>
+        {{'userRegistration.registrationMessage'|translate}}
+        </p>
+        <p>
+          <a (click)="showPopup = true" value="Additional Setup"><i class="fa fa-arrow-right"></i> Additional Setup</a>
+        </p>
+      </div>
+
+        <!--<div class="alert alert-info alert-dismissible fade in">
+          <h4>{{'userRegistration.hintTitle'|translate}}</h4>
+          <p>{{'userRegistration.hintMessage'|translate}}</p>
+        </div>-->
+    </section>
+  </div>
 </div>
+
+
+<!--<button (click)="showPopup = true">Show pop-up</button>-->
+
+<modal [isOpen]="showPopup" title="{{'userRegistration.disclaimerTitle' | translate}}"
+       (onClose)="modalClosed($event)">
+  <p>{{'userRegistration.disclaimerMessage'|translate}}</p>
+</modal>

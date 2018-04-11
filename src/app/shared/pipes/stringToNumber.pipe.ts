@@ -9,7 +9,10 @@ import {
 export class StringToNumberPipe implements PipeTransform  {
   constructor(){}
 
-  transform(v: string) : number {
+  transform(v: string,...args:any[]) : number {
+		if(args.includes('digitsOnly') && v){
+			return Number(v.replace(/[^0-9.]/g,''));
+		}
     return Number(v);
   }
 }

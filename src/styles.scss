@@ -8,52 +8,22 @@
 @import "styles/forms";
 @import "styles/fonts";
 @import "styles/icons";
+@import "styles/margins";
 
-#map {
-  height: 100%;
-}
+@import "styles/global/general";
+@import "styles/global/alert";
+@import "styles/global/network-card";
+@import "styles/global/payment-card";
+@import "styles/global/gateway-card";
+@import "styles/global/customer-info";
+@import "styles/global/graph-card";
+@import "styles/global/userProfile-card";
+@import "styles/global/sensorSummary-card";
+@import "styles/global/pills";
+@import "styles/global/status-color";
+@import "styles/global/table";
+@import "styles/global/modal";
+@import "styles/global/navigation";
+@import "styles/global/login";
+@import "styles/global/flow-display";
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-}
-
-
-/* tabs, tab-content */
-.tab-content {
-  .x_content {
-    margin-top: 10px;
-    width: auto;
-    float: none;
-
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
-      float: none;
-      width: auto;
-    }
-  }
-}
-/* ******* */
-
-/* ul */
-ul {
-  &.bar_tabs {
-    background: none;
-
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 0.85em;
-    }
-  }
-}
-/* ******* */
-
-/* side-nav */
-//.nav-sm .container.body .col-md-3.left_col {
-//  min-height: 100%;
-//  width: 70px;
-//  padding: 0;
-//  z-index: 9999;
-//  position: absolute;
-//}

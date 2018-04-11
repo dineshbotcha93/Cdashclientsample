@@ -1,0 +1,41 @@
+@import "../variables";
+
+.wizard_horizontal {
+  ul.wizard_steps {
+    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    margin: 20px 0 40px;
+    padding-left: 0;
+
+    li {
+      a {
+        color: $gauge-chart-forgroundColor;
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        &:before {
+          height: 2px;
+          background: $gauge-chart-forgroundColor;
+        }
+
+        &.disabled {
+          .step_no {
+            color: $color-grey-verydark;
+          }
+        }
+
+        .step_no {
+          border: 2px solid $gauge-chart-forgroundColor;
+          background: $gauge-chart-backgroundColor;
+          color: $gauge-chart-forgroundColor;
+        }
+
+        .step_descr {
+          color: $gauge-chart-forgroundColor;
+        }
+      }
+    }
+  }
+}
+
