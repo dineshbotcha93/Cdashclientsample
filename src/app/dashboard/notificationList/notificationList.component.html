@@ -20,7 +20,7 @@
               <select name="filter_by_status" class="form-control"
                       [(ngModel)]="doFilterByStatus"
                       (ngModelChange)="filterByStatus()">
-                <option value="all">All</option>
+                <option value="All">All</option>
                 <option value="Alerts" [selected]="doFilterByStatus =='Alerts'">Alerts</option>
                 <option value="LowBattery" [selected]="doFilterByStatus =='LowBattery'">Low Battery</option>
                 <option value="Offline" [selected]="doFilterByStatus =='Offline'">Offline</option>
@@ -79,6 +79,10 @@
         </ng-template>
         <ng-template #sTypeColTmpl let-row="row" let-value="value">
           <a class="anchor-datatable" (click)="showNotification(row)" >{{value}}</a>
+        </ng-template>
+        <ng-template #deviceNameColTmpl let-row="row" let-value="value">
+            <a *ngIf = "row.deviceCategory === 'Sensor'" class="anchor-datatable" [routerLink]="['/dashboard/sensor-details/', row.deviceID]" routerLinkActive="active">{{value}}</a>
+            <span *ngIf = "row.deviceCategory !== 'Sensor'">{{value}}</span>
         </ng-template>
 
       </div>
