@@ -1,24 +1,36 @@
-<div (click)="handleClick($event)" [attr.tile-name]="tileContent" class="widget-panel widget-style-2 {{tileColorBy == 'status' ? getTileColor(tileColor,'status',tileDetails?.fahrenHeight):getTileStatusByColorNum(tileColor,tileDetails?.fahrenHeight)}}">
-  <i class="fa
-  {{tileColorBy=='sensorType'? getSensorTileIcon(sensorTileIcon,tileDetails.fahrenHeight)
-   :getTileIcon(tileColor,tileColorBy)}}"></i>
-  <div *ngIf="tileDetails">
-    <div *ngIf="tileDetails.fahrenHeight" class="fahrenHeight">
-      {{tileDetails.fahrenHeight}}
-    </div>
-    <div *ngIf="tileDetails.relativeHumidity" class="relativeHumidity">
-      {{tileDetails.relativeHumidity}}
-    </div>
-    <div *ngIf="tileDetails.title" class="title">
-      {{tileDetails.title}}
+<div class="tile-container">
+  <div (click)="handleClick($event)"
+       [attr.tile-name]="tileContent"
+       class="widget-panel widget-style-2 {{tileColorBy == 'status' ?
+      getTileColor(tileColor,'status',tileDetails?.fahrenHeight) :
+      getTileStatusByColorNum(tileColor,tileDetails?.fahrenHeight)}}">
+    <i class="fa tile-icon
+    {{tileColorBy=='sensorType' ?
+    getSensorTileIcon(sensorTileIcon,tileDetails.fahrenHeight) :
+    getTileIcon(tileColor,tileColorBy)}}"></i>
+
+    <div class="tile-details">
+      <div *ngIf="tileDetails">
+        <div *ngIf="tileDetails.fahrenHeight"
+             class="tile-fahrenHeight">
+          {{tileDetails.fahrenHeight}}
+        </div>
+        <div *ngIf="tileDetails.relativeHumidity"
+             class="tile-relativeHumidity">
+          {{tileDetails.relativeHumidity}}
+        </div>
+        <div *ngIf="tileDetails.title"
+             class="tile-title">
+          {{tileDetails.title}}
+        </div>
+      </div>
+      <h2 class="m-0 tile-counter">{{count}}</h2>
+      <div class="tile-content"> {{tileContent}}</div>
+      <div *ngIf="tileDetails?.lastCommunicationDate"
+           class="tile-dateTime">
+        {{tileDetails?.lastCommunicationDate|dateFormat:'DD/MM/YYYY'}}
+        <br/>{{tileDetails?.lastCommunicationDate|dateFormat:'hh:mm:ss'}}
+      </div>
     </div>
   </div>
-    <h2 class="m-0 counter">{{count}}</h2>
-    <div> {{tileContent}}</div>
-    <div *ngIf="tileDetails?.lastCommunicationDate" class="title">
-      {{tileDetails?.lastCommunicationDate|dateFormat:'DD/MM/YYYY'}}
-      <br/>{{tileDetails?.lastCommunicationDate|dateFormat:'hh:mm:ss'}}
-    </div>
-    <!--<i *ngIf="tileColorBy=='sensorType'" class="fa {{getTileStatusIconByColorNum(tileColor)}} special"></i>
-    <div *ngIf="tileColorBy=='sensorType'">{{getTileStatusTextByColorNum(tileColor)}}</div>-->
 </div>
