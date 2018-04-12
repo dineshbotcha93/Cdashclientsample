@@ -34,30 +34,27 @@
             <a href="tel:{{accountData?.smsNumber}}"> {{accountData?.smsNumber}}</a>
           </div>
         </div>
-        <div class="col-md-6 network-card">
-          <div class="col-sm-12 network-card-top">
-            <div class="col-sm-4 customer-status">Subscription
-              <span> {{accountData?.subscriptionType}}</span>
-            </div>
-            <div class="col-sm-5 customer-amount" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
-              <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
-            </div>
-            <div class="col-sm-3" *ngIf="isAdmin">
-              <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
-                <i class="fa fa-edit"></i>Edit Account</button>
-            </div>
+
+        <div class="col-md-6 infoCard-container">
+          <div class="card-small">Subscription
+            <span class="value">{{accountData?.subscriptionType}}</span>
           </div>
-          <div class="col-sm-12 network-card-bottom">
-            <div class="col-sm-4 gateway-count">Gateways
-              <span>{{accountData?.numGateways}}</span>
-            </div>
-            <div class="col-sm-4 sensor-count">Sensors
-              <span>{{accountData?.numSensors}}</span>
-            </div>
-            <div class="col-sm-4 renewal-pos">
-              <a class="btn btn-primary addBTN btn-renew-contract" role="button" [class.btn-disabled]="accountData.numSensors == 0"
-              [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'">Renew Contract</a>
-            </div>
+          <div class="card-small" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
+            <span class="value">{{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
+          </div>
+
+          <div class="card-small">Gateways
+            <span class="value">{{accountData?.numGateways}}</span>
+          </div>
+          <div class="card-small">Sensors
+            <span class="value">{{accountData?.numSensors}}</span>
+          </div>
+
+          <div class="card-small card-button" *ngIf="isAdmin">
+            <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
+              <i class="fa fa-edit"></i>Edit Account</button>
+            <a class="btn btn-primary addBTN btn-renew-contract" role="button" [class.btn-disabled]="accountData.numSensors == 0"
+               [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'">Renew Contract</a>
           </div>
         </div>
       </div>
