@@ -19,18 +19,20 @@ import * as fromTest         from './reducers/test.reducer';
 import * as fromAuth         from './reducers/auth.reducer';
 import * as fromAlerts       from './reducers/alert.reducer';
 import * as fromToaster      from './reducers/toaster.reducer';
+import * as fromGlobal       from './reducers/global.reducer';
 /**
  * We treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface State {
-  tiles:{
+  global:{
     tiles:       fromTiles.State;
     tests:       fromTest.State;
     auth:        fromAuth.State;
     alerts:      fromAlerts.State;
     toaster:     fromToaster.State;
-  }
+    global:      fromGlobal.State;
+  },
 }
 
 /**
@@ -45,7 +47,8 @@ const reducers = {
   tests:       fromTest.reducer,
   auth:        fromAuth.reducer,
   alerts:      fromAlerts.reducer,
-  toaster:     fromToaster.reducer
+  toaster:     fromToaster.reducer,
+  global:      fromGlobal.reducer
 };
 
 export function store(state: any, action: any) {
@@ -56,16 +59,18 @@ export function store(state: any, action: any) {
 /**
  * Products store functions
  */
-export const getTilesState   = (state: State) => state.tiles.tiles;
+export const getTilesState   = (state: State) => state.global.tiles;
 export const getTilesLoaded  = createSelector(getTilesState, fromTiles.getLoaded);
 export const getTilesLoading = createSelector(getTilesState, fromTiles.getLoading);
 export const getTilesFailed  = createSelector(getTilesState, fromTiles.getFailed);
 export const getTilesData    = createSelector(getTilesState, fromTiles.getData);
-export const getAuthState    = (state: State) => state.tiles.auth;
+export const getAuthState    = (state: State) => state.global.auth;
 export const getLoggedIn     = createSelector(getAuthState, fromAuth.getLogin);
-export const getAlertState   = (state: State) => state.tiles.alerts;
+export const getAlertState   = (state: State) => state.global.alerts;
 export const getShowAlert    = createSelector(getAlertState, fromAlerts.getAlert);
 export const getShowSuccess  = createSelector(getAlertState, fromAlerts.getSuccess);
 export const getShowWarning  = createSelector(getAlertState, fromAlerts.getWarning);
-export const getToasterState = (state: State) => state.tiles.toaster;
+export const getToasterState = (state: State) => state.global.toaster;
 export const getToasterSuccess = createSelector(getToasterState, fromToaster.getSuccess);
+export const getGlobalState = (state:State) => state.global.global;
+export const getListView = createSelector(getGlobalState, fromGlobal.getListView);

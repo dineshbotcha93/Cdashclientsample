@@ -15,6 +15,10 @@ import {Router} from '@angular/router';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { TranslateService } from '@ngx-translate/core';
 import { AbstractDashboardBase } from './abstractDashboard.component';
+import { Store }      	          from '@ngrx/store';
+import * as store     	          from '../shared/store';
+import * as globalActions       from '../shared/store/actions/global.action';
+
 
 export interface tileDetail{
   count:string;
@@ -38,12 +42,14 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   private showList = false;
   private showMap = true;
   private rows:Array<any>=['N/A'];
+  public globalState$              = this.appState$.select(store.getGlobalState);
 
   constructor(
     private dashboardService: DashboardService,
     private mapService:MapService,
     private router:Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    protected appState$: Store<store.State>,
   ){
     super();
 
@@ -90,6 +96,18 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
       this.loadedStatuses = true;
       this.forceTranslations();
     });
+
+  this.globalState$.subscribe(e=>{
+    if(e!==undefined){
+      if(e.DASHBOARD_LISTVIEW==true){
+        this.showList = true;
+        this.showMap = false;
+      } else {
+        this.showList = false;
+        this.showMap = true;
+      }
+    }
+  });
   }
 
   ngAfterContentInit(){
@@ -124,11 +142,13 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   }
 
   showListView() {
+    this.globalState$.dispatch(new globalActions.DashboardListViewAction());
     this.showList = true;
     this.showMap = false;
   }
 
   showMapView() {
+    this.globalState$.dispatch(new globalActions.DashboardListViewAction());
     this.showMap = true;
     this.showList = false;
   }

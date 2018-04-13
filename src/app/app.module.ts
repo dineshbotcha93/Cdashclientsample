@@ -78,7 +78,7 @@ if(!environment.production)
     UserProfileModule,
     ForgotPasswordModule,
     NgbModule.forRoot(),
-    StoreModule.forRoot({'tiles':store}),
+    StoreModule.forRoot({'global':store}),
     ToastModule.forRoot(),
     /**
     * Store devtools instrument the store retaining past versions of state
