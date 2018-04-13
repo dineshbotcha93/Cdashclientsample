@@ -34,8 +34,9 @@
               <span> {{customerData.amount | currency}}</span>
             </div>
           </div>
-          <div class="customer-renewal">Renewal
-            <span> {{customerData.expiryDate | date:'MM-dd-yyyy'}}</span>
+          <div class="customer-renewal">{{labelRenewal}}
+            <span [ngClass]="{'renewalColor': isSubscriptionExpired}"> 
+                {{customerData.expiryDate | date:'MM-dd-yyyy'}}</span>
           </div>
           <div class="network-card-bottom">
             <div class="gateway-count">Gateways
@@ -45,7 +46,8 @@
               <span>{{customerData.numberOfSensors}}</span>
             </div>
             <div class="col-sm-4 col-sm-push-8 customer-subscription">Subscription
-              <span>{{customerData.subscription}}</span>
+              <span *ngIf="!isSubscriptionExpired"> {{customerData.subscription}}</span>
+              <span *ngIf="isSubscriptionExpired" [ngClass]="{'renewalColor': isSubscriptionExpired}"> Expired</span>
             </div>
           </div>
         </div>

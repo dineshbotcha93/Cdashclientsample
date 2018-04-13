@@ -99,6 +99,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private loadPage: Boolean = false;
   private isShowUserTable: Boolean = true;
   private labelRenewal: string = null;
+  private isSubscriptionExpired: Boolean = false;
   private expiryDate: Date = null;
   private isNotifBtn: Boolean = false;
   private isNetworkBtn: Boolean = false;
@@ -259,8 +260,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private updateRenewalLabel() {
     if (this.expiryDate.getTime() > new Date().getTime()) {
       this.labelRenewal = 'Due on';
+      this.isSubscriptionExpired = false;
     } else {
       this.labelRenewal = 'Overdue by';
+      this.isSubscriptionExpired = true;
     }
   }
   addUser() {
