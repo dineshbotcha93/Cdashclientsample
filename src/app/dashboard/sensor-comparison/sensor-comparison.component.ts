@@ -24,7 +24,7 @@ const now = new Date();
 })
 
 export class SensorComparisonComponent{
-  private sensorName:string = '1156073157';
+  private sensorName:String = '';
   private sensorNames:Array<Object> = [];
   private data:Array<any>=[];
   public chartLabels:Array<any>=[];
@@ -87,6 +87,7 @@ export class SensorComparisonComponent{
         return allSensorIds;
       }).then((allSensorIds)=>{
         Promise.all(allSensorIds).then((result:Array<SensorDetail>)=>{
+          allNames.push({label:'--Select Sensor --',value:''});
           result.forEach((res:SensorDetail)=>{
             allNames.push({label:res.sensorName,value:res.sensorID});
           });

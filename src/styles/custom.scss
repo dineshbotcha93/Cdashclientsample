@@ -4430,6 +4430,10 @@ ul.notifications {
   animation: spin 2s linear infinite;
 }
 
+.renewalColor, .renewalColor span{
+  color: #f30e0e !important;
+}
+
   /* Safari */
   @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }

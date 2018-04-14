@@ -37,10 +37,12 @@
         <div class="col-md-6 network-card">
           <div class="col-sm-12 network-card-top">
             <div class="col-sm-4 customer-status">Subscription
-              <span> {{accountData?.subscriptionType}}</span>
+              <span *ngIf="!isSubscriptionExpired"> {{accountData?.subscriptionType}}</span>
+              <span *ngIf="isSubscriptionExpired" [ngClass]="{'renewalColor': isSubscriptionExpired}"> Expired</span>
             </div>
-            <div class="col-sm-5 customer-amount" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
-              <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
+            <div class="col-sm-5 customer-amount" >{{labelRenewal}}
+              <span [ngClass]="{'renewalColor': isSubscriptionExpired}"> 
+                {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
             </div>
             <div class="col-sm-3" *ngIf="isAdmin">
               <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
