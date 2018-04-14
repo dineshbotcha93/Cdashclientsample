@@ -73,4 +73,4 @@ export const getShowWarning  = createSelector(getAlertState, fromAlerts.getWarni
 export const getToasterState = (state: State) => state.global.toaster;
 export const getToasterSuccess = createSelector(getToasterState, fromToaster.getSuccess);
 export const getGlobalState = (state:State) => state.global.global;
-export const getListView = createSelector(getGlobalState, fromGlobal.getListView);
+export const getListView = createSelector(getGlobalState, fromGlobal.getDashboardListView);
