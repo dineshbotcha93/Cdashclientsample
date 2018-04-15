@@ -6,11 +6,11 @@ import * as moment from 'moment/moment';
 
 @Injectable()
 export class SensorDetailsService {
-  constructor(private requesterService:RequesterService) {
+  constructor(private requesterService: RequesterService) {
 
   }
-  getData(location){
-    switch(location){
+  getData(location) {
+    switch (location)   {
       case '1156073157':
       return this.requesterService.get(SERVICE_CONSTANTS.GET_SENSOR_DETAIL.live);
       case '1156073158':
@@ -24,32 +24,32 @@ export class SensorDetailsService {
     }
   }
 
-  getDataMessages(location,fromDate = null, toDate = null){
-    if(fromDate == null){
+  getDataMessages(location, fromDate = null, toDate = null) {
+    if (fromDate == null) {
       fromDate = moment().format('MM/DD/YYYY');
     }
-    if(toDate == null){
-      toDate = moment().add(5,'days').format('MM/DD/YYYY');
+    if (toDate == null) {
+      toDate = moment().add(5, 'days').format('MM/DD/YYYY');
     } else {
-      toDate = moment().add(1,'days').format('MM/DD/YYYY');
+      toDate = moment().add(1, 'days').format('MM/DD/YYYY');
     }
 
     return this.requesterService
-    .getExternalRequest('/api/Sensor/DataMessages?SensorID='+location+'&FromDate='+fromDate+'&ToDate='+toDate);
+    .getExternalRequest('/api/Sensor/DataMessages?SensorID=' + location + '&FromDate=' + fromDate + '&ToDate=' + toDate);
   }
 
-  getDetails(location){
+  getDetails(location) {
     return this.requesterService
-    .getExternalRequest('/api/Sensor/Details/'+location);
+    .getExternalRequest('/api/Sensor/Details/' + location);
   }
 
-  saveComments(comments){
+  saveComments(comments) {
     return this.requesterService
-    .putExternalRequest('/api/Sensor/Note',comments);
+    .putExternalRequest('/api/Sensor/Note', comments);
   }
 
-  getComments(sensorId){
+  getComments(sensorId) {
     return this.requesterService
-    .getExternalRequest('/api/Sensor/'+sensorId+'/Note');
+    .getExternalRequest('/api/Sensor/' + sensorId + '/Note');
   }
 }

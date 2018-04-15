@@ -124,8 +124,6 @@ export class SensorDetailsComponent {
       this.chartOptions.pan.enabled = true;
       this.chartOptions.zoom.enabled = true;
     }
-
-    console.log('chart annotation');
   }
 
   onDateChange(event) {
@@ -154,7 +152,7 @@ export class SensorDetailsComponent {
 
       result.forEach((res) => {
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('hh:mm:ss a'));
+        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'));
         this.rows.push({
           displayData: res.displayData,
           messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
@@ -165,9 +163,11 @@ export class SensorDetailsComponent {
         this.chartOptions.tooltips = {
           mode: 'index',
           callbacks: {
-            label: function() {
-              return res.displayData;
-            }
+            label: function(res2) {
+              console.log('res', res2);
+              console.log('index data', this.rows[res2.index]);
+              return this.rows[res2.index].displayData;
+            }.bind(this)
           }
         };
 
