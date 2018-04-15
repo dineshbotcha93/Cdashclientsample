@@ -124,8 +124,6 @@ export class SensorDetailsComponent {
       this.chartOptions.pan.enabled = true;
       this.chartOptions.zoom.enabled = true;
     }
-
-    console.log('chart annotation');
   }
 
   onDateChange(event) {
@@ -139,9 +137,22 @@ export class SensorDetailsComponent {
         this.alertSandbox.showAlert({data: 'No Content'});
         return;
       }
+
+      result.sort((message1, message2) => {
+        const date1 = new Date(message1.messageDate);
+        const date2 = new Date(message2.messageDate);
+        if (date1 > date2) {
+          return 1;
+        }
+        if (date1 < date2) {
+          return -1;
+        }
+        return 0;
+      });
+
       result.forEach((res) => {
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11, 19));
+        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'));
         this.rows.push({
           displayData: res.displayData,
           messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
@@ -152,9 +163,11 @@ export class SensorDetailsComponent {
         this.chartOptions.tooltips = {
           mode: 'index',
           callbacks: {
-            label: function() {
-              return res.displayData;
-            }
+            label: function(res2) {
+              console.log('res', res2);
+              console.log('index data', this.rows[res2.index]);
+              return this.rows[res2.index].displayData;
+            }.bind(this)
           }
         };
 
