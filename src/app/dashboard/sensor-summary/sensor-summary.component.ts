@@ -226,6 +226,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
       // hardcoded for now
       sens.sensorType = sens.type;
+      console.log('sens-->>',sens);
+      if(sens.maximumThreshold === -4294967295 || sens.maximumThreshold === 4294967295){
+          sens.maximumThreshold = 0;
+      }
+      if(sens.minimumThreshold === -4294967295 || sens.minimumThreshold === 4294967295){
+          sens.minimumThreshold = 0;
+      }
 
       if (sens.scale == "C") {
         checkModelNotify = { active: true, inActive: false };
@@ -233,6 +240,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         checkModelNotify = { active: false, inActive: true };
       }
       sens.checkModelNotify = checkModelNotify;
+
+
+      // console.log('sens-->',sens);
 
       this.allSensors.push(sens);
     });
