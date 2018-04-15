@@ -1,15 +1,18 @@
 <app-layout>
-  <div class="loader" *ngIf="tileData.length == 0"></div>
-  <div *ngIf="loadedStatuses == true">
+  <div class="container">   
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="loader" *ngIf="tileData.length == 0"></div> 
+        <div *ngIf="loadedStatuses == true">       
         <div *ngFor="let i of tileData" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12 business-tile">
           <app-tile [count]="i.count" [tileColorBy]="'status'" [tileContent]="i.title" (customClick)="tileClicked($event)" [tileColor]="i.status">
           </app-tile>
         </div>
+        </div>
       </div>
     </div>
     <div class="row">
+    <div *ngIf="loadedStatuses == true">    
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="col-md-6 col-sm-12 col-xs-12">
           <h3>Customers Locations</h3>
@@ -40,4 +43,5 @@
       </div>
     </div>
   </div>
+</div>
 </app-layout>

@@ -19,7 +19,7 @@
           <span><label class="control-label col-form-label">Type of Sensor Reading:</label></span>
       </div>
        <div class="col-sm-4">
-         <select class="form-control" [ngModel]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
+         <select class="form-control" [ngModel]="preSelectSubNotifyType" (ngModelChange)="onChangeNotifictaion($event)">
             <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">
               {{not.value}}
             </option>

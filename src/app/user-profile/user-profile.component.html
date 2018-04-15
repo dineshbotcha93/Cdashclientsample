@@ -4,8 +4,8 @@
       <div class="x_title col-md-11 col-sm-11 col-xs-12">
         <h3>Account Details</h3>
         <button class="btn btn-primary" (click)="goToPrevPage()">
-          <i class="fa fa-chevron-left"></i> Back</button>     
-          <div class="loader" *ngIf="isLoader"></div>              
+          <i class="fa fa-chevron-left"></i> Back</button>
+          <div class="loader" *ngIf="isLoader"></div>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -37,10 +37,12 @@
         <div class="col-md-6 network-card">
           <div class="col-sm-12 network-card-top">
             <div class="col-sm-4 customer-status">Subscription
-              <span> {{accountData?.subscriptionType}}</span>
+              <span *ngIf="!isSubscriptionExpired"> {{accountData?.subscriptionType}}</span>
+              <span *ngIf="isSubscriptionExpired" [ngClass]="{'renewalColor': isSubscriptionExpired}"> Expired</span>
             </div>
-            <div class="col-sm-5 customer-amount" [ngClass]="{'renewalColor': labelRenewal === 'Overdue by'}">{{labelRenewal}}
-              <span> {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
+            <div class="col-sm-5 customer-amount" >{{labelRenewal}}
+              <span [ngClass]="{'renewalColor': isSubscriptionExpired}"> 
+                {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
             </div>
             <div class="col-sm-3" *ngIf="isAdmin">
               <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
@@ -66,8 +68,8 @@
       <ng-container *ngTemplateOutlet="editAccountTmpl"></ng-container>
     </div>
   </div>
-  <!-- <div class="loader" *ngIf="isLoader"></div> -->
-   <!-- <div *ngIf="loadPage === true">  -->
+  <!-- <div class="loader" *ngIf="customerData === null"></div> -->
+  <!-- <div *ngIf="loadPage === true"> -->
   <div class="tabs_container">
     <tabs>
       <tab tabTitle="My Profile" class="tab-content font-white">
@@ -80,12 +82,12 @@
                   <button class="btn btn-primary" [attr.section]="'networks-content'" type="button" (click)="toggleProfileContent($event)"
                     aria-controls="collapseNetworks">My Locations</button>
                   <div class="collapse" id="collapseProfile" [ngbCollapse]="isProfileContentCollapsed">
-                    <div class="card card-body">
+                    <div class="card card-body myProfile-temp">
                       <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
                     </div>
                   </div>
                   <div class="collapse" id="collapseNetworks" [ngbCollapse]="isNetworkProfileCollapsed">
-                    <div class="card card-body">
+                    <div class="card card-body myNetwork-temp">
                       <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
                     </div>
                   </div>
@@ -196,7 +198,7 @@
       </div> -->
       <div class="col">
         <div class="collapse" [ngbCollapse]="isNetworkContentCollapsed">
-          <div class="card card-body">
+          <div class="card card-body myNetwork-temp">
             <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
           </div>
         </div>
@@ -283,14 +285,6 @@
             <input type="checkbox" formControlName="isAdmin" class="form-check-input">
           </div>
         </div>
-        <!-- <div class="form-group">
-          <div class="col-sm-push-3 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" value="Next" (click)="navigateToNotifSection()">
-          </div>
-          <div class=" col-sm-push-3 col-sm-3">
-            <input type="button" class="form-control btn btn-info addBTN" value="Cancel" (click)="showUsersTab()">
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -398,7 +392,7 @@
     <div class="col-sm-12">
       <div class="col-sm-6" *ngFor="let network of networkList.controls; let i=index">
         <div class="form-group">
-  <input type="checkbox" class="chk-box form-check-input" [formControl]="network">
+          <input type="checkbox" class="chk-box form-check-input" [formControl]="network">
           <label class="form-check-input">
             <span class="chkbox-lbl">{{networkData[i].networkName}}</span>
           </label>
@@ -477,65 +471,43 @@
 </ng-template>
 
 <ng-template #myProfileTmpl>
-  <div class="form-group">
-    <label class="col-sm-4 col-md-4 col-xs-12">User Name :</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static">{{responseData?.userName}}</p>
-    </div>
+  <div class="myProfile-personalInfoContainer">
+    <div class="fullName">{{responseData?.userFullName}}</div>
+    <div class="username">{{responseData?.userName}}</div>
+    <div class="smsNumber">{{responseData?.smsNumber}} <span class="smsProvider" *ngIf="responseData?.externalSMSProvider">({{responseData?.externalSMSProvider}})</span></div>
+    <div class="email">{{responseData?.email}}</div>
   </div>
-
-  <div class="form-group">
-    <label class="col-sm-4 col-md-4 col-xs-12">Name :</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static">{{responseData?.userFullName}}</p>
+  <div class="myProfile-settingsContainer">
+    <div class="form-group">
+      <label class="col-sm-7">Is Administrator :</label>
+      <div class="col-sm-5">
+        <p class="form-control-static">
+          <input type="checkbox" name="isAdmin" value="responseData?.admin" [attr.checked]="responseData?.admin ? 'checked' : null"
+                 disabled>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2">Cell Phone (SMS Number):</label>
-    <div class="col-sm-2">
-      <p class="form-control-static">{{responseData?.smsNumber}}</p>
+    <div class="form-group">
+      <label class="col-sm-7">Maintenance Notification:</label>
+      <div class="col-sm-5">
+        <p class="form-control-static notif-icons">
+          <i class="fa fa-envelope"></i>
+        </p>
+        <p class="form-control-static">
+          <i class="fa fa-comment"></i>
+        </p>
+      </div>
     </div>
-    <label class="col-sm-4 col-md-4 col-xs-12">Provider :</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static">
-        {{responseData?.externalSMSProvider}}</p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-4 col-md-4 col-xs-12">Email :</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static">{{responseData?.email}}</p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-4 col-md-4 col-xs-12">Is Administrator :</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static">
-        <input type="checkbox" name="isAdmin" value="responseData?.admin" [attr.checked]="responseData?.admin ? 'checked' : null"
-          disabled>
-      </p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-4 col-md-4 col-xs-12">Maintenance Notification:</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static notif-icons">
-        <i class="fa fa-envelope"></i>
-      </p>
-      <p class="form-control-static">
-        <i class="fa fa-comment"></i>
-      </p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-4 col-md-4 col-xs-12">System Notifications :</label>
-    <div class="col-sm-8 col-xs-12 col-md-8">
-      <p class="form-control-static notif-icons" *ngIf="responseData?.recievesMaintenanceByEmail">
-        <i class="fa fa-envelope"></i>
-      </p>
-      <p class="form-control-static" *ngIf="responseData?.recievesMaintenanceByPhone">
-        <i class="fa fa-comment"></i>
-      </p>
+    <div class="form-group">
+      <label class="col-sm-7">System Notifications :</label>
+      <div class="col-sm-5">
+        <p class="form-control-static notif-icons" *ngIf="responseData?.recievesMaintenanceByEmail">
+          <i class="fa fa-envelope"></i>
+        </p>
+        <p class="form-control-static" *ngIf="responseData?.recievesMaintenanceByPhone">
+          <i class="fa fa-comment"></i>
+        </p>
+      </div>
     </div>
   </div>
 </ng-template>

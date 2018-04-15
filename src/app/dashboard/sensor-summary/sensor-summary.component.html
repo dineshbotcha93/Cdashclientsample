@@ -25,15 +25,24 @@
             <div class="row">
               <div class="col-md-6 ssCard-left">
                 <div class="ssCard-name" contenteditable="true" (input)="selectLocation.Title = $event.target.innerText">{{selectLocation.Title }}</div>
-                <div class="ssCard-id" contenteditable="true" (input)="mapData = $event.target.innerText">
+                <div class="ssCard-id"
+                contenteditable="true"
+                (input)="mapData = $event.target.innerText"
+                *ngIf="mapData?.address !== null && mapData?.city!== null && mapData?.postalCode!==null && mapData?.country!==null">
                   {{mapData?.address}}, {{mapData?.address2}}, {{mapData?.city}}, {{mapData?.postalCode}}, {{mapData?.country}}
+                </div>
+                <div class="ssCard-id"
+                contenteditable="true"
+                (input)="mapData = $event.target.innerText"
+                *ngIf="mapData?.address == null && mapData?.city == null && mapData?.postalCode==null && mapData?.country==null">
+                  No Address
                 </div>
               </div>
               <div class="col-md-6 ssCard-right">
                 <div class="ssCard-small ssCard-count">Gateways
                   <span class="value">{{mapData?.noOfGateways}}</span>
                 </div>
-                <div class="ssCard-small ssCard-count">Sensor
+                <div class="ssCard-small ssCard-count">Sensors
                   <span class="value">{{mapData?.noOfSensors}}</span>
                 </div>
                 <div class="ssCard-small ssCard-button" *ngIf="isAdminUser()">
@@ -73,7 +82,7 @@
                         <option value="temperature">Temperature</option>
                         <option value="humidity">Humidity</option>
                         <option value="contact">Contact</option>
-                        <option value="select" selected>All</option>
+                        <option value="select" selected>All Sensor Profiles </option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -83,7 +92,7 @@
                         <option value="alert">Alert</option>
                         <option value="inactive">Inactive</option>
                         <option value="sleeping">Sleeping</option>
-                        <option value="select" selected>All</option>
+                        <option value="select" selected>All Statuses</option>
                       </select>
                     </div>
                   </form>
@@ -245,7 +254,9 @@
 
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="error" *ngIf="disableSubmitButton"><h5></h5></div>
           <div class="form-group float-right">
+            <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
             <input type="submit" value="Submit" class="btn btn-primary m-l-none" [ngClass]="{'btn-disable':disableSubmitButton}">
           </div>
         </div>
@@ -264,6 +275,7 @@
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group float-right">
+                <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
           <input type="submit" value="Save changes" class="btn btn-primary addBTN" [ngClass]="{'btn-disable':disableSubmitButton}">
             <!--<i class="fa fa-save"></i>-->
           </div>

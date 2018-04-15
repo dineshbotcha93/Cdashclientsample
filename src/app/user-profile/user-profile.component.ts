@@ -99,6 +99,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private loadPage: Boolean = false;
   private isShowUserTable: Boolean = true;
   private labelRenewal: string = null;
+  private isSubscriptionExpired: Boolean = false;
   private expiryDate: Date = null;
   private isNotifBtn: Boolean = false;
   private isNetworkBtn: Boolean = false;
@@ -120,9 +121,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
     dashboardPassword: new FormControl('', [Validators.required,
-      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!@%*#?&^()$])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     confirmPassword: new FormControl('', [Validators.required,
-       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
+       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!@%*#?&^()$])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     isAdmin: new FormControl('')
@@ -259,8 +260,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private updateRenewalLabel() {
     if (this.expiryDate.getTime() > new Date().getTime()) {
       this.labelRenewal = 'Due on';
+      this.isSubscriptionExpired = false;
     } else {
       this.labelRenewal = 'Overdue by';
+      this.isSubscriptionExpired = true;
     }
   }
   addUser() {

@@ -91,9 +91,13 @@ export class UserCreateComponent implements OnInit {
             this.userManagementService.saveRegistrationData(this.populateRegisterExistingUserModel());
             this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
           })
-          .catch((error: Error) => {
+          .catch((error) => {
             this.isValidForm = false;
-            this.userCreationError = error.message;
+            if (error.status === 400) {
+              this.userCreationError = 'Invalid NotifEye Username or Password, please try again.';
+            } else {
+              this.userCreationError = error.message;
+            }
           });
       }
 
