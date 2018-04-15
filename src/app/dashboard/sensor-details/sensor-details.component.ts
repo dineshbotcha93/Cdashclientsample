@@ -42,7 +42,7 @@ export class SensorDetailsComponent {
   ];
   @ViewChild('baseChart') chart: BaseChartDirective;
   @ViewChildren('tabs') tabs: QueryList<any>;
-  bsValue: Date = moment().subtract(6, 'days').toDate();
+  bsValue: Date = moment().subtract(5, 'days').toDate();
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   bsModalRef: BsModalRef;
@@ -152,10 +152,10 @@ export class SensorDetailsComponent {
 
       result.forEach((res) => {
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'));
+        this.chartLabels.push(moment(res.messageDate).format('hh:mm:ss a'));
         this.rows.push({
           displayData: res.displayData,
-          messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
+          messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'),
           signalStrength: res.signalStrength,
           battery: res.battery,
         });
@@ -164,8 +164,8 @@ export class SensorDetailsComponent {
           mode: 'index',
           callbacks: {
             label: function(res2) {
-              console.log('res', res2);
-              console.log('index data', this.rows[res2.index]);
+             // console.log('res', res2);
+             // console.log('index data', this.rows[res2.index]);
               return this.rows[res2.index].displayData;
             }.bind(this)
           }
@@ -192,7 +192,7 @@ export class SensorDetailsComponent {
   }
 
   export(){
-    console.log('clicked');
+   // console.log('clicked');
     const a = new jsPDF();
     const doc = new jsPDF();
     const col = [

@@ -30,9 +30,9 @@ export class SensorDetailsService {
     }
     if (toDate == null) {
       toDate = moment().add(5, 'days').format('MM/DD/YYYY');
-    } else {
+    } /*else {
       toDate = moment().add(1, 'days').format('MM/DD/YYYY');
-    }
+    }*/
 
     return this.requesterService
     .getExternalRequest('/api/Sensor/DataMessages?SensorID=' + location + '&FromDate=' + fromDate + '&ToDate=' + toDate);
