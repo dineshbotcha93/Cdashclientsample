@@ -126,9 +126,17 @@ export class SensorDetailsComponent {
     }
   }
 
-  onDateChange(event) {
-    const fromDate = moment(this.bsValue).format('MM/DD/YYYY');
-    const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
+  onDateChange(event, target) {
+
+    let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+    let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
+
+    if (target === 'fromDate') {
+      fromDate = moment(event).format('MM/DD/YYYY');
+    } else {
+      toDate = moment(event).format('MM/DD/YYYY');
+    }
+
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;
       this.rows = [];
@@ -164,8 +172,6 @@ export class SensorDetailsComponent {
           mode: 'index',
           callbacks: {
             label: function(res2) {
-             // console.log('res', res2);
-             // console.log('index data', this.rows[res2.index]);
               return this.rows[res2.index].displayData;
             }.bind(this)
           }
@@ -176,9 +182,10 @@ export class SensorDetailsComponent {
           intersect: true
         };
       });
-
-      /*console.log('chart', window.Chart);*/
     }).then((e) => {
+      window.setTimeout(function(){
+        this.reset('zoom');
+      }.bind(this), 1000);
       this.cd.detectChanges();
     }).catch((e) => {
       this.alertSandbox.showAlert({data: 'No Content'});
@@ -191,8 +198,7 @@ export class SensorDetailsComponent {
     }
   }
 
-  export(){
-   // console.log('clicked');
+  export() {
     const a = new jsPDF();
     const doc = new jsPDF();
     const col = [
@@ -214,22 +220,18 @@ export class SensorDetailsComponent {
     },
   ];
     const rows = [];
-    console.log(doc);
     const item = this.rows;
-    console.log(item);
 
-    for (var key in item) {
+    for(const key in item) {
       const temp = [key, item[key]];
       rows.push(temp);
-    };
-    console.log(rows);
+    }
     doc.autoTable(col, this.rows);
     doc.save('SensorDetails.pdf');
   }
 
 
   onChartClick(event) {
-    console.log(event);
   }
 
   goBack() {
