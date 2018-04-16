@@ -181,19 +181,35 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   /*Get sensor data from service by selecting the network Id*/
   private getNetworkData() {
     this.allSensors = [];
-    //this.mapData = null;
+    // this.mapData = null;
+
+    // This first call is needed to make the first call before the interval kicks in
     this.sensorSummaryService
       .getSingleUserLocation(this.netWorkId)
       .then(result => {
         this.mapData = result;
         this.getSensorData(result.sensors);
-        this.getGatewayData(result.gateways, "");
-        if (this.mapData["noOfSensors"] > 0) {
+        this.getGatewayData(result.gateways, '');
+        if (this.mapData['noOfSensors'] > 0) {
           this.onSelectSensorRadio();
         } else {
         }
       });
-    //this.mapData = e;
+
+    window.setInterval(() => {
+      this.sensorSummaryService
+        .getSingleUserLocation(this.netWorkId)
+        .then(result => {
+          this.mapData = result;
+          this.getSensorData(result.sensors);
+          this.getGatewayData(result.gateways, '');
+          if (this.mapData['noOfSensors'] > 0) {
+            this.onSelectSensorRadio();
+          } else {
+          }
+        });
+    }, 60000);
+    // this.mapData = e;
   }
 
   /*Get the gateway data from the Backend*/
