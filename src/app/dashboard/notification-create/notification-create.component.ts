@@ -1307,6 +1307,10 @@ export class NotificationCreateComponent implements OnInit {
     console.log(this.advancedParameterObject);
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {
+        // debugger;
+        // if(obj.parameterSelectedObject !== undefined ){
+        //   this.isValidForm = false;
+        // }
         let tempvalue = obj.parameterValue
           ? obj.parameterValue
           : obj.parameterSelectedObject.id;
@@ -1364,7 +1368,6 @@ export class NotificationCreateComponent implements OnInit {
     });
 
     let gatewayObject = [];
-    debugger;
     this.gatewayListNamesList.forEach(globalgateway => {
       this.notificationModel.gatewayList.forEach(selectgateway => {
         if (globalgateway.name === selectgateway) {
