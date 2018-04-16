@@ -1395,20 +1395,20 @@ export class NotificationCreateComponent implements OnInit {
       advancedNotification: this.notificationModel.advancedNotification
     };
 
-    // if (this.notifyOperationType === "addNotify") {
-    //   this.sensorSummaryService
-    //     .createNotificationDetails(requestObject)
-    //     .then(result => {
-    //       //Emit true if 1
-    //       this.createMessageEvent.emit(true);
-    //     });
-    // } else if (this.notifyOperationType === "editNotify") {
-    //   this.sensorSummaryService
-    //     .UpdateNotificationDetails(requestObject)
-    //     .then(result => {
-    //       //Emit true if 1
-    //       this.createMessageEvent.emit(true);
-    //     });
-    // }
+    if (this.notifyOperationType === "addNotify") {
+      this.sensorSummaryService
+        .createNotificationDetails(requestObject)
+        .then(result => {
+          //Emit true if 1
+          this.createMessageEvent.emit(true);
+        });
+    } else if (this.notifyOperationType === "editNotify") {
+      this.sensorSummaryService
+        .UpdateNotificationDetails(requestObject)
+        .then(result => {
+          //Emit true if 1
+          this.createMessageEvent.emit(true);
+        });
+    }
   }
 }
