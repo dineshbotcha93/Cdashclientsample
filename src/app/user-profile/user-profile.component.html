@@ -94,7 +94,7 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Users" class="tab-content light-theme light-theme-padding-zero">
+      <tab tabTitle="Users" class="tab-content light-theme light-theme-padding-zero" [isShow]="isAdmin">
         <div class="row x_content">
           <div class="col-sm-12 sensors-info-container">
             <div *ngIf="isShowUserTable && isAdmin" class="pull-right col-sm-2">
@@ -130,7 +130,7 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Payment History" class="tab-content light-theme light-theme-padding-zero" (click)="getPaymentHistory()">
+      <tab tabTitle="Payment History" class="tab-content light-theme light-theme-padding-zero" (click)="getPaymentHistory()" [isShow]="isAdmin">
         <div class="row">
           <div class="col-md-12 sensors-info-container">
             <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">
