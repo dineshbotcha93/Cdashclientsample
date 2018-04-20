@@ -34,32 +34,29 @@
             <a href="tel:{{accountData?.smsNumber}}"> {{accountData?.smsNumber}}</a>
           </div>
         </div>
-        <div class="col-md-6 network-card">
-          <div class="col-sm-12 network-card-top">
-            <div class="col-sm-4 customer-status">Subscription
-              <span *ngIf="!isSubscriptionExpired"> {{accountData?.subscriptionType}}</span>
-              <span *ngIf="isSubscriptionExpired" [ngClass]="{'renewalColor': isSubscriptionExpired}"> Expired</span>
-            </div>
-            <div class="col-sm-5 customer-amount" >{{labelRenewal}}
-              <span [ngClass]="{'renewalColor': isSubscriptionExpired}"> 
-                {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
-            </div>
-            <div class="col-sm-3" *ngIf="isAdmin">
-              <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
-                <i class="fa fa-edit"></i>Edit Account</button>
-            </div>
+
+        <div class="col-md-6 infoCard-container">
+          <div class="card-small">Subscription
+            <span *ngIf="!isSubscriptionExpired" class="value">{{accountData?.subscriptionType}}</span>
+            <span *ngIf="isSubscriptionExpired" class="value" [ngClass]="{'renewalColor': isSubscriptionExpired}"> Expired</span>
           </div>
-          <div class="col-sm-12 network-card-bottom">
-            <div class="col-sm-4 gateway-count">Gateways
-              <span>{{accountData?.numGateways}}</span>
-            </div>
-            <div class="col-sm-4 sensor-count">Sensors
-              <span>{{accountData?.numSensors}}</span>
-            </div>
-            <div class="col-sm-4 renewal-pos">
-              <a class="btn btn-primary addBTN btn-renew-contract" role="button" [class.btn-disabled]="accountData.numSensors == 0"
-              [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'">Renew Contract</a>
-            </div>
+          <div class="card-small">{{labelRenewal}}
+            <span class="value" [ngClass]="{'renewalColor': isSubscriptionExpired}">
+                {{accountData?.subscriptionExpiry | date:'MM-dd-yyyy'}}</span>
+          </div>
+
+          <div class="card-small">Gateways
+            <span class="value">{{accountData?.numGateways}}</span>
+          </div>
+          <div class="card-small">Sensors
+            <span class="value">{{accountData?.numSensors}}</span>
+          </div>
+
+          <div class="card-small card-button" *ngIf="isAdmin">
+            <button type="button" (click) = "populateAccountEditModal()" class="btn btn-primary addBTN" data-toggle="modal" data-target="#editAccountModal">
+              <i class="fa fa-edit"></i>Edit Account</button>
+            <a class="btn btn-primary addBTN btn-renew-contract" role="button" [class.btn-disabled]="accountData.numSensors == 0"
+               [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'">Renew Contract</a>
           </div>
         </div>
       </div>
@@ -97,44 +94,44 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Users" class="tab-content light-theme" [isShow]="isAdmin">
+      <tab tabTitle="Users" class="tab-content light-theme light-theme-padding-zero" [isShow]="isAdmin">
         <div class="row x_content">
           <div class="col-sm-12 sensors-info-container">
             <div *ngIf="isShowUserTable && isAdmin" class="pull-right col-sm-2">
               <button class="btn btn-primary addBTN float-right" type="button" (click)="addUser()">
                 <i class="fa fa-plus"></i>Add User</button>
             </div>
-            <div class="col-sm-12">
-              <app-datatable #userTable [rows]="userRows" [columns]="userColumns" [limit]="limit" *ngIf="isShowUserTable">
-              </app-datatable>
-                <ng-template #notificationColTmpl let-row="row" let-value="value">
-                <div>Email:
-                  <a href="mailto:{{row.emailAddress}}">{{row.emailAddress}}</a>
-                </div>
-                <div>SMS:
-                  <a href="tel:{{row.smsNumber}}">{{row.smsNumber}}</a>
-                </div>
-              </ng-template>
-              <ng-template #isAdminColTmpl let-row="row" let-value="value">
-                <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
-              </ng-template>
-              <ng-template #actionsColTmpl let-row="row">
-                <button class="btn btn-xs btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
-                  <i class="fa fa-edit"></i>Edit
-                </button>
-                <button class="btn btn-xs btn-primary removeBTN" type="button" (click)="deleteUser(row.userID)">
-                  <i class="fa fa-trash"></i>Remove
-                </button>
-              </ng-template>
-              <div class="col-sm-12">
-                <ng-container *ngTemplateOutlet="userParentSectionTmpl"></ng-container>
+          </div>
+          <div class="col-sm-12 sensors-info-container">
+            <app-datatable #userTable [rows]="userRows" [columns]="userColumns" [limit]="limit" *ngIf="isShowUserTable">
+            </app-datatable>
+            <ng-template #notificationColTmpl let-row="row" let-value="value">
+              <div>Email:
+                <a href="mailto:{{row.emailAddress}}">{{row.emailAddress}}</a>
               </div>
+              <div>SMS:
+                <a href="tel:{{row.smsNumber}}">{{row.smsNumber}}</a>
+              </div>
+            </ng-template>
+            <ng-template #isAdminColTmpl let-row="row" let-value="value">
+              <input type="checkbox" name="isAdmin" value="value" [attr.checked]="value ? 'checked' : null" disabled>
+            </ng-template>
+            <ng-template #actionsColTmpl let-row="row">
+              <button class="btn btn-xs btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
+                <i class="fa fa-edit"></i>Edit
+              </button>
+              <button class="btn btn-xs btn-primary removeBTN" type="button" (click)="deleteUser(row.userID)">
+                <i class="fa fa-trash"></i>Remove
+              </button>
+            </ng-template>
+            <div class="col-sm-12">
+              <ng-container *ngTemplateOutlet="userParentSectionTmpl"></ng-container>
             </div>
           </div>
         </div>
       </tab>
-      <tab tabTitle="Payment History" class="tab-content light-theme" (click)="getPaymentHistory()" [isShow]="isAdmin">
-        <div class="row x_content">
+      <tab tabTitle="Payment History" class="tab-content light-theme light-theme-padding-zero" (click)="getPaymentHistory()" [isShow]="isAdmin">
+        <div class="row">
           <div class="col-md-12 sensors-info-container">
             <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit">
             </app-datatable>
@@ -157,11 +154,11 @@
           </div>
         </div>
       </tab>
-      <tab tabTitle="Notifications" class="tab-content light-theme">
+      <tab tabTitle="Notifications" class="tab-content light-theme light-theme-padding-zero">
         <div class="row x_content">
           <div class="col-md-12 sensors-info-container" *ngIf="accountData">
            <app-user-notifications
-              [accountData]="accountData">
+             [accountData]="accountData">
            </app-user-notifications>
           </div>
         </div>
@@ -174,14 +171,16 @@
 
 <!-- All User Sections -->
 <ng-template #userParentSectionTmpl>
-  <div class="form-horizontal" *ngIf="!isShowUserTable">
-    <div class="row" style="margin-bottom:10px">
-      <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">User Information</button>
-      <!-- <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button> -->
-      <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Locations</button>
+  <div class="form-horizontal userParent-container" *ngIf="!isShowUserTable">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary" [attr.section]="'user-content'" type="button" (click)="toggleContent($event)">User Information</button>
+        <!-- <button class="btn btn-primary" [attr.section]="'notif-content'" type="button" [disabled]="!isNotifBtn" (click)="toggleContent($event)">Notification Details</button> -->
+        <button class="btn btn-primary" [attr.section]="'network-content'" type="button" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Locations</button>
+      </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-md-12 col-sm-12">
         <div class="collapse.show" [ngbCollapse]="isUserContentCollapsed">
           <div class="card card-body">
             <ng-container *ngTemplateOutlet="addEditUserSectionTmpl"></ng-container>
@@ -189,14 +188,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col">
-        <div class="collapse" [ngbCollapse]="isNotifContentCollapsed">
-          <div class="card card-body">
-            <ng-container *ngTemplateOutlet="notificationSectionTmpl"></ng-container>
-          </div>
-        </div>
-      </div> -->
-      <div class="col">
+      <div class="col-md-12 col-sm-12">
         <div class="collapse" [ngbCollapse]="isNetworkContentCollapsed">
           <div class="card card-body myNetwork-temp">
             <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
@@ -208,7 +200,7 @@
 </ng-template>
 
 <ng-template #addEditUserSectionTmpl>
-  <div class="form-horizontal" [formGroup]="userForm">
+  <div class="form-horizontal userFormGroup-container" [formGroup]="userForm">
     <div class="col-sm-12" style="margin-bottom: -5px;">
       <div class="col-sm-6">
         <div class="form-group required">
@@ -434,26 +426,27 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template #editAccountFormTmpl>
-    <form [formGroup]="editAccountForm" class="form-horizontal form-label-left">
+  <form [formGroup]="editAccountForm" class="form-horizontal form-label-left">
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="form-group">
         <label for="companyName" class=" lbl-account control-label col-md-3 col-sm-3 col-xs-12">Account Number</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-        <input type="text" formControlName="accountID" class="form-control" disabled>
-      </div>
+          <input type="text" formControlName="accountID" class="form-control" disabled>
+        </div>
       </div>
       <div class="form-group">
         <label for="companyName" class="control-label col-md-3 col-sm-3 col-xs-12">Company Name</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-        <input type="text" formControlName="companyName" class="form-control">
-      </div>
+          <input type="text" formControlName="companyName" class="form-control">
+        </div>
       </div>
       <div class="form-group" style="display:none">
         <label for="companyName" class="control-label col-md-3 col-sm-3 col-xs-12">resellerID</label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-        <input type="text" formControlName="resellerID" class="form-control">
-      </div>
+          <input type="text" formControlName="resellerID" class="form-control">
+        </div>
       </div>
       <div class="form-group">
         <label for="timeZone" class="control-label col-md-3 col-sm-3 col-xs-12">Time Zone</label>
@@ -465,7 +458,8 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12">
-      <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="enableSubmit($event)"></address-form-component>
+      <address-form-component (formReady)="addFormControl('address', $event)"
+                              (validAddress)="enableSubmit($event)"></address-form-component>
     </div>
   </form>
 </ng-template>
@@ -511,6 +505,7 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template #numberFormatTmpl>
   <small class="form-text text-muted">
     <p>
@@ -527,11 +522,12 @@
     </p>
   </small>
 </ng-template>
+
 <ng-template #tooltipTempate>
-    <ul>
-        <li>'Password' must be at least 8 characters long.</li>
-        <li>Password should contain at least one special character out of !@#$%^&*()</li>
-        <li>Password should contain At least one alphabet.</li>
-        <li>Password should contain At least one numeric value.</li>
-      </ul>
+  <ul>
+    <li>'Password' must be at least 8 characters long.</li>
+    <li>Password should contain at least one special character out of !@#$%^&*()</li>
+    <li>Password should contain At least one alphabet.</li>
+    <li>Password should contain At least one numeric value.</li>
+  </ul>
 </ng-template>
