@@ -3,7 +3,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <h3>{{sensorDetailsData?.sensorName}}</h3>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-6 col-xs-6">
       {{'global.from'|translate}}
       <div class="input-group">
         <input type="text"
@@ -11,7 +11,7 @@
                [minDate]="minDate"
                [maxDate]="maxDate"
                #dp="bsDatepicker"
-               (bsValueChange)="onDateChange($event)"
+               (bsValueChange)="onDateChange($event, 'fromDate')"
                bsDatepicker [(bsValue)]="bsValue">
         <span class="input-group-addon" (click)="dp.show() ">
             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-6 col-xs-6">
       {{'global.to'|translate}}
       <div class="input-group">
         <input type="text"
@@ -27,14 +27,15 @@
                [minDate]="minDate"
                [maxDate]="maxDate"
                #dp1="bsDatepicker"
-               (bsValueChange)="onDateChange($event)"
+               (bsValueChange)="onDateChange($event, 'toDate')"
                bsDatepicker [(bsValue)]="bsValueTwo">
         <span class="input-group-addon" (click)="dp1.show() ">
             <i class="fa fa-calendar" aria-hidden="true"></i>
           </span>
       </div>
     </div>
-    <div class="col-md-12">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <button class="btn btn-primary" (click)="goBack()"><i class="fa fa-chevron-left"></i> Back</button>
       <button class="btn btn-primary" (click)="reset('zoom')">Reset zoom</button>
     </div>
@@ -45,13 +46,13 @@
       <div class="gauge-container" *ngIf="sensorDetailsData?.sensorID">
         <app-gauge
           [type]="'arch'"
-          [value]="sensorDetailsData?.currentReading|stringToNumber:'digitsOnly'"
+          [value]="sensorDetailsData?.readingValue"
           [title]=""
-          [gaugeAppendText]="sensorDetailsData?.corF ? sensorDetailsData?.corF : ' '"
+          [gaugeAppendText]="sensorDetailsData?.readingUnit ? sensorDetailsData?.readingUnit : ' '"
         >
         </app-gauge>
         <p class="gauge-data">
-          {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate|date:'dd/mm/yyyy'}}</span>
+          {{'sensorDetails.lastCheckin'|translate}}: <span class="value">{{sensorDetailsData?.lastCommunicationDate}}</span>
         </p>
         <p class="gauge-data">
           {{'sensorDetails.networkName'|translate}}: <span class="value">{{sensorDetailsData?.networkName ? sensorDetailsData?.networkName : 'N/A'}}</span>

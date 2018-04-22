@@ -19,7 +19,7 @@ export const ChartOptions = {
 
     // Panning directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow panning in the y direction
-    mode: 'xy'
+    mode: 'x'
   },
 
   // Container for zoom options
@@ -29,7 +29,7 @@ export const ChartOptions = {
 
     // Zooming directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow zooming in the y direction
-    mode: 'xy'
+    mode: 'x'
   },
   // title: {
   //   display: true,
@@ -45,46 +45,46 @@ export const ChartOptions = {
     onClick: (e) => e.stopPropagation()
   },
   scales: {
-    ticks: {
-      beginAtZero: true,
-      min: 0,
-      userCallback: function(label, index, labels) {
-        // when the floored value is the same as the value we have a whole number
-        if (Math.floor(label) === label) {
-          return label;
-        }
-      },
-    },
-    xAxes: [{
-      ticks: {
-        fontColor: 'rgba(255, 255, 255, 1)',
-      },
-    }],
     yAxes: [{
       ticks: {
-        fontColor: 'rgba(255, 255, 255, 1)',
+        beginAtZero:true,
+        min: 0,
+        userCallback: function(label, index, labels) {
+          // when the floored value is the same as the value we have a whole number
+          if (Math.floor(label) === label) {
+            return label;
+          }
+        },
+        fontColor: 'white'
+      },
+    }],
+    xAxes: [{
+      ticks: {
+        beginAtZero:true,
+        fontColor: 'white'
       },
     }],
   },
   annotation: {
     drawTime: 'afterDatasetsDraw',
     annotations: [{
-      id: 'hline1',
+      id: 'maxThreshold',
       type: 'line',
       mode: 'horizontal',
       scaleID: 'y-axis-0',
-      value: 0,
       borderColor: 'red',
+      value: 0,
       borderWidth: 2
     }, {
-      id: 'hline3',
+      id: 'minThreshold',
       type: 'line',
       mode: 'horizontal',
       scaleID: 'y-axis-0',
-      value: 0,
       borderColor: 'blue',
+      value: 0,
       borderWidth: 2,
-    }]
+    }
+    ]
   },
 };
 

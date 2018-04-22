@@ -45,20 +45,14 @@ export class ModalContentComponent implements OnInit {
   }
   close(){
     this.bsModalRef.hide();
-    // hacky way of eliminating the backdrop and restoring state - its a bug on ngx-bootstrap
-    document.body.removeChild(document.getElementsByTagName('modal-container')[0]);
-    if(document.getElementsByTagName('bs-modal-backdrop')[0]){
-      document.body.removeChild(document.getElementsByTagName('bs-modal-backdrop')[0]);
-    }
   }
   save(){
-    console.log('not implemented yet');
     const requestData = {
       sensorID:this['detailId'],
       note: this.commentsBox
     }
     this.sensorDetailsService.saveComments(requestData).then((e)=>{
-      console.log(e);
+      this.close();
     })
   }
   ngOnInit() {

@@ -24,7 +24,7 @@ const now = new Date();
 })
 
 export class SensorComparisonComponent{
-  private sensorName:string = '1156073157';
+  private sensorName:String = '';
   private sensorNames:Array<Object> = [];
   private data:Array<any>=[];
   public chartLabels:Array<any>=[];
@@ -40,7 +40,7 @@ export class SensorComparisonComponent{
   minDate = new Date(2017, 5, 10);
   maxDate = new Date(2018, 9, 15);
 
-  bsValue: Date = moment().subtract(7,'days').toDate();
+  bsValue: Date = moment().subtract(6,'days').toDate();
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
@@ -87,6 +87,7 @@ export class SensorComparisonComponent{
         return allSensorIds;
       }).then((allSensorIds)=>{
         Promise.all(allSensorIds).then((result:Array<SensorDetail>)=>{
+          allNames.push({label:'--Select Sensor --',value:''});
           result.forEach((res:SensorDetail)=>{
             allNames.push({label:res.sensorName,value:res.sensorID});
           });
@@ -124,7 +125,13 @@ export class SensorComparisonComponent{
             return sens;
           }
         });
-        this.chartData.push({data:tempData,label:selectedSensor[0]['label'],fill:false});
+        const borderColor = ["#3e95cd","#8e5ea2","#3cba9f","#e8c3b9"]
+        this.chartData.push({
+          data:tempData,
+          label:selectedSensor[0]['label'],
+          fill:false,
+          borderColor: borderColor[this.location],
+        });
         if(this.chart){
           this.chart.ngOnDestroy();
           this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);

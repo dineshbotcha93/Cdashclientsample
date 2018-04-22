@@ -8,6 +8,8 @@ import * as store             from '../../shared/store';
 import * as authActions       from '../../shared/store/actions/auth.action';
 import * as toasterActions    from '../../shared/store/actions/toaster.action';
 import * as moment from 'moment/moment';
+import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
+
 
 @Injectable()
 export class LoginSandbox extends Sandbox {
@@ -17,7 +19,8 @@ export class LoginSandbox extends Sandbox {
     protected appState$: Store<store.State>,
     protected router: Router,
     private commonSharedService: CommonSharedService,
-    private requesterService: RequesterService
+    private requesterService: RequesterService,
+    private alertSandbox: AlertSandbox
   ){
     super(appState$);
   }
@@ -37,43 +40,46 @@ export class LoginSandbox extends Sandbox {
     this.requesterService
     .postExternalRequest('/api/Token',body)
     .then((e)=>{
-      localStorage.setItem('com.cdashboard.token', e);
-      this.requesterService.getExternalRequest('/api/User/Info').then((res)=>{
-
-    
-
-        //set global Object
-
-          localStorage.setItem('com.cdashboard.userInfoObject', JSON.stringify(res));
+      if(e!==""){
+        localStorage.setItem('com.cdashboard.token', e);
+        this.requesterService.getExternalRequest('/api/User/Info').then((res)=>{
 
 
-        if(res.userName=="Admin"){
-          this.router.navigate(['business']);
-        } else {
-          const isPrimaryContact = (res.userName === res.account[0].userName);
-          const expiryDate = moment(res.account[0].subscriptionExpiry);
-          const todaysDate = moment();
-          let dateDifference = expiryDate.diff(todaysDate,'days');
-          if(dateDifference >= 30){
-            //this.toasterSandbox$.dispatch(new toasterActions.SuccessAction('test'));
-            this.router.navigate(['dashboard']);
-          } else if(dateDifference > 0 && dateDifference < 30) {
-            if(isPrimaryContact){
-              this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription will expire in ${dateDifference} days, click here to Renew`))
-            } else {
-              this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription will expire in ${dateDifference} days, contact Account Administrators to Renew it now.`));
+
+          //set global Object
+            localStorage.setItem('com.cdashboard.userInfoObject', JSON.stringify(res));
+
+
+          if(res.userName=="Admin"){
+            this.router.navigate(['business']);
+          } else {
+            const isPrimaryContact = (res.userName === res.account[0].userName);
+            const expiryDate = moment(res.account[0].subscriptionExpiry);
+            const todaysDate = moment();
+            let dateDifference = expiryDate.diff(todaysDate,'days');
+            if(dateDifference >= 30){
+              //this.toasterSandbox$.dispatch(new toasterActions.SuccessAction('test'));
+              this.router.navigate(['dashboard']);
+            } else if(dateDifference > 0 && dateDifference < 30) {
+              if(isPrimaryContact){
+                this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription will expire in ${dateDifference} days, click here to Renew`))
+              } else {
+                this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription will expire in ${dateDifference} days, contact Account Administrators to Renew it now.`));
+              }
+              this.router.navigate(['dashboard']);
+            } else if(dateDifference < 0) {
+              if(isPrimaryContact){
+                this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription is expired on ${expiryDate.format('DD/MM/YYYY')}, click here to Renew`))
+              } else {
+                this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription is expired on ${expiryDate.format('DD/MM/YYYY')}, contact Account Administrators to Renew it now.`));
+              }
+              this.router.navigate(['user-profile']);
             }
-            this.router.navigate(['dashboard']);
-          } else if(dateDifference < 0) {
-            if(isPrimaryContact){
-              this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription is expired on ${expiryDate.format('DD/MM/YYYY')}, click here to Renew`))
-            } else {
-              this.toasterSandbox$.dispatch(new toasterActions.AlertAction(`Your subscription is expired on ${expiryDate.format('DD/MM/YYYY')}, contact Account Administrators to Renew it now.`));
-            }
-            this.router.navigate(['user-profile']);
           }
-        }
-      });
+        });
+      } else {
+        this.alertSandbox.showAlert({data: "Invalid User name or password, please try again."});
+      }
     });
   }
 }

@@ -8,7 +8,7 @@ import {
   Validators
 } from "@angular/forms";
 import { NgbTooltipConfig } from "@ng-bootstrap/ng-bootstrap";
-
+import {ERROR_KEYS} from '../../shared/constants/error.constants';
 @Component({
   selector: "app-create-device",
   templateUrl: "./create-device.component.html",
@@ -91,7 +91,7 @@ export class CreateDeviceComponent implements OnInit {
         this.deviceCreateForm = this.formBuilder.group({
           id: [this.deviceModel.id, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
           name: [this.deviceModel.name, [Validators.required]],
-          code: [this.deviceModel.code, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+          code: [this.deviceModel.code, [Validators.required,Validators.minLength(1),Validators.maxLength(10)]],
           heartBeat: [this.deviceModel.heartBeat, [Validators.required]],
           minThreshold: [this.deviceModel.minThreshold, [Validators.required]],
           maxThreshold: [this.deviceModel.maxThreshold, [Validators.required]],
@@ -102,7 +102,7 @@ export class CreateDeviceComponent implements OnInit {
           gatewayTypeID: [this.deviceModel.gatewayTypeID, [Validators.required]],
           networkID: [this.deviceModel.networkID, [Validators.required]],
           serialNumber: [this.deviceModel.serialNumber, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
-          macAddress: [this.deviceModel.macAddress, [Validators.required,Validators.pattern(/^([0-9]{2,2})+\:([0-9]{2,2})+\:([0-9]{2,2})+\:([0-9]{2,2})+$/)]]
+          macAddress: [this.deviceModel.macAddress, [Validators.required,Validators.pattern(/^([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+\:([0-9A-F]{2,2})+$/)]]
         });
     }
   }
@@ -144,7 +144,7 @@ export class CreateDeviceComponent implements OnInit {
             this.messageEvent.emit(true);
           }).catch(e=>{
           this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while creating sensor. Please try after sometime ";
+          this.deviceCreationError = ERROR_KEYS[e.StatusCode.toString()]?ERROR_KEYS[e.StatusCode.toString()]:"Server error occured while creating sensor. Please try after sometime ";
         });
         }
       } else {
@@ -170,7 +170,7 @@ export class CreateDeviceComponent implements OnInit {
           this.messageEvent.emit(true);
         }).catch(e=>{
           this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while creating gateway. Please try after sometime ";
+          this.deviceCreationError = ERROR_KEYS[e.StatusCode.toString()]?ERROR_KEYS[e.StatusCode.toString()]:"Server error occured while creating sensor. Please try after sometime ";
         });
       } else {
         return false;

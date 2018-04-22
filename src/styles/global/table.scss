@@ -133,7 +133,7 @@
 .editNetworkSetup-dataTable {
   .ngx-datatable {
     .datatable-body-row {
-      color: $color-white;
+      color: black;
     }
 
     .datatable-header-cell {
@@ -156,6 +156,7 @@
 
       span {
         padding-left: 10px;
+        color:black;
       }
 
       &.editNetworkSetup-button {

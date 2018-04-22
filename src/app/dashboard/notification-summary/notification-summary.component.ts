@@ -3,6 +3,7 @@ import { SensorSummaryService } from '../sensor-summary/services/sensor-summary.
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgSwitch } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-notification-summary',
@@ -18,9 +19,10 @@ export class NotificationSummaryComponent implements OnInit {
   accountID:string;
 
   isEditNotify : boolean = false;
+  deviceCreationError: string | null = null;
 
   @Input() sensorList: Array<any>;
-   @Input() accountData: any;
+  @Input() accountData: any;
 
   @Output() editNotifyModeEvent = new EventEmitter<any>();
 
@@ -28,69 +30,24 @@ export class NotificationSummaryComponent implements OnInit {
   ngOnInit() {
   
      this.getNotificationDetails();
+     this.deviceCreationError = "Notitfications to be loaded";
    
   }
 
    getNotificationDetails(){
 
         let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
-    console.log(userInfoObject);
-    userInfoObject['account'].forEach(loc => {
-       console.log('loc', loc);
-       this.accountID = loc.accountID;
-     });
+          userInfoObject['account'].forEach(loc => {
+         this.accountID = loc.accountID;
+       });
 
-     let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
+     // let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
 
-     console.log('sensorList-------',this.sensorList);
-     // let result = this.sensorList;
-     //  let object = [  
-     //    {  
-     //       "notification":{  
-     //          "notificationID":1569,
-     //          "name":"Temp out of Range - delete",
-     //          "text":"Temp out of range",
-     //          "notificationClass":"Advanced",
-     //          "active":false,
-     //          "lastDateSent":"2018-01-10T18:45:14",
-     //          "threshold":0,
-     //          "comparer":"",
-     //          "snooze":60.0,
-     //          "advancedNotificationID":11,
-     //          "advanceNotificationName":"Advanced Temperature Range",
-     //          "advancedNotificationType":null
-     //       },
-     //       "devices":[  
-     //          {  
-     //             "deviceID":1153235073,
-     //             "deviceName":"test sensor",
-     //             "deviceType":"Commercial",
-     //             "deviceCategory":"Sensor"
-     //          }
-     //       ],
-     //       "users":[  
-     //          {  
-     //             "userID":3,
-     //             "userName":"Bill LastName",
-     //             "smsNumber":"555-555-1234",
-     //             "email":"Reclamationbin@gmail.com",
-     //             "notifyThroughEmail":false,
-     //             "notifyThroughPhone":false
-     //          },
-     //          {  
-     //             "userID":8,
-     //             "userName":"Harry LastName",
-     //             "smsNumber":"555-555-1234",
-     //             "email":"Reclamationbin@gmail.com",
-     //             "notifyThroughEmail":false,
-     //             "notifyThroughPhone":false
-     //          }
-     //       ]
-     //    }
-     // ];
-     // result = object;
-      // result = [];
-     if(result.length > 0){
+
+       let result = this.sensorList;
+       console.log('sensorList-------',this.sensorList);
+     
+     if(this.sensorList.length > 0){
           result.forEach((notify) => {
           let checkModelNotify = { active: false, inActive: true };
           if (notify.notification.active) {
@@ -101,7 +58,7 @@ export class NotificationSummaryComponent implements OnInit {
         });
      }
      
-     });
+     // });
   }
 
   onClickNotifyOn(e, notify) {

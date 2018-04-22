@@ -20,30 +20,30 @@
               <select name="filter_by_status" class="form-control"
                       [(ngModel)]="doFilterByStatus"
                       (ngModelChange)="filterByStatus()">
-                <option value="all">All</option>
+                <option value="All">All</option>
                 <option value="Alerts" [selected]="doFilterByStatus =='Alerts'">Alerts</option>
                 <option value="LowBattery" [selected]="doFilterByStatus =='LowBattery'">Low Battery</option>
                 <option value="Offline" [selected]="doFilterByStatus =='Offline'">Offline</option>
                 <option value="Advanced" [selected]="doFilterByStatus =='Advanced'">Advanced</option>
               </select>
             </div>
-            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+            <!-- <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback"> -->
 
-              <div class="input-group date">
+              <!-- <div class="input-group date">
                 <input type="text"
                        class="form-control"
                        [minDate]="minDate"
                        [maxDate]="maxDate"
                        #dp="bsDatepicker"
                        (ngModelChange)="onChange($event)"
-                       bsDatepicker [(ngModel)]="bsValue"/>
+                       bsDatepicker [(ngModel)]="fromDate"/>
                 <span class="input-group-addon" (click)="dp.toggle()"><i class="fa fa-calendar"></i></span>
-              </div>
+              </div> -->
 
 
 
-            </div>
-            <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
+            <!-- </div> -->
+            <!-- <div class="col-md-4 col-sm-12 col-xs-12 form-group has-feedback">
               <div class="input-group date">
                 <input type="text"
                        class="form-control"
@@ -51,10 +51,10 @@
                        [maxDate]="maxDate"
                        #dp1="bsDatepicker"
                        (ngModelChange)="onChangeToDp($event)"
-                       bsDatepicker [(ngModel)]="bsValueTwo"/>
+                       bsDatepicker [(ngModel)]="toDate"/>
                 <span class="input-group-addon" (click)="dp1.toggle()"><i class="fa fa-calendar"></i></span>
               </div>
-            </div>
+            </div> -->
 
          <!-- </form>-->
 
@@ -62,9 +62,14 @@
       </div>
 
       <div>
-        <div class="loader" *ngIf="rows.length == 0"></div>
+        <div class="loader" *ngIf="!rows"></div>
+        <div *ngIf="rows && rows.length == 0" class="col-md-8 col-sm-12 col-md-offset-2" style="padding-top: 30px;">
+          <span class="alert alert-danger font-white custom-alert" role="alert">
+            Unfortunately, There are no notifications at this point of time.
+          </span>
+        </div>
         <app-datatable #dataTable
-                       *ngIf="rows.length > 0"
+                       *ngIf="rows && rows.length > 0"
                        [rows]="rows"
                        [columns]="columns"
                        [limit]="limit">
@@ -74,6 +79,10 @@
         </ng-template>
         <ng-template #sTypeColTmpl let-row="row" let-value="value">
           <a class="anchor-datatable" (click)="showNotification(row)" >{{value}}</a>
+        </ng-template>
+        <ng-template #deviceNameColTmpl let-row="row" let-value="value">
+            <a *ngIf = "row.deviceCategory === 'Sensor'" class="anchor-datatable" [routerLink]="['/dashboard/sensor-details/', row.deviceID]" routerLinkActive="active">{{value}}</a>
+            <span *ngIf = "row.deviceCategory !== 'Sensor'">{{value}}</span>
         </ng-template>
 
       </div>

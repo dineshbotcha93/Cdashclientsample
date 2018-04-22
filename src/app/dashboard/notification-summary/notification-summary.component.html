@@ -1,59 +1,53 @@
+
 <div *ngIf="notificationSummaryList?.length > 0">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th class="col-md-3">Status</th>
-        <th class="col-md-3">Notification</th>
-        <th class="col-md-2">Last Sent</th>
-        <th class="col-md-1">Text</th>
-        <th class="col-md-1">Devices</th>
-        <th class="col-md-1">Users</th>
-        <th class="col-md-2">Edit/Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let notifiy of notificationSummaryList">
-        <td>
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="btn-group">
-              <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
-              </label>
-              <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
-              </label>
-            </div>
+  <table class="table">
+      <thead>
+        <tr>
+         <div class="row">
+            <div class="col-sm-2">Status</div>
+            <div class="col-sm-3">Notification</div>
+            <div class="col-sm-2">Last Sent</div>
+            <div class="col-sm-1">Text</div>
+            <div class="col-sm-1">Devices</div>
+            <div class="col-sm-1">Users</div>
+            <div class="col-sm-2"></div>
           </div>
-        </td>
-        <td class="col-md-3">{{notifiy.notification.notificationClass}}/{{notifiy.notification.name}}</td>
-        <td class="col-md-2">{{notifiy.notification.lastDateSent}}</td>
-        <td class="col-md-1">
-          <a (click)="openModal(notifiy,template,'text')">
+        </tr>
+        <hr>
+      </thead>
+      <tbody>
+        <tr>
+        <div class="row" *ngFor="let notifiy of notificationSummaryList">
+          <div class="col-sm-2"><div class="btn-group">
+            <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
+            </label>
+            <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
+            </label>
+          </div></div>
+          <div class="col-sm-3">{{notifiy.notification.notificationClass}}/{{notifiy.notification.name}}</div>
+          <div class="col-sm-2">{{notifiy.notification.lastDateSent | date:'short'}}</div>
+          <div class="col-sm-1"> <a (click)="openModal(notifiy,template,'text')">
             <fa name="comment"></fa>
-          </a>
-        </td>
-        <td class="col-md-1">
-          <a (click)="openModal(notifiy,template,'device')">
+          </a></div>
+          <div class="col-sm-1"><a (click)="openModal(notifiy,template,'device')">
             <fa name="tablet"></fa>
-          </a>
-        </td>
-        <td class="col-md-1">
-          <a (click)="openModal(notifiy,template,'user')">
+          </a></div>
+          <div class="col-sm-1"> <a (click)="openModal(notifiy,template,'user')">
             <fa name="user"></fa>
-          </a>
-        </td>
-        <td class="col-md-2">
-          <button type="button" class="btn btn-primary" value="edit" [ngClass]="'editBTN'" (click)="onClickEditNotifyDetails(notifiy)">
+          </a></div>
+          <div class="col-sm-2"><button type="button" class="btn btn-primary btn-xs" value="edit" [ngClass]="'editBTN'" (click)="onClickEditNotifyDetails(notifiy)">
             <i class="fa fa-edit"></i> edit </button>&nbsp;
-          <button type="button" class="btn btn-primary btn-xs removeBTN" (click)="onClickRemoveNotifyDetails(notifiy)">
-            <i class="fa fa-trash"></i> Remove </button>
-        </td>
+            <button type="button" class="btn btn-primary btn-xs removeBTN btn-xs" (click)="onClickRemoveNotifyDetails(notifiy)">
+          <i class="fa fa-trash"></i> Remove </button></div>
+           <hr>
+        </div>
+        <hr>
       </tr>
-    </tbody>
+      </tbody>
   </table>
 </div>
 
-<div *ngIf="notificationSummaryList?.length === 0" class="alert alert-info">
-        <span>No notifications are avaialable for this user</span>
-</div>
+
 <ng-template #template>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Details</h4>
@@ -72,7 +66,7 @@
        <div *ngIf="modalType === 'user'">
           <ng-container *ngTemplateOutlet="notifyUserModal"></ng-container>
        </div>
-       
+
     </div>
 </ng-template>
 
@@ -129,11 +123,10 @@
                     {{user.email}}
                 </td>
                 <td>
-    
+
                     <fa name="envelope"></fa>&nbsp;  <fa name="mobile"></fa>
                 </td>
             </tr>
         </tbody>
     </table>
 </ng-template>
-

@@ -32,16 +32,17 @@ export class SensorDetailsComponent {
   private columns: Array<any> = [];
   private limit: Number  = 10;
   private data: Array<any> = [];
+  private defaultThreshold = 4294967295;
 
   public chartLabels: Array<any> = [];
   public chartOptions: any = ChartOptions;
   public chartColors: Array<any> = [ChartColors];
   public chartData: Array<any> = [
-    { data: this.data, label: 'Temperature Vs. Time', fill: false }
+    { data: this.data, label: '', fill: false }
   ];
   @ViewChild('baseChart') chart: BaseChartDirective;
   @ViewChildren('tabs') tabs: QueryList<any>;
-  bsValue: Date = moment().subtract(7, 'days').toDate();
+  bsValue: Date = moment().subtract(5, 'days').toDate();
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   bsModalRef: BsModalRef;
@@ -58,15 +59,38 @@ export class SensorDetailsComponent {
     private translate: TranslateService,
     // private tempChart = window.Chart;
   ) {
+
+    this.chartOptions.annotation.annotations[0].value = null;
+    this.chartOptions.annotation.annotations[1].value = null;
+
     this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
     });
     sensorDetailsService.getDetails(this.detailId).then((result) => {
       this.sensorDetailsData = result;
 
-      this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
-      this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+      if (this.sensorDetailsData.maximumThreshold !== this.defaultThreshold) {
+        this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
+      }
 
+      if (this.sensorDetailsData.minimumThreshold !== this.defaultThreshold) {
+        this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
+      }
+
+      switch (this.sensorDetailsData.sensorType) {
+        case 43:
+          this.chartData[0].label = 'Humidity vs Time';
+          break;
+        case 2:
+          this.chartData[0].label = 'Temperature vs Time';
+          break;
+        case 9:
+          this.chartData[0].label = 'State vs Time';
+          break;
+        default:
+          this.chartData[0].label = 'Temperature vs Time';
+          break;
+      }
     });
     this.columns.push({prop: 'messageDate', name: 'Date'});
     this.columns.push({prop: 'signalStrength', name: 'Signal'});
@@ -100,13 +124,19 @@ export class SensorDetailsComponent {
       this.chartOptions.pan.enabled = true;
       this.chartOptions.zoom.enabled = true;
     }
-
-    console.log('chart annotation');
   }
 
-  onDateChange(event) {
-    const fromDate = moment(this.bsValue).format('MM/DD/YYYY');
-    const toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
+  onDateChange(event, target) {
+
+    let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+    let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
+
+    if (target === 'fromDate') {
+      fromDate = moment(event).format('MM/DD/YYYY');
+    } else {
+      toDate = moment(event).format('MM/DD/YYYY');
+    }
+
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;
       this.rows = [];
@@ -115,19 +145,47 @@ export class SensorDetailsComponent {
         this.alertSandbox.showAlert({data: 'No Content'});
         return;
       }
+
+      result.sort((message1, message2) => {
+        const date1 = new Date(message1.messageDate);
+        const date2 = new Date(message2.messageDate);
+        if (date1 > date2) {
+          return 1;
+        }
+        if (date1 < date2) {
+          return -1;
+        }
+        return 0;
+      });
+
       result.forEach((res) => {
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss').substring(11, 19));
+        this.chartLabels.push(moment(res.messageDate).format('hh:mm:ss a'));
         this.rows.push({
           displayData: res.displayData,
-          messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss'),
+          messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'),
           signalStrength: res.signalStrength,
           battery: res.battery,
         });
-      });
 
-      /*console.log('chart', window.Chart);*/
+        this.chartOptions.tooltips = {
+          mode: 'index',
+          callbacks: {
+            label: function(res2) {
+              return this.rows[res2.index].displayData;
+            }.bind(this)
+          }
+        };
+
+        this.chartOptions.hover = {
+          mode: 'index',
+          intersect: true
+        };
+      });
     }).then((e) => {
+      window.setTimeout(function(){
+        this.reset('zoom');
+      }.bind(this), 1000);
       this.cd.detectChanges();
     }).catch((e) => {
       this.alertSandbox.showAlert({data: 'No Content'});
@@ -140,8 +198,7 @@ export class SensorDetailsComponent {
     }
   }
 
-  export(){
-    console.log('clicked');
+  export() {
     const a = new jsPDF();
     const doc = new jsPDF();
     const col = [
@@ -163,22 +220,18 @@ export class SensorDetailsComponent {
     },
   ];
     const rows = [];
-    console.log(doc);
     const item = this.rows;
-    console.log(item);
 
-    for (var key in item) {
+    for(const key in item) {
       const temp = [key, item[key]];
       rows.push(temp);
-    };
-    console.log(rows);
+    }
     doc.autoTable(col, this.rows);
     doc.save('SensorDetails.pdf');
   }
 
 
   onChartClick(event) {
-    console.log(event);
   }
 
   goBack() {

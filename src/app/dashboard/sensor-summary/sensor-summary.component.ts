@@ -16,7 +16,10 @@ import { AlertSandbox } from "../../shared/components/alerts/alerts.sandbox";
 import { DatePipe } from "@angular/common";
 import { TranslateService } from "@ngx-translate/core";
 import { NetworkModel } from "../../shared/models/network/networkModel";
-import {AbstractDashboardBase} from "../abstractDashboard.component";
+import { AbstractDashboardBase } from "../abstractDashboard.component";
+import * as store from "../../shared/store";
+import * as toasterActions from "../../shared/store/actions/toaster.action";
+import { Store } from "@ngrx/store";
 
 //import { CreateDeviceComponent } from '../create-device/create-device.component';
 @Component({
@@ -31,7 +34,8 @@ import {AbstractDashboardBase} from "../abstractDashboard.component";
     DatePipe
   ]
 })
-export class SensorSummaryComponent extends AbstractDashboardBase implements OnInit {
+export class SensorSummaryComponent extends AbstractDashboardBase
+  implements OnInit {
   mapData: Object = null;
   allSensors: Array<any> = [];
   displayTiles: Object = null;
@@ -49,7 +53,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   selectedSensor: any = null;
 
-  radioModel: any = "sensor";
+  radioModel: any = "gateway";
   editSaveModel: string = "Edit";
   selectAllValue: Object = {
     checked: false
@@ -92,27 +96,27 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   selectDetailsToEditOrSave: any = [];
   disableSubmitButton: boolean = true;
 
-
   private mapStatus = MapConstants.STATUS;
   private doFilterByName: string = null;
   private doFilterByStatus: string = "select";
   private doFilterByType: string = "select";
   private networkModel: NetworkModel = new NetworkModel();
 
-
   selectTempTypeList: any = [];
   showPopup: boolean = false;
   showEditPopup: boolean = false;
   private networkFormSetup: FormGroup;
   private networkEditForm: FormGroup;
-  accountID:string;
+  accountID: string;
 
   isValidForm = false;
   deviceCreationError: string | null = null;
+  private deviceEditForm: FormGroup;
+  private toasterSandbox$ = this.appState$.select(store.getToasterState);
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
-
+  latestCoordinates: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -123,9 +127,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     private alertSandbox: AlertSandbox,
     private translate: TranslateService,
     public datepipe: DatePipe,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private deviceFormBuilder: FormBuilder,
+    protected appState$: Store<store.State>
   ) {
-
     super();
 
     this.networkFormSetup = this.fb.group({});
@@ -135,23 +140,25 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       localStorage.setItem("com.cdashboard.networkId", this.netWorkId);
       this.getNetworkData();
       this.getDropdownDetails();
-
     });
     this.translate.use("en");
+
+    this.deviceEditForm = this.deviceFormBuilder.group({});
   }
 
   ngOnInit() {
-
-    let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+    let userInfoObject = JSON.parse(
+      localStorage.getItem("com.cdashboard.userInfoObject")
+    );
     // console.log(userInfoObject);
-    userInfoObject['account'].forEach(loc => {
-       // console.log('loc', loc);
-       this.accountID = loc.accountID;
-     });
-     this.isValidForm = true;
-     this.deviceCreationError = null;
+    userInfoObject["account"].forEach(loc => {
+      // console.log('loc', loc);
+      this.accountID = loc.accountID;
+    });
+    this.isValidForm = true;
+    this.deviceCreationError = null;
 
-     this.isServiceCallSuccess = false;
+    this.isServiceCallSuccess = false;
   }
 
   private getDropdownDetails() {
@@ -174,19 +181,35 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   /*Get sensor data from service by selecting the network Id*/
   private getNetworkData() {
     this.allSensors = [];
-    //this.mapData = null;
+    // this.mapData = null;
+
+    // This first call is needed to make the first call before the interval kicks in
     this.sensorSummaryService
       .getSingleUserLocation(this.netWorkId)
       .then(result => {
         this.mapData = result;
         this.getSensorData(result.sensors);
-        this.getGatewayData(result.gateways, "");
-        if (this.mapData["noOfSensors"] > 0) {
+        this.getGatewayData(result.gateways, '');
+        if (this.mapData['noOfSensors'] > 0) {
           this.onSelectSensorRadio();
         } else {
         }
       });
-    //this.mapData = e;
+
+    window.setInterval(() => {
+      this.sensorSummaryService
+        .getSingleUserLocation(this.netWorkId)
+        .then(result => {
+          this.mapData = result;
+          this.getSensorData(result.sensors);
+          this.getGatewayData(result.gateways, '');
+          if (this.mapData['noOfSensors'] > 0) {
+            this.onSelectSensorRadio();
+          } else {
+          }
+        });
+    }, 60000);
+    // this.mapData = e;
   }
 
   /*Get the gateway data from the Backend*/
@@ -209,7 +232,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     this.allSensors = [];
     this.originalMapSensor = sensor;
 
-
     let checkModelNotify = { active: false, inActive: true };
 
     sensor.forEach(sens => {
@@ -220,20 +242,25 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
       // hardcoded for now
       sens.sensorType = sens.type;
+      console.log('sens-->>',sens);
+      if(sens.maximumThreshold === -4294967295 || sens.maximumThreshold === 4294967295){
+          sens.maximumThreshold = 0;
+      }
+      if(sens.minimumThreshold === -4294967295 || sens.minimumThreshold === 4294967295){
+          sens.minimumThreshold = 0;
+      }
+
+      if (sens.scale == "C") {
+        checkModelNotify = { active: true, inActive: false };
+      } else {
+        checkModelNotify = { active: false, inActive: true };
+      }
+      sens.checkModelNotify = checkModelNotify;
 
 
-      if (sens.scale == 'C') {
-          checkModelNotify = { active: true, inActive: false };
-       }else{
-            checkModelNotify = { active: false, inActive: true };
-
-       }
-       sens.checkModelNotify = checkModelNotify;
+      // console.log('sens-->',sens);
 
       this.allSensors.push(sens);
-
-
-
     });
     this.originalSensor = this.allSensors.map(x => Object.assign({}, x));
     // console.log('allSensors----->',this.allSensors);
@@ -275,6 +302,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
   /*Selection Of Gateway radion*/
   private onSelectGatewayRadio() {
+    console.log("onSelectGatewayRadio");
     this.radioModel = "gateway";
     this.isSelectedToAddDevice = false;
 
@@ -335,9 +363,37 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     sensor.heartBeat = event.startValue;
   }
 
+  onChangeDeviceInputType(oldValue, newValue, device, type) {
+    if (newValue.length === 0) {
+      switch (type) {
+        case "heartBeat": {
+          device.heartBeat = oldValue;
+          break;
+        }
+        case "sensorName": {
+          device.sensorName = oldValue;
+          break;
+        }
+        case "minimumThreshold": {
+          device.minimumThreshold = oldValue;
+          break;
+        }
+        case "maximumThreshold": {
+          device.maximumThreshold = oldValue;
+          break;
+        }
+        case "name": {
+          device.name = oldValue;
+          break;
+        }
+      }
+    }
+  }
+
   private onClickInlineCheckBox(e, gateway) {
     this.isValidForm = true;
     this.isServiceCallSuccess = false;
+
     if (!e.target.checked) {
       gateway.gateWayEditOption = "display";
       this.counterToCheckSelected--;
@@ -347,10 +403,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
     if (this.counterToCheckSelected === 0 && this.editSaveModel === "Save") {
       this.editSaveModel = "Edit";
-
     }
-    
-
   }
 
   private onClickButtonReset() {
@@ -366,16 +419,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     this.onCheckSetRestValues(false);
     this.isSelectedAll = false;
     this.editSaveModel = "Edit";
-     this.isValidForm = true;
+    this.isValidForm = true;
   }
 
   /*Edit the selected ,update and get refresh data drom network*/
   private onClickEditDetails() {
-
-  this.isValidForm = true;
-  this.isServiceCallSuccess = false;
-
-
+    this.isValidForm = true;
+    this.isServiceCallSuccess = false;
 
     // this.selectedUserDataForOperation = [];
     this.radioModel === "gateway"
@@ -397,7 +447,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   private onSubmit(action) {
     //console.log(this.networkFormSetup.get('createNetworkForm').get("address").get("street"));
     if (action == "editNetwork") {
-       const editNetworkForm = this.networkEditForm.get("editNetworkForm");
+      const editNetworkForm = this.networkEditForm.get("editNetworkForm");
       this.editNetworkData.networkID = this.netWorkId;
       this.editNetworkData.name = editNetworkForm.get("name").value;
       this.editNetworkData.address = editNetworkForm.get(
@@ -414,6 +464,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       this.editNetworkData.country = editNetworkForm.get(
         "address"
       ).value.country;
+      console.log("edit network form");
+      console.log(editNetworkForm);
+      //console.log(this.addressForm.getCoordinates());
       this.onClickSaveNetworkDetail();
     } else {
       this.preparePostData();
@@ -434,26 +487,25 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     this.networkModel.country = createNetworkForm.get("address").value.country;
     this.networkModel.name = createNetworkForm.get("name").value;
     this.networkModel.isActive = true;
+    this.networkModel.latitude = this.latestCoordinates.latitude;
+    this.networkModel.longitude = this.latestCoordinates.longitude;
 
-    this.mapService
-      .geoCode(
-        this.networkModel.address +
-          this.networkModel.city +
-          this.networkModel.country
-      )
-      .then(geoCoded => {
-        if (geoCoded.results[0]) {
-          this.networkModel.latitude =
-            geoCoded.results[0].geometry.location.lat;
-          this.networkModel.longitude =
-            geoCoded.results[0].geometry.location.lng;
-        }
+    this.sensorSummaryService
+      .createNetwork(this.networkModel)
+      .then(e => {
+        //show success message,close pop up
+        this.showPopup = false;
+        this.toasterSandbox$.dispatch(
+          new toasterActions.SuccessAction("Saved", { dismiss: "auto" })
+        );
+      })
+      .catch(f => {
+        this.toasterSandbox$.dispatch(
+          new toasterActions.AlertAction(`Error: ` + f.message, {
+            dismiss: "auto"
+          })
+        );
       });
-    this.sensorSummaryService.createNetwork(this.networkModel).then(e => {
-      //show success message,close pop up
-      console.log(this);
-      this.showPopup = false;
-    });
   }
 
   private addFormControl(name: string, formGroup: FormGroup): void {
@@ -507,13 +559,11 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
   /*Remove the selected ,update and get refresh data drom network*/
   private onClickRemoveDetails() {
-
     if (this.radioModel === "gateway") {
       this.selectedGateway = Object.assign({}, this.gateWayData);
       let selectedRemoveData = this.getSelectedRowDetailsToRemove();
       if (selectedRemoveData) {
         selectedRemoveData.forEach(gateway => {
-         
           this.sensorSummaryService.deleteGateway(gateway.gatewayID).then(e => {
             if (e == true) {
               this.getNetworkData();
@@ -521,10 +571,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
             this.isServiceCallSuccess = true;
           });
         });
-      }else{
-         this.deviceCreationError = "Please select details to Remove";
-         this.isValidForm = false;
-         return false;
+      } else {
+        this.deviceCreationError = "Please select details to Remove";
+        this.isValidForm = false;
+        return false;
       }
     } else if (this.radioModel === "sensor") {
       this.selectedSensor = Object.assign({}, this.allSensors);
@@ -541,10 +591,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
             this.isServiceCallSuccess = true;
           });
         });
-      }else{
-         this.deviceCreationError = "Please select details to Remove";
-         this.isValidForm = false;
-         return false;
+      } else {
+        this.deviceCreationError = "Please select details to Remove";
+        this.isValidForm = false;
+        return false;
       }
     }
 
@@ -562,7 +612,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
 
   onClickAddDetail() {
-
     // console.log('accountID',this.accountID);
     this.isSelectedToAddDevice = true;
     //on success
@@ -604,19 +653,16 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
       if (isRecordSelected) {
         this.editSaveModel = "Save";
       } else {
-          // if(this.counterToCheckSelected === 0 && this.editSaveModel === "Edit"){
-                this.deviceCreationError = "Please select details to edit";
-                this.isValidForm = false;
-                return false;
-           // }
-
+        // if(this.counterToCheckSelected === 0 && this.editSaveModel === "Edit"){
+        this.deviceCreationError = "Please select details to edit";
+        this.isValidForm = false;
+        return false;
+        // }
       }
     } else {
-
       let gateWayDataToUpdate: Array<any> = [];
 
       this.selectedUserDataForOperation.forEach(eidtObject => {
-
         this.gateWayData.forEach(x => {
           let tempObj: any = [];
           if (x.gatewayID === eidtObject) {
@@ -625,54 +671,64 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
               name: x.name,
               networkID: x.networkID
             };
-             if(x.name === ''){
-
+            if (x.name === "") {
               this.isValidForm = false;
               this.deviceCreationError = "Please enter valid details ";
               return false;
-
-            }else{
-               this.isValidForm = true;
-               this.deviceCreationError = null;
-             gateWayDataToUpdate.push(tempObj);
+            } else {
+              this.isValidForm = true;
+              this.deviceCreationError = null;
+              gateWayDataToUpdate.push(tempObj);
             }
-
-           
           }
 
           tempObj = [];
         });
       });
 
-  
-      this.sensorSummaryService
-        .updateGatewayDetails(gateWayDataToUpdate)
-        .then(result => {
-          result.forEach(resp => {
-            this.gateWayData.forEach(x => {
-              if (x.checked) {
-                x.gateWayEditOption = "display";
-                x.checked = false;
-              }
-            });
+      if (gateWayDataToUpdate.length > 0) {
+        this.sensorSummaryService
+          .updateGatewayDetails(gateWayDataToUpdate)
+          .then(updateResult => {
+            this.sensorSummaryService
+              .getSingleUserLocation(this.netWorkId)
+              .then(result => {
+                this.mapData = result;
+                this.getSensorData(result.sensors);
+                this.getGatewayData(result.gateways, "");
+                updateResult.forEach(resp => {
+                  this.gateWayData.forEach(x => {
+                    if (x.checked) {
+                      x.gateWayEditOption = "display";
+                      x.checked = false;
+                    }
+                  });
 
-            this.editSaveModel = "Edit";
-            this.selectAllValue = false;
-            this.isSelectedAll = false;
-            this.disable = {
-              edit: false,
-              remove: false,
-              move: false,
-              add: false,
-              reset: true
-            };
+                  this.editSaveModel = "Edit";
+                  this.selectAllValue = false;
+                  this.isSelectedAll = false;
+                  this.disable = {
+                    edit: false,
+                    remove: false,
+                    move: false,
+                    add: false,
+                    reset: true
+                  };
+                });
+              })
+              .catch(e => {
+                this.isValidForm = false;
+                this.deviceCreationError =
+                  "Server error occured while editing gateway. Please try after sometime ";
+              });
+            this.isServiceCallSuccess = true;
+          })
+          .catch(e => {
+            this.isValidForm = false;
+            this.deviceCreationError =
+              "Server error occured while editing gateway. Please try after sometime ";
           });
-          this.isServiceCallSuccess = true;
-        }).catch(e=>{
-          this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
-        });
-     
+      }
     }
   }
 
@@ -702,10 +758,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
       if (isRecordSelected) {
         this.editSaveModel = "Save";
-      }else{
-         this.deviceCreationError = "Please select details to edit";
-                this.isValidForm = false;
-                return false;
+      } else {
+        this.deviceCreationError = "Please select details to edit";
+        this.isValidForm = false;
+        return false;
       }
     } else {
       let sensorDataToUpdate: Array<any> = [];
@@ -714,57 +770,74 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         this.allSensors.forEach(x => {
           let tempObj: any = [];
           if (x.sensorID === eidtObject) {
-
             tempObj = {
               sensorID: x.sensorID,
               sensorName: x.sensorName,
               heartBeat: x.heartBeat,
-              minimumThreshold:x.minimumThreshold,
-              maximumThreshold:x.maximumThreshold
+              minimumThreshold: x.minimumThreshold,
+              maximumThreshold: x.maximumThreshold
             };
 
-            if(x.sensorName === '' || x.heartBeat === '' || x.minimumThreshold === '' ||x.maximumThreshold === '' ){
+            if (
+              x.sensorName === "" ||
+              x.heartBeat === "" ||
+              x.minimumThreshold === "" ||
+              x.maximumThreshold === ""
+            ) {
               this.isValidForm = false;
               this.deviceCreationError = "Please enter valid details ";
               return false;
-            }else{
-               this.isValidForm = true;
-               this.deviceCreationError = null;
+            } else {
+              this.isValidForm = true;
+              this.deviceCreationError = null;
               sensorDataToUpdate.push(tempObj);
             }
-            
           }
         });
       });
 
-      /*BACKEND call to update gateway details*/
-      this.sensorSummaryService
-        .updateSensorDetails(sensorDataToUpdate)
-        .then(result => {
-          result.forEach(resp => {
-            this.allSensors.forEach(x => {
-              if (x.checked) {
-                x.gateWayEditOption = "display";
-                x.checked = false;
-              }
-            });
+      if (sensorDataToUpdate.length > 0) {
+        /*BACKEND call to update gateway details*/
+        this.sensorSummaryService
+          .updateSensorDetails(sensorDataToUpdate)
+          .then(updateResult => {
+            this.sensorSummaryService
+              .getSingleUserLocation(this.netWorkId)
+              .then(result => {
+                this.mapData = result;
+                this.getSensorData(result.sensors);
+                this.getGatewayData(result.gateways, "");
+                if (this.mapData["noOfSensors"] > 0) {
+                  this.onSelectSensorRadio();
+                }
+                updateResult.forEach(resp => {
+                  this.allSensors.forEach(x => {
+                    if (x.checked) {
+                      x.gateWayEditOption = "display";
+                      x.checked = false;
+                    }
+                  });
 
-            this.editSaveModel = "Edit";
-            this.selectAllValue = false;
-            this.isSelectedAll = false;
-            this.disable = {
-              edit: false,
-              remove: false,
-              move: false,
-              add: false,
-              reset: true
-            };
-            this.isServiceCallSuccess = true;
+                  this.editSaveModel = "Edit";
+                  this.selectAllValue = false;
+                  this.isSelectedAll = false;
+                  this.disable = {
+                    edit: false,
+                    remove: false,
+                    move: false,
+                    add: false,
+                    reset: true
+                  };
+                  this.isServiceCallSuccess = true;
+                });
+              });
+          })
+          .catch(e => {
+            this.isValidForm = false;
+            this.deviceCreationError =
+              "Server error occured while editing sensor. Please try after sometime ";
           });
-        }).catch(e=>{
-          this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while editing sensor. Please try after sometime ";
-        });
+      }
     }
   }
 
@@ -774,12 +847,12 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   /*Update the network assigned details*/
   private onClickSaveMoveNetwork(gatewaydata) {
-
     let tempObj: any = [];
     let selectedCheckedData: any = [];
     const deviceType = this.radioModel === "gateway" ? "Gateway" : "Sensor";
     if (
-      this.netWorkIdToMove !== null && this.netWorkIdToMove !== this.selectLocation.Id
+      this.netWorkIdToMove !== null &&
+      this.netWorkIdToMove !== this.selectLocation.Id
     ) {
       gatewaydata.forEach(x => {
         let tempObj: any = [];
@@ -801,15 +874,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
           .moveSensorDetails(requestObject)
           .then(e => {
             this.isServiceCallSuccess = true;
-             this.getNetworkData();
-          }).catch(e=>{
-          this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
-        });
-
-       
-      }else if (deviceType === "Gateway") {
-
+            this.getNetworkData();
+          })
+          .catch(e => {
+            this.isValidForm = false;
+            this.deviceCreationError =
+              "Server error occured while editing gateway. Please try after sometime ";
+          });
+      } else if (deviceType === "Gateway") {
         requestObject = {
           gatewayIDs: selectedCheckedData,
           networkID: this.netWorkIdToMove
@@ -817,19 +889,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
         this.sensorSummaryService
           .moveGatewayDetails(requestObject)
           .then(e => {
-
-        this.getNetworkData();
-       this.radioModel = "gateway";
-          }).catch(e=>{
-          this.isValidForm = false;
-          this.deviceCreationError = "Server error occured while editing gateway. Please try after sometime ";
-        });
-
+            this.getNetworkData();
+            this.radioModel = "gateway";
+          })
+          .catch(e => {
+            this.isValidForm = false;
+            this.deviceCreationError =
+              "Server error occured while editing gateway. Please try after sometime ";
+          });
       }
     } else {
       this.isValidForm = false;
       this.deviceCreationError = "Please select different network to move";
-     // $('#modal').modal('hide');
+      // $('#modal').modal('hide');
       return false;
     }
   }
@@ -853,7 +925,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
   }
 
   private getSelectedRowDetailsToMove() {
-     this.isValidForm = true;
+    this.isValidForm = true;
     let selectedCheckedData: any = [];
     let selectedDetails =
       this.radioModel === "gateway" ? this.gateWayData : this.allSensors;
@@ -879,34 +951,54 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
 
   onClickSaveNetworkDetail() {
     console.log(this.editNetworkData);
-    this.sensorSummaryService.updateNetwork(this.editNetworkData).then(g => {
-
-      console.log(this.mapData);
-      this.mapData['address'] = this.editNetworkData.address;
-      this.mapData['city'] = this.editNetworkData.city;
-      this.mapData['country'] = this.editNetworkData.country;
-      this.mapData['state'] = this.editNetworkData.state;
-      this.mapData['postalCode'] = this.editNetworkData.postalCode;
-      this.mapData['address2'] = this.editNetworkData.address2;
-
-      this.selectLocation.Title = this.editNetworkData.name;
-      this.showEditPopup = false;
-    });
+    this.editNetworkData.latitude = this.latestCoordinates.latitude;
+    this.editNetworkData.longitude = this.latestCoordinates.longitude;
+    this.sensorSummaryService
+      .updateNetwork(this.editNetworkData)
+      .then(g => {
+        console.log(this.mapData);
+        this.mapData["address"] = this.editNetworkData.address;
+        this.mapData["city"] = this.editNetworkData.city;
+        this.mapData["country"] = this.editNetworkData.country;
+        this.mapData["state"] = this.editNetworkData.state;
+        this.mapData["postalCode"] = this.editNetworkData.postalCode;
+        this.mapData["address2"] = this.editNetworkData.address2;
+        this.mapData["latitude"] = this.editNetworkData.latitude;
+        this.mapData["longitude"] = this.editNetworkData.longitude;
+        this.selectLocation.Title = this.editNetworkData.name;
+        if (g == 0) {
+          this.toasterSandbox$.dispatch(
+            new toasterActions.AlertAction(`Error Saving Data`, {
+              dismiss: "auto"
+            })
+          );
+        } else {
+          this.showEditPopup = false;
+          this.toasterSandbox$.dispatch(
+            new toasterActions.SuccessAction("Saved", { dismiss: "auto" })
+          );
+        }
+      })
+      .catch(f => {
+        this.toasterSandbox$.dispatch(
+          new toasterActions.AlertAction(`Error: ` + f.message, {
+            dismiss: "auto"
+          })
+        );
+      });
   }
 
   receiveMessage($event) {
-     this.isDeviceAddedSucceess = $event;
-    if($event){
+    this.isDeviceAddedSucceess = $event;
+    if ($event) {
       this.isServiceCallSuccess = true;
       this.getNetworkData();
     }
-   
+
     this.isSelectedToAddDevice = false;
-   
   }
 
   receiveCancelMessage($event) {
-   
     this.isValidForm = true;
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
@@ -1009,46 +1101,50 @@ export class SensorSummaryComponent extends AbstractDashboardBase implements OnI
     this.router.navigate(["dashboard"]);
   }
 
-  onClickNotifyOn(e, sensor) {
-
-    console.log('selected element-->',sensor);
-
-    let requestObject = {
-      sensorID:sensor.sensorID,
-      name:'CorF',
-      value:'C'
-    };
-  console.log('',requestObject);
-
-    this.sensorSummaryService.updateSensorScale(requestObject).then((result) => {
-      console.log(result);
-      this.allSensors.forEach(x => {
-        if(x === sensor){
-          console.log('enered',x);
-           x.checkModelNotify = { active: true, inActive: false };
+  getSensorUpdateData(sensor, x, y) {
+    this.sensorSummaryService
+      .getSingleUserLocation(this.netWorkId)
+      .then(result => {
+        this.mapData = result;
+        this.getSensorData(result.sensors);
+        this.getGatewayData(result.gateways, "");
+        if (this.mapData["noOfSensors"] > 0) {
+          this.onSelectSensorRadio();
         }
+        this.allSensors.forEach(x => {
+          if (x === sensor) {
+            console.log("enered", x);
+            x.checkModelNotify = { active: x, inActive: y };
+          }
+        });
       });
+  }
+
+  onClickNotifyOn(e, sensor) {
+    let requestObject = {
+      sensorID: sensor.sensorID,
+      name: "CorF",
+      value: "C"
+    };
+    this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
+      console.log(result);
+      this.getSensorUpdateData(sensor, true, false);
     });
   }
 
+  capturedCoordinates($event) {
+    this.latestCoordinates = $event;
+  }
+
   onClickNotifyOff(e, sensor) {
-    console.log('selected element-->',sensor);
-
     let requestObject = {
-     sensorID:sensor.sensorID,
-      name:'CorF',
-      value:'C'
+      sensorID: sensor.sensorID,
+      name: "CorF",
+      value: "F"
     };
-
-    console.log(',requestObject');
-   this.sensorSummaryService.updateSensorScale(requestObject).then((result) => {
+    this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
       console.log(result);
-      this.allSensors.forEach(x => {
-        if(x === sensor){
-          console.log('enered',x);
-           x.checkModelNotify = { active: false, inActive: true };
-        }
-      });
+      this.getSensorUpdateData(sensor, false, true);
     });
   }
 }

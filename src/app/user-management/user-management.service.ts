@@ -53,4 +53,8 @@ export class UserManagementService {
   public getRegistrationData(): any {
     return this.userCreationData;
   }
+
+  public resetPassword(emailId) {
+    return this.requesterService.putExternalRequest('/api/User/ResetPassword?Email=' + emailId, emailId);
+  }
 }

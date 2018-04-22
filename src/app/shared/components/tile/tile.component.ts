@@ -81,14 +81,16 @@ export class TileComponent {
       case this.mapConstants.NEW_STATUS_NUMBERS.ALERT:
       const recordedTemp = parseFloat(tileContent);
       if(this.sensor.status !== this.mapConstants.SENSOR_TYPE.CONTACT){
-        if(recordedTemp > this.sensor.minimumThreshold){
+        if(recordedTemp < this.sensor.minimumThreshold){
           return 'bg-info';
         } else if(recordedTemp > this.sensor.maximumTreshold){
+          return 'bg-pink';
+        } else {
           return 'bg-pink';
         }
       }
       case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
-      return 'bg-warnings';
+      return 'bg-warning';
       case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
       return 'bg-lowBattery';
     }
@@ -104,7 +106,7 @@ export class TileComponent {
         if(tileContent == 'Closed'){
           return 'fa-lock';
         } else {
-          return 'fa-lock-open';
+          return 'fa-unlock';
         }
         default:
         return 'fa-tablet';

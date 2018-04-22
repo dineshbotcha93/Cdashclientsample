@@ -51,6 +51,9 @@ export class CustomerDetailsComponent implements OnInit {
   private doFilterByNetwork: string = 'select';
   private doFilterByGateway: string = 'select';
   private loadedStatuses = false;
+  private labelRenewal: string = null;
+  private isSubscriptionExpired: Boolean = false;
+  private expiryDate: Date = null;
 
 
   constructor(private customerDetailsService: CustomerDetailsService,
@@ -76,6 +79,7 @@ export class CustomerDetailsComponent implements OnInit {
   private getCustomerData() {
     this.customerDetailsService.getRealData(this.AccountIdParam).then((result) => {
       this.customerData = result.customer;
+      this.expiryDate = new Date(result.customer.expiryDate);
       this.networkRows = result.networks;
       this.sensorsRows = result.sensors;
       this.tempSensorsRows = result.sensors;
@@ -83,6 +87,7 @@ export class CustomerDetailsComponent implements OnInit {
       this.tempGatewaysRows = result.gateways;
       this.usersRows = result.users;
       this.responseData = result;
+      this.updateRenewalLabel();
       this.loadedStatuses = true;
     });
   }
@@ -130,5 +135,14 @@ export class CustomerDetailsComponent implements OnInit {
     }
   }
 
+  private updateRenewalLabel() {
+    if (this.expiryDate.getTime() > new Date().getTime()) {
+      this.labelRenewal = 'Due on';
+      this.isSubscriptionExpired = false;
+    } else {
+      this.labelRenewal = 'Overdue by';
+      this.isSubscriptionExpired = true;
+    }
+  }
   
 }

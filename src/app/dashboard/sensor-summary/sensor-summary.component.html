@@ -25,22 +25,31 @@
             <div class="row">
               <div class="col-md-6 ssCard-left">
                 <div class="ssCard-name" contenteditable="true" (input)="selectLocation.Title = $event.target.innerText">{{selectLocation.Title }}</div>
-                <div class="ssCard-id" contenteditable="true" (input)="mapData = $event.target.innerText">
+                <div class="ssCard-id"
+                contenteditable="true"
+                (input)="mapData = $event.target.innerText"
+                *ngIf="mapData?.address !== null && mapData?.city!== null && mapData?.postalCode!==null && mapData?.country!==null">
                   {{mapData?.address}}, {{mapData?.address2}}, {{mapData?.city}}, {{mapData?.postalCode}}, {{mapData?.country}}
+                </div>
+                <div class="ssCard-id"
+                contenteditable="true"
+                (input)="mapData = $event.target.innerText"
+                *ngIf="mapData?.address == null && mapData?.city == null && mapData?.postalCode==null && mapData?.country==null">
+                  No Address
                 </div>
               </div>
               <div class="col-md-6 ssCard-right">
                 <div class="ssCard-small ssCard-count">Gateways
                   <span class="value">{{mapData?.noOfGateways}}</span>
                 </div>
-                <div class="ssCard-small ssCard-count">Sensor
+                <div class="ssCard-small ssCard-count">Sensors
                   <span class="value">{{mapData?.noOfSensors}}</span>
                 </div>
                 <div class="ssCard-small ssCard-button" *ngIf="isAdminUser()">
-                  <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-toggle="modal" data-target="#myNetworkModal"
+                  <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-target="#myNetworkModal"
                           value="Edit">
                     <i class="fa fa-edit"></i> Edit Location</button>
-                  <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-toggle="modal" data-target="#networkAddModal"
+                  <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-target="#networkAddModal"
                           value="Add">
                     <i class="fa fa-edit"></i> Add Location</button>
                 </div>
@@ -73,7 +82,7 @@
                         <option value="temperature">Temperature</option>
                         <option value="humidity">Humidity</option>
                         <option value="contact">Contact</option>
-                        <option value="select" selected>All</option>
+                        <option value="select" selected>All Sensor Profiles </option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -83,7 +92,7 @@
                         <option value="alert">Alert</option>
                         <option value="inactive">Inactive</option>
                         <option value="sleeping">Sleeping</option>
-                        <option value="select" selected>All</option>
+                        <option value="select" selected>All Statuses</option>
                       </select>
                     </div>
                   </form>
@@ -117,8 +126,8 @@
                       <div class="value">{{aGateway.gatewayID}}</div>
                     </div>
                     <div class="pair gateway-date">
-                      <div class="value">{{aGateway.lastCommunicationDate|date:'dd/mm/yyyy'}}</div>
-                      {{aGateway.lastCommunicationDate|dateFormat:'hh:mm:ss'}}
+                      <div class="value">{{aGateway.lastCommunicationDate}}</div>
+                      <!--{{aGateway.lastCommunicationDate|dateFormat:'HH:mm:ss'}}-->
                     </div>
                   </div>
                   <div class="middle">
@@ -131,6 +140,7 @@
                   <div class="bottom">
                     <div class="pair gateway-name">
                       <div class="value">{{aGateway.name}}</div>
+                      <div>{{aGateway.macAddress}} (MAC)</div>
                     </div>
                     <div class="pair gateway-type">
                       <div class="key">Gateway Type</div>
@@ -145,9 +155,12 @@
             <div class="row">
 
               <div class="col-md-4">
-                <form action="" class="dark-theme">
-                  <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
-                  <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway" class="m-l-md"> Gateway
+                <!-- <form action="" class="dark-theme"> -->
+                 <!--  <input type="radio" checked name="radioModel" (click)="onSelectSensorRadio()" value="sensor"> Sensor
+                  <input type="radio" name="radioModel" (click)="onSelectGatewayRadio()" value="gateway" class="m-l-md"> Gateway -->
+                  <form #f="ngForm">
+                      <input type="radio" value="sensor" name="device" [(ngModel)]="radioModel" (click)="onSelectSensorRadio()"> sensor
+                      <input type="radio" value="gateway" name="device" [(ngModel)]="radioModel" (click)="onSelectGatewayRadio()"> gateway
                 </form>
               </div>
 
@@ -237,11 +250,13 @@
   <modal id="networkAddModal" [isOpen]="showPopup" title="Add Location"
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
-      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup" (enableSubmit)="enableSubmit($event)"></create-network>
+      <create-network (formReady)="addFormControl('createNetworkForm', $event)" [formGroup]="networkFormSetup" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
 
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="error" *ngIf="disableSubmitButton"><h5></h5></div>
           <div class="form-group float-right">
+            <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
             <input type="submit" value="Submit" class="btn btn-primary m-l-none" [ngClass]="{'btn-disable':disableSubmitButton}">
           </div>
         </div>
@@ -256,10 +271,11 @@
          (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left">
           <!--<h4 class="modal-title" id="myModalLabel">Edit Network</h4>-->
-          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)"></create-network>
+          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group float-right">
+                <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
           <input type="submit" value="Save changes" class="btn btn-primary addBTN" [ngClass]="{'btn-disable':disableSubmitButton}">
             <!--<i class="fa fa-save"></i>-->
           </div>
@@ -320,7 +336,7 @@
         <td class="col-md-4">{{aGateway.gatewayID}}</td>
         <td class="col-md-11" *ngIf="aGateway.gateWayEditOption ==='display'">{{aGateway.name}}</td>
         <td *ngIf="aGateway.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="gatewayName" value="{{aGateway.name}}" [(ngModel)]="aGateway.name">
+          <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,aGateway.name,aGateway,'name')" (focus)="old=aGateway.name" name="gatewayName" value="{{aGateway.name}}" [(ngModel)]="aGateway.name">
         </td>
       </tr>
     </tbody>
@@ -335,7 +351,7 @@
   <div *ngIf="isServiceCallSuccess" class="alert alert-success">
         <span>Successfully updated</span>
   </div>
-  
+
   <table class="table table-striped" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
@@ -365,16 +381,16 @@
           <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='display'">{{sensor.maximumThreshold}}</td>
 
         <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" required value="{{sensor.sensorName}}" [(ngModel)]="sensor.sensorName">
+          <input class="form-control" type="text" name="sensorName" required value="{{sensor.sensorName}}" (change)="onChangeDeviceInputType(old,sensor.sensorName,sensor,'sensorName')" (focus)="old=sensor.sensorName" minlength="3" [(ngModel)]="sensor.sensorName">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" required value="{{sensor.heartBeat}}" [(ngModel)]="sensor.heartBeat">
+          <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,sensor.heartBeat,sensor,'heartBeat')" (focus)="old=sensor.heartBeat" name="heartBeat" required value="{{sensor.heartBeat}}" minlength="1" [(ngModel)]="sensor.heartBeat">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" required value="{{sensor.minimumThreshold}}" [(ngModel)]="sensor.minimumThreshold">
+          <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,sensor.minimumThreshold,sensor,'minimumThreshold')" (focus)="old=sensor.minimumThreshold" name="minimumThreshold" required value="{{sensor.minimumThreshold}}" minlength="1" [(ngModel)]="sensor.minimumThreshold">
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" name="sensorName" required value="{{sensor.maximumThreshold}}" [(ngModel)]="sensor.maximumThreshold">
+          <input class="form-control" type="text" name="maximumThreshold" (change)="onChangeDeviceInputType(old,sensor.maximumThreshold,sensor,'maximumThreshold')" (focus)="old=sensor.maximumThreshold" required value="{{sensor.maximumThreshold}}" minlength="1" [(ngModel)]="sensor.maximumThreshold">
         </td>
 
            <!-- <td class="col-md-3">{{sensor.scale}}</td> -->

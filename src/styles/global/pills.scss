@@ -26,7 +26,7 @@
 .tab-content {
   .tab-panel {
     background-color: $color-body-bg;
-    border-radius: 20px;
+    border-radius: $border-radius-big;
     padding: 20px;
     margin-top: -5px;
   }
@@ -35,6 +35,22 @@
     .tab-panel {
       background: none;
       padding: 0;
+    }
+  }
+
+  &.light-theme-padding-zero {
+    .tab-panel {
+      border: 2px solid $color-body-bg;
+      background: $color-white;
+
+      .ngx-datatable {
+        border: none !important;
+        border-radius: $border-radius-medium + 5px;
+      }
+      .ngx-datatable.bootstrap .datatable-footer {
+        background: orange;
+        border-right: $border-radius-big;
+      }
     }
   }
 }

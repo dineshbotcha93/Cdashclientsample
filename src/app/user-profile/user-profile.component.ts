@@ -99,6 +99,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private loadPage: Boolean = false;
   private isShowUserTable: Boolean = true;
   private labelRenewal: string = null;
+  private isSubscriptionExpired: Boolean = false;
   private expiryDate: Date = null;
   private isNotifBtn: Boolean = false;
   private isNetworkBtn: Boolean = false;
@@ -110,19 +111,19 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private isNtWorkProfile: Boolean = true;
   private isUserFormValid: Boolean = false;
   private isDirectSMS: Boolean = false;
-  private isCountryCode: Boolean = false;
   private isAdmin: Boolean = true;
   private limit = 10;
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
+  private isLoader: Boolean = false;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
-    dashboardPassword: new FormControl('', [Validators.required, 
-      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+    dashboardPassword: new FormControl('', [Validators.required,
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!@%*#?&^()$])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     confirmPassword: new FormControl('', [Validators.required,
-       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]),
+       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!@%*#?&^()$])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     isAdmin: new FormControl('')
@@ -159,10 +160,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     private config: NgbTooltipConfig, private toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
     config.placement = 'right';
-    this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
+    if (localStorage.getItem('com.cdashboard.userInfoObject') !== null) {
+      this.buildNetworks(JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).userID);
+    }
   }
   ngOnInit() {
-    this.updateNotifFormControls();
+  //  this.updateNotifFormControls();
     this.populateTimeZones();
     this.prepareUserColumns();
     this.prepareRenewalColumns();
@@ -180,6 +183,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     });
   }
   private getUserProfileData() {
+    this.isLoader = true;
     this.userProfileService.getRealData().then(response => {
       this.responseData = response.user;
       this.loggedInUserId = response.user.userID;
@@ -190,11 +194,16 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       this.isAdmin = response.user.admin;
       this.expiryDate = new Date(response.user.account[0].subscriptionExpiry);
       this.updateRenewalLabel();
+      this.isLoader = false;
       this.loadPage = true;
     });
   }
- 
+
   saveUserData() {
+    if (this.userForm.invalid) {
+           this.toastr.info('Please fill the mandatory fields');
+           return;
+      }
     let postData = JSON.stringify(this.prepareSaveData());
     this.userProfileService.saveUserData(postData).then(response => {
       this.newRecordUserId = response;
@@ -251,8 +260,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private updateRenewalLabel() {
     if (this.expiryDate.getTime() > new Date().getTime()) {
       this.labelRenewal = 'Due on';
+      this.isSubscriptionExpired = false;
     } else {
       this.labelRenewal = 'Overdue by';
+      this.isSubscriptionExpired = true;
     }
   }
   addUser() {
@@ -294,21 +305,23 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     let notifObj = new UserProfile.Notification;
     notifObj.directSMS = Number(row[0].directSMS);
     notifObj.smsCarrierID = row[0].smsCarrierID;
-    notifObj.smsNumber = row[0].smsNumber;
-    notifObj.countryCode = '91';//---Remove HardCODE---
     notifObj.recievesSensorNotificationByText = row[0].recievesNotificaitonsBySMS;
     notifObj.recievesMaintenanceByEmail = row[0].recievesMaintenanceByEmail;
     notifObj.recievesMaintenanceByPhone = row[0].recievesMaintenanceBySMS;
-    this.notificationForm.setValue(notifObj);
     if (row[0].directSMS === false) {
       this.isDirectSMS = false;
-      this.isCountryCode = false;
+      notifObj.countryCode = '';
+      notifObj.smsNumber = row[0].smsNumber;
       notifObj.smsCarrierID = ([0, 1, 2, 3, 4, 5].indexOf(notifObj.smsCarrierID) === -1) ? 0 : notifObj.smsCarrierID;
-      this.notificationForm.controls['smsCarrierID'].setValue(notifObj.smsCarrierID, { onlySelf: true });
     } else {
       this.isDirectSMS = true;
-      this.isCountryCode = true;
+      let _countryCode = (row[0].smsNumber).slice(0, row[0].smsNumber.length - 10);
+      let _phoneNum = row[0].smsNumber.slice(row[0].smsNumber.length - 10, row[0].smsNumber.length);
+      notifObj.smsNumber = _phoneNum;
+      notifObj.countryCode = _countryCode;
     }
+    this.notificationForm.setValue(notifObj);
+    this.notificationForm.controls['smsCarrierID'].setValue(notifObj.smsCarrierID, { onlySelf: true });
   }
   updateUserData() {
     let postData = JSON.stringify(this.prepareUpdateData());
@@ -334,7 +347,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     userObj.email = this.userForm.get('dashboardUserName').value;
     delete userObj['confirmPassword'];
     userObj.account = { 'accountID': this.accId };
-    if (this.notificationForm.get('directSMS').value === '1') {
+    if (this.notificationForm.get('directSMS').value === 1) {
       userObj.smsCarrierID = 0;
       userObj.smsNumber = this.notificationForm.get('countryCode').value + this.notificationForm.get('smsNumber').value;
     }
@@ -396,22 +409,23 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
     }
   }
 
-  navigateToNotifSection() {
-    if (this.userForm.invalid) {
-      return;
-    }
-    this.isUserFormValid = true;
-    this.user = this.userForm.value;
-    this.isUserContentCollapsed = true;
-    this.isNotifContentCollapsed = false;
-    this.isNotifBtn = true;
-  }
+  // navigateToNotifSection() {
+  //   if (this.userForm.invalid) {
+  //     return;
+  //   }
+  //   this.isUserFormValid = true;
+  //   this.user = this.userForm.value;
+  //   this.isUserContentCollapsed = true;
+  //   this.isNotifContentCollapsed = false;
+  //   this.isNotifBtn = true;
+  // }
 
   navigateToNetworkSection() {
     this.isNtWorkProfile = false;
     let userId = this.isEditForm ? this.editRecordUserId : this.loggedInUserId;
     this.buildNetworks(userId);
-    this.isNotifContentCollapsed = true;
+    //this.isNotifContentCollapsed = true;
+    this.isUserContentCollapsed = true;
     this.isNetworkContentCollapsed = false;
     this.isNetworkBtn = true;
   }
@@ -434,11 +448,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       console.log(value);
       if (value === '0') {
         this.isDirectSMS = false;
-        this.isCountryCode = false;
         this.notificationForm.controls['smsCarrierID'].setValue('0', { onlySelf: true });
       } else {
         this.isDirectSMS = true;
-        this.isCountryCode = true;
       }
     });
   }
@@ -527,12 +539,14 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       return response;
     })
       .then((response) => {
+        if (response.length > 0) {
         const arr = response.map(network => {
           return this.fb.control({ value: network.canAccess, disabled: this.isNtWorkProfile });
         });
         this.networkForm = this.fb.group({
           networkList: this.fb.array(arr)
         });
+        }
       });
   }
   private addFormControl(name: string, formGroup: FormGroup): void {
