@@ -21,7 +21,15 @@ import * as store from "../../shared/store";
 import * as toasterActions from "../../shared/store/actions/toaster.action";
 import { Store } from "@ngrx/store";
 
-//import { CreateDeviceComponent } from '../create-device/create-device.component';
+export interface MapData {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  noOfGateways: number;
+  noOfSensors: number;
+}
+
 @Component({
   selector: "app-sensor-summary",
   templateUrl: "./sensor-summary.component.html",
@@ -36,7 +44,7 @@ import { Store } from "@ngrx/store";
 })
 export class SensorSummaryComponent extends AbstractDashboardBase
   implements OnInit {
-  mapData: Object = null;
+  mapData: MapData = null;
   allSensors: Array<any> = [];
   displayTiles: Object = null;
   orderBy: any = "asc";
@@ -97,9 +105,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   disableSubmitButton: boolean = true;
 
   private mapStatus = MapConstants.STATUS;
-  private doFilterByName: string = null;
-  private doFilterByStatus: string = "select";
-  private doFilterByType: string = "select";
+  public doFilterByName: string = null;
+  public doFilterByStatus: string = "select";
+  public doFilterByType: string = "select";
   private networkModel: NetworkModel = new NetworkModel();
 
   selectTempTypeList: any = [];
@@ -267,7 +275,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   }
 
   /*Onchange event for selection of network ID*/
-  private onChangeLocation(e) {
+  public onChangeLocation(e) {
     this.netWorkId = e.Id.toString();
     this.getNetworkData();
     this.isSelectedToAddDevice = false;

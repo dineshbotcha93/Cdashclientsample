@@ -30,14 +30,14 @@ export interface tileDetail{
 })
 export class DashboardComponent extends AbstractDashboardBase implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
-  private mapData = [];
+  public mapData = [];
   private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
-  private loadedStatuses = false;
-  private showList = false;
-  private showMap = true;
-  private rows:Array<any>=['N/A'];
+  public loadedStatuses = false;
+  public showList = false;
+  public showMap = true;
+  public rows:Array<any>=['N/A'];
 
   constructor(
     private dashboardService: DashboardService,

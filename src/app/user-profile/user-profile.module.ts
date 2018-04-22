@@ -8,9 +8,8 @@ import { ContainersModule} from '../shared/containers';
 import {ComponentsModule} from '../shared/components';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { UserNotificationsComponent } from './user-notifications/user-notifications.component';
-import { NotificationSummaryComponent } from '../dashboard/notification-summary/notification-summary.component';
-import { NotificationCreateComponent } from '../dashboard/notification-create/notification-create.component';
+import { UserNotificationsModule } from './user-notifications/user-notifications.module';
+import { NotificationSummaryModule } from '../dashboard/notification-summary/notification-summary.module';
 import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ButtonsModule } from 'ngx-bootstrap';
@@ -19,6 +18,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { TooltipModule } from 'ngx-bootstrap';
+import { NotificationCreateModule } from '../dashboard/notification-create/notification-create.module';
 
 const routes: Routes = [
 {
@@ -44,9 +44,16 @@ const routes: Routes = [
     ToastModule.forRoot(),
     ModalModule.forRoot(),
     AngularFontAwesomeModule,
-    ButtonsModule.forRoot(),TimepickerModule.forRoot(),MultiselectDropdownModule,BsDatepickerModule.forRoot(),TooltipModule.forRoot()
+    NotificationCreateModule,
+    NotificationSummaryModule,
+    UserNotificationsModule,
+    ButtonsModule.forRoot(),
+    TimepickerModule.forRoot(),
+    MultiselectDropdownModule,
+    BsDatepickerModule.forRoot(),
+    TooltipModule.forRoot()
   ],
-  declarations: [UserProfileComponent, UserNotificationsComponent,NotificationSummaryComponent,NotificationCreateComponent],
+  declarations: [UserProfileComponent],
   providers: [
     AuthGuard,
     AuthService,

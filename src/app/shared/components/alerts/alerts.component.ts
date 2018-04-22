@@ -8,9 +8,9 @@ import { AlertSandbox } from './alerts.sandbox';
 })
 
 export class AlertsComponent {
-  private showDiv;
-  private showGood;
-  private isWarning;
+  public showDiv;
+  public showGood;
+  public isWarning;
   private alertContent;
   private successContent;
   private warningContent;

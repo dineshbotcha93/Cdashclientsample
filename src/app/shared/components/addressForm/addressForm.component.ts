@@ -21,9 +21,9 @@ export class AddressFormComponent implements OnInit {
   public addressForm: FormGroup;
 
   private states = [];
-  private countries = [];
+  public countries = [];
   private selectedCountry = 'united states';
-  private isUsa = true;
+  public isUsa = true;
   public  latitude = null;
   public  longitude = null;
   private;

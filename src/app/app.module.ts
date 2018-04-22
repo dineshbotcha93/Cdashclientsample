@@ -33,8 +33,6 @@ import { SharedModule } from './shared/modules/shared.module';
 import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
-
-
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
 },{
@@ -61,7 +59,7 @@ if(!environment.production)
 }
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

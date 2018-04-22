@@ -23,12 +23,12 @@ export interface TileDetail {
   styleUrls: ['./business.component.scss'],
 })
 export class BusinessComponent {
-  private tileData: Array<TileDetail> = [];
+  public tileData: Array<TileDetail> = [];
   private mapData = null;
   private mapConstants = MapConstants.STATUS;
   private pieChartLabels: Array<any> = [];
   private pieChartData: Array<any> = [];
-  private loadedStatuses = false;
+  public loadedStatuses = false;
   public pieChartColors: Array<any> = [
     {
       backgroundColor: ["#D9534F", "#F0AD4E", "#26B99A", "#3498DB"]
