@@ -25,7 +25,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   stepOneData:any = null;
 
   public accountForm: FormGroup;
-  private isNewMaster = false;
+  private isNewMaster = true;
   private accountInfo: any = null;
   private email = null;
   postData: object = {};
@@ -75,6 +75,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       business_type: new FormControl('', Validators.required),
       timeZone: new FormControl('', Validators.required),
       placeOfPurchase: new FormControl('', Validators.required),
+      conditionsCheck: new FormControl(false, Validators.required),
     });
   }
 

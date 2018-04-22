@@ -74,6 +74,13 @@
           <div class="col-sm-12 col-md-12 col-lg-12">
             <address-form-component #addressForm (formReady)="addFormControl('address', $event)"></address-form-component>
           </div>
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <input type="checkbox" formControlName="conditionsCheck"/>
+            <span>I acknowledge that I have read and agree to the </span>
+            <a class="conditionsLink" href="assets/docs/conditions.pdf" target="_blank">
+              <i>Terms and Conditions</i>
+            </a>
+          </div>
           <div class="clearfix"></div>
           <div class="separator"></div>
           <div class="row">
