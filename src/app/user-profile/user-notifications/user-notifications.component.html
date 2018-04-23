@@ -18,12 +18,17 @@
 
     <div class="row">
       <div *ngIf="notificationRadio === 'summary'">
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="sensorList?.length > 0">
           <app-notification-summary
             [sensorList] = "sensorList"
             [accountData] = "accountData"
             (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
           </app-notification-summary>
+        </div>
+        <div *ngIf="sensorList?.length < 1">
+           <div class="alert alert-info">
+              <span>{{deviceCreationError}}</span>
+           </div>
         </div>
       </div>
       <div *ngIf="notificationRadio === 'addNotify'">
