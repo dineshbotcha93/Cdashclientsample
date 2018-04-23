@@ -11,7 +11,7 @@
                [minDate]="minDate"
                [maxDate]="maxDate"
                #dp="bsDatepicker"
-               (bsValueChange)="onDateChange($event)"
+               (bsValueChange)="onDateChange($event, 'fromDate')"
                bsDatepicker [(bsValue)]="bsValue">
         <span class="input-group-addon" (click)="dp.show() ">
             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
                [minDate]="minDate"
                [maxDate]="maxDate"
                #dp1="bsDatepicker"
-               (bsValueChange)="onDateChange($event)"
+               (bsValueChange)="onDateChange($event, 'toDate')"
                bsDatepicker [(bsValue)]="bsValueTwo">
         <span class="input-group-addon" (click)="dp1.show() ">
             <i class="fa fa-calendar" aria-hidden="true"></i>
