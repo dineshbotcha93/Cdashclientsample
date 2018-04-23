@@ -41,11 +41,13 @@ export class CreateDeviceComponent implements OnInit {
     serialNumber: "",
     macAddress: "",
     accountID: "",
-    minThreshold: 10,
-    maxThreshold: 100,
-    heartBeat: 30,
+    minThreshold: 0,
+    maxThreshold: 0,
+    heartBeat: 10,
     monnitApplicationID: "1"
   };
+
+  heartBeatList :any ;
 
   setDeviceModelInitiate() {}
 
@@ -82,6 +84,17 @@ export class CreateDeviceComponent implements OnInit {
       // }
     ];
 
+    this.heartBeatList = [
+    { id:10,value:10},
+     { id:20,value:20},
+      { id:30,value:30},
+       { id:60,value:60},
+        { id:120,value:120},
+         { id:240,value:240},
+          { id:360,value:360},
+           { id:720,value:720},
+    ];
+    this.deviceModel.heartBeat = this.heartBeatList[0].id;
     console.log(this.gatewayTypeObject);
     this.deviceModel.gatewayTypeID = this.gatewayTypeObject[0].typeId;
     console.log(this.deviceModel);
@@ -109,6 +122,7 @@ export class CreateDeviceComponent implements OnInit {
 
   onClickAddDetail() {
     this.deviceModel.networkID = this.selectedNetwork.Id;
+    // this.deviceModel.heartBeat = this.heartBeatList.id;
     this.deviceCreationError = null;
 
     // this.messageEvent.emit(this.message);
@@ -127,7 +141,6 @@ export class CreateDeviceComponent implements OnInit {
           } else if (monnitId === "21") {
             this.deviceModel.monnitApplicationID = "9";
           }
-
           requestObject = {
             sensorID: this.deviceModel.id,
             networkID: this.deviceModel.networkID,
@@ -187,5 +200,8 @@ export class CreateDeviceComponent implements OnInit {
     this.setDeviceModelInitiate();
     this.deviceModel.gatewayTypeID = e.typeId;
     this.deviceModel.name = e.name;
+  }
+  onChangeHeartBeat(e) {
+    this.deviceModel.heartBeat = e.id;
   }
 }

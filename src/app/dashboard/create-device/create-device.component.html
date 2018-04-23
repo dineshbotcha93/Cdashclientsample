@@ -124,8 +124,15 @@
       <tr>
         <td>Heartbeat </td>
         <td>
-          <input type="text" class="form-control" name="heartBeat" placeholder="Enter heart beat" formControlName="heartBeat"
-          required [(ngModel)]="deviceModel.heartBeat">
+           <div class="form-group ss-location">
+            <select class="form-control" formControlName="heartBeat" [ngModel]="heartBeatList[0]" (ngModelChange)="onChangeHeartBeat($event)">
+              <option *ngFor="let device of heartBeatList" [ngValue]="device">
+                {{device.value}}
+              </option>
+            </select>
+          </div>
+         <!--  <input type="text" class="form-control" name="heartBeat" placeholder="Enter heart beat" formControlName="heartBeat"
+          required [(ngModel)]="deviceModel.heartBeat"> -->
            <div *ngIf="!isValidForm || deviceCreateForm.get('heartBeat').touched">
               <div class="error" *ngIf="deviceCreateForm.get('heartBeat').hasError('required')">Heartbeat is required.</div>
           </div>
