@@ -47,19 +47,6 @@ const appRoutes: Routes = [{
 }
 ]
 
-let mockProvider = [];
-let productionProvider = [];
-if(!environment.production)
-{
-  mockProvider.push({
-    provide: Http,
-    deps: [MockBackend, BaseRequestOptions],
-    useFactory: (backend: MockBackend, options: BaseRequestOptions, realBackend: Http) => {
-      return new Http(backend, options);
-    }
-  });
-}
-
 @NgModule({
   declarations: [
     AppComponent
@@ -101,8 +88,6 @@ if(!environment.production)
     BaseRequestOptions,
     RequesterService,
     MockBackendService,
-    mockProvider,
-    productionProvider,
     ProductionInterceptor,
     CommonSharedService,
     ToastsManager,
@@ -110,10 +95,8 @@ if(!environment.production)
     {
       provide: Http,
       deps: [XHRBackend,BaseRequestOptions],
-      useFactory: (backend: XHRBackend, options: BaseRequestOptions, realBackend: Http) => {
-        if(environment.production){
+      useFactory: (backend: XHRBackend, options: BaseRequestOptions) => {
           return new ProductionInterceptor(backend,options);
-        }
       }
     }
   ],

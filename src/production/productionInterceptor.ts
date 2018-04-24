@@ -9,6 +9,8 @@ import {
   Headers
 } from "@angular/http";
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+
 
 @Injectable()
 export class ProductionInterceptor extends Http{
@@ -25,12 +27,13 @@ export class ProductionInterceptor extends Http{
   }
   get(url:string,requestOptions?: RequestOptionsArgs){
     let headers = new Headers();
+    console.log('THIS GET');
     headers.append('Content-Type','application/json');
     if(!!localStorage.getItem('com.cdashboard.token')){
       headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
     }
     let options = new RequestOptions({ headers: headers });
-    return super.get(url,options);
+    return super.get(url,options).catch(this.handleError);
   }
   post(url:string,body:any,requestOptions?: RequestOptionsArgs){
     let headers = new Headers();
@@ -68,4 +71,8 @@ export class ProductionInterceptor extends Http{
     let options = new RequestOptions({ headers: headers });
     return super.patch(url,body,options);
   }
+  handleError(error: Response) {
+       // Do messaging and error handling here
+      return Observable.throw(error);
+   }
 }
