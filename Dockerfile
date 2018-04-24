@@ -1,5 +1,5 @@
 # Create image based on the official Node 6 image from dockerhub
-FROM alpine:3.5
+FROM alpine:3.6
 
 # Create a directory where our app will be placed
 RUN mkdir -p /usr/src/CDashboard
@@ -11,7 +11,7 @@ WORKDIR /usr/src/CDashboard
 COPY package.json /usr/src/CDashboard
 
 # Install dependecies
-RUN npm install
+RUN apk add --update nodejs nodejs-npm
 
 # Get all the code needed to run the app
 COPY . /usr/src/CDashboard
