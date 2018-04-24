@@ -6,11 +6,12 @@ import { PaymentsModule } from './payments/payments.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { ContainersModule } from './shared/containers';
-import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
+import { Http, HttpModule, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequesterService } from './shared/services/requester.service';
 import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
+import { ProductionInterceptor } from '../production/productionInterceptor';
 import {environment} from '../environments/environment';
 import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -47,6 +48,7 @@ const appRoutes: Routes = [{
 ]
 
 let mockProvider = [];
+let productionProvider = [];
 if(!environment.production)
 {
   mockProvider.push({
@@ -57,6 +59,7 @@ if(!environment.production)
     }
   });
 }
+
 @NgModule({
   declarations: [
     AppComponent
@@ -66,8 +69,8 @@ if(!environment.production)
     BrowserAnimationsModule,
     ReportsModule,
     PaymentsModule,
-    HttpModule,
     ComponentsModule,
+    HttpModule,
     HttpClientModule,
     ContainersModule,
     NgxDatatableModule,
@@ -99,9 +102,20 @@ if(!environment.production)
     RequesterService,
     MockBackendService,
     mockProvider,
+    productionProvider,
+    ProductionInterceptor,
     CommonSharedService,
     ToastsManager,
-    AlertSandbox
+    AlertSandbox,
+    {
+      provide: Http,
+      deps: [XHRBackend,BaseRequestOptions],
+      useFactory: (backend: XHRBackend, options: BaseRequestOptions, realBackend: Http) => {
+        if(environment.production){
+          return new ProductionInterceptor(backend,options);
+        }
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

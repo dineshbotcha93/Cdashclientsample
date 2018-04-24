@@ -3,6 +3,7 @@ import {Http} from '@angular/http';
 import 'rxjs/operator/map';
 import 'rxjs/operator/catch';
 import {MockBackendService} from '../../../mocks/mock.backend.service';
+import {ProductionInterceptor} from '../../../production/productionInterceptor';
 import {environment} from '../../../environments/environment';
 import {SERVER_URLS} from '../../shared/constants/serverUrl.constants';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -10,9 +11,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Injectable()
 export class RequesterService {
   data:String[] = [];
-  constructor(private http:Http, private httpClient: HttpClient, private mockBackendService:MockBackendService) {
+  constructor(private http:Http, private httpClient: HttpClient, private mockBackendService:MockBackendService,private productionInterceptor: ProductionInterceptor) {
     if(!environment.production){
       this.mockBackendService.start();
+    } else {
+      this.productionInterceptor.start();
     }
   }
   get(path:string):Promise<any>{
