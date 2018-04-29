@@ -36,6 +36,7 @@
 
 <modal [isOpen]="showPopup" title="Add/Edit Location"
        (onClose)="modalClosed($event)">
+  <button class="btn btn-default float-right m-l-md" (click)="copyAccountAddress()">Copy Account Address</button><br/>
   <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
     <create-network (formReady)="addFormControl('createNetworkForm', $event)" (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
 
