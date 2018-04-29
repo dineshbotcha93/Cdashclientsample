@@ -172,6 +172,8 @@ export class NetworkSetupComponent implements OnInit {
     this.networkModel.longitude = this.latestCoordinates.longitude;
   }
 
+
+
   goToProfile() {
     this.networkSetupService.fetchUserInfo()
       .then((response) => {
@@ -189,6 +191,35 @@ export class NetworkSetupComponent implements OnInit {
   modalClosed(event) {
     console.log(event);
     this.showPopup = false;
+  }
+
+  copyAccountAddress() {
+    this.networkSetupService.fetchUserInfo()
+      .then((response) => {
+        console.log('response', this.networkFormSetup);
+        const accountDetails = response.account[0];
+
+        const populatedData = {
+          name: '',
+          address: {
+            street: accountDetails.address,
+            housenumber: accountDetails.address2,
+            city: accountDetails.city,
+            zipcode: accountDetails.postalCode,
+            state: accountDetails.state,
+            country: accountDetails.country
+          },
+          isActive: true
+        };
+        this.networkFormSetup.setValue({createNetworkForm: populatedData});
+        /*this.networkFormSetup.address2 = accountDetails.address2;
+        this.networkFormSetup.city = accountDetails.city;
+        this.networkFormSetup.country = accountDetails.country;
+        this.networkFormSetup.state = accountDetails.state;
+        this.networkFormSetup.postalCode = accountDetails.postalCode;
+        this.networkFormSetup.latitude = accountDetails.latitude;
+        this.networkFormSetup.longitude = accountDetails.longitude;*/
+      });
   }
 
   private prepareDataTableColumns() {
