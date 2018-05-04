@@ -10,6 +10,7 @@ $color-grey-verydark: #333;
 $color-red: #ee5a5a;
 $color-redLight: #f57676;
 $color-yellow: rgba(255, 204, 101, 1);
+$color-emerson-brand-blue: #3474b5;
 
 $color-body-bg-lt: #2a3F54 + 35;
 $color-body-bg: #2a3F54;
@@ -57,6 +58,46 @@ $appTile-BG-warning: #73879C;
 
 $gateway-tile-BG-Blue: #4596FF;
 $gateway-tile-DrkBG-Blue: #0049BA;
+
+/* Emerson Colors Palette */
+$color-emerson-vDarkBlue: #363f57;
+$color-emerson-darkBlue: #004a8e;
+$color-emerson-blue: $color-emerson-brand-blue;
+$color-emerson-lightBlue: #81aeda;
+$color-emerson-vLightBlue: #a0c4e7;
+$color-emerson-darkYellow: #ff9c4c;
+
+/* Emerson Brand Colors Palette */
+$colorBrand-emerson-darkBlue: #004b8d;
+$colorBrand-emerson-blue: #005e99;
+$colorBrand-emerson-blue-01: #00afe9;
+$colorBrand-emerson-blue-02: #0091d0;
+$colorBrand-emerson-blue-03: #00a4d2;
+$colorBrand-emerson-yellow: #ffcf22;
+$colorBrand-emerson-darkYellow: #faa634;
+$colorBrand-emerson-pink: #e30a7c;
+$colorBrand-emerson-darkPink: #cb3282;
+$colorBrand-emerson-grey: #9fa1a4;
+$colorBrand-emerson-lightGreen: #c3d941;
+$colorBrand-emerson-lightGreen-02: #a0cf67;
+$colorBrand-emerson-lightGreen-03: #62bb46;
+$colorBrand-emerson-darkGreen: #00aa7e;
+$colorBrand-emerson-red: #d31245;
+$colorBrand-emerson-purple: #6e298d;
+
+/* Emerson UI Colors Palette */
+$colorUI-emerson-lightBlue: #00afe9;
+$colorUI-emerson-blue: #005e99;
+$colorUI-emerson-green: #a0cf67;
+$colorUI-emerson-purple: #6e298d;
+$colorUI-emerson-red: #d31245;
+$colorUI-emerson-black: #000000;
+
+/* Emerson Grey Colors Palette */
+$colorGrey-emerson-black: #1f2d3d;
+$colorGrey-emerson-grey: #8492a6;
+$colorGrey-emerson-lightGrey: #d3dce6;
+$colorGrey-emerson-vLightGrey: #eff2f7;
 
 /* App Gauge Colors */
 $gauge-BG: rgba(75, 87, 100, 0.15);
