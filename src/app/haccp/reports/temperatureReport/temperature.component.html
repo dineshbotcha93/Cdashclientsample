@@ -1,0 +1,41 @@
+<div class="row x_content">
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    {{'global.from'|translate}}
+    <div class="input-group">
+      <input type="text"
+             class="form-control"
+             [minDate]="minDate"
+             [maxDate]="maxDate"
+             #dp="bsDatepicker"
+             (bsValueChange)="onDateChange($event, 'fromDate')"
+             bsDatepicker [(bsValue)]="bsValue">
+      <span class="input-group-addon" (click)="dp.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    {{'global.to'|translate}}
+    <div class="input-group">
+      <input type="text"
+             class="form-control"
+             [minDate]="minDate"
+             [maxDate]="maxDate"
+             #dp1="bsDatepicker"
+             (bsValueChange)="onDateChange($event, 'toDate')"
+             bsDatepicker [(bsValue)]="bsValueTwo">
+      <span class="input-group-addon" (click)="dp1.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <input type="button" value="Generate Report" class="btn btn-primary"/>
+  </div>
+
+  <div class="x_panel">
+
+  </div>
+</div>

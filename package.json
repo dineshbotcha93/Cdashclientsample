@@ -51,6 +51,7 @@
     "js-marker-clusterer": "^1.0.0",
     "json-concat": "0.0.1",
     "ng2-charts": "^1.6.0",
+    "ng2-pdf-viewer": "^5.0.1",
     "ng2-popover": "0.0.14",
     "ng2-translate": "^5.0.0",
     "ngx-bootstrap": "^2.0.0-rc.0",
