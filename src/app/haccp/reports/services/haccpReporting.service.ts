@@ -23,7 +23,7 @@ export class HaccpReportingService {
       .getExternalRequest('/api/HACCp/Report/DailySummary?'+ 'StartDate=' + fromDate + '&EndDate=' + toDate + '&UserId=' + userId + '&LocationId=' + LocationId + '&TimeZone=' + TimeZone);
   }
 
-  getCheckListReportsPdfData(fromDate = null, toDate = null, userId, LocationId, TimeZone, groupBy) {
+  getCheckListReportsPdfData(fromDate = null, toDate = null, userId, LocationId, groupBy) {
     if (fromDate == null) {
       fromDate = moment().format('MM/DD/YYYY');
     }
@@ -33,10 +33,10 @@ export class HaccpReportingService {
 
 
     return this.requesterService
-      .getExternalRequest('/api/HACCp/Report/Checklists?'+ 'StartDate=' + fromDate + '&EndDate=' + toDate + '&UserId=' + userId + '&LocationId=' + LocationId + '&TimeZone=' + TimeZone + '&GroupBy=' + groupBy);
+      .getExternalRequest('/api/HACCp/Report/Checklists?'+ 'StartDate=' + fromDate + '&EndDate=' + toDate + '&UserId=' + userId + '&LocationId=' + LocationId + '&GroupBy=' + groupBy);
   }
 
-  getTemperatureReportsPdfData(fromDate = null, toDate = null, userId, LocationId, TimeZone, groupBy) {
+  getTemperatureReportsPdfData(fromDate = null, toDate = null, userId, LocationId, groupBy) {
     if (fromDate == null) {
       fromDate = moment().format('MM/DD/YYYY');
     }
@@ -46,6 +46,6 @@ export class HaccpReportingService {
 
 
     return this.requesterService
-      .getExternalRequest('/api/HACCp/Report/Checklists?'+ 'StartDate=' + fromDate + '&EndDate=' + toDate + '&UserId=' + userId + '&LocationId=' + LocationId + '&TimeZone=' + TimeZone + '&GroupBy=' + groupBy);
+      .getExternalRequest('/api/HACCp/Report/Checklists?'+ 'StartDate=' + fromDate + '&EndDate=' + toDate + '&UserId=' + userId + '&LocationId=' + LocationId + '&GroupBy=' + groupBy);
   }
 }

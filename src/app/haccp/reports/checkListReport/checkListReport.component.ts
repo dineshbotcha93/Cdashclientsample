@@ -20,7 +20,7 @@ import * as moment from 'moment/moment';
 })
 export class CheckListReportComponent  {
 
-  private filterByGroup = 'date';
+  private filterByGroup = 'Date';
   private filterByQesType = 'select'
   bsValue: Date = moment().subtract(1, 'days').toDate();
   bsValueTwo: Date = moment().toDate();
@@ -46,7 +46,7 @@ export class CheckListReportComponent  {
     let binary_string =  window.atob(base64String);
     let len = binary_string.length;
     let bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++)        {
+    for (let i = 1; i < len-1; i++)        {
       bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes.buffer;
@@ -59,15 +59,14 @@ export class CheckListReportComponent  {
     const fromDate = moment(this.bsValue).format('MM/DD/YYYY'),
       toDate = moment(this.bsValueTwo).format('MM/DD/YYYY'),
       userId = 1,
-      TimeZone = 'Eastern Standard Time',
       LocationId = 1148,
       groupBy = this.filterByGroup;
 
-    this.haccpReportingService.getCheckListReportsPdfData(fromDate, toDate, userId, LocationId, TimeZone, groupBy).then(  (result) => {
+    this.haccpReportingService.getCheckListReportsPdfData(fromDate, toDate, userId, LocationId, groupBy).then(  (result) => {
 
       console.log(':::::', result);
       //let pdfBaseString = result._body.
-      this.pdfSrc = result._body;
+      this.pdfSrc = this.base64ToArrayBuffer(result);
 
       //console.log('::::::::::', this.base64ToArrayBuffer(this.pdfSrc));
     });

@@ -45,7 +45,7 @@ export class DailySummaryReportComponent  {
     let binary_string =  window.atob(base64String);
     let len = binary_string.length;
     let bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++)        {
+    for (let i = 1; i < len-1; i++)        {
       bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes.buffer;
@@ -65,7 +65,7 @@ export class DailySummaryReportComponent  {
 
       console.log(':::::', result);
       //let pdfBaseString = result._body.
-     this.pdfSrc = result._body;
+     this.pdfSrc = this.base64ToArrayBuffer(result);
 
      //console.log('::::::::::', this.base64ToArrayBuffer(this.pdfSrc));
     });
