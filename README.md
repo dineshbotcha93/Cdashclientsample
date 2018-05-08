@@ -12,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Branching Stratergy  (Needs to be followed strictly)
 
-"GIT Workflow":https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+"GIT Workflow": https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
 ## Build
 
@@ -30,21 +30,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-1) Architecture : 
+1) Architecture: http://netmedia.io/blog/angular-architecture-patterns-additional-application-features_5670
 
-"Architecture":http://netmedia.io/blog/angular-architecture-patterns-additional-application-features_5670
+2) Documents on Confluence: https://trivediat.atlassian.net/wiki/spaces/TRIV/pages/33021/Coopers+Dashboard
 
-2)Documents on Confluence : 
+3) JIIRA: https://trivediat.atlassian.net/secure/Dashboard.jspa
 
-https://trivediat.atlassian.net/wiki/spaces/TRIV/pages/33021/Coopers+Dashboard
-
-3) JIIRA : 
-
-https://trivediat.atlassian.net/secure/Dashboard.jspa
-
-4) Slack : 
-
-https://trivedis.slack.com/messages/C8DEQCM47/
+4) Slack: https://trivedis.slack.com/messages/C8DEQCM47/
 
 
 
