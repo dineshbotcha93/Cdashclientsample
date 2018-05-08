@@ -10,6 +10,10 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+## Branching Stratergy  (Needs to be followed strictly)
+
+"GIT Workflow":https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
@@ -32,21 +36,17 @@ Welcome to the CASDashboard wiki!
 
 "Architecture":http://netmedia.io/blog/angular-architecture-patterns-additional-application-features_5670
 
-2) We follow Git workflow for branching :
-"GIT Workflow":https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
-
-3)Documents on Confluence : 
+2)Documents on Confluence : 
 
 https://trivediat.atlassian.net/wiki/spaces/TRIV/pages/33021/Coopers+Dashboard
 
-4) JIIRA : 
+3) JIIRA : 
 
 https://trivediat.atlassian.net/secure/Dashboard.jspa
 
-5) Slack : 
+4) Slack : 
 
 https://trivedis.slack.com/messages/C8DEQCM47/
 
-6) 
 
 
