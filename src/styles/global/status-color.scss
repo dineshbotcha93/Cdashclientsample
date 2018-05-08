@@ -1,19 +1,19 @@
 .bg-pink {
-  background-color: $appTile-BG-pink;
+  background-color: $colorBrand-emerson-red; // $appTile-BG-pink;
 }
 
 .bg-info {
-  background-color: $appTile-BG-info;
+  background-color: $colorBrand-emerson-blue-01; // $appTile-BG-info;
 }
 
 .bg-lowBattery {
-  background-color: $appTile-BG-lowBattery;
+  background-color: $colorBrand-emerson-darkYellow; // $appTile-BG-lowBattery;
 }
 
 .bg-success {
-  background-color: $appTile-BG-success;
+  background-color: $colorBrand-emerson-lightGreen-03; // $appTile-BG-success;
 }
 
 .bg-warning {
-  background-color: $appTile-BG-warning;
+  background-color: $colorBrand-emerson-grey; // $appTile-BG-warning;
 }

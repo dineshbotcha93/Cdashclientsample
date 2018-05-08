@@ -4,6 +4,26 @@
   background: $color-white;
   border-radius: 0;
   box-shadow: none;
+  color: $colorUI-emerson-black;
+
+  h1 {
+    color: $colorUI-emerson-black;
+  }
+
+  a {
+    color: $colorUI-emerson-black;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .reset_pass {
+    float: none;
+    margin: 0;
+    font-size: 0.85em;
+  }
 
   form {
     input[type="text"],

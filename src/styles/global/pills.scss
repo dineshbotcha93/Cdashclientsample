@@ -25,8 +25,8 @@
 
 .tab-content {
   .tab-panel {
-    background-color: $color-body-bg;
-    border-radius: $border-radius-big;
+    // background-color: $color-body-bg;
+    // border-radius: $border-radius-big;
     padding: 20px;
     margin-top: -5px;
   }
@@ -72,15 +72,13 @@ ul.bar_tabs, ul.nav-tabs {
   }
 
   li.tabs {
-    border-radius: 20px;
     background: none;
     border: 0;
     margin: 0;
     margin-right: 5px;
 
-
     a {
-      border-radius: 20px;
+      border-radius: 4px;
       border: 0;
       background-color: $color-grey-light;
       padding: 10px 25px;
@@ -88,7 +86,7 @@ ul.bar_tabs, ul.nav-tabs {
 
     &.active {
       a {
-        background-color: $color-body-bg;
+        background-color: $color-emerson-brand-blue; // $color-body-bg;
         color: $color-white;
 
         &:hover {

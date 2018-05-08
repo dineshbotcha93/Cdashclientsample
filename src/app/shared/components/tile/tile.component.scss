@@ -22,7 +22,8 @@
 }
 
 .widget-style-2 {
-  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  // font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   font-size: 1em;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large) {
@@ -70,18 +71,17 @@
 
     .tile-counter {
       font-weight: 600;
-      font-size: 2em;
-      text-shadow: 2px 2px 2px $color-grey-verydark;
+      font-size: 1.5em;
+      color: $colorGrey-emerson-vLightGrey;
 
       @media (min-width: $phone-small) and (max-width: $tablet-large) {
-        font-size: 1.5em;
+        font-size: 1.25em;
       }
     }
 
     .tile-fahrenHeight {
       font-size: 1.15em;
       font-weight: 800;
-      text-shadow: 2px 2px 2px $color-grey-verydark;
     }
 
     .tile-relativeHumidity {}

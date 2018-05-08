@@ -7,10 +7,7 @@ html {
 
 body {
   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-  //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  //background: $color-emerson-brand-blue;
   background: $color-emerson-darkBlue;
-  //background: $color-emerson-vDarkBlue;
   margin: 0;
   padding: 0;
   max-width: $body-max-width;
@@ -25,6 +22,7 @@ body {
 
     .right_col {
       min-height: 100%;
+      background: $color-white;
     }
 
     .main_container {
@@ -32,6 +30,10 @@ body {
       min-height: 100%;
     }
   }
+}
+
+a, h1, h2, h3, h4 {
+  color: $colorUI-emerson-black;
 }
 
 
@@ -160,3 +162,9 @@ ul {
 }
 /* ******************************** */
 
+
+/* ******************************** */
+.x_panel {
+  padding: 0;
+}
+/* ******************************** */
