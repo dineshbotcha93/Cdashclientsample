@@ -65,6 +65,19 @@
     }
   }
 
+  .top_navigation {
+    display: inline-block;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: $color-white;
+        cursor: pointer;
+      }
+    }
+  }
+
   .navbar-right {
     .user-profile {
       padding: 10px;

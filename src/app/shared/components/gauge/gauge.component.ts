@@ -9,9 +9,9 @@ import { Component, Input } from '@angular/core';
                [label]="title"
                [append]="gaugeAppendText"
                [cap]="'round'"
-               [thick]="6"
-               [backgroundColor]="'rgba(75, 87, 100, 1)'"
-               [foregroundColor]="'rgba(255, 204, 101, 1)'"
+               [thick]="12"
+               [backgroundColor]="'rgba(239, 242, 247, 1)'"
+               [foregroundColor]="'rgba(250, 166, 52, 1)'"
     >
     </ngx-gauge>
   `

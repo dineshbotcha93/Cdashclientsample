@@ -1,6 +1,6 @@
 @import "../../../styles/variables";
 
-.chart-style{
+.chart-style {
   background-color: white;
 }
 
@@ -9,12 +9,10 @@
 }
 
 .gauge-container {
-  padding: 20px;
-  color: $color-white;
+  //padding: 20px;
+  color: $colorUI-emerson-black;
   font-size: 0.85em;
   text-align: center;
-  background-color: $color-body-bg;
-  border-radius: $border-radius-medium;
   height: 43rem;
 
   ngx-gauge {
@@ -25,20 +23,16 @@
     }
 
     .reading-affix {
-      font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      color: $color-white;
       font-size: 1.5rem;
     }
   }
 
   .gauge-data {
-    font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-    border-bottom: 1px solid $gauge-chart-backgroundColor;
+    border-bottom: 1px solid $colorGrey-emerson-vLightGrey;
     padding-bottom: 10px;
   }
   .value {
-    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-    color: $gauge-chart-forgroundColor;
+    color: $color-emerson-brand-blue;
   }
 }
 

@@ -3,15 +3,24 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
 
       <div class="row sensor-summary-info">
-        <div class="col-md-8">
-          <h3>
-            <i class="fa fa-location-arrow"></i>
-            Location Summary
-          </h3>
-          <button class="btn btn-primary" (click)="goBack()">
-            <i class="fa fa-chevron-left"></i> Back</button>
+        <div class="col-md-9">
+          <span class="ssCard-name" contenteditable="true" (input)="selectLocation.Title = $event.target.innerText">{{selectLocation.Title }}</span>
+          <span class="ssCard-id"
+               contenteditable="true"
+               (input)="mapData = $event.target.innerText"
+               *ngIf="mapData?.address !== null && mapData?.city!== null && mapData?.postalCode!==null && mapData?.country!==null">
+            {{mapData?.address}}, {{mapData?.address2}}, {{mapData?.city}}, {{mapData?.postalCode}}, {{mapData?.country}}
+          </span>
+
+          <span class="ssCard-count">Gateways
+            <span class="value">{{mapData?.noOfGateways}}</span>
+          </span>
+          <span class="ssCard-count">Sensors
+            <span class="value">{{mapData?.noOfSensors}}</span>
+          </span>
+
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group ss-location">
             <select class="form-control" [(ngModel)]="selectLocation" (ngModelChange)="onChangeLocation($event)">
               <option *ngFor="let loc of locationData" [ngValue]="loc">
@@ -20,46 +29,25 @@
             </select>
           </div>
         </div>
-        <div class="ss-info-container col-md-12">
+
+        <!--<div class="ss-info-container col-md-12">
           <div class="sensorSummaryCard-container">
             <div class="row">
-              <div class="col-md-6 ssCard-left">
-                <div class="ssCard-name" contenteditable="true" (input)="selectLocation.Title = $event.target.innerText">{{selectLocation.Title }}</div>
-                <div class="ssCard-id"
-                contenteditable="true"
-                (input)="mapData = $event.target.innerText"
-                *ngIf="mapData?.address !== null && mapData?.city!== null && mapData?.postalCode!==null && mapData?.country!==null">
-                  {{mapData?.address}}, {{mapData?.address2}}, {{mapData?.city}}, {{mapData?.postalCode}}, {{mapData?.country}}
-                </div>
-                <div class="ssCard-id"
-                contenteditable="true"
-                (input)="mapData = $event.target.innerText"
-                *ngIf="mapData?.address == null && mapData?.city == null && mapData?.postalCode==null && mapData?.country==null">
-                  No Address
-                </div>
-              </div>
-              <div class="col-md-6 ssCard-right">
+              <div class="col-md-7 ssCard-right">
                 <div class="ssCard-small ssCard-count">Gateways
                   <span class="value">{{mapData?.noOfGateways}}</span>
                 </div>
                 <div class="ssCard-small ssCard-count">Sensors
                   <span class="value">{{mapData?.noOfSensors}}</span>
                 </div>
-                <div class="ssCard-small ssCard-button" *ngIf="isAdminUser()">
-                  <button type="button" class="btn btn-primary ssCard-editBTN" (click)="onClickEditNetwork()" data-target="#myNetworkModal"
-                          value="Edit">
-                    <i class="fa fa-edit"></i> Edit Location</button>
-                  <button type="button" class="btn btn-primary ssCard-addBTN" (click)="onClickAddNetwork()" data-target="#networkAddModal"
-                          value="Add">
-                    <i class="fa fa-edit"></i> Add Location</button>
-                </div>
               </div>
             </div>
           </div>
-          <div>
-            <ng-container *ngTemplateOutlet="networkEditModal"></ng-container>
-            <ng-container *ngTemplateOutlet="networkAddModal"></ng-container>
-          </div>
+        </div>-->
+
+        <div>
+          <ng-container *ngTemplateOutlet="networkEditModal"></ng-container>
+          <ng-container *ngTemplateOutlet="networkAddModal"></ng-container>
         </div>
       </div>
 
@@ -70,7 +58,13 @@
             <div class="row x_content">
               <div class="col-md-12 sensors-info-container">
                 <div class="form-group sensor-info-compare">
-                  <input type="button" class="btn btn-primary" value="Compare Sensors" (click)="doCompare()">
+                  <button class="btn btn-primary" (click)="doCompare()">Compare Sensors</button>
+                  <button type="button" class="btn btn-primary ssCard-editBTN" *ngIf="isAdminUser()" (click)="onClickEditNetwork()" data-target="#myNetworkModal"
+                          value="Edit">
+                    <i class="fa fa-edit"></i> Edit Location</button>
+                  <button type="button" class="btn btn-primary ssCard-addBTN" *ngIf="isAdminUser()" (click)="onClickAddNetwork()" data-target="#networkAddModal"
+                          value="Add">
+                    <i class="fa fa-edit"></i> Add Location</button>
                 </div>
                 <div class="sensors-info-filter">
                   <form class="form-inline" role="form">

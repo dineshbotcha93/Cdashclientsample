@@ -7,11 +7,16 @@
       <div class="top_nav_logo">
         <img id="logo" src="assets/images/CA-Color_Atkins_White.png"/>
       </div>
+
+      <ul class="nav top_navigation">
+        <li><a class="home-link" (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin"><i class="fa fa-home"></i></a></li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <!--<li class="lang-dd"><app-languagedropdown (currentLanguage)="catchLanguage($event)"></app-languagedropdown></li>-->
         <li>
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span>{{userEmail}}</span>
+            <span>{{userEmail}} <i class="fa fa-caret-down"></i></span>
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">
