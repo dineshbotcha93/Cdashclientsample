@@ -26,7 +26,7 @@
               <a (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin">Notifeye</a>
             </li>
             <li >
-              <a (click)="goToLink('/haccp')" *ngIf="!isCooperAdmin">HACCP</a>
+              <a (click)="goToLink('/haccp')" *ngIf="!isCooperAdmin && isHaccpUser">HACCP</a>
             </li>
             <!--<li><a href="javascript:;">Help</a></li>-->
             <li><a (click)="logout.emit($event)"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
