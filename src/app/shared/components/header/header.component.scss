@@ -39,6 +39,7 @@
 .top_nav {
   .nav_menu {
     padding: 10px;
+    background: $color-emerson-darkBlue;
   }
 
   .nav.toggle {
@@ -68,6 +69,17 @@
   .navbar-right {
     .user-profile {
       padding: 10px;
+      color: $color-white !important;
+
+      &:hover {
+        background: $color-emerson-brand-blue;
+      }
+    }
+
+    .open {
+      a.user-profile {
+        background: $color-emerson-brand-blue;
+      }
     }
 
     .lang-dd {
