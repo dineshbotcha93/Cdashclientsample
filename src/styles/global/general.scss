@@ -6,9 +6,11 @@ html {
 }
 
 body {
-  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  background: $color-emerson-brand-blue;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  //background: $color-emerson-brand-blue;
   //background: $color-emerson-darkBlue;
+  background: $color-emerson-vDarkBlue;
   margin: 0;
   padding: 0;
   max-width: $body-max-width;
@@ -23,7 +25,6 @@ body {
 
     .right_col {
       min-height: 100%;
-      //box-shadow: 0 0 15px $color-black;
     }
 
     .main_container {

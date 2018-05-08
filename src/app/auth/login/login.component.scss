@@ -10,7 +10,9 @@
     input[type="email"],
     input[type="password"] {
       box-shadow: none;
+      border-radius: 0;
       border: 1px solid $colorBrand-emerson-grey;
+      font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     }
   }
 }
