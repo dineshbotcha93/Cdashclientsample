@@ -25,3 +25,28 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+Welcome to the CASDashboard wiki!
+
+1) Architecture : 
+
+"Architecture":http://netmedia.io/blog/angular-architecture-patterns-additional-application-features_5670
+
+2) We follow Git workflow for branching :
+"GIT Workflow":https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+
+3)Documents on Confluence : 
+
+https://trivediat.atlassian.net/wiki/spaces/TRIV/pages/33021/Coopers+Dashboard
+
+4) JIIRA : 
+
+https://trivediat.atlassian.net/secure/Dashboard.jspa
+
+5) Slack : 
+
+https://trivedis.slack.com/messages/C8DEQCM47/
+
+6) 
+
+
