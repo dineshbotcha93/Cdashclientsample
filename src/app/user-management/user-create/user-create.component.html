@@ -105,7 +105,9 @@
                    formControlName="confirmPassword" required placeholder="Confirm Password"/>
           </div>
           <div *ngIf="!isValidForm || userCreateForm.get('confirmPassword').touched">
-            <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('required')">Confirm Password is required.</div>
+            <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('required')">
+              Confirm Password is required.
+            </div>
             <div class="error" *ngIf="userCreateForm.get('confirmPassword').hasError('pattern')">
                 Confirm password is not valid.
             </div>
@@ -150,7 +152,10 @@
 
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary m-l-none pull-right">Continue</button>
+          <div class="col-md-4 col-sm-4 col-xs-12"></div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <button type="submit" class="btn btn-primary m-l-none">Continue</button>
+          </div>
         </div>
       </form>
     </section>
