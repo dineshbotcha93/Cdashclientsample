@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
                [cap]="'round'"
                [thick]="12"
                [backgroundColor]="'rgba(239, 242, 247, 1)'"
-               [foregroundColor]="'rgba(250, 166, 52, 1)'"
+               [foregroundColor]="'rgba(52, 116, 181, 1)'"
     >
     </ngx-gauge>
   `

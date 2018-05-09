@@ -35,11 +35,6 @@
       </div>
     </div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <button class="btn btn-primary" (click)="goBack()"><i class="fa fa-chevron-left"></i> Back</button>
-      <button class="btn btn-primary" (click)="reset('zoom')">Reset zoom</button>
-    </div>
-
     <!-- Gauge and CHart container -->
     <div class="col-md-4 col-sm-4 col-xs-12 gauge-chart-container">
       <div class="loader" *ngIf="!sensorDetailsData?.sensorID"></div>
@@ -77,6 +72,7 @@
           [colors]="chartColors"
           [legend]="true">
         </canvas>
+        <button class="btn btn-primary" (click)="reset('zoom')"><i class="fa fa-refresh"></i></button>
       </div>
     </div>
 
@@ -84,8 +80,10 @@
       <div class="loader" *ngIf="rows[0]=='N/A'"></div>
       <div class="message-history-container" *ngIf="rows[0]!=='N/A'">
         <div class="row">
-        <button class="btn btn-primary col-md-3 col-sm-4 col-xs-12" (click)="export()">{{'global.exportPdf'|translate}}</button>
-        <button class="btn btn-primary col-md-3 col-sm-4 col-xs-12" (click)="exportAsCSV()">Export</button>
+          <div class="col-md-3 col-sm-4 col-xs-12">
+            <button class="btn btn-primary" (click)="export()"><i class="fa fa-download"></i> {{'global.exportPdf'|translate}}</button>
+            <button class="btn btn-primary" (click)="exportAsCSV()"><i class="fa fa-download"></i> {{'global.exportCsv'|translate}}</button>
+          </div>
       </div>
         <div class="row">
         <div class="dark-theme">

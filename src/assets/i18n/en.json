@@ -2,7 +2,8 @@
  "global":{
    "from":"From",
    "to":"To",
-   "exportPdf":"Export to PDF",
+   "exportPdf":"PDF",
+   "exportCsv":"CSV",
    "comments":"Comments"
  },
  "login":{

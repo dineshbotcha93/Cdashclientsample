@@ -1,5 +1,5 @@
 
-<div class="login_wrapper onboarding_container">
+<div class="login_wrapper onboarding_container onboardingContainer_wide">
 
   <div class="form login_form">
     <section class="login_content">
@@ -8,7 +8,7 @@
 
       </user-flow-component>
 
-      <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="form-horizontal form-label-left font-white">
+      <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="form-horizontal form-label-left">
 
         <div *ngIf="accountUpdateStatus.error" class="alert alert-danger">
           <span>{{ accountUpdateStatus.message || 'Please verify the details entered for your registraiton' }}</span>

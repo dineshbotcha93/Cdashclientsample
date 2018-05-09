@@ -1,0 +1,58 @@
+@import "../variables";
+
+.login_content {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  background: $color-white;
+  border-radius: 0;
+  box-shadow: none;
+  color: $colorUI-emerson-black;
+
+  h1 {
+    color: $colorUI-emerson-black;
+  }
+
+  a, p {
+    color: $colorUI-emerson-black;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 0.85em;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  form {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      box-shadow: none;
+      border-radius: 0;
+      border: 1px solid $colorBrand-emerson-grey;
+      font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+
+      &:focus {
+        border: 1px solid $colorBrand-emerson-grey;
+      }
+    }
+  }
+}
+
+.onboarding_container {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  color: $colorUI-emerson-black;
+  text-align: left;
+
+  h1.onboarding-title {
+    text-align: center;
+
+    &:before, &:after {
+      background: none;
+    }
+  }
+
+  &.onboardingContainer_wide {
+    max-width: 40em;
+  }
+}

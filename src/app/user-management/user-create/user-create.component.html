@@ -1,5 +1,5 @@
 
-<div class="login_wrapper onboarding_container">
+<div class="login_wrapper onboarding_container onboardingContainer_wide">
   <div class="form login_form">
     <section class="login_content">
       <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
@@ -12,7 +12,7 @@
         <span>{{userCreationError || 'Please verify the details entered for your registraiton'}}</span>
       </div>
 
-      <form [formGroup]="userCreateForm" name="form" class="form-horizontal form-label-left font-white" (ngSubmit)="onSubmit()">
+      <form [formGroup]="userCreateForm" name="form" class="form-horizontal form-label-left" (ngSubmit)="onSubmit()">
 
         <!--<h1 class="onboarding-title">User Registration</h1>-->
         <div class="row gap-top">
