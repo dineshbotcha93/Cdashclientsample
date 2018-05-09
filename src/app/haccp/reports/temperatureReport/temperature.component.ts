@@ -64,14 +64,12 @@ export class TemperatureComponent  {
   
         console.log(':::::', result);
         //let pdfBaseString = result._body.
-        this.pdfSrc = this.base64ToArrayBuffer(result);
+        this.pdfSrc = this.base64ToArrayBuffer(result.content);
   
         //console.log('::::::::::', this.base64ToArrayBuffer(this.pdfSrc));
       });
       this.showReport = true;
     }
-
-
   }
 
 
