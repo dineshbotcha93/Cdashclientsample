@@ -24,7 +24,7 @@ export class NetworkSetupComponent implements OnInit {
   modalMessage ='';
   disableSubmitButton = true;
   @ViewChild('editModal') editModal: TemplateRef<any>;
-  private rows = null;
+  public rows = null;
   isEdit = false;
   selectedNetworkID = 0;
   addressForm: FormGroup;
@@ -81,11 +81,11 @@ export class NetworkSetupComponent implements OnInit {
 
   }
 
-  private addFormControl(name: string, formGroup: FormGroup) : void {
+  public addFormControl(name: string, formGroup: FormGroup) : void {
     this.networkFormSetup.addControl(name, formGroup);
   }
 
-  onSubmit() {
+  onSubmit(type: any = null) {
     console.log('Submit Add', this.networkFormSetup.get("createNetworkForm").value);
 
     this.prepareSubmitData(this.networkFormSetup.get("createNetworkForm").value);
@@ -227,7 +227,7 @@ export class NetworkSetupComponent implements OnInit {
     this.columns.push({ prop: 'city', name: '', cellTemplate: this.editModal});
   }
 
-  private enableSubmit($event){
+  public enableSubmit($event){
     console.log("caught enable");
     this.disableSubmitButton = !$event;
     console.log($event);

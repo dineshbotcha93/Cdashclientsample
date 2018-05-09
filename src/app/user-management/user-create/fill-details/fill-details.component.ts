@@ -24,8 +24,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   stepOneData: any = null;
 
   public accountForm: FormGroup;
-  private isNewMaster = false;
-  private accountInfo: any = null;
+  public isNewMaster = false;
+  public accountInfo: any = null;
   private email = null;
   postData: object = {};
 
@@ -114,7 +114,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   }
 
 
-  private addFormControl(name: string, formGroup: FormGroup): void {
+  public addFormControl(name: string, formGroup: FormGroup): void {
     this.accountForm.addControl(name, formGroup);
   }
 

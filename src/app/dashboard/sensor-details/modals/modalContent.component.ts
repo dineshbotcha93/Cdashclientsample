@@ -24,7 +24,6 @@ import { SensorDetailsService } from '../services/sensor-details.service';
       </textarea>
     </div>
     <div class="modal-footer">
-      <input type="hidden" value="{{detailId}}" />
       <button type="button" class="btn btn-default" (click)="close()">{{closeBtnName}}</button>
       <button type="button" class="btn btn-default" (click)="save()">{{saveBtnName}}</button>
     </div>
@@ -36,6 +35,7 @@ export class ModalContentComponent implements OnInit {
   closeBtnName: string;
   list: any[] = [];
   commentsBox: string;
+  saveBtnName: string;
 
   constructor(
     public bsModalRef: BsModalRef,

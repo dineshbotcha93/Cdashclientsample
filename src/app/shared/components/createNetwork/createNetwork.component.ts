@@ -32,18 +32,18 @@ export class CreateNetworkComponent implements OnInit {
 
   }
 
-  private addFormControl(name: string, formGroup: FormGroup) : void {
+  public addFormControl(name: string, formGroup: FormGroup) : void {
 
     this.createNetworkForm.addControl(name, formGroup);
   }
 
-  private isValidAddress($event){
+  public isValidAddress($event){
     console.log('is valid address');
     console.log($event);
     this.enableSubmit.emit($event);
   }
 
-  private grabCoordinates($event){
+  public grabCoordinates($event){
     console.log('grabbed coordinates is');
     console.log($event);
     this.grabbedCoordinates.emit($event);

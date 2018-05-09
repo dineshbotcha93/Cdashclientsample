@@ -93,14 +93,14 @@
        (onClose)="modalClosed($event)">
   <form>
   <label for="dName">Device Name : </label>
-    <input class="form-control" type="text" id="dName" name="dName" value="{{modalMessage.name}}" disabled/>
+    <input class="form-control" type="text" id="dName" name="dName" value="{{modalMessage?.name}}" disabled/>
 
   <label for="email">Email Address : </label>
-    <input class="form-control" type="text" id="email" name="email" value="{{modalMessage.email}}" disabled/>
+    <input class="form-control" type="text" id="email" name="email" value="{{modalMessage?.email}}" disabled/>
   <label for="sms">Phone Number : </label>
-    <input class="form-control" type="text" id="sms" name="sms" value="{{modalMessage.smsNumber}}" disabled/>
+    <input class="form-control" type="text" id="sms" name="sms" value="{{modalMessage?.smsNumber}}" disabled/>
   <label for="text">Text: </label>
-    <div [innerHTML]="modalMessage.text">
+    <div [innerHTML]="modalMessage?.text">
     </div>
   </form>
 </modal>

@@ -24,12 +24,12 @@ const now = new Date();
 })
 
 export class SensorComparisonComponent{
-  private sensorName:String = '';
-  private sensorNames:Array<Object> = [];
+  public sensorName:String = '';
+  public sensorNames:Array<Object> = [];
   private data:Array<any>=[];
   public chartLabels:Array<any>=[];
   public chartColors: Array<any> = [ChartColors];
-  private networkName:string = '';
+  public networkName:string = '';
   private location:number = 0;
   public chartOptions = null;
   private netWorkId = null;
