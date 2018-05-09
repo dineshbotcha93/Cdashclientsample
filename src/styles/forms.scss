@@ -29,6 +29,13 @@ select {
     padding-right: 7px;
   }
 
+  &.icon-only {
+    i {
+      font-size: 20px;
+      padding: 0;
+    }
+  }
+
   &:hover, &:focus, &:active {
     //border: 1px solid $color-grey-light;
     background-color: $color-grey-light;

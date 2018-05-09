@@ -74,6 +74,13 @@
       a {
         color: $color-white;
         cursor: pointer;
+
+        &.icon-only {
+          i {
+            font-size: 20px;
+            padding: 0;
+          }
+        }
       }
     }
   }
