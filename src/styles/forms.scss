@@ -58,6 +58,10 @@ select {
     background: transparent;
     color: $colorUI-emerson-black;
     padding: 5px;
+
+    &:active {
+      box-shadow: none;
+    }
   }
 
   &.saveBTN {

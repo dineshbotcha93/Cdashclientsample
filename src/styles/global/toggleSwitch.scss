@@ -179,11 +179,11 @@
         height: 1.75em;
         transition: all .2s ease;
         background: $color-white;
-        border: 1px solid $colorGrey-emerson-vLightGrey;
+        border: 1px solid $colorGrey-emerson-lightGrey;
         border-radius: 2em;
         &:after {
           transition: all .2s ease;
-          background: $colorGrey-emerson-vLightGrey;
+          background: $colorGrey-emerson-lightGrey;
           content: "";
           border-radius: 1em;
         }
