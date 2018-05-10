@@ -9,7 +9,9 @@
       </div>
 
       <ul class="nav navbar-nav navbar-left m-l-sm">
-        <li role="presentation"><a class="home_icon" (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin"><i class="fa fa-home"></i></a></li>
+        <li role="presentation">
+          <a (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin"><i class="fa fa-home"></i></a>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

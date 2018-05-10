@@ -66,13 +66,14 @@
     }
   }
 
-  .top_navigation {
+  .nav {
     display: inline-block;
 
     li {
       display: inline-block;
 
       a {
+        padding: 12px 15px 8px;
         color: $color-white;
         cursor: pointer;
 
@@ -89,7 +90,7 @@
   .navbar-right {
     .user-profile {
       padding: 10px;
-      color: $color-white !important;
+      // color: $color-white !important;
 
       &:hover {
         background: $color-emerson-brand-blue;
@@ -106,6 +107,7 @@
       padding: 10px;
     }
   }
+
   .navbar-left {
     i {
       font-size: 25px;
