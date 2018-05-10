@@ -63,7 +63,7 @@
       <!-- My Profile -->
       <tab tabTitle="My Profile" class="tab-content">
         <div class="row">
-          <div class="col-sm-12 sensors-info-container">
+          <div class="col-sm-12">
             <div *ngIf="loadPage === true">
               <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
               <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
@@ -135,10 +135,8 @@
       <!-- Notifications -->
       <tab tabTitle="Notifications" class="tab-content">
         <div class="row">
-          <div class="col-md-12 sensors-info-container" *ngIf="accountData">
-           <app-user-notifications
-             [accountData]="accountData">
-           </app-user-notifications>
+          <div class="col-md-12" *ngIf="accountData">
+           <app-user-notifications [accountData]="accountData"></app-user-notifications>
           </div>
         </div>
       </tab>

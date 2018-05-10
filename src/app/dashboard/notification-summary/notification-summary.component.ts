@@ -28,10 +28,10 @@ export class NotificationSummaryComponent implements OnInit {
 
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
-  
+
      this.getNotificationDetails();
      this.deviceCreationError = "Notitfications to be loaded";
-   
+
   }
 
    getNotificationDetails(){
@@ -46,7 +46,7 @@ export class NotificationSummaryComponent implements OnInit {
 
        let result = this.sensorList;
        console.log('sensorList-------',this.sensorList);
-     
+
      if(this.sensorList.length > 0){
           result.forEach((notify) => {
           let checkModelNotify = { active: false, inActive: true };
@@ -55,15 +55,16 @@ export class NotificationSummaryComponent implements OnInit {
           }
           notify.notification.checkModelNotify = checkModelNotify;
           this.notificationSummaryList.push(notify);
+          console.log('this.notificationSummaryList:: ', this.notificationSummaryList);
         });
      }
-     
+
      // });
   }
 
   onClickNotifyOn(e, notify) {
-
-    console.log('selected element-->',notify);
+    console.log('onClickNotifyOn || selected e-->',e);
+    console.log('onClickNotifyOn || selected element-->',notify);
 
     let requestObject = {
       NotificationID:notify.notification.notificationID,
@@ -82,7 +83,8 @@ export class NotificationSummaryComponent implements OnInit {
   }
 
   onClickNotifyOff(e, notify) {
-    console.log('selected element-->',notify);
+    console.log('onClickNotifyOff || selected e-->',e);
+    console.log('onClickNotifyOff || selected element-->',notify);
 
     let requestObject = {
       NotificationID:notify.notification.notificationID,
