@@ -21,14 +21,13 @@
 
 .tabs_container {
   padding-bottom: 20px;
+  color: $colorUI-emerson-black;
 }
 
 .tab-content {
   .tab-panel {
-    background-color: $color-body-bg;
-    border-radius: $border-radius-big;
-    padding: 20px;
-    margin-top: -5px;
+    padding: 0;
+    margin-top: 20px;
   }
 
   &.light-theme {
@@ -40,16 +39,12 @@
 
   &.light-theme-padding-zero {
     .tab-panel {
-      border: 2px solid $color-body-bg;
-      background: $color-white;
 
       .ngx-datatable {
-        border: none !important;
-        border-radius: $border-radius-medium + 5px;
+        border: 1px solid $colorGrey-emerson-vLightGrey;
       }
+
       .ngx-datatable.bootstrap .datatable-footer {
-        background: orange;
-        border-right: $border-radius-big;
       }
     }
   }
@@ -63,7 +58,7 @@
 ul.bar_tabs, ul.nav-tabs {
   height: auto;
   border: 0;
-  padding-left: 20px;
+  padding-left: 0;
   margin: 21px 0 7px;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large) {
@@ -72,15 +67,13 @@ ul.bar_tabs, ul.nav-tabs {
   }
 
   li.tabs {
-    border-radius: 20px;
     background: none;
     border: 0;
     margin: 0;
     margin-right: 5px;
 
-
     a {
-      border-radius: 20px;
+      border-radius: 4px;
       border: 0;
       background-color: $color-grey-light;
       padding: 10px 25px;
@@ -88,7 +81,7 @@ ul.bar_tabs, ul.nav-tabs {
 
     &.active {
       a {
-        background-color: $color-body-bg;
+        background-color: $color-emerson-brand-blue; // $color-body-bg;
         color: $color-white;
 
         &:hover {

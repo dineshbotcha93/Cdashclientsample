@@ -5,13 +5,20 @@
         <!--<a id="menu_toggle" (click)="menuToggle()"><i class="fa fa-bars"></i></a>-->
       </div>
       <div class="top_nav_logo">
-        <img id="logo" src="assets/images/CooperAtkins_Logo.svg"/>
+        <img id="logo" src="assets/images/CA-Color_Atkins_White.png"/>
       </div>
+
+      <ul class="nav navbar-nav navbar-left m-l-sm">
+        <li role="presentation">
+          <a (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin"><i class="fa fa-home"></i></a>
+        </li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <!--<li class="lang-dd"><app-languagedropdown (currentLanguage)="catchLanguage($event)"></app-languagedropdown></li>-->
         <li>
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <img src="assets/images/users/img.jpg" alt="">{{userEmail}}
+            <span>{{userEmail}} <i class="fa fa-caret-down"></i></span>
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">

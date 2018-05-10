@@ -101,7 +101,7 @@ export class SensorDetailsComponent {
 
     this.chartOptions.legend = {
       labels: {
-        fontColor: '#fff'
+        fontColor: '#000000'
       }
     };
   }

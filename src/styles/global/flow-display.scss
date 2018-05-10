@@ -2,13 +2,13 @@
 
 .wizard_horizontal {
   ul.wizard_steps {
-    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     margin: 20px 0 40px;
     padding-left: 0;
 
     li {
       a {
-        color: $gauge-chart-forgroundColor;
+        color: $color-emerson-brand-blue;
 
         &:hover {
           text-decoration: none;
@@ -16,23 +16,24 @@
 
         &:before {
           height: 2px;
-          background: $gauge-chart-forgroundColor;
+          background: $color-emerson-brand-blue;
         }
 
         &.disabled {
           .step_no {
-            color: $color-grey-verydark;
+            background: $color-emerson-brand-blue;
+            color: $colorGrey-emerson-lightGrey;
           }
         }
 
         .step_no {
-          border: 2px solid $gauge-chart-forgroundColor;
-          background: $gauge-chart-backgroundColor;
-          color: $gauge-chart-forgroundColor;
+          color: $color-emerson-brand-blue;
+          background: $color-white;
+          border: 2px solid $color-emerson-brand-blue;
         }
 
         .step_descr {
-          color: $gauge-chart-forgroundColor;
+          color: $color-emerson-brand-blue;
         }
       }
     }

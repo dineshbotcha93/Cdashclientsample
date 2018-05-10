@@ -14,25 +14,17 @@
   </div>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="col-md-10 col-sm-8 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12">
         <h3>
-          <i class="fa fa-location-arrow"></i>
           {{'dashboardMain.dashboardTitle'|translate}}
         </h3>
-      </div>
-      <div class="col-md-2 col-sm-4 col-xs-12">
-        <div class="list-view">
-          <a (click)="showListView()" [hidden]="showList"><i class="fa fa-list m-r-xs"></i> List View</a>
-          <a (click)="showMapView()" [hidden]="showMap">Map</a>
-        </div>
       </div>
       <div class="x_panel">
         <div class="x_content" [hidden]="showList">
           <div class="loader" *ngIf="mapData.length == 0"></div>
-          <app-map [markers]="mapData" *ngIf="mapData.length > 0"></app-map>
         </div>
-        <div class="x_content network-card dark-theme" [hidden]="showMap">
-          <table class="table table-striped">
+        <div class="x_content" [hidden]="showMap">
+          <table class="table table-striped light-theme">
             <thead>
             <tr>
               <th class="col-md-2"> Location Name</th>
