@@ -44,9 +44,10 @@
         </div>
 
         <div class="info-label card-button" *ngIf="isAdmin">
-          <button (click)= "populateAccountEditModal()" class="btn btn-transparent icon-only" data-toggle="modal" data-target="#editAccountModal">
+          <button (click)= "populateAccountEditModal()" class="btn btn-transparent icon-only"
+                  data-toggle="modal" data-target="#editAccountModal" tooltip="Edit Account">
             <i class="fa fa-edit"></i></button>
-          <a type="button" class="btn btn-transparent icon-only" role="button" [class.btn-disabled]="accountData.numSensors == 0"
+          <a type="button" class="btn btn-transparent icon-only" role="button" [class.btn-disabled]="accountData.numSensors == 0" tooltip="Renew Contract"
              [attr.href]="(accountData.numSensors === 0)? 'javascript:void(0)' : '/payments'"><i class="fa fa-credit-card"></i></a>
         </div>
       </div>

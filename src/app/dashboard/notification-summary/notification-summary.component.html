@@ -26,13 +26,13 @@
         <td class="col-sm-5">{{notify.notification.notificationClass}}/{{notify.notification.name}}</td>
         <td class="col-sm-2">{{notify.notification.lastDateSent | date:'short'}}</td>
         <td class="col-sm-2">
-          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'text')" placement="top" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top"><i class="fa fa-comment-o"></i></a>
-          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'device')" placement="top" ngbTooltip="Tooltip on top"><i class="fa fa-tablet"></i></a>
-          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'user')" placement="top" ngbTooltip="Tooltip on top"><i class="fa fa-user-o"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'text')" tooltip="Comments"><i class="fa fa-comment-o"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'device')" tooltip="Device Information"><i class="fa fa-tablet"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'user')" tooltip="User Information"><i class="fa fa-user-o"></i></a>
         </td>
         <td class="col-sm-2">
-          <button class="btn btn-transparent icon-only" (click)="onClickEditNotifyDetails(notify)"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-transparent icon-only" (click)="onClickRemoveNotifyDetails(notify)"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-transparent icon-only" (click)="onClickEditNotifyDetails(notify)" tooltip="Edit notification"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-transparent icon-only" (click)="onClickRemoveNotifyDetails(notify)" tooltip="Delete notification"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>
