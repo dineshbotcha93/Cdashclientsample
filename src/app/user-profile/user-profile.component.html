@@ -153,12 +153,11 @@
     <div class="row">
       <div class="col-md-12 col-sm-12">
         <button class="btn btn-primary" [attr.section]="'user-content'" (click)="toggleContent($event)">User Information</button>
-        <button class="btn btn-primary" [attr.section]="'network-content'" (click)="toggleContent($event)">Locations</button>
-        <!--<button class="btn btn-primary" [attr.section]="'network-content'" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Locations</button>-->
+        <button class="btn btn-primary" [attr.section]="'network-content'" [disabled]="!isNetworkBtn" (click)="toggleContent($event)">Locations</button>
       </div>
       <div class="col-md-12 col-sm-12">
         <div class="collapse.show" [ngbCollapse]="isUserContentCollapsed">
-          <div class="card card-body">
+          <div class="">
             <ng-container *ngTemplateOutlet="addEditUserSectionTmpl"></ng-container>
             <ng-container *ngTemplateOutlet="notificationSectionTmpl"></ng-container>
           </div>
@@ -166,7 +165,7 @@
       </div>
       <div class="col-md-12 col-sm-12">
         <div class="collapse" [ngbCollapse]="isNetworkContentCollapsed">
-          <div class="card card-body myNetwork-temp">
+          <div class="myNetwork-temp">
             <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
           </div>
         </div>
@@ -324,16 +323,10 @@
           </div>
         </div>
 
-        <div class="form-group" >
-          <div class="col-sm-push-4 col-sm-4" *ngIf="!isEditForm">
-            <button class="form-control btn btn-info" (click)="saveUserData()">Save</button>
-          </div>
-          <div class="col-sm-push-4 col-sm-4" *ngIf="isEditForm">
-            <button class="form-control btn btn-info" (click)="updateUserData()">Update</button>
-          </div>
-          <div class=" col-sm-push-4 col-sm-4">
-            <button class="form-control btn btn-info" (click)="showUsersTab()">Cancel</button>
-          </div>
+        <div class="form-group pull-right">
+          <button class="form-control btn btn-info" *ngIf="!isEditForm" (click)="saveUserData()">Save</button>
+          <button class="form-control btn btn-info" *ngIf="isEditForm" (click)="updateUserData()">Update</button>
+          <button class="form-control btn btn-info" (click)="showUsersTab()">Cancel</button>
         </div>
       </div>
 
@@ -359,11 +352,9 @@
       </div>
 
       <div class="col-md-12 col-sm-12 col-xs-12 gap-top" *ngIf="isNetworkBtn">
-        <div class="form-group">
-          <div class="col-sm-push-8 col-sm-2">
-            <button class="btn btn-info" id="next-btn-user" (click)="saveUserNetworkPermssions()">Save Locations</button>
-            <button class="form-control btn btn-info" (click)="showUsersTab()">Cancel</button>
-          </div>
+        <div class="form-group pull-right">
+          <button class="form-control btn btn-info" (click)="saveUserNetworkPermssions()">Save Locations</button>
+          <button class="form-control btn btn-info" (click)="showUsersTab()">Cancel</button>
         </div>
       </div>
     </div>
