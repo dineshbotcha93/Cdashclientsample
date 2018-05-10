@@ -32,8 +32,6 @@ import { CommonSharedService } from './shared/services/common-shared.service';
 import { SharedModule } from './shared/modules/shared.module';
 import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
-import {HACCPModule} from "./haccp/haccp.module";
-
 
 
 const appRoutes: Routes = [{
@@ -46,6 +44,9 @@ const appRoutes: Routes = [{
 },
 {
   path:'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule',
+},
+{
+  path: 'haccp', loadChildren: './haccp/haccp.module#HACCPModule'
 }
 ]
 
@@ -69,7 +70,6 @@ if(!environment.production)
     BrowserAnimationsModule,
     ReportsModule,
     PaymentsModule,
-    HACCPModule,
     HttpModule,
     ComponentsModule,
     HttpClientModule,

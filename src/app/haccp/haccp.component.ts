@@ -40,6 +40,8 @@ export class HACCPComponent implements AfterViewInit, AfterContentInit {
     private router:Router,
     private translate: TranslateService
   ){
+    translate.setDefaultLang('en');
+    translate.use('en');
     //super();
 
     this._addTiles();

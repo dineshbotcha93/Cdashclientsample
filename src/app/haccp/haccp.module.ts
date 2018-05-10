@@ -21,14 +21,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 export const routes: Routes = [
   {
-    path: 'haccp',
+    path: '',
     canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        component: HACCPComponent
-      }
-    ]
+    component: HACCPComponent
   },
 ];
 @NgModule({
