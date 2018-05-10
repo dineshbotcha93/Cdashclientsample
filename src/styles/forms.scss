@@ -29,6 +29,18 @@ select {
     padding-right: 7px;
   }
 
+  a[type="button"] {
+    color: $colorUI-emerson-black;
+  }
+
+  &:hover, &:focus, &:active {
+    background-color: $color-grey-light;
+    transition: background-color 0.5s ease;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+  }
+
   &.icon-only {
     i {
       font-size: 20px;
@@ -36,13 +48,15 @@ select {
     }
   }
 
-  &:hover, &:focus, &:active {
-    //border: 1px solid $color-grey-light;
-    background-color: $color-grey-light;
-    transition: background-color 0.5s ease;
-    -webkit-transition: background-color 0.5s ease;
-    -moz-transition: background-color 0.5s ease;
-    -o-transition: background-color 0.5s ease;
+  &.btn-light {
+    background: $colorGrey-emerson-vLightGrey;
+    color: $colorUI-emerson-black;
+  }
+
+  &.btn-transparent {
+    background: transparent;
+    color: $colorUI-emerson-black;
+    padding: 5px;
   }
 
   &.saveBTN {
@@ -155,6 +169,10 @@ input[type="password"] {
   .error {
     font-size: 0.85em;
     color: $color-redLight;
+  }
+
+  label.col-form-label {
+    font-weight: normal;
   }
 }
 

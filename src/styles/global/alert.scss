@@ -13,13 +13,14 @@
   h3 {
     font-size: 1.2em;
   }
+}
 
-  &.alert-danger {
+.alert-error,
+.alert-danger {
+  color: $colorUI-emerson-red;
+  background: none;
+
+  h3 {
     color: $colorUI-emerson-red;
-    background: none;
-
-    h3 {
-      color: $colorUI-emerson-red;
-    }
   }
 }

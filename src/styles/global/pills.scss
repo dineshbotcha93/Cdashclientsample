@@ -21,6 +21,7 @@
 
 .tabs_container {
   padding-bottom: 20px;
+  color: $colorUI-emerson-black;
 }
 
 .tab-content {
@@ -38,16 +39,12 @@
 
   &.light-theme-padding-zero {
     .tab-panel {
-      border: 2px solid $color-body-bg;
-      background: $color-white;
 
       .ngx-datatable {
-        border: none !important;
-        border-radius: $border-radius-medium + 5px;
+        border: 1px solid $colorGrey-emerson-vLightGrey;
       }
+
       .ngx-datatable.bootstrap .datatable-footer {
-        background: orange;
-        border-right: $border-radius-big;
       }
     }
   }

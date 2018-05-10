@@ -1,8 +1,8 @@
 @import "./../variables";
 
 .infoCard-container {
-  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  color: $color-grey-verydark;
+  //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $colorUI-emerson-black;
   min-width: auto;
 
   @media (min-width: $phone-small) and (max-width: $phone-large) {
@@ -14,7 +14,7 @@
     margin: 0 10px 10px 0;
     min-width: 10rem;
     display: inline-block;
-    font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 1.25rem;
     text-align: center;
     text-transform: uppercase;
@@ -29,7 +29,7 @@
     }
 
     .value {
-      font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       color: $color-yellow;
       font-size: 2rem;
       text-shadow: 1px 1px 1px $color-grey-verydark;
