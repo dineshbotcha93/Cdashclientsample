@@ -2,22 +2,16 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <div class="row">
-        <div class="col-sm-1">Status</div>
-        <div class="col-sm-5">Notification</div>
-        <div class="col-sm-2">Last Sent</div>
-        <div class="col-sm-2">Type</div>
-        <!--<div class="col-sm-1">Text</div>
-        <div class="col-sm-1">Devices</div>
-        <div class="col-sm-1">Users</div>-->
-        <div class="col-sm-2"></div>
-      </div>
+      <th class="col-sm-1">Status</th>
+      <th class="col-sm-5">Notification</th>
+      <th class="col-sm-2">Last Sent</th>
+      <th class="col-sm-2">Type</th>
+      <th class="col-sm-2"></th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <div class="row" *ngFor="let notify of notificationSummaryList; let i=index">
-        <div class="col-sm-1">
+      <tr *ngFor="let notify of notificationSummaryList; let i=index">
+        <td class="col-sm-1">
           <ul class="toggleSwitch-list">
             <li class="toggleSwitch-item">
               <input class="tgl tgl-flat" attr.id="cb_{{notify.notification.notificationID}}" type="checkbox"/>
@@ -29,22 +23,18 @@
             <label class="btn btn-primary" [(ngModel)]="notify.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notify)">On</label>
             <label class="btn btn-primary" [(ngModel)]="notify.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notify)">Off</label>
           </div>-->
-
-        </div>
-        <div class="col-sm-5">{{notify.notification.notificationClass}}/{{notify.notification.name}}</div>
-        <div class="col-sm-2">{{notify.notification.lastDateSent | date:'short'}}</div>
-        <div class="col-sm-2">
-          <a (click)="openModal(notify,template,'text')"><fa name="comment"></fa></a>
-          <a (click)="openModal(notify,template,'device')"><fa name="tablet"></fa></a>
-          <a (click)="openModal(notify,template,'user')"><fa name="user"></fa></a>
-        </div>
-        <div class="col-sm-2">
-          <button class="btn btn-primary icon-only" (click)="onClickEditNotifyDetails(notify)"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-primary icon-only" (click)="onClickRemoveNotifyDetails(notify)"><i class="fa fa-trash"></i></button>
-        </div>
-        <hr>
-      </div>
-    </tr>
+        <td class="col-sm-5">{{notify.notification.notificationClass}}/{{notify.notification.name}}</td>
+        <td class="col-sm-2">{{notify.notification.lastDateSent | date:'short'}}</td>
+        <td class="col-sm-2">
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'text')"><i class="fa fa-comment-o"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'device')"><i class="fa fa-tablet"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'user')"><i class="fa fa-user-o"></i></a>
+        </td>
+        <td class="col-sm-2">
+          <button class="btn btn-transparent icon-only" (click)="onClickEditNotifyDetails(notify)"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-transparent icon-only" (click)="onClickRemoveNotifyDetails(notify)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
