@@ -34,7 +34,6 @@ import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
 
-
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
 },{
@@ -45,6 +44,9 @@ const appRoutes: Routes = [{
 },
 {
   path:'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule',
+},
+{
+  path: 'haccp', loadChildren: './haccp/haccp.module#HACCPModule'
 }
 ]
 

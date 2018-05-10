@@ -3,7 +3,7 @@
   <div *ngIf="!isValidForm" class="alert alert-danger">
         <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
   </div>
-  <form [formGroup]="deviceCreateForm" name="form" class="form-horizontal form-label-left font-white" >
+  <form [formGroup]="deviceCreateForm" name="form" class="form-horizontal" >
 
   <table class="table table-striped">
     <tbody *ngIf="deviceType === 'GATEWAY'">

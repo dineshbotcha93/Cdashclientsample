@@ -54,5 +54,13 @@
  },
  "sensorComparison":{
    "comparisonTitle":"Sensor Comparison for Network"
- }
+ },
+  "haccp": {
+    "reports" :{
+      "title": "HACCP Reports",
+      "dailysummarytitle": "Daily Summary Reports",
+      "checklistreporttitle": "Checklist Reports",
+      "temperaturereporttitle": "Temperature Reports"
+    }
+  }
 }
