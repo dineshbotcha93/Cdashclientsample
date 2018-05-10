@@ -182,7 +182,7 @@
               </div>
 
               <div *ngIf="isSelectedToAddDevice">
-                <div class="col-md-12 dark-theme">
+                <div class="col-md-12">
                   <app-create-device [deviceType]="radioModel"
                   [inputNetworkData]="locationData"
                   [selectedNetwork]="selectLocation"
@@ -195,13 +195,13 @@
 
               <div *ngIf="isSelectedToAddDevice === false">
                 <div *ngIf="radioModel === 'gateway'">
-                  <div class="col-md-12 dark-theme">
+                  <div class="col-md-12">
                     <ng-container *ngTemplateOutlet="gateWayDataTemplate"></ng-container>
                   </div>
                 </div>
 
                 <div *ngIf="radioModel === 'sensor'">
-                  <div class="col-md-12 dark-theme">
+                  <div class="col-md-12">
                     <ng-container *ngTemplateOutlet="sensorDataTemplate"></ng-container>
                   </div>
                 </div>
@@ -310,7 +310,7 @@
   <div *ngIf="isServiceCallSuccess" class="alert alert-success">
         <span>Successfully updated</span>
   </div>
-  <table class="table table-striped" *ngIf="gateWayData?.length>0">
+  <table class="table table-striped light-theme" *ngIf="gateWayData?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -346,7 +346,7 @@
         <span>Successfully updated</span>
   </div>
 
-  <table class="table table-striped" *ngIf="allSensors?.length>0">
+  <table class="table table-striped light-theme" *ngIf="allSensors?.length>0">
     <thead>
       <tr>
         <th class="col-md-1">
@@ -354,12 +354,12 @@
             <input type="checkbox" name="allSensor" [(ngModel)]="isSelectedAll" (change)="onCheckAll($event)" />
           </div>
         </th>
-        <th class="col-md-2">Sensor Id</th>
-        <th class="col-md-2">Sensor Name</th>
+        <th class="col-md-1">Sensor Id</th>
+        <th class="col-md-4">Sensor Name</th>
         <th class="col-md-1">Heartbeat</th>
-        <th class="col-md-1">Min Threshold</th>
-        <th class="col-md-1">Max Threshold</th>
-         <th class="col-md-3">Scale</th>
+        <th class="col-md-1">Min</th>
+        <th class="col-md-1">Max</th>
+         <th class="col-md-2">Scale</th>
 
       </tr>
     </thead>
@@ -389,14 +389,14 @@
 
            <!-- <td class="col-md-3">{{sensor.scale}}</td> -->
              <td>
-          <div class="col-md-6 col-sm-12 col-xs-12">
-            <div class="btn-group">
-              <label class="btn btn-primary btn-xs" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
+          <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <div class="btn-group btn-group-toggle">
+              <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
               </label>
-              <label class="btn btn-primary btn-xs" [(ngModel)]="sensor.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,sensor)">F
+              <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,sensor)">F
               </label>
             </div>
-          </div>
+          <!--</div>-->
         </td>
       </tr>
     </tbody>

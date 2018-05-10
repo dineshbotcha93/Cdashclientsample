@@ -59,6 +59,7 @@
   .top_nav_logo {
     display: inline-block;
     padding: 5px 10px;
+    float: left;
 
     img#logo {
       width: 120px;
@@ -105,4 +106,17 @@
       padding: 10px;
     }
   }
+  .navbar-left {
+    i {
+      font-size: 25px;
+    }
+
+    a{
+      &:hover {
+        cursor: pointer;
+        background: $color-emerson-brand-blue;
+      }
+    }
+  }
+
 }
