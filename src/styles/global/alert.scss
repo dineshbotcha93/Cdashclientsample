@@ -1,13 +1,26 @@
 @import "../variables";
 
 .alert {
-  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  color: $color-white;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   margin-left: auto;
   margin-right: auto;
-  max-width: 70%;
+  padding: 5px;
+  font-size: 0.85em;
+  border: 0;
+  max-width: none;
+  margin-bottom: 0;
 
   h3 {
     font-size: 1.2em;
+  }
+}
+
+.alert-error,
+.alert-danger {
+  color: $colorUI-emerson-red;
+  background: none;
+
+  h3 {
+    color: $colorUI-emerson-red;
   }
 }
