@@ -16,7 +16,11 @@ import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-temp-report',
-  templateUrl: './temperature.component.html'
+  templateUrl: './temperature.component.html',
+  styles: [
+    `.btn-generate { margin-top: 25px}
+    .pdf-scroll {overflow:scroll;height:340px}`
+  ]
 })
 export class TemperatureComponent  {
 

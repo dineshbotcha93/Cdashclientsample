@@ -29,11 +29,11 @@
           </span>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12" style="margin-top:25px">
+  <div class="col-md-3 col-sm-6 col-xs-12 btn-generate">
     <input type="button" value="Generate Report" class="btn btn-primary" (click)="GenerateReport()"/>
   </div>
 
-  <div class="x_panel" *ngIf="showReport">
+  <div class="x_panel pdf-scroll" *ngIf="showReport">
         <pdf-viewer [src]="pdfSrc" [autoresize]="true"></pdf-viewer>
   </div>
 </div>

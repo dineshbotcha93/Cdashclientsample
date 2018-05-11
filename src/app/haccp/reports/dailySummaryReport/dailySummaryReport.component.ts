@@ -16,7 +16,12 @@ import { HaccpReportingService } from '../services/haccpReporting.service';
 
 @Component({
   selector: 'app-dailysummary-report',
-  templateUrl: './dailySummaryReport.component.html'
+  templateUrl: './dailySummaryReport.component.html',
+  styles: [
+    `.btn-generate { margin-top: 25px}
+     .pdf-scroll {overflow:scroll;height:340px}
+     `
+  ]
 })
 export class DailySummaryReportComponent  {
 

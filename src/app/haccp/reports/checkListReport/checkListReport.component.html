@@ -29,11 +29,11 @@
           </span>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     Group By
     <div class="input-group">
       <select name="filter_by_group" [(ngModel)]="filterByGroup" class="form-control">
-        <option value="date" selected>Date</option>
+        <option value="date">Date</option>
         <option value="category">Category</option>
         <option value="question">Question</option>
         <option value="correctiveaction">Corrective Action</option>
@@ -42,7 +42,7 @@
       </select>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     Selection Question Type
     <div class="input-group">
       <select name="filter_question_type" [(ngModel)]="filterByQesType" class="form-control">
@@ -53,11 +53,11 @@
       </select>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12 btn-generate">
     <input type="button" value="Generate Report" class="btn btn-primary" (click)="GenerateReport()"/>
   </div>
 
-  <div class="x_panel" *ngIf="showReport">
+  <div class="x_panel pdf-scroll" *ngIf="showReport">
     <pdf-viewer [src]="pdfSrc" [autoresize]="true"></pdf-viewer>
   </div>
 </div>
