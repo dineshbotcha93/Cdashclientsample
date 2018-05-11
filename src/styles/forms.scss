@@ -181,12 +181,55 @@ input[type="password"] {
   }
 }
 
-.btn-disable
-{
+.btn-disable {
  cursor: not-allowed;
  pointer-events: none;
 
  /*Button disabled - CSS color class*/
  color: #c0c0c0;
- background-color: #ffffff;
+ background-color: $color-white;
+}
+
+.inline-form {
+  span.inline-form {
+    width: auto;
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+
+    &.inline-form-50 {
+      width: 50%;
+    }
+
+    &:last-child {
+      margin: 0 10px 0 0;
+    }
+  }
+}
+
+.btn-group-checkbox {
+  label {
+    font-weight: normal;
+    color: $colorUI-emerson-black;
+    border-left: 1px solid $color-white;
+    border-right: 1px solid $color-white;
+    background: $colorGrey-emerson-lightGrey;
+
+    &:hover {
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+      background: $colorGrey-emerson-grey;
+    }
+
+    &.active {
+      background: $color-emerson-brand-blue;
+    }
+
+    &:first-child {
+      border-left: none;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
 }

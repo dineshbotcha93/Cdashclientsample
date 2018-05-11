@@ -172,7 +172,7 @@ export class NotificationCreateComponent implements OnInit {
                     };
                   sensorObj.push(tempObj);
                   this.sensorListNamesList.push(tempNameObj);
-                    tempObject.devices.forEach(device => { 
+                    tempObject.devices.forEach(device => {
                          if (device.deviceCategory === "Sensor") {
                              if(sensor.sensorID === device.deviceID ){
                                 sensorModel.push(sensor.sensorName);
@@ -194,9 +194,9 @@ export class NotificationCreateComponent implements OnInit {
                     };
                   gatewayObj.push(tempObj);
                   this.gatewayListNamesList.push(tempNameObj);
-                  tempObject.devices.forEach(device => { 
+                  tempObject.devices.forEach(device => {
                          if (device.deviceCategory === "Gateway") {
-                             
+
                             if(gateway.gatewayID === device.deviceID ){
                               gatewayModel.push(gateway.name);
                             }
@@ -214,16 +214,16 @@ export class NotificationCreateComponent implements OnInit {
         //           if(sensor.sensorID === device.deviceID ){
         //             sensorModel.push(sensor.sensorName);
         //           }
-                  
+
         //      });
         //   } else {
         //    gatewayGlobalList.forEach(gateway => {
-                
-                 
+
+
         //           if(gateway.gatewayID === device.deviceID ){
         //             gatewayModel.push(gateway.name);
         //           }
-                   
+
         //   }
         // });
 
@@ -240,7 +240,7 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.compareType = notify.comparer;
         this.notificationModel.notificationID = notify.notificationID;
         this.notificationModel.scale = notify.scale;
-        this.notificationModel.subnotificationClassType = notify.monnitApplicationID; 
+        this.notificationModel.subnotificationClassType = notify.monnitApplicationID;
 
         if (notify.notificationClass === "Inactivity") {
           this.onClickInActivityNotify();
@@ -251,14 +251,14 @@ export class NotificationCreateComponent implements OnInit {
         ) {
           this.onClickBatteryNotify();
         }else if (
-          notify.notificationClass === "Advanced" 
+          notify.notificationClass === "Advanced"
         ) {
           this.onClickAdvanceNotify();
         }
       } else {
         this.setInitialModelValues();
         this.getNotificationScheduleDetailsForAddNotify();
-       
+
         let userTempObj = [];
         let userSelectedObject = [];
 
@@ -808,7 +808,7 @@ export class NotificationCreateComponent implements OnInit {
           this.notificationModel.compareValue = humid.id;
         }
       });
-      this.preSelectSubNotifyType =Obj[0]; 
+      this.preSelectSubNotifyType =Obj[0];
 
 
        console.log('preSelectSubNotifyType',this.notificationModel.subnotificationClassType);
@@ -915,7 +915,7 @@ export class NotificationCreateComponent implements OnInit {
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";
 
-     this.preSelectSubNotifyType =Obj[0]; 
+     this.preSelectSubNotifyType =Obj[0];
     if (this.notifyOperationType === "editNotify"){
 
        console.log('preSelectSubNotifyType',this.notificationModel.subnotificationClassType);
@@ -1003,9 +1003,9 @@ export class NotificationCreateComponent implements OnInit {
     }
     this.setNotificationFormDetails();
   }
-  setAdvancedNotificationParameterList(subNotifyTyoe) {
+  setAdvancedNotificationParameterList(subNotifyType) {
     this.advancedParameterObject = [];
-    switch (subNotifyTyoe) {
+    switch (subNotifyType) {
       case "1": {
         this.advancedParameterObject.push(
           this.setAdvancedParameterDetails("Alert After", "1", "")
@@ -1218,7 +1218,7 @@ export class NotificationCreateComponent implements OnInit {
   onClickNext(value) {
     this.isValidForm = this.notificationForm1.valid;
     if (value === "page1") {
-     
+
       if (this.isValidForm ) {
         this.isSensorNotificationForm2 = true;
         this.isSensorNotificationForm1 = false;
@@ -1302,8 +1302,6 @@ export class NotificationCreateComponent implements OnInit {
     }
   }
   onClickCreateNotification(value) {
-
-
     console.log(this.advancedParameterObject);
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {
