@@ -25,8 +25,8 @@ Run `npm run coverage` to execute istanbul test coverage reports on the codebase
 ## Creating a sample test:
 
 Your testing (spec file) should have something like this in every spec file.
-
-`beforeEach(fakeAsync(() => {
+```javascript
+beforeEach(fakeAsync(() => {
   TestBed.configureTestingModule({
     declarations: [
       DashboardComponent
@@ -52,13 +52,15 @@ Your testing (spec file) should have something like this in every spec file.
  fixture = TestBed.createComponent(DashboardComponent);
  fixture.detectChanges();
  component = fixture.componentInstance;
-}));`
+}));
+```
 
 To make sure that only the tests which you want to run execute, use fdescribe instead of describe: such as follows:
-
-`fdescribe('DashboardComponent',()=>{
+```javascript
+fdescribe('DashboardComponent',()=>{
 ...
-  });`
+  });
+  ```
 
 ## Running end-to-end tests
 
