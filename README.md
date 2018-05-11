@@ -24,7 +24,41 @@ Run `npm run coverage` to execute istanbul test coverage reports on the codebase
 
 ## Creating a sample test:
 
+Your testing (spec file) should have something like this in every spec file.
 
+`beforeEach(fakeAsync(() => {
+  TestBed.configureTestingModule({
+    declarations: [
+      DashboardComponent
+    ],
+    imports: [
+      SharedModule,
+      RouterModule.forRoot(routes),
+    ],
+    providers:[
+      {provide: APP_BASE_HREF, useValue: '/'},
+    ],
+    schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  }).overrideComponent(DashboardComponent, {
+  set: {
+    providers: [
+      {provide: TranslateService, useClass: MockTranslation},
+      {provide: DashboardService, useClass: MockDashboardService},
+      {provide: MapService, useClass: MockMapService},
+      { provide: Router, useValue: mockRouter},
+    ]
+  }
+});
+ fixture = TestBed.createComponent(DashboardComponent);
+ fixture.detectChanges();
+ component = fixture.componentInstance;
+}));`
+
+To make sure that only the tests which you want to run execute, use fdescribe instead of describe: such as follows:
+
+`fdescribe('DashboardComponent',()=>{
+...
+  });`
 
 ## Running end-to-end tests
 
