@@ -31,7 +31,7 @@ export class SensorComparisonComponent{
   public chartColors: Array<any> = [ChartColors];
   private networkName:string = '';
   private location:number = 0;
-  public chartOptions = null;
+  public chartOptions: any = ChartOptions;
   private netWorkId = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
 
@@ -54,7 +54,7 @@ export class SensorComparisonComponent{
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
       labels: {
-        fontColor: '#fff'
+        fontColor: '#333'
       },
       onClick:function(e,legendItem){
         this.sensorNames.push({
