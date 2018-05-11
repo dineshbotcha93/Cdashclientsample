@@ -13,7 +13,7 @@
 <div class="row notification-container" *ngIf="isReadingTypeAvailable">
   <div class="col-md-6 col-sm-12">
     <div class="form-group">
-      <label class="col-sm-12 col-md-6 col-xs-12 col-form-label" for="sensor-reading">Type of Sensor Reading</label>
+      <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Type of Sensor Reading</label>
       <div class="col-sm-12 col-md-6 col-xs-12">
         <select class="form-control" name="sensor-reading" [ngModel]="preSelectSubNotifyType" (ngModelChange)="onChangeNotifictaion($event)">
           <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">{{not.value}}</option>
