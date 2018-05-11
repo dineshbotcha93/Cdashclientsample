@@ -81,8 +81,6 @@ fdescribe('DashboardComponent',()=>{
   });
 
   it('should place the component on the page', async(()=>{
-    const fixture = TestBed.createComponent(DashboardComponent);
-    fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
