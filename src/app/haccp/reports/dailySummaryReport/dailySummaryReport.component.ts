@@ -18,7 +18,7 @@ import { HaccpReportingService } from '../services/haccpReporting.service';
   selector: 'app-dailysummary-report',
   templateUrl: './dailySummaryReport.component.html',
   styles: [
-    `.btn-generate { margin-top: 25px}
+    `.btn-generate { margin-top: 20px}
      .pdf-scroll {overflow:scroll;height:340px}
      `
   ]

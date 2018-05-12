@@ -18,7 +18,7 @@ import * as moment from 'moment/moment';
   selector: 'app-temp-report',
   templateUrl: './temperature.component.html',
   styles: [
-    `.btn-generate { margin-top: 25px}
+    `.btn-generate { margin-top: 20px}
     .pdf-scroll {overflow:scroll;height:340px}`
   ]
 })

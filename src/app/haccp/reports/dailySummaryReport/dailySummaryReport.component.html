@@ -1,6 +1,6 @@
 <div class="row x_content">
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     {{'global.from'|translate}}
     <div class="input-group">
       <input type="text"
@@ -8,14 +8,14 @@
              [minDate]="minDate"
              [maxDate]="maxDate"
              #dp="bsDatepicker"
-             bsDatepicker [(bsValue)]="bsValue">
+             bsDatepicker [(bsValue)]="bsValue"  placement="right">
       <span class="input-group-addon" (click)="dp.show() ">
             <i class="fa fa-calendar" aria-hidden="true"></i>
           </span>
     </div>
   </div>
 
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-2 col-sm-6 col-xs-12">
     {{'global.to'|translate}}
     <div class="input-group">
       <input type="text"
@@ -23,7 +23,7 @@
              [minDate]="minDate"
              [maxDate]="maxDate"
              #dp1="bsDatepicker"
-             bsDatepicker [(bsValue)]="bsValueTwo">
+             bsDatepicker [(bsValue)]="bsValueTwo"  placement="right">
       <span class="input-group-addon" (click)="dp1.show() ">
             <i class="fa fa-calendar" aria-hidden="true"></i>
           </span>

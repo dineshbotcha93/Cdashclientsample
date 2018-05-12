@@ -18,8 +18,9 @@ import * as moment from 'moment/moment';
   selector: 'app-checklist-report',
   templateUrl: './checkListReport.component.html',
   styles: [
-    `.btn-generate { margin-top: 25px}
-    .pdf-scroll {overflow:scroll;height:340px}`
+    `.btn-generate { margin-top: 20px}
+    .pdf-scroll {overflow:scroll;height:340px}
+    .groupby-control {width:14%}`
   ]
 })
 export class CheckListReportComponent  {
