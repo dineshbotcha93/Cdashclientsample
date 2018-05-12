@@ -22,6 +22,24 @@
       <div class="separator">
         <button [routerLink]="['/user-register']" class="btn btn-default submit">{{'login.loginForm.newUser'| translate}}</button>
       </div>
+      <!--<div style="padding-top: 10px;">
+        <button style="width: 100%;" class="btn btn-default submit">Quick Pay : Click Here</button>
+      </div>-->
+    </section>
+
+    <section class="login_content" style="margin-top: 20px;">
+      <form [formGroup]="anonymousPayments" (ngSubmit)="submitAnonymousPayment()">
+        <h1 style="margin-bottom: 10px;">Quick Pay?</h1>
+        <div class="alert alert-danger" *ngIf="invalidInvoice">Invalid Invoice ID</div>
+        <div class="row">
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder="Enter Invoice Number"/>
+          </div>
+          <div class="col-sm-4">
+            <input type="submit" value="Pay" class="btn btn-primary">
+          </div>
+        </div>
+      </form>
     </section>
   </div>
 </div>
