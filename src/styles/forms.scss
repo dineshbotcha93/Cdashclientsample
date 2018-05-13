@@ -12,18 +12,32 @@ select {
 
 // ------> Button
 .btn {
-  background-color: $color-grey-verylight;
-  border: 1px solid $color-grey-light;
-  color: $color-grey-verydark;
-  border-radius: 20px;
-  padding: 6px 15px;
+  background-color: $color-emerson-brand-blue;
+  border: none;
+  color: $color-white;
+  padding: 10px 12px;
+  margin: 0 5px 0 0;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: none;
 
   i.fa {
     padding-right: 7px;
   }
 
+  &.icon-only {
+    i {
+      font-size: 20px;
+      padding: 0;
+    }
+  }
+
   &:hover, &:focus, &:active {
-    border: 1px solid $color-grey-light;
+    //border: 1px solid $color-grey-light;
     background-color: $color-grey-light;
     transition: background-color 0.5s ease;
     -webkit-transition: background-color 0.5s ease;
@@ -102,6 +116,8 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   box-shadow: none;
+  border-radius: 0;
+  border: 1px solid $colorBrand-emerson-grey;
 
   &[readonly="true"] {
     background: $color-grey-light;

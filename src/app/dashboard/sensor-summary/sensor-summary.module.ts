@@ -27,8 +27,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
 
-
-
 const routes: Routes = [{
   path: '', component: SensorSummaryComponent
 }];

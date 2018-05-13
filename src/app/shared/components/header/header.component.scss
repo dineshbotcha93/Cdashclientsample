@@ -38,7 +38,7 @@
 
 .top_nav {
   .nav_menu {
-    padding: 10px;
+    background: $color-emerson-darkBlue;
   }
 
   .nav.toggle {
@@ -58,16 +58,47 @@
 
   .top_nav_logo {
     display: inline-block;
-    padding: 10px;
+    padding: 5px 10px;
 
     img#logo {
       width: 120px;
     }
   }
 
+  .top_navigation {
+    display: inline-block;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: $color-white;
+        cursor: pointer;
+
+        &.icon-only {
+          i {
+            font-size: 20px;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
   .navbar-right {
     .user-profile {
       padding: 10px;
+      color: $color-white !important;
+
+      &:hover {
+        background: $color-emerson-brand-blue;
+      }
+    }
+
+    .open {
+      a.user-profile {
+        background: $color-emerson-brand-blue;
+      }
     }
 
     .lang-dd {

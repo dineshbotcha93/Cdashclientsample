@@ -35,8 +35,8 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
   private loadedStatuses = false;
-  private showList = false;
-  private showMap = true;
+  private showList = true;
+  private showMap = false;
   private rows:Array<any>=['N/A'];
 
   constructor(

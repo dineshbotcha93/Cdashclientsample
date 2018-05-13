@@ -138,7 +138,7 @@ export class UserCreateComponent implements OnInit {
     console.log('not implemented yet');
   }
 
-  masterChange() {
+  masterChange(event: any = null) {
     if (this.userCreateForm.get('isNewMaster').value === 'true') {
       this.userCreateForm.get('firstName').setValidators([Validators.required]);
       this.userCreateForm.get('lastName').setValidators([Validators.required]);

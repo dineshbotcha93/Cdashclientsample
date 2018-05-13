@@ -6,11 +6,12 @@ import { PaymentsModule } from './payments/payments.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { ContainersModule } from './shared/containers';
-import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
+import { Http, HttpModule, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RequesterService } from './shared/services/requester.service';
 import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
+import { ProductionInterceptor } from '../production/productionInterceptor';
 import {environment} from '../environments/environment';
 import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -33,8 +34,6 @@ import { SharedModule } from './shared/modules/shared.module';
 import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
-
-
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
 },{
@@ -48,28 +47,17 @@ const appRoutes: Routes = [{
 }
 ]
 
-let mockProvider = [];
-if(!environment.production)
-{
-  mockProvider.push({
-    provide: Http,
-    deps: [MockBackend, BaseRequestOptions],
-    useFactory: (backend: MockBackend, options: BaseRequestOptions, realBackend: Http) => {
-      return new Http(backend, options);
-    }
-  });
-}
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReportsModule,
     PaymentsModule,
-    HttpModule,
     ComponentsModule,
+    HttpModule,
     HttpClientModule,
     ContainersModule,
     NgxDatatableModule,
@@ -100,10 +88,17 @@ if(!environment.production)
     BaseRequestOptions,
     RequesterService,
     MockBackendService,
-    mockProvider,
+    ProductionInterceptor,
     CommonSharedService,
     ToastsManager,
-    AlertSandbox
+    AlertSandbox,
+    {
+      provide: Http,
+      deps: [XHRBackend,BaseRequestOptions],
+      useFactory: (backend: XHRBackend, options: BaseRequestOptions) => {
+          return new ProductionInterceptor(backend,options);
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

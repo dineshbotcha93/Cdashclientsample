@@ -10,8 +10,8 @@ export const ChartOptions = {
   radius: 3,
   pointDotStrokeWidth : 1,
   bezierCurve : true,
-  defaultFontFamily: 'roboto_light',
-  defaultFontColor: 'rgba(255, 255, 255, 1)',
+  defaultFontFamily: 'Verdana',
+  defaultFontColor: 'rgba(0, 0, 0, 1)',
   // Container for pan options
   pan: {
     // Boolean to enable panning
@@ -38,9 +38,9 @@ export const ChartOptions = {
   legend: {
     labels: {
       // This more specific font property overrides the global property
-      fontColor: 'rgba(255, 255, 255, 1)',
-      defaultFontColor: 'rgba(255, 255, 255, 1)',
-      defaultFontFamily: 'roboto_light',
+      fontColor: 'rgba(0, 0, 0, 1)',
+      defaultFontColor: 'rgba(0, 0, 0, 1)',
+      defaultFontFamily: 'Verdana',
     },
     onClick: (e) => e.stopPropagation()
   },
@@ -55,13 +55,13 @@ export const ChartOptions = {
             return label;
           }
         },
-        fontColor: 'white'
+        fontColor: '#000000'
       },
     }],
     xAxes: [{
       ticks: {
         beginAtZero:true,
-        fontColor: 'white'
+        fontColor: '#000000'
       },
     }],
   },
@@ -89,10 +89,10 @@ export const ChartOptions = {
 };
 
 export const ChartColors = {
-  backgroundColor: 'rgba(255, 204, 101, 0.1)',
-  borderColor: 'rgba(255, 204, 101, 0.25)',
-  pointBackgroundColor: 'rgba(255, 204, 101, 0.75)',
+  backgroundColor: 'rgba(52, 116, 181, 0.1)',
+  borderColor: 'rgba(52, 116, 181, 0.25)',
+  pointBackgroundColor: 'rgba(52, 116, 181, 0.75)',
   // pointBorderColor: '#fff',
-  pointHoverBackgroundColor: '#fff',
+  pointHoverBackgroundColor: '#000000',
   // pointHoverBorderColor: 'rgba(148, 159, 177, 1)'
 };

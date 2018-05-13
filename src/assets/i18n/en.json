@@ -2,7 +2,8 @@
  "global":{
    "from":"From",
    "to":"To",
-   "exportPdf":"Export to PDF",
+   "exportPdf":"PDF",
+   "exportCsv":"CSV",
    "comments":"Comments"
  },
  "login":{
@@ -11,7 +12,7 @@
      "username":"Username",
      "password":"Password",
      "loginButton":"Login",
-     "newUser":"Create Account: Click to Register"
+     "newUser":"New user"
     }
   },
  "userRegistration":{

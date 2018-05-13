@@ -26,10 +26,12 @@ declare var jsPDF: any; // Important
 })
 export class SensorDetailsComponent {
   private result;
-  private sensorDetailsData;
+  public sensorDetailsData;
+  public minDate = null;
+  public maxDate = null;
   private detailId;
-  private rows: Array<any> = ['N/A'];
-  private columns: Array<any> = [];
+  public rows: Array<any> = ['N/A'];
+  public columns: Array<any> = [];
   private limit: Number  = 10;
   private data: Array<any> = [];
   private defaultThreshold = 4294967295;
@@ -101,7 +103,7 @@ export class SensorDetailsComponent {
 
     this.chartOptions.legend = {
       labels: {
-        fontColor: '#fff'
+        fontColor: '#000000'
       }
     };
   }
