@@ -1,10 +1,13 @@
+@import "../variables";
+
 html {
   height: 100vh;
   min-height: 100%;
 }
 
 body {
-  font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  background: $color-emerson-darkBlue;
   margin: 0;
   padding: 0;
   max-width: $body-max-width;
@@ -19,7 +22,7 @@ body {
 
     .right_col {
       min-height: 100%;
-      box-shadow: 0 0 15px $color-black;
+      background: $color-white;
     }
 
     .main_container {
@@ -27,6 +30,10 @@ body {
       min-height: 100%;
     }
   }
+}
+
+a, h1, h2, h3, h4 {
+  color: $colorUI-emerson-black;
 }
 
 
@@ -130,28 +137,14 @@ ul {
 
 
 /* ******************************** */
-.onboarding_container {
-  max-width: 40em;
-  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  font-size: 1em;
-  color: $color-white;
-  text-align: left;
-
-  h1.onboarding-title {
-    text-align: center;
-
-    &:before, &:after {
-      background: none;
-    }
-  }
-}
-/* ******************************** */
-
-
-
-/* ******************************** */
 #map {
   height: 100%;
 }
 /* ******************************** */
 
+
+/* ******************************** */
+.x_panel {
+  padding: 0;
+}
+/* ******************************** */

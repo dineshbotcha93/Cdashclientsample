@@ -21,7 +21,15 @@ import * as store from "../../shared/store";
 import * as toasterActions from "../../shared/store/actions/toaster.action";
 import { Store } from "@ngrx/store";
 
-//import { CreateDeviceComponent } from '../create-device/create-device.component';
+export interface MapData {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  noOfGateways: number;
+  noOfSensors: number;
+}
+
 @Component({
   selector: "app-sensor-summary",
   templateUrl: "./sensor-summary.component.html",
@@ -36,7 +44,7 @@ import { Store } from "@ngrx/store";
 })
 export class SensorSummaryComponent extends AbstractDashboardBase
   implements OnInit {
-  mapData: Object = null;
+  mapData: MapData = null;
   allSensors: Array<any> = [];
   displayTiles: Object = null;
   orderBy: any = "asc";
@@ -97,9 +105,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   disableSubmitButton: boolean = true;
 
   private mapStatus = MapConstants.STATUS;
-  private doFilterByName: string = null;
-  private doFilterByStatus: string = "select";
-  private doFilterByType: string = "select";
+  public doFilterByName: string = null;
+  public doFilterByStatus: string = "select";
+  public doFilterByType: string = "select";
   private networkModel: NetworkModel = new NetworkModel();
 
   selectTempTypeList: any = [];
@@ -242,7 +250,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
       // hardcoded for now
       sens.sensorType = sens.type;
-      console.log('sens-->>',sens);
       if(sens.maximumThreshold === -4294967295 || sens.maximumThreshold === 4294967295){
           sens.maximumThreshold = 0;
       }
@@ -267,7 +274,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   }
 
   /*Onchange event for selection of network ID*/
-  private onChangeLocation(e) {
+  public onChangeLocation(e) {
     this.netWorkId = e.Id.toString();
     this.getNetworkData();
     this.isSelectedToAddDevice = false;
@@ -290,9 +297,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.editSaveModel = "Edit";
 
     this.disable = {
-      edit: false,
-      remove: false,
-      move: false,
+      edit: true,
+      remove: true,
+      move: true,
       add: false,
       reset: true
     };
@@ -332,11 +339,11 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     if (!this.isSelectedAll) {
       this.editSaveModel = "Edit";
       this.disable = {
-        edit: false,
-        remove: false,
-        move: false,
+        edit: true,
+        remove: true,
+        move: true,
         add: false,
-        reset: true
+        reset: false
       };
     }
     this.isValidForm = true;
@@ -358,6 +365,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase
           x.gateWayEditOption === "edit" ? "display" : "display";
       });
     }
+
+     this.disable = {
+      edit: false,
+      remove: false,
+      move: false,
+      add: false,
+      reset: true
+    };
   }
   private plainValueChanged(event, sensor) {
     sensor.heartBeat = event.startValue;
@@ -393,6 +408,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   private onClickInlineCheckBox(e, gateway) {
     this.isValidForm = true;
     this.isServiceCallSuccess = false;
+
+     this.disable = {
+      edit: false,
+      remove: false,
+      move: false,
+      add: false,
+      reset: true
+    };
 
     if (!e.target.checked) {
       gateway.gateWayEditOption = "display";
@@ -464,8 +487,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       this.editNetworkData.country = editNetworkForm.get(
         "address"
       ).value.country;
-      console.log("edit network form");
-      console.log(editNetworkForm);
       //console.log(this.addressForm.getCoordinates());
       this.onClickSaveNetworkDetail();
     } else {
@@ -539,7 +560,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   private onClickEditNetwork() {
     this.showEditPopup = true;
     this.disableSubmitButton = true;
-    console.log(this.mapData);
     this.editNetworkData = {
       name: this.selectLocation.Title,
       address: {
@@ -733,7 +753,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   }
 
   onChangeTempTypeValue(e) {
-    console.log("selected celcius/foreighht than value-->", e);
   }
 
   private setEditSensorDetails() {
@@ -950,13 +969,11 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   }
 
   onClickSaveNetworkDetail() {
-    console.log(this.editNetworkData);
     this.editNetworkData.latitude = this.latestCoordinates.latitude;
     this.editNetworkData.longitude = this.latestCoordinates.longitude;
     this.sensorSummaryService
       .updateNetwork(this.editNetworkData)
       .then(g => {
-        console.log(this.mapData);
         this.mapData["address"] = this.editNetworkData.address;
         this.mapData["city"] = this.editNetworkData.city;
         this.mapData["country"] = this.editNetworkData.country;
@@ -1091,8 +1108,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   }
 
   enableSubmit($event) {
-    console.log("got enable submit");
-    console.log($event);
     this.disableSubmitButton = !$event;
   }
 
@@ -1113,7 +1128,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         }
         this.allSensors.forEach(x => {
           if (x === sensor) {
-            console.log("enered", x);
             x.checkModelNotify = { active: x, inActive: y };
           }
         });
@@ -1127,7 +1141,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       value: "C"
     };
     this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
-      console.log(result);
+
       this.getSensorUpdateData(sensor, true, false);
     });
   }
@@ -1143,7 +1157,6 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       value: "F"
     };
     this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
-      console.log(result);
       this.getSensorUpdateData(sensor, false, true);
     });
   }

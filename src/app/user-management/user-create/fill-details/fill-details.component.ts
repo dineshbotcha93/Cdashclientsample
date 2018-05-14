@@ -6,7 +6,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AddressFormComponent} from '../../../shared/components/addressForm/addressForm.component';
 
 
-
 @Component({
   selector: 'fill-details',
   templateUrl: './fill-details.html',
@@ -22,11 +21,11 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
   placeOfPurchase: Array<object> = [];
-  stepOneData:any = null;
+  stepOneData: any = null;
 
   public accountForm: FormGroup;
-  private isNewMaster = false;
-  private accountInfo: any = null;
+  public isNewMaster = false;
+  public accountInfo: any = null;
   private email = null;
   postData: object = {};
 
@@ -75,18 +74,19 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       business_type: new FormControl('', Validators.required),
       timeZone: new FormControl('', Validators.required),
       placeOfPurchase: new FormControl('', Validators.required),
+      conditionsCheck: new FormControl(false, Validators.requiredTrue),
     });
   }
 
   ngAfterViewInit() {
     this.stepOneData = this.userManagementService.getRegistrationData();
 
-    if(this.stepOneData) {
+    if (this.stepOneData) {
       this.isNewMaster = this.stepOneData.isNewMaster;
       this.email = this.stepOneData.email;
     }
 
-    if(!this.isNewMaster) {
+    if (!this.isNewMaster) {
       console.log('not a new master. Fetching API data');
       this.fillDetailsService.fetchExistingUserInfo()
         .then(data => {
@@ -114,7 +114,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   }
 
 
-  private addFormControl(name: string, formGroup: FormGroup): void {
+  public addFormControl(name: string, formGroup: FormGroup): void {
     this.accountForm.addControl(name, formGroup);
   }
 
@@ -135,20 +135,20 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.accountUpdateStatus.error = !this.accountForm.valid || !this.addressForm.validateAddress();
 
-    if(this.isNewMaster) {
-      this.createNewMasterUser(this.accountForm, this.addressForm.addressForm);
-    } else {
-      this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
+    if (!this.accountUpdateStatus.error) {
+      if (this.isNewMaster) {
+        this.createNewMasterUser(this.accountForm, this.addressForm.addressForm);
+      } else {
+        this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
+      }
     }
   }
 
   private updateExistingUserAccount(accountForm: FormGroup, addressForm: FormGroup) {
-    console.log('update existing user account', accountForm);
-
     const coordinates = this.addressForm.getCoordinates();
     const selectedTimeZone: any = this.fetchTimeZone(this.accountForm.get('timeZone').value);
     const reseller: any = this.placeOfPurchase.find((pop: any) => {
-      return pop.name === accountForm.get('placeOfPurchase').value
+      return pop.name === accountForm.get('placeOfPurchase').value;
     });
 
     const payloadData = {
@@ -208,7 +208,6 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         longitude: coordinates.longitude,
       }
     };
-
 
 
     this.userManagementService.registerNewMaster(payloadData, this.stepOneData.registrationToken)

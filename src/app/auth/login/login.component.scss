@@ -1,11 +1,13 @@
 @import "../../../styles/variables";
 
 .login_content {
-  form {
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      box-shadow: none;
-    }
+  .reset_pass {
+    float: none;
+    margin: 0;
+    //font-size: 0.85em;
+  }
+
+  .btn {
+    width: 100%;
   }
 }

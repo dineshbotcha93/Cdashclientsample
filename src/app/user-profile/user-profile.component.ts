@@ -85,19 +85,19 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('amountColTmpl') amountColTmpl: TemplateRef<any>;
   @ViewChild('actionsColTmpl') actionsColTmpl: TemplateRef<any>;
   private responseData: Object = null;
-  private accountData: Array<AccountData> = [];
+  public accountData: Array<AccountData> = [];
   private UpdateAccountData: Array<AccountData> = [];
   private networkData: Array<NetworkData> = [];
   private userRows: Array<UserData> = null;
   private userColumns: Array<any> = [];
-  private renewalRows: Array<PaymentHistoryData> = null;
-  private renewalColumns: Array<any> = [];
+  public renewalRows: Array<PaymentHistoryData> = null;
+  public renewalColumns: Array<any> = [];
   private loggedInUserId: number;
   private editRecordUserId: number;
   private newRecordUserId: number;
   private myNetworks: Array<any> = [];
-  private loadPage: Boolean = false;
-  private isShowUserTable: Boolean = true;
+  public loadPage: Boolean = false;
+  public isShowUserTable: Boolean = true;
   private labelRenewal: string = null;
   private isSubscriptionExpired: Boolean = false;
   private expiryDate: Date = null;
@@ -111,12 +111,12 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private isNtWorkProfile: Boolean = true;
   private isUserFormValid: Boolean = false;
   private isDirectSMS: Boolean = false;
-  private isAdmin: Boolean = true;
-  private limit = 10;
+  public isAdmin: Boolean = true;
+  public limit = 10;
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
-  private isLoader: Boolean = false;
+  public isLoader: Boolean = false;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),

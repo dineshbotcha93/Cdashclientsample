@@ -36,7 +36,7 @@ export class CustomerDetailsComponent implements OnInit {
   @ViewChild('isAdminColTmpl') isAdminColTmpl: TemplateRef<any>;
   @ViewChild('notificationColTmpl') notificationColTmpl: TemplateRef<any>;
   private responseData: Object = null;
-  private customerData: Object = null;
+  public customerData: Object = null;
   private networkRows: Array<NetworkData> = null;
   private networkColumns: Array<any> = [];
   private tempSensorsRows: Array<SensorsData> = null;
@@ -50,7 +50,7 @@ export class CustomerDetailsComponent implements OnInit {
   private AccountIdParam: number = null;
   private doFilterByNetwork: string = 'select';
   private doFilterByGateway: string = 'select';
-  private loadedStatuses = false;
+  public loadedStatuses = false;
   private labelRenewal: string = null;
   private isSubscriptionExpired: Boolean = false;
   private expiryDate: Date = null;
@@ -144,5 +144,5 @@ export class CustomerDetailsComponent implements OnInit {
       this.isSubscriptionExpired = true;
     }
   }
-  
+
 }

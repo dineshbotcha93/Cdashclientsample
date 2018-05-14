@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 
 export class FlowDisplayComponent {
-  @Input() selected: string;
+  @Input() selected: number;
 }
