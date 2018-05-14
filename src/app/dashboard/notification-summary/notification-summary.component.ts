@@ -28,10 +28,10 @@ export class NotificationSummaryComponent implements OnInit {
 
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
-  
+
      this.getNotificationDetails();
      this.deviceCreationError = "Notitfications to be loaded";
-   
+
   }
 
    getNotificationDetails(){
@@ -45,8 +45,7 @@ export class NotificationSummaryComponent implements OnInit {
 
 
        let result = this.sensorList;
-       console.log('sensorList-------',this.sensorList);
-     
+
      if(this.sensorList.length > 0){
           result.forEach((notify) => {
           let checkModelNotify = { active: false, inActive: true };
@@ -57,24 +56,19 @@ export class NotificationSummaryComponent implements OnInit {
           this.notificationSummaryList.push(notify);
         });
      }
-     
+
      // });
   }
 
   onClickNotifyOn(e, notify) {
-
-    console.log('selected element-->',notify);
-
     let requestObject = {
       NotificationID:notify.notification.notificationID,
       On:true
     };
 
     this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
-      console.log(result);
       this.notificationSummaryList.forEach(x => {
         if(x === notify){
-          console.log('enered');
           x.notification.checkModelNotify = { active: true, inActive: false };
         }
       });
@@ -82,18 +76,14 @@ export class NotificationSummaryComponent implements OnInit {
   }
 
   onClickNotifyOff(e, notify) {
-    console.log('selected element-->',notify);
-
     let requestObject = {
       NotificationID:notify.notification.notificationID,
       On:false
     };
 
     this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
-      console.log(result);
       this.notificationSummaryList.forEach(x => {
         if(x === notify){
-          console.log('enered');
           x.notification.checkModelNotify = { active: false, inActive: true };
         }
       });
@@ -113,13 +103,11 @@ export class NotificationSummaryComponent implements OnInit {
     } else if(type === 'user'){
       this.modalObject = notifiy.users;
     }
-    console.log('-------',this.modalObject);
     this.modalRef = this.modalService.show(template);
 
  }
 
  onClickEditNotifyDetails(notify){
-   console.log(notify);
     this.isEditNotify = true;
     this.editNotifyModeEvent.emit(notify);
 
