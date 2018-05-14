@@ -194,18 +194,18 @@ table,
 
 
 .editNetworkSetup-dataTable {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: $colorUI-emerson-black;
   .ngx-datatable {
-    .datatable-body-row {
-      color: black;
-    }
 
     .datatable-header-cell {
-      color: $color-white;
-      font-weight: bolder;
+      color: $colorUI-emerson-black;
+      //font-weight: bolder;
       font-size: 1em;
-      text-transform: uppercase;
+      //text-transform: uppercase;
       text-align: left;
-      background: $color-body-bg;
+      //background: $color-body-bg;
     }
 
     .datatable-footer {
