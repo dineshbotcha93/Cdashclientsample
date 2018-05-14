@@ -57,13 +57,10 @@ export class NotificationSummaryComponent implements OnInit {
           this.notificationSummaryList.push(notify);
         });
      }
-
-     // });
   }
 
     onClickNotifyOffOn(e, notify){
-      console.log('notify-->',notify);
-
+      
      let notValue = true;
      if(notify.notification.isNotifyMode){
         notValue = false;

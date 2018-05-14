@@ -14,7 +14,7 @@
         <td class="col-sm-1">
           <ul class="toggleSwitch-list">
             <li class="toggleSwitch-item" >
-              <input class="tgl tgl-flat" attr.id="cb_{{notify.notification.notificationID}}" (click)="onClickNotifyOffOn($event,notify)"
+              <input class="tgl tgl-flat" attr.id="cb_{{notify.notification.notificationID}}" [checked]="notify.notification.isNotifyMode" (click)="onClickNotifyOffOn($event,notify)"
               type="checkbox"/>
               <label class="tgl-btn" attr.for="cb_{{notify.notification.notificationID}}"></label>
             </li>

@@ -386,17 +386,21 @@
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="maximumThreshold" (change)="onChangeDeviceInputType(old,sensor.maximumThreshold,sensor,'maximumThreshold')" (focus)="old=sensor.maximumThreshold" required value="{{sensor.maximumThreshold}}" minlength="1" [(ngModel)]="sensor.maximumThreshold">
         </td>
-
-           <!-- <td class="col-md-3">{{sensor.scale}}</td> -->
              <td>
-          <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
-            <div class="btn-group btn-group-toggle">
+            <!-- <div class="btn-group btn-group-toggle">
               <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
               </label>
               <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,sensor)">F
               </label>
-            </div>
-          <!--</div>-->
+            </div> -->
+
+            <ul class="toggleSwitch-list">
+            <li class="toggleSwitch-item" >
+              <input class="tgl tgl-flat" attr.id="cb_{{sensor.sensorName}}" [checked]="sensor.isNotifyMode" (click)="onClickNotifyOffOn($event,sensor)"
+              type="checkbox"/>
+              <label class="tgl-btn" attr.for="cb_{{sensor.sensorName}}"></label>
+            </li>
+          </ul>
         </td>
       </tr>
     </tbody>
