@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NotificationSummaryModule } from '../../dashboard/notification-summary/notification-summary.module';
 import { NotificationCreateModule } from '../../dashboard/notification-create/notification-create.module';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 @NgModule({
   declarations:[UserNotificationsComponent],
@@ -12,7 +13,8 @@ import { NotificationCreateModule } from '../../dashboard/notification-create/no
     ReactiveFormsModule,
     CommonModule,
     NotificationSummaryModule,
-    NotificationCreateModule
+    NotificationCreateModule,
+    UiSwitchModule
   ],
   exports: [
     UserNotificationsComponent

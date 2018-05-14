@@ -19,10 +19,11 @@
         <tr>
         <div class="row" *ngFor="let notifiy of notificationSummaryList">
           <div class="col-sm-2"><div class="btn-group">
-            <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
+          <!--   <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
             </label>
             <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
-            </label>
+            </label> -->
+            <ui-switch size="small" (change)="onClickNotifyOffOn($event,notifiy)" [checked]="notifiy.notification.isNotifyMode"></ui-switch>
           </div></div>
           <div class="col-sm-3">{{notifiy.notification.notificationClass}}/{{notifiy.notification.name}}</div>
           <div class="col-sm-2">{{notifiy.notification.lastDateSent | date:'short'}}</div>

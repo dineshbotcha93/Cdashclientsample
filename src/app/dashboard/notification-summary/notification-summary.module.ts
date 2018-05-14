@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 @NgModule({
   declarations:[NotificationSummaryComponent],
@@ -19,7 +20,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     SharedModule,
     NgxDatatableModule,
     AngularFontAwesomeModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),UiSwitchModule
   ],
   exports:[
     NotificationSummaryComponent

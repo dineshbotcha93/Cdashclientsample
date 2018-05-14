@@ -8,7 +8,7 @@
     "sy-pre-start": "node hooks/pre-start.js",
     "build": "ng build --prod",
     "test": "ng test",
-    "coverage":"ng test --code-coverage",
+    "coverage": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -56,6 +56,7 @@
     "ng2-translate": "^5.0.0",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "ngx-gauge": "^1.0.0-beta.2",
+    "ngx-toggle-switch": "^2.0.5",
     "node-sass": "^4.7.2",
     "reselect": "^2.5.4",
     "rxjs": "^5.5.2",

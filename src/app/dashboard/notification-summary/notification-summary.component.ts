@@ -54,6 +54,7 @@ export class NotificationSummaryComponent implements OnInit {
             checkModelNotify = { active: true, inActive: false };
           }
           notify.notification.checkModelNotify = checkModelNotify;
+          notify.notification.isNotifyMode = false;
           this.notificationSummaryList.push(notify);
         });
      }
@@ -63,27 +64,43 @@ export class NotificationSummaryComponent implements OnInit {
 
   onClickNotifyOn(e, notify) {
 
-    console.log('selected element-->',notify);
-
     let requestObject = {
       NotificationID:notify.notification.notificationID,
       On:true
     };
 
     this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
-      console.log(result);
       this.notificationSummaryList.forEach(x => {
         if(x === notify){
-          console.log('enered');
           x.notification.checkModelNotify = { active: true, inActive: false };
         }
       });
     });
   }
 
-  onClickNotifyOff(e, notify) {
-    console.log('selected element-->',notify);
+  onClickNotifyOffOn(e, notify){
+     let notValue = true;
+     if(notify.notification.isNotifyMode){
+       notValue = false;
+     }
 
+      let requestObject = {
+        NotificationID:notify.notification.notificationID,
+        On:notValue
+      };
+
+      this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
+      this.notificationSummaryList.forEach(x => {
+        if(x === notify){
+          x.notification.checkModelNotify = { active: false, inActive: true };
+          x.notification.isNotifyMode = notValue;
+        }
+      });
+    });
+
+  }
+
+  onClickNotifyOff(e, notify) {
     let requestObject = {
       NotificationID:notify.notification.notificationID,
       On:false
