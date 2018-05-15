@@ -387,26 +387,26 @@
   <form [formGroup]="editAccountForm" class="form-horizontal form-label-left">
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="form-group">
-        <label for="companyName" class=" lbl-account control-label col-md-3 col-sm-3 col-xs-12">Account Number</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="col-form-label col-md-4 col-sm-4 col-xs-12">Account Number</label>
+        <div class="col-md-8 col-sm-8 col-xs-12">
           <input type="text" formControlName="accountID" class="form-control" disabled>
         </div>
       </div>
       <div class="form-group">
-        <label for="companyName" class="control-label col-md-3 col-sm-3 col-xs-12">Company Name</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="col-form-label col-md-4 col-sm-4 col-xs-12">Company Name</label>
+        <div class="col-md-8 col-sm-8 col-xs-12">
           <input type="text" formControlName="companyName" class="form-control">
         </div>
       </div>
       <div class="form-group">
-        <label for="companyName" class="control-label col-md-3 col-sm-3 col-xs-12">resellerID</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="col-form-label col-md-4 col-sm-4 col-xs-12">resellerID</label>
+        <div class="col-md-8 col-sm-8 col-xs-12">
           <input type="text" formControlName="resellerID" class="form-control">
         </div>
       </div>
       <div class="form-group">
-        <label for="timeZone" class="control-label col-md-3 col-sm-3 col-xs-12">Time Zone</label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="col-form-label col-md-4 col-sm-4 col-xs-12">Time Zone</label>
+        <div class="col-md-8 col-sm-8 col-xs-12">
           <select class="form-control" formControlName="timeZoneID">
             <option value="{{tZ.id}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
           </select>

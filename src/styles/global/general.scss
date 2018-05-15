@@ -74,7 +74,7 @@ ul {
 }
 
 .total-amount {
-  color: $appTile-BG-lowBattery;
+  color: $color-emerson-brand-blue;
   font-weight: bold;
   font-size: 2em;
 }
@@ -97,7 +97,7 @@ ul {
 
 /* ******************************** */
 .parent-container {
-  margin: 4em 0;
+  margin: 2em 0;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large) {
     margin: 1em 0;
@@ -146,5 +146,16 @@ ul {
 /* ******************************** */
 .x_panel {
   padding: 0;
+}
+/* ******************************** */
+
+
+// Over-writing bootstrap well style.
+/* ******************************** */
+.well {
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  border: none;
 }
 /* ******************************** */
