@@ -20,7 +20,13 @@ fdescribe('BusinessComponent', () => {
 
   class MockBusinessService {
     getRealData(x){
-      return Promise.resolve({});
+      return Promise.resolve({
+          status:'200',
+          customers:[{
+            latitude:'45',
+            longitude:'44'
+          }]
+        });
     }
   }
 
