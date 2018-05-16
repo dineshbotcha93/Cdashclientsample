@@ -11,8 +11,9 @@ import {type} from "os";
 
 @Component({
   selector: 'temp-haccp',
+  styleUrls: ['./haccp.component.scss'],
   template: `
-     <iframe [src]="haccpUrl()" frameborder="0"
+     <iframe [src]="haccpUrl()" frameborder="0" width="100%" height="700vh"
              webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
   `,
 })
@@ -24,6 +25,7 @@ export class HaccpTempComponent {
   }
 
   haccpUrl() {
+    //return this.sanitizer.bypassSecurityTrustResourceUrl("https://haccp.digitalcoldchain.com/Login.aspx");
     return this.sanitizer.bypassSecurityTrustResourceUrl("http://71.174.254.42:81/login");
   }
 }
