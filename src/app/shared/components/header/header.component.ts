@@ -24,6 +24,8 @@ export class HeaderComponent implements OnInit {
   @Input() userEmail:           string;
   private languagePicked: string;
   public isCooperAdmin: boolean = false;
+  public isHaccpUser: boolean = false;
+
 
   @Output() selectLanguage: EventEmitter<any> = new EventEmitter();
   @Output() logout:         EventEmitter<any> = new EventEmitter();
@@ -34,6 +36,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isCooperAdmin = this.isCooperAdminUser();
+    this.getProducttype();
   }
 
   isCooperAdminUser() {
@@ -52,6 +55,17 @@ export class HeaderComponent implements OnInit {
       return JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
     }
     return ''; // clean this later
+  }
+
+  getProducttype() {
+    if(localStorage.getItem('com.cdashboard.userInfoObject')){
+      let products = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject')).account;
+      for(let i = 0; i < products.length; i++) {
+        if(products[i].productType === 'HACCP'){
+           this.isHaccpUser = true;
+          }
+      }
+    }
   }
 
   menuToggle(){

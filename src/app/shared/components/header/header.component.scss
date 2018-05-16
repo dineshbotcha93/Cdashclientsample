@@ -59,20 +59,21 @@
   .top_nav_logo {
     display: inline-block;
     padding: 5px 10px;
+    float: left;
 
     img#logo {
       width: 120px;
     }
   }
 
-  .top_navigation {
+  .nav {
     display: inline-block;
 
     li {
       display: inline-block;
 
       a {
-        color: $color-white;
+        padding: 12px 15px 8px;
         cursor: pointer;
 
         &.icon-only {
@@ -88,7 +89,7 @@
   .navbar-right {
     .user-profile {
       padding: 10px;
-      color: $color-white !important;
+      // color: $color-white !important;
 
       &:hover {
         background: $color-emerson-brand-blue;
@@ -105,4 +106,18 @@
       padding: 10px;
     }
   }
+
+  .navbar-left {
+    i {
+      font-size: 25px;
+    }
+
+    a{
+      &:hover {
+        cursor: pointer;
+        background: $color-emerson-brand-blue;
+      }
+    }
+  }
+
 }

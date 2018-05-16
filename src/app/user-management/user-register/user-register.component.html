@@ -11,23 +11,20 @@
           <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
         </div>
 
-        <div class="form-group">
-          <div class="clearfix"></div>
-          <input type="submit" value="Verify" class="btn btn-primary m-l-none">
-        </div>
 
-
+          <div class="m-t-md">
+            <button class="btn btn-default submit">Verify</button>
+          </div>
 
       </form>
 
-      <div class="verifyEmailNotes-container gap-top">
-        <p>
-          <b>Note:</b>
-        {{'userRegistration.registrationMessage'|translate}}
-        </p>
-        <p>
-          <a (click)="showPopup = true" value="Additional Setup"><i class="fa fa-arrow-right"></i> Additional Setup</a>
-        </p>
+      <div class="m-t-md">
+
+          <p><b>Note:</b> {{'userRegistration.registrationMessage'|translate}}</p>
+
+        <div class="separator">
+          <a (click)="showPopup = true" value="Additional Setup">Additional Setup</a>
+        </div>
       </div>
 
         <!--<div class="alert alert-info alert-dismissible fade in">

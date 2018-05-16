@@ -1,0 +1,63 @@
+<div class="row x_content">
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    {{'global.from'|translate}}
+    <div class="input-group">
+      <input type="text"
+             class="form-control"
+             [minDate]="minDate"
+             [maxDate]="maxDate"
+             #dp="bsDatepicker"
+             bsDatepicker [(bsValue)]="bsValue">
+      <span class="input-group-addon" (click)="dp.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    {{'global.to'|translate}}
+    <div class="input-group">
+      <input type="text"
+             class="form-control"
+             [minDate]="minDate"
+             [maxDate]="maxDate"
+             #dp1="bsDatepicker"
+             bsDatepicker [(bsValue)]="bsValueTwo">
+      <span class="input-group-addon" (click)="dp1.show() ">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    Group By
+    <div class="input-group">
+      <select name="filter_by_group" [(ngModel)]="filterByGroup" class="form-control">
+        <option value="date" selected>Date</option>
+        <option value="category">Category</option>
+        <option value="question">Question</option>
+        <option value="correctiveaction">Corrective Action</option>
+        <option value="employee">Employee</option>
+        <option value="batchDate">Batch Date</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    Selection Question Type
+    <div class="input-group">
+      <select name="filter_question_type" [(ngModel)]="filterByQesType" class="form-control">
+        <option value="numeric">Numeric</option>
+        <option value="yes/no">Yes/No</option>
+        <option value="temperature">Temperature</option>
+        <option value="select">Select Question Type</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <input type="button" value="Generate Report" class="btn btn-primary" (click)="GenerateReport()"/>
+  </div>
+
+  <div class="x_panel" *ngIf="showReport">
+    <pdf-viewer [src]="pdfSrc" [autoresize]="true"></pdf-viewer>
+  </div>
+</div>

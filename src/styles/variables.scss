@@ -16,9 +16,6 @@ $color-body-bg-lt: #2a3F54 + 35;
 $color-body-bg: #2a3F54;
 $color-counts-green: #00A421;
 
-$color-table-striped-th: $color-body-bg - 35;
-$color-table-striped-tr: $color-body-bg - 15;
-
 $color-dataTable-hover: #545454;
 
 /* Button Colors */
@@ -98,6 +95,10 @@ $colorGrey-emerson-black: #1f2d3d;
 $colorGrey-emerson-grey: #8492a6;
 $colorGrey-emerson-lightGrey: #d3dce6;
 $colorGrey-emerson-vLightGrey: #eff2f7;
+
+/* Striped table colors */
+$color-table-striped-th: $colorGrey-emerson-vLightGrey;
+$color-table-striped-tr: $colorGrey-emerson-vLightGrey;
 
 /* App Gauge Colors */
 $gauge-BG: rgba(75, 87, 100, 0.15);

@@ -224,7 +224,7 @@ export class NetworkSetupComponent implements OnInit {
 
   private prepareDataTableColumns() {
     this.columns.push({ prop: 'title', name: 'Network Name'});
-    this.columns.push({ prop: 'city', name: '', cellTemplate: this.editModal});
+    this.columns.push({ prop: 'city', name: 'City', cellTemplate: this.editModal});
   }
 
   public enableSubmit($event){

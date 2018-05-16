@@ -53,6 +53,14 @@
    "lowSignal":"Low Signal"
  },
  "sensorComparison":{
-   "comparisonTitle":"Sensor Comparison for Network"
- }
+   "comparisonTitle":"Compare Sensors"
+ },
+  "haccp": {
+    "reports" :{
+      "title": "HACCP Reports",
+      "dailysummarytitle": "Daily Summary Reports",
+      "checklistreporttitle": "Checklist Reports",
+      "temperaturereporttitle": "Temperature Reports"
+    }
+  }
 }
