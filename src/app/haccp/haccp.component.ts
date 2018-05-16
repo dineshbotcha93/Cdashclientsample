@@ -11,6 +11,8 @@ import 'rxjs/add/operator/catch';
 /*import { DashboardService } from './services/dashboard.service';*/
 import {Router} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+/*import { SafeUrlPipe } from '../shared/pipes/safe.pipe';
+import { SanitizeIframePipe } from '../shared/pipes/sanitizeIframe.pipe';*/
 
 
 export interface tileDetail{
@@ -35,10 +37,13 @@ export class HACCPComponent implements AfterViewInit, AfterContentInit {
   public showDailyReportsSection = false;
   private showCheckListReportsSection = false;
   private showTempReportsSection = false;
+  public haccpSrc: string = '';
 
   constructor(
     private router:Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    /*private safeUrlPipe: SafeUrlPipe,
+    private sanitizeIframePipe: SanitizeIframePipe*/
   ){
     translate.setDefaultLang('en');
     translate.use('en');
@@ -46,6 +51,8 @@ export class HACCPComponent implements AfterViewInit, AfterContentInit {
 
     this._addTiles();
 
+   // this.haccpSrc = safeUrlPipe.transform('https://www.google.com')
+;
   }
 
   _addTiles() {
