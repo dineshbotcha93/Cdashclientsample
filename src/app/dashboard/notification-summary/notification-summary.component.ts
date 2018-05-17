@@ -62,7 +62,7 @@ export class NotificationSummaryComponent implements OnInit {
     onClickNotifyOffOn(e, notify){
 
      let notValue = true;
-     if(notify.notification.isNotifyMode){
+     if(notify.notification.active){
         notValue = false;
       }
 
