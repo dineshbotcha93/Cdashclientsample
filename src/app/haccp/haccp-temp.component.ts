@@ -25,7 +25,7 @@ export class HaccpTempComponent {
   }
 
   haccpUrl() {
-    //return this.sanitizer.bypassSecurityTrustResourceUrl("https://haccp.digitalcoldchain.com/Login.aspx");
-    return this.sanitizer.bypassSecurityTrustResourceUrl("http://71.174.254.42:81/login");
+    return this.sanitizer.bypassSecurityTrustResourceUrl("https://haccp.digitalcoldchain.com/Login.aspx");
+    //return this.sanitizer.bypassSecurityTrustResourceUrl("http://71.174.254.42:81/login");
   }
 }
