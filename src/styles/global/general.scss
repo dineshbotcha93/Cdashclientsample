@@ -3,6 +3,7 @@
 html {
   height: 100vh;
   min-height: 100%;
+  overflow-y: auto;
 }
 
 body {
@@ -15,19 +16,23 @@ body {
   margin-right: auto;
   height: 100vh;
   min-height: 100%;
+  overflow-y: auto;
 
   .container.body {
     height: 100vh;
     min-height: 100%;
+    overflow-y: auto;
 
     .right_col {
       min-height: 100%;
       background: $color-white;
+      overflow-y: auto;
     }
 
     .main_container {
       height: 100vh;
       min-height: 100%;
+      overflow-y: auto;
     }
   }
 }
