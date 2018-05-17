@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-notification-summary',
   templateUrl: './notification-summary.component.html',
   styleUrls: ['./notification-summary.component.scss'],
-  providers: [SensorSummaryService]
+  providers: [SensorSummaryService, BsModalService]
 })
 export class NotificationSummaryComponent implements OnInit {
   notificationSummaryList: any = [];
@@ -60,14 +60,14 @@ export class NotificationSummaryComponent implements OnInit {
   }
 
     onClickNotifyOffOn(e, notify){
-      
+
      let notValue = true;
      if(notify.notification.isNotifyMode){
         notValue = false;
       }
- 
+
      let requestObject = {
-       NotificationID:notify.notification.notificationID,        
+       NotificationID:notify.notification.notificationID,
        On:notValue
       };
 

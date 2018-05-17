@@ -116,7 +116,7 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
-  public isLoader: Boolean = false;
+  public isLoader: Boolean = true;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
