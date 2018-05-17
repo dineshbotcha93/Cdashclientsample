@@ -66,79 +66,90 @@ table {
   }
 }
 
-.myProfile-temp {
-  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  color: $color-white;
+.myProfile-personalInfoContainer {
+  margin: 30px 0 10px 0;
+  color: $colorUI-emerson-black;
 
-  .myProfile-personalInfoContainer {
-    background: $color-grey-ultralight;
-    border-radius: $border-radius-medium;
-    color: $color-black;
-    font-size: 1.25em;
-    padding: 10px;
-    margin: 10px 0;
-    width: 50%;
-    float: left;
+  .personal-info {
+    display: inline-block;
+    font-size: 1.2em;
+    //height: 40px;
+    padding-right: 10px;
+    border-right: 1px solid $colorUI-emerson-black;
 
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      float: none;
-      width: 100%;
-    }
-
-    .fullName {
-      font-size: 2.25em;
-    }
-    .username {
-      font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-      color: $color-counts-green;
-    }
-    .smsNumber {
-
-    }
-    .smsProvider {
-      font-size: 1.25rem;
-      color: $color-grey-dark;
-      text-transform: uppercase;
-    }
-    .email {
-
+    &:last-child {
+      padding-right: 0;
+      border-right: none;
     }
   }
+  .username {
+    color: $color-emerson-brand-blue;
+  }
+  .smsProvider {
+    text-transform: uppercase;
+  }
 
-  .myProfile-settingsContainer {
-    font-size: 1.25em;
+  .fullName {}
+  .email {}
+  .smsNumber {}
+}
+
+.myProfile-settingsContainer {
+  margin: 30px 0 10px 0;
+
+  .settings-label {
     padding: 0 10px;
-    margin: 10px 0;
-    width: 50%;
-    float: right;
+    border-right: 1px solid $colorUI-emerson-black;
 
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      float: none;
-      width: 100%;
+    &:first-child {
+      padding-left: 0;
     }
+    &:last-child {
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .settings-value {
+      color: $color-emerson-brand-blue;
+    }
+  }
+}
+
+.network-container {
+  margin: 30px 0 10px 0;
+  color: $colorUI-emerson-black;
+
+  .chkbox-lbl, label {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    color: $colorUI-emerson-black;
+  }
+}
+
+.paymentHistory-container {
+  margin: 30px 0 10px 0;
+  color: $colorUI-emerson-black;
+}
+
+.users-container {
+  button {
+    margin-bottom: 10px;
   }
 }
 
 .myNetwork-temp {
-  font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  color: $color-white;
+  color: $colorUI-emerson-black;
 
-  .network-container {
-    height: 200px;
-    overflow-y: scroll;
-    margin: 10px 0;
-    padding: 10px 0;
-    border-radius: $border-radius-medium;
-    background: $color-grey-ultralight;
-  }
-
-  .chkbox-lbl, label {
-    font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif !important;;
-    color: $color-black;
-  }
+  //.chkbox-lbl, label {
+  //  color: $colorUI-emerson-black;
+  //}
 }
 
-.userParent-container, .userFormGroup-container {
+.userFormGroup-container {
+  margin: 10px 0;
+}
+
+.userParent-container {
   margin: 10px 0;
 }
 
@@ -147,113 +158,3 @@ table {
     float: right;
   }
 }
-// .tab-content {
-//   .row {
-//     background-color: #ffffff;
-//     border-radius: 20px;
-//     padding: 20px;
-//     margin-top: -5px;
-//     border-left: solid 5px  #2a3F54;
-//     border-right: solid 5px  #2a3F54;
-//   }
-// }
-
-a:link, a:visited {
-  color: #3498DB;
-  cursor:pointer ;
-}
-
-a:hover {
-  color: #3498DB;
-  text-decoration: underline;
-  cursor: pointer ;
-}
-
-.form-control-static {
-  padding-top: 0px;
-}
-
-.chkbox-lbl {
-  font-family: serif;
-}
-
-.chk-box {
-  margin-right: 10px;
-}
-
-.alert-error {
-  padding : 3px;
-  font-size: 14px;
-}
-
-.renewal-pos {
-  left:75%;
-}
-
-.lbl-account {
-  width:26%;
-}
-
-@media (min-width: $phone-small) and (max-width: $tablet-large) {
-  .renewal-pos {
-    left:9%;
-    margin-top:25px;
-  }
-  .lbl-account {
-    width:100%
-  }
-}
-
-.form-group.required > .lbl-ctrl::after {
-  content: "*";
-  color:#FF0000;
-}
-.notif-icons {
-  float:left;
-  padding-right:10px;
-}
-
-.modal-ctrl {
-  margin-bottom: 10px;
-}
-.account-modal-body {
-  background-color: #fff;
-}
-.account-modal-footer {
-  border-top: none;
-}
-
-.country-code {
-   width:20%;
-   float:left;
-}
-.with-country-code {
-  width:80%;
-}
-
-.btn-renew-contract {
-  color:#fff !important;
-  text-decoration: none !important;
-  background-color: #5ad977
-}
-
-.btn-disabled:link {
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: .65;
-}
-
-:host {
-  /deep/ .popover {
-    display: inherit;
-    padding: 8px;
-    color: black;
-  }
-
-  /deep/ .popover-header {
-    font-size: medium;
-    font-weight: bold;
-    text-align: center;
-  }
-}
-

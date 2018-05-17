@@ -12,8 +12,8 @@
   text-shadow: none;
   background: $color-body-bg-lt;
   padding: 40px;
-  border-radius: 20px;
-  box-shadow: 10px 10px 15px $color-black;
+  //border-radius: 20px;
+  //box-shadow: 10px 10px 15px $color-black;
 
   @media (min-width: $phone-small) and (max-width: $phone-large) {
     padding: 20px;

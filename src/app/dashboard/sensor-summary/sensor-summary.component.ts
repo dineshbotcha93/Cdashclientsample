@@ -263,6 +263,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         checkModelNotify = { active: false, inActive: true };
       }
       sens.checkModelNotify = checkModelNotify;
+      sens.isNotifyMode = false;
 
 
       // console.log('sens-->',sens);
@@ -1116,7 +1117,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.router.navigate(["dashboard"]);
   }
 
-  getSensorUpdateData(sensor, x, y) {
+  getSensorUpdateData(sensor, x, y,newValue) {
+    console.log('newValue-->>',newValue);
     this.sensorSummaryService
       .getSingleUserLocation(this.netWorkId)
       .then(result => {
@@ -1127,37 +1129,69 @@ export class SensorSummaryComponent extends AbstractDashboardBase
           this.onSelectSensorRadio();
         }
         this.allSensors.forEach(x => {
-          if (x === sensor) {
+          if (x.sensorID === sensor.sensorID) {
             x.checkModelNotify = { active: x, inActive: y };
+            x.isNotifyMode = newValue;
           }
         });
       });
   }
 
-  onClickNotifyOn(e, sensor) {
+  // onClickNotifyOn(e, sensor) {
+  //   let requestObject = {
+  //     sensorID: sensor.sensorID,
+  //     name: "CorF",
+  //     value: "C"
+  //   };
+  //   this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
+
+  //     this.getSensorUpdateData(sensor, true, false);
+  //   });
+  // }
+
+  // capturedCoordinates($event) {
+  //   this.latestCoordinates = $event;
+  // }
+
+  // onClickNotifyOff(e, sensor) {
+  //   let requestObject = {
+  //     sensorID: sensor.sensorID,
+  //     name: "CorF",
+  //     value: "F"
+  //   };
+  //   this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
+  //     this.getSensorUpdateData(sensor, false, true);
+  //   });
+  // }
+
+   onClickNotifyOffOn(e, sensor) {
+
+     console.log('sensor-->>',sensor);
+
+     let sensorName = 'CorF';
+     let sensorvalue = 'F';
+     let newSensor = true;
+
+     if(sensor.isNotifyMode){
+          sensorName = "CorF",
+          sensorvalue=  "C"
+          newSensor = false
+     }
+
     let requestObject = {
       sensorID: sensor.sensorID,
-      name: "CorF",
-      value: "C"
+      name: sensorName,
+      value: sensorvalue
     };
+
     this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
-
-      this.getSensorUpdateData(sensor, true, false);
+      this.getSensorUpdateData(sensor, false, true,newSensor);
     });
+
+
   }
 
-  capturedCoordinates($event) {
-    this.latestCoordinates = $event;
-  }
 
-  onClickNotifyOff(e, sensor) {
-    let requestObject = {
-      sensorID: sensor.sensorID,
-      name: "CorF",
-      value: "F"
-    };
-    this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
-      this.getSensorUpdateData(sensor, false, true);
-    });
-  }
+
+
 }

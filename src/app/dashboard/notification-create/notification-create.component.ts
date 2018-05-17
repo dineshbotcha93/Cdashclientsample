@@ -1004,9 +1004,9 @@ export class NotificationCreateComponent implements OnInit {
     }
     this.setNotificationFormDetails();
   }
-  setAdvancedNotificationParameterList(subNotifyTyoe) {
+  setAdvancedNotificationParameterList(subNotifyType) {
     this.advancedParameterObject = [];
-    switch (subNotifyTyoe) {
+    switch (subNotifyType) {
       case "1": {
         this.advancedParameterObject.push(
           this.setAdvancedParameterDetails("Alert After", "1", "")
@@ -1303,8 +1303,6 @@ export class NotificationCreateComponent implements OnInit {
     }
   }
   onClickCreateNotification(value) {
-
-
     console.log(this.advancedParameterObject);
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {

@@ -33,6 +33,7 @@ import { SharedModule } from './shared/modules/shared.module';
 import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
+
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
 },{
@@ -49,20 +50,34 @@ const appRoutes: Routes = [{
 },
 {
   path:'forgot-password', pathMatch:'full',loadChildren: './user-management/forgot-password/forgot-password.module#ForgotPasswordModule'
+},
+{
+  path: 'haccp', loadChildren: './haccp/haccp.module#HACCPModule'
 }
 ]
 
+let mockProvider = [];
+if(!environment.production)
+{
+  mockProvider.push({
+    provide: Http,
+    deps: [MockBackend, BaseRequestOptions],
+    useFactory: (backend: MockBackend, options: BaseRequestOptions, realBackend: Http) => {
+      return new Http(backend, options);
+    }
+  });
+}
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReportsModule,
     PaymentsModule,
-    ComponentsModule,
     HttpModule,
+    ComponentsModule,
     HttpClientModule,
     ContainersModule,
     NgxDatatableModule,
@@ -91,6 +106,7 @@ const appRoutes: Routes = [{
     BaseRequestOptions,
     RequesterService,
     MockBackendService,
+    mockProvider,
     ProductionInterceptor,
     CommonSharedService,
     ToastsManager,
