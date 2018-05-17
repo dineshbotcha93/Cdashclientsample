@@ -121,6 +121,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   deviceCreationError: string | null = null;
   private deviceEditForm: FormGroup;
   private toasterSandbox$ = this.appState$.select(store.getToasterState);
+  private pauseRefresh = false;
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
@@ -205,17 +206,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       });
 
     window.setInterval(() => {
-      this.sensorSummaryService
-        .getSingleUserLocation(this.netWorkId)
-        .then(result => {
-          this.mapData = result;
-          this.getSensorData(result.sensors);
-          this.getGatewayData(result.gateways, '');
-          if (this.mapData['noOfSensors'] > 0) {
-            this.onSelectSensorRadio();
-          } else {
-          }
-        });
+      if (!this.pauseRefresh) {
+        this.sensorSummaryService
+          .getSingleUserLocation(this.netWorkId)
+          .then(result => {
+            this.mapData = result;
+            this.getSensorData(result.sensors);
+            this.getGatewayData(result.gateways, '');
+            if (this.mapData['noOfSensors'] > 0) {
+              this.onSelectSensorRadio();
+            } else {
+            }
+          });
+      }
     }, 60000);
     // this.mapData = e;
   }
@@ -460,11 +463,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickAddNetwork() {
     this.disableSubmitButton = true;
+    this.pauseRefresh = true;
     this.showPopup = true;
   }
 
   private modalClosed(event) {
     this.showPopup = false;
+    this.pauseRefresh = false;
     this.showEditPopup = false;
   }
 
@@ -560,6 +565,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickEditNetwork() {
     this.showEditPopup = true;
+    this.pauseRefresh = true;
     this.disableSubmitButton = true;
     this.editNetworkData = {
       name: this.selectLocation.Title,
