@@ -6,9 +6,16 @@ import { FormsModule } from '@angular/forms';
 import {ComponentsModule} from '../../shared/components';
 import { ReactiveFormsModule  } from '@angular/forms';
 
-const routes: Routes = [{
-  path: 'forgot-password', component: ForgotPasswordComponent
-}];
+const routes: Routes = [
+{
+  path: '', children:[
+    {
+      path:'',
+      component: ForgotPasswordComponent
+    }
+  ]
+}
+];
 
 @NgModule({
   imports: [
@@ -20,4 +27,4 @@ const routes: Routes = [{
   ],
   declarations: [ForgotPasswordComponent]
 })
-export class ForgotPasswordModule { }
+export class ForgotPasswordModule {}
