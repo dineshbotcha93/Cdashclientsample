@@ -37,7 +37,7 @@ import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
 },{
-  path:'user-register',pathMatch:'full',loadChildren:'./user-management/UserManagement.module#UserManagementModule'
+  path:'user-register',loadChildren:'./user-management/UserManagement.module#UserManagementModule'
 },
 {
   path:'login', loadChildren: './auth/login/login.module#LoginModule'
@@ -97,7 +97,7 @@ if(!environment.production)
     * See: https://github.com/zalmoxisus/redux-devtools-extension
     */
     StoreDevtoolsModule.instrument(),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes,{enableTracing:false}),
     SharedModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

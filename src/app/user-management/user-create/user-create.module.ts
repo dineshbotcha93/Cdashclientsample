@@ -12,12 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const routes: Routes = [{
     path:'',
     children:[{
-      path: '', component:UserCreateComponent
+      path: '',component:UserCreateComponent
     },{
       path:'fill-details', loadChildren: './fill-details/fill-details.module#FillDetailsModule'
     },
     {
-      path: 'network-setup', loadChildren:'./networkSetup/networkSetup.module#NetworkSetupModule'
+      path: 'network-setup',loadChildren:'./networkSetup/networkSetup.module#NetworkSetupModule'
     }
   ]
 }];
@@ -33,11 +33,7 @@ const routes: Routes = [{
     FlowButtonsModule,
     CommonModule,
     ComponentsModule
-  ],
-  exports: [
-    RouterModule
   ]
 })
 
-export class UserCreateModule {
-}
+export class UserCreateModule {}
