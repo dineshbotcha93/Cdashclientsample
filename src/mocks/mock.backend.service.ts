@@ -175,9 +175,17 @@ export class MockBackendService {
         this.http = new Http(this.realBackend, this.options);
         let options = new RequestOptions({ headers: headers });
         this.http.get(c.request.url,options).subscribe((response)=>{
-          c.mockRespond(new Response(new ResponseOptions({
-            body: JSON.stringify(response.json())
-          })));
+          // TEMP FIX for HACCP reports needs to be changed later
+          if(!c.request.url.includes('HACCp/Report')) {
+            c.mockRespond(new Response(new ResponseOptions({
+              body: JSON.stringify(response.json())
+            })));
+          } else {
+            c.mockRespond(new Response(new ResponseOptions({
+              body: response
+            })));
+          }
+
         },(error)=>{
           if(error.status == 401){
             this.router.navigate(['/login']);

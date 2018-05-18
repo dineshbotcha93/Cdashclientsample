@@ -8,9 +8,7 @@ import { ComponentsModule } from '../shared/components';
 import { ContainersModule } from '../shared/containers';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule} from '@angular/forms';
-import { CustomerListComponent } from './customer-list/customer-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 
 export const routes: Routes = [
     {
@@ -23,20 +21,18 @@ export const routes: Routes = [
             },
             {
                 path: ':customer-list/:status',
-                component: CustomerListComponent
+                loadChildren: './customer-list/customer-list.module#CustomerListModule'
             },
             {
                path: ':customer-details/:id/:view',
-               component: CustomerDetailsComponent
+               loadChildren: './customer-details/customer-details.module#CustomerDetailsModule'
             }
         ]
     },
 ];
 @NgModule({
     declarations: [
-        BusinessComponent,
-        CustomerListComponent,
-        CustomerDetailsComponent
+        BusinessComponent
     ],
     providers: [
         AuthGuard,
@@ -50,7 +46,7 @@ export const routes: Routes = [
         ChartsModule,
         FormsModule,
         BsDatepickerModule.forRoot(),
-    ]
+    ],
 })
 
 export class BusinessModule { }

@@ -14,7 +14,7 @@ import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
   providers:[LoginSandbox,AlertSandbox],
 })
 export class LoginComponent implements OnInit {
-  private myform: FormGroup;
+  public myform: FormGroup;
   constructor(
     public loginSandbox$: LoginSandbox,
     private translate: TranslateService,

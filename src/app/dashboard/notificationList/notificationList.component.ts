@@ -16,6 +16,13 @@ import { NotificationListService } from './notificationList.service';
 import { UserProfileService } from '../../user-profile/services/user-profile.service';
 import {moment} from 'ngx-bootstrap/chronos/test/chain';
 
+export interface ModalMessage {
+  name: string;
+  email: string;
+  smsNumber: string;
+  text: string;
+}
+
 @Component({
   selector: 'app-notificationList',
   templateUrl: './notificationList.component.html',
@@ -27,20 +34,20 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
   private columns: Array<any> = [];
   private limit = 10;
   public items: Array<any> = null;
-  public allRows: Array<any> = null; 
+  public allRows: Array<any> = null;
   private statusParam: string = null;
-  private doFilterByStatus = '';
+  public doFilterByStatus = '';
   private accountID;
   @ViewChild('nDateColTmpl') nDateColTmpl: TemplateRef<any>;
   @ViewChild('sTypeColTmpl') sTypeColTmpl: TemplateRef<any>;
   @ViewChild('deviceNameColTmpl') deviceNameColTmpl: TemplateRef<any>;
 
   showPopup = false;
-  modalMessage = '';
+  modalMessage:ModalMessage = null;
 
   fromDate: string = moment().subtract(1, 'days').format('MM-DD-YYYY');
   toDate: string = moment().add(1, 'days').format('MM-DD-YYYY');
-  private rows = null;
+  public rows = null;
 
 
 

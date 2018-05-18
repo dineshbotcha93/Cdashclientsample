@@ -37,18 +37,19 @@ export class CustomerListComponent implements OnInit {
   @ViewChild('sensorsColTmpl') sensorsColTmpl: TemplateRef<any>;
   @ViewChild('renewalColTmpl') renewalColTmpl: TemplateRef<any>;
   @ViewChild('dataTable')  public dataTable: DataTableComponent;
-  private rows: Array<CustomerData> = null;
-  private columns: Array<any> = [];
-  private limit: number = 10;
+  public rows: Array<CustomerData> = null;
+  public columns: Array<any> = [];
+  public limit: number = 10;
   public items: Array<CustomerData> = null;
   private tempData: Array<CustomerData> = null;
-  private doFilterByStatus: string = 'select';
-  private doSearchVal: string = null;
+  public doFilterByStatus: string = 'select';
+  public doSearchVal: string = null;
   private statusParam: string = null;
-  private bsValue: Date = new Date();
-  private bsValueTwo: Date = new Date();
+  public bsValue: Date = new Date();
+  public bsValueTwo: Date = new Date();
   private customerId: number = null;
-
+  public minDate: string = null;
+  public maxDate: string = null;
 
   constructor(private businessService: BusinessService,
     private route: ActivatedRoute, private router: Router, private _location: Location) {

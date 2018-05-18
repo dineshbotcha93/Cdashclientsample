@@ -9,8 +9,6 @@ import {ComponentsModule}  from '../shared/components';
 import { SharedModule } from '../shared/modules/shared.module';
 import { FlowDisplayModule } from './flow-display/flow-display.module';
 import { FlowButtonsModule } from './flow-buttons/flow-buttons.module';
-import {NetworkSetupModule} from "./user-create/networkSetup/networkSetup.module";
-import {NetworkSetupComponent} from "./user-create/networkSetup/networkSetup.component";
 
 const routes: Routes = [
 {
@@ -18,9 +16,9 @@ const routes: Routes = [
   children:[
     { path: '', component: UserRegisterComponent },
     {
-      path: 'user-create/:id',loadChildren:'./user-create/user-create.module#UserCreateModule',
+      path: 'user-create',loadChildren:'./user-create/user-create.module#UserCreateModule',
     },
-    { path:'user-update/:id',component: UserUpdateComponent }
+    { path:'user-update/:id', component: UserUpdateComponent }
   ]
 }
 ]

@@ -21,7 +21,15 @@ import * as store from "../../shared/store";
 import * as toasterActions from "../../shared/store/actions/toaster.action";
 import { Store } from "@ngrx/store";
 
-//import { CreateDeviceComponent } from '../create-device/create-device.component';
+export interface MapData {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  noOfGateways: number;
+  noOfSensors: number;
+}
+
 @Component({
   selector: "app-sensor-summary",
   templateUrl: "./sensor-summary.component.html",
@@ -36,7 +44,7 @@ import { Store } from "@ngrx/store";
 })
 export class SensorSummaryComponent extends AbstractDashboardBase
   implements OnInit {
-  mapData: Object = null;
+  mapData: MapData = null;
   allSensors: Array<any> = [];
   displayTiles: Object = null;
   orderBy: any = "asc";
@@ -97,9 +105,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   disableSubmitButton: boolean = true;
 
   private mapStatus = MapConstants.STATUS;
-  private doFilterByName: string = null;
-  private doFilterByStatus: string = "select";
-  private doFilterByType: string = "select";
+  public doFilterByName: string = null;
+  public doFilterByStatus: string = "select";
+  public doFilterByType: string = "select";
   private networkModel: NetworkModel = new NetworkModel();
 
   selectTempTypeList: any = [];
@@ -113,6 +121,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   deviceCreationError: string | null = null;
   private deviceEditForm: FormGroup;
   private toasterSandbox$ = this.appState$.select(store.getToasterState);
+  private pauseRefresh = false;
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
@@ -197,17 +206,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       });
 
     window.setInterval(() => {
-      this.sensorSummaryService
-        .getSingleUserLocation(this.netWorkId)
-        .then(result => {
-          this.mapData = result;
-          this.getSensorData(result.sensors);
-          this.getGatewayData(result.gateways, '');
-          if (this.mapData['noOfSensors'] > 0) {
-            this.onSelectSensorRadio();
-          } else {
-          }
-        });
+      if (!this.pauseRefresh) {
+        this.sensorSummaryService
+          .getSingleUserLocation(this.netWorkId)
+          .then(result => {
+            this.mapData = result;
+            this.getSensorData(result.sensors);
+            this.getGatewayData(result.gateways, '');
+            if (this.mapData['noOfSensors'] > 0) {
+              this.onSelectSensorRadio();
+            } else {
+            }
+          });
+      }
     }, 60000);
     // this.mapData = e;
   }
@@ -267,7 +278,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   }
 
   /*Onchange event for selection of network ID*/
-  private onChangeLocation(e) {
+  public onChangeLocation(e) {
     this.netWorkId = e.Id.toString();
     this.getNetworkData();
     this.isSelectedToAddDevice = false;
@@ -452,11 +463,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickAddNetwork() {
     this.disableSubmitButton = true;
+    this.pauseRefresh = true;
     this.showPopup = true;
   }
 
   private modalClosed(event) {
     this.showPopup = false;
+    this.pauseRefresh = false;
     this.showEditPopup = false;
   }
 
@@ -552,6 +565,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickEditNetwork() {
     this.showEditPopup = true;
+    this.pauseRefresh = true;
     this.disableSubmitButton = true;
     this.editNetworkData = {
       name: this.selectLocation.Title,
@@ -1155,6 +1169,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   //     this.getSensorUpdateData(sensor, false, true);
   //   });
   // }
+
+   capturedCoordinates($event) {
+     this.latestCoordinates = $event;
+   }
 
    onClickNotifyOffOn(e, sensor) {
 

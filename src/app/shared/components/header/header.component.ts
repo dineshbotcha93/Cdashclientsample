@@ -23,9 +23,9 @@ export class HeaderComponent implements OnInit {
   @Input() userImage:           string;
   @Input() userEmail:           string;
   private languagePicked: string;
-  private isCooperAdmin: boolean = false;
-  private isHaccpUser: boolean = false;
-  
+  public isCooperAdmin: boolean = false;
+  public isHaccpUser: boolean = false;
+
 
   @Output() selectLanguage: EventEmitter<any> = new EventEmitter();
   @Output() logout:         EventEmitter<any> = new EventEmitter();

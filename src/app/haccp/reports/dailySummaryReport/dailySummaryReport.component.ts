@@ -24,9 +24,11 @@ export class DailySummaryReportComponent  {
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [this.bsValue , this.bsValueTwo];
   bsModalRef: BsModalRef;
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
   private locationId = '';
   private pdfSrc;
-  private showReport = false;
+  public showReport = false;
 
   constructor(
     private router: Router,

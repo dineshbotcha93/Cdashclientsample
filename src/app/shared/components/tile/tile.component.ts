@@ -9,6 +9,12 @@ import {
 import { TileSandbox }  from './tile.sandbox';
 import { MapConstants } from '../../../shared/components/map/constants/map.constants';
 
+export interface TileDetails {
+  fahrenHeight: string;
+  relativeHumidity: string;
+  title: string;
+  lastCommunicationDate: string;
+}
 
 @Component({
   selector:'app-tile',
@@ -17,6 +23,7 @@ import { MapConstants } from '../../../shared/components/map/constants/map.const
   providers:[TileSandbox],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class TileComponent {
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() customClick = new EventEmitter<MouseEvent>();
@@ -25,7 +32,7 @@ export class TileComponent {
   @Input() tileContent: string;
   @Input() tileColor: string;
   @Input() tileColorBy?: string;
-  @Input() tileDetails?: object;
+  @Input() tileDetails?: TileDetails;
   @Input() sensorTileIcon?: string;
   @Input() sensor?: any;
   private mapStatus = MapConstants.STATUS;
