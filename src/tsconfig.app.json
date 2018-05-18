@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -11,8 +11,8 @@
       "dom"
     ],
     "outDir": "../out-tsc/app",
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es2016",
+    "module":"es2015",
     "baseUrl": "",
     "types": ["jasmine","node"],
     "typeRoots": [

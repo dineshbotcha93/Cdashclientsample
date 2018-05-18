@@ -20,15 +20,17 @@ import * as moment from 'moment/moment';
 })
 export class CheckListReportComponent  {
 
-  private filterByGroup = 'Date';
-  private filterByQesType = 'select'
+  public filterByGroup = 'Date';
+  public filterByQesType = 'select'
   bsValue: Date = moment().subtract(1, 'days').toDate();
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [this.bsValue , this.bsValueTwo];
   bsModalRef: BsModalRef;
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
   private locationId = '';
   private pdfSrc;
-  private showReport = false;
+  public showReport = false;
 
   constructor(
     private router:Router,
