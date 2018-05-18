@@ -33,6 +33,9 @@ const routes: Routes = [{
     FlowButtonsModule,
     CommonModule,
     ComponentsModule
+  ],
+  exports:[
+    RouterModule
   ]
 })
 

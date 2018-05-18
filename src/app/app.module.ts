@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ContainersModule } from './shared/containers';
 import { Http, HttpModule, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { RequesterService } from './shared/services/requester.service';
 import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
@@ -17,7 +18,6 @@ import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BusinessModule } from './business/business.module';
 import { ForgotPasswordModule} from './user-management/forgot-password/forgot-password.module';
-
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -36,7 +36,8 @@ import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
-},{
+},
+{
   path:'user-register',loadChildren:'./user-management/UserManagement.module#UserManagementModule'
 },
 {
@@ -97,7 +98,7 @@ if(!environment.production)
     * See: https://github.com/zalmoxisus/redux-devtools-extension
     */
     StoreDevtoolsModule.instrument(),
-    RouterModule.forRoot(appRoutes,{enableTracing:false}),
+    RouterModule.forRoot(appRoutes,{enableTracing:true,useHash:true}),
     SharedModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

@@ -16,11 +16,11 @@ const routes: Routes = [
 {
   path:'',
   children:[
-    { path: '',component: UserRegisterComponent },
+    { path: '', component: UserRegisterComponent },
     {
       path: 'user-create',loadChildren:'./user-create/user-create.module#UserCreateModule',
     },
-    { path:'user-update/:id',component: UserUpdateComponent }
+    { path:'user-update/:id', component: UserUpdateComponent }
   ]
 }
 ]
