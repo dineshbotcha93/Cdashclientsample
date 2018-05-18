@@ -98,7 +98,7 @@ if(!environment.production)
     * See: https://github.com/zalmoxisus/redux-devtools-extension
     */
     StoreDevtoolsModule.instrument(),
-    RouterModule.forRoot(appRoutes,{enableTracing:true,useHash:true}),
+    RouterModule.forRoot(appRoutes,{enableTracing:false,useHash:true}),
     SharedModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
