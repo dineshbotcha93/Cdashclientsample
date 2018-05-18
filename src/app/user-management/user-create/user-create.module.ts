@@ -16,9 +16,6 @@ const routes: Routes = [{
     },{
       path:'fill-details', loadChildren: './fill-details/fill-details.module#FillDetailsModule'
     },
-    {
-      path: 'network-setup',loadChildren:'./networkSetup/networkSetup.module#NetworkSetupModule'
-    }
   ]
 }];
 

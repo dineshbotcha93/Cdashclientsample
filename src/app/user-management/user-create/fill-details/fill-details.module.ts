@@ -9,8 +9,16 @@ import {ComponentsModule} from '../../../shared/components';
 import { ReactiveFormsModule  } from '@angular/forms';
 
 const routes: Routes = [{
-    path:'',component: FillDetailsComponent
-}];
+  path:'',
+  children:[{
+      path:'',
+      component: FillDetailsComponent
+    },
+    {
+      path: 'network-setup',loadChildren:'../networkSetup/networkSetup.module#NetworkSetupModule'
+    }]
+  }
+];
 
 @NgModule({
   declarations: [FillDetailsComponent],
