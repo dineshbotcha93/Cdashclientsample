@@ -1170,6 +1170,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   //   });
   // }
 
+   capturedCoordinates($event) {
+     this.latestCoordinates = $event;
+   }
+
    onClickNotifyOffOn(e, sensor) {
 
      console.log('sensor-->>',sensor);
