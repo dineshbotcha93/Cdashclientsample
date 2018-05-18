@@ -447,11 +447,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.isSelectedAll = false;
     this.editSaveModel = "Edit";
     this.isValidForm = true;
+    this.pauseRefresh = false;
   }
 
   /*Edit the selected ,update and get refresh data drom network*/
   private onClickEditDetails() {
     this.isValidForm = true;
+    this.pauseRefresh = !this.pauseRefresh;
     this.isServiceCallSuccess = false;
 
     // this.selectedUserDataForOperation = [];
@@ -641,6 +643,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   onClickAddDetail() {
     // console.log('accountID',this.accountID);
     this.isSelectedToAddDevice = true;
+    this.pauseRefresh = true;
     //on success
     this.disable = {
       edit: false,
@@ -1020,12 +1023,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     }
 
     this.isSelectedToAddDevice = false;
+    this.pauseRefresh = false;
   }
 
   receiveCancelMessage($event) {
     this.isValidForm = true;
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
+    this.pauseRefresh = false;
   }
 
   gotoSummary(sensor) {
