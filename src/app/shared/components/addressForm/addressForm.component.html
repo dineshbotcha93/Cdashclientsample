@@ -48,7 +48,7 @@
       <select formControlName="state" class="form-control m-b-md" *ngIf="isUsa == true">
         <option *ngFor="let state of states" [ngValue]="state.code">{{state.name}}</option>
       </select>
-      <input type="text" value="State" formControlName="state" *ngIf="isUsa == false">
+      <input class="form-control" type="text" value="State" formControlName="state" *ngIf="isUsa == false">
     </div>
   </div>
 
