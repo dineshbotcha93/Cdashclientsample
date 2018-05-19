@@ -30,21 +30,6 @@
           </div>
         </div>
 
-        <!--<div class="ss-info-container col-md-12">
-          <div class="sensorSummaryCard-container">
-            <div class="row">
-              <div class="col-md-7 ssCard-right">
-                <div class="ssCard-small ssCard-count">Gateways
-                  <span class="value">{{mapData?.noOfGateways}}</span>
-                </div>
-                <div class="ssCard-small ssCard-count">Sensors
-                  <span class="value">{{mapData?.noOfSensors}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>-->
-
         <div>
           <ng-container *ngTemplateOutlet="networkEditModal"></ng-container>
           <ng-container *ngTemplateOutlet="networkAddModal"></ng-container>
@@ -59,12 +44,8 @@
               <div class="col-md-12 sensors-info-container">
                 <div class="form-group sensor-info-compare">
                   <button class="btn btn-primary" (click)="doCompare()">Compare Sensors</button>
-                  <button type="button" class="btn btn-primary ssCard-editBTN" *ngIf="isAdminUser()" (click)="onClickEditNetwork()" data-target="#myNetworkModal"
-                          value="Edit">
-                    <i class="fa fa-edit"></i> Edit Location</button>
-                  <button type="button" class="btn btn-primary ssCard-addBTN" *ngIf="isAdminUser()" (click)="onClickAddNetwork()" data-target="#networkAddModal"
-                          value="Add">
-                    <i class="fa fa-edit"></i> Add Location</button>
+                  <button type="button" class="btn btn-primary ssCard-editBTN" *ngIf="isAdminUser()" (click)="onClickEditNetwork()" data-target="#myNetworkModal" value="Edit">Edit Location</button>
+                  <button type="button" class="btn btn-primary ssCard-addBTN" *ngIf="isAdminUser()" (click)="onClickAddNetwork()" data-target="#networkAddModal" value="Add">Add Location</button>
                 </div>
                 <div class="sensors-info-filter">
                   <form class="form-inline" role="form">
@@ -110,6 +91,8 @@
               </div>
             </div>
           </tab>
+
+          <!-- Gateway Tab -->
           <tab tabTitle="{{'sensorSummary.gatewaysTitle'|translate}}" [isDisabled]="mapData?.noOfGateways === 0" class="tab-content gateway-cards">
             <div class="row">
               <div class="col-md-12 gateway-all" *ngIf="mapData!==null">
@@ -145,6 +128,8 @@
               </div>
             </div>
           </tab>
+
+          <!-- Device Management Tab -->
           <tab *ngIf="isAdminUser()" tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
             <div class="row">
 
@@ -208,10 +193,6 @@
               </div>
             </div>
           </tab>
-          <!--<tab tabTitle="Notifications" class="tab-content device-management-container">
-            <app-notifications [allSensors]="allSensors" [gateWayData]="gateWayData">
-              </app-notifications>
-          </tab>-->
         </tabs>
       </div>
     </div>
@@ -261,17 +242,14 @@
 </ng-template>
 
 <ng-template #networkEditModal>
-  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Location"
-         (onClose)="modalClosed($event)">
+  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Location" (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left">
-          <!--<h4 class="modal-title" id="myModalLabel">Edit Network</h4>-->
-          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group float-right">
-                <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
-          <input type="submit" value="Save changes" class="btn btn-primary addBTN" [ngClass]="{'btn-disable':disableSubmitButton}">
-            <!--<i class="fa fa-save"></i>-->
+      <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group float-right">
+            <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
+            <input type="submit" value="Save changes" class="btn btn-primary" [ngClass]="{'btn-disable':disableSubmitButton}">
           </div>
         </div>
       </div>

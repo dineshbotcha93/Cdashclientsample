@@ -14,7 +14,6 @@
 }
 
 .gateway-card {
-  font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   margin: 0 20px 20px 0;
   border-radius: $border-radius-medium;
   flex-grow: 1;
@@ -37,22 +36,21 @@
     }
 
     .value {
-      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       font-size: 1.875em;
     }
   }
 
   .top {
-    .gateway-id {
-      //margin-top: 15px;
-      //margin-bottom: 30px;
-    }
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    .gateway-id {}
 
     .gateway-date {
       padding: 10px 0 5px 0;
 
       .value {
-        font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
         font-size: 0.85em;
       }
     }
@@ -60,6 +58,9 @@
 
   .middle {
     margin-bottom: -30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .bottom {
@@ -67,6 +68,9 @@
     border-bottom-left-radius: $border-radius-medium;
     border-bottom-right-radius: $border-radius-medium;
     padding-top: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .gateway-icon {
@@ -87,7 +91,6 @@
 
   .gateway-name {
     .value {
-      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       font-size: 1.125em;
       text-transform: uppercase;
     }
@@ -95,12 +98,10 @@
 
   .gateway-type {
     .key {
-      font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       font-size: 0.85em;
     }
 
     .value {
-      font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
       font-size: 1.125em;
       text-transform: uppercase;
     }
