@@ -146,18 +146,17 @@
               <div class="col-md-8  col-sm-12 col-xs-12">
                 <div class="form-group sensor-actions">
                   <div *ngIf="radioModel === 'sensor' || radioModel === 'gateway'">
-                    <button type="button" class="btn btn-primary" value="{{editSaveModel}}" [ngClass]="(editSaveModel==='Save')?'saveBTN':'editBTN'"
-                      (click)="onClickEditDetails()" [disabled]="disable.edit">
+                    <button type="button" class="btn btn-primary" value="{{editSaveModel}}" (click)="onClickEditDetails()" [disabled]="disable.edit">
                       <i class="fa fa-edit"></i> {{editSaveModel}} </button>
-                    <button type="button" class="btn btn-primary removeBTN" (click)="onClickRemoveDetails()" [disabled]="disable.remove">
+                    <button type="button" class="btn btn-primary" (click)="onClickRemoveDetails()" [disabled]="disable.remove">
                       <i class="fa fa-trash"></i> Remove </button>
-                    <button type="button" class="btn btn-primary moveBTN" data-toggle="modal" data-target="#myModal" (click)="onClickMoveDetails()"
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="onClickMoveDetails()"
                       [disabled]="disable.move">
                       <i class="fa fa-arrows-alt"></i> Move </button>
-                    <button type="button" class="btn btn-primary addBTN" (click)="onClickAddDetail()" [disabled]="disable.add">
+                    <button type="button" class="btn btn-primary" (click)="onClickAddDetail()" [disabled]="disable.add">
                       <i class="fa fa-plus"></i> Add </button>
 
-                    <button type="button" class="btn btn-primary removeBTN" (click)="onClickButtonReset()" [disabled]="disable.reset">
+                    <button type="button" class="btn btn-primary" (click)="onClickButtonReset()" [disabled]="disable.reset">
                       <i class="fa fa-history"></i> Reset </button>
                   </div>
                   <div *ngIf="selectedUserDataForOperation">
@@ -213,7 +212,7 @@
           <ng-container *ngTemplateOutlet="gatewayModal"></ng-container>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="onClickSaveMoveNetwork(selectedUserDataForOperation)">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickSaveMoveNetwork(selectedUserDataForOperation)">
             <i class="fa fa-plus"></i> Save changes </button>
         </div>
       </div>

@@ -69,7 +69,7 @@
               <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
               <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
 
-              <div class="paymentHistory-container">
+              <div class="paymentHistory-container table-responsive-md">
                 <app-datatable [rows]="renewalRows" [columns]="renewalColumns" [limit]="limit"></app-datatable>
 
                 <ng-template #prevRenewalDateColTmpl let-row="row" let-value="value">
@@ -374,7 +374,7 @@
           <ng-container *ngTemplateOutlet="editAccountFormTmpl"></ng-container>
         </div>
         <div class="modal-footer account-modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="updateAccount()" [ngClass]="{'btn-disable':disableSubmitButton}">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateAccount()" [ngClass]="{'btn-disable':disableSubmitButton}">
             <i class="fa fa-save"></i>Update Account
           </button>
         </div>
