@@ -6,7 +6,7 @@
 }
 
 .widget-panel {
-  padding: 40px 20px;
+  padding: 40px 20px 40px 15px;
   border-radius: $border-radius;
   color: #ffffff;
   position: relative;
@@ -22,7 +22,6 @@
 }
 
 .widget-style-2 {
-  // font-family: "roboto_thin", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   font-size: 1em;
 
@@ -53,7 +52,7 @@
     bottom: 0;
     font-size: 3em;
     text-align: center;
-    padding: 40px 20px;
+    padding: 40px 20px 40px 15px;
     color: $appTile-icons;
     background: $appTile-iconsBG;
     border-top-right-radius: $border-radius;
@@ -68,6 +67,11 @@
 
   .tile-details {
     width: 75%;
+    font-size: 0.9em;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 1em;
+    }
 
     .tile-counter {
       font-weight: 600;
@@ -80,8 +84,11 @@
     }
 
     .tile-fahrenHeight {
-      font-size: 1.15em;
-      font-weight: 800;
+      font-weight: bold;
+
+      @media (min-width: $laptop) {
+        font-size: 1.15em;
+      }
     }
 
     .tile-relativeHumidity {}
