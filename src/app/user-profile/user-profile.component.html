@@ -58,14 +58,14 @@
     </div>
   </div>
 
-  <div class="tabs_container" *ngIf="loadPage === true">
+  <div class="tabs_container" [hidden]="loadPage !== true">
 
     <tabs>
       <!-- My Profile -->
       <tab tabTitle="My Profile" class="tab-content">
         <div class="row">
           <div class="col-sm-12">
-            <div *ngIf="loadPage === true">
+            <div [hidden]="loadPage !== true">
               <ng-container *ngTemplateOutlet="myProfileTmpl"></ng-container>
               <ng-container *ngTemplateOutlet="networkSectionTmpl"></ng-container>
 
@@ -85,7 +85,7 @@
                 </ng-template>
 
                 <ng-template #invoiceColTmpl let-row="row" let-value="value">
-                  <span>
+                  <span *ngIf="value !== ''">
                     <a href="{{value}}"><i class="fa fa-download"></i></a>
                   </span>
                 </ng-template>
@@ -118,11 +118,11 @@
             </ng-template>
 
             <ng-template #actionsColTmpl let-row="row">
-              <button class="btn btn-xs btn-primary editBTN" type="button" (click)="showEditUserForm(row.userID)">
-                <i class="fa fa-edit"></i>Edit
+              <button class="btn btn-transparent icon-only" type="button" (click)="showEditUserForm(row.userID)" tooltip="Edit user">
+                <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-xs btn-primary removeBTN" type="button" (click)="deleteUser(row.userID)">
-                <i class="fa fa-trash"></i>Remove
+              <button class="btn btn-transparent icon-only" type="button" (click)="deleteUser(row.userID)" tooltip="Delete user">
+                <i class="fa fa-trash"></i>
               </button>
             </ng-template>
 
