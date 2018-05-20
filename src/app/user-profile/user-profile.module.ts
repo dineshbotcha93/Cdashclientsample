@@ -22,8 +22,8 @@ import { NotificationCreateModule } from '../dashboard/notification-create/notif
 
 const routes: Routes = [
 {
-  path: 'user-profile',
- // canActivate: [AuthGuard],
+  path: '',
+  //canActivate: [AuthGuard],
   children: [
     {
       path: '',
@@ -31,10 +31,11 @@ const routes: Routes = [
     }
   ]
 }
-];
+]
 @NgModule({
+  declarations: [UserProfileComponent],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes),
     CommonModule,
     ContainersModule,
     ComponentsModule,
@@ -53,10 +54,9 @@ const routes: Routes = [
     BsDatepickerModule.forRoot(),
     TooltipModule.forRoot()
   ],
-  declarations: [UserProfileComponent],
   providers: [
     AuthGuard,
     AuthService,
 ]
 })
-export class UserProfileModule { }
+export class UserProfileModule {}

@@ -121,6 +121,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   deviceCreationError: string | null = null;
   private deviceEditForm: FormGroup;
   private toasterSandbox$ = this.appState$.select(store.getToasterState);
+  private pauseRefresh = false;
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
@@ -205,17 +206,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       });
 
     window.setInterval(() => {
-      this.sensorSummaryService
-        .getSingleUserLocation(this.netWorkId)
-        .then(result => {
-          this.mapData = result;
-          this.getSensorData(result.sensors);
-          this.getGatewayData(result.gateways, '');
-          if (this.mapData['noOfSensors'] > 0) {
-            this.onSelectSensorRadio();
-          } else {
-          }
-        });
+      if (!this.pauseRefresh) {
+        this.sensorSummaryService
+          .getSingleUserLocation(this.netWorkId)
+          .then(result => {
+            this.mapData = result;
+            this.getSensorData(result.sensors);
+            this.getGatewayData(result.gateways, '');
+            if (this.mapData['noOfSensors'] > 0) {
+              this.onSelectSensorRadio();
+            } else {
+            }
+          });
+      }
     }, 60000);
     // this.mapData = e;
   }
@@ -444,11 +447,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.isSelectedAll = false;
     this.editSaveModel = "Edit";
     this.isValidForm = true;
+    this.pauseRefresh = false;
   }
 
   /*Edit the selected ,update and get refresh data drom network*/
   private onClickEditDetails() {
     this.isValidForm = true;
+    this.pauseRefresh = !this.pauseRefresh;
     this.isServiceCallSuccess = false;
 
     // this.selectedUserDataForOperation = [];
@@ -460,11 +465,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickAddNetwork() {
     this.disableSubmitButton = true;
+    this.pauseRefresh = true;
     this.showPopup = true;
   }
 
   private modalClosed(event) {
     this.showPopup = false;
+    this.pauseRefresh = false;
     this.showEditPopup = false;
   }
 
@@ -560,6 +567,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickEditNetwork() {
     this.showEditPopup = true;
+    this.pauseRefresh = true;
     this.disableSubmitButton = true;
     this.editNetworkData = {
       name: this.selectLocation.Title,
@@ -635,6 +643,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   onClickAddDetail() {
     // console.log('accountID',this.accountID);
     this.isSelectedToAddDevice = true;
+    this.pauseRefresh = true;
     //on success
     this.disable = {
       edit: false,
@@ -1014,12 +1023,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     }
 
     this.isSelectedToAddDevice = false;
+    this.pauseRefresh = false;
   }
 
   receiveCancelMessage($event) {
     this.isValidForm = true;
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
+    this.pauseRefresh = false;
   }
 
   gotoSummary(sensor) {
@@ -1163,6 +1174,10 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   //     this.getSensorUpdateData(sensor, false, true);
   //   });
   // }
+
+   capturedCoordinates($event) {
+     this.latestCoordinates = $event;
+   }
 
    onClickNotifyOffOn(e, sensor) {
 

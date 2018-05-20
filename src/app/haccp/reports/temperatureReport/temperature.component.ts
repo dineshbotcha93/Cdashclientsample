@@ -26,9 +26,11 @@ export class TemperatureComponent  {
   bsValueTwo: Date = moment().toDate();
   bsRangeValue: any = [this.bsValue , this.bsValueTwo];
   bsModalRef: BsModalRef;
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date(2018, 9, 15);
   private locationId = '';
   private pdfSrc;
-  private showReport = false;
+  public showReport = false;
 
   constructor(
     private router:Router,
@@ -49,27 +51,25 @@ export class TemperatureComponent  {
       }
       return bytes.buffer;
     }
-  
+
     GenerateReport() {
       console.log('::::generating report::::', moment(this.bsValue).format('MM/DD/YYYY')+' ::: ' +moment(this.bsValueTwo).format('MM/DD/YYYY') + ' ' + this.filterByGroup + ' ' + this.filterByQesType);
       this.showReport = false;
-  
+
       const fromDate = moment(this.bsValue).format('MM/DD/YYYY'),
         toDate = moment(this.bsValueTwo).format('MM/DD/YYYY'),
         userId = 1,
         LocationId = 1148,
         groupBy = this.filterByGroup;
-  
+
       this.haccpReportingService.getTemperatureReportsPdfData(fromDate, toDate, userId, LocationId, groupBy).then(  (result) => {
-  
+
         console.log(':::::', result);
         //let pdfBaseString = result._body.
         this.pdfSrc = this.base64ToArrayBuffer(result.content);
-  
+
         //console.log('::::::::::', this.base64ToArrayBuffer(this.pdfSrc));
       });
       this.showReport = true;
     }
   }
-
-
