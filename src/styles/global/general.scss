@@ -3,6 +3,7 @@
 html {
   height: 100vh;
   min-height: 100%;
+  overflow-y: auto;
 }
 
 body {
@@ -15,19 +16,23 @@ body {
   margin-right: auto;
   height: 100vh;
   min-height: 100%;
+  overflow-y: auto;
 
   .container.body {
     height: 100vh;
     min-height: 100%;
+    overflow-y: auto;
 
     .right_col {
       min-height: 100%;
       background: $color-white;
+      overflow-y: auto;
     }
 
     .main_container {
       height: 100vh;
       min-height: 100%;
+      overflow-y: auto;
     }
   }
 }
@@ -74,7 +79,7 @@ ul {
 }
 
 .total-amount {
-  color: $appTile-BG-lowBattery;
+  color: $color-emerson-brand-blue;
   font-weight: bold;
   font-size: 2em;
 }
@@ -97,7 +102,7 @@ ul {
 
 /* ******************************** */
 .parent-container {
-  margin: 4em 0;
+  margin: 2em 0;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large) {
     margin: 1em 0;
@@ -128,10 +133,10 @@ ul {
   align-items: left !important;
 }
 
-.gap-top { margin-top: 40px; }
-.gap-right { margin-right: 40px; }
-.gap-bottom { margin-bottom: 40px; }
-.gap-left { margin-left: 40px; }
+.gap-top { margin-top: 20px; }
+.gap-right { margin-right: 20px; }
+.gap-bottom { margin-bottom: 20px; }
+.gap-left { margin-left: 20px; }
 /* ******************************** */
 
 
@@ -146,5 +151,16 @@ ul {
 /* ******************************** */
 .x_panel {
   padding: 0;
+}
+/* ******************************** */
+
+
+// Over-writing bootstrap well style.
+/* ******************************** */
+.well {
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  border: none;
 }
 /* ******************************** */

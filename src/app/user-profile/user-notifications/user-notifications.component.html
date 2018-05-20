@@ -1,48 +1,42 @@
 <div class="userNotifications-container">
   <div *ngIf="!isValidForm" class="alert alert-info">
-    <span>{{deviceCreationError || 'Please verify the details entered for your registraiton'}}</span>
+    <span>{{deviceCreationError || 'Please verify the details entered for your registration'}}</span>
   </div>
   <div *ngIf="isValidForm">
     <div class="row">
       <div class="col-md-12" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
-        <div class="form-group sensor-actions">
-          <button *ngIf = "isAddButtonRequired" type="button"
-                  class="btn btn-primary addBTN"
-                  (click)="onClickAddNotification()" ><i class="fa fa-plus"></i> Add Notification</button>
-          <button *ngIf = "isResetButtonRequired" type="button"
-                  class="btn btn-primary removeBTN"
-                  (click)="onClickResetNotification()" ><i class="fa fa-chevron-circle-left"></i>Reset Notification </button>
+        <div class="form-group">
+          <button *ngIf = "isAddButtonRequired" class="btn btn-primary" (click)="onClickAddNotification()">
+            <i class="fa fa-plus"></i> Add Notification
+          </button>
+          <button *ngIf = "isResetButtonRequired" class="btn btn-primary" (click)="onClickResetNotification()">
+            <i class="fa fa-chevron-circle-left"></i>Reset Notification
+          </button>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div *ngIf="notificationRadio === 'summary'">
-        <div class="col-md-12" *ngIf="sensorList?.length > 0">
-          <app-notification-summary
-            [sensorList] = "sensorList"
-            [accountData] = "accountData"
-            (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
-          </app-notification-summary>
-        </div>
-        <div *ngIf="sensorList?.length < 1">
-           <div class="alert alert-info">
-              <span>{{deviceCreationError}}</span>
-           </div>
+      <div *ngIf="sensorList?.length < 1">
+        <div class="alert alert-info">
+          <span>{{deviceCreationError}}</span>
         </div>
       </div>
-      <div *ngIf="notificationRadio === 'addNotify'">
-        <div class="col-md-12">
-          <app-notification-create
-            [sensorList] = "sensorList"
-            [gatewayList] = "gatewayList"
-            [editNotifyObject] = "editNotifyObject"
-            [globalNotificationsList] = "globalNotificationsList"
-            (createMessageEvent)="receiveAddNotificationMessage($event)"
-            [notifyOperationType] = "notifyOperationType"
-          ></app-notification-create>
-        </div>
-      </div>
+
+      <app-notification-summary *ngIf="notificationRadio === 'summary' && sensorList?.length > 0"
+                                [sensorList] = "sensorList"
+                                [accountData] = "accountData"
+                                (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
+      </app-notification-summary>
+
+      <app-notification-create *ngIf="notificationRadio === 'addNotify'"
+                               [sensorList] = "sensorList"
+                               [gatewayList] = "gatewayList"
+                               [editNotifyObject] = "editNotifyObject"
+                               [globalNotificationsList] = "globalNotificationsList"
+                               (createMessageEvent)="receiveAddNotificationMessage($event)"
+                               [notifyOperationType] = "notifyOperationType"
+      ></app-notification-create>
     </div>
   </div>
 </div>

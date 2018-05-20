@@ -7,9 +7,12 @@
       </user-flow-component>
 
       <div class="loader gap-top gap-bottom" *ngIf="!rows"></div>
+      <div class="row">
+        <button class="btn btn-success float-left gap-bottom" (click)="addNetwork()"> <i class="fa fa-plus"></i>Add Location</button>
+      </div>
 
-      <div>
-        <button class="btn btn-lg btn-success gap-bottom" (click)="addNetwork()">Add Location</button>
+      <div class="row">
+
         <app-datatable class="editNetworkSetup-dataTable"
                        #dataTable
                        *ngIf="rows && rows.length > 0"
@@ -36,17 +39,35 @@
 
 <modal [isOpen]="showPopup" title="Add/Edit Location"
        (onClose)="modalClosed($event)">
-  <button class="btn btn-default float-right m-l-md" (click)="copyAccountAddress()">Copy Account Address</button><br/>
+  <div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="form-group float-left">
+        <button class="btn btn-default float-right" (click)="copyAccountAddress()">Copy Account Address</button>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+    </div>
+  </div>
   <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
     <create-network (formReady)="addFormControl('createNetworkForm', $event)" (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-3 col-sm-12 col-xs-12">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="form-group float-right">
-          <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
-          <input type="submit" value="Submit" [ngClass]="{'btn-disable':disableSubmitButton}" class="btn btn-primary m-l-none">
-          <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
+          <span class="error" *ngIf="disableSubmitButton">Enter Valid Address</span><br>
+          <button [ngClass]="{'btn-disable':disableSubmitButton}" class="btn btn-primary m-l-none">Submit</button>
+          <button type="reset" class="btn btn-primary m-l-none">Cancel</button>
         </div>
+      </div>
+      <div class="col-md-3 col-sm-12 col-xs-12">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
       </div>
     </div>
   </form>

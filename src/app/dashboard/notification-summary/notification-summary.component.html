@@ -1,132 +1,126 @@
-
 <div *ngIf="notificationSummaryList?.length > 0">
-  <table class="table">
-      <thead>
-        <tr>
-         <div class="row">
-            <div class="col-sm-2">Status</div>
-            <div class="col-sm-3">Notification</div>
-            <div class="col-sm-2">Last Sent</div>
-            <div class="col-sm-1">Text</div>
-            <div class="col-sm-1">Devices</div>
-            <div class="col-sm-1">Users</div>
-            <div class="col-sm-2"></div>
-          </div>
-        </tr>
-        <hr>
-      </thead>
-      <tbody>
-        <tr>
-        <div class="row" *ngFor="let notifiy of notificationSummaryList">
-          <div class="col-sm-2"><div class="btn-group">
-            <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notifiy)">On
-            </label>
-            <label class="btn btn-primary btn-xs" [(ngModel)]="notifiy.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notifiy)">Off
-            </label>
-          </div></div>
-          <div class="col-sm-3">{{notifiy.notification.notificationClass}}/{{notifiy.notification.name}}</div>
-          <div class="col-sm-2">{{notifiy.notification.lastDateSent | date:'short'}}</div>
-          <div class="col-sm-1"> <a (click)="openModal(notifiy,template,'text')">
-            <fa name="comment"></fa>
-          </a></div>
-          <div class="col-sm-1"><a (click)="openModal(notifiy,template,'device')">
-            <fa name="tablet"></fa>
-          </a></div>
-          <div class="col-sm-1"> <a (click)="openModal(notifiy,template,'user')">
-            <fa name="user"></fa>
-          </a></div>
-          <div class="col-sm-2"><button type="button" class="btn btn-primary btn-xs" value="edit" [ngClass]="'editBTN'" (click)="onClickEditNotifyDetails(notifiy)">
-            <i class="fa fa-edit"></i> edit </button>&nbsp;
-            <button type="button" class="btn btn-primary btn-xs removeBTN btn-xs" (click)="onClickRemoveNotifyDetails(notifiy)">
-          <i class="fa fa-trash"></i> Remove </button></div>
-           <hr>
-        </div>
-        <hr>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="col-sm-1">Status</th>
+      <th class="col-sm-5">Notification</th>
+      <th class="col-sm-2">Last Sent</th>
+      <th class="col-sm-2">Type</th>
+      <th class="col-sm-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notify of notificationSummaryList; let i=index">
+        <td class="col-sm-1">
+          <ul class="toggleSwitch-list">
+            <li class="toggleSwitch-item" >
+              <input class="tgl tgl-flat" attr.id="cb_{{notify.notification.notificationID}}" [checked]="notify.notification.active" (click)="onClickNotifyOffOn($event,notify)"
+              type="checkbox"/>
+              <label class="tgl-btn" attr.for="cb_{{notify.notification.notificationID}}"></label>
+            </li>
+          </ul>
+
+          <!--<div class="btn-group">
+            <label class="btn btn-primary" [(ngModel)]="notify.notification.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,notify)">On</label>
+            <label class="btn btn-primary" [(ngModel)]="notify.notification.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,notify)">Off</label>
+          </div>-->
+        <td class="col-sm-5">{{notify.notification.notificationClass}}/{{notify.notification.name}}</td>
+        <td class="col-sm-2">{{notify.notification.lastDateSent | date:'short'}}</td>
+        <td class="col-sm-2">
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'text')" tooltip="Comments"><i class="fa fa-comment-o"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'device')" tooltip="Device Information"><i class="fa fa-tablet"></i></a>
+          <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'user')" tooltip="User Information"><i class="fa fa-user-o"></i></a>
+        </td>
+        <td class="col-sm-2">
+          <button class="btn btn-transparent icon-only" (click)="onClickEditNotifyDetails(notify)" tooltip="Edit notification"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-transparent icon-only" (click)="onClickRemoveNotifyDetails(notify)" tooltip="Delete notification"><i class="fa fa-trash"></i></button>
+        </td>
       </tr>
-      </tbody>
+    </tbody>
   </table>
 </div>
 
 
 <ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Details</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body" >
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Details</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
 
-      <div *ngIf="modalType === 'device'">
-         <ng-container *ngTemplateOutlet="notifyDeviceModal"></ng-container>
-      </div>
-      <div *ngIf="modalType === 'text'">
-          <ng-container *ngTemplateOutlet="notifyTextModal"></ng-container>
-       </div>
-       <div *ngIf="modalType === 'user'">
-          <ng-container *ngTemplateOutlet="notifyUserModal"></ng-container>
-       </div>
-
+    <div *ngIf="modalType === 'device'">
+      <ng-container *ngTemplateOutlet="notifyDeviceModal"></ng-container>
     </div>
+    <div *ngIf="modalType === 'text'">
+      <ng-container *ngTemplateOutlet="notifyTextModal"></ng-container>
+    </div>
+    <div *ngIf="modalType === 'user'">
+      <ng-container *ngTemplateOutlet="notifyUserModal"></ng-container>
+    </div>
+
+  </div>
 </ng-template>
 
 <ng-template #notifyTextModal>
-    <div [innerHTML]="modalObject.text"></div>
+  <div [innerHTML]="modalObject.text"></div>
 </ng-template>
 
 <ng-template #notifyDeviceModal>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Device Name</th>
-                <th>Device Type</th>
-                <th>Device Category</th>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Device Name</th>
+      <th>Device Type</th>
+      <th>Device Category</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let device of modalObject">
-                <td>
-                    {{device.deviceName}}
-                </td>
-                <td>
-                    {{device.deviceType}}
-                </td>
-                <td>
-                    {{device.deviceCategory}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let device of modalObject">
+      <td>
+        {{device.deviceName}}
+      </td>
+      <td>
+        {{device.deviceType}}
+      </td>
+      <td>
+        {{device.deviceCategory}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </ng-template>
 
 <ng-template #notifyUserModal>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>User Name</th>
-                <th>Email</th>
-                <th>SMS</th>
-                <th>NotifyType</th>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>SMS</th>
+      <th>NotifyType</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of modalObject">
-                <td>
-                    {{user.userName}}
-                </td>
-                <td>
-                    {{user.smsNumber}}
-                </td>
-                <td>
-                    {{user.email}}
-                </td>
-                <td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of modalObject">
+      <td>
+        {{user.userName}}
+      </td>
+      <td>
+        {{user.smsNumber}}
+      </td>
+      <td>
+        {{user.email}}
+      </td>
+      <td>
 
-                    <fa name="envelope"></fa>&nbsp;  <fa name="mobile"></fa>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <fa name="envelope"></fa>&nbsp;
+        <fa name="mobile"></fa>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </ng-template>

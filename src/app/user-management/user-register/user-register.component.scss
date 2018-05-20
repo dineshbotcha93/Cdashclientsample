@@ -1,23 +1,25 @@
 @import "../../../styles/variables";
 
 .onboarding_container {
-  .verifyEmailNotes-container {
+
+
+  a {
+    cursor: pointer;
+    float: none;
+    margin: 0;
+    color: #000;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    color: $color-white;
-    text-align: left;
+    font-size: 0.85em;
 
-    a {
-      cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
-      }
-
-      .fa {
-        padding-right: 10px;
-      }
+    &:hover {
+      text-decoration: underline;
     }
+  }
+  p {
+    text-align: left;
+  }
+  .btn {
+    width: 100%;
   }
 }
 

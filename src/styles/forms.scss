@@ -24,9 +24,30 @@ select {
   font-weight: bold;
   cursor: pointer;
   box-shadow: none;
+  width: auto;
 
   i.fa {
     padding-right: 7px;
+  }
+
+  a[type="button"] {
+    color: $colorUI-emerson-black;
+  }
+
+  &:hover {
+    background-color: $color-grey-light;
+    transition: background-color 0.5s ease;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+  }
+
+  &:focus, &:active {
+    background-color: $color-emerson-brand-blue;
+    transition: background-color 0.5s ease;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
   }
 
   &.icon-only {
@@ -36,13 +57,19 @@ select {
     }
   }
 
-  &:hover, &:focus, &:active {
-    //border: 1px solid $color-grey-light;
-    background-color: $color-grey-light;
-    transition: background-color 0.5s ease;
-    -webkit-transition: background-color 0.5s ease;
-    -moz-transition: background-color 0.5s ease;
-    -o-transition: background-color 0.5s ease;
+  &.btn-light {
+    background: $colorGrey-emerson-vLightGrey;
+    color: $colorUI-emerson-black;
+  }
+
+  &.btn-transparent {
+    background: transparent;
+    color: $colorUI-emerson-black;
+    padding: 5px;
+
+    &:active {
+      box-shadow: none;
+    }
   }
 
   &.saveBTN {
@@ -156,14 +183,61 @@ input[type="password"] {
     font-size: 0.85em;
     color: $color-redLight;
   }
+
+  label.col-form-label {
+    font-weight: normal;
+  }
 }
 
-.btn-disable
-{
+.btn-disable {
  cursor: not-allowed;
  pointer-events: none;
 
  /*Button disabled - CSS color class*/
  color: #c0c0c0;
- background-color: #ffffff;
+ background-color: $color-white;
+}
+
+.inline-form {
+  span.inline-form {
+    width: auto;
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+
+    &.inline-form-50 {
+      width: 50%;
+    }
+
+    &:last-child {
+      margin: 0 10px 0 0;
+    }
+  }
+}
+
+.btn-group-checkbox {
+  label {
+    font-weight: normal;
+    color: $colorUI-emerson-black;
+    border-left: 1px solid $color-white;
+    border-right: 1px solid $color-white;
+    background: $colorGrey-emerson-lightGrey;
+
+    &:hover {
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+      background: $colorGrey-emerson-grey;
+    }
+
+    &.active {
+      background: $color-emerson-brand-blue;
+    }
+
+    &:first-child {
+      border-left: none;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
 }
