@@ -127,6 +127,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   deviceCreationSuccess: string | null = null;
   latestCoordinates: any = null;
 
+  //Represents the datasource for the Heartbeat selection dropdown.
+  heartBeatList :any ;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -168,6 +171,22 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.deviceCreationError = null;
 
     this.isServiceCallSuccess = false;
+
+    this.initialiseHeartBeatDropdownSource();
+  }
+
+  //Intialise the heartbeatdropdown data source
+  private initialiseHeartBeatDropdownSource(){
+    this.heartBeatList = [
+      { id: 10, value: 10 },
+      { id: 20, value: 20 },
+      { id: 30, value: 30 },
+      { id: 60, value: 60 },
+      { id: 120, value: 120 },
+      { id: 240, value: 240 },
+      { id: 360, value: 360 },
+      { id: 720, value: 720 },
+    ];
   }
 
   private getDropdownDetails() {
@@ -250,7 +269,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       sens.checked = false;
       sens.gateWayEditOption = "display";
       sens.heartBeat =
-        sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
+        sens.heartBeat === (null || undefined) ? 0 : sens.heartBeat;
       // hardcoded for now
       sens.sensorType = sens.type;
       if(sens.maximumThreshold === -4294967295 || sens.maximumThreshold === 4294967295){
