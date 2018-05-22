@@ -248,7 +248,7 @@ export class NotificationCreateComponent implements OnInit {
         } else if (notify.notificationClass === "Application") {
           this.onClickSensorNotify();
         } else if (
-          notify.notificationClass === "Low_Battery"
+          notify.notificationClass === "Low Battery"
         ) {
           this.onClickBatteryNotify();
         }else if (
@@ -750,7 +750,7 @@ export class NotificationCreateComponent implements OnInit {
     ];
 
     this.selectSubNotificationList = Obj;
-
+    this.preSelectSubNotifyType =Obj[0];
 
 
 
@@ -953,6 +953,7 @@ export class NotificationCreateComponent implements OnInit {
     this.isSensorNotificationForm5 = false;
     this.isButtonFooterRequired = true;
     this.notificationModel.compareType = "Less_Than";
+    this.notificationModel.scale='F';
     this.notificationModel.notificationTemplate = "batteryNotification";
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";
@@ -973,6 +974,7 @@ export class NotificationCreateComponent implements OnInit {
     this.isSensorNotificationForm5 = false;
     this.isButtonFooterRequired = true;
     this.notificationModel.compareType = "Equal";
+    this.notificationModel.scale='F';
     this.notificationModel.notificationTemplate = "inActiveNotification";
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";
@@ -1397,6 +1399,8 @@ export class NotificationCreateComponent implements OnInit {
       advancedNotification: this.notificationModel.advancedNotification
     };
 
+    console.log('requestObject---->>',requestObject);
+
     if (this.notifyOperationType === "addNotify") {
       this.sensorSummaryService
         .createNotificationDetails(requestObject)
@@ -1412,5 +1416,8 @@ export class NotificationCreateComponent implements OnInit {
           this.createMessageEvent.emit(true);
         });
     }
+  }
+  onClickCancelTransact(){
+       this.createMessageEvent.emit(true);
   }
 }
