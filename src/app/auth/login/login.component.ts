@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginSandbox } from './login.sandbox';
 import * as store             from '../../shared/store';
 import { Store }              from '@ngrx/store';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public loginSandbox$: LoginSandbox,
     private translate: TranslateService,
-    private alertSandbox: AlertSandbox
+    private alertSandbox: AlertSandbox,
+    private router: Router,
   ) {
     this.translate.use('en');
   }
@@ -48,7 +50,9 @@ export class LoginComponent implements OnInit {
 
   submitAnonymousPayment() {
     if (this.anonymousPayments.valid) {
-      alert('valid invoice id');
+      console.log('router should navigate now', this.router);
+      this.router.navigate(['/payments'],
+        {queryParams: { invoiceId: this.anonymousPayments.get('invoiceId').value}});
     } else {
       this.invalidInvoice = true;
     }

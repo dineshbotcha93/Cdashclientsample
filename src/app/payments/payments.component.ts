@@ -18,6 +18,7 @@ export class PaymentsComponent {
   customerData: Object = null;
   transactionId: String = null;
   paymentDataError: Error = null;
+  anonymousPayment = true;
   showConfirmation = false;
   renewalError = false;
   newRenewalDate: string = null;
