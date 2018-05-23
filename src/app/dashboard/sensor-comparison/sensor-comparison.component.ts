@@ -79,7 +79,6 @@ export class SensorComparisonComponent{
     let allNames:Array<Object> = [];
     let allSensorIds: Array<Object> = [];
     this.netWorkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
-    if(!environment.production){
       this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
         result.sensors.forEach((allSensors)=>{
           allSensorIds.push(this.sensorDetailsService.getDetails(allSensors.sensorID));
@@ -93,7 +92,6 @@ export class SensorComparisonComponent{
           });
         });
       });
-    }
     return allNames;
   }
 

@@ -1,7 +1,7 @@
 @import "./../variables";
 
 .customer-info-container {
-  height: 40px;
+  height: auto;
   margin-bottom: 10px;
   color: $colorUI-emerson-black;
 
@@ -78,5 +78,9 @@
   .usr-lbl {
     font-weight: bold;
     padding: 5px 0;
+  }
+
+  @media (min-width: $phone-small) and (max-width: $tablet-small) {
+    height: auto;
   }
 }

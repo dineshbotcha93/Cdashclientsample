@@ -56,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
       return this.isEmailVerified;
     }).then((r)=>{
       if(this.isEmailVerified){
-        this.alertSandbox.showSuccess({data: 'Registration link is sent to your email address.  Please follow the instructions mentioned in the email. Thank you for your business!',autohide: false});
+        this.alertSandbox.showSuccess({data: 'Registration link is sent to your email address.  Please follow the instructions mentioned in the email. Thank you for your business!',autohide: true});
         //this.router.navigate(['user-register/user-create',this.userRegisterModel.email]);
       }
     });
