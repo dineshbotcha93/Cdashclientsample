@@ -87,7 +87,16 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     }
 
     if (!this.isNewMaster) {
-      console.log('not a new master. Fetching API data');
+      this.accountForm.get('business_type').clearValidators();
+      this.accountForm.get('business_type').updateValueAndValidity();
+
+      this.accountForm.get('industry_type').clearValidators();
+      this.accountForm.get('industry_type').updateValueAndValidity();
+
+
+      this.accountForm.get('placeOfPurchase').clearValidators();
+      this.accountForm.get('placeOfPurchase').updateValueAndValidity();
+
       this.fillDetailsService.fetchExistingUserInfo()
         .then(data => {
           console.log('user info', data.account[0]);
