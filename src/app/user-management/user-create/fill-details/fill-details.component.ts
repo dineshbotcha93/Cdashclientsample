@@ -168,7 +168,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
     this.fillDetailsService.updateExistingUserInfo(payloadData)
       .then((data) => {
-        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+        //this.router.navigate(['/user-register/user-create/fill-details'], { queryParams: { email: this.userRegisterModel.email}});
+        this.router.navigate(['/user-register/user-create/fill-details/network-setup']);
       })
       .catch((error) => {
         this.accountUpdateStatus.error = true;
@@ -214,7 +215,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       .then((data) => {
         localStorage.setItem('com.cdashboard.token', data);
 
-        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+        //this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+        this.router.navigate([`/user-register/user-create/fill-details/network-setup`]);
       })
       .catch(error => {
         this.accountUpdateStatus.error = true;
