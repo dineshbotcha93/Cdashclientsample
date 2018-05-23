@@ -32,11 +32,11 @@
         <div class="alert alert-danger" *ngIf="invalidInvoice">Invalid Invoice ID</div>
         <div class="row">
           <!--<input type="submit" value="Pay" class="btn btn-primary col-sm-4">-->
-          <div class="col-sm-8">
-            <input type="text" class="form-control col-sm-8" placeholder="Enter Invoice Number"/>
+          <div class="col-sm-9">
+            <input type="text" class="form-control col-sm-8" formControlName="invoiceId" placeholder="Enter Invoice Number"/>
           </div>
-          <div class="col-sm-4">
-            <input type="submit" value="Pay" class="btn btn-primary">
+          <div class="col-sm-3">
+            <button class="btn btn-primary">Pay</button>
           </div>
         </div>
       </form>
