@@ -15,7 +15,8 @@ module.exports = function (config) {
       require('karma-verbose-reporter')
     ],
     client:{
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      captureConsole: false
     },
     coverageIstanbulReporter: {
       reports: [ 'html', 'lcovonly' ],
