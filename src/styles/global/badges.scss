@@ -9,4 +9,8 @@
   color: $colorUI-emerson-black;
   background: $colorGrey-emerson-vLightGrey;
   border-radius: $border-radius-big;
+
+  label {
+    margin-bottom: 0;
+  }
 }

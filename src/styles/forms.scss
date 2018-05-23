@@ -126,6 +126,10 @@ select {
       border: 0;
     }
   }
+
+  @media (min-width: $phone-small) and (max-width: $tablet-small) {
+    margin: 0 5px 5px 0;
+  }
 }
 
 .payment-button {
@@ -184,8 +188,12 @@ input[type="password"] {
     color: $color-redLight;
   }
 
-  label.col-form-label {
-    font-weight: normal;
+  label {
+    color: $colorUI-emerson-black;
+
+    &.col-form-label {
+      font-weight: normal;
+    }
   }
 }
 

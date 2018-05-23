@@ -10,6 +10,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { ButtonsModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations:[NotificationCreateComponent],
@@ -24,7 +25,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
     AngularFontAwesomeModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    MultiselectDropdownModule
+    MultiselectDropdownModule,ButtonsModule.forRoot()
   ],
   exports:[
     NotificationCreateComponent
