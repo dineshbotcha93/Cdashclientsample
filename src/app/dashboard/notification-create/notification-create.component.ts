@@ -332,7 +332,7 @@ export class NotificationCreateComponent implements OnInit {
       compareType: "Less_Than",
       compareValue: "",
       scale: "F",
-      scheduleNotificationCheck: { left: false, right: true },
+      scheduleNotificationCheck: { left: true, right: false },
       strSnoozeAlertValue: "",
       scheduleSnoozeCheck: { left: true, right: false },
       isNotificationActive: true,
