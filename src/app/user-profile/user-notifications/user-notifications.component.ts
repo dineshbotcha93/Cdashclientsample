@@ -35,7 +35,7 @@ export class UserNotificationsComponent implements OnInit {
 
 
   constructor(private sensorSummaryService: SensorSummaryService) {
-   this.deviceCreationError = "Please wait until loading complete ..... ";
+   this.deviceCreationError = "Please wait until notifications are loaded ..... ";
  }
 
   ngOnInit() {

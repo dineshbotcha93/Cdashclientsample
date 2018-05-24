@@ -804,7 +804,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase
               sensorName: x.sensorName,
               heartBeat: x.heartBeat,
               minimumThreshold: x.minimumThreshold,
-              maximumThreshold: x.maximumThreshold
+              maximumThreshold: x.maximumThreshold,
+              scale: x.scale
             };
 
             if (
