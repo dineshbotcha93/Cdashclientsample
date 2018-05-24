@@ -1017,7 +1017,7 @@ export class NotificationCreateComponent implements OnInit {
       }
       case "2": {
         this.advancedParameterObject.push(
-          this.setAdvancedParameterDetails("Alert After", "2", "")
+          this.setAdvancedParameterDetails("Alert After", "3", "")
         );
         break;
       }
