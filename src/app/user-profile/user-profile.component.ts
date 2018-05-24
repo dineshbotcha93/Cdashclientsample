@@ -213,7 +213,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       this.navigateToNetworkSection();
     })
       .catch(e => {
-        this.toastr.error(e.message);
+        if (e.status === 400) {
+        this.toastr.error(JSON.parse(e._body).Message);
+        }
       });
   }
   private prepareSaveData() {
