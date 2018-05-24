@@ -83,7 +83,10 @@ export class NotificationCreateComponent implements OnInit {
   sensorListNamesList: any = [];
   gatewayListNamesList: any = [];
 
+ 
   isGatewayRequired: boolean = true;
+  isSensorRequired: boolean = true;
+
 
   notificationOperationError: string | null = null;
 
@@ -224,9 +227,9 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.notificationID = notify.notificationID;
         this.notificationModel.scale = (notify.scale === null || notify.scale === 'C')? 'C': 'F';
         this.notificationModel.subnotificationClassType = notify.monnitApplicationID;
-        // this.notificationModel.advancedNotification = notify.advancedNotifcation;
+        this.notificationModel.advancedNotification = notify.advancedNotifcation;
 
-        this.advancedParameterEditObject = notify.advancedNotifcation;
+        // this.advancedParameterEditObject = notify.advancedNotifcation;
 
 
          this.selectTempTypeList.forEach(tempType => {
@@ -723,6 +726,7 @@ export class NotificationCreateComponent implements OnInit {
    // }
 
     this.isGatewayRequired = false;
+    this.isSensorRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Application";
     this.isReadingTypeAvailable = true;
@@ -846,6 +850,7 @@ export class NotificationCreateComponent implements OnInit {
     }
     this.isValidForm = true;
     this.isGatewayRequired = true;
+     this.isSensorRequired = true;
     this.notificationModel.notificationClassType = "5";
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm1 = false;
@@ -945,7 +950,7 @@ export class NotificationCreateComponent implements OnInit {
 
 
      console.log(this.notificationModel.subnotificationClassType);
-    // this.isReadingTypeAvailable = false;
+    this.isReadingTypeAvailable = false;
     }
 
 
@@ -956,6 +961,7 @@ export class NotificationCreateComponent implements OnInit {
       this.getNotificationScheduleDetailsForAddNotify();
     }
     this.isGatewayRequired = false;
+     this.isSensorRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Low_Battery";
     this.isReadingTypeAvailable = false;
@@ -977,6 +983,7 @@ export class NotificationCreateComponent implements OnInit {
       this.getNotificationScheduleDetailsForAddNotify();
     }
     this.isGatewayRequired = true;
+     this.isSensorRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Inactivity";
     this.isReadingTypeAvailable = false;
@@ -1020,9 +1027,19 @@ export class NotificationCreateComponent implements OnInit {
         this.setAdvancedNotificationParameterListForEdit(e.id);
       } if (this.notifyOperationType === "addNotify") { this.setAdvancedNotificationParameterList(
         this.notificationModel.subnotificationClassType
-      );}
+      );
+    }
+       if(e.id === "2" || e.id === "3" || e.id === "11"|| e.id === "12"|| e.id === "12" || e.id === "14"){
+       this.isGatewayRequired = false;
+       }
+       if(e.id === "4" || e.id === "9" ){
+       this.isSensorRequired = false;
+       }
+
        
     }
+   
+    
      this.setNotificationFormDetails();
   }
 
@@ -1104,20 +1121,20 @@ export class NotificationCreateComponent implements OnInit {
       }
       case "11": {
         // debugger;
-           if(this.advancedParameterEditObject.parameters.length > 0){
-             paramValue0 = this.advancedParameterEditObject.parameters[0].parameterValue;
-              paramValue1 = this.advancedParameterEditObject.parameters[1].parameterValue;
-               paramValue2 = this.advancedParameterEditObject.parameters[2].parameterValue;
-                paramValue3 = this.advancedParameterEditObject.parameters[3].parameterValue;
+           if(this.notificationModel.advancedNotification.parameters.length > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+              paramValue1 = this.notificationModel.advancedNotification.parameters[1].parameterValue;
+               paramValue2 = this.notificationModel.advancedNotification.parameters[2].parameterValue;
+                paramValue3 = this.notificationModel.advancedNotification.parameters[3].parameterValue;
            }
 
 
 
-        this.advancedParameterObject.push(
+       this.advancedParameterObject.push(
           this.setAdvancedParameterDetails("Notify After  Minutes", "9", paramValue0)
         );
          console.log('this.advancedParameterObject----before',this.advancedParameterObject);
-        this.advancedParameterObject.push(
+       this.advancedParameterObject.push(
           this.setAdvancedParameterDetails("Less than Temperature", "10", paramValue1)
         );
          console.log('this.advancedParameterObject----before',this.advancedParameterObject);
@@ -1188,7 +1205,7 @@ export class NotificationCreateComponent implements OnInit {
         break;
       }
     }
-     console.log(' this.advancedParameterObject -->',this.advancedParameterObject.length);
+     console.log(' this.advancedParameterObject -->',this.advancedParameterObject);
   }
   setAdvancedNotificationParameterList(subNotifyType) {
     this.advancedParameterObject = [];
@@ -1427,6 +1444,12 @@ export class NotificationCreateComponent implements OnInit {
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm3 = true;
       this.currentPageValue = "page3";
+       if (!this.isSensorRequired) {
+          this.isSensorNotificationForm3 = false;
+         this.isSensorNotificationForm4 = true;
+          this.currentPageValue = "page4";
+       }
+      
     } else if (value === "page3") {
       this.isSensorNotificationForm4 = true;
       this.isSensorNotificationForm1 = false;
@@ -1473,6 +1496,11 @@ export class NotificationCreateComponent implements OnInit {
       this.isSensorNotificationForm3 = true;
       this.isSensorNotificationForm5 = false;
       this.currentPageValue = "page3";
+      if (!this.isSensorRequired) {
+          this.isSensorNotificationForm3 = false;
+         this.isSensorNotificationForm2 = true;
+          this.currentPageValue = "page2";
+       }
     } else if (value === "page5") {
       this.isSensorNotificationForm5 = false;
       this.isSensorNotificationForm4 = true;
@@ -1507,7 +1535,7 @@ export class NotificationCreateComponent implements OnInit {
           parameterID: obj.parameterID,
           parameterValue: tempvalue
         };
-        debugger;
+        // debugger;
         this.notificationModel.advancedNotification.push(tempObj);
       });
     }
