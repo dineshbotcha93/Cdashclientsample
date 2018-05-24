@@ -67,6 +67,7 @@ export class NotificationCreateComponent implements OnInit {
   selectTempCompareList: any = [];
   selectedTempCompareList: any = [];
   selectTempTypeList: any = [];
+  selectedTempTypeList: any = [];
   selectOpenCloseType: any = [];
   selectedOpenCloseType: any = [];
   selectSensorHumidityType: any = [];
@@ -207,26 +208,6 @@ export class NotificationCreateComponent implements OnInit {
            // });
 
 
-        // tempObject.devices.forEach(device => {
-        //   if (device.deviceCategory === "Sensor") {
-        //        sensorGlobalList.forEach(sensor => {
-        //           let tempObj: any = [];
-        //           let tempNameObj: any = [];
-        //           if(sensor.sensorID === device.deviceID ){
-        //             sensorModel.push(sensor.sensorName);
-        //           }
-
-        //      });
-        //   } else {
-        //    gatewayGlobalList.forEach(gateway => {
-
-
-        //           if(gateway.gatewayID === device.deviceID ){
-        //             gatewayModel.push(gateway.name);
-        //           }
-
-        //   }
-        // });
 
         this.sensorOptionsModel = sensorModel;
         this.gatewayOptionsModel = gatewayModel;
@@ -240,8 +221,15 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.compareValue = notify.threshold;
         this.notificationModel.compareType = notify.comparer;
         this.notificationModel.notificationID = notify.notificationID;
-        this.notificationModel.scale = notify.scale;
+        this.notificationModel.scale = (notify.scale === null || notify.scale === 'C')? 'C': 'F';
         this.notificationModel.subnotificationClassType = notify.monnitApplicationID;
+
+
+
+         this.selectTempTypeList.forEach(tempType => {
+           if(tempType.id === this.notificationModel.scale)
+              this.selectedTempTypeList = tempType;
+         });
 
         if (notify.notificationClass === "Inactivity") {
           this.onClickInActivityNotify();
@@ -661,6 +649,8 @@ export class NotificationCreateComponent implements OnInit {
       }
     ];
     this.selectTempTypeList = Obj2;
+    this.selectedTempTypeList = Obj2[1];
+
     let tempObject3 = [
       {
         id: "01",
@@ -718,6 +708,11 @@ export class NotificationCreateComponent implements OnInit {
       this.setInitialModelValues();
       this.getNotificationScheduleDetailsForAddNotify();
     }
+
+   // else if(this.notifyOperationType === "editNotify"){
+   //   console.log(this.notificationModel.subnotificationClassType);
+   //  this.onChangeNotifictaion(this.notificationModel.subnotificationClassType);
+   // }
 
     this.isGatewayRequired = false;
     this.isValidForm = true;
@@ -814,7 +809,6 @@ export class NotificationCreateComponent implements OnInit {
 
        console.log('preSelectSubNotifyType',this.notificationModel.subnotificationClassType);
 
-
        this.selectSubNotificationList.forEach(not =>{
          console.log('not',not.id);
          if(not.id === this.notificationModel.subnotificationClassType.toString()){
@@ -828,6 +822,11 @@ export class NotificationCreateComponent implements OnInit {
     } else {
       this.selectedSensorHumidityType = humidityObjects[0];
     }
+
+   if(this.notifyOperationType === "editNotify"){
+     console.log(this.notificationModel.subnotificationClassType);
+    this.isReadingTypeAvailable = false;
+   }
     this.isSensorNotificationForm3;
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";

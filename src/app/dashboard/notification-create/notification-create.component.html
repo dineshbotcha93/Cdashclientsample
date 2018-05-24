@@ -75,7 +75,7 @@
             </span>
             <span class="inline-form"><small>(Select unit)</small></span>
             <!--<label class="col-form-label">(Select unit)</label>-->
-            <select class="form-control" formControlName="scale" [(ngModel)]="selectTempTypeList[1]" (ngModelChange)="onChangeTempTypeValue($event)">
+            <select class="form-control" formControlName="scale" [(ngModel)]="selectedTempTypeList" (ngModelChange)="onChangeTempTypeValue($event)">
               <option *ngFor="let not of selectTempTypeList" [ngValue]="not">
                 {{not.value}}
               </option>
