@@ -57,18 +57,18 @@ export class CreateDeviceComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     config.placement = "right";
-    console.log(this.deviceType);
+    //console.log(this.deviceType);
 
-   
+
   }
 
   ngOnInit() {
     this.setDeviceModelInitiate();
 
-    console.log("accountID", this.accountID);
-
-    this.deviceType = this.deviceType.toUpperCase();
-
+    //console.log("accountID", this.accountID);
+    if(this.deviceType){
+      this.deviceType = this.deviceType.toUpperCase();
+    }
     this.gatewayTypeObject = [
       {
         typeId: "-99",
@@ -111,7 +111,7 @@ export class CreateDeviceComponent implements OnInit {
           networkID: [this.deviceModel.networkID, [Validators.required]],
         });
     }else{
-       this.deviceCreateForm = this.formBuilder.group({ 
+       this.deviceCreateForm = this.formBuilder.group({
           gatewayTypeID: [this.deviceModel.gatewayTypeID, [Validators.required]],
           networkID: [this.deviceModel.networkID, [Validators.required]],
           serialNumber: [this.deviceModel.serialNumber, [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
