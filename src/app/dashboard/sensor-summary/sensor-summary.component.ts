@@ -126,6 +126,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
   latestCoordinates: any = null;
+  heartBeatList :any ;
 
   constructor(
     private route: ActivatedRoute,
@@ -168,8 +169,24 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.deviceCreationError = null;
 
     this.isServiceCallSuccess = false;
+
+    this.initialiseHeartBeatDropdownSource();
   }
 
+  //Intialise the heartbeatdropdown data source
+  private initialiseHeartBeatDropdownSource(){
+    this.heartBeatList = [
+      { id: 5, value: 5 },
+      { id: 10, value: 10 },
+      { id: 20, value: 20 },
+      { id: 30, value: 30 },
+      { id: 60, value: 60 },
+      { id: 120, value: 120 },
+      { id: 240, value: 240 },
+      { id: 360, value: 360 },
+      { id: 720, value: 720 },
+    ];
+  }  
   private getDropdownDetails() {
     this.sensorSummaryService.getNetworkLocations().then(result => {
       result.forEach(loc => {
@@ -246,11 +263,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     let checkModelNotify = { active: false, inActive: true };
 
     sensor.forEach(sens => {
+
       // Default values
       sens.checked = false;
       sens.gateWayEditOption = "display";
       sens.heartBeat =
-        sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
+        // sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
+        sens.heartBeat === (null || undefined || 0) ? 5 : sens.heartBeat;
       // hardcoded for now
       sens.sensorType = sens.type;
       if(sens.maximumThreshold === -4294967295 || sens.maximumThreshold === 4294967295){

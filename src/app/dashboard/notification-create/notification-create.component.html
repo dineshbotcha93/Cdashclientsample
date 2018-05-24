@@ -75,7 +75,7 @@
             </span>
             <span class="inline-form"><small>(Select unit)</small></span>
             <!--<label class="col-form-label">(Select unit)</label>-->
-            <select class="form-control" formControlName="scale" [(ngModel)]="selectTempTypeList[1]" (ngModelChange)="onChangeTempTypeValue($event)">
+            <select class="form-control" formControlName="scale" [(ngModel)]="selectedTempTypeList" (ngModelChange)="onChangeTempTypeValue($event)">
               <option *ngFor="let not of selectTempTypeList" [ngValue]="not">
                 {{not.value}}
               </option>
@@ -117,11 +117,14 @@
         </div>
 
         <ng-container *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && advancedParameterObject?.length >0">
-          <div class="form-group" *ngFor="let paramType of advancedParameterObject">
+          <div class="form-group" *ngFor="let paramType of advancedParameterObject; let index=index">
             <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">{{paramType.labelValue}}</label>
             <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
-              <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number" name="parameterValue"
-                     [(ngModel)]="paramType.parameterValue" placeholder="">
+              <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number" 
+              name="{{'name'+index}}"
+                [(ngModel)]= "advancedParameterObject[index].parameterValue" placeholder="">
+
+
             </div>
             <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="paramType.parameterObject?.length>0">
               <select class="form-control" formControlName="parameterObject" [(ngModel)]="paramType.parameterSelectedObject">
