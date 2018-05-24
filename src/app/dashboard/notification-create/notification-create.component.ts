@@ -649,7 +649,16 @@ export class NotificationCreateComponent implements OnInit {
       }
     ];
     this.selectTempCompareList = Obj;
-    this.selectedTempCompareList = Obj[0];
+
+    let ObjId = 0;
+    if(this.editNotifyObject) {
+
+      if(this.editNotifyObject.notification.comparer === 'Greater_Than') {
+        ObjId = 1;
+      }
+    }
+    this.selectedTempCompareList = Obj[ObjId];
+
     let Obj2 = [
       {
         id: "C",
@@ -796,7 +805,8 @@ export class NotificationCreateComponent implements OnInit {
 
     if (this.notifyOperationType === "editNotify") {
       humidityObjects.forEach(humid => {
-        if (humid.value === this.notificationModel.compareType) {
+        //if (humid.value === this.notificationModel.compareType) {
+        if (humid.id === this.editNotifyObject.notification.comparer) { // test this later,unable to create humidity type notification now
           this.selectedSensorHumidityType = humid;
           this.notificationModel.compareType = humid.id;
         }

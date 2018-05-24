@@ -65,7 +65,7 @@
           <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Notify when sensor temperature reading is:</label>
           <div class="col-sm-12 col-md-6 col-xs-12 inline-form">
             <select class="form-control" formControlName="compareType" [(ngModel)]="selectedTempCompareList" (ngModelChange)="onChangeLessThanValue($event)">
-              <option *ngFor="let less of selectTempCompareList" [ngValue]="less">
+              <option *ngFor="let less of selectTempCompareList" [ngValue]="less" [selected]="">
                 {{less.value}}
               </option>
             </select>
