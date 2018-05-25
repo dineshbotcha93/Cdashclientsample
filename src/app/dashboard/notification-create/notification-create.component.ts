@@ -83,7 +83,7 @@ export class NotificationCreateComponent implements OnInit {
   sensorListNamesList: any = [];
   gatewayListNamesList: any = [];
 
- 
+
   isGatewayRequired: boolean = true;
   isSensorRequired: boolean = true;
 
@@ -1030,7 +1030,7 @@ export class NotificationCreateComponent implements OnInit {
     }
 
     if (this.notificationModel.notificationClassType === "5") {
-      
+
       // debugger;
        if (this.notifyOperationType === "editNotify") {
           this.setMonnitAdvancedId(e.id);
@@ -1046,10 +1046,10 @@ export class NotificationCreateComponent implements OnInit {
        this.isSensorRequired = false;
        }
 
-       
+
     }
-   
-    
+
+
      this.setNotificationFormDetails();
   }
 
@@ -1459,7 +1459,7 @@ export class NotificationCreateComponent implements OnInit {
          this.isSensorNotificationForm4 = true;
           this.currentPageValue = "page4";
        }
-      
+
     } else if (value === "page3") {
       this.isSensorNotificationForm4 = true;
       this.isSensorNotificationForm1 = false;
@@ -1530,7 +1530,7 @@ export class NotificationCreateComponent implements OnInit {
   onClickCreateNotification(value) {
     console.log(this.advancedParameterObject);
     this.notificationModel.advancedNotification = [];
-      
+
 
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {
@@ -1628,21 +1628,21 @@ export class NotificationCreateComponent implements OnInit {
 
     console.log('requestObject---->>',requestObject);
 
-    // if (this.notifyOperationType === "addNotify") {
-    //   this.sensorSummaryService
-    //     .createNotificationDetails(requestObject)
-    //     .then(result => {
-    //       //Emit true if 1
-    //       this.createMessageEvent.emit(true);
-    //     });
-    // } else if (this.notifyOperationType === "editNotify") {
-    //   this.sensorSummaryService
-    //     .UpdateNotificationDetails(requestObject)
-    //     .then(result => {
-    //       //Emit true if 1
-    //       this.createMessageEvent.emit(true);
-    //     });
-    // }
+     if (this.notifyOperationType === "addNotify") {
+       this.sensorSummaryService
+        .createNotificationDetails(requestObject)
+         .then(result => {
+           //Emit true if 1
+          this.createMessageEvent.emit(true);
+         });
+     } else if (this.notifyOperationType === "editNotify") {
+       this.sensorSummaryService
+         .UpdateNotificationDetails(requestObject)
+         .then(result => {
+          //Emit true if 1
+           this.createMessageEvent.emit(true);
+         });
+     }
   }
   onClickCancelTransact(){
        this.createMessageEvent.emit(true);
