@@ -26,6 +26,8 @@ import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap';
+import { NgxToggleModule } from "ngx-toggle";
+
 
 const routes: Routes = [{
   path: '', component: SensorSummaryComponent
@@ -43,6 +45,7 @@ const routes: Routes = [{
     CommonModule,
     PipesModule,
     FormsModule,
+    NgxToggleModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     SharedModule,
