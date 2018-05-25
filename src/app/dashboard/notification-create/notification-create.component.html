@@ -120,7 +120,7 @@
           <div class="form-group" *ngFor="let paramType of advancedParameterObject; let index=index">
             <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">{{paramType.labelValue}}</label>
             <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
-              <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number" 
+              <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number"
               name="{{'name'+index}}"
                 [(ngModel)]= "advancedParameterObject[index].parameterValue" placeholder="">
 
@@ -320,7 +320,7 @@
         <button type="button" class="btn btn-primary" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">previous </button>
         <button type="button" class="btn btn-primary" (click)="onClickNext(currentPageValue)" *ngIf="isNextButtonRequired">Next </button>
         <button type="button" class="btn btn-primary" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
-          <i class="fa fa-plus"></i> Submit
+          Submit
         </button>
 
         <button class="btn btn-primary" (click)="onClickCancelTransact()">Cancel</button>
