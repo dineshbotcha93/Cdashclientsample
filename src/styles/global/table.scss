@@ -1,6 +1,8 @@
 /* ******************************** */
 /* Table styles /*
 /* ******************************** */
+@import "../variables";
+
 table,
 .table {
   border: 1px solid $colorGrey-emerson-vLightGrey;
@@ -9,7 +11,6 @@ table,
   thead {
     tr {
       th {
-        vertical-align: bottom;
         padding: 0.85rem;
         font-weight: normal;
         font-size: 0.85em;
