@@ -13,10 +13,28 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h3>{{'dashboardMain.dashboardTitle'|translate}}</h3>
-      <div class="loader" [hidden]="showList" *ngIf="mapData.length == 0"></div>
+  <div  class="row" *ngIf="mapData.length == 0">
+    <div class="loader"></div>
+  </div>
+  <div class="row" *ngIf="mapData.length > 0">
+
+    <div class="row">
+      <div class="col-md-10 col-sm-12 col-xs-12">
+        <h3 class="m-l-sm">{{'dashboardMain.dashboardTitle'|translate}}</h3>
+      </div>
+      <div class="col-md-2 col-sm-12 col-xs-12">
+        <div class="list-view">
+          <a (click)="showListView()" [hidden]="showList">List View</a>
+          <a (click)="showMapView()" [hidden]="showMap">Map</a>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="x_content" [hidden]="showList">
+      <div class="loader" *ngIf="mapData.length == 0"></div>
+      <app-map [markers]="mapData" *ngIf="mapData.length > 0"></app-map>
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12" [hidden]="showMap">
