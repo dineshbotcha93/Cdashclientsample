@@ -106,6 +106,7 @@ export class SensorDetailsComponent {
         fontColor: '#000000'
       }
     };
+    this.onDateChange(event, 'fromDate');// TEMP FIX - AS DATEPICKERS  ARE COMMENTED
   }
   ngAfterViewInit() {
     this.tabs.forEach((e) => {
@@ -127,17 +128,19 @@ export class SensorDetailsComponent {
       this.chartOptions.zoom.enabled = true;
     }
   }
-
+ 
   onDateChange(event, target) {
 
     let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
     let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
 
-    if (target === 'fromDate') {
-      fromDate = moment(event).format('MM/DD/YYYY');
-    } else {
-      toDate = moment(event).format('MM/DD/YYYY');
-    }
+    // TEMP FIX - AS DATEPICKERS  ARE COMMENTED, UNCOMMENT FOLLOWING CODE WHEN DATEPICKERS ARE USED
+    
+    // if (target === 'fromDate') {
+    //   fromDate = moment(event).format('MM/DD/YYYY');
+    // } else {
+    //   toDate = moment(event).format('MM/DD/YYYY');
+    // }
 
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;
