@@ -14,6 +14,16 @@ export class PaymentsService {
     .getExternalRequest('/api/Payment/Details?ProductName=NotifEye');
   }
 
+  getAnonymousPaymentData(invoiceId) {
+    return this.requesterService
+      .getExternalRequest(`/api/Payment/InvoiceDetails?InvoiceID=${invoiceId}`);
+  }
+
+  submitAnonymousPayment(paymentInfo) {
+    return this.requesterService
+      .postExternalRequest('/api/Payment', paymentInfo);
+  }
+
   sendStripeToken(paymentInfo) {
     return this.requesterService.postExternalRequest('/api/Payment', paymentInfo);
   }

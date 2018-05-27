@@ -1,15 +1,17 @@
-
-<div *ngIf="anonymousPayment">
-  <h2>This is anonymous payment</h2>
-</div>
-<div *ngIf="!anonymousPayment">
+<div>
   <app-layout>
     <div class="row">
 
       <div *ngIf="paymentDataError" class="col-md-12 col-sm-12 col-xs-12">
-      <span class="alert alert-danger col-md-offset-1 col-md-8 col-sm-12 mt1-2x font-white" role="alert">
-        Unfortunately, we cannot present your Payment Data at this point of time. Please try again later
-      </span>
+        <span class="alert alert-danger col-md-offset-1 col-md-8 col-sm-12 mt1-2x font-white" role="alert">
+          Unfortunately, we cannot present your Payment Data at this point of time. Please try again later
+        </span>
+      </div>
+
+      <div *ngIf="paymentDataError" class="col-md-12 col-sm-12 col-xs-12">
+        <span class="alert alert-danger col-md-offset-1 col-md-8 col-sm-12 mt1-2x font-white" role="alert">
+          Invalid invoice number. Please try again
+        </span>
       </div>
 
       <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="!paymentDataError">
@@ -29,6 +31,10 @@
         </div>
       </div>
 
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <b> Invoice ID: {{invoiceId}} </b>
+      </div>
+
       <div *ngIf="!paymentDataError" class="parent-container col-md-6 col-sm-12 col-xs-12">
         <h3>Renewal Information </h3>
         <div class="row">
@@ -45,17 +51,22 @@
               <tr>
                 <td>{{paymentData?.transactionInfo.numberOfSensor}}</td>
                 <td>See table below</td>
-                <td>${{paymentData?.transactionInfo.amount}}</td>
+                <td>&nbsp;${{paymentData?.transactionInfo.amount}}</td>
               </tr>
               <tr>
                 <td>Taxes</td>
                 <td></td>
-                <td>${{paymentData?.transactionInfo.tax}}</td>
+                <td>&nbsp;${{paymentData?.transactionInfo.tax}}</td>
+              </tr>
+              <tr>
+                <td>Discount</td>
+                <td></td>
+                <td>-${{paymentData?.transactionInfo.discount}}</td>
               </tr>
               <tr>
                 <td><b>Total</b></td>
                 <td></td>
-                <td class="total-amount"><b>${{paymentData?.transactionInfo.total}}</b></td>
+                <td class="total-amount"><b>&nbsp;${{paymentData?.transactionInfo.total}}</b></td>
               </tr>
               </tbody>
             </table>

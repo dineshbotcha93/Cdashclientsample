@@ -40,8 +40,14 @@ export class LayoutContainer {
     this.subscriptions.push(this.loginSandbox$.subscribe(e=>{
       console.log(e);
       let user = JSON.parse(localStorage.getItem("currentUser"));
-      this.userEmail = user.username;
-      this.userImage = '/assets/images/users/user.jpg';
+      if (user) {
+        this.userEmail = user.username;
+        this.userImage = '/assets/images/users/user.jpg';
+      } else {
+        this.userEmail = 'Anonymous';
+        this.userImage = '/assets/images/users/user.jpg';
+      }
+
     }));
     this.toastr.setRootViewContainerRef(vcr);
     console.log(this.toasterState);
