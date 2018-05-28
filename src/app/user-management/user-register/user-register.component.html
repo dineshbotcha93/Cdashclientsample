@@ -4,13 +4,15 @@
   <div class="form login_form">
     <section class="login_content">
       <form name="form" (ngSubmit)="onSubmit()">
-        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <img src="./assets/images/emersonLogo.svg" alt="Emerson logo" class="login-logo">
         <!--<h3>{{'userRegistration.title'|translate}}</h3> -->
+        <div class="alert success-alert" *ngIf="this.isEmailVerified">
+          <span>{{successMessage}}</span>
+        </div>
         <div class="inner-addon">
           <span class="inner-addon-icon"><i class="fa fa-envelope"></i></span>
           <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
         </div>
-
 
           <div class="m-t-md">
             <button class="btn btn-default submit">Verify</button>
@@ -24,6 +26,7 @@
 
         <div class="separator">
           <a (click)="showPopup = true" value="Additional Setup">Additional Setup</a>
+          <img src="./assets/images/CooperAtkins_Logo.svg" alt="Cooper Atkins logo" class="login-logo-bottom">
         </div>
       </div>
 
