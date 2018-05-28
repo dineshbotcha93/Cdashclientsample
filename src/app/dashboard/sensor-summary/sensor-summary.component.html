@@ -30,21 +30,6 @@
           </div>
         </div>
 
-        <!--<div class="ss-info-container col-md-12">
-          <div class="sensorSummaryCard-container">
-            <div class="row">
-              <div class="col-md-7 ssCard-right">
-                <div class="ssCard-small ssCard-count">Gateways
-                  <span class="value">{{mapData?.noOfGateways}}</span>
-                </div>
-                <div class="ssCard-small ssCard-count">Sensors
-                  <span class="value">{{mapData?.noOfSensors}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>-->
-
         <div>
           <ng-container *ngTemplateOutlet="networkEditModal"></ng-container>
           <ng-container *ngTemplateOutlet="networkAddModal"></ng-container>
@@ -59,12 +44,8 @@
               <div class="col-md-12 sensors-info-container">
                 <div class="form-group sensor-info-compare">
                   <button class="btn btn-primary" (click)="doCompare()">Compare Sensors</button>
-                  <button type="button" class="btn btn-primary ssCard-editBTN" *ngIf="isAdminUser()" (click)="onClickEditNetwork()" data-target="#myNetworkModal"
-                          value="Edit">
-                    <i class="fa fa-edit"></i> Edit Location</button>
-                  <button type="button" class="btn btn-primary ssCard-addBTN" *ngIf="isAdminUser()" (click)="onClickAddNetwork()" data-target="#networkAddModal"
-                          value="Add">
-                    <i class="fa fa-edit"></i> Add Location</button>
+                  <button type="button" class="btn btn-primary ssCard-editBTN" *ngIf="isAdminUser()" (click)="onClickEditNetwork()" data-target="#myNetworkModal" value="Edit">Edit Location</button>
+                  <button type="button" class="btn btn-primary ssCard-addBTN" *ngIf="isAdminUser()" (click)="onClickAddNetwork()" data-target="#networkAddModal" value="Add">Add Location</button>
                 </div>
                 <div class="sensors-info-filter">
                   <form class="form-inline" role="form">
@@ -110,6 +91,8 @@
               </div>
             </div>
           </tab>
+
+          <!-- Gateway Tab -->
           <tab tabTitle="{{'sensorSummary.gatewaysTitle'|translate}}" [isDisabled]="mapData?.noOfGateways === 0" class="tab-content gateway-cards">
             <div class="row">
               <div class="col-md-12 gateway-all" *ngIf="mapData!==null">
@@ -145,6 +128,8 @@
               </div>
             </div>
           </tab>
+
+          <!-- Device Management Tab -->
           <tab *ngIf="isAdminUser()" tabTitle="{{'sensorSummary.deviceManagementTitle'|translate}}" class="tab-content device-management-container">
             <div class="row">
 
@@ -161,18 +146,17 @@
               <div class="col-md-8  col-sm-12 col-xs-12">
                 <div class="form-group sensor-actions">
                   <div *ngIf="radioModel === 'sensor' || radioModel === 'gateway'">
-                    <button type="button" class="btn btn-primary" value="{{editSaveModel}}" [ngClass]="(editSaveModel==='Save')?'saveBTN':'editBTN'"
-                      (click)="onClickEditDetails()" [disabled]="disable.edit">
+                    <button type="button" class="btn btn-primary" value="{{editSaveModel}}" (click)="onClickEditDetails()" [disabled]="disable.edit">
                       <i class="fa fa-edit"></i> {{editSaveModel}} </button>
-                    <button type="button" class="btn btn-primary removeBTN" (click)="onClickRemoveDetails()" [disabled]="disable.remove">
+                    <button type="button" class="btn btn-primary" (click)="onClickRemoveDetails()" [disabled]="disable.remove">
                       <i class="fa fa-trash"></i> Remove </button>
-                    <button type="button" class="btn btn-primary moveBTN" data-toggle="modal" data-target="#myModal" (click)="onClickMoveDetails()"
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="onClickMoveDetails()"
                       [disabled]="disable.move">
                       <i class="fa fa-arrows-alt"></i> Move </button>
-                    <button type="button" class="btn btn-primary addBTN" (click)="onClickAddDetail()" [disabled]="disable.add">
+                    <button type="button" class="btn btn-primary" (click)="onClickAddDetail()" [disabled]="disable.add">
                       <i class="fa fa-plus"></i> Add </button>
 
-                    <button type="button" class="btn btn-primary removeBTN" (click)="onClickButtonReset()" [disabled]="disable.reset">
+                    <button type="button" class="btn btn-primary" (click)="onClickButtonReset()" [disabled]="disable.reset">
                       <i class="fa fa-history"></i> Reset </button>
                   </div>
                   <div *ngIf="selectedUserDataForOperation">
@@ -208,10 +192,6 @@
               </div>
             </div>
           </tab>
-          <!--<tab tabTitle="Notifications" class="tab-content device-management-container">
-            <app-notifications [allSensors]="allSensors" [gateWayData]="gateWayData">
-              </app-notifications>
-          </tab>-->
         </tabs>
       </div>
     </div>
@@ -232,7 +212,7 @@
           <ng-container *ngTemplateOutlet="gatewayModal"></ng-container>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary addBTN" data-dismiss="modal" (click)="onClickSaveMoveNetwork(selectedUserDataForOperation)">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickSaveMoveNetwork(selectedUserDataForOperation)">
             <i class="fa fa-plus"></i> Save changes </button>
         </div>
       </div>
@@ -261,17 +241,14 @@
 </ng-template>
 
 <ng-template #networkEditModal>
-  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Location"
-         (onClose)="modalClosed($event)">
+  <modal id="networkEditModal" [isOpen]="showEditPopup" title="Edit Location" (onClose)="modalClosed($event)">
     <form (ngSubmit)="onSubmit('editNetwork')" [formGroup]="networkEditForm" class="form-horizontal form-label-left">
-          <!--<h4 class="modal-title" id="myModalLabel">Edit Network</h4>-->
-          <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="form-group float-right">
-                <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
-          <input type="submit" value="Save changes" class="btn btn-primary addBTN" [ngClass]="{'btn-disable':disableSubmitButton}">
-            <!--<i class="fa fa-save"></i>-->
+      <create-network (formReady)="addEditFormControl('editNetworkForm', $event)" [formGroup]="networkEditForm" (enableSubmit)="enableSubmit($event)" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group float-right">
+            <span class="error" *ngIf="disableSubmitButton">Enter Valid Address..</span>
+            <input type="submit" value="Save changes" class="btn btn-primary" [ngClass]="{'btn-disable':disableSubmitButton}">
           </div>
         </div>
       </div>
@@ -377,8 +354,14 @@
         <td class="col-md-2" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="sensorName" required value="{{sensor.sensorName}}" (change)="onChangeDeviceInputType(old,sensor.sensorName,sensor,'sensorName')" (focus)="old=sensor.sensorName" minlength="3" [(ngModel)]="sensor.sensorName">
         </td>
-         <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
-          <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,sensor.heartBeat,sensor,'heartBeat')" (focus)="old=sensor.heartBeat" name="heartBeat" required value="{{sensor.heartBeat}}" minlength="1" [(ngModel)]="sensor.heartBeat">
+       <!--   <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,sensor.heartBeat,sensor,'heartBeat')" (focus)="old=sensor.heartBeat" name="heartBeat" required value="{{sensor.heartBeat}}" minlength="1" [(ngModel)]="sensor.heartBeat"> -->
+        <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
+          <select class="form-control" id="heartBeat" [(ngModel)]="sensor.heartBeat" (change)="onChangeDeviceInputType(old,sensor.heartBeat,sensor,'heartBeat')">
+            <option *ngFor="let device of heartBeatList" [ngValue]="device.value">
+              {{device.value}}
+            </option>
+          </select>
         </td>
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,sensor.minimumThreshold,sensor,'minimumThreshold')" (focus)="old=sensor.minimumThreshold" name="minimumThreshold" required value="{{sensor.minimumThreshold}}" minlength="1" [(ngModel)]="sensor.minimumThreshold">
@@ -386,18 +369,25 @@
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="maximumThreshold" (change)="onChangeDeviceInputType(old,sensor.maximumThreshold,sensor,'maximumThreshold')" (focus)="old=sensor.maximumThreshold" required value="{{sensor.maximumThreshold}}" minlength="1" [(ngModel)]="sensor.maximumThreshold">
         </td>
-
-           <!-- <td class="col-md-3">{{sensor.scale}}</td> -->
-             <td>
-          <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
-            <div class="btn-group btn-group-toggle">
-              <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
-              </label>
-              <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,sensor)">F
-              </label>
-            </div>
-          <!--</div>-->
-        </td>
+             <td *ngIf="sensor.gateWayEditOption ==='display'">
+              <!-- <div class="btn-group btn-group-toggle">
+                <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
+                </label>
+                <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.inActive" btnCheckbox (click)="onClickNotifyOff($event,sensor)">F
+                </label>
+              </div> -->
+              {{sensor.scale}}
+            </td>
+            <td *ngIf="sensor.gateWayEditOption ==='edit'">
+              <select class="form-control" [(ngModel)]="sensor.scale">
+                <option value="F">
+                  F
+                </option>
+                <option value="C">
+                  C
+                </option>
+              </select>
+            </td>
       </tr>
     </tbody>
   </table>

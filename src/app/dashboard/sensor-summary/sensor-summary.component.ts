@@ -121,10 +121,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   deviceCreationError: string | null = null;
   private deviceEditForm: FormGroup;
   private toasterSandbox$ = this.appState$.select(store.getToasterState);
+  private pauseRefresh = false;
 
   isServiceCallSuccess = false;
   deviceCreationSuccess: string | null = null;
   latestCoordinates: any = null;
+
+  //Represents the datasource for the Heartbeat selection dropdown.
+  heartBeatList :any ;
 
   constructor(
     private route: ActivatedRoute,
@@ -167,8 +171,25 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.deviceCreationError = null;
 
     this.isServiceCallSuccess = false;
+
+    this.initialiseHeartBeatDropdownSource();
+
   }
 
+  //Intialise the heartbeatdropdown data source
+  private initialiseHeartBeatDropdownSource(){
+    this.heartBeatList = [
+      { id: 5, value: 5 },
+      { id: 10, value: 10 },
+      { id: 20, value: 20 },
+      { id: 30, value: 30 },
+      { id: 60, value: 60 },
+      { id: 120, value: 120 },
+      { id: 240, value: 240 },
+      { id: 360, value: 360 },
+      { id: 720, value: 720 },
+    ];
+  }
   private getDropdownDetails() {
     this.sensorSummaryService.getNetworkLocations().then(result => {
       result.forEach(loc => {
@@ -205,17 +226,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       });
 
     window.setInterval(() => {
-      this.sensorSummaryService
-        .getSingleUserLocation(this.netWorkId)
-        .then(result => {
-          this.mapData = result;
-          this.getSensorData(result.sensors);
-          this.getGatewayData(result.gateways, '');
-          if (this.mapData['noOfSensors'] > 0) {
-            this.onSelectSensorRadio();
-          } else {
-          }
-        });
+      if (!this.pauseRefresh) {
+        this.sensorSummaryService
+          .getSingleUserLocation(this.netWorkId)
+          .then(result => {
+            this.mapData = result;
+            this.getSensorData(result.sensors);
+            this.getGatewayData(result.gateways, '');
+            if (this.mapData['noOfSensors'] > 0) {
+              this.onSelectSensorRadio();
+            } else {
+            }
+          });
+      }
     }, 60000);
     // this.mapData = e;
   }
@@ -243,11 +266,12 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     let checkModelNotify = { active: false, inActive: true };
 
     sensor.forEach(sens => {
+
       // Default values
       sens.checked = false;
       sens.gateWayEditOption = "display";
-      sens.heartBeat =
-        sens.heartbeat === (null || undefined) ? 30 : sens.heartbeat;
+
+        sens.heartBeat === (null || undefined) ? 0 : sens.heartBeat;
       // hardcoded for now
       sens.sensorType = sens.type;
       if(sens.maximumThreshold === -4294967295 || sens.maximumThreshold === 4294967295){
@@ -263,6 +287,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         checkModelNotify = { active: false, inActive: true };
       }
       sens.checkModelNotify = checkModelNotify;
+      sens.isNotifyMode = false;
 
 
       // console.log('sens-->',sens);
@@ -443,11 +468,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.isSelectedAll = false;
     this.editSaveModel = "Edit";
     this.isValidForm = true;
+    this.pauseRefresh = false;
   }
 
   /*Edit the selected ,update and get refresh data drom network*/
   private onClickEditDetails() {
     this.isValidForm = true;
+    this.pauseRefresh = !this.pauseRefresh;
     this.isServiceCallSuccess = false;
 
     // this.selectedUserDataForOperation = [];
@@ -459,11 +486,13 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickAddNetwork() {
     this.disableSubmitButton = true;
+    this.pauseRefresh = true;
     this.showPopup = true;
   }
 
   private modalClosed(event) {
     this.showPopup = false;
+    this.pauseRefresh = false;
     this.showEditPopup = false;
   }
 
@@ -559,6 +588,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
 
   private onClickEditNetwork() {
     this.showEditPopup = true;
+    this.pauseRefresh = true;
     this.disableSubmitButton = true;
     this.editNetworkData = {
       name: this.selectLocation.Title,
@@ -634,6 +664,7 @@ export class SensorSummaryComponent extends AbstractDashboardBase
   onClickAddDetail() {
     // console.log('accountID',this.accountID);
     this.isSelectedToAddDevice = true;
+    this.pauseRefresh = true;
     //on success
     this.disable = {
       edit: false,
@@ -794,7 +825,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase
               sensorName: x.sensorName,
               heartBeat: x.heartBeat,
               minimumThreshold: x.minimumThreshold,
-              maximumThreshold: x.maximumThreshold
+              maximumThreshold: x.maximumThreshold,
+              scale: x.scale
             };
 
             if (
@@ -1013,12 +1045,14 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     }
 
     this.isSelectedToAddDevice = false;
+    this.pauseRefresh = false;
   }
 
   receiveCancelMessage($event) {
     this.isValidForm = true;
     this.isDeviceAddedSucceess = $event;
     this.isSelectedToAddDevice = false;
+    this.pauseRefresh = false;
   }
 
   gotoSummary(sensor) {
@@ -1116,7 +1150,8 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.router.navigate(["dashboard"]);
   }
 
-  getSensorUpdateData(sensor, x, y) {
+  getSensorUpdateData(sensor, x, y,newValue) {
+    console.log('newValue-->>',newValue);
     this.sensorSummaryService
       .getSingleUserLocation(this.netWorkId)
       .then(result => {
@@ -1127,37 +1162,73 @@ export class SensorSummaryComponent extends AbstractDashboardBase
           this.onSelectSensorRadio();
         }
         this.allSensors.forEach(x => {
-          if (x === sensor) {
+          if (x.sensorID === sensor.sensorID) {
             x.checkModelNotify = { active: x, inActive: y };
+            x.isNotifyMode = newValue;
           }
         });
       });
   }
 
-  onClickNotifyOn(e, sensor) {
+  // onClickNotifyOn(e, sensor) {
+  //   let requestObject = {
+  //     sensorID: sensor.sensorID,
+  //     name: "CorF",
+  //     value: "C"
+  //   };
+  //   this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
+
+  //     this.getSensorUpdateData(sensor, true, false);
+  //   });
+  // }
+
+  // capturedCoordinates($event) {
+  //   this.latestCoordinates = $event;
+  // }
+
+  // onClickNotifyOff(e, sensor) {
+  //   let requestObject = {
+  //     sensorID: sensor.sensorID,
+  //     name: "CorF",
+  //     value: "F"
+  //   };
+  //   this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
+  //     this.getSensorUpdateData(sensor, false, true);
+  //   });
+  // }
+
+   capturedCoordinates($event) {
+     this.latestCoordinates = $event;
+   }
+
+   onClickNotifyOffOn(e, sensor) {
+
+     console.log('sensor-->>',sensor);
+
+     let sensorName = 'CorF';
+     let sensorvalue = 'F';
+     let newSensor = true;
+
+     if(sensor.isNotifyMode){
+          sensorName = "CorF",
+          sensorvalue=  "C"
+          newSensor = false
+     }
+
     let requestObject = {
       sensorID: sensor.sensorID,
-      name: "CorF",
-      value: "C"
+      name: sensorName,
+      value: sensorvalue
     };
+
     this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
-
-      this.getSensorUpdateData(sensor, true, false);
+      this.getSensorUpdateData(sensor, false, true,newSensor);
     });
+
+
   }
 
-  capturedCoordinates($event) {
-    this.latestCoordinates = $event;
-  }
 
-  onClickNotifyOff(e, sensor) {
-    let requestObject = {
-      sensorID: sensor.sensorID,
-      name: "CorF",
-      value: "F"
-    };
-    this.sensorSummaryService.updateSensorScale(requestObject).then(result => {
-      this.getSensorUpdateData(sensor, false, true);
-    });
-  }
+
+
 }

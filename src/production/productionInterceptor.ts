@@ -27,13 +27,18 @@ export class ProductionInterceptor extends Http{
   }
   get(url:string,requestOptions?: RequestOptionsArgs){
     let headers = new Headers();
-    console.log('THIS GET');
+    console.log('THIS GET', url);
     headers.append('Content-Type','application/json');
-    if(!!localStorage.getItem('com.cdashboard.token')){
-      headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+
+    if(!url.includes('maps.googleapis.com')) {
+      if(!!localStorage.getItem('com.cdashboard.token')){
+        headers.append('Authorization','Basic '+localStorage.getItem('com.cdashboard.token'));
+        let options = new RequestOptions({ headers: headers });
+        return super.get(url,options).catch(this.handleError);
+      }
     }
-    let options = new RequestOptions({ headers: headers });
-    return super.get(url,options).catch(this.handleError);
+    return super.get(url).catch(this.handleError);
+
   }
   post(url:string,body:any,requestOptions?: RequestOptionsArgs){
     let headers = new Headers();

@@ -7,13 +7,16 @@ import { of } from 'rxjs/observable/of';
 import { SharedModule } from '../shared/modules/shared.module';
 import { DashboardService } from './services/dashboard.service';
 import {MapService}           from '../shared/components/map/services/map.service';
-import {Routes,RouterModule} from '@angular/router';
+import {Routes,RouterModule,Router} from '@angular/router';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 
 
 fdescribe('DashboardComponent',()=>{
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
+  let mockRouter = {
+	navigate: jasmine.createSpy('navigate')
+  }
 
   class MockTranslation {
     onTranslationChange = new EventEmitter();
@@ -63,10 +66,14 @@ fdescribe('DashboardComponent',()=>{
       providers: [
         {provide: TranslateService, useClass: MockTranslation},
         {provide: DashboardService, useClass: MockDashboardService},
-        {provide: MapService, useClass: MockMapService}
+        {provide: MapService, useClass: MockMapService},
+        { provide: Router, useValue: mockRouter},
       ]
     }
-  }).compileComponents();
+  });
+   fixture = TestBed.createComponent(DashboardComponent);
+   fixture.detectChanges();
+   component = fixture.componentInstance;
   }));
 
   beforeEach(()=>{
@@ -74,9 +81,39 @@ fdescribe('DashboardComponent',()=>{
   });
 
   it('should place the component on the page', async(()=>{
-    const fixture = TestBed.createComponent(DashboardComponent);
-    fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
+  it('should change the value of showList to be true when showListView is called', ()=>{
+    component['showList'] = false;
+    component['showMap'] = true;
+    component.showListView();
+    expect(component['showList']).toEqual(true);
+    expect(component['showMap']).toEqual(false);
+  });
+  it('should change the value of showMap to be true when showMapView is called', ()=>{
+    component['showMap'] = false;
+    component['showList'] = true;
+    component.showMapView();
+    expect(component['showMap']).toEqual(true);
+    expect(component['showList']).toEqual(false);
+  });
+  it('should call gotoDetails when onLocationSelect is picked', ()=>{
+    spyOn(component, "gotoDetails");
+    component.onLocationSelect(123);
+    console.log(component.gotoDetails);
+    expect(component.gotoDetails).toHaveBeenCalled();
+  });
+  it('should call the router navigate when gotoNotificationList is called', ()=>{
+    let sensor = {
+      status: 1
+    }
+    component.gotoNotificationList(sensor);
+    expect (mockRouter.navigate).toHaveBeenCalledWith (['dashboard/notificationList',sensor.status]);
+  });
+  it('should go to the details page when gotoDetails is called, provided the id is given', ()=>{
+    let location = 123;
+    component.gotoDetails(location);
+    expect (mockRouter.navigate).toHaveBeenCalledWith (['dashboard/sensor-summary',location]);
+  });
 });

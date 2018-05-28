@@ -6,18 +6,18 @@ import { PaymentsModule } from './payments/payments.module';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { ContainersModule } from './shared/containers';
-import { Http, HttpModule, BaseRequestOptions } from '@angular/http';
+import { Http, HttpModule, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { RequesterService } from './shared/services/requester.service';
 import { MockBackend } from '@angular/http/testing';
 import { MockBackendService } from '../mocks/mock.backend.service';
+import { ProductionInterceptor } from '../production/productionInterceptor';
 import {environment} from '../environments/environment';
 import { ComponentsModule }    from './shared/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BusinessModule } from './business/business.module';
-import { UserProfileModule } from './user-profile/user-profile.module';
 import { ForgotPasswordModule} from './user-management/forgot-password/forgot-password.module';
-
 //Translation files
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -36,14 +36,21 @@ import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
-},{
+},
+{
   path:'user-register',loadChildren:'./user-management/UserManagement.module#UserManagementModule'
 },
 {
   path:'login', loadChildren: './auth/login/login.module#LoginModule'
 },
 {
-  path:'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule',
+  path:'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'
+},
+{
+  path:'user-profile',pathMatch:'full',loadChildren: './user-profile/user-profile.module#UserProfileModule'
+},
+{
+  path:'forgot-password', pathMatch:'full',loadChildren: './user-management/forgot-password/forgot-password.module#ForgotPasswordModule'
 },
 {
   path: 'haccp', loadChildren: './haccp/haccp.module#HACCPModule'
@@ -77,8 +84,6 @@ if(!environment.production)
     NgxDatatableModule,
     PipesModule,
     BusinessModule,
-    UserProfileModule,
-    ForgotPasswordModule,
     NgbModule.forRoot(),
     StoreModule.forRoot({'tiles':store}),
     ToastModule.forRoot(),
@@ -93,7 +98,7 @@ if(!environment.production)
     * See: https://github.com/zalmoxisus/redux-devtools-extension
     */
     StoreDevtoolsModule.instrument(),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes,{enableTracing:false,useHash:true}),
     SharedModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -103,9 +108,17 @@ if(!environment.production)
     RequesterService,
     MockBackendService,
     mockProvider,
+    ProductionInterceptor,
     CommonSharedService,
     ToastsManager,
-    AlertSandbox
+    AlertSandbox,
+    {
+      provide: Http,
+      deps: [XHRBackend,BaseRequestOptions],
+      useFactory: (backend: XHRBackend, options: BaseRequestOptions) => {
+          return new ProductionInterceptor(backend,options);
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

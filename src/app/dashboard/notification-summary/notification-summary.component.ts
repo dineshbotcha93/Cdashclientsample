@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-notification-summary',
   templateUrl: './notification-summary.component.html',
   styleUrls: ['./notification-summary.component.scss'],
-  providers: [SensorSummaryService]
+  providers: [SensorSummaryService, BsModalService]
 })
 export class NotificationSummaryComponent implements OnInit {
   notificationSummaryList: any = [];
@@ -25,6 +25,7 @@ export class NotificationSummaryComponent implements OnInit {
   @Input() accountData: any;
 
   @Output() editNotifyModeEvent = new EventEmitter<any>();
+  @Output() deleteNotifyModeEvent = new EventEmitter<any>();
 
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
@@ -53,11 +54,32 @@ export class NotificationSummaryComponent implements OnInit {
             checkModelNotify = { active: true, inActive: false };
           }
           notify.notification.checkModelNotify = checkModelNotify;
+          notify.notification.isNotifyMode = false;
           this.notificationSummaryList.push(notify);
         });
      }
+  }
 
-     // });
+    onClickNotifyOffOn(e, notify){
+
+     let notValue = true;
+     if(notify.notification.active){
+        notValue = false;
+      }
+
+     let requestObject = {
+       NotificationID:notify.notification.notificationID,
+       On:notValue
+      };
+
+      this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
+      this.notificationSummaryList.forEach(x => {
+        if(x === notify){
+          x.notification.checkModelNotify = { active: false, inActive: true };
+          x.notification.isNotifyMode = notValue;
+        }
+      });
+    });
   }
 
   onClickNotifyOn(e, notify) {
@@ -112,4 +134,8 @@ export class NotificationSummaryComponent implements OnInit {
     this.editNotifyModeEvent.emit(notify);
 
  }
+
+  onClickRemoveNotifyDetails(notify) {
+    this.deleteNotifyModeEvent.emit(notify);
+  }
 }

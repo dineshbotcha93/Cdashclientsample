@@ -3,7 +3,7 @@
   <div class="form login_form">
     <section class="login_content">
       <form [formGroup]="myform" (ngSubmit)="onSubmit()">
-        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <img src="./assets/images/emersonLogo.svg" alt="Emerson logo" class="login-logo">
         <div>
           <app-alerts></app-alerts>
 
@@ -23,7 +23,8 @@
       </div>
 
       <div class="separator">
-        <a class="reset_pass" href="/forgot-password">Forgot Your Password?</a>
+        <a class="reset_pass" [routerLink]="['/forgot-password']">Forgot Your Password?</a>
+        <img src="./assets/images/CooperAtkins_Logo.svg" alt="Cooper Atkins logo" class="login-logo-bottom">
       </div>
     </section>
   </div>

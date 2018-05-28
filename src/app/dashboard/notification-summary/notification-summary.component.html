@@ -13,8 +13,9 @@
       <tr *ngFor="let notify of notificationSummaryList; let i=index">
         <td class="col-sm-1">
           <ul class="toggleSwitch-list">
-            <li class="toggleSwitch-item">
-              <input class="tgl tgl-flat" attr.id="cb_{{notify.notification.notificationID}}" type="checkbox"/>
+            <li class="toggleSwitch-item" >
+              <input class="tgl tgl-flat" attr.id="cb_{{notify.notification.notificationID}}" [checked]="notify.notification.active" (click)="onClickNotifyOffOn($event,notify)"
+              type="checkbox"/>
               <label class="tgl-btn" attr.for="cb_{{notify.notification.notificationID}}"></label>
             </li>
           </ul>
@@ -31,8 +32,8 @@
           <a class="btn btn-transparent icon-only" (click)="openModal(notify,template,'user')" tooltip="User Information"><i class="fa fa-user-o"></i></a>
         </td>
         <td class="col-sm-2">
-          <button class="btn btn-transparent icon-only" (click)="onClickEditNotifyDetails(notify)" tooltip="Edit notification"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-transparent icon-only" (click)="onClickRemoveNotifyDetails(notify)" tooltip="Delete notification"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-transparent icon-only" (click)="onClickEditNotifyDetails(notify)" [disabled]="!notify.notification.active" tooltip="Edit notification"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-transparent icon-only" (click)="onClickRemoveNotifyDetails(notify)" [disabled]="!notify.notification.active" tooltip="Delete notification"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>

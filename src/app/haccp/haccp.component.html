@@ -1,5 +1,9 @@
 <app-layout>
   <div class="row">
+    <!--<h3>HACCP Manager</h3>-->
+  </div>
+  <div class="row">
+    <temp-haccp></temp-haccp>
     <!--<div *ngIf="loadedStatuses == true">
       <div *ngFor="let i of objectKeys(totalStatuses)" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <app-tile
@@ -12,10 +16,11 @@
       </div>
     </div>-->
 
-    <div class="tabs_container">
+    <!--<div class="tabs_container">
       <tabs>
         <tab tabTitle="{{'haccp.reports.dailysummarytitle'|translate}}" class="tab-content">
-          <app-dailysummary-report></app-dailysummary-report>
+          &lt;!&ndash;<app-dailysummary-report></app-dailysummary-report>&ndash;&gt;
+          <temp-haccp></temp-haccp>
         </tab>
         <tab tabTitle="{{'haccp.reports.checklistreporttitle'|translate}}" class="tab-content">
           <app-checklist-report></app-checklist-report>
@@ -24,6 +29,6 @@
           <app-temp-report></app-temp-report>
         </tab>
       </tabs>
-    </div>
+    </div>-->
   </div>
 </app-layout>

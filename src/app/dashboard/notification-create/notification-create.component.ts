@@ -67,6 +67,7 @@ export class NotificationCreateComponent implements OnInit {
   selectTempCompareList: any = [];
   selectedTempCompareList: any = [];
   selectTempTypeList: any = [];
+  selectedTempTypeList: any = [];
   selectOpenCloseType: any = [];
   selectedOpenCloseType: any = [];
   selectSensorHumidityType: any = [];
@@ -82,11 +83,15 @@ export class NotificationCreateComponent implements OnInit {
   sensorListNamesList: any = [];
   gatewayListNamesList: any = [];
 
+
   isGatewayRequired: boolean = true;
+  isSensorRequired: boolean = true;
+
 
   notificationOperationError: string | null = null;
 
   advancedParameterObject: any = [];
+  advancedParameterEditObject: any = [];
   accountID: string = null;
 
   preSelectSubNotifyType : any = [];
@@ -120,6 +125,15 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.strNotificationName = notify.name;
         this.notificationModel.strNotificationText = notify.text;
         this.notificationModel.strSnoozeAlertValue = notify.snooze;
+        // Fix applySnoozeByTriggerDevice
+        // If value of the field is 0 then it is “Jointly” else “Independent”
+        if(notify.applySnoozeByTriggerDevice == 0) {
+          this.notificationModel.scheduleSnoozeCheck = { left: false, right: true }; // left
+        } else {
+          this.notificationModel.scheduleSnoozeCheck = { left: true, right: false };
+          //right
+        }
+
         this.notificationModel.isNotificationActive = notify.active;
         this.getNotificationScheduleDetails(notify.notificationID);
         this.isSensorNotificationForm1 = true;
@@ -207,26 +221,6 @@ export class NotificationCreateComponent implements OnInit {
            // });
 
 
-        // tempObject.devices.forEach(device => {
-        //   if (device.deviceCategory === "Sensor") {
-        //        sensorGlobalList.forEach(sensor => {
-        //           let tempObj: any = [];
-        //           let tempNameObj: any = [];
-        //           if(sensor.sensorID === device.deviceID ){
-        //             sensorModel.push(sensor.sensorName);
-        //           }
-
-        //      });
-        //   } else {
-        //    gatewayGlobalList.forEach(gateway => {
-
-
-        //           if(gateway.gatewayID === device.deviceID ){
-        //             gatewayModel.push(gateway.name);
-        //           }
-
-        //   }
-        // });
 
         this.sensorOptionsModel = sensorModel;
         this.gatewayOptionsModel = gatewayModel;
@@ -240,20 +234,34 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.compareValue = notify.threshold;
         this.notificationModel.compareType = notify.comparer;
         this.notificationModel.notificationID = notify.notificationID;
-        this.notificationModel.scale = notify.scale;
+        this.notificationModel.scale = (notify.scale === null || notify.scale === 'C')? 'C': 'F';
         this.notificationModel.subnotificationClassType = notify.monnitApplicationID;
+        this.notificationModel.advancedNotification = notify.advancedNotifcation;
+
+        // this.advancedParameterEditObject = notify.advancedNotifcation;
+
+
+         this.selectTempTypeList.forEach(tempType => {
+           if(tempType.id === this.notificationModel.scale)
+              this.selectedTempTypeList = tempType;
+         });
 
         if (notify.notificationClass === "Inactivity") {
           this.onClickInActivityNotify();
         } else if (notify.notificationClass === "Application") {
           this.onClickSensorNotify();
         } else if (
-          notify.notificationClass === "Low_Battery"
+          notify.notificationClass === "Low Battery"
         ) {
           this.onClickBatteryNotify();
         }else if (
           notify.notificationClass === "Advanced"
         ) {
+
+          if(notify.advancedNotifcation){
+             this.notificationModel.subnotificationClassType = notify.advancedNotifcation.advancedNotificationID;
+          }
+
           this.onClickAdvanceNotify();
         }
       } else {
@@ -332,7 +340,7 @@ export class NotificationCreateComponent implements OnInit {
       compareType: "Less_Than",
       compareValue: "",
       scale: "F",
-      scheduleNotificationCheck: { left: false, right: true },
+      scheduleNotificationCheck: { left: true, right: false },
       strSnoozeAlertValue: "",
       scheduleSnoozeCheck: { left: true, right: false },
       isNotificationActive: true,
@@ -649,7 +657,16 @@ export class NotificationCreateComponent implements OnInit {
       }
     ];
     this.selectTempCompareList = Obj;
-    this.selectedTempCompareList = Obj[0];
+
+    let ObjId = 0;
+    if(this.editNotifyObject) {
+
+      if(this.editNotifyObject.notification.comparer === 'Greater_Than') {
+        ObjId = 1;
+      }
+    }
+    this.selectedTempCompareList = Obj[ObjId];
+
     let Obj2 = [
       {
         id: "C",
@@ -661,6 +678,8 @@ export class NotificationCreateComponent implements OnInit {
       }
     ];
     this.selectTempTypeList = Obj2;
+    this.selectedTempTypeList = Obj2[1];
+
     let tempObject3 = [
       {
         id: "01",
@@ -719,7 +738,13 @@ export class NotificationCreateComponent implements OnInit {
       this.getNotificationScheduleDetailsForAddNotify();
     }
 
+   // else if(this.notifyOperationType === "editNotify"){
+   //   console.log(this.notificationModel.subnotificationClassType);
+   //  this.onChangeNotifictaion(this.notificationModel.subnotificationClassType);
+   // }
+
     this.isGatewayRequired = false;
+    this.isSensorRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Application";
     this.isReadingTypeAvailable = true;
@@ -750,7 +775,7 @@ export class NotificationCreateComponent implements OnInit {
     ];
 
     this.selectSubNotificationList = Obj;
-
+    this.preSelectSubNotifyType =Obj[0];
 
 
 
@@ -796,7 +821,8 @@ export class NotificationCreateComponent implements OnInit {
 
     if (this.notifyOperationType === "editNotify") {
       humidityObjects.forEach(humid => {
-        if (humid.value === this.notificationModel.compareType) {
+        //if (humid.value === this.notificationModel.compareType) {
+        if (humid.id === this.editNotifyObject.notification.comparer) { // test this later,unable to create humidity type notification now
           this.selectedSensorHumidityType = humid;
           this.notificationModel.compareType = humid.id;
         }
@@ -814,7 +840,6 @@ export class NotificationCreateComponent implements OnInit {
 
        console.log('preSelectSubNotifyType',this.notificationModel.subnotificationClassType);
 
-
        this.selectSubNotificationList.forEach(not =>{
          console.log('not',not.id);
          if(not.id === this.notificationModel.subnotificationClassType.toString()){
@@ -828,6 +853,11 @@ export class NotificationCreateComponent implements OnInit {
     } else {
       this.selectedSensorHumidityType = humidityObjects[0];
     }
+
+   if(this.notifyOperationType === "editNotify"){
+     console.log(this.notificationModel.subnotificationClassType);
+    this.isReadingTypeAvailable = false;
+   }
     this.isSensorNotificationForm3;
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";
@@ -839,6 +869,7 @@ export class NotificationCreateComponent implements OnInit {
     }
     this.isValidForm = true;
     this.isGatewayRequired = true;
+     this.isSensorRequired = true;
     this.notificationModel.notificationClassType = "5";
     this.isReadingTypeAvailable = true;
     this.isSensorNotificationForm1 = false;
@@ -922,6 +953,8 @@ export class NotificationCreateComponent implements OnInit {
        console.log('preSelectSubNotifyType',this.notificationModel.subnotificationClassType);
 
 
+
+
        this.selectSubNotificationList.forEach(not =>{
          console.log('not',not.id);
          if(not.id === this.notificationModel.subnotificationClassType.toString()){
@@ -933,6 +966,10 @@ export class NotificationCreateComponent implements OnInit {
 
          }
        })
+
+
+     console.log(this.notificationModel.subnotificationClassType);
+    this.isReadingTypeAvailable = false;
     }
 
 
@@ -943,6 +980,7 @@ export class NotificationCreateComponent implements OnInit {
       this.getNotificationScheduleDetailsForAddNotify();
     }
     this.isGatewayRequired = false;
+     this.isSensorRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Low_Battery";
     this.isReadingTypeAvailable = false;
@@ -953,6 +991,7 @@ export class NotificationCreateComponent implements OnInit {
     this.isSensorNotificationForm5 = false;
     this.isButtonFooterRequired = true;
     this.notificationModel.compareType = "Less_Than";
+    this.notificationModel.scale='F';
     this.notificationModel.notificationTemplate = "batteryNotification";
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";
@@ -963,6 +1002,7 @@ export class NotificationCreateComponent implements OnInit {
       this.getNotificationScheduleDetailsForAddNotify();
     }
     this.isGatewayRequired = true;
+     this.isSensorRequired = true;
     this.isValidForm = true;
     this.notificationModel.notificationClassType = "Inactivity";
     this.isReadingTypeAvailable = false;
@@ -973,6 +1013,7 @@ export class NotificationCreateComponent implements OnInit {
     this.isSensorNotificationForm5 = false;
     this.isButtonFooterRequired = true;
     this.notificationModel.compareType = "Equal";
+    this.notificationModel.scale='F';
     this.notificationModel.notificationTemplate = "inActiveNotification";
     this.setNotificationFormDetails();
     this.currentPageValue = "page1";
@@ -998,11 +1039,192 @@ export class NotificationCreateComponent implements OnInit {
     }
 
     if (this.notificationModel.notificationClassType === "5") {
-      this.setAdvancedNotificationParameterList(
+
+      // debugger;
+       if (this.notifyOperationType === "editNotify") {
+          this.setMonnitAdvancedId(e.id);
+        this.setAdvancedNotificationParameterListForEdit(e.id);
+      } if (this.notifyOperationType === "addNotify") { this.setAdvancedNotificationParameterList(
         this.notificationModel.subnotificationClassType
       );
     }
-    this.setNotificationFormDetails();
+       if(e.id === "2" || e.id === "3" || e.id === "11"|| e.id === "12"|| e.id === "12" || e.id === "14"){
+       this.isGatewayRequired = false;
+       }
+       if(e.id === "4" || e.id === "9" ){
+       this.isSensorRequired = false;
+       }
+
+
+    }
+
+
+     this.setNotificationFormDetails();
+  }
+
+   setMonnitAdvancedId(subNotifyType) {
+      switch (subNotifyType) {
+           case "11": {
+             this.notificationModel.subnotificationClassType = '2';
+            break;
+          }
+           case "14": {
+             this.notificationModel.subnotificationClassType = '2';
+            break;
+          }
+          case "12": {
+             this.notificationModel.subnotificationClassType = '43';
+            break;
+          }
+          case "13": {
+             this.notificationModel.subnotificationClassType = '9';
+            break;
+          }
+        }
+   }
+
+
+  setAdvancedNotificationParameterListForEdit(subNotifyType){
+    // debugger;
+
+    this.advancedParameterObject = [];
+
+    let tempAdvaneObj = [];
+    let paramValue0 = "";
+    let paramValue1 = "";
+    let paramValue2 = "";
+    let paramValue3 = "";
+
+
+    switch (subNotifyType) {
+      case "1": {
+         if(this.notificationModel.advancedNotification.parameters > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Alert After", "1", paramValue0)
+        );
+        break;
+      }
+      case "2": {
+
+        if(this.notificationModel.advancedNotification.parameters.length > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Alert After", "3", paramValue0)
+        )
+        break;
+      }
+      case "5": {
+        if(this.notificationModel.advancedNotification.parameters > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+              paramValue1 = this.notificationModel.advancedNotification.parameters[1].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Time Frame", "6", paramValue0)
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Message Count", "7", paramValue1)
+        );
+        break;
+      }
+      case "5": {
+         if(this.notificationModel.advancedNotification.parameters > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Alert After", "8", paramValue0)
+        );
+        break;
+      }
+      case "11": {
+        // debugger;
+           if(this.notificationModel.advancedNotification.parameters.length > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+              paramValue1 = this.notificationModel.advancedNotification.parameters[1].parameterValue;
+               paramValue2 = this.notificationModel.advancedNotification.parameters[2].parameterValue;
+                paramValue3 = this.notificationModel.advancedNotification.parameters[3].parameterValue;
+           }
+
+
+
+       this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Notify After  Minutes", "9", paramValue0)
+        );
+         console.log('this.advancedParameterObject----before',this.advancedParameterObject);
+       this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Less than Temperature", "10", paramValue1)
+        );
+         console.log('this.advancedParameterObject----before',this.advancedParameterObject);
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Greater than Temperature", "11", paramValue2)
+        );
+         console.log('this.advancedParameterObject----before',this.advancedParameterObject);
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("", "12", paramValue3)
+        );
+        console.log('this.advancedParameterObject----before',this.advancedParameterObject);
+        break;
+      }
+      case "12": {
+         if(this.notificationModel.advancedNotification.parameters.length > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+              paramValue1 = this.notificationModel.advancedNotification.parameters[1].parameterValue;
+               paramValue2 = this.notificationModel.advancedNotification.parameters[2].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Notify After Minutes", "13", paramValue0)
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Less than Humidity", "14", paramValue1)
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Greater than Humidity", "15", paramValue2)
+        );
+        break;
+      }
+      case "13": {
+        if(this.notificationModel.advancedNotification.parameters.length > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+              paramValue1 = this.notificationModel.advancedNotification.parameters[1].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Notify After Minutes", "16", paramValue0)
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Notify when magnet is", "17", paramValue1)
+        );
+        break;
+      }
+      case "14": {
+
+         if(this.notificationModel.advancedNotification.parameters.length > 0){
+             paramValue0 = this.notificationModel.advancedNotification.parameters[0].parameterValue;
+              paramValue1 = this.notificationModel.advancedNotification.parameters[1].parameterValue;
+               paramValue2 = this.notificationModel.advancedNotification.parameters[2].parameterValue;
+                paramValue3 = this.notificationModel.advancedNotification.parameters[3].parameterValue;
+           }
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("Notify After Minutes", "18", paramValue0)
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails(
+            "Notify when sensor temperature reading is",
+            "19",
+            paramValue1
+          )
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("", "20", paramValue2)
+        );
+        this.advancedParameterObject.push(
+          this.setAdvancedParameterDetails("", "21", paramValue3)
+        );
+        break;
+      }
+    }
+     console.log(' this.advancedParameterObject -->',this.advancedParameterObject);
   }
   setAdvancedNotificationParameterList(subNotifyType) {
     this.advancedParameterObject = [];
@@ -1015,7 +1237,7 @@ export class NotificationCreateComponent implements OnInit {
       }
       case "2": {
         this.advancedParameterObject.push(
-          this.setAdvancedParameterDetails("Alert After", "2", "")
+          this.setAdvancedParameterDetails("Alert After", "3", "")
         );
         break;
       }
@@ -1092,6 +1314,7 @@ export class NotificationCreateComponent implements OnInit {
     }
   }
   setAdvancedParameterDetails(label, id, Value) {
+   console.log('Value------>>',Value);
     let temp = this.getAdvancedSelectList(id);
     let selectedTempObject;
     if (temp !== undefined) {
@@ -1240,6 +1463,12 @@ export class NotificationCreateComponent implements OnInit {
       this.isSensorNotificationForm4 = false;
       this.isSensorNotificationForm3 = true;
       this.currentPageValue = "page3";
+       if (!this.isSensorRequired) {
+          this.isSensorNotificationForm3 = false;
+         this.isSensorNotificationForm4 = true;
+          this.currentPageValue = "page4";
+       }
+
     } else if (value === "page3") {
       this.isSensorNotificationForm4 = true;
       this.isSensorNotificationForm1 = false;
@@ -1286,6 +1515,11 @@ export class NotificationCreateComponent implements OnInit {
       this.isSensorNotificationForm3 = true;
       this.isSensorNotificationForm5 = false;
       this.currentPageValue = "page3";
+      if (!this.isSensorRequired) {
+          this.isSensorNotificationForm3 = false;
+         this.isSensorNotificationForm2 = true;
+          this.currentPageValue = "page2";
+       }
     } else if (value === "page5") {
       this.isSensorNotificationForm5 = false;
       this.isSensorNotificationForm4 = true;
@@ -1304,6 +1538,9 @@ export class NotificationCreateComponent implements OnInit {
   }
   onClickCreateNotification(value) {
     console.log(this.advancedParameterObject);
+    this.notificationModel.advancedNotification = [];
+
+
     if (this.advancedParameterObject.length > 0) {
       this.advancedParameterObject.forEach(obj => {
         // debugger;
@@ -1317,6 +1554,7 @@ export class NotificationCreateComponent implements OnInit {
           parameterID: obj.parameterID,
           parameterValue: tempvalue
         };
+        // debugger;
         this.notificationModel.advancedNotification.push(tempObj);
       });
     }
@@ -1397,20 +1635,25 @@ export class NotificationCreateComponent implements OnInit {
       advancedNotification: this.notificationModel.advancedNotification
     };
 
-    if (this.notifyOperationType === "addNotify") {
-      this.sensorSummaryService
+    console.log('requestObject---->>',requestObject);
+
+     if (this.notifyOperationType === "addNotify") {
+       this.sensorSummaryService
         .createNotificationDetails(requestObject)
-        .then(result => {
-          //Emit true if 1
+         .then(result => {
+           //Emit true if 1
           this.createMessageEvent.emit(true);
-        });
-    } else if (this.notifyOperationType === "editNotify") {
-      this.sensorSummaryService
-        .UpdateNotificationDetails(requestObject)
-        .then(result => {
+         });
+     } else if (this.notifyOperationType === "editNotify") {
+       this.sensorSummaryService
+         .UpdateNotificationDetails(requestObject)
+         .then(result => {
           //Emit true if 1
-          this.createMessageEvent.emit(true);
-        });
-    }
+           this.createMessageEvent.emit(true);
+         });
+     }
+  }
+  onClickCancelTransact(){
+       this.createMessageEvent.emit(true);
   }
 }

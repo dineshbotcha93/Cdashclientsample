@@ -10,14 +10,15 @@
 
       <div *ngIf="!isValidForm" class="alert alert-danger">
         <span>{{userCreationError || 'Please verify the details entered for your registraiton'}}</span>
-      </div>
+      </div> 
 
       <form [formGroup]="userCreateForm" name="form" class="form-horizontal form-label-left" (ngSubmit)="onSubmit()">
 
         <!--<h1 class="onboarding-title">User Registration</h1>-->
         <div class="row gap-top">
-          <div class="col-md-offset-1 col-md-10 col-xs-10 radioButtons-container">
+          <div class="col-md-10 col-xs-10 radioButtons-container">
             <div class="form-group">
+              <label _ngcontent-c1="" class="control-label col-md-4 col-sm-4 col-xs-12"></label>
               <input type="radio"
                      class=""
                      name="isNewMaster"
@@ -28,6 +29,7 @@
                      checked="checked"> New Master Account User
             </div>
             <div class="form-group">
+              <label _ngcontent-c1="" class="control-label col-md-4 col-sm-4 col-xs-12"></label>
               <input type="radio"
                      class=""
                      name="isNewMaster"
@@ -44,15 +46,15 @@
         </div>
 
         <div class="form-group row">
-          <label class="control-label col-md-4 col-sm-4 col-xs-12" style="padding-right: 10px">User Name: </label>
+          <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12" style="padding-right: 10px">User Name </label>
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12" style="margin-bottom: 10px; padding-top: 8px;">
-            <span id="username" class="display-username">{{userRegisterModel.email}}</span>
+            <span id="username">{{userRegisterModel.email}}</span>
           </div>
         </div>
 
         <div *ngIf="userRegisterModel.isNewMaster=='true'">
           <div class="form-group row">
-            <label class="control-label col-md-4 col-sm-4 col-xs-12">First Name </label>
+            <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">First Name </label>
             <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
               <span class="inner-addon-icon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" name="firstName" formControlName="firstName"
@@ -63,7 +65,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="control-label col-md-4 col-sm-4 col-xs-12">Last Name </label>
+            <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">Last Name </label>
             <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
               <span class="inner-addon-icon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" name="lastName" formControlName="lastName"
@@ -75,7 +77,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="control-label col-md-4 col-sm-4 col-xs-12">Email </label>
+          <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">Email </label>
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
             <span class="inner-addon-icon"><i class="fa fa-envelope"></i></span>
             <input type="email" class="form-control" name="email" formControlName="email"
@@ -83,7 +85,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="control-label col-md-4 col-sm-4 col-xs-12">Password </label>
+          <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">Password </label>
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
             <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
             <input type="password" class="form-control" name="password" required placement="top"
@@ -98,7 +100,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="control-label col-md-4 col-sm-4 col-xs-12">Confirm Password </label>
+          <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">Confirm Password </label>
           <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
             <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
             <input type="password" class="form-control" name="confirmPassword" required
@@ -119,7 +121,7 @@
 
         <div *ngIf="userRegisterModel.isNewMaster=='false'">
           <div class="form-group row">
-            <label class="control-label col-md-4 col-sm-4 col-xs-12">NotifEye Username </label>
+            <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">NotifEye Username </label>
             <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
               <span class="inner-addon-icon"><i class="fa fa-user"></i></span>
               <input type="text" class="form-control" name="notifEyeUserName"
@@ -130,7 +132,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="control-label col-md-4 col-sm-4 col-xs-12">NotifEye Password </label>
+            <label class="control-label col-form-label col-md-4 col-sm-4 col-xs-12">NotifEye Password </label>
             <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
               <span class="inner-addon-icon"><i class="fa fa-key"></i></span>
               <input type="password" class="form-control" name="notifEyePassword"
@@ -154,7 +156,7 @@
         <div class="form-group">
           <div class="col-md-4 col-sm-4 col-xs-12"></div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <button type="submit" class="btn btn-primary m-l-none">Continue</button>
+            <button type="submit" class="btn btn-primary float-right">Continue</button>
           </div>
         </div>
       </form>

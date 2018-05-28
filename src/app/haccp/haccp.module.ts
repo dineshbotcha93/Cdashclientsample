@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { HACCPComponent } from './haccp.component';
 import {Routes,RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+//remove this later,this is just temp solution to load haccp
+import { DomSanitizer } from '@angular/platform-browser';
 //Auth Guard
 import { AuthGuard } from '../shared/services/auth-guard.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -18,6 +21,8 @@ import { CheckListReportComponent } from './reports/checkListReport/checkListRep
 import { TemperatureComponent } from "./reports/temperatureReport/temperature.component";
 import {HaccpReportingService} from "./reports/services/haccpReporting.service";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {HaccpTempComponent} from "./haccp-temp.component";
+import {SafePipe} from "../shared/pipes/safe.pipe";
 
 export const routes: Routes = [
   {
@@ -31,12 +36,14 @@ export const routes: Routes = [
     HACCPComponent,
     DailySummaryReportComponent,
     CheckListReportComponent,
-    TemperatureComponent
+    TemperatureComponent,
+    HaccpTempComponent
   ],
   providers:[
     AuthGuard,
     AuthService,
-    HaccpReportingService
+    HaccpReportingService,
+    SafePipe
   ],
   imports:[
     RouterModule.forChild(routes),
