@@ -25,6 +25,7 @@ export class NotificationSummaryComponent implements OnInit {
   @Input() accountData: any;
 
   @Output() editNotifyModeEvent = new EventEmitter<any>();
+  @Output() deleteNotifyModeEvent = new EventEmitter<any>();
 
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
@@ -133,5 +134,9 @@ export class NotificationSummaryComponent implements OnInit {
     this.isEditNotify = true;
     this.editNotifyModeEvent.emit(notify);
 
+  }
+
+  onClickRemoveNotifyDetails(notify) {
+    this.deleteNotifyModeEvent.emit(notify);
   }
 }

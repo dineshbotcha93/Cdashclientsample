@@ -129,6 +129,15 @@ export class NotificationCreateComponent implements OnInit {
         this.notificationModel.strNotificationName = notify.name;
         this.notificationModel.strNotificationText = notify.text;
         this.notificationModel.strSnoozeAlertValue = notify.snooze;
+        // Fix applySnoozeByTriggerDevice
+        // If value of the field is 0 then it is “Jointly” else “Independent”
+        if(notify.applySnoozeByTriggerDevice == 0) {
+          this.notificationModel.scheduleSnoozeCheck = { left: false, right: true }; // left
+        } else {
+          this.notificationModel.scheduleSnoozeCheck = { left: true, right: false };
+          //right
+        }
+
         this.notificationModel.isNotificationActive = notify.active;
         this.getNotificationScheduleDetails(notify.notificationID);
         this.isSensorNotificationForm1 = true;
