@@ -313,4 +313,8 @@ postUserNetworkPermissions(postData) {
 deleteUser(UserID){
   return this.requestService.deleteExternalRequest('/api/User?UserID='+UserID);
 }
+
+  deleteNotification(notificationID){
+    return this.requestService.deleteExternalRequest('/api/Notification/'+notificationID);
+  }
 }
