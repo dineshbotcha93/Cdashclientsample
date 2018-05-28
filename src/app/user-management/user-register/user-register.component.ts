@@ -59,8 +59,9 @@ export class UserRegisterComponent implements OnInit {
       }
       return this.isEmailVerified;
     })
-    .catch((response: Response) => {
-      var error = response.json();
+    .catch((response) => {
+
+      var error = JSON.parse(response._body);
       if (error.ErrorCode === "DuplicateUser") {
         this.isValidForm = false;
         this.userRegistrationError = error.Message;
