@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FillDetailsService} from './fill-details.service';
 import {UserManagementService} from '../../user-management.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -28,9 +28,13 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   public accountInfo: any = null;
   private email = null;
   postData: object = {};
+  disableSubmitButton = true;
 
   @ViewChild('addressForm')
   addressForm: AddressFormComponent;
+
+  @Output()
+  private enableSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   public accountUpdateStatus: any = {
     error: false,
@@ -191,6 +195,10 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     return this.timeZones.find((timezone: any) => {
       return timezone.name === name;
     });
+  }
+
+  public isValidAddress($event) {
+    this.disableSubmitButton = !$event;
   }
 
   private createNewMasterUser(accountForm: FormGroup, addressForm: FormGroup) {
