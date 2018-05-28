@@ -13,6 +13,7 @@ import { AlertSandbox } from '../../../app/shared/components/alerts/alerts.sandb
 @Injectable()
 export class RequesterService {
   data:String[] = [];
+  serverUrls = SERVER_URLS;
   constructor(
     private http:Http,
     private httpClient: HttpClient,
@@ -23,8 +24,10 @@ export class RequesterService {
   ) {
     if(!environment.production){
       this.mockBackendService.start();
+      this.serverUrls['EXTERNAL_SERVER_URL']  = this.serverUrls.EXTERNAL_SERVER_URL_DEV;
     } else {
       this.productionInterceptor.start();
+      this.serverUrls['EXTERNAL_SERVER_URL'] = this.serverUrls.EXTERNAL_SERVER_URL_PROD;
     }
   }
   get(path:string):Promise<any>{
@@ -53,7 +56,7 @@ export class RequesterService {
   }
 
   getExternalRequest(url:string):Promise<any>{
-      return this.http.get(SERVER_URLS.EXTERNAL_SERVER_URL+url).map(e=>e.json())
+      return this.http.get(this.serverUrls['EXTERNAL_SERVER_URL']+url).map(e=>e.json())
       .catch((error)=>{
         if(error.status == 401){
           this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
@@ -67,7 +70,7 @@ export class RequesterService {
   }
 
   postExternalRequest(url:string,body:object):Promise<any>{
-    return this.http.post(SERVER_URLS.EXTERNAL_SERVER_URL+url,body).map(e=>e.json())
+    return this.http.post(this.serverUrls['EXTERNAL_SERVER_URL']+url,body).map(e=>e.json())
     .catch(error=>{
       if(error.status == 401){
         this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
@@ -86,11 +89,11 @@ export class RequesterService {
       headers: headers
     };
 
-    return this.httpClient.post(SERVER_URLS.EXTERNAL_SERVER_URL + url, body, requestOptions).toPromise();
+    return this.httpClient.post(this.serverUrls['EXTERNAL_SERVER_URL'] + url, body, requestOptions).toPromise();
   }
 
   putExternalRequest(url:string,body:object):Promise<any>{
-    return this.http.put(SERVER_URLS.EXTERNAL_SERVER_URL+url,body).map(e=>e.json())
+    return this.http.put(this.serverUrls['EXTERNAL_SERVER_URL']+url,body).map(e=>e.json())
     .catch(error=>{
       if(error.status == 401){
         this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
@@ -104,7 +107,7 @@ export class RequesterService {
   }
 
   deleteExternalRequest(url:string):Promise<any>{
-    return this.http.delete(SERVER_URLS.EXTERNAL_SERVER_URL+url).map(e=>e.json())
+    return this.http.delete(this.serverUrls['EXTERNAL_SERVER_URL']+url).map(e=>e.json())
     .catch(error=>{
       if(error.status == 401){
         this.alertSandbox.showAlert({ data: 'Session Expired. Please Re-Login' });
@@ -117,31 +120,3 @@ export class RequesterService {
     .toPromise();
   }
 }
-
-
-// import { Injectable } from '@angular/core';
-// import { Http } from '@angular/http';
-// import { SERVICE_CONSTANTS } from '../../shared/constants/service.constants';
-// import 'rxjs/operator/map';
-// import 'rxjs/operator/catch';
-// import { MockBackendService } from '../../../mocks/mock.backend.service';
-// import { environment } from '../../../environments/environment';
-
-// @Injectable()
-// export class RequesterService {
-//   data:String[] = [];
-//   constructor(private http:Http,private mockBackendService:MockBackendService) {
-//     if(!environment.production){
-//       this.mockBackendService.start();
-//     }
-//   }
-//   get(path:string):Promise<any>{
-//     return this.http.get(window.location.origin+path)
-//     .map(e=>e.json())
-//     .catch(e=>{
-//       console.log(e);
-//       return e;
-//     })
-//     .toPromise();
-//   }
-// }

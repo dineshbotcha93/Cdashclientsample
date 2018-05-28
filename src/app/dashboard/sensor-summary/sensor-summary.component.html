@@ -356,9 +356,9 @@
         </td>
        <!--   <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" (change)="onChangeDeviceInputType(old,sensor.heartBeat,sensor,'heartBeat')" (focus)="old=sensor.heartBeat" name="heartBeat" required value="{{sensor.heartBeat}}" minlength="1" [(ngModel)]="sensor.heartBeat"> -->
-           <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
+        <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <select class="form-control" id="heartBeat" [(ngModel)]="sensor.heartBeat" (change)="onChangeDeviceInputType(old,sensor.heartBeat,sensor,'heartBeat')">
-          <option *ngFor="let device of heartBeatList" [ngValue]="device.value">
+            <option *ngFor="let device of heartBeatList" [ngValue]="device.value">
               {{device.value}}
             </option>
           </select>
