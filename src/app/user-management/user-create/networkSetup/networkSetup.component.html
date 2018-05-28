@@ -37,23 +37,22 @@
   </div>
 </div>
 
-<modal [isOpen]="showPopup" title="Add/Edit Location"
+<modal [isOpen]="showPopup" [closeTitle]="cancelTitle" title="Add/Edit Location"
        (onClose)="modalClosed($event)">
   <div class="row">
     <div class="col-md-3 col-sm-12 col-xs-12">
       <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-    </div>
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <div class="form-group float-left">
-        <button class="btn btn-default float-right" (click)="copyAccountAddress()">Copy Account Address</button>
-      </div>
     </div>
     <div class="col-md-3 col-sm-12 col-xs-12">
       <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
     </div>
   </div>
   <form (ngSubmit)="onSubmit('add')" [formGroup]="networkFormSetup" class="form-horizontal form-label-left">
-    <create-network (formReady)="addFormControl('createNetworkForm', $event)" (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup" (grabbedCoordinates)="capturedCoordinates($event)"></create-network>
+    <create-network (formReady)="addFormControl('createNetworkForm', $event)"
+                    (copyAccountAddress)="copyAccountAddress()"
+                    (enableSubmit)="enableSubmit($event)" [formGroup]="networkFormSetup"
+                    (grabbedCoordinates)="capturedCoordinates($event)">
+    </create-network>
 
     <div class="row">
       <div class="col-md-3 col-sm-12 col-xs-12">
@@ -63,7 +62,6 @@
         <div class="form-group float-right">
           <span class="error" *ngIf="disableSubmitButton">Enter Valid Address</span><br>
           <button [ngClass]="{'btn-disable':disableSubmitButton}" class="btn btn-primary m-l-none">Submit</button>
-          <button type="reset" class="btn btn-primary m-l-none">Cancel</button>
         </div>
       </div>
       <div class="col-md-3 col-sm-12 col-xs-12">
