@@ -235,9 +235,13 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         //this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
         this.router.navigate([`/user-register/user-create/fill-details/network-setup`]);
       })
-      .catch(error => {
+      .catch((e) => {
         this.accountUpdateStatus.error = true;
-        this.accountUpdateStatus.message = error.Message;
+        if (e.error.ErrorCode === 'AccountAlreadyExist') {
+          this.accountUpdateStatus.message = 'Account with same name already exist.';
+        } else {
+          this.accountUpdateStatus.message = e.message;
+        }
       });
   }
 }
