@@ -20,6 +20,7 @@ export class NetworkSetupComponent implements OnInit {
   private limit: number = 10;
   public items: Array<any> = null;
   showPopup = false;
+  cancelTitle = 'Cancel';
   showEditPopup = false;
   modalMessage ='';
   disableSubmitButton = true;
@@ -184,7 +185,8 @@ export class NetworkSetupComponent implements OnInit {
         this.router.navigate(['user-profile']);
       });
   }
-  addNetwork(){
+  addNetwork() {
+    this.networkFormSetup.reset();
     this.showPopup = true;
   }
 

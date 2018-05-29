@@ -343,9 +343,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
     this.editSaveModel = "Edit";
 
     this.disable = {
-      edit: false,
-      remove: false,
-      move: false,
+      edit: true,
+      remove: true,
+      move: true,
       add: false,
       reset: true
     };

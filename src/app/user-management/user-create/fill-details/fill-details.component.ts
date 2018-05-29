@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FillDetailsService} from './fill-details.service';
 import {UserManagementService} from '../../user-management.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -28,9 +28,13 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   public accountInfo: any = null;
   private email = null;
   postData: object = {};
+  disableSubmitButton = true;
 
   @ViewChild('addressForm')
   addressForm: AddressFormComponent;
+
+  @Output()
+  private enableSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   public accountUpdateStatus: any = {
     error: false,
@@ -193,6 +197,10 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public isValidAddress($event) {
+    this.disableSubmitButton = !$event;
+  }
+
   private createNewMasterUser(accountForm: FormGroup, addressForm: FormGroup) {
     const coordinates = this.addressForm.getCoordinates();
     const payloadData = {
@@ -227,9 +235,13 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
         //this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
         this.router.navigate([`/user-register/user-create/fill-details/network-setup`]);
       })
-      .catch(error => {
+      .catch((e) => {
         this.accountUpdateStatus.error = true;
-        this.accountUpdateStatus.message = error.message;
+        if (e.error.ErrorCode === 'AccountAlreadyExist') {
+          this.accountUpdateStatus.message = 'Account with same name already exist.';
+        } else {
+          this.accountUpdateStatus.message = e.message;
+        }
       });
   }
 }
