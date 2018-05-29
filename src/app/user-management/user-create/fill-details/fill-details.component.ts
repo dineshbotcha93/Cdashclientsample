@@ -229,7 +229,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       })
       .catch(error => {
         this.accountUpdateStatus.error = true;
-        this.accountUpdateStatus.message = error.message;
+        this.accountUpdateStatus.message = error.Message;
       });
   }
 }
