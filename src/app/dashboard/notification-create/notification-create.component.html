@@ -109,7 +109,7 @@
         </div>
 
         <div class="form-group" *ngIf="notificationModel.notificationTemplate ==='inActiveNotification'">
-          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Inactive period:</label>
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Inactive period (minutes):</label>
           <div class="col-sm-12 col-md-6 col-xs-12">
             <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter minutes without communication" placeholder="Enter minutes"
                    [(ngModel)]="notificationModel.compareValue">
@@ -140,7 +140,7 @@
   <div class="form-group" *ngFor="let paramType of advancedParameterObject; let index=index">
     <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">{{paramType.labelValue}}</label>
     <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
-      <input type="text" tooltip="Enter valid number" class="form-control" 
+      <input type="text" tooltip="Enter valid number" class="form-control"
       name="{{'name'+index}}"
         [(ngModel)]= "advancedParameterObject[index].parameterValue" placeholder="" [ngModelOptions]="{standalone: true}">
 
@@ -157,7 +157,7 @@
 </ng-container>
 
         <div class="form-group">
-          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Don't Alert again for (Snooze):</label>
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Don't Alert again for (Snooze) Minutes:</label>
           <div class="col-sm-12 col-md-6 col-xs-12">
             <input type="text" class="form-control" formControlName="strSnoozeAlertValue" tooltip="Enter snooze value" name="strSnoozeAlertValue"
                    [(ngModel)]="notificationModel.strSnoozeAlertValue" placeholder="Enter snooze value">

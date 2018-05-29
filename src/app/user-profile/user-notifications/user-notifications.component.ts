@@ -1,12 +1,13 @@
 import { Component, OnInit,Output,EventEmitter,Input } from '@angular/core';
 import { SensorSummaryService } from '../../dashboard/sensor-summary/services/sensor-summary.service';
+import {UserProfileService} from "../services/user-profile.service";
 
 @Component({
   selector: 'app-user-notifications',
   templateUrl: './user-notifications.component.html',
   styleUrls: ['./user-notifications.component.scss'],
 
-  providers: [ SensorSummaryService]
+  providers: [ SensorSummaryService, UserProfileService]
 })
 export class UserNotificationsComponent implements OnInit {
 
@@ -34,7 +35,7 @@ export class UserNotificationsComponent implements OnInit {
   @Input() globalNotificationsList: any;
 
 
-  constructor(private sensorSummaryService: SensorSummaryService) {
+  constructor(private sensorSummaryService: SensorSummaryService, private userProfileService: UserProfileService) {
    this.deviceCreationError = "Please wait until notifications are loaded ..... ";
  }
 
@@ -97,8 +98,12 @@ export class UserNotificationsComponent implements OnInit {
     this.isResetButtonRequired = false;
 
      this.getNotificationsList();
-
-
   }
 
+  recieveDeleteNotifyValue($event) {
+
+    this.userProfileService.deleteNotification($event.notification.notificationID).then((result) => {
+      this.getNotificationsList();
+    });
+  }
 }

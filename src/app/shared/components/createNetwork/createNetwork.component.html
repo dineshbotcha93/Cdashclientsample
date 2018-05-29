@@ -4,6 +4,10 @@
       <label for="name" class="col-form-label col-md-4 col-sm-4 col-xs-12">Location Name</label>
       <div class="col-md-8 col-sm-8 col-xs-12">
         <input name="name" class="form-control" type="text" formControlName="name" placeholder="Network Name" />
+
+        <div class="col-md-8 col-sm-8 col-xs-12" style="display:flex;align-items: flex-start;padding-top:10px;padding-left:0px;">
+          <button class="btn btn-default" (click)="copyAddress()">Copy Account Address</button>
+        </div>
         <div *ngIf="createNetworkForm.get('name').touched">
           <div class="error" *ngIf="createNetworkForm.get('name').hasError('required')">Location Name is required.</div>
         </div>
