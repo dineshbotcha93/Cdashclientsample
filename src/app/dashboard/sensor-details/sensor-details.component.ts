@@ -106,6 +106,7 @@ export class SensorDetailsComponent {
         fontColor: '#000000'
       }
     };
+   this. onDateChange(event, 'fromDate');
   }
   ngAfterViewInit() {
     this.tabs.forEach((e) => {
@@ -133,11 +134,11 @@ export class SensorDetailsComponent {
     let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
     let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
 
-    if (target === 'fromDate') {
-      fromDate = moment(event).format('MM/DD/YYYY');
-    } else {
-      toDate = moment(event).format('MM/DD/YYYY');
-    }
+    // if (target === 'fromDate') {
+    //   fromDate = moment(event).format('MM/DD/YYYY');
+    // } else {
+    //   toDate = moment(event).format('MM/DD/YYYY');
+    // }
 
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;

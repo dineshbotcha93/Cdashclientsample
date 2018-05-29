@@ -238,7 +238,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       .catch((e) => {
         this.accountUpdateStatus.error = true;
         if (e.error.ErrorCode === 'AccountAlreadyExist') {
-          this.accountUpdateStatus.message = 'Account with same name already exist.';
+          this.accountUpdateStatus.message = 'Account with same name already exists.';
         } else {
           this.accountUpdateStatus.message = e.message;
         }
