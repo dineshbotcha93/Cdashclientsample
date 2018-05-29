@@ -42,6 +42,6 @@ module.exports = function (config) {
       }
     },
     browsers: ['ChromeHeadless'],
-    singleRun: false
+    singleRun: true
   });
 };
