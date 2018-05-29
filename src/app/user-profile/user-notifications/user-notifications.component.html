@@ -26,7 +26,8 @@
       <app-notification-summary *ngIf="notificationRadio === 'summary' && sensorList?.length > 0"
                                 [sensorList] = "sensorList"
                                 [accountData] = "accountData"
-                                (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
+                                (editNotifyModeEvent) = "recieveEditNotifyValue($event)"
+                                (deleteNotifyModeEvent)="recieveDeleteNotifyValue($event)">
       </app-notification-summary>
 
       <app-notification-create *ngIf="notificationRadio === 'addNotify'"
