@@ -26,11 +26,11 @@
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                 </span>
               </div> -->
-              <app-datepicker [(bsValue)]="bsValue" (dateChange)=onDateChange($event, 'fromDate')></app-datepicker>
+              <app-datepicker [(bsValue)]="bsValue" (dateChange)="onDateChange($event, 'fromDate')"></app-datepicker>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
               {{'global.to'|translate}}
-              <app-datepicker [(bsValue)]="bsValueTwo" (dateChange)=onDateChange($event, 'toDate')></app-datepicker>
+              <app-datepicker [(bsValue)]="bsValueTwo" (dateChange)="onDateChange($event, 'toDate')"></app-datepicker>
             </div>
 
             <!--<div class="col-xs-12 col-sm-12 col-lg-3 col-md-3" *ngIf="sensorNames.length > 0">
