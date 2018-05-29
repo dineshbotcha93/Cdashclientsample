@@ -14,6 +14,7 @@ export class PaymentSummaryComponent {
   @Input() newRenewalDate: string = null;
   @Input() renewalError = false;
   @Input() loading = false;
+  @Input() anonymous = false;
 
   constructor(private modalService: NgbModal, private router: Router) {
   }
@@ -32,5 +33,9 @@ export class PaymentSummaryComponent {
 
   routeToUserProfile() {
     this.router.navigate(['user-profile']);
+  }
+
+  routeToLogin() {
+    this.router.navigate(['login']);
   }
 }

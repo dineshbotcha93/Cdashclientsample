@@ -25,6 +25,7 @@ import * as toasterActions    from '../../../shared/store/actions/toaster.action
 export class LayoutContainer {
   public userImage:     string = '';
   public userEmail:     string = '';
+  public anonymous = false;
   private assetsFolder: string;
   private abc:          string = 'yoyo';
   private subscriptions: Array<Subscription> = [];
@@ -45,6 +46,7 @@ export class LayoutContainer {
         this.userImage = '/assets/images/users/user.jpg';
       } else {
         this.userEmail = 'Anonymous';
+        this.anonymous = true;
         this.userImage = '/assets/images/users/user.jpg';
       }
 

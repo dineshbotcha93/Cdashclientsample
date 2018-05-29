@@ -19,7 +19,7 @@ export class PaymentsComponent {
   customerData: Object = null;
   transactionId: String = null;
   paymentDataError: Error = null;
-  anonymousPayment = true;
+  anonymousPayment = false;
   showConfirmation = false;
   renewalError = false;
   newRenewalDate: string = null;
@@ -48,17 +48,16 @@ export class PaymentsComponent {
         }.bind(this))
         .catch(error => this.paymentDataError = error);
     } else {
+      this.anonymousPayment = true;
       paymentsService.getAnonymousPaymentData(this.invoiceId)
-        .then((data) => {
-          console.log('data', data);
+        .then(function(data) {
           this.paymentData = data;
           this.transactionId = data.id;
           this.paymentData.transactionInfo.amount = (data.transactionInfo.subscriptionAmount / 100).toFixed(2);
           this.paymentData.transactionInfo.tax = (data.transactionInfo.taxAmount / 100).toFixed(2);
           this.paymentData.transactionInfo.discount = (data.transactionInfo.discount / 100).toFixed(2);
           this.paymentData.transactionInfo.total = (data.transactionInfo.totalAmount / 100).toFixed(2);
-          this.paymentData.token = data.paymentToken;
-        })
+        }.bind(this))
         .catch(error => this.paymentDataError = error);
     }
   }
@@ -74,10 +73,14 @@ export class PaymentsComponent {
           stripeToken: tokenData.token.id,
           transactionId: this.transactionId
         };
-        if(this.invoiceId) {
-          paymentInfo.paymentToken = this.paymentData.token;
+        let token = null;
+
+        if (this.invoiceId) {
+          paymentInfo.transactionId = this.paymentData.id;
+          token = this.paymentData.paymentToken;
         }
-        this.paymentsService.sendStripeToken(paymentInfo).then(function(data){
+
+        this.paymentsService.sendStripeToken(paymentInfo, token).then(function(data){
           this.newRenewalDate = data.transaction.transactionInfo.newRenewalDate;
           this.loading = false;
         }.bind(this))
