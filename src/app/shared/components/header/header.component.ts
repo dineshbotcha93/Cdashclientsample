@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   @Input() availableLanguages:  Array<any>;
   @Input() userImage:           string;
   @Input() userEmail:           string;
+  @Input() anonymous = false;
   private languagePicked: string;
   public isCooperAdmin: boolean = false;
   public isHaccpUser: boolean = false;
