@@ -1,5 +1,5 @@
 
-<div class="login_wrapper onboarding_container">
+<div class="login_wrapper onboarding_container onboardingContainer_wide">
 
   <div class="form login_form">
     <section class="login_content">
@@ -8,17 +8,17 @@
 
       </user-flow-component>
 
-      <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="form-horizontal form-label-left font-white">
+      <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" class="form-horizontal form-label-left">
 
-        <div *ngIf="accountUpdateStatus.error" class="alert alert-danger" ng->
-          <span>{{accountUpdateStatus.message || 'Entered form is invalid!!!'}}</span>
+        <div *ngIf="accountUpdateStatus.error" class="alert alert-danger">
+          <span>{{ accountUpdateStatus.message || 'Please verify the details entered for your registraiton' }}</span>
         </div>
 
         <div class="row fillDetails-container">
           <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name </label>
-              <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
+              <label class="col-form-label col-md-4 col-sm-4 col-xs-12">Company Name </label>
+              <div class="inner-addon col-md-8 col-sm-8 col-xs-12">
                 <span class="inner-addon-icon"><i class="fa fa-building"></i></span>
                 <input type="text" formControlName="company_name" class="form-control">
               </div>
@@ -27,8 +27,8 @@
               </div>
             </div>
             <div class="form-group" *ngIf="isNewMaster || accountInfo.industryType">
-              <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="industryType">Industry Type </label>
-              <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
+              <label  class="col-form-label col-md-4 col-sm-4 col-xs-12" for="industryType">Industry Type </label>
+              <div class="inner-addon col-md-8 col-sm-8 col-xs-12">
                 <select formControlName="industry_type" class="form-control m-b-md" (change)="industryChanged($event.target.value)">
                   <option value="{{industry.id}}" *ngFor="let industry of industries">{{industry.name}}</option>
                 </select>
@@ -38,8 +38,8 @@
               </div>
             </div>
             <div class="form-group" *ngIf="isNewMaster || (accountInfo && accountInfo.businessType)">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="businessType">Business Type </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <label class="col-form-label col-md-4 col-sm-4 col-xs-12" for="businessType">Business Type </label>
+              <div class="col-md-8 col-sm-8 col-xs-12">
                 <select formControlName="business_type" class="form-control m-b-md">
                   <option value="{{businessType.id}}" *ngFor="let businessType of businessTypeSelection">{{businessType.name}}</option>
                 </select>
@@ -49,8 +49,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeZone">Time Zone </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <label class="col-form-label col-md-4 col-sm-4 col-xs-12" for="timeZone">Time Zone </label>
+              <div class="col-md-8 col-sm-8 col-xs-12">
                 <select formControlName="timeZone" class="form-control m-b-md">
                   <option value="{{tZ.name}}" *ngFor="let tZ of timeZones">{{tZ.name}}</option>
                 </select>
@@ -60,8 +60,8 @@
               </div>
             </div>
             <div class="form-group" *ngIf="isNewMaster || accountInfo.placeOfPurchase">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
-              <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+              <label class="col-form-label col-md-4 col-sm-4 col-xs-12" for="placeOfPurchase">Device Purchase Source</label>
+              <div class="col-md-8 col-sm-8 col-xs-12" style="padding-top: 8px;">
                 <select formControlName="placeOfPurchase" class="form-control m-b-md">
                   <option value="{{pop.name}}" *ngFor="let pop of placeOfPurchase">{{pop.name}}</option>
                 </select>
@@ -72,16 +72,33 @@
             </div>
           </div>
           <div class="col-sm-12 col-md-12 col-lg-12">
-            <address-form-component #addressForm (formReady)="addFormControl('address', $event)"></address-form-component>
+            <address-form-component #addressForm (formReady)="addFormControl('address', $event)" (validAddress)="isValidAddress($event)"></address-form-component>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <input type="checkbox" formControlName="conditionsCheck"/>
+              <span>I acknowledge that I have read and agree to the </span>
+              <a class="conditionsLink" href="assets/docs/conditions.pdf" target="_blank">
+                <i>Terms and Conditions</i>
+              </a>
+            </div>
+            <div *ngIf="accountUpdateStatus.error">
+              <div class="error" *ngIf="accountForm.get('conditionsCheck').hasError('required')">
+                Please accept terms and conditions.
+              </div>
+            </div>
           </div>
           <div class="clearfix"></div>
           <div class="separator"></div>
           <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group float-right">
-              <input type="submit" value="Submit" class="btn btn-primary m-l-none">
-              <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
+            <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+              <span class="error" *ngIf="disableSubmitButton">Enter Valid Address</span>
             </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group float-right">
+                <input type="submit" [ngClass]="{'btn-disable':disableSubmitButton}" value="Submit" class="btn btn-primary m-l-none">
+                <input type="reset" value="Cancel" class="btn btn-primary m-l-none">
+              </div>
             </div>
           </div>
         </div>

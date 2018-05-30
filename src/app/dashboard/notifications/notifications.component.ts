@@ -36,14 +36,14 @@ export class NotificationsComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate());
 
     this.daterangepickerModel = [this.minDate, this.maxDate];
-    
+
     this.requestDateObject = {
       fromDate :this.datepipe.transform(this.minDate, 'mm/dd/yyyy'),
       toDate :this.datepipe.transform(this.maxDate, 'mm/dd/yyyy')
     };
   }
 
-  onClickNotificationOverview(request:any) {
+  onClickNotificationOverview(request:any = null) {
     this.notificationRadio = 'overview';
   }
 
@@ -73,12 +73,12 @@ export class NotificationsComponent implements OnInit {
     console.log(this.daterangepickerModel);
 
     console.log(this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy')+'  '+this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy'));
-    
+
     let requestDateObject = {
       fromDate:this.datepipe.transform(this.daterangepickerModel[0], 'mm/dd/yyyy'),
       toDate:this.datepipe.transform(this.daterangepickerModel[1], 'mm/dd/yyyy')
     }
-    
+
     this.onClickNotificationOverview(requestDateObject);
 
   }

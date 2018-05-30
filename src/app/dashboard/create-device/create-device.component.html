@@ -3,11 +3,216 @@
   <div *ngIf="!isValidForm" class="alert alert-danger">
         <span>{{deviceCreationError ||  'Please verify the details entered for your device creation'}}</span>
   </div>
-  <form [formGroup]="deviceCreateForm" name="form" class="form-horizontal form-label-left font-white" >
+  <form [formGroup]="deviceCreateForm" name="form" class="form-horizontal" >
 
-  <table class="table table-striped">
-    <tbody *ngIf="deviceType === 'GATEWAY'">
-      <tr>
+    <div  *ngIf="deviceType === 'GATEWAY'">
+        <div class="row">
+
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="gatewayTypeID">
+                Gatway Type
+              </label>
+              <div class="col-sm-12 col-md-6 col-xs-12">
+                  <select class="form-control" formControlName="gatewayTypeID" id="gatewayTypeID" [ngModel]="gatewayTypeObject[0]" (ngModelChange)="onChangeGatewayType($event)">
+                    <option *ngFor="let device of  gatewayTypeObject" [ngValue]="device">
+                      {{device.name}}
+                    </option>
+                  </select>
+                <div *ngIf="!isValidForm || deviceCreateForm.get('gatewayTypeID').touched">
+                  <div class="error" *ngIf="deviceCreateForm.get('gatewayTypeID').hasError('required')">Gateway Type is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12" *ngIf="this.deviceModel.gatewayTypeID === '-99'">
+            <div class="form-group">
+              <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="serialNumber">
+                Serial Number
+              </label>
+              <div class="col-sm-12 col-md-6 col-xs-12">
+                <input type="text" class="form-control" name="serialNumber" id="serialNumber" formControlName="serialNumber" placeholder="Enter number" tooltip="The Serial number can be found  on the back of the device."
+                       [(ngModel)]="deviceModel.serialNumber">
+                <div *ngIf="!isValidForm || deviceCreateForm.get('serialNumber').touched">
+                  <div class="error" *ngIf="deviceCreateForm.get('serialNumber').hasError('required')">SerialNumber is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12" *ngIf="this.deviceModel.gatewayTypeID === '-99'">
+            <div class="form-group">
+              <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="macAddress">
+                Mac Address
+              </label>
+              <div class="col-sm-12 col-md-6 col-xs-12">
+                <input type="text" class="form-control" name="macAddress" id="macAddress" formControlName="macAddress" placeholder="Enter mac address" tooltip="The Mac Address can be found  on the back of the device."
+                       [(ngModel)]="deviceModel.macAddress">
+                <div *ngIf="!isValidForm || deviceCreateForm.get('macAddress').touched">
+                  <div class="error" *ngIf="deviceCreateForm.get('macAddress').hasError('required')">MacAddress is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="networkID">
+                Select Network Location
+              </label>
+              <div class="col-sm-12 col-md-6 col-xs-12">
+                <div class="form-group ss-location">
+                  <select class="form-control" formControlName="networkID" id="networkID" [(ngModel)]="selectedNetwork">
+                    <option *ngFor="let loc of inputNetworkData" [ngValue]="loc">
+                      {{loc.Title}}
+                    </option>
+                  </select>
+                </div>
+                <div *ngIf="!isValidForm || deviceCreateForm.get('networkID').touched">
+                  <div class="error" *ngIf="deviceCreateForm.get('networkID').hasError('required')">Network ID is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <button type="button" class="btn btn-primary float-right"  (click)="onClickCancelDetail()">
+           Cancel
+        </button>
+        <button type="button" class="btn btn-primary float-right" (click)="onClickAddDetail()">
+          Add
+        </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="deviceType === 'SENSOR'">
+    <div class="row">
+
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="name">
+            Sensor Name
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" formControlName="name"
+                   required [(ngModel)]="deviceModel.name">
+            <div *ngIf="!isValidForm || deviceCreateForm.get('name').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('name').hasError('required')">Sensor Name is required.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="id">
+            Sensor ID
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" name="id" id="id" placeholder="Enter Id" formControlName="id"
+                   required tooltip="The Sensor ID can be found on the barcode label located on the back of the sensor."
+                   [(ngModel)]="deviceModel.id">
+            <div *ngIf="!isValidForm || deviceCreateForm.get('id').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('id').hasError('required')">Sensor Id is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="code">
+            Sensor Code
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" name="code" id="code" placeholder="Enter Code"  formControlName="code"
+                   required tooltip="The Sensor Code can be on the barcode label located on the back of the sensor."
+                   [(ngModel)]="deviceModel.code">
+            <div *ngIf="!isValidForm || deviceCreateForm.get('code').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('code').hasError('required')">Sensor code is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="heartBeat">
+            Heartbeat
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+              <select class="form-control" formControlName="heartBeat" id="heartBeat" [ngModel]="heartBeatList[0]" (ngModelChange)="onChangeHeartBeat($event)">
+                <option *ngFor="let device of heartBeatList" [ngValue]="device">
+                  {{device.value}}
+                </option>
+              </select>
+
+            <div *ngIf="!isValidForm || deviceCreateForm.get('heartBeat').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('heartBeat').hasError('required')">Heartbeat is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="minThreshold">
+            Min Threshold
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" name="minThreshold" id="minThreshold" placeholder="Enter Min Threshold" formControlName="minThreshold"
+                   required tooltip="Enter Minimum Temperature Threshold"
+                   [(ngModel)]="deviceModel.minThreshold">
+            <div *ngIf="!isValidForm || deviceCreateForm.get('minThreshold').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('minThreshold').hasError('required')">Min threshold is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="maxThreshold">
+            Max Threshold
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" name="maxThreshold" id="maxThreshold" placeholder="Enter Max Threshold" formControlName="maxThreshold"
+                   required tooltip="Enter Maximum Temperature Threshold"
+                   [(ngModel)]="deviceModel.maxThreshold">
+            <div *ngIf="!isValidForm || deviceCreateForm.get('maxThreshold').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('maxThreshold').hasError('required')">Max threshold is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6  col-xs-12 col-form-label" for="nId">
+            Select Network location
+          </label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+              <select formControlName="networkID" id="nId" class="form-control" [(ngModel)]="selectedNetwork">
+                <option *ngFor="let loc of inputNetworkData" [ngValue]="loc">
+                  {{loc.Title}}
+                </option>
+              </select>
+            <div *ngIf="!isValidForm || deviceCreateForm.get('networkID').touched">
+              <div class="error" *ngIf="deviceCreateForm.get('networkID').hasError('required')">Network ID is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <button type="button" class="btn btn-primary float-right" (click)="onClickCancelDetail()">
+           Cancel </button>
+        <button type="button" class="btn btn-primary float-right" (click)="onClickAddDetail()">
+           Add </button>
+        </div>
+      </div>
+    </div>
+
+  <!--<table class="table table-striped">
+    <tbody *ngIf="deviceType === 'GATEWAY'">-->
+      <!--<tr>
         <td> Gateway Type </td>
         <td>
           <div class="form-group ss-location">
@@ -21,7 +226,7 @@
               <div class="error" *ngIf="deviceCreateForm.get('gatewayTypeID').hasError('required')">Gateway Type is required.</div>
           </div>
         </td>
-      </tr>
+      </tr>-->
      <!--  <tr *ngIf="this.deviceModel.gatewayTypeID === '2' || this.deviceModel.gatewayTypeID === '7'  ">
         <td> Gateway ID</td>
         <td>
@@ -37,7 +242,7 @@
             [(ngModel)]="deviceModel.code">
         </td>
       </tr> -->
-      <tr *ngIf="this.deviceModel.gatewayTypeID === '-99'">
+      <!--<tr *ngIf="this.deviceModel.gatewayTypeID === '-99'">
         <td> Serial Number </td>
         <td>
           <input type="text" class="form-control" name="serialNumber" formControlName="serialNumber" placeholder="Enter number" tooltip="The Serial number can be found  on the back of the device."
@@ -46,9 +251,9 @@
               <div class="error" *ngIf="deviceCreateForm.get('serialNumber').hasError('required')">SerialNumber is required.</div>
           </div>
         </td>
-      </tr>
+      </tr>-->
 
-      <tr *ngIf="this.deviceModel.gatewayTypeID === '-99'">
+      <!--<tr *ngIf="this.deviceModel.gatewayTypeID === '-99'">
         <td> Mac Address</td>
         <td>
           <input type="text" class="form-control" name="macAddress" formControlName="macAddress" placeholder="Enter mac address" tooltip="The Mac Address can be found  on the back of the device."
@@ -57,8 +262,8 @@
               <div class="error" *ngIf="deviceCreateForm.get('macAddress').hasError('required')">MacAddress is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td>
           <label class="control-label col-form-label">Select Network Location:</label>
 
@@ -75,8 +280,8 @@
               <div class="error" *ngIf="deviceCreateForm.get('networkID').hasError('required')">Network ID is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td></td>
         <td>
           <button type="button" class="btn btn-primary removeBTN" (click)="onClickCancelDetail()">
@@ -84,12 +289,12 @@
           <button type="button" class="btn btn-primary addBTN" (click)="onClickAddDetail()">
             <i class="fa fa-plus"></i> Add </button>
         </td>
-      </tr>
-    </tbody>
+      </tr>-->
+    <!--</tbody>
 
-    <tbody *ngIf="deviceType === 'SENSOR'">
+    <tbody *ngIf="deviceType === 'SENSOR'">-->
 
-      <tr>
+      <!--<tr>
         <td> Sensor Name </td>
         <td><div>
           <input type="text" class="form-control" name="name" placeholder="Enter Name" formControlName="name"
@@ -98,8 +303,8 @@
               <div class="error" *ngIf="deviceCreateForm.get('name').hasError('required')">Sensor Name is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td> Sensor ID</td>
         <td>
           <input type="text" class="form-control" name="id" placeholder="Enter Id" formControlName="id"
@@ -109,8 +314,8 @@
               <div class="error" *ngIf="deviceCreateForm.get('id').hasError('required')">Sensor Id is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td> Sensor Code </td>
         <td>
           <input type="text" class="form-control" name="code" placeholder="Enter Code"  formControlName="code"
@@ -120,18 +325,25 @@
               <div class="error" *ngIf="deviceCreateForm.get('code').hasError('required')">Sensor code is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td>Heartbeat </td>
         <td>
-          <input type="text" class="form-control" name="heartBeat" placeholder="Enter heart beat" formControlName="heartBeat"
-          required [(ngModel)]="deviceModel.heartBeat">
+           <div class="form-group ss-location">
+            <select class="form-control" formControlName="heartBeat" [ngModel]="heartBeatList[0]" (ngModelChange)="onChangeHeartBeat($event)">
+              <option *ngFor="let device of heartBeatList" [ngValue]="device">
+                {{device.value}}
+              </option>
+            </select>
+          </div>
+         &lt;!&ndash;  <input type="text" class="form-control" name="heartBeat" placeholder="Enter heart beat" formControlName="heartBeat"
+          required [(ngModel)]="deviceModel.heartBeat"> &ndash;&gt;
            <div *ngIf="!isValidForm || deviceCreateForm.get('heartBeat').touched">
               <div class="error" *ngIf="deviceCreateForm.get('heartBeat').hasError('required')">Heartbeat is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td>Min Threshold </td>
         <td>
           <input type="text" class="form-control" name="minThreshold" placeholder="Enter Min Threshold" formControlName="minThreshold"
@@ -141,8 +353,8 @@
               <div class="error" *ngIf="deviceCreateForm.get('minThreshold').hasError('required')">Min threshold is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td>Max Threshold </td>
         <td>
           <input type="text" class="form-control" name="maxThreshold" placeholder="Enter Max Threshold" formControlName="maxThreshold"
@@ -152,8 +364,8 @@
               <div class="error" *ngIf="deviceCreateForm.get('maxThreshold').hasError('required')">Max threshold is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td>
           <label class="control-label col-form-label">Select Network Location:</label>
 
@@ -170,18 +382,18 @@
               <div class="error" *ngIf="deviceCreateForm.get('networkID').hasError('required')">Network ID is required.</div>
           </div>
         </td>
-      </tr>
-      <tr>
+      </tr>-->
+      <!--<tr>
         <td></td>
         <td>
-          <button type="button" class="btn btn-primary removeBTN" (click)="onClickCancelDetail()">
+          <button type="button" class="btn btn-primary" (click)="onClickCancelDetail()">
             <i class="fa fa-trash"></i> Cancel </button>
-          <button type="button" class="btn btn-primary addBTN" (click)="onClickAddDetail()">
+          <button type="button" class="btn btn-primary" (click)="onClickAddDetail()">
             <i class="fa fa-plus"></i> Add </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
+      </tr>-->
+    <!--</tbody>
+  </table>-->
 </form>
 </div>
 

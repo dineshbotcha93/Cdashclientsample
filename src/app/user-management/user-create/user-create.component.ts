@@ -83,13 +83,13 @@ export class UserCreateComponent implements OnInit {
       if (this.userCreateForm.get('isNewMaster').value === 'true') {
         const userData = this.populateRegisterNewUserModel();
         this.userManagementService.saveRegistrationData(userData);
-        this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
+        this.router.navigate(['/user-register/user-create/fill-details'], { queryParams: { email: this.userRegisterModel.email}});
       } else {
         this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
           .then((data) => {
             localStorage.setItem('com.cdashboard.token', data);
             this.userManagementService.saveRegistrationData(this.populateRegisterExistingUserModel());
-            this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
+            this.router.navigate(['/user-register/user-create/fill-details', { queryParams: { email: this.userRegisterModel.email}}]);
           })
           .catch((error) => {
             this.isValidForm = false;
@@ -138,7 +138,7 @@ export class UserCreateComponent implements OnInit {
     console.log('not implemented yet');
   }
 
-  masterChange() {
+  masterChange(event: any = null) {
     if (this.userCreateForm.get('isNewMaster').value === 'true') {
       this.userCreateForm.get('firstName').setValidators([Validators.required]);
       this.userCreateForm.get('lastName').setValidators([Validators.required]);

@@ -1,15 +1,57 @@
 /* ******************************** */
 /* Table styles /*
 /* ******************************** */
+@import "../variables";
+
+table,
+.table {
+  border: 1px solid $colorGrey-emerson-vLightGrey;
+  color: $colorUI-emerson-black;
+
+  thead {
+    tr {
+      th {
+        padding: 0.85rem;
+        font-weight: normal;
+        font-size: 0.85em;
+        vertical-align: middle;
+        border-bottom: 1px solid $colorGrey-emerson-vLightGrey;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        padding: 0.85rem;
+        font-weight: normal;
+        font-size: 0.85em;
+        border-top: 0;
+        vertical-align: middle;
+      }
+    }
+  }
+  tfoot {
+    tr {
+      border-top: 1px solid $colorGrey-emerson-vLightGrey;
+
+      td {
+        padding: 0.85rem;
+        font-weight: normal;
+        font-size: 0.85em;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
 .dark-theme {
   .table-striped {
     color: $color-white;
-    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 
     thead {
       tr {
         th {
-          border-bottom: 2px solid $color-black;
+          border-bottom: 2px solid $colorUI-emerson-black;
           background-color: $color-body-bg - 35;
         }
       }
@@ -30,7 +72,8 @@
 }
 
 .light-theme {
-
+  color: $colorUI-emerson-black;
+  border: 1px solid $colorGrey-emerson-vLightGrey;
 }
 /* ******************************** */
 
@@ -39,7 +82,7 @@
 /* datatable styles /*
 /* ******************************** */
 .ngx-datatable {
-  border: 1px solid $color-grey-light;
+  border: 1px solid $colorGrey-emerson-vLightGrey;
   background: $color-white;
 
   .datatable-row-center {
@@ -62,37 +105,59 @@
         padding: 0 0.75rem;
       }
     }
+
+    .empty-row {
+      padding: 10px;
+    }
+  }
+
+  .datatable-footer {
+    .datatable-footer-inner {
+      border-top: 1px solid $color-white;
+    }
   }
 
   &.bootstrap {
+    .datatable-header {
+      .datatable-header-cell {
+        border-bottom: 1px solid $colorGrey-emerson-grey;
+      }
+    }
     .datatable-body {
       .datatable-body-row {
         padding: 0.75rem 0 !important;
+        border-top: none !important;
+
+        &.datatable-row-even {
+          background-color: $colorGrey-emerson-vLightGrey !important;
+        }
       }
+    }
+
+    .datatable-footer {
+      border-top: 1px solid $color-white;
     }
   }
 }
 
 
 .datatable-header-cell {
-  font-family: "roboto_bold", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  color: $color-body-bg;
+  color: $colorUI-emerson-black;
 }
 
 .datatable-body-row {
-  color: $color-black;
+  color: $colorUI-emerson-black;
 }
 
 .datatable-footer {
-  background: $color-grey-light !important;
+  background: $colorGrey-emerson-vLightGrey !important;
 
   .datatable-pager {
     a {}
   }
 
   .datatable-footer-inner {
-    font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-    color: $color-black;
+    color: $colorUI-emerson-black;
 
     .page-count {}
 
@@ -100,26 +165,26 @@
       ul, .pager {
         li, li:not(.disabled), .pages:not(.disabled) {
           a {
-            font-family: "roboto_light", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-            font-weight: bold;
-            background-color: $color-grey-light;
-            color: $color-black;
-            line-height: initial;
             margin: 0 2px;
+            font-weight: normal;
+            background-color: $color-white;
+            color: $colorUI-emerson-black;
+            line-height: initial;
           }
 
           &:hover {
             a {
-              background-color: $color-grey;
               color: $color-white;
-              font-weight: bold;
+              font-weight: normal;
+              background-color: $colorGrey-emerson-lightGrey;
             }
           }
 
           &.active {
             a {
-              background-color: $color-dataTable-hover;
               color: $color-white;
+              font-weight: normal;
+              background-color: $colorGrey-emerson-grey;
             }
           }
         }
@@ -131,18 +196,18 @@
 
 
 .editNetworkSetup-dataTable {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: $colorUI-emerson-black;
   .ngx-datatable {
-    .datatable-body-row {
-      color: black;
-    }
 
     .datatable-header-cell {
-      color: $color-white;
-      font-weight: bolder;
+      color: $colorUI-emerson-black;
+      //font-weight: bolder;
       font-size: 1em;
-      text-transform: uppercase;
+      //text-transform: uppercase;
       text-align: left;
-      background: $color-body-bg;
+      //background: $color-body-bg;
     }
 
     .datatable-footer {

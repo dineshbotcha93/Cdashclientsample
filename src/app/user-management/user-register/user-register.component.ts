@@ -26,6 +26,9 @@ export class UserRegisterComponent implements OnInit {
   showPopup = false;
 
   isEmailVerified : boolean = false;
+  isValidForm = true;
+  userRegistrationError: string = null;
+  successMessage  = '';
   constructor(
     private userManagementService : UserManagementService,
     private router:Router,
@@ -52,12 +55,22 @@ export class UserRegisterComponent implements OnInit {
     this.userManagementService.getEmailVerification(this.userRegisterModel).then((e)=>{
       if(e!=null){
         this.isEmailVerified = true;
+        this.isValidForm = true;
       }
       return this.isEmailVerified;
-    }).then((r)=>{
-      if(this.isEmailVerified){
-        this.alertSandbox.showSuccess({data: 'Registration link is sent to your email address.  Please follow the instructions mentioned in the email. Thank you for your business!',autohide: false});
+    })
+    .catch((response) => {
+
+      var error = JSON.parse(response._body);
+      if (error.ErrorCode === "DuplicateUser") {
+        this.isValidForm = false;
+        this.userRegistrationError = error.Message;
+      }
+    })
+    .then((r)=>{
+      if(this.isEmailVerified){        
         //this.router.navigate(['user-register/user-create',this.userRegisterModel.email]);
+        this.successMessage = 'Registration link is sent to your email address.  Please follow the instructions mentioned in the email. Thank you for your business!';
       }
     });
   }

@@ -25,6 +25,7 @@ import * as toasterActions    from '../../../shared/store/actions/toaster.action
 export class LayoutContainer {
   public userImage:     string = '';
   public userEmail:     string = '';
+  public anonymous = false;
   private assetsFolder: string;
   private abc:          string = 'yoyo';
   private subscriptions: Array<Subscription> = [];
@@ -40,8 +41,15 @@ export class LayoutContainer {
     this.subscriptions.push(this.loginSandbox$.subscribe(e=>{
       console.log(e);
       let user = JSON.parse(localStorage.getItem("currentUser"));
-      this.userEmail = user.username;
-      this.userImage = '/assets/images/users/user.jpg';
+      if (user) {
+        this.userEmail = user.username;
+        this.userImage = '/assets/images/users/user.jpg';
+      } else {
+        this.userEmail = 'Anonymous';
+        this.anonymous = true;
+        this.userImage = '/assets/images/users/user.jpg';
+      }
+
     }));
     this.toastr.setRootViewContainerRef(vcr);
     console.log(this.toasterState);

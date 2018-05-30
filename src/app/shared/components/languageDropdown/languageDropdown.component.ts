@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class LanguageDropdownComponent implements OnInit {
   @Input() chosenLanguage: string;
   @Output() currentLanguage: EventEmitter<any> = new EventEmitter();
-  private selectedLanguage: string;
+  public selectedLanguage: string;
   constructor(private translate: TranslateService){
     if(!!this.chosenLanguage){
       this.selectedLanguage = this.chosenLanguage;

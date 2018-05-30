@@ -8,9 +8,9 @@ import { AlertSandbox } from './alerts.sandbox';
 })
 
 export class AlertsComponent {
-  private showDiv;
-  private showGood;
-  private isWarning;
+  public showDiv;
+  public showGood;
+  public isWarning;
   private alertContent;
   private successContent;
   private warningContent;
@@ -31,7 +31,7 @@ export class AlertsComponent {
           setTimeout(()=>{
             this.showDiv = false;
             this.showAlert(e.payload);
-          },5000)
+          },2000)
         }
       }
     });
@@ -43,7 +43,7 @@ export class AlertsComponent {
           setTimeout(()=>{
             this.showGood = false;
             this.showSuccess();
-          },5000);
+          },2000);
         }
       }
     });

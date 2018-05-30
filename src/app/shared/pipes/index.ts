@@ -1,14 +1,15 @@
 import { NgModule }         from '@angular/core';
-import { SanitizeHtmlPipe } from './sanitizeHtml.pipe';
 import { StringToNumberPipe } from './stringToNumber.pipe';
 import { OrderByPipe } from './orderBy.pipe';
 import { DateFormatPipe } from './dateFormat.pipe';
+import { SafePipe } from './safe.pipe';
+
 
 export const PIPES = [
-  SanitizeHtmlPipe,
   StringToNumberPipe,
   OrderByPipe,
-  DateFormatPipe
+  DateFormatPipe,
+  SafePipe
 ];
 
 @NgModule({

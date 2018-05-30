@@ -9,9 +9,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
-
-
-
 const routes:Routes = [{
   path:'',component:NotificationListComponent
 }]
@@ -29,4 +26,4 @@ const routes:Routes = [{
     BsDatepickerModule.forRoot()
   ]
 })
-export class NotificationListComponentModule {}
+export class NotificationListModule {}

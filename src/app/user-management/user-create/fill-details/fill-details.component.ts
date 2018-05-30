@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FillDetailsService} from './fill-details.service';
 import {UserManagementService} from '../../user-management.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AddressFormComponent} from '../../../shared/components/addressForm/addressForm.component';
-
 
 
 @Component({
@@ -22,16 +21,20 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   businessTypeSelection: Array<object> = [];
   timeZones: Array<object> = [];
   placeOfPurchase: Array<object> = [];
-  stepOneData:any = null;
+  stepOneData: any = null;
 
   public accountForm: FormGroup;
-  private isNewMaster = false;
-  private accountInfo: any = null;
+  public isNewMaster = false;
+  public accountInfo: any = null;
   private email = null;
   postData: object = {};
+  disableSubmitButton = true;
 
   @ViewChild('addressForm')
   addressForm: AddressFormComponent;
+
+  @Output()
+  private enableSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   public accountUpdateStatus: any = {
     error: false,
@@ -75,19 +78,29 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
       business_type: new FormControl('', Validators.required),
       timeZone: new FormControl('', Validators.required),
       placeOfPurchase: new FormControl('', Validators.required),
+      conditionsCheck: new FormControl(false, Validators.requiredTrue),
     });
   }
 
   ngAfterViewInit() {
     this.stepOneData = this.userManagementService.getRegistrationData();
 
-    if(this.stepOneData) {
+    if (this.stepOneData) {
       this.isNewMaster = this.stepOneData.isNewMaster;
       this.email = this.stepOneData.email;
     }
 
-    if(!this.isNewMaster) {
-      console.log('not a new master. Fetching API data');
+    if (!this.isNewMaster) {
+      this.accountForm.get('business_type').clearValidators();
+      this.accountForm.get('business_type').updateValueAndValidity();
+
+      this.accountForm.get('industry_type').clearValidators();
+      this.accountForm.get('industry_type').updateValueAndValidity();
+
+
+      this.accountForm.get('placeOfPurchase').clearValidators();
+      this.accountForm.get('placeOfPurchase').updateValueAndValidity();
+
       this.fillDetailsService.fetchExistingUserInfo()
         .then(data => {
           console.log('user info', data.account[0]);
@@ -114,7 +127,7 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   }
 
 
-  private addFormControl(name: string, formGroup: FormGroup): void {
+  public addFormControl(name: string, formGroup: FormGroup): void {
     this.accountForm.addControl(name, formGroup);
   }
 
@@ -135,20 +148,20 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.accountUpdateStatus.error = !this.accountForm.valid || !this.addressForm.validateAddress();
 
-    if(this.isNewMaster) {
-      this.createNewMasterUser(this.accountForm, this.addressForm.addressForm);
-    } else {
-      this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
+    if (!this.accountUpdateStatus.error) {
+      if (this.isNewMaster) {
+        this.createNewMasterUser(this.accountForm, this.addressForm.addressForm);
+      } else {
+        this.updateExistingUserAccount(this.accountForm, this.addressForm.addressForm);
+      }
     }
   }
 
   private updateExistingUserAccount(accountForm: FormGroup, addressForm: FormGroup) {
-    console.log('update existing user account', accountForm);
-
     const coordinates = this.addressForm.getCoordinates();
     const selectedTimeZone: any = this.fetchTimeZone(this.accountForm.get('timeZone').value);
     const reseller: any = this.placeOfPurchase.find((pop: any) => {
-      return pop.name === accountForm.get('placeOfPurchase').value
+      return pop.name === accountForm.get('placeOfPurchase').value;
     });
 
     const payloadData = {
@@ -168,7 +181,8 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
 
     this.fillDetailsService.updateExistingUserInfo(payloadData)
       .then((data) => {
-        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+        //this.router.navigate(['/user-register/user-create/fill-details'], { queryParams: { email: this.userRegisterModel.email}});
+        this.router.navigate(['/user-register/user-create/fill-details/network-setup']);
       })
       .catch((error) => {
         this.accountUpdateStatus.error = true;
@@ -181,6 +195,10 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     return this.timeZones.find((timezone: any) => {
       return timezone.name === name;
     });
+  }
+
+  public isValidAddress($event) {
+    this.disableSubmitButton = !$event;
   }
 
   private createNewMasterUser(accountForm: FormGroup, addressForm: FormGroup) {
@@ -210,16 +228,20 @@ export class FillDetailsComponent implements OnInit, AfterViewInit {
     };
 
 
-
     this.userManagementService.registerNewMaster(payloadData, this.stepOneData.registrationToken)
       .then((data) => {
         localStorage.setItem('com.cdashboard.token', data);
 
-        this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+        //this.router.navigate([`/user-register/user-create/${this.stepOneData.email}/network-setup`]);
+        this.router.navigate([`/user-register/user-create/fill-details/network-setup`]);
       })
-      .catch(error => {
+      .catch((e) => {
         this.accountUpdateStatus.error = true;
-        this.accountUpdateStatus.message = error.message;
+        if (e.error.ErrorCode === 'AccountAlreadyExist') {
+          this.accountUpdateStatus.message = 'Account with same name already exists.';
+        } else {
+          this.accountUpdateStatus.message = e.message;
+        }
       });
   }
 }

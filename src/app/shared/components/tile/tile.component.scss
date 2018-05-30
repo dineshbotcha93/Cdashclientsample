@@ -1,34 +1,19 @@
 @import "../../../../styles/variables";
 
-$colors : red green yellow orange;
-
-.tile-stats{
-  @each $color in $colors{
-    &.backColor-#{$color}{
-      background-color:#{$color};
-    }
-  }
-  .fahrenHeight{
-    font-size: 67px;
-  }
-
-  .relativeHumidity{
-    @extend .fahrenHeight;
-    color: $color-red;
-  }
-  .title{
-    font-size: 18px;
-  }
+.tile-container {
+  display: flex;
+  height: 100%;
 }
 
 .widget-panel {
-  padding: 40px 20px;
+  padding: 40px 20px 40px 15px;
   border-radius: $border-radius;
   color: #ffffff;
   position: relative;
   margin-bottom: 20px;
   cursor: pointer;
   min-height: 13.75rem;
+  flex-grow: 1;
 
   @media (min-width: $phone-small) and (max-width: $tablet-large){
     padding: 10px;
@@ -37,16 +22,27 @@ $colors : red green yellow orange;
 }
 
 .widget-style-2 {
-  font-family: "roboto_thin";
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 1em;
 
-  .counter {
-    font-weight: 600;
-    font-size: 2em;
-    text-shadow: 2px 2px 2px $color-grey-verydark;
+  @media (min-width: $phone-small) and (max-width: $tablet-large) {
+    font-size: 0.75em;
+    padding: 5px !important;
+    margin-bottom: 5px;
+    min-height: auto;
+  }
 
-    @media (min-width: $phone-small) and (max-width: $tablet-large) {
-      font-size: 1.5em;
-    }
+  @media (min-width: 767px) {
+    // padding-left: 30px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 30px;
+    margin-bottom: 10px;
+  }
+
+  &.special {
+    font-size: 18px;
   }
 
   i:not(.special) {
@@ -56,7 +52,7 @@ $colors : red green yellow orange;
     bottom: 0;
     font-size: 3em;
     text-align: center;
-    padding: 40px 20px;
+    padding: 40px 20px 40px 15px;
     color: $appTile-icons;
     background: $appTile-iconsBG;
     border-top-right-radius: $border-radius;
@@ -69,31 +65,39 @@ $colors : red green yellow orange;
     }
   }
 
-  .fahrenHeight {
-    font-size: 1.15em;
-    font-weight: 800;
-    text-shadow: 2px 2px 2px $color-grey-verydark;
-  }
+  .tile-details {
+    width: 75%;
+    font-size: 0.9em;
 
-  @media (min-width: $phone-small) and (max-width: $tablet-large) {
-    font-size: 0.75em;
-    padding: 5px !important;
-    margin-bottom: 5px;
-    min-height: auto;
-  }
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 1em;
+    }
 
-  @media (min-width: 767px) {
-    padding-left: 30px;
-  }
+    .tile-counter {
+      font-weight: 600;
+      font-size: 1.5em;
+      color: $colorGrey-emerson-vLightGrey;
 
-  @media (max-width: 767px) {
-    padding: 30px;
-    margin-bottom: 10px;
-  }
+      @media (min-width: $phone-small) and (max-width: $tablet-large) {
+        font-size: 1.25em;
+      }
+    }
 
+    .tile-fahrenHeight {
+      font-weight: bold;
 
-  &.special {
-    font-size: 18px;
+      @media (min-width: $laptop) {
+        font-size: 1.15em;
+      }
+    }
+
+    .tile-relativeHumidity {}
+
+    .tile-content {}
+
+    .tile-dateTime {
+      font-size: 0.8em;
+    }
   }
 }
 

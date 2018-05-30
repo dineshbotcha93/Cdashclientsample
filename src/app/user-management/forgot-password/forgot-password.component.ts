@@ -11,7 +11,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   providers: [AlertSandbox, UserManagementService]
 })
 export class ForgotPasswordComponent implements OnInit {
-  private isLoader: Boolean = false;
+  public isLoader: Boolean = false;
  // emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
  passwordResetForm = this.fb.group({
   Email: new FormControl('', [Validators.required, Validators.email])

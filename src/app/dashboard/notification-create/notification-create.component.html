@@ -1,380 +1,354 @@
 <div *ngIf="globalNotificationsList?.length === 0" class="alert alert-info">
   <span>{{notificationOperationError}}</span>
 </div>
-<div class="row">
-  <div class="col-sm-12" *ngIf="notifyOperationType == 'addNotify'">
-    <button type="button" class="btn btn-round btn-info" (click)="onClickSensorNotify()">
-      <i class="fa fa-edit"></i> Sensor Reading Notification </button>
-    <button type="button" class="btn btn-round btn-info" (click)="onClickBatteryNotify()">
-      <i class="fa fa-edit"></i> Battery Notification </button>
-    <button type="button" class="btn btn-round btn-info" (click)="onClickInActivityNotify()">
-      <i class="fa fa-edit"></i> Inactivity Notification </button>
-    <button type="button" class="btn btn-round btn-info" (click)="onClickAdvanceNotify()">
-      <i class="fa fa-edit"></i> Advanced Notification </button>
+<div class="row notification-container" *ngIf="notifyOperationType == 'addNotify'">
+  <div class="col-md-12 col-sm-12">
+    <button class="btn btn-primary" (click)="onClickSensorNotify()">Sensor Reading Notification</button>
+    <button class="btn btn-primary" (click)="onClickBatteryNotify()">Battery Notification</button>
+    <button class="btn btn-primary" (click)="onClickInActivityNotify()">Inactivity Notification</button>
+    <button class="btn btn-primary" (click)="onClickAdvanceNotify()">Advanced Notification</button>
   </div>
 </div>
-<div class="col-sm-12" *ngIf="isReadingTypeAvailable">
-  <div class="row">
-       <div class="col-sm-4">
-          <span><label class="control-label col-form-label">Type of Sensor Reading:</label></span>
+
+<div class="row notification-container" *ngIf="isReadingTypeAvailable">
+  <div class="col-md-6 col-sm-12">
+    <div class="form-group">
+      <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Type of Sensor Reading</label>
+      <div class="col-sm-12 col-md-6 col-xs-12">
+        <select class="form-control" name="sensor-reading" [ngModel]="preSelectSubNotifyType" (ngModelChange)="onChangeNotifictaion($event)">
+          <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">{{not.value}}</option>
+        </select>
       </div>
-       <div class="col-sm-4">
-         <select class="form-control" [ngModel]="selectSubNotificationList[0]" (ngModelChange)="onChangeNotifictaion($event)">
-            <option *ngFor="let not of selectSubNotificationList" [ngValue]="not">
-              {{not.value}}
-            </option>
-          </select>
-      </div>
+    </div>
   </div>
 </div>
-<!-- page 1 -->
-<div class="col-sm-12" *ngIf="isSensorNotificationForm1">
-  <div class="col-md-4 m-l-n-sm" *ngIf="!isValidForm" class="alert alert-danger">
-    <span>{{notificationOperationError || 'Please verify the details entered for your device creation'}}</span>
+
+<div class="row notification-container">
+
+  <!-- page 1 -->
+  <div *ngIf="isSensorNotificationForm1">
+    <form [formGroup]="notificationForm1" name="form" class="form-horizontal form-label-left">
+      <div class="col-md-6 col-sm-12">
+        <div class="form-group alert alert-danger" *ngIf="!isValidForm">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label"></label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <span>{{notificationOperationError || 'Please verify the details entered for your device creation'}}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label" for="notification-name">Notification Name:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input class="form-control" type="text" formControlName="name" id="notification-name" name="notification-name" placeholder="Enter Name" [(ngModel)]="notificationModel.strNotificationName">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label" for="notification-text">Notification Text:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input class="form-control" type="text" formControlName="text" id="notification-text" name="notification-text" placeholder="Enter Text" [(ngModel)]="notificationModel.strNotificationText">
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="notificationModel.subnotificationClassType === '9' && notificationModel.notificationTemplate ==='sensorNotification'">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Notification when magnet is:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <select class="form-control" formControlName="compareType" [ngModel]="selectedOpenCloseType" (ngModelChange)="onChangeSelectOpenCloseType($event)">
+              <option *ngFor="let less of selectOpenCloseType" [ngValue]="less">
+                {{less.value}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '2')">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Notify when sensor temperature reading is:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12 inline-form">
+            <select class="form-control" formControlName="compareType" [(ngModel)]="selectedTempCompareList" (ngModelChange)="onChangeLessThanValue($event)">
+              <option *ngFor="let less of selectTempCompareList" [ngValue]="less" [selected]="">
+                {{less.value}}
+              </option>
+            </select>
+            <span class="inline-form inline-form-50">
+              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid temperature" placeholder="Enter Temperature"
+                     [(ngModel)]="notificationModel.compareValue">
+            </span>
+            <span class="inline-form"><small>(Select unit)</small></span>
+            <!--<label class="col-form-label">(Select unit)</label>-->
+            <select class="form-control" formControlName="scale" [(ngModel)]="selectedTempTypeList" (ngModelChange)="onChangeTempTypeValue($event)">
+              <option *ngFor="let not of selectTempTypeList" [ngValue]="not">
+                {{not.value}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '43')">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Notify when sensor Humidity reading is:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12 inline-form">
+            <span class="inline-form">
+              <select class="form-control" formControlName="compareType" [(ngModel)]="selectedSensorHumidityType" (ngModelChange)="onChangeLessThanValue($event)">
+              <option *ngFor="let less of selectSensorHumidityType" [ngValue]="less">
+                {{less.value}}
+              </option>
+            </select>
+            </span>
+            <span class="inline-form">
+              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid temperature" placeholder="Enter Temperature"
+                     [(ngModel)]="notificationModel.compareValue">
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="notificationModel.notificationTemplate ==='batteryNotification'">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Notify when battery is below:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" formControlName="compareValue" tooltip="Enter valid number" name="compareValue" [(ngModel)]="notificationModel.compareValue"
+                   placeholder="Enter battery %">
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="notificationModel.notificationTemplate ==='inActiveNotification'">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Inactive period (minutes):</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter minutes without communication" placeholder="Enter minutes"
+                   [(ngModel)]="notificationModel.compareValue">
+          </div>
+        </div>
+
+       <!--  <ng-container *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && advancedParameterObject?.length >0">
+          <div class="form-group" *ngFor="let paramType of advancedParameterObject; let index=index">
+            <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">{{paramType.labelValue}}</label>
+            <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
+              <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number"
+              name="{{'name'+index}}"
+                [(ngModel)]= "advancedParameterObject[index].parameterValue" placeholder="">
+
+
+            </div>
+            <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="paramType.parameterObject?.length>0">
+              <select class="form-control" formControlName="parameterObject" [(ngModel)]="paramType.parameterSelectedObject">
+                <option *ngFor="let not of paramType.parameterObject" [ngValue]="not">
+                  {{not.value}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </ng-container> -->
+
+        <ng-container *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && advancedParameterObject?.length >0">
+  <div class="form-group" *ngFor="let paramType of advancedParameterObject; let index=index">
+    <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">{{paramType.labelValue}}</label>
+    <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
+      <input type="text" tooltip="Enter valid number" class="form-control"
+      name="{{'name'+index}}"
+        [(ngModel)]= "advancedParameterObject[index].parameterValue" placeholder="" [ngModelOptions]="{standalone: true}">
+
+
+    </div>
+    <div class="col-sm-12 col-md-6 col-xs-12" *ngIf="paramType.parameterObject?.length>0">
+      <select class="form-control" formControlName="parameterObject" [(ngModel)]="paramType.parameterSelectedObject">
+        <option *ngFor="let not of paramType.parameterObject" [ngValue]="not">
+          {{not.value}}
+        </option>
+      </select>
+    </div>
   </div>
-  <form [formGroup]="notificationForm1" name="form" class="form-horizontal form-label-left">
+</ng-container>
+
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Don't Alert again for (Snooze) Minutes:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="text" class="form-control" formControlName="strSnoozeAlertValue" tooltip="Enter snooze value" name="strSnoozeAlertValue"
+                   [(ngModel)]="notificationModel.strSnoozeAlertValue" placeholder="Enter snooze value">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Snooze each trigger:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12 btn-group btn-group-checkbox">
+            <label class="btn btn-primary" formControlName="scheduleSnoozeCheckLeft" [(ngModel)]="notificationModel.scheduleSnoozeCheck.left"
+                   btnCheckbox (click)="onClickIndependent($event)">Independently</label>
+            <label class="btn btn-primary" formControlName="scheduleSnoozeCheckRight" [(ngModel)]="notificationModel.scheduleSnoozeCheck.right"
+                   btnCheckbox (click)="onClickJoint($event)">Jointly</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-12 col-md-6 col-xs-12 col-form-label">Notification is active:</label>
+          <div class="col-sm-12 col-md-6 col-xs-12">
+            <input type="checkbox" formControlName="isNotificationActive" [(ngModel)]="notificationModel.isNotificationActive">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- page 2 -->
+  <div class="col-sm-12 notification-container" *ngIf="isSensorNotificationForm2">
+
     <table class="table table-striped">
       <tbody>
         <tr>
           <td>
-            <label class="control-label col-form-label">Notification Name:</label>
+            <label class="control-label col-form-label">Snooze each trigger:</label>
           </td>
           <td>
             <div class="col-md-8">
-              <input type="text" formControlName="name" class="form-control" name="name" placeholder="Enter Name" [(ngModel)]="notificationModel.strNotificationName">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label class="control-label col-form-label">Notification Text:</label>
-          </td>
-          <td>
-            <div class="col-md-8">
-              <input type="text" class="form-control" formControlName="text" name="text" placeholder="Enter Text" [(ngModel)]="notificationModel.strNotificationText">
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="notificationModel.subnotificationClassType === '9' && notificationModel.notificationTemplate ==='sensorNotification'">
-          <td>
-            <label class="control-label col-form-label">Notification when magnet is:</label>
-          </td>
-          <td>
-            <div class="col-md-8">
-              <div class="form-group ss-location">
-                <select class="form-control" formControlName="compareType" [ngModel]="selectedOpenCloseType" (ngModelChange)="onChangeSelectOpenCloseType($event)">
-                  <option *ngFor="let less of selectOpenCloseType" [ngValue]="less">
-                    {{less.value}}
-                  </option>
-                </select>
+              <div class="btn-group">
+                <label class="btn btn-primary" [(ngModel)]="notificationModel.scheduleNotificationCheck.left" btnCheckbox (click)="onClickAlways($event)">Always</label>
+                <label class="btn btn-primary" [(ngModel)]="notificationModel.scheduleNotificationCheck.right" btnCheckbox (click)="onClickSchedule($event)">Schedule</label>
               </div>
             </div>
           </td>
         </tr>
-        <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '2')">
-          <td>
-            <label class="control-label col-form-label">Notify when sensor temperature reading is:</label>
-          </td>
-          <td>
-            <div class="col-md-3">
-              <div class="form-group ss-location">
-                <select class="form-control" formControlName="compareType" [(ngModel)]="selectedTempCompareList" (ngModelChange)="onChangeLessThanValue($event)">
-                  <option *ngFor="let less of selectTempCompareList" [ngValue]="less">
-                    {{less.value}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter Temp"
-                [(ngModel)]="notificationModel.compareValue" tooltip="Enter valid number">
-            </div>
-            <div class="col-md-2">
-              <label class="control-label col-form-label">degrees</label>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group ss-location">
-                <select class="form-control" formControlName="scale" [(ngModel)]="selectTempTypeList[1]" (ngModelChange)="onChangeTempTypeValue($event)">
-                  <option *ngFor="let not of selectTempTypeList" [ngValue]="not">
-                    {{not.value}}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="(notificationModel.notificationTemplate ==='sensorNotification' &&  notificationModel.subnotificationClassType === '43')">
-          <td>
-            <label class="control-label col-form-label">Notify when sensor Humidity reading is:</label>
-          </td>
-          <td>
-            <div class="col-md-3">
-              <div class="form-group ss-location">
-                <select class="form-control" formControlName="compareType" [(ngModel)]="selectedSensorHumidityType" (ngModelChange)="onChangeLessThanValue($event)">
-                  <option *ngFor="let less of selectSensorHumidityType" [ngValue]="less">
-                    {{less.value}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter Temp"
-                [(ngModel)]="notificationModel.compareValue">
-            </div>
-          </td>
-        </tr>
-        <tr *ngIf="notificationModel.notificationTemplate ==='batteryNotification'">
-          <td>
-            <label class="control-label col-form-label">Notify when battery is below:</label>
-          </td>
-          <td>
-            <div class="col-md-4">
-              <input type="text" class="form-control" formControlName="compareValue" tooltip="Enter valid number" name="compareValue" [(ngModel)]="notificationModel.compareValue"
-                placeholder="Enter battery %">
-            </div>%
-          </td>
-        </tr>
-        <tr *ngIf="notificationModel.notificationTemplate ==='inActiveNotification'">
-          <td>
-            <label class="control-label col-form-label">Inactive period :</label>
-          </td>
-          <td>
-            <div class="col-md-4">
-              <input type="text" class="form-control" formControlName="compareValue" name="compareValue" tooltip="Enter valid number" placeholder="Enter minutes"
-                [(ngModel)]="notificationModel.compareValue">
-            </div>minutes without communication.
-          </td>
-        </tr>
-        <ng-container *ngIf="notificationModel.notificationTemplate ==='advancedNotification' && advancedParameterObject?.length >0">
-          <tr *ngFor="let paramType of advancedParameterObject">
+
+        <ng-container *ngIf="notificationModel.scheduleNotificationCheck.right">
+          <tr *ngFor="let dayily of notificationModel.scheduleDayObjectList">
             <td>
-              <label class="control-label col-form-label">{{paramType.labelValue}}</label>
+              <label class="control-label col-form-label">{{dayily.dayOfWeek}}:</label>
             </td>
             <td>
-              <div class="col-md-4" *ngIf="(paramType.parameterID !== '12' && paramType.parameterID !== '17' && paramType.parameterID !== '19' && paramType.parameterID !== '21')">
-                <input type="text" class="form-control" formControlName="parameterValue" tooltip="Enter valid number" name="parameterValue"
-                  [(ngModel)]="paramType.parameterValue" placeholder="">
-              </div>
-              <div class="col-md-4" *ngIf="paramType.parameterObject?.length>0">
+              <div class="col-md-4">
                 <div class="form-group ss-location">
-                  <select class="form-control" formControlName="parameterObject" [(ngModel)]="paramType.parameterSelectedObject">
-                    <option *ngFor="let not of paramType.parameterObject" [ngValue]="not">
+                  <select class="form-control" [ngModel]="dayily.selectScheduleObj" (ngModelChange)="onChangeScheduleObject($event,dayily)">
+                    <option *ngFor="let not of dayily.scheduleDayObject" [ngValue]="not">
                       {{not.value}}
                     </option>
                   </select>
                 </div>
               </div>
+              <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
+                || dayily.selectScheduleObj.id === '4'">
+                <timepicker [(ngModel)]="dayily.timePickerBefore" (click)="onClickBeforeTimeValue($event,dayily)"></timepicker>
+              </div>
+              <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
+                || dayily.selectScheduleObj.id === '5'">
+                <timepicker [(ngModel)]="dayily.timePickerAfter" (click)="onClickAfterTimeValue($event,dayily)"></timepicker>
+              </div>
             </td>
           </tr>
         </ng-container>
-        <tr>
-          <td> Don't Alert again for (Snooze)</td>
-          <td>
-            <div class="col-md-2">
-              <input type="text" class="form-control" formControlName="strSnoozeAlertValue" tooltip="Enter valid number" name="strSnoozeAlertValue"
-                [(ngModel)]="notificationModel.strSnoozeAlertValue" placeholder="Enter snooze value">
-            </div>
-            <div class="col-md-2"> Minutes</div>
-          </td>
-        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-12 notification-container" *ngIf="isSensorNotificationForm3">
+    Available Sensor Details:
+    <table class="table table-striped">
+      <tbody>
         <tr>
           <td>
-            <label class="control-label col-form-label">Schedule Notification Times:</label>
+            <label class="control-label col-form-label">Select Sensors From:</label>
           </td>
           <td>
             <div class="col-md-8">
-              <div class="btn-group">
-                <label class="btn btn-primary" formControlName="scheduleSnoozeCheckLeft" [(ngModel)]="notificationModel.scheduleSnoozeCheck.left"
-                  btnCheckbox (click)="onClickIndependent($event)">Independently</label>
-                <label class="btn btn-primary" formControlName="scheduleSnoozeCheckRight" [(ngModel)]="notificationModel.scheduleSnoozeCheck.right"
-                  btnCheckbox (click)="onClickJoint($event)">Jointly</label>
+              <div>
+                <ss-multiselect-dropdown [options]="mySensorOptions" [settings]="mySettings" [(ngModel)]="sensorOptionsModel" (ngModelChange)="onChangeSensorSelect($event)"></ss-multiselect-dropdown>
               </div>
             </div>
           </td>
         </tr>
-        <tr>
-          <td>
-            <label class="control-label col-form-label">Notification is active:</label>
-          </td>
-          <td>
-            <div class="col-md-8">
-              <input type="checkbox" formControlName="isNotificationActive" [(ngModel)]="notificationModel.isNotificationActive" (change)="onClickInlineCheckBox($event)">
-            </div>
-          </td>
-        </tr>
       </tbody>
     </table>
-  </form>
-</div>
-<!-- page 2 -->
-<div class="col-sm-12" *ngIf="isSensorNotificationForm2">
-
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td>
-          <label class="control-label col-form-label">Schedule Notification Times:</label>
-        </td>
-        <td>
-          <div class="col-md-8">
-            <div class="btn-group">
-              <label class="btn btn-primary" [(ngModel)]="notificationModel.scheduleNotificationCheck.left" btnCheckbox (click)="onClickAlways($event)">Always</label>
-              <label class="btn btn-primary" [(ngModel)]="notificationModel.scheduleNotificationCheck.right" btnCheckbox (click)="onClickSchedule($event)">Schedule</label>
-            </div>
-          </div>
-        </td>
-      </tr>
-
-      <ng-container *ngIf="notificationModel.scheduleNotificationCheck.right">
-        <tr *ngFor="let dayily of notificationModel.scheduleDayObjectList">
-          <td>
-            <label class="control-label col-form-label">{{dayily.dayOfWeek}}:</label>
-          </td>
-          <td>
-            <div class="col-md-4">
-              <div class="form-group ss-location">
-                <select class="form-control" [ngModel]="dayily.selectScheduleObj" (ngModelChange)="onChangeScheduleObject($event,dayily)">
-                  <option *ngFor="let not of dayily.scheduleDayObject" [ngValue]="not">
-                    {{not.value}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
-              || dayily.selectScheduleObj.id === '4'">
-              <timepicker [(ngModel)]="dayily.timePickerBefore" (click)="onClickBeforeTimeValue($event,dayily)"></timepicker>
-            </div>
-            <div class="col-md-3" *ngIf="dayily.selectScheduleObj.id === '2' || dayily.selectScheduleObj.id === '3'
-              || dayily.selectScheduleObj.id === '5'">
-              <timepicker [(ngModel)]="dayily.timePickerAfter" (click)="onClickAfterTimeValue($event,dayily)"></timepicker>
-            </div>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-</div>
-<div class="col-sm-12" *ngIf="isSensorNotificationForm3">
-  Available Sensor Details:
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td>
-          <label class="control-label col-form-label">Select Sensors From:</label>
-        </td>
-        <td>
-          <div class="col-md-8">
-            <div>
-              <ss-multiselect-dropdown [options]="mySensorOptions" [settings]="mySettings" [(ngModel)]="sensorOptionsModel" (ngModelChange)="onChangeSensorSelect($event)"></ss-multiselect-dropdown>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="sensorOptionsModel?.length > 0">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="col-md-3">Sensor Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sensor of sensorOptionsModel">
-          <td class="col-md-3">{{sensor}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="col-sm-12" *ngIf="isSensorNotificationForm4">
-  Available Gateway Details:
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td>
-          <label class="control-label col-form-label">Select Gateway From:</label>
-        </td>
-        <td>
-          <div class="col-md-8">
-            <div>
-              <ss-multiselect-dropdown [options]="myGatewayOptions" [settings]="mySettings" [(ngModel)]="gatewayOptionsModel" (ngModelChange)="onChangeGatewaySelect($event)"></ss-multiselect-dropdown>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="gatewayOptionsModel?.length > 0">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="col-md-3">Gateway Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let gateway of gatewayOptionsModel">
-          <td class="col-md-3">{{gateway}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div class="col-sm-12" *ngIf="isSensorNotificationForm5">
-  Available User Details:
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td>
-          <label class="control-label col-form-label">Select Users From:</label>
-        </td>
-        <td>
-          <div class="col-md-8">
-            <div>
-              <ss-multiselect-dropdown [options]="myUserOptions" [settings]="mySettings" [(ngModel)]="userOptionsModel" (ngModelChange)="onChangeUserSelect($event,myUserOptions)"></ss-multiselect-dropdown>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="userOptionsModel?.length > 0">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="col-md-3">User Id</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of userOptionsModel">
-          <td class="col-md-3">{{user}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div class="col-sm-12" *ngIf="isButtonFooterRequired">
-  <div class="row">
-    <div class="form-group sensor-actions">
-      <div class="col-md-4">
-       
-      </div>
-      <div class="col-md-4">
-         <button type="button" class="btn btn-primary removeBTN" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">
-          previous </button>
-        <button type="button" class="btn btn-primary addBTN" (click)="onClickNext(currentPageValue)" *ngIf="isNextButtonRequired">
-          Next </button>
-          <button type="button" class="btn btn-primary addBTN" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
-          <i class="fa fa-plus"></i> Submit </button>
-      </div>
-      </div>
-      <div class="col-md-4">
-        
+    <div *ngIf="sensorOptionsModel?.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-3">Sensor Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sensor of sensorOptionsModel">
+            <td class="col-md-3">{{sensor}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+
+  <div class="col-sm-12 notification-container" *ngIf="isSensorNotificationForm4">
+    Available Gateway Details:
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>
+            <label class="control-label col-form-label">Select Gateway From:</label>
+          </td>
+          <td>
+            <div class="col-md-8">
+              <div>
+                <ss-multiselect-dropdown [options]="myGatewayOptions" [settings]="mySettings" [(ngModel)]="gatewayOptionsModel" (ngModelChange)="onChangeGatewaySelect($event)"></ss-multiselect-dropdown>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="gatewayOptionsModel?.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-3">Gateway Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let gateway of gatewayOptionsModel">
+            <td class="col-md-3">{{gateway}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-sm-12 notification-container" *ngIf="isSensorNotificationForm5">
+    Available User Details:
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>
+            <label class="control-label col-form-label">Select Users From:</label>
+          </td>
+          <td>
+            <div class="col-md-8">
+              <div>
+                <ss-multiselect-dropdown [options]="myUserOptions" [settings]="mySettings" [(ngModel)]="userOptionsModel" (ngModelChange)="onChangeUserSelect($event,myUserOptions)"></ss-multiselect-dropdown>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="userOptionsModel?.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-3">User Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userOptionsModel">
+            <td class="col-md-3">{{user}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div *ngIf="isButtonFooterRequired">
+    <div class="form-group">
+      <div class="col-md-12 pull-right">
+        <button type="button" class="btn btn-primary" (click)="onClickPrevious(currentPageValue)" *ngIf="isPreviousButtonRequired">previous </button>
+        <button type="button" class="btn btn-primary" (click)="onClickNext(currentPageValue)" *ngIf="isNextButtonRequired">Next </button>
+        <button type="button" class="btn btn-primary" (click)="onClickCreateNotification(currentPageValue)" *ngIf="isSensorNotificationForm5">
+          Submit
+        </button>
+
+        <button class="btn btn-primary" (click)="onClickCancelTransact()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
 </div>
-<!-- </div> -->
 <ng-template #notificationTemplate>
   <!-- <tr *ngIf="(templateName ==='sensorNotification' )||  (selectSubNotificationList.id === '14' && templateName ==='advancedNotification')"> -->
 </ng-template>

@@ -85,20 +85,21 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('amountColTmpl') amountColTmpl: TemplateRef<any>;
   @ViewChild('actionsColTmpl') actionsColTmpl: TemplateRef<any>;
   private responseData: Object = null;
-  private accountData: Array<AccountData> = [];
+  public accountData: Array<AccountData> = [];
   private UpdateAccountData: Array<AccountData> = [];
   private networkData: Array<NetworkData> = [];
   private userRows: Array<UserData> = null;
   private userColumns: Array<any> = [];
-  private renewalRows: Array<PaymentHistoryData> = null;
-  private renewalColumns: Array<any> = [];
+  public renewalRows: Array<PaymentHistoryData> = null;
+  public renewalColumns: Array<any> = [];
   private loggedInUserId: number;
   private editRecordUserId: number;
   private newRecordUserId: number;
   private myNetworks: Array<any> = [];
-  private loadPage: Boolean = false;
-  private isShowUserTable: Boolean = true;
+  public loadPage: Boolean = false;
+  public isShowUserTable: Boolean = true;
   private labelRenewal: string = null;
+  private isSubscriptionExpired: Boolean = false;
   private expiryDate: Date = null;
   private isNotifBtn: Boolean = false;
   private isNetworkBtn: Boolean = false;
@@ -110,19 +111,19 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private isNtWorkProfile: Boolean = true;
   private isUserFormValid: Boolean = false;
   private isDirectSMS: Boolean = false;
-  private isAdmin: Boolean = true;
-  private limit = 10;
+  public isAdmin: Boolean = true;
+  public limit = 10;
   private timeZones: Array<object> = [];
   private accId: number;
   private isEditForm: Boolean = false;
-  private isLoader: Boolean = false;
+  public isLoader: Boolean = true;
 
   userForm = this.fb.group({
     dashboardUserName: new FormControl('', [Validators.required, Validators.email]),
     dashboardPassword: new FormControl('', [Validators.required,
-      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!@%*#?&^()$])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     confirmPassword: new FormControl('', [Validators.required,
-       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
+       Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!@%*#?&^()$])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     isAdmin: new FormControl('')
@@ -212,7 +213,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
       this.navigateToNetworkSection();
     })
       .catch(e => {
-        this.toastr.error(e.message);
+        if (e.status === 400) {
+        this.toastr.error(JSON.parse(e._body).Message);
+        }
       });
   }
   private prepareSaveData() {
@@ -259,8 +262,10 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   private updateRenewalLabel() {
     if (this.expiryDate.getTime() > new Date().getTime()) {
       this.labelRenewal = 'Due on';
+      this.isSubscriptionExpired = false;
     } else {
       this.labelRenewal = 'Overdue by';
+      this.isSubscriptionExpired = true;
     }
   }
   addUser() {

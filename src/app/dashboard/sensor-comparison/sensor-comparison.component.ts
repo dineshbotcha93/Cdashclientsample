@@ -24,14 +24,14 @@ const now = new Date();
 })
 
 export class SensorComparisonComponent{
-  private sensorName:string = '1156073157';
-  private sensorNames:Array<Object> = [];
+  public sensorName:String = '';
+  public sensorNames:Array<Object> = [];
   private data:Array<any>=[];
   public chartLabels:Array<any>=[];
   public chartColors: Array<any> = [ChartColors];
-  private networkName:string = '';
+  public networkName:string = '';
   private location:number = 0;
-  public chartOptions = null;
+  public chartOptions: any = ChartOptions;
   private netWorkId = null;
   @ViewChild("baseChart") chart: BaseChartDirective;
 
@@ -54,7 +54,7 @@ export class SensorComparisonComponent{
     this.chartOptions = ChartOptions;
     this.chartOptions.legend = {
       labels: {
-        fontColor: '#fff'
+        fontColor: '#333'
       },
       onClick:function(e,legendItem){
         this.sensorNames.push({
@@ -79,7 +79,6 @@ export class SensorComparisonComponent{
     let allNames:Array<Object> = [];
     let allSensorIds: Array<Object> = [];
     this.netWorkId = localStorage.getItem("com.cdashboard.selectedNetworkId");
-    if(!environment.production){
       this.sensorSummaryService.getSingleUserLocation(this.netWorkId).then((result)=>{
         result.sensors.forEach((allSensors)=>{
           allSensorIds.push(this.sensorDetailsService.getDetails(allSensors.sensorID));
@@ -87,22 +86,30 @@ export class SensorComparisonComponent{
         return allSensorIds;
       }).then((allSensorIds)=>{
         Promise.all(allSensorIds).then((result:Array<SensorDetail>)=>{
+          allNames.push({label:'--Select Sensor --',value:''});
           result.forEach((res:SensorDetail)=>{
             allNames.push({label:res.sensorName,value:res.sensorID});
           });
         });
       });
-    }
     return allNames;
   }
 
   test(){
   }
 
-  onDateChange(event){
+  onDateChange(event, target) {
     console.log(event);
-  }
+    // let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+    // let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
 
+    // if (target === 'fromDate') {
+    //   fromDate = moment(event).format('MM/DD/YYYY');
+    // } else {
+    //   toDate = moment(event).format('MM/DD/YYYY');
+    // }
+  }
+ 
   addSensor(){
     let tempData = [];
     this.location++;

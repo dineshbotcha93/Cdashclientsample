@@ -10,6 +10,7 @@ import { MapComponent }     from './map/map.component';
 import { NotificationComponent } from './notification/notification.component';
 import { LanguageDropdownComponent } from './languageDropdown/languageDropdown.component';
 import { DataTableComponent } from './dataTable/dataTable.component';
+import { DatepickerComponent} from './datepicker/datepicker.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { Tab } from './tabs/tab.component';
 import { Tabs } from './tabs/tabs.component';
@@ -23,6 +24,7 @@ import { CreateNetworkComponent } from "./createNetwork/createNetwork.component"
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxGaugeModule } from 'ngx-gauge';
 
@@ -35,6 +37,7 @@ export const COMPONENTS = [
   LanguageDropdownComponent,
   MapComponent,
   DataTableComponent,
+  DatepickerComponent,
   AlertsComponent,
   Tab,
   Tabs,
@@ -50,6 +53,7 @@ export const COMPONENTS = [
     CommonModule,
     PipesModule,
     NgxDatatableModule,
+    BsDatepickerModule.forRoot(),
     NgxGaugeModule,
     AgmCoreModule.forRoot({
      apiKey: 'AIzaSyBzgI77Zkjsakww8mMHBFXEo4io7SkW-0M',
