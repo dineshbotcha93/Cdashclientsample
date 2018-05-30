@@ -27,5 +27,20 @@
         <img src="./assets/images/CooperAtkins_Logo.svg" alt="Cooper Atkins logo" class="login-logo-bottom">
       </div>
     </section>
+    <section class="login_content" style="margin-top: 20px;">
+      <form [formGroup]="anonymousPayments" (ngSubmit)="submitAnonymousPayment()">
+        <h1 style="margin-bottom: 10px;">Quick Pay?</h1>
+        <div class="alert alert-danger" *ngIf="invalidInvoice">Invalid Invoice ID</div>
+        <div class="row">
+          <!--<input type="submit" value="Pay" class="btn btn-primary col-sm-4">-->
+          <div class="col-sm-9">
+            <input type="text" class="form-control col-sm-8" formControlName="invoiceId" placeholder="Enter Invoice Number"/>
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-primary">Pay</button>
+          </div>
+        </div>
+      </form>
+    </section>
   </div>
 </div>
