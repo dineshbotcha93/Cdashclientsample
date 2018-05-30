@@ -106,7 +106,7 @@ export class SensorDetailsComponent {
         fontColor: '#000000'
       }
     };
-    this.onDateChange(event, 'fromDate');// TEMP FIX - AS DATEPICKERS  ARE COMMENTED
+   this. onDateChange(event, 'fromDate');
   }
   ngAfterViewInit() {
     this.tabs.forEach((e) => {
@@ -134,8 +134,6 @@ export class SensorDetailsComponent {
     let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
     let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
 
-    // TEMP FIX - AS DATEPICKERS  ARE COMMENTED, UNCOMMENT FOLLOWING CODE WHEN DATEPICKERS ARE USED
-    
     // if (target === 'fromDate') {
     //   fromDate = moment(event).format('MM/DD/YYYY');
     // } else {

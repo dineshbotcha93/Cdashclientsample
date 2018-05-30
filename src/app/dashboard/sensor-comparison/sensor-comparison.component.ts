@@ -98,10 +98,18 @@ export class SensorComparisonComponent{
   test(){
   }
 
-  onDateChange(event){
+  onDateChange(event, target) {
     console.log(event);
-  }
+    // let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
+    // let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
 
+    // if (target === 'fromDate') {
+    //   fromDate = moment(event).format('MM/DD/YYYY');
+    // } else {
+    //   toDate = moment(event).format('MM/DD/YYYY');
+    // }
+  }
+ 
   addSensor(){
     let tempData = [];
     this.location++;

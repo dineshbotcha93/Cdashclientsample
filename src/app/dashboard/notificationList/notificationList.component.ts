@@ -74,6 +74,7 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
     this.filterByStatus();
     this.columns.push({ prop: 'notificationDate', name: 'Notification Date', cellTemplate: this.nDateColTmpl });
     this.columns.push({ prop: 'name', name: 'Name'});
+    this.columns.push({ prop: 'notificationClass', name: 'Type' });
     this.columns.push({ prop: 'deviceName', name: 'Device Name', cellTemplate: this.deviceNameColTmpl});
     this.columns.push({ prop: 'reading', name: 'Reading' });
     // this.columns.push({ prop: 'notificationType', name: 'Notification Type' });
