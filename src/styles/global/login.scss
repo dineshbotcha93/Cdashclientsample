@@ -12,8 +12,8 @@
   text-shadow: none;
   background: $color-body-bg-lt;
   padding: 40px;
-  border-radius: 20px;
-  box-shadow: 10px 10px 15px $color-black;
+  //border-radius: 20px;
+  //box-shadow: 10px 10px 15px $color-black;
 
   @media (min-width: $phone-small) and (max-width: $phone-large) {
     padding: 20px;
@@ -51,7 +51,15 @@
   }
 
   .login-logo {
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
+    width: auto;
+    height: 150px;
+  }
+
+  .login-logo-bottom {
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
   }
 
   .login-title {

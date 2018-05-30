@@ -43,11 +43,13 @@ export class UserCreateComponent implements OnInit {
       firstName: [this.userRegisterModel.firstName, [Validators.required]],
       lastName: [this.userRegisterModel.lastName, [Validators.required]],
       email: [this.userRegisterModel.email, [Validators.required]],
-      password: [this.userRegisterModel.password, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]],
-      confirmPassword: [this.userRegisterModel.confirmPassword, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g)]],
+      password: [this.userRegisterModel.password, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]],
+      confirmPassword: [this.userRegisterModel.confirmPassword, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^()])[A-Za-z\d$@$!%*#?&^()]{8,}$/g)]],
       notifEyeUsername: [this.userRegisterModel.notifEyeUsername, null],
       notifEyePassword: [this.userRegisterModel.notifEyePassword, null],
-    });
+    },
+    { validator: this.checkIfPasswordsMismatch('password', 'confirmPassword') }
+  );
 
     config.placement = 'right';
     /*config.triggers = 'focus';*/
@@ -81,17 +83,21 @@ export class UserCreateComponent implements OnInit {
       if (this.userCreateForm.get('isNewMaster').value === 'true') {
         const userData = this.populateRegisterNewUserModel();
         this.userManagementService.saveRegistrationData(userData);
-        this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
+        this.router.navigate(['/user-register/user-create/fill-details'], { queryParams: { email: this.userRegisterModel.email}});
       } else {
         this.userManagementService.registerExistingNotifEyeUser(this.populateRegisterExistingUserModel(), this.registrationToken)
           .then((data) => {
             localStorage.setItem('com.cdashboard.token', data);
             this.userManagementService.saveRegistrationData(this.populateRegisterExistingUserModel());
-            this.router.navigate(['/user-register/user-create/' + this.userRegisterModel.email + '/fill-details']);
+            this.router.navigate(['/user-register/user-create/fill-details', { queryParams: { email: this.userRegisterModel.email}}]);
           })
-          .catch((error: Error) => {
+          .catch((error) => {
             this.isValidForm = false;
-            this.userCreationError = error.message;
+            if (error.status === 400) {
+              this.userCreationError = 'Invalid NotifEye Username or Password, please try again.';
+            } else {
+              this.userCreationError = error.message;
+            }
           });
       }
 
@@ -132,7 +138,7 @@ export class UserCreateComponent implements OnInit {
     console.log('not implemented yet');
   }
 
-  masterChange() {
+  masterChange(event: any = null) {
     if (this.userCreateForm.get('isNewMaster').value === 'true') {
       this.userCreateForm.get('firstName').setValidators([Validators.required]);
       this.userCreateForm.get('lastName').setValidators([Validators.required]);
@@ -148,6 +154,15 @@ export class UserCreateComponent implements OnInit {
       this.userCreateForm.get('notifEyeUsername').updateValueAndValidity();
       this.userCreateForm.get('notifEyePassword').setValidators([Validators.required]);
       this.userCreateForm.get('notifEyePassword').updateValueAndValidity();
+    }
+  }
+  checkIfPasswordsMismatch(passwordKey: string, confirmPasswordKey: string) {
+    return(userCreateForm: FormGroup) => {
+      let pwd = userCreateForm.controls[passwordKey],
+        confirmPwd = userCreateForm.controls[confirmPasswordKey];
+        if (pwd.value !== confirmPwd.value) {
+          return confirmPwd.setErrors({ notEquivalent: true, Validators: 'required'});
+        }
     }
   }
 }

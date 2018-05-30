@@ -1,27 +1,46 @@
-<app-alerts></app-alerts>
+
 <div class="login_wrapper">
   <div class="form login_form">
     <section class="login_content">
       <form [formGroup]="myform" (ngSubmit)="onSubmit()">
-        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
-        <h1 class="login-title">{{'login.componentHeading'|translate}}</h1>
-
+        <img src="./assets/images/emersonLogo.svg" alt="Emerson logo" class="login-logo">
         <div>
-          <div class="alert alert-danger" *ngIf="myform.controls.username.invalid && !myform.controls.username.pristine">Invalid Username</div>
+          <app-alerts></app-alerts>
+
+          <div class="alert alert-danger" *ngIf="myform.controls.username.invalid && !myform.controls.username.pristine">
+            <h3>Invalid Username</h3>
+          </div>
           <input type="text" class="form-control" formControlName="username" placeholder="{{'login.loginForm.username' | translate}}"/>
           <input type="password" class="form-control" formControlName="password" placeholder="{{'login.loginForm.password' | translate}}"/>
         </div>
         <div>
-          <input type="submit" value="{{'login.loginForm.loginButton' | translate}}" class="btn btn-primary">
-          <a class="reset_pass" href="#">Forgot Your Password?</a>
-        </div>
-        <div>
-          <div class="clearfix"></div>
+          <button type="submit" class="btn btn-primary">{{'login.loginForm.loginButton' | translate}}</button>
         </div>
       </form>
-      <div class="separator">
+
+      <div>
         <button [routerLink]="['/user-register']" class="btn btn-default submit">{{'login.loginForm.newUser'| translate}}</button>
       </div>
+
+      <div class="separator">
+        <a class="reset_pass" [routerLink]="['/forgot-password']">Forgot Your Password?</a>
+        <img src="./assets/images/CooperAtkins_Logo.svg" alt="Cooper Atkins logo" class="login-logo-bottom">
+      </div>
+    </section>
+    <section class="login_content" style="margin-top: 20px;">
+      <form [formGroup]="anonymousPayments" (ngSubmit)="submitAnonymousPayment()">
+        <h1 style="margin-bottom: 10px;">Quick Pay?</h1>
+        <div class="alert alert-danger" *ngIf="invalidInvoice">Invalid Invoice ID</div>
+        <div class="row">
+          <!--<input type="submit" value="Pay" class="btn btn-primary col-sm-4">-->
+          <div class="col-sm-9">
+            <input type="text" class="form-control col-sm-8" formControlName="invoiceId" placeholder="Enter Invoice Number"/>
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-primary">Pay</button>
+          </div>
+        </div>
+      </form>
     </section>
   </div>
 </div>

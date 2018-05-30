@@ -1,0 +1,13 @@
+@import "../../../../styles/variables";
+
+.btn-disable {
+  color: $colorUI-emerson-black;
+  background: $colorBrand-emerson-grey;
+}
+
+.copy-address {
+  display:flex;
+  align-items: flex-start;
+  padding-top:10px;
+  padding-left:0px;
+}

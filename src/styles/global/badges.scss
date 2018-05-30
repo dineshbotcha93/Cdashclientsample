@@ -1,0 +1,16 @@
+@import "../variables";
+
+.badges {
+  display: inline-block;
+  padding: 2px 15px;
+  margin: 2px;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  color: $colorUI-emerson-black;
+  background: $colorGrey-emerson-vLightGrey;
+  border-radius: $border-radius-big;
+
+  label {
+    margin-bottom: 0;
+  }
+}

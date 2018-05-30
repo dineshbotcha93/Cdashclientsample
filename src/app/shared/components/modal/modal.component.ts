@@ -13,6 +13,9 @@ export class ModalComponent {
   @Input()
   isOpen = false;
 
+  @Input()
+  closeTitle: string;
+
   closeResult: string;
 
   constructor(private modalService: NgbModal) {

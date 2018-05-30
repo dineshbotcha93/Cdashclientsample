@@ -23,12 +23,12 @@ export interface TileDetail {
   styleUrls: ['./business.component.scss'],
 })
 export class BusinessComponent {
-  private tileData: Array<TileDetail> = [];
+  public tileData: Array<TileDetail> = [];
   private mapData = null;
   private mapConstants = MapConstants.STATUS;
   private pieChartLabels: Array<any> = [];
   private pieChartData: Array<any> = [];
-  private loadedStatuses = false;
+  public loadedStatuses = false;
   public pieChartColors: Array<any> = [
     {
       backgroundColor: ["#D9534F", "#F0AD4E", "#26B99A", "#3498DB"]
@@ -59,28 +59,15 @@ export class BusinessComponent {
        this.pieChartData.push(tileObj.count);
       }
       realResults.customers.forEach(element => {
-        // mapService.geoCode(element.address).then((geoCoded)=>{
-        //   if(geoCoded.results[0]){
-        //     element.lat = geoCoded.results[0].geometry.location.lat;
-        //     element.lng = geoCoded.results[0].geometry.location.lng;
-        //   }
-        // });
         element.lat = element.latitude;
         element.lng = element.longitude;
       });
-      this.loadedStatuses = true;
+     // this.loadedStatuses = true;
       localStorage.setItem('com.cdashboard.customerData', JSON.stringify(realResults.customers));
       return realResults;
     }).then((mData) => {
       this.mapData = mData.customers;
-     // this.loadedStatuses = true;
+     this.loadedStatuses = true;
     });
-
-    // mapService.getData().subscribe(e => {
-    //   this.mapData = e;
-    //   this.mapData.height = '100px';
-    //   console.log(e);
-    // });
   }
-
 }

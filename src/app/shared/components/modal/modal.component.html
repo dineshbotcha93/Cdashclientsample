@@ -13,7 +13,9 @@
         <ng-content></ng-content>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closePopup()">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closePopup()">
+          {{closeTitle|| 'Close'}}
+        </button>
         <!--<button type="button" class="btn btn-primary">Save changes</button>-->
       </div>
 

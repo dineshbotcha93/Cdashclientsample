@@ -20,11 +20,12 @@ export class NetworkSetupComponent implements OnInit {
   private limit: number = 10;
   public items: Array<any> = null;
   showPopup = false;
+  cancelTitle = 'Cancel';
   showEditPopup = false;
   modalMessage ='';
   disableSubmitButton = true;
   @ViewChild('editModal') editModal: TemplateRef<any>;
-  private rows = null;
+  public rows = null;
   isEdit = false;
   selectedNetworkID = 0;
   addressForm: FormGroup;
@@ -41,6 +42,7 @@ export class NetworkSetupComponent implements OnInit {
   latitude:0,
   longitude:0
   };
+  latestCoordinates: any = null;
 
 
   constructor(private fb: FormBuilder, private networkSetupService : NetworkSetupService, private mapService : MapService, private router:Router,  private userManagementService: UserManagementService) {
@@ -80,11 +82,11 @@ export class NetworkSetupComponent implements OnInit {
 
   }
 
-  private addFormControl(name: string, formGroup: FormGroup) : void {
+  public addFormControl(name: string, formGroup: FormGroup) : void {
     this.networkFormSetup.addControl(name, formGroup);
   }
 
-  onSubmit() {
+  onSubmit(type: any = null) {
     console.log('Submit Add', this.networkFormSetup.get("createNetworkForm").value);
 
     this.prepareSubmitData(this.networkFormSetup.get("createNetworkForm").value);
@@ -144,6 +146,10 @@ export class NetworkSetupComponent implements OnInit {
     this.networkFormSetup.setValue({createNetworkForm:populatedData});
   }
 
+  capturedCoordinates($event){
+    this.latestCoordinates = $event;
+  }
+
   prepareSubmitData(formData) {
 
     this.networkModel.address = formData.address.street;
@@ -163,28 +169,24 @@ export class NetworkSetupComponent implements OnInit {
     this.networkModel.country = formData.address.country;
     this.networkModel.name = formData.name;
     this.networkModel.isActive = true;
-
-    this.mapService.geoCode(formData.address.street+this.networkModel.address2+formData.address.city+formData.address.country).then((geoCoded)=>{
-
-      //if invalid address add error message
-      if(geoCoded.results[0]){
-
-        this.networkModel.latitude = geoCoded.results[0].geometry.location.lat;
-        this.networkModel.longitude = geoCoded.results[0].geometry.location.lng;
-
-      }
-    });
+    this.networkModel.latitude = this.latestCoordinates.latitude;
+    this.networkModel.longitude = this.latestCoordinates.longitude;
   }
+
+
 
   goToProfile() {
     this.networkSetupService.fetchUserInfo()
-      .then(() => {
-        console.log('routing to profile', this.userManagementService.getRegistrationData().email);
-        localStorage.setItem('currentUser', JSON.stringify({'username': this.userManagementService.getRegistrationData().email}));
+      .then((response) => {
+        //console.log('routing to profile', this.userManagementService.getRegistrationData().email);
+      //  localStorage.setItem('currentUser', JSON.stringify({'username': this.userManagementService.getRegistrationData().email}));
+      localStorage.setItem('currentUser', JSON.stringify({'username': response.email}));
+      localStorage.setItem('com.cdashboard.userInfoObject', JSON.stringify(response));
         this.router.navigate(['user-profile']);
       });
   }
-  addNetwork(){
+  addNetwork() {
+    this.networkFormSetup.reset();
     this.showPopup = true;
   }
 
@@ -193,12 +195,41 @@ export class NetworkSetupComponent implements OnInit {
     this.showPopup = false;
   }
 
-  private prepareDataTableColumns() {
-    this.columns.push({ prop: 'title', name: 'Network Name'});
-    this.columns.push({ prop: 'city', name: '', cellTemplate: this.editModal});
+  copyAccountAddress() {
+    this.networkSetupService.fetchUserInfo()
+      .then((response) => {
+        console.log('response', this.networkFormSetup);
+        const accountDetails = response.account[0];
+
+        const populatedData = {
+          name: '',
+          address: {
+            street: accountDetails.address,
+            housenumber: accountDetails.address2,
+            city: accountDetails.city,
+            zipcode: accountDetails.postalCode,
+            state: accountDetails.state,
+            country: accountDetails.country
+          },
+          isActive: true
+        };
+        this.networkFormSetup.setValue({createNetworkForm: populatedData});
+        /*this.networkFormSetup.address2 = accountDetails.address2;
+        this.networkFormSetup.city = accountDetails.city;
+        this.networkFormSetup.country = accountDetails.country;
+        this.networkFormSetup.state = accountDetails.state;
+        this.networkFormSetup.postalCode = accountDetails.postalCode;
+        this.networkFormSetup.latitude = accountDetails.latitude;
+        this.networkFormSetup.longitude = accountDetails.longitude;*/
+      });
   }
 
-  private enableSubmit($event){
+  private prepareDataTableColumns() {
+    this.columns.push({ prop: 'title', name: 'Network Name'});
+    this.columns.push({ prop: 'city', name: 'City', cellTemplate: this.editModal});
+  }
+
+  public enableSubmit($event){
     console.log("caught enable");
     this.disableSubmitButton = !$event;
     console.log($event);

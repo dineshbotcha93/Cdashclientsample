@@ -1,33 +1,36 @@
-<app-alerts (close)="onClose()"></app-alerts>
+<app-alerts></app-alerts>
 
 <div class="login_wrapper onboarding_container">
   <div class="form login_form">
     <section class="login_content">
       <form name="form" (ngSubmit)="onSubmit()">
-        <img src="./assets/images/CooperAtkins_Logo.svg" alt="" class="login-logo">
+        <img src="./assets/images/emersonLogo.svg" alt="Emerson logo" class="login-logo">
         <!--<h3>{{'userRegistration.title'|translate}}</h3> -->
+        <div class="alert success-alert" *ngIf="this.isEmailVerified">
+          <span>{{successMessage}}</span>
+        </div>
+        <div *ngIf="!isValidForm" class="alert alert-danger">
+          <span>{{userRegistrationError}}</span>
+        </div> 
         <div class="inner-addon">
           <span class="inner-addon-icon"><i class="fa fa-envelope"></i></span>
           <input type="email" class="form-control" name="email" [(ngModel)]="userRegisterModel.email" required placeholder="Email"/>
         </div>
 
-        <div class="form-group">
-          <div class="clearfix"></div>
-          <input type="submit" value="Verify" class="btn btn-primary m-l-none">
-        </div>
-
-
+          <div class="m-t-md">
+            <button class="btn btn-default submit">Verify</button>
+          </div>
 
       </form>
 
-      <div class="verifyEmailNotes-container gap-top">
-        <p>
-          <b>Note:</b>
-        {{'userRegistration.registrationMessage'|translate}}
-        </p>
-        <p>
-          <a (click)="showPopup = true" value="Additional Setup"><i class="fa fa-arrow-right"></i> Additional Setup</a>
-        </p>
+      <div class="m-t-md">
+
+          <p><b>Note:</b> {{'userRegistration.registrationMessage'|translate}}</p>
+
+        <div class="separator">
+          <a (click)="showPopup = true" value="Additional Setup">Additional Setup</a>
+          <img src="./assets/images/CooperAtkins_Logo.svg" alt="Cooper Atkins logo" class="login-logo-bottom">
+        </div>
       </div>
 
         <!--<div class="alert alert-info alert-dismissible fade in">

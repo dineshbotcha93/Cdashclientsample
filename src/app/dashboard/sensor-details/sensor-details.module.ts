@@ -13,6 +13,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalContentComponent } from './modals/modalContent.component';
 
+import 'hammerjs';
+import 'chartjs-plugin-zoom';
+import 'chartjs-plugin-annotation';
+
 
 const routes:Routes= [{
   path:'',component:SensorDetailsComponent

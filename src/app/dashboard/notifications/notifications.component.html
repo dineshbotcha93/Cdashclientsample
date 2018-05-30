@@ -22,7 +22,7 @@
     <div class="col-md-4" *ngIf="notificationRadio === 'summary' || notificationRadio === 'addNotify'">
        <div class="form-group sensor-actions">
           <button *ngIf = "isAddButtonRequired" type="button"
-             class="btn btn-primary addBTN"
+             class="btn btn-primary"
              (click)="onClickAddNotification()" ><i class="fa fa-plus"></i> Add Notification</button>
           <button *ngIf = "isResetButtonRequired" type="button"
              class="btn btn-primary removeBTN"
@@ -44,7 +44,7 @@
 
     <div *ngIf="notificationRadio === 'summary'">
        <div class="col-md-12 dark-theme">
-           <app-notification-summary 
+           <app-notification-summary
            (editNotifyModeEvent) = "recieveEditNotifyValue($event)">
            </app-notification-summary>
        </div>

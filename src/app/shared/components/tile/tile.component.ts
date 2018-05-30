@@ -9,6 +9,12 @@ import {
 import { TileSandbox }  from './tile.sandbox';
 import { MapConstants } from '../../../shared/components/map/constants/map.constants';
 
+export interface TileDetails {
+  fahrenHeight: string;
+  relativeHumidity: string;
+  title: string;
+  lastCommunicationDate: string;
+}
 
 @Component({
   selector:'app-tile',
@@ -17,6 +23,7 @@ import { MapConstants } from '../../../shared/components/map/constants/map.const
   providers:[TileSandbox],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class TileComponent {
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() customClick = new EventEmitter<MouseEvent>();
@@ -25,7 +32,7 @@ export class TileComponent {
   @Input() tileContent: string;
   @Input() tileColor: string;
   @Input() tileColorBy?: string;
-  @Input() tileDetails?: object;
+  @Input() tileDetails?: TileDetails;
   @Input() sensorTileIcon?: string;
   @Input() sensor?: any;
   private mapStatus = MapConstants.STATUS;
@@ -81,14 +88,16 @@ export class TileComponent {
       case this.mapConstants.NEW_STATUS_NUMBERS.ALERT:
       const recordedTemp = parseFloat(tileContent);
       if(this.sensor.status !== this.mapConstants.SENSOR_TYPE.CONTACT){
-        if(recordedTemp > this.sensor.minimumThreshold){
-          return 'bg-warning';
+        if(recordedTemp < this.sensor.minimumThreshold){
+          return 'bg-info';
         } else if(recordedTemp > this.sensor.maximumTreshold){
+          return 'bg-pink';
+        } else {
           return 'bg-pink';
         }
       }
       case this.mapConstants.NEW_STATUS_NUMBERS.SLEEPING:
-      return 'bg-info';
+      return 'bg-warning';
       case this.mapConstants.NEW_STATUS_NUMBERS.WARNING:
       return 'bg-lowBattery';
     }
@@ -104,7 +113,7 @@ export class TileComponent {
         if(tileContent == 'Closed'){
           return 'fa-lock';
         } else {
-          return 'fa-lock-open';
+          return 'fa-unlock';
         }
         default:
         return 'fa-tablet';

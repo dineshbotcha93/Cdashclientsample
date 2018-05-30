@@ -22,6 +22,50 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+## Running test coverage reports
+
+Run `npm run coverage` to execute istanbul test coverage reports on the codebase. It will generate a folder called coverage, and then view the index.html file through a web browser to see how much code coverage has been done using your test cases.
+
+## Creating a sample test:
+
+Your testing (spec file) should have something like this in every spec file.
+```javascript
+beforeEach(fakeAsync(() => {
+  TestBed.configureTestingModule({
+    declarations: [
+      DashboardComponent
+    ],
+    imports: [
+      SharedModule,
+      RouterModule.forRoot(routes),
+    ],
+    providers:[
+      {provide: APP_BASE_HREF, useValue: '/'},
+    ],
+    schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  }).overrideComponent(DashboardComponent, {
+  set: {
+    providers: [
+      {provide: TranslateService, useClass: MockTranslation},
+      {provide: DashboardService, useClass: MockDashboardService},
+      {provide: MapService, useClass: MockMapService},
+      { provide: Router, useValue: mockRouter},
+    ]
+  }
+});
+ fixture = TestBed.createComponent(DashboardComponent);
+ fixture.detectChanges();
+ component = fixture.componentInstance;
+}));
+```
+
+To make sure that only the tests which you want to run execute, use fdescribe instead of describe: such as follows:
+```javascript
+fdescribe('DashboardComponent',()=>{
+...
+  });
+  ```
+
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).

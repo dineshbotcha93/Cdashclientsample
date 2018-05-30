@@ -24,7 +24,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { ModalModule } from 'ngx-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap';
+import { NgxToggleModule } from "ngx-toggle";
 
 
 const routes: Routes = [{
@@ -43,6 +45,7 @@ const routes: Routes = [{
     CommonModule,
     PipesModule,
     FormsModule,
+    NgxToggleModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     SharedModule,
@@ -50,7 +53,8 @@ const routes: Routes = [{
     TimepickerModule.forRoot(),
     MultiselectDropdownModule,
     BsDatepickerModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   exports: [
     CreateDeviceComponent,

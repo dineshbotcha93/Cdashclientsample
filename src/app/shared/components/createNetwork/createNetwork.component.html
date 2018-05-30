@@ -1,16 +1,21 @@
 <form [formGroup]="createNetworkForm" class="form-horizontal form-label-left">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="form-group">
+      <label for="name" class="col-form-label col-md-4 col-sm-4 col-xs-12">Location Name</label>
+      <div class="col-md-8 col-sm-8 col-xs-12">
+        <input name="name" class="form-control" type="text" formControlName="name" placeholder="Network Name" />
 
-  <div class="form-group">
-    <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Network Name</label>
-    <div class="inner-addon col-md-6 col-sm-6 col-xs-12">
-      <span class="inner-addon-icon"><i class="fa fa-address-card"></i></span>
-      <input name="name" class="form-control" type="text" formControlName="name" placeholder="Network Name" />
-      <div *ngIf="createNetworkForm.get('name').touched">
-        <div class="error" *ngIf="createNetworkForm.get('name').hasError('required')">Network Name is required.</div>
+        <div class="col-md-8 col-sm-8 col-xs-12" style="display:flex;align-items: flex-start;padding-top:10px;padding-left:0px;">
+          <button class="btn btn-default" (click)="copyAddress()">Copy Account Address</button>
+        </div>
+        <div *ngIf="createNetworkForm.get('name').touched">
+          <div class="error" *ngIf="createNetworkForm.get('name').hasError('required')">Location Name is required.</div>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-12 col-md-12 col-lg-12">
-    <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="isValidAddress($event)"></address-form-component>
+    <address-form-component (formReady)="addFormControl('address', $event)" (validAddress)="isValidAddress($event)" (coordinates)="grabCoordinates($event)"></address-form-component>
   </div>
 </form>

@@ -1,0 +1,52 @@
+@import "./../variables";
+
+.infoCard-container {
+  //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  color: $colorUI-emerson-black;
+  min-width: auto;
+
+  @media (min-width: $phone-small) and (max-width: $phone-large) {
+    width: 100%;
+  }
+
+  .card-small {
+    padding: 10px;
+    margin: 0 10px 10px 0;
+    min-width: 10rem;
+    display: inline-block;
+    //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 1.25rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid $color-grey-light;
+    border-radius: $border-radius-medium;
+    background: $color-grey-verylight;
+
+    @media (min-width: $phone-small) and (max-width: $phone-large) {
+      font-size: 1.1rem;
+      min-width: auto;
+      width: 100%;
+    }
+
+    .value {
+      //font-family: "roboto_regular", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      color: $color-yellow;
+      font-size: 2rem;
+      text-shadow: 1px 1px 1px $color-grey-verydark;
+      display: block;
+      line-height: 20px;
+
+      @media (min-width: $phone-small) and (max-width: $phone-large) {
+        font-size: 1.5rem;
+      }
+
+      &.inline {
+        display: inline-block;
+      }
+    }
+  }
+
+  .card-button {
+    display: inline-block
+  }
+}

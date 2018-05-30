@@ -1,0 +1,17 @@
+@import "../../../styles/variables";
+
+.custom-alert {
+  display: flex;
+  align-content: center
+}
+
+@media (max-width: $phone-medium) {
+  .custom-alert {
+    max-width: 100%;
+  }
+}
+
+a {
+  cursor: pointer;
+  text-decoration: underline;
+}

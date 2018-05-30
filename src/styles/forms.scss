@@ -12,23 +12,64 @@ select {
 
 // ------> Button
 .btn {
-  background-color: $color-grey-verylight;
-  border: 1px solid $color-grey-light;
-  color: $color-grey-verydark;
-  border-radius: 20px;
-  padding: 6px 15px;
+  background-color: $color-emerson-brand-blue;
+  border: none;
+  color: $color-white;
+  padding: 10px 12px;
+  margin: 0 5px 0 0;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: none;
+  width: auto;
 
   i.fa {
     padding-right: 7px;
   }
 
-  &:hover, &:focus, &:active {
-    border: 1px solid $color-grey-light;
+  a[type="button"] {
+    color: $colorUI-emerson-black;
+  }
+
+  &:hover {
     background-color: $color-grey-light;
     transition: background-color 0.5s ease;
     -webkit-transition: background-color 0.5s ease;
     -moz-transition: background-color 0.5s ease;
     -o-transition: background-color 0.5s ease;
+  }
+
+  &:focus, &:active {
+    background-color: $color-emerson-brand-blue;
+    transition: background-color 0.5s ease;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+  }
+
+  &.icon-only {
+    i {
+      font-size: 20px;
+      padding: 0;
+    }
+  }
+
+  &.btn-light {
+    background: $colorGrey-emerson-vLightGrey;
+    color: $colorUI-emerson-black;
+  }
+
+  &.btn-transparent {
+    background: transparent;
+    color: $colorUI-emerson-black;
+    padding: 5px;
+
+    &:active {
+      box-shadow: none;
+    }
   }
 
   &.saveBTN {
@@ -85,6 +126,10 @@ select {
       border: 0;
     }
   }
+
+  @media (min-width: $phone-small) and (max-width: $tablet-small) {
+    margin: 0 5px 5px 0;
+  }
 }
 
 .payment-button {
@@ -102,6 +147,8 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   box-shadow: none;
+  border-radius: 0;
+  border: 1px solid $colorBrand-emerson-grey;
 
   &[readonly="true"] {
     background: $color-grey-light;
@@ -140,14 +187,65 @@ input[type="password"] {
     font-size: 0.85em;
     color: $color-redLight;
   }
+
+  label {
+    color: $colorUI-emerson-black;
+
+    &.col-form-label {
+      font-weight: normal;
+    }
+  }
 }
 
-.btn-disable
-{
+.btn-disable {
  cursor: not-allowed;
  pointer-events: none;
 
  /*Button disabled - CSS color class*/
  color: #c0c0c0;
- background-color: #ffffff;
+ background-color: $color-white;
+}
+
+.inline-form {
+  span.inline-form {
+    width: auto;
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+
+    &.inline-form-50 {
+      width: 50%;
+    }
+
+    &:last-child {
+      margin: 0 10px 0 0;
+    }
+  }
+}
+
+.btn-group-checkbox {
+  label {
+    font-weight: normal;
+    color: $colorUI-emerson-black;
+    border-left: 1px solid $color-white;
+    border-right: 1px solid $color-white;
+    background: $colorGrey-emerson-lightGrey;
+
+    &:hover {
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+      background: $colorGrey-emerson-grey;
+    }
+
+    &.active {
+      background: $color-emerson-brand-blue;
+    }
+
+    &:first-child {
+      border-left: none;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
 }

@@ -1,22 +1,29 @@
 <app-layout>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_panel">
-        <div class="x_title">
-          <h3>{{'sensorComparison.comparisonTitle' | translate}}: {{networkName}}</h3>
-          <button type="button" class="btn btn-primary" value="Back" (click)="goBack()">
-            <i _ngcontent-c1="" class="fa fa-chevron-left"></i>Back
-          </button>
-          <div class="clearfix"></div>
-        </div>
+      <h3>{{'sensorComparison.comparisonTitle' | translate}}</h3>
+      <div class="clearfix"></div>
+    </div>
 
-        <div class="loader" *ngIf="sensorNames.length == 0"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="loader" *ngIf="sensorNames.length == 0"></div>
+    </div>
 
-        <div class="x_content">
-          <div class="row" *ngIf="sensorNames.length > 0">
-            <div class="col-xs-12 col-sm-4 col-lg-6 col-md-6  float-right">
+
+    <div class="col-md-6 col-sm-12 col-xs-12 sensor-compare" *ngIf="sensorNames.length > 0">
+
+            <!-- <div class="col-md-6 col-sm-12 col-xs-12">
+               {{'global.from'|translate}} 
+               <app-datepicker [(bsValue)]="bsValue" (dateChange)="onDateChange($event, 'fromDate')"></app-datepicker>
+            </div> -->
+            <!-- <div class="col-md-6 col-sm-12 col-xs-12">
+               {{'global.to'|translate}} 
+               <app-datepicker [(bsValue)]="bsValueTwo" (dateChange)="onDateChange($event, 'toDate')"></app-datepicker>
+            </div> -->
+
+            <!--<div class="col-xs-12 col-sm-12 col-lg-3 col-md-3" *ngIf="sensorNames.length > 0">
               <div class="form-group">
-                <div class="input-group date">
+                <div class="input-group">
                   <input type="text"
                          class="form-control"
                          [minDate]="minDate"
@@ -30,9 +37,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-4 col-lg-6 col-md-6  float-right">
+            <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3" *ngIf="sensorNames.length > 0">
               <div class="form-group">
-                <div class="input-group date">
+                <div class="input-group">
                   <input type="text"
                          class="form-control"
                          [minDate]="minDate"
@@ -45,39 +52,45 @@
                   </span>
                 </div>
               </div>
-            </div>
-          </div>
+            </div>-->
 
+    </div>
 
-      <form class="form-horizontal m-l-n-sm" role="form" *ngIf="sensorNames.length > 0">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <form class="form-horizontal" role="form" *ngIf="sensorNames.length > 0">
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="form-group">
+            <label></label>
             <select name="sort" [(ngModel)]="sensorName" class="form-control" (change)="test()">
               <option value="{{sensor.value}}" *ngFor='let sensor of sensorNames'>{{sensor.label}}</option>
             </select>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-          <input type="button" class="btn btn-primary" value="Add Sensor" (click)="addSensor()"/>
-          <input type="button" class="btn btn-primary" value="Print Chart" (click)="print()" />
-          <!--<input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />
-          <input type="button" class="btn btn-primary" value="Reset Chart" (click)="reset('chart')" />-->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <br> <!--need this hack -->
+            <button class="btn btn-primary" (click)="addSensor()">Add Sensor</button>
+            <button class="btn btn-primary" (click)="print()">Print Chart</button>
+            <!--<input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />
+            <input type="button" class="btn btn-primary" value="Reset Chart" (click)="reset('chart')" />-->
+          </div>
         </div>
       </form>
-          <div class="graph-card" *ngIf="sensorNames.length > 0">
+    </div>
+
+      <div class="col-md-12 col-sm-12 col-xs-12 graph-card" *ngIf="sensorNames.length > 0">
         <canvas
           baseChart width="100%" height="100%"
-        #baseChart="base-chart"
-        [chartType]="'line'"
-        [datasets]="chartData"
-        [labels]="chartLabels"
-        [options]="chartOptions"
-        *ngIf="chartData.length > 0"
-        [legend]="true">
-      </canvas>
-    </div>
-        </div>
+          #baseChart="base-chart"
+          [chartType]="'line'"
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          *ngIf="chartData.length > 0"
+          [legend]="true">
+        </canvas>
       </div>
-    </div>
+
+
   </div>
 </app-layout>

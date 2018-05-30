@@ -14,9 +14,47 @@ table {
 }
 
 .sensor-summary-info {
+  .ssCard-name {
+    font-size: 1.5em;
+    padding-right: 10px;
+    display: inline-block;
+    color: $colorUI-emerson-black;
+    border-right: 1px solid $colorUI-emerson-black;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 1.3em;
+    }
+  }
+  .ssCard-id {
+    font-size: 1.2em;
+    padding-right: 10px;
+    color: $colorUI-emerson-black;
+    border-right: 1px solid $colorUI-emerson-black;
+
+    @media (min-width: $phone-small) and (max-width: $tablet-large) {
+      font-size: 1em;
+    }
+  }
+
+  .ssCard-count {
+    font-size: 1.2em;
+    padding: 0 10px;
+    color: $colorUI-emerson-black;
+    border-right: 1px solid $colorUI-emerson-black;
+
+    .value {
+      color: $color-emerson-brand-blue;
+    }
+
+    &:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+  }
+
   .ss-location {
-    margin-top: 10px;
-    margin-bottom: 50px;
+    //margin-top: 10px;
+    //margin-bottom: 50px;
 
     @media (min-width: $phone-small) and (max-width: $tablet-large) {
       font-size: 0.85em;
@@ -81,5 +119,8 @@ table {
   .sensor-actions {
     float: right;
   }
+  input[type='radio'] {
+    margin-right:20px;
+    margin-left:20px;
+  }
 }
-

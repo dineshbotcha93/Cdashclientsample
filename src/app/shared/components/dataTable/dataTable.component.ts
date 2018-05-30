@@ -24,4 +24,5 @@ export class DataTableComponent {
   @Input() rows;
   @Input() columns;
   @Input() limit;
+  @Input() reorderable;
 }

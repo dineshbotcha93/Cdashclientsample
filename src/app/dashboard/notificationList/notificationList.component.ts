@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  AfterViewInit,
   Input,
   Output,
   ViewChild ,
@@ -10,33 +11,43 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableComponent } from '../../shared/components/dataTable/dataTable.component';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import { Location } from "@angular/common";
+import { Location } from '@angular/common';
 import { NotificationListService } from './notificationList.service';
+import { UserProfileService } from '../../user-profile/services/user-profile.service';
+import {moment} from 'ngx-bootstrap/chronos/test/chain';
+
+export interface ModalMessage {
+  name: string;
+  email: string;
+  smsNumber: string;
+  text: string;
+}
 
 @Component({
   selector: 'app-notificationList',
   templateUrl: './notificationList.component.html',
   styleUrls: ['./notificationList.component.scss'],
-  providers: [NotificationListService]
+  providers: [NotificationListService, UserProfileService]
 })
-export class NotificationListComponent implements OnInit {
-
-
+export class NotificationListComponent implements OnInit, AfterViewInit {
 
   private columns: Array<any> = [];
-  private limit: number = 10;
+  private limit = 10;
   public items: Array<any> = null;
+  public allRows: Array<any> = null;
   private statusParam: string = null;
-  private doFilterByStatus: string = '';
+  public doFilterByStatus = '';
+  private accountID;
   @ViewChild('nDateColTmpl') nDateColTmpl: TemplateRef<any>;
   @ViewChild('sTypeColTmpl') sTypeColTmpl: TemplateRef<any>;
+  @ViewChild('deviceNameColTmpl') deviceNameColTmpl: TemplateRef<any>;
 
   showPopup = false;
-  modalMessage ='';
+  modalMessage:ModalMessage = null;
 
-  private bsValue: Date = new Date();
-  private bsValueTwo: Date = new Date();
-  private rows = [];
+  fromDate: string = moment().subtract(1, 'days').format('MM-DD-YYYY');
+  toDate: string = moment().add(1, 'days').format('MM-DD-YYYY');
+  public rows = null;
 
 
 
@@ -44,7 +55,8 @@ export class NotificationListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private _location: Location,
-    private notificationListService: NotificationListService
+    private notificationListService: NotificationListService,
+    private userProfileService: UserProfileService,
   ) {
 
     this.route.params.subscribe((params) => {
@@ -54,11 +66,6 @@ export class NotificationListComponent implements OnInit {
     });
 
     this.items = this.rows;
-    console.log('hereee');
-    this.notificationListService.getNotificationList().then(e=>{
-      console.log(e);
-      this.rows = e;
-    });
   }
 
   ngOnInit() {
@@ -67,47 +74,59 @@ export class NotificationListComponent implements OnInit {
     this.filterByStatus();
     this.columns.push({ prop: 'notificationDate', name: 'Notification Date', cellTemplate: this.nDateColTmpl });
     this.columns.push({ prop: 'name', name: 'Name'});
-    this.columns.push({ prop: 'deviceName', name:'Device Name'});
+    this.columns.push({ prop: 'notificationClass', name: 'Type' });
+    this.columns.push({ prop: 'deviceName', name: 'Device Name', cellTemplate: this.deviceNameColTmpl});
     this.columns.push({ prop: 'reading', name: 'Reading' });
-    //this.columns.push({ prop: 'notificationType', name: 'Notification Type' });
-    //this.columns.push({ prop: 'deviceType', name: 'Device Type' });
+    // this.columns.push({ prop: 'notificationType', name: 'Notification Type' });
+    // this.columns.push({ prop: 'deviceType', name: 'Device Type' });
     this.columns.push({ prop: 'type', name: 'Sent Type', cellTemplate: this.sTypeColTmpl });
     this.columns.push({ prop: 'status', name: 'Status' });
   }
 
   filterByStatus() {
     const criteria = this.doFilterByStatus.toLowerCase();
-    this.rows = this.items;
-    if (criteria !== '') {
+    this.rows = this.allRows;
+    if (criteria !== '' && this.rows) {
       this.rows = this.rows.filter((item) => {
         switch (criteria) {
           case 'alerts':
-            return (item.type.toLowerCase() === 'alerts') ? item : "";
+            return (item.notificationClass.toLowerCase() === 'alerts') ? item : '';
           case 'lowbattery':
-            return (item.type.toLowerCase() === 'lowbattery') ? item : "";
+            return (item.notificationClass.toLowerCase() === 'lowbattery') ? item : '';
           case 'advanced':
-            return (item.type.toLowerCase() === 'advanced') ? item : "";
-          case 'missedCommunication':
-            return (item.type.toLowerCase() === 'missedCommunication') ? item : "";
+            return (item.notificationClass.toLowerCase() === 'advanced') ? item : '';
+          case 'offline':
+            return (item.notificationClass.toLowerCase() === 'offline') ? item : '';
           default: return item;
         }
       });
     }
   }
 
+  ngAfterViewInit() {
+    this.userProfileService.getRealData()
+      .then(data => {
+        this.accountID = data.user.account[0].accountID;
+        this.notificationListService.getNotificationList(this.accountID, this.fromDate, this.toDate).then(e => {
+          this.rows = e;
+          this.allRows = e;
+        });
+      });
+  }
+
   onChange($event) {
-    //console.log('::::on change',$event);
-    this.bsValue = $event;
-    this.items = this.rows.filter(item =>
-      new Date(item.notificationDate).getTime() > this.bsValue.getTime() && new Date(item.notificationDate).getTime() < this.bsValueTwo.getTime());
+    this.fromDate = $event;
+    this.items = this.rows
+      .filter(item => new Date(item.notificationDate).getTime() > new Date(this.fromDate).getTime()
+        && new Date(item.notificationDate).getTime() < new Date(this.toDate).getTime());
     this.rows = this.items;
   }
 
   onChangeToDp($event) {
-    //console.log('::::on changeDP',$event);
-    this.bsValueTwo = $event;
+    this.toDate = $event;
     this.items = this.rows.filter(item =>
-      new Date(item.notificationDate).getTime() > this.bsValue.getTime() && new Date(item.notificationDate).getTime() < this.bsValueTwo.getTime());
+      new Date(item.notificationDate).getTime() > new Date(this.fromDate).getTime()
+      && new Date(item.notificationDate).getTime() < new Date(this.toDate).getTime());
     this.rows = this.items;
   }
 
@@ -127,216 +146,6 @@ export class NotificationListComponent implements OnInit {
     console.log(event);
     this.showPopup = false;
   }
-
-  // rows = [
-  //   {
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Sensor",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "alerts",
-  //     "status": "EMAIL Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Sensor",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-03-18T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "lowbattery",
-  //     "status": "SMS Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Gateway",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-19T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "advanced",
-  //     "status": "SMS Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Gateway",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:40:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "missedCommunication",
-  //     "status": "EMAIL Sent"
-  //   },
-  //   {
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Sensor",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-03-19T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "alerts",
-  //     "status": "EMAIL Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Sensor",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-19T12:23:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "lowbattery",
-  //     "status": "SMS Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Gateway",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "advanced",
-  //     "status": "SMS Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Gateway",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "missedCommunication",
-  //     "status": "EMAIL Sent"
-  //   },
-  //   {
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Sensor",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "alerts",
-  //     "status": "EMAIL Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Sensor",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "lowbattery",
-  //     "status": "SMS Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Gateway",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "advanced",
-  //     "status": "SMS Sent"
-  //   },{
-  //     "notificationID": 1,
-  //     "name": "1.2 1153232008 Temp Walk in Frig #1",
-  //     "notificationType": "Advanced",
-  //     "deviceID": 3,
-  //     "deviceName": "Gateway",
-  //     "deviceType": "Application",
-  //     "reading": "435.6° F",
-  //     "notificationDate": "2018-02-17T12:53:49.1382867-05:00",
-  //     "text": "sample string 8",
-  //     "sentNotificationID": 9,
-  //     "userID": 10,
-  //     "userName": "Cooper One",
-  //     "smsNumber": "+1 123 456 7890",
-  //     "email": "cooper@cooper.com",
-  //     "type": "missedCommunication",
-  //     "status": "EMAIL Sent"
-  //   }
-  // ];
 
 
 }

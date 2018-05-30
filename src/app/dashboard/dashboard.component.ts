@@ -30,14 +30,14 @@ export interface tileDetail{
 })
 export class DashboardComponent extends AbstractDashboardBase implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
-  private mapData = [];
+  public mapData = [];
   private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
   private objectKeys = Object.keys;
-  private loadedStatuses = false;
-  private showList = false;
-  private showMap = true;
-  private rows:Array<any>=['N/A'];
+  public loadedStatuses = false;
+  public showList = true;
+  public showMap = false;
+  public rows:Array<any>=['N/A'];
 
   constructor(
     private dashboardService: DashboardService,
@@ -68,10 +68,15 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
         this.totalStatuses['missedCommunication'].count+= rResult.missedCommunication;
         this.totalStatuses['lowSignal'].count+= rResult.lowSignal;
         this.totalStatuses['lowBattery'].count+= rResult.lowBattery;
-        console.log(rResult);
+        const addressData = (rResult.address || '')+ ', '
+        + (rResult.address2 || '') + ', '
+        + (rResult.city|| '') + ', '
+        + (rResult.state || '') +', '
+        + (rResult.postalCode || '') + ', '
+        + (rResult.country || '') + '';
         this.rows.push({
           title:rResult.title,
-          address:rResult.address+ ' ' + rResult.address2 + ' ' + rResult.city,
+          address: addressData,
           id:rResult.id,
           lat: rResult.latitude,
           lng: rResult.longitude
@@ -114,7 +119,7 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
   }
 
   gotoNotificationList(sensor) {
-  console.log(':::::::::goToNotificationList' , sensor);
+  // console.log(':::::::::goToNotificationList' , sensor);
     this.router.navigate(['dashboard/notificationList',sensor.status]);
   }
 
