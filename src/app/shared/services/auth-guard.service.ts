@@ -10,6 +10,13 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate( route : ActivatedRouteSnapshot, state : RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
+
+    console.log('route', route);
+
+    if (route.routeConfig.path === 'payments' && route.queryParamMap.get('invoiceId')) {
+      return true;
+    }
+
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) return true;
 

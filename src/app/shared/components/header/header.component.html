@@ -10,17 +10,25 @@
 
       <ul class="nav navbar-nav navbar-left m-l-sm">
         <li role="presentation">
-          <a (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin"><i class="fa fa-home"></i></a>
+          <a (click)="goToLink('/dashboard')" *ngIf="!isCooperAdmin && !anonymous"><i class="fa fa-home"></i></a>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <!--<li class="lang-dd"><app-languagedropdown (currentLanguage)="catchLanguage($event)"></app-languagedropdown></li>-->
         <li>
-          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span>{{userEmail}} <i class="fa fa-caret-down"></i></span>
-            <span class=" fa fa-angle-down"></span>
+          <a href="javascript:;"  *ngIf="!anonymous" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+            <div>
+              <span>{{userEmail}} <i class="fa fa-caret-down"></i></span>
+              <span class=" fa fa-angle-down"></span>
+            </div>
           </a>
+
+          <div *ngIf="anonymous" class="anonymous-profile">
+            <span>{{userEmail}}</span>
+          </div>
+
           <ul class="dropdown-menu dropdown-usermenu pull-right">
             <li><a (click)="goToLink('/user-profile')">My Account</a></li>
             <!-- <li>
