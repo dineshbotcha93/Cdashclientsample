@@ -14,7 +14,7 @@ COPY package.json /usr/src/CDashboard
 RUN apk add --update nodejs nodejs-npm
 
 # Get all the code needed to run the app
-COPY ./dist/* /usr/src/CDashboard
+COPY ./dist/*.* /usr/src/CDashboard
 
 # Expose the port the app runs in
 EXPOSE 81
