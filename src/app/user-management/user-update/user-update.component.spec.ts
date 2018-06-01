@@ -26,7 +26,7 @@ fdescribe('UserUpdateComponent', () => {
       declarations: [ UserUpdateComponent ],
       providers:[{
         provide: ActivatedRoute, useValue: {
-          queryParams: Observable.of({ id: 'test' })
+          params: Observable.of({ id: 'test' })
         },
       },{
         provide: Router, useValue: {
