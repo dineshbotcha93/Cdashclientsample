@@ -14,6 +14,11 @@ fdescribe('UserNotificationsComponent', () => {
     getGlobalNotificationsList(){
       return Promise.resolve();
     }
+    getNotificationSettingsDetails(){
+      return Promise.resolve([{
+        userID:'123'
+      }]);
+    }
   }
 
   beforeEach(async(() => {
@@ -24,13 +29,13 @@ fdescribe('UserNotificationsComponent', () => {
       ]
     })
     .overrideComponent(UserNotificationsComponent, {
-  set: {
-    providers: [
-      {provide: UserProfileService, useClass: UserProfileServiceMock},
-      {provide: SensorSummaryService, useClass: SensorSummaryServiceMock}
-    ]
-  }
-}).compileComponents();
+      set: {
+        providers: [
+          {provide: UserProfileService, useClass: UserProfileServiceMock},
+          {provide: SensorSummaryService, useClass: SensorSummaryServiceMock}
+        ]
+      }
+    }).compileComponents();
   }));
 
   beforeEach(() => {
