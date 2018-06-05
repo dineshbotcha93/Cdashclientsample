@@ -33,6 +33,8 @@ import { SharedModule } from './shared/modules/shared.module';
 import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 import { AlertSandbox } from './shared/components/alerts/alerts.sandbox';
 
+import { LoggerService } from "./shared/services/logger.service";
+import { ConsoleLoggerService } from "./shared/services/console-logger.service";
 
 const appRoutes: Routes = [{
   path:'',redirectTo:'login', pathMatch:'full',
@@ -118,7 +120,8 @@ if(!environment.production)
       useFactory: (backend: XHRBackend, options: BaseRequestOptions) => {
           return new ProductionInterceptor(backend,options);
       }
-    }
+    },
+    { provide: LoggerService, useClass: ConsoleLoggerService },
   ],
   bootstrap: [AppComponent]
 })
