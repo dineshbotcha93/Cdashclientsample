@@ -6,6 +6,7 @@ import { Store }              from '@ngrx/store';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
+import { LoggerService } from "../../shared/services/logger.service";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     private translate: TranslateService,
     private alertSandbox: AlertSandbox,
     private router: Router,
+    private logger: LoggerService,
   ) {
     this.translate.use('en');
   }
@@ -40,8 +42,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.myform.valid) {
-      console.log("form is valid");
-      console.log(this.loginSandbox$.doLogin(this.myform));
+      this.logger.warn("form is valid!");
+      this.logger.warn(this.loginSandbox$.doLogin(this.myform));
     } else {
       console.log(this.myform);
       this.alertSandbox.showAlert({data: "Invalid Login", autohide: false});

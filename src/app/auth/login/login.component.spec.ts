@@ -13,6 +13,8 @@ import { LoginSandbox } from './login.sandbox';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { LoggerService } from "../../shared/services/logger.service";
+import {ConsoleLoggerService} from "../../shared/services/console-logger.service";
 
 fdescribe('LoginComponent',()=>{
   let component: LoginComponent;
@@ -67,7 +69,8 @@ fdescribe('LoginComponent',()=>{
   set: {
     providers: [
       {provide: LoginSandbox, useClass: MockLoginSandbox},
-      {provide: TranslateService, useClass: MockTranslation}
+      {provide: TranslateService, useClass: MockTranslation},
+      {provide: LoggerService, useClass: ConsoleLoggerService}
     ]
   }
   }).compileComponents();
