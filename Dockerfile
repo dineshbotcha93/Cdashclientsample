@@ -17,11 +17,13 @@ RUN npm install
 # Get all the code needed to run the app
 COPY ./dist/ /usr/src/CDashboard/
 
+
 # Expose the port the app runs in
 EXPOSE 81
 
 # Serve the app
 CMD ["npm", "start"]
+
 
 FROM nginx:1.13
 COPY --from=node /usr/src/CDashboard/dist/ /usr/share/nginx/html
