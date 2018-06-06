@@ -15,7 +15,7 @@ RUN apk add --update nodejs nodejs-npm
 RUN npm install
 
 # Get all the code needed to run the app
-COPY ./dist/ /usr/src/CDashboard/
+COPY ./dist /usr/src/CDashboard/dist
 
 
 # Expose the port the app runs in
@@ -26,5 +26,5 @@ CMD ["npm", "start"]
 
 
 FROM nginx:1.13
-COPY --from=node /usr/src/CDashboard/dist/ /usr/share/nginx/html
+COPY --from=node /usr/src/CDashboard/dist /usr/share/nginx/html
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
