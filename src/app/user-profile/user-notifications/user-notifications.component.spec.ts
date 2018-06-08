@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UserProfileService } from '../services/user-profile.service';
 import { SensorSummaryService } from '../../dashboard/sensor-summary/services/sensor-summary.service';
 
-fdescribe('UserNotificationsComponent', () => {
+describe('UserNotificationsComponent', () => {
   let component: UserNotificationsComponent;
   let fixture: ComponentFixture<UserNotificationsComponent>;
 

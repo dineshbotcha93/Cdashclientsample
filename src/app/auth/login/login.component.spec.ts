@@ -3,7 +3,7 @@ import { LoginComponent } from './login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../shared/components';
 import { SharedModule } from '../../shared/modules/shared.module';
-import {Routes,RouterModule} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
@@ -14,16 +14,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-fdescribe('LoginComponent',()=>{
+describe('LoginComponent',()=>{
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-
-  const routes: Routes = [
-    { path:'',component: LoginComponent }
-  ]
+  let app;
 
   class MockLoginSandbox {
     getData(){
+
+    }
+    doLogin(){
 
     }
   };
@@ -39,6 +39,9 @@ fdescribe('LoginComponent',()=>{
     get(key,interpolation){
       return Observable.of(key);
     }
+    setDefaultLang(x){
+      return x;
+    }
   }
 
 
@@ -53,7 +56,7 @@ fdescribe('LoginComponent',()=>{
         {provide: APP_BASE_HREF, useValue: '/'},
       ],
       imports:[
-        RouterModule.forRoot(routes),
+        RouterTestingModule.withRoutes([]),
         FormsModule,
         ReactiveFormsModule,
         ComponentsModule,
@@ -75,12 +78,12 @@ fdescribe('LoginComponent',()=>{
 
   beforeEach(()=>{
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+    app = fixture.debugElement.componentInstance;
   });
 
   it('should place the component on the page', async(()=>{
-    const fixture = TestBed.createComponent(LoginComponent);
-    fixture.detectChanges();
-    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
   it('should have the username field', async(()=>{
@@ -97,4 +100,34 @@ fdescribe('LoginComponent',()=>{
     $('input[formcontrolname="password"]').val("test");
     expect($("input[formcontrolname='password']").val()).toEqual("test");
   }));
+  it('should test the onSubmit() method - doLogin case', async(()=>{
+    spyOn(app.loginSandbox$,"doLogin").and.callThrough();
+    app.myform.setValue({username:"test","password":"test"});
+    app.onSubmit();
+    expect(app.loginSandbox$.doLogin).toHaveBeenCalled();
+  }));
+  it('should test the onSubmit() method - showAlert case', async(()=>{
+    spyOn(app.alertSandbox,"showAlert").and.callThrough();
+    app.onSubmit();
+    expect(app.alertSandbox.showAlert).toHaveBeenCalled();
+  }));
+  it('should test the submitAnonymousPayment() method', async(()=>{
+    app.anonymousPayments.setValue({invoiceId:12});
+    spyOn(app.router,"navigate");
+    app.submitAnonymousPayment();
+    expect(app.router.navigate).toHaveBeenCalledWith(['/payments'],{queryParams: { invoiceId:12}});
+  }));
+  it('should test the submitAnonymousPayment() with an invalid anonymousPayments value', async(()=>{
+    app.invalidInvoice = false;
+    app.submitAnonymousPayment();
+    expect(app.invalidInvoice).toEqual(true);
+  }));
+  it('should set the language', ()=>{
+    const lang = 'en';
+    spyOn(app.translate,'setDefaultLang');
+    spyOn(app.translate,'use');
+    app.catchLanguage(lang);
+    expect(app.translate.setDefaultLang).toHaveBeenCalled();
+    expect(app.translate.use).toHaveBeenCalled();
+  });
 });

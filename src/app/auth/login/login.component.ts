@@ -15,8 +15,8 @@ import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
   providers: [LoginSandbox, AlertSandbox],
 })
 export class LoginComponent implements OnInit {
-  private myform: FormGroup;
-  anonymousPayments: FormGroup;
+  public myform: FormGroup;
+  public anonymousPayments: FormGroup;
   invalidInvoice = false;
   constructor(
     public loginSandbox$: LoginSandbox,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.translate.use('en');
   }
 
-  ngOnInit(){
+  public ngOnInit(){
     this.myform = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(50)]),
       password: new FormControl('', [Validators.required]),

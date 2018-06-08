@@ -10,7 +10,7 @@ import { BusinessService } from '../services/business.service';
 import { Observable } from 'rxjs/Observable';
 
 
-fdescribe('CustomerListComponent', () => {
+describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
   let fixture: ComponentFixture<CustomerListComponent>;
 

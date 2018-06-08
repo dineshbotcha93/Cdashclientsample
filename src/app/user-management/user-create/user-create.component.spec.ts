@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import {UserManagementService} from '../user-management.service';
 import {CommonSharedService} from '../../shared/services/common-shared.service';
 
-fdescribe('UserCreateComponent', () => {
+describe('UserCreateComponent', () => {
   let component: UserCreateComponent;
   let fixture: ComponentFixture<UserCreateComponent>;
 

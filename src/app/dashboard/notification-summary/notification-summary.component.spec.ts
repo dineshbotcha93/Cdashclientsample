@@ -5,7 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { NotificationSummaryComponent } from './notification-summary.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
-fdescribe('NotificationSummaryComponent', () => {
+describe('NotificationSummaryComponent', () => {
   let component: NotificationSummaryComponent;
   let fixture: ComponentFixture<NotificationSummaryComponent>;
 

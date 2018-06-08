@@ -10,7 +10,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import { AuthGuard } from '../shared/services/auth-guard.service';
 
 
-fdescribe('BusinessComponent', () => {
+describe('BusinessComponent', () => {
   let component: BusinessComponent;
   let fixture: ComponentFixture<BusinessComponent>;
 

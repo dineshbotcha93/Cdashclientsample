@@ -10,7 +10,7 @@ import { CommonSharedService } from '../shared/services/common-shared.service';
 import { NgbModule,NgbTooltipConfig, NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 import {ToastModule,ToastsManager} from 'ng2-toastr/ng2-toastr';
 
-fdescribe('UserProfileComponent', () => {
+describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
 

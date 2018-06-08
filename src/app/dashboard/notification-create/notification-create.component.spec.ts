@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { TimepickerModule } from 'ngx-bootstrap';
 import { SensorSummaryService } from "../sensor-summary/services/sensor-summary.service";
 
-fdescribe('NotificationCreateComponent', () => {
+describe('NotificationCreateComponent', () => {
   let component: NotificationCreateComponent;
   let fixture: ComponentFixture<NotificationCreateComponent>;
 

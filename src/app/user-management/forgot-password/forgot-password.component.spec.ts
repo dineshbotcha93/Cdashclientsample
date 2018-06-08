@@ -6,7 +6,7 @@ import {Routes,RouterModule,Router} from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { UserManagementService } from '../user-management.service';
 
-fdescribe('ForgotPasswordComponent', () => {
+describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
   let fixture: ComponentFixture<ForgotPasswordComponent>;
 
@@ -15,7 +15,7 @@ fdescribe('ForgotPasswordComponent', () => {
   }
 
   class MockUserManagementService {
-    
+
   }
 
   const routes: Routes = [

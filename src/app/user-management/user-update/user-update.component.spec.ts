@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { UserManagementService } from '../user-management.service';
 
-fdescribe('UserUpdateComponent', () => {
+describe('UserUpdateComponent', () => {
   let component: UserUpdateComponent;
   let fixture: ComponentFixture<UserUpdateComponent>;
 

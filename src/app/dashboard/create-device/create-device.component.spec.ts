@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CreateDeviceService } from "./services/create-device.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-fdescribe('CreateDeviceComponent', () => {
+describe('CreateDeviceComponent', () => {
   let component: CreateDeviceComponent;
   let fixture: ComponentFixture<CreateDeviceComponent>;
 

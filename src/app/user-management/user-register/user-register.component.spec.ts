@@ -9,7 +9,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AlertSandbox } from '../../shared/components/alerts/alerts.sandbox';
 
-fdescribe('UserRegisterComponent', () => {
+describe('UserRegisterComponent', () => {
   let component: UserRegisterComponent;
   let fixture: ComponentFixture<UserRegisterComponent>;
 
@@ -22,7 +22,7 @@ fdescribe('UserRegisterComponent', () => {
   }
 
   class AlertSandboxMock {
-    
+
   }
 
   const routes = [{

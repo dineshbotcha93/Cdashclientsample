@@ -11,7 +11,7 @@ import {Routes,RouterModule,Router} from '@angular/router';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 
 
-fdescribe('DashboardComponent',()=>{
+describe('DashboardComponent',()=>{
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let mockRouter = {
