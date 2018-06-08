@@ -62,7 +62,7 @@ export class CustomerListComponent implements OnInit {
 
 
   updateFilter(event) {
-    if (event.target.value !== undefined && event.target.value !== '') {
+    if (event.target && event.target.value !== undefined && event.target.value !== '') {
       const lowerValue = event.target.value.toLowerCase();
       this.items = this.rows.filter(
         item => item.name.toLowerCase().indexOf(lowerValue) !== -1
