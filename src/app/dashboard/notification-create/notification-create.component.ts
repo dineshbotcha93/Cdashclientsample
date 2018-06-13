@@ -104,10 +104,14 @@ export class NotificationCreateComponent implements OnInit {
   }
 
   setEditNotifyDetails() {
-
-     let sensorGlobalList = this.globalNotificationsList.sensors;
-        let gatewayGlobalList = this.globalNotificationsList.gateways;
-        let userGlobalList = this.globalNotificationsList.users;
+    let sensorGlobalList;
+    let gatewayGlobalList;
+    let userGlobalList;
+    if(this.globalNotificationsList){
+      sensorGlobalList = this.globalNotificationsList.sensors;
+      gatewayGlobalList = this.globalNotificationsList.gateways;
+      userGlobalList = this.globalNotificationsList.users;
+    }
 
     if (
       this.notifyOperationType === "editNotify" ||
@@ -641,9 +645,11 @@ export class NotificationCreateComponent implements OnInit {
     let userInfoObject = JSON.parse(
       localStorage.getItem("com.cdashboard.userInfoObject")
     );
-    userInfoObject["account"].forEach(loc => {
-      this.accountID = loc.accountID;
-    });
+    if(userInfoObject){
+      userInfoObject["account"].forEach(loc => {
+        this.accountID = loc.accountID;
+      });
+    }
     this.setInitialModelValues();
     this.isReadingTypeAvailable = false;
     let Obj = [
