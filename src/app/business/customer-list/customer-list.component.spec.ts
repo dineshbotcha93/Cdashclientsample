@@ -10,7 +10,7 @@ import { BusinessService } from '../services/business.service';
 import { Observable } from 'rxjs/Observable';
 
 
-fdescribe('CustomerListComponent', () => {
+describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
   let fixture: ComponentFixture<CustomerListComponent>;
 
@@ -70,5 +70,23 @@ fdescribe('CustomerListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  describe('clearAll()',()=>{
+    it('should clear a bunch of values',()=>{
+      spyOn(app,'filterByStatus').and.returnValue(true);
+      app.clearAll();
+       expect(app.doSearchVal).toEqual('');
+       expect(app.doFilterByStatus).toEqual('all');
+       expect(app.filterByStatus).toHaveBeenCalled();
+       expect(app.bsValue).toEqual(new Date());
+       expect(app.bsValueTwo).toEqual(new Date());
+    });
+  });
+  describe('goToPrevPage()',()=>{
+    it('should go back in the location',()=>{
+      spyOn(app._location,'back').and.returnValue(true);
+      app.goToPrevPage();
+      expect(app._location.back).toHaveBeenCalled();
+    });
   });
 });
