@@ -15,7 +15,6 @@ describe('CustomerListComponent', () => {
   let fixture: ComponentFixture<CustomerListComponent>;
   let app;
 
-  let app;
   const routes: Routes = [
     {
       path: 'customer-list',
