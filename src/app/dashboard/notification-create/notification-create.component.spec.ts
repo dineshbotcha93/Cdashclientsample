@@ -28,26 +28,27 @@ describe('NotificationCreateComponent', () => {
         ButtonsModule.forRoot()
       ],
     })
-      .overrideComponent(NotificationCreateComponent, {
-        set: {
-          providers: [
-            {provide: SensorSummaryService, useClass: SensorSummaryServiceMock},
-          ]
-        }
-      })
-    .compileComponents();
+    .overrideComponent(NotificationCreateComponent, {
+  set: {
+    providers: [
+      {provide: SensorSummaryService, useClass: SensorSummaryServiceMock},
+    ]
+  }
+}).compileComponents();
   }));
 
   beforeEach(async(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     fixture = TestBed.createComponent(NotificationCreateComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
+    component = fixture.componentInstance;
     app = fixture.debugElement.componentInstance;
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should create', async(() => {
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
 
   describe('setEditNotifyDetails()',()=>{
     it('should set the sensor global list,gateway global list and user global list', ()=>{

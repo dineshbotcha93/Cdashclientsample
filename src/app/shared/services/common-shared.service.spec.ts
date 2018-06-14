@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { CommonSharedService } from './common-shared.service';
 
-describe('CommonDashboardService', () => {
+describe('CommonSharedService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [CommonSharedService]

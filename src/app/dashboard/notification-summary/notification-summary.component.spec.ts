@@ -1,17 +1,38 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
+import { SensorSummaryService } from "../sensor-summary/services/sensor-summary.service";
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { NotificationSummaryComponent } from './notification-summary.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 describe('NotificationSummaryComponent', () => {
   let component: NotificationSummaryComponent;
   let fixture: ComponentFixture<NotificationSummaryComponent>;
 
+  class SensorSummaryServiceMock {
+
+  }
+
+  class BsModalServiceMock {
+
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[
+        AngularFontAwesomeModule,
+      ],
       declarations: [ NotificationSummaryComponent ],
-      schemas:[NO_ERRORS_SCHEMA]
+      schemas:[CUSTOM_ELEMENTS_SCHEMA]
     })
-    .compileComponents();
+    .overrideComponent(NotificationSummaryComponent, {
+  set: {
+    providers: [
+      {provide: SensorSummaryService, useClass: SensorSummaryServiceMock},
+      {provide: BsModalService, useClass: BsModalServiceMock}
+    ]
+  }
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
   let fixture: ComponentFixture<CustomerListComponent>;
+  let app;
 
   let app;
   const routes: Routes = [
@@ -65,6 +66,7 @@ describe('CustomerListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CustomerListComponent);
     component = fixture.componentInstance;
+    app = fixture.debugElement.componentInstance;
     console.log(component['route']);
     fixture.detectChanges();
     app = fixture.debugElement.componentInstance;
@@ -73,20 +75,54 @@ describe('CustomerListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  describe('clearAll()',()=>{
-    it('should clear a bunch of values',()=>{
-      spyOn(app,'filterByStatus').and.returnValue(true);
-      app.clearAll();
-       expect(app.doSearchVal).toEqual('');
-       expect(app.doFilterByStatus).toEqual('all');
-       expect(app.filterByStatus).toHaveBeenCalled();
+
+  describe('updateFilter()',()=>{
+    it('should test the updateFilter method with no parameters', ()=>{
+      app.tempData = {test:1};
+      app.rows = {};
+      app.updateFilter({});
+      expect(app.rows).toEqual(app.tempData);
+    });
+    it('should test the updateFilter method with parameters', () => {
+      app.tempData = {test:1};
+      app.rows = {};
+      const event = {
+        target: {
+          value:'jenny'
+        }
+      }
+      app.rows = [
+        {name:'Walter'},
+        {name:'Joe'},
+        {name:'Peter'},
+        {name:'Jenny'}
+      ];
+      app.updateFilter(event);
+      expect(app.rows).toEqual([{name:'Jenny'}]);
     });
   });
-  describe('goToPrevPage()',()=>{
-    it('should go back in the location',()=>{
-      spyOn(app._location,'back').and.returnValue(true);
-      app.goToPrevPage();
-      expect(app._location.back).toHaveBeenCalled();
+  describe('onChange',()=>{
+    it('should set a bunch of values', ()=>{
+      const event = new Date();
+      app.bsValue = new Date();
+      app.bsValueTwo = new Date();
+      app.items = '';
+      app.rows = [1,2,3];
+      app.onChange(event);
+      expect(app.bsValue).toEqual(event);
+      expect(app.rows).toEqual(app.items);
+    });
+  });
+  describe('onChangeToDp',()=>{
+    it('should set a bunch of values', ()=>{
+      const event = new Date();
+      app.bsValue = new Date();
+      app.bsValueTwo = new Date();
+      app.items = '';
+      app.rows = [1,2,3];
+      app.onChangeToDp(event);
+      expect(app.bsValueTwo).toEqual(event);
+      expect(app.rows).toEqual(app.items);
     });
   });
 });

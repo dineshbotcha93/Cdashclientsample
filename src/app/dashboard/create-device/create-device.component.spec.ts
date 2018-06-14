@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { CreateDeviceComponent } from './create-device.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CreateDeviceService } from "./services/create-device.service";
-import { NgbTooltipConfig } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 describe('CreateDeviceComponent', () => {
   let component: CreateDeviceComponent;
@@ -13,36 +13,34 @@ describe('CreateDeviceComponent', () => {
 
   }
 
-  class NgbToolTipConfigMock {
-
-  }
-
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [ CreateDeviceComponent ],
       imports:[
         FormsModule,
         ReactiveFormsModule,
+        NgbModule.forRoot()
       ],
-      declarations: [ CreateDeviceComponent ],
       schemas:[CUSTOM_ELEMENTS_SCHEMA]
     })
     .overrideComponent(CreateDeviceComponent, {
   set: {
     providers: [
       {provide: CreateDeviceService, useClass: CreateDeviceServiceMock},
-      {provide: NgbTooltipConfig, useClass: NgbToolTipConfigMock}
     ]
-  }})
-    .compileComponents();
+  }
+}).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(()=>{
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     fixture = TestBed.createComponent(CreateDeviceComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
+    component = fixture.componentInstance;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should be created', async(() => {
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
 });

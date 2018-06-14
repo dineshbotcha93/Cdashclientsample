@@ -57,7 +57,7 @@ export class CreateDeviceComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     config.placement = "right";
-    console.log(this.deviceType);
+    //console.log(this.deviceType);
 
 
   }
@@ -65,7 +65,7 @@ export class CreateDeviceComponent implements OnInit {
   ngOnInit() {
     this.setDeviceModelInitiate();
 
-    console.log("accountID", this.accountID);
+    //console.log("accountID", this.accountID);
     if(this.deviceType){
       this.deviceType = this.deviceType.toUpperCase();
     }

@@ -30,49 +30,50 @@ export class NotificationSummaryComponent implements OnInit {
   constructor(private sensorSummaryService: SensorSummaryService,private modalService: BsModalService) { }
   ngOnInit() {
 
-     this.getNotificationDetails();
-     this.deviceCreationError = "Notitfications to be loaded";
+    this.getNotificationDetails();
+    this.deviceCreationError = "Notitfications to be loaded";
 
   }
 
-   getNotificationDetails(){
+  getNotificationDetails(){
+    let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+    if(userInfoObject){
+      userInfoObject['account'].forEach(loc => {
+        this.accountID = loc.accountID;
+      });
+    }
 
-        let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
-          userInfoObject['account'].forEach(loc => {
-         this.accountID = loc.accountID;
-       });
-
-     // let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
+    // let respoonseObject = this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
 
 
-       let result = this.sensorList;
+    let result = this.sensorList;
 
-     if(this.sensorList.length > 0){
-          result.forEach((notify) => {
-          let checkModelNotify = { active: false, inActive: true };
-          if (notify.notification.active) {
-            checkModelNotify = { active: true, inActive: false };
-          }
-          notify.notification.checkModelNotify = checkModelNotify;
-          notify.notification.isNotifyMode = false;
-          this.notificationSummaryList.push(notify);
-        });
-     }
+    if(this.sensorList && (this.sensorList.length > 0)){
+      result.forEach((notify) => {
+        let checkModelNotify = { active: false, inActive: true };
+        if (notify.notification.active) {
+          checkModelNotify = { active: true, inActive: false };
+        }
+        notify.notification.checkModelNotify = checkModelNotify;
+        notify.notification.isNotifyMode = false;
+        this.notificationSummaryList.push(notify);
+      });
+    }
   }
 
-    onClickNotifyOffOn(e, notify){
+  onClickNotifyOffOn(e, notify){
 
-     let notValue = true;
-     if(notify.notification.active){
-        notValue = false;
-      }
+    let notValue = true;
+    if(notify.notification.active){
+      notValue = false;
+    }
 
-     let requestObject = {
-       NotificationID:notify.notification.notificationID,
-       On:notValue
-      };
+    let requestObject = {
+      NotificationID:notify.notification.notificationID,
+      On:notValue
+    };
 
-      this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
+    this.sensorSummaryService.updateNotificationActiveState(requestObject).then((result) => {
       this.notificationSummaryList.forEach(x => {
         if(x === notify){
           x.notification.checkModelNotify = { active: false, inActive: true };
@@ -127,13 +128,13 @@ export class NotificationSummaryComponent implements OnInit {
     }
     this.modalRef = this.modalService.show(template);
 
- }
+  }
 
- onClickEditNotifyDetails(notify){
+  onClickEditNotifyDetails(notify){
     this.isEditNotify = true;
     this.editNotifyModeEvent.emit(notify);
 
- }
+  }
 
   onClickRemoveNotifyDetails(notify) {
     this.deleteNotifyModeEvent.emit(notify);

@@ -1,16 +1,47 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {CommonSharedService} from '../../shared/services/common-shared.service';
 import { UserUpdateComponent } from './user-update.component';
+import { FormsModule } from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { UserManagementService } from '../user-management.service';
 
 describe('UserUpdateComponent', () => {
   let component: UserUpdateComponent;
   let fixture: ComponentFixture<UserUpdateComponent>;
 
+  class UserManagementServiceMock {
+
+  }
+
+  class CommonSharedServiceMock {
+
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserUpdateComponent ]
+      imports:[
+        FormsModule,
+      ],
+      declarations: [ UserUpdateComponent ],
+      providers:[{
+        provide: ActivatedRoute, useValue: {
+          params: Observable.of({ id: 'test' })
+        },
+      },{
+        provide: Router, useValue: {
+          queryParams: Observable.of({queryParams:'test'})
+        }
+      }],
     })
-    .compileComponents();
+    .overrideComponent(UserUpdateComponent, {
+  set: {
+    providers: [
+      {provide: UserManagementService, useClass: UserManagementServiceMock},
+      {provide: CommonSharedService, useClass: CommonSharedServiceMock},
+    ]
+  }
+}).compileComponents();
   }));
 
   beforeEach(() => {

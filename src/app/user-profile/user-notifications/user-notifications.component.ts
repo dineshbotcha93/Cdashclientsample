@@ -36,19 +36,20 @@ export class UserNotificationsComponent implements OnInit {
 
 
   constructor(private sensorSummaryService: SensorSummaryService, private userProfileService: UserProfileService) {
-   this.deviceCreationError = "Please wait until notifications are loaded ..... ";
- }
+    this.deviceCreationError = "Please wait until notifications are loaded ..... ";
+  }
 
   ngOnInit() {
 
     this.isValidForm = false;
-     let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
-    userInfoObject['account'].forEach(loc => {
-       this.accountID = loc.accountID;
-     });
-
+    let userInfoObject = JSON.parse(localStorage.getItem('com.cdashboard.userInfoObject'));
+    if(userInfoObject){
+      userInfoObject['account'].forEach(loc => {
+        this.accountID = loc.accountID;
+      });
+    }
     this.sensorSummaryService.getGlobalNotificationsList(this.accountID).then((result) => {
-       this.globalNotificationsList = result;
+      this.globalNotificationsList = result;
 
       this.getNotificationsList();
 
@@ -59,18 +60,18 @@ export class UserNotificationsComponent implements OnInit {
 
   getNotificationsList(){
     this.isValidForm = false;
-       this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
-          this.sensorList = result;
+    this.sensorSummaryService.getNotificationSettingsDetails(this.accountID).then((result) => {
+      this.sensorList = result;
 
-           if(this.sensorList.length < 1 ){
-               this.deviceCreationError = "There are no notifications configured ";
-           }
+      if(this.sensorList.length < 1 ){
+        this.deviceCreationError = "There are no notifications configured ";
+      }
 
-            this.isValidForm = true;
-        });
+      this.isValidForm = true;
+    });
   }
 
-   onClickAddNotification() {
+  onClickAddNotification() {
     this.notificationRadio = 'addNotify';
     this.isAddButtonRequired = false;
     this.isResetButtonRequired = true;
@@ -83,7 +84,7 @@ export class UserNotificationsComponent implements OnInit {
     this.notificationRadio = 'summary';
   }
 
- recieveEditNotifyValue($event) {
+  recieveEditNotifyValue($event) {
 
     this.notificationRadio = 'addNotify';
     this.notifyOperationType = 'editNotify';
@@ -92,12 +93,12 @@ export class UserNotificationsComponent implements OnInit {
     this.editNotifyObject = $event;
 
   }
-   receiveAddNotificationMessage($event) {
+  receiveAddNotificationMessage($event) {
     this.notificationRadio = 'summary';
-     this.isAddButtonRequired = true;
+    this.isAddButtonRequired = true;
     this.isResetButtonRequired = false;
 
-     this.getNotificationsList();
+    this.getNotificationsList();
   }
 
   recieveDeleteNotifyValue($event) {
