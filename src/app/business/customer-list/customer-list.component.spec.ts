@@ -14,6 +14,7 @@ describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
   let fixture: ComponentFixture<CustomerListComponent>;
 
+  let app;
   const routes: Routes = [
     {
       path: 'customer-list',
@@ -66,6 +67,7 @@ describe('CustomerListComponent', () => {
     component = fixture.componentInstance;
     console.log(component['route']);
     fixture.detectChanges();
+    app = fixture.debugElement.componentInstance;
   });
 
   it('should create', () => {
@@ -78,8 +80,6 @@ describe('CustomerListComponent', () => {
        expect(app.doSearchVal).toEqual('');
        expect(app.doFilterByStatus).toEqual('all');
        expect(app.filterByStatus).toHaveBeenCalled();
-       expect(app.bsValue).toEqual(new Date());
-       expect(app.bsValueTwo).toEqual(new Date());
     });
   });
   describe('goToPrevPage()',()=>{

@@ -2,11 +2,11 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { CustomerListService } from './customer-list.service';
 
-fdescribe('CustomerListService', () => {
+describe('CustomerListService', () => {
   class MockCustomerListService {
 
   }
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [CustomerListService]

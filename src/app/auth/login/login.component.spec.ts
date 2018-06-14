@@ -16,7 +16,7 @@ import { of } from 'rxjs/observable/of';
 import { LoggerService } from "../../shared/services/logger.service";
 import {ConsoleLoggerService} from "../../shared/services/console-logger.service";
 
-fdescribe('LoginComponent',()=>{
+describe('LoginComponent',()=>{
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
