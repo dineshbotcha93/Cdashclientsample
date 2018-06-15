@@ -548,6 +548,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
         this.toasterSandbox$.dispatch(
           new toasterActions.SuccessAction("Saved", { dismiss: "auto" })
         );
+        // upodate the network/location list here after added successfully
+        this.addNewAddress(e, this.networkModel.name);
+
       })
       .catch(f => {
         this.toasterSandbox$.dispatch(
@@ -556,6 +559,19 @@ export class SensorSummaryComponent extends AbstractDashboardBase
           })
         );
       });
+  }
+
+  private addNewAddress(networkID, networkName) {
+    let Obj = {
+      Title: null,
+      Id: null
+    };
+    Obj.Id = networkID;
+    Obj.Title = networkName;
+    this.selectLocation = Obj;
+    this.netWorkId = networkID;
+    this.locationData.push(Obj);
+    this.getNetworkData();
   }
 
   private addFormControl(name: string, formGroup: FormGroup): void {
