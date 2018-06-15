@@ -3,7 +3,8 @@ import {
   Injector,
   AfterContentInit,
   AfterViewInit,
-  ViewContainerRef
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -22,14 +23,21 @@ export interface tileDetail{
   title:string;
 }
 
+export interface haccpDetail{
+  count:string;
+  title:string;
+}
+
 @Component({
   selector: 'app-dashboard',
   styleUrls: ['./dashboard.component.scss'],
   providers: [DashboardService,MapService],
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent extends AbstractDashboardBase implements AfterViewInit, AfterContentInit {
   private tileData:Array<tileDetail> = null;
+  private haccpData:Array<haccpDetail> = null;
   public mapData = [];
   private totalStatuses = {};
   private mapConstants = MapConstants.STATUS;
@@ -51,6 +59,10 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
     this.totalStatuses['missedCommunication'] = {status:'MissedCommunication',count:0,title:''};
     this.totalStatuses['lowSignal'] = {status:'LowSignal',count:0,title:''};
     this.totalStatuses['lowBattery'] = {status:'LowBattery', count:0,title:''};
+
+    dashboardService.getHaccpData().subscribe((result) => {
+       this.haccpData = result;
+    });
 
     dashboardService.getRealData().then((realResults)=>{
 
@@ -90,6 +102,7 @@ export class DashboardComponent extends AbstractDashboardBase implements AfterVi
       this.loadedStatuses = true;
       this.forceTranslations();
     });
+   
   }
 
   ngAfterContentInit(){
