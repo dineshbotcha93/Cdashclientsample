@@ -1,0 +1,11 @@
+:host :not([template*="header"]){
+  width:10%;
+  right:0px;
+  position:absolute;
+}
+
+:host([template~="header"]) > * {
+  margin-top:10%;
+  position:relative;
+  width:100%;
+}
