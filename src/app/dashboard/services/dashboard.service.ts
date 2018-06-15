@@ -34,6 +34,26 @@ export class DashboardService {
       }
     ]);
   }
+    getHaccpData():Observable<any>{
+      return Observable.of([
+        {
+          count:'70',         
+          title:'Tasks Completed'
+        },
+        {
+          count:'50',
+          title:'Not In Compliance'
+        },
+        {
+          count:'40',
+          title:'Active Handheld Devices'
+        },
+        {
+          count:'50',
+          title:'Food Safety score'
+        }
+      ]);
+  }
   getRealData(){
     return this.requesterService
     .getExternalRequest('/api/Location/UserLocations');

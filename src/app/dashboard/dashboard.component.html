@@ -1,6 +1,14 @@
 <app-layout>
   <div class="row">
     <div *ngIf="loadedStatuses == true">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 gauge-container" *ngFor="let data of haccpData">
+        <app-gauge  size="120" [value]="data.count" [type]="'arch'" [gaugeAppendText]=""></app-gauge>
+        <p class="gauge-data">
+           <span>{{data.title}}</span>
+          </p>
+      </div>
+    </div>
       <div *ngFor="let i of objectKeys(totalStatuses)" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <app-tile
           [count]="totalStatuses[i].count > 0 ? totalStatuses[i].count : '0'"
