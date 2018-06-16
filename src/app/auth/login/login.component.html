@@ -27,7 +27,7 @@
         <img src="./assets/images/CooperAtkins_Logo.svg" alt="Cooper Atkins logo" class="login-logo-bottom">
       </div>
     </section>
-    <section class="login_content" style="margin-top: 20px;">
+    <section class="login_content" style="margin-top: 20px;" *ngIf="showQuickPay">
       <form [formGroup]="anonymousPayments" (ngSubmit)="submitAnonymousPayment()">
         <h1 style="margin-bottom: 10px;">Quick Pay?</h1>
         <div class="alert alert-danger" *ngIf="invalidInvoice">Invalid Invoice ID</div>

@@ -545,12 +545,18 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       .then(e => {
         //show success message,close pop up
         this.showPopup = false;
-        this.toasterSandbox$.dispatch(
-          new toasterActions.SuccessAction("Saved", { dismiss: "auto" })
-        );
-        // upodate the network/location list here after added successfully
-        this.addNewAddress(e, this.networkModel.name);
-
+        // update the network/location list here after added successfully
+        console.log('add adress result', e);
+        if(e.hasOwnProperty('Message')) {
+          this.toasterSandbox$.dispatch(
+            new toasterActions.AlertAction(e.Message, { dismiss: "auto" })
+          );
+        } else {
+          this.toasterSandbox$.dispatch(
+            new toasterActions.SuccessAction("Saved", { dismiss: "auto" })
+          );
+          this.addNewAddress(e, this.networkModel.name);
+        }
       })
       .catch(f => {
         this.toasterSandbox$.dispatch(

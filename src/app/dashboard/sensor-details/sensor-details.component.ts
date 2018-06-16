@@ -31,6 +31,7 @@ export class SensorDetailsComponent {
   public maxDate = null;
   private detailId;
   public rows: Array<any> = ['N/A'];
+  private gridRows:  Array<any> = ['N/A'];
   public columns: Array<any> = [];
   private limit: Number  = 10;
   private data: Array<any> = [];
@@ -128,7 +129,7 @@ export class SensorDetailsComponent {
       this.chartOptions.zoom.enabled = true;
     }
   }
- 
+
   onDateChange(event, target) {
 
     let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
@@ -143,13 +144,22 @@ export class SensorDetailsComponent {
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;
       this.rows = [];
+      this.gridRows = [];
       this.chartLabels = [];
       if (this.result.length === 0) {
         this.alertSandbox.showAlert({data: 'No Content'});
         return;
       }
-
-      result.sort((message1, message2) => {
+      this.result.forEach((res) => {
+        this.gridRows.push({
+          displayData: res.displayData,
+          messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'),
+          signalStrength: res.signalStrength,
+          battery: res.battery,
+        });
+      });
+      // sorting the graph
+      this.result.sort((message1, message2) => {
         const date1 = new Date(message1.messageDate);
         const date2 = new Date(message2.messageDate);
         if (date1 > date2) {
@@ -161,16 +171,15 @@ export class SensorDetailsComponent {
         return 0;
       });
 
-      result.forEach((res) => {
+      this.result.forEach((res) => {
         this.data.push(res.plotValue);
-        this.chartLabels.push(moment(res.messageDate).format('hh:mm:ss a'));
+        this.chartLabels.push(moment(res.messageDate).format('YYYY-MM-DD HH:mm:ss'));
         this.rows.push({
           displayData: res.displayData,
           messageDate: moment(res.messageDate).format('MM/DD/YYYY hh:mm:ss a'),
           signalStrength: res.signalStrength,
           battery: res.battery,
         });
-
         this.chartOptions.tooltips = {
           mode: 'index',
           callbacks: {

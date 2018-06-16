@@ -13,11 +13,11 @@
     <div class="col-md-6 col-sm-12 col-xs-12 sensor-compare" *ngIf="sensorNames.length > 0">
 
             <!-- <div class="col-md-6 col-sm-12 col-xs-12">
-               {{'global.from'|translate}} 
+               {{'global.from'|translate}}
                <app-datepicker [(bsValue)]="bsValue" (dateChange)="onDateChange($event, 'fromDate')"></app-datepicker>
             </div> -->
             <!-- <div class="col-md-6 col-sm-12 col-xs-12">
-               {{'global.to'|translate}} 
+               {{'global.to'|translate}}
                <app-datepicker [(bsValue)]="bsValueTwo" (dateChange)="onDateChange($event, 'toDate')"></app-datepicker>
             </div> -->
 
@@ -69,10 +69,10 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="form-group">
             <br> <!--need this hack -->
-            <button class="btn btn-primary" (click)="addSensor()">Add Sensor</button>
-            <button class="btn btn-primary" (click)="print()">Print Chart</button>
-            <!--<input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />
-            <input type="button" class="btn btn-primary" value="Reset Chart" (click)="reset('chart')" />-->
+            <button class="btn btn-primary" (click)="addSensor()">Add</button>
+            <button class="btn btn-primary" (click)="reset('chart')">Reset</button>
+            <button class="btn btn-primary" (click)="print()">Print</button>
+            <!--<input type="button" class="btn btn-primary" value="Reset Zoom" (click)="reset('zoom')" />-->
           </div>
         </div>
       </form>

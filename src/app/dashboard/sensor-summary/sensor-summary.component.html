@@ -369,7 +369,7 @@
          <td class="col-md-1" *ngIf="sensor.gateWayEditOption ==='edit'">
           <input class="form-control" type="text" name="maximumThreshold" (change)="onChangeDeviceInputType(old,sensor.maximumThreshold,sensor,'maximumThreshold')" (focus)="old=sensor.maximumThreshold" required value="{{sensor.maximumThreshold}}" minlength="1" [(ngModel)]="sensor.maximumThreshold">
         </td>
-             <td *ngIf="sensor.gateWayEditOption ==='display'">
+             <td *ngIf="sensor.gateWayEditOption ==='display' && sensor.type == 2">
               <!-- <div class="btn-group btn-group-toggle">
                 <label class="btn btn-primary" [(ngModel)]="sensor.checkModelNotify.active" btnCheckbox (click)="onClickNotifyOn($event,sensor)">C
                 </label>
@@ -378,7 +378,7 @@
               </div> -->
               {{sensor.scale}}
             </td>
-            <td *ngIf="sensor.gateWayEditOption ==='edit'">
+            <td *ngIf="sensor.gateWayEditOption ==='edit' && sensor.type == 2">
               <select class="form-control" [(ngModel)]="sensor.scale">
                 <option value="F">
                   F
