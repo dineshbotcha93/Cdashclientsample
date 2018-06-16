@@ -1,6 +1,44 @@
+@import "../../styles/variables";
+
 .list-view {
   float:right;
   padding: 20px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.gauge-container {
+  color: $colorUI-emerson-black;
+  font-size: 0.85em;
+  text-align: center;
+  height: 20rem;
+
+  ngx-gauge {
+  margin-bottom: 20px;
+  height:145px !important;
+
+    .reading-label {
+      font-size: 0.9em !important;
+    }
+
+    .reading-block {
+      font-size: 1.9em !important;
+      font-weight: bold;
+    }
+
+    .reading-affix {
+      font-size: 1.25rem;
+      padding: 0;
+    }
+  }
+
+  .gauge-data {
+    border-bottom: 1px solid $colorGrey-emerson-vLightGrey;
+    padding-bottom: 10px;
+    font-weight: bold;
+    color: #3474b5;
+  }
+  .value {
+    color: $color-emerson-brand-blue;
+  }
 }
