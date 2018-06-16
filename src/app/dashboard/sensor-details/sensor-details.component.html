@@ -4,16 +4,16 @@
       <h3>{{sensorDetailsData?.sensorName}}</h3>
     </div>
 
-    <!-- <div class="col-md-12 col-sm-12 col-xs-12"> 
+     <!--<div class="col-md-12 col-sm-12 col-xs-12">
        <div class="date-picker">
         {{'global.from'|translate}}
         <app-datepicker [(bsValue)]="bsValue" (dateChange) = "onDateChange($event, 'fromDate')"></app-datepicker>
-      </div> 
+      </div>
        <div class="date-picker">
         {{'global.to'|translate}}
         <app-datepicker [(bsValue)]="bsValue" (dateChange) = "onDateChange($event, 'toDate')" ></app-datepicker>
-      </div> 
-     </div> -->
+      </div>
+     </div>-->
 
 
     <!-- Gauge and CHart container -->
@@ -69,10 +69,12 @@
         <div class="row">
           <div class="dark-theme">
             <app-datatable
-              *ngIf="rows[0]!=='N/A'"
-              [rows]="rows"
+              *ngIf="gridRows[0]!=='N/A'"
+              [rows]="gridRows"
               [columns]="columns"
-              [limit]="limit">
+              [limit]="limit"
+              [sortColumn]="'sortColumn'"
+              [sortOrder]="'desc'">
             </app-datatable>
           </div>
         </div>

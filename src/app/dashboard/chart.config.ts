@@ -19,7 +19,7 @@ export const ChartOptions = {
 
     // Panning directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow panning in the y direction
-    mode: 'x'
+    mode: 'xy'
   },
 
   // Container for zoom options
@@ -29,7 +29,8 @@ export const ChartOptions = {
 
     // Zooming directions. Remove the appropriate direction to disable
     // Eg. 'y' would only allow zooming in the y direction
-    mode: 'x'
+    mode: 'xy',
+    drag: true
   },
   // title: {
   //   display: true,
@@ -61,7 +62,7 @@ export const ChartOptions = {
     xAxes: [{
       ticks: {
         beginAtZero:true,
-        fontColor: '#000000'
+        fontColor: '#000000',
       },
     }],
   },

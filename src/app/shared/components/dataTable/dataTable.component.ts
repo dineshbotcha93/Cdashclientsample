@@ -15,7 +15,8 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
         [footerHeight]="40"
         [limit]="10"
         [rowHeight]="'auto'"
-        [reorderable]="reorderable">
+        [reorderable]="reorderable"
+        [sorts]="[{prop: messageDate, dir: 'desc'}]">
       </ngx-datatable>
     </div>
   `
@@ -25,4 +26,6 @@ export class DataTableComponent {
   @Input() columns;
   @Input() limit;
   @Input() reorderable;
+  @Input() sortColumn;
+  @Input() sortOrder;
 }

@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   public myform: FormGroup;
   public anonymousPayments: FormGroup;
   invalidInvoice = false;
+  private showQuickPay = false;
   constructor(
     public loginSandbox$: LoginSandbox,
     private translate: TranslateService,
