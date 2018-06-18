@@ -1082,6 +1082,9 @@ export class SensorSummaryComponent extends AbstractDashboardBase
       "com.cdashboard.selectedNetworkId",
       this.selectLocation.Id
     );
+    localStorage.setItem("com.cdashboard.selectedmaxthresold", sensor.maximumThreshold);
+    localStorage.setItem("com.cdashboard.selectedminthresold", sensor.minimumThreshold);
+
     this.router.navigate(["dashboard/sensor-details", sensor.sensorID]);
   }
 

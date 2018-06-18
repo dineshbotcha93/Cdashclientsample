@@ -17,6 +17,7 @@ import * as moment from 'moment/moment';
 import {ChartsModule} from 'ng2-charts/charts/charts';
 declare var jsPDF: any; // Important
 
+
 @Component({
   selector: 'app-sensor-details',
   templateUrl: './sensor-details.component.html',
@@ -27,8 +28,8 @@ declare var jsPDF: any; // Important
 export class SensorDetailsComponent {
   private result;
   public sensorDetailsData;
-  public minDate = null;
-  public maxDate = null;
+  public minDate = moment().subtract(5, 'days').toDate();
+  public maxDate = moment().toDate();
   private detailId;
   public rows: Array<any> = ['N/A'];
   private gridRows:  Array<any> = ['N/A'];
@@ -46,10 +47,10 @@ export class SensorDetailsComponent {
   @ViewChild('baseChart') chart: BaseChartDirective;
   @ViewChildren('tabs') tabs: QueryList<any>;
   bsValue: Date = moment().subtract(5, 'days').toDate();
+  dateRange: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   bsValueTwo: Date = moment().toDate();
-  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  bsRangeValue: any = [this.bsValue, this.bsValueTwo];
   bsModalRef: BsModalRef;
-
 
 
   constructor(
@@ -63,8 +64,12 @@ export class SensorDetailsComponent {
     // private tempChart = window.Chart;
   ) {
 
-    this.chartOptions.annotation.annotations[0].value = null;
-    this.chartOptions.annotation.annotations[1].value = null;
+    if (parseInt(localStorage.getItem("com.cdashboard.selectedmaxthresold")) !== this.defaultThreshold) {
+      this.chartOptions.annotation.annotations[0].value = localStorage.getItem("com.cdashboard.selectedmaxthresold");
+    }
+    if (parseInt(localStorage.getItem("com.cdashboard.selectedminthresold")) !== this.defaultThreshold) {
+      this.chartOptions.annotation.annotations[1].value = localStorage.getItem("com.cdashboard.selectedminthresold");
+    }
 
     this.route.params.subscribe((params) => {
       this.detailId = params.id.toString();
@@ -72,13 +77,13 @@ export class SensorDetailsComponent {
     sensorDetailsService.getDetails(this.detailId).then((result) => {
       this.sensorDetailsData = result;
 
-      if (this.sensorDetailsData.maximumThreshold !== this.defaultThreshold) {
+      /*if (this.sensorDetailsData.maximumThreshold !== this.defaultThreshold) {
         this.chartOptions.annotation.annotations[0].value = this.sensorDetailsData.maximumThreshold;
       }
 
       if (this.sensorDetailsData.minimumThreshold !== this.defaultThreshold) {
         this.chartOptions.annotation.annotations[1].value = this.sensorDetailsData.minimumThreshold;
-      }
+      }*/
 
       switch (this.sensorDetailsData.sensorType) {
         case 43:
@@ -107,7 +112,7 @@ export class SensorDetailsComponent {
         fontColor: '#000000'
       }
     };
-   this. onDateChange(event, 'fromDate');
+   this.onDateChange();
   }
   ngAfterViewInit() {
     this.tabs.forEach((e) => {
@@ -130,16 +135,17 @@ export class SensorDetailsComponent {
     }
   }
 
-  onDateChange(event, target) {
+  dateChange($event) {
+    if($event!=undefined) {
+      this.bsValue = $event[0];
+      this.bsValueTwo = $event[1];
+      this.onDateChange();
+    }
+  }
+  onDateChange() {
 
     let fromDate = moment(this.bsValue).format('MM/DD/YYYY');
     let toDate = moment(this.bsValueTwo).format('MM/DD/YYYY');
-
-    // if (target === 'fromDate') {
-    //   fromDate = moment(event).format('MM/DD/YYYY');
-    // } else {
-    //   toDate = moment(event).format('MM/DD/YYYY');
-    // }
 
     this.sensorDetailsService.getDataMessages(this.detailId, fromDate, toDate).then((result) => {
       this.result = result;
@@ -159,17 +165,7 @@ export class SensorDetailsComponent {
         });
       });
       // sorting the graph
-      this.result.sort((message1, message2) => {
-        const date1 = new Date(message1.messageDate);
-        const date2 = new Date(message2.messageDate);
-        if (date1 > date2) {
-          return 1;
-        }
-        if (date1 < date2) {
-          return -1;
-        }
-        return 0;
-      });
+      this.result.sort();
 
       this.result.forEach((res) => {
         this.data.push(res.plotValue);

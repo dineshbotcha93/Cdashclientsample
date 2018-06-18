@@ -12,9 +12,10 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
          [minDate]="minDate"
          [maxDate]="maxDate"
          [bsConfig]="datepickerConfig"
-         #dp="bsDatepicker"
+         #dp="bsDaterangepicker"
          (bsValueChange)="onDateChange($event);"
-         bsDatepicker [(bsValue)]="bsValue">
+         bsDaterangepicker [(bsValue)]="bsValue"
+         placement="position">
   <span class="input-group-addon" (click)="dp.show()">
     <i class="fa fa-calendar" aria-hidden="true"></i>
   </span>
@@ -29,6 +30,7 @@ export class DatepickerComponent {
 @Input() minDate;
 @Input() maxDate;
 @Input() bsValue;
+@Input() position;
 @Output() dateChange: EventEmitter<any> = new EventEmitter<any>();
 
 onDateChange(value: Date): void {

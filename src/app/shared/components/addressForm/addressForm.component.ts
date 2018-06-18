@@ -62,7 +62,7 @@ export class AddressFormComponent implements OnInit {
         const housenumber = this.addressForm.get('housenumber').value || '';
         this.mapService.geoCode(housenumber + street + city + zipcode + state + country).then((geoCoded) => {
           if (geoCoded.status === 'OK') {
-            console.log('geo code', geoCoded);
+           // console.log('geo code', geoCoded);
 
             if (geoCoded.results[0]) {
               this.latitude = geoCoded.results[0].geometry.location.lat;
@@ -84,7 +84,7 @@ export class AddressFormComponent implements OnInit {
   }
 
   onSelectCountry(countryid) {
-    console.log('selected country;', countryid);
+   // console.log('selected country;', countryid);
     if (parseInt(countryid) !== 230) {
       this.isUsa = false;
     } else {
@@ -96,7 +96,7 @@ export class AddressFormComponent implements OnInit {
 
     this.AddressFormService.getStates().subscribe((e) => {
       this.states = e[0];
-      console.log(this.states);
+     // console.log(this.states);
     });
   }
 
@@ -104,7 +104,7 @@ export class AddressFormComponent implements OnInit {
 
     this.AddressFormService.getCountries().subscribe((e) => {
       this.countries = e[0];
-      console.log(this.countries);
+      //console.log(this.countries);
     });
   }
 

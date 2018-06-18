@@ -79,7 +79,7 @@
               <div *ngFor="let sensor of mapData.Location.Network.Gateway[gateway].Sensor | orderBy: sensor : orderBy | filterByCriteria: sensor:doFilterByName"
                 class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <app-tile [tileContent]="sensor.SensorName" [tileDetails]="{fahrenHeight:sensor.currentReading}" [tileColorBy]="'sensorType'"
-                  [sensorTileIcon]="sensor.sensorType? sensor.sensorType : 2" (click)="gotoSummary()" [tileColor]="sensor.status">
+                  [sensorTileIcon]="sensor.sensorType? sensor.sensorType : 2" (click)="gotoSummary(sensor)" [tileColor]="sensor.status">
                 </app-tile>
               </div>
             </div>

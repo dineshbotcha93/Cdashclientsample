@@ -4,16 +4,12 @@
       <h3>{{sensorDetailsData?.sensorName}}</h3>
     </div>
 
-     <!--<div class="col-md-12 col-sm-12 col-xs-12">
-       <div class="date-picker">
-        {{'global.from'|translate}}
-        <app-datepicker [(bsValue)]="bsValue" (dateChange) = "onDateChange($event, 'fromDate')"></app-datepicker>
+     <div class="col-md-12 col-sm-12 col-xs-12">
+       <div class="date-picker" style="position: relative;left: auto !important;">
+        Select Date Range
+         <app-datepicker [(bsValue)]="bsRangeValue" [maxDate]="maxDate" [minDate]="minDate" (dateChange) = "dateChange($event)" (position)="'right'"></app-datepicker>
       </div>
-       <div class="date-picker">
-        {{'global.to'|translate}}
-        <app-datepicker [(bsValue)]="bsValue" (dateChange) = "onDateChange($event, 'toDate')" ></app-datepicker>
-      </div>
-     </div>-->
+     </div>
 
 
     <!-- Gauge and CHart container -->
