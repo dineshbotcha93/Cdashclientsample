@@ -191,10 +191,8 @@ export class SensorDetailsComponent {
         };
       });
     }).then((e) => {
-
+      this.chart.chart.update();
     }).catch((e) => {
-      console.log('caught');
-      console.log(e);
       this.alertSandbox.showAlert({data: 'No Content'});
     });
   }
