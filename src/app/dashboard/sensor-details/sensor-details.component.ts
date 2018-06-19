@@ -191,10 +191,7 @@ export class SensorDetailsComponent {
         };
       });
     }).then((e) => {
-      window.setTimeout(function(){
-        this.reset('zoom');
-      }.bind(this), 1000);
-      this.cd.detectChanges();
+      this.chart.chart.update();
     }).catch((e) => {
       this.alertSandbox.showAlert({data: 'No Content'});
     });
