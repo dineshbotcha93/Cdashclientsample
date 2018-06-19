@@ -3,16 +3,25 @@
     <div class="col-md-8 col-sm-12 col-xs-12">
       <h3>Notifications List</h3>
     </div>
-    <div class="col-md-4 col-sm-12 col-xs-12">
-      <select name="filter_by_status" class="form-control"
-              [(ngModel)]="doFilterByStatus"
-              (ngModelChange)="filterByStatus()">
-        <option value="All">All</option>
-        <option value="Alerts" [selected]="doFilterByStatus =='Alerts'">Alerts</option>
-        <option value="LowBattery" [selected]="doFilterByStatus =='LowBattery'">Low Battery</option>
-        <option value="Offline" [selected]="doFilterByStatus =='Offline'">Offline</option>
-        <option value="Advanced" [selected]="doFilterByStatus =='Advanced'">Advanced</option>
-      </select>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+      <div class="date-picker col-md-3 col-sm-12 col-xs-12 " style="position: relative;left: auto !important;">
+          <!--Select Date Range-->
+          <app-datepicker [(bsValue)]="bsRangeValue" [maxDate]="maxDate" [minDate]="minDate" (dateChange) = "dateChange($event)" (position)="'right'"></app-datepicker>
+      </div>
+      <div class="col-md-3 col-sm-12 col-xs-12">
+        <!--Select Status-->
+        <select name="filter_by_status" class="form-control"
+                [(ngModel)]="doFilterByStatus"
+                (ngModelChange)="filterByStatus()">
+          <option value="All">All</option>
+          <option value="Alerts" [selected]="doFilterByStatus =='Alerts'">Alerts</option>
+          <option value="LowBattery" [selected]="doFilterByStatus =='LowBattery'">Low Battery</option>
+          <option value="Inactivity" [selected]="doFilterByStatus =='Inactivity'">Offline</option>
+          <option value="Advanced" [selected]="doFilterByStatus =='Advanced'">Advanced</option>
+          <option value="LowSignal" [selected]="doFilterByStatus =='LowSignal'">LowSignal</option>
+        </select>
+      </div>
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12">

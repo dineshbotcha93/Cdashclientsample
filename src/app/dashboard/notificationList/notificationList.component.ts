@@ -15,6 +15,7 @@ import { Location } from '@angular/common';
 import { NotificationListService } from './notificationList.service';
 import { UserProfileService } from '../../user-profile/services/user-profile.service';
 import {moment} from 'ngx-bootstrap/chronos/test/chain';
+import {Observable} from "rxjs/Observable";
 
 export interface ModalMessage {
   name: string;
@@ -29,7 +30,7 @@ export interface ModalMessage {
   styleUrls: ['./notificationList.component.scss'],
   providers: [NotificationListService, UserProfileService]
 })
-export class NotificationListComponent implements OnInit, AfterViewInit {
+export class NotificationListComponent implements OnInit {
 
   private columns: Array<any> = [];
   private limit = 10;
@@ -44,9 +45,11 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
 
   showPopup = false;
   modalMessage:ModalMessage = null;
-
-  fromDate: string = moment().subtract(1, 'days').format('MM-DD-YYYY');
-  toDate: string = moment().add(1, 'days').format('MM-DD-YYYY');
+  private fromDate :Date = moment().subtract(1, 'days').toDate();
+  private toDate: Date = moment().toDate();
+  public bsRangeValue: any = [this.fromDate, this.toDate];
+  public minDate = moment().subtract(6, 'days').toDate();
+  public maxDate = moment().toDate();
   public rows = null;
 
 
@@ -61,17 +64,17 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe((params) => {
       this.statusParam = params.status.replace(/-/g, ' ').trim();
-
-      console.log('::::routeparam::', this.statusParam);
     });
-
-    this.items = this.rows;
   }
 
   ngOnInit() {
 
-    this.doFilterByStatus = this.statusParam;
-    this.filterByStatus();
+    if(this.statusParam === 'MissedCommunication') {
+      this.doFilterByStatus = 'Inactivity';
+    } else {
+      this.doFilterByStatus = this.statusParam;
+    }
+    this.getNotifications();
     this.columns.push({ prop: 'notificationDate', name: 'Notification Date', cellTemplate: this.nDateColTmpl });
     this.columns.push({ prop: 'name', name: 'Name'});
     this.columns.push({ prop: 'notificationClass', name: 'Type' });
@@ -85,8 +88,10 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
 
   filterByStatus() {
     const criteria = this.doFilterByStatus.toLowerCase();
-    this.rows = this.allRows;
-    if (criteria !== '' && this.rows) {
+    if(criteria === 'all') {
+      this.rows = this.allRows;
+    } else {
+      this.rows = this.allRows;
       this.rows = this.rows.filter((item) => {
         switch (criteria) {
           case 'alerts':
@@ -95,23 +100,54 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
             return (item.notificationClass.toLowerCase() === 'lowbattery') ? item : '';
           case 'advanced':
             return (item.notificationClass.toLowerCase() === 'advanced') ? item : '';
-          case 'offline':
-            return (item.notificationClass.toLowerCase() === 'offline') ? item : '';
+          case 'inactivity':
+            return (item.notificationClass === 'Inactivity') ? item : '';
+          case 'lowsignal': // API needs to be built to get low signal notifications,it doesnt exist
+            return  '';
           default: return item;
         }
       });
     }
   }
 
-  ngAfterViewInit() {
-    this.userProfileService.getRealData()
-      .then(data => {
-        this.accountID = data.user.account[0].accountID;
-        this.notificationListService.getNotificationList(this.accountID, this.fromDate, this.toDate).then(e => {
-          this.rows = e;
-          this.allRows = e;
-        });
+  dateChange($event) {
+    if($event!=undefined) {
+      this.fromDate = $event[0];
+      this.toDate = $event[1];
+      this.getNotifications();
+    }
+  }
+
+  getNotifications() {
+
+    let fDate = moment(this.fromDate).format('MM/DD/YYYY');
+    let tDate = moment(this.toDate).format('MM/DD/YYYY');
+
+    const userObject = JSON.parse( localStorage.getItem('com.cdashboard.userInfoObject'));
+    if(userObject) {
+      this.accountID = userObject['account'][0].accountID;
+      this.notificationListService.getNotificationList(this.accountID, fDate, tDate).then(e => {
+        this.allRows = e;
+      }).then(() =>
+        {
+          this.filterByStatus();
+        }
+      ).catch((e) => {
+        //console.log('Error Occurred getNotificationList');
       });
+    } else {
+      this.userProfileService.getRealData()
+        .then(data => {
+          this.accountID = data.user.account[0].accountID; // remove this later,make a call only if there is no account id in the loca storage
+          this.notificationListService.getNotificationList(this.accountID, fDate, tDate).then(e => {
+            this.allRows = e;
+          });
+        }).then(() =>
+      {
+        this.filterByStatus();
+      });
+    }
+
   }
 
   onChange($event) {
@@ -137,13 +173,11 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
   }
 
   showNotification(row) {
-    console.log('::::::::::::', row);
     this.showPopup = true;
     this.modalMessage = row;
   }
 
   modalClosed(event) {
-    console.log(event);
     this.showPopup = false;
   }
 
