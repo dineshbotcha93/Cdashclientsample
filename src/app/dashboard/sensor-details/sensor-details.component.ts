@@ -191,11 +191,10 @@ export class SensorDetailsComponent {
         };
       });
     }).then((e) => {
-      window.setTimeout(function(){
-        this.reset('zoom');
-      }.bind(this), 1000);
-      this.cd.detectChanges();
+
     }).catch((e) => {
+      console.log('caught');
+      console.log(e);
       this.alertSandbox.showAlert({data: 'No Content'});
     });
   }
